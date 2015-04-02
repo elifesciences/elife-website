@@ -1,0 +1,63 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Article feature.
+ */
+
+include_once 'elife_article.features.inc';
+
+define('ELIFE_ARTICLE_DOI_PREFIX', '10.7554/eLife.');
+
+/**
+ * Validate the doi string.
+ *
+ * @param $doi
+ * @param bool $unique
+ * @param string $bundle
+ * @return bool
+ */
+function elife_article_validate_doi($doi, $unique = FALSE) {
+  $pattern = '/^' . preg_quote(ELIFE_ARTICLE_DOI_PREFIX, '/') . '[0-9]{5}(\.[0-9]+)?$/';
+  $found = preg_match($pattern, $doi);
+  if (empty($found)) {
+    return FALSE;
+  }
+
+  if ($unique) {
+    $nid = elife_article_from_doi($doi, FALSE);
+
+    if (!empty($nid)) {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+/**
+ * Retrieve the article node or node id from the doi.
+ *
+ * @param $doi
+ * @param bool $load
+ * @param string $bundle
+ * @return bool|mixed
+ */
+function elife_article_from_doi($doi, $load = TRUE, $bundle = 'elife_article') {
+  $doi_query = new EntityFieldQuery();
+  $dois = $doi_query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', $bundle)
+    ->fieldCondition('field_elife_a_doi', 'value', $doi, '=')
+    ->execute();
+
+  if (empty($dois['node'])) {
+    return FALSE;
+  }
+  else {
+    $node = array_shift($dois['node'])->nid;
+    if ($load) {
+      $node = node_load($node);
+    }
+  }
+
+  return $node;
+}

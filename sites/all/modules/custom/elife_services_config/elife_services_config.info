@@ -1,0 +1,14 @@
+name = eLife: Services Configuration
+description = Configuration for eLife Services
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_services_config
+dependencies[] = ctools
+dependencies[] = elife_services
+dependencies[] = rest_server
+dependencies[] = services
+features[ctools][] = services:services:3
+features[features_api][] = api:2
+features[services_endpoint][] = elife_article
+project path = sites/all/modules/custom

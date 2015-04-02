@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Services Configuration feature.
+ */
+
+include_once 'elife_services_config.features.inc';

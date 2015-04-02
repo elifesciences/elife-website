@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * As update hooks are introduced remember to introduce code to the install hook so that developers who are enabling the
+ * controller for the first time have all the desired alterations applied.
+ */
+function elife_profile_controller_install() {
+
+}

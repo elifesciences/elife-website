@@ -1,0 +1,90 @@
+name = eLife
+description = Install with Drupal pre-configured for use.
+core = 7.x
+distribution_name = eLife
+exclusive = 1
+
+; Install necessary core modules.
+dependencies[] = block
+;dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = toolbar
+
+; Install devel modules.
+dependencies[] = dblog
+dependencies[] = rules_admin
+dependencies[] = views_ui
+dependencies[] = devel
+dependencies[] = context_ui
+dependencies[] = delta_ui
+dependencies[] = module_builder
+
+; Install Migrate
+dependencies[] = migrate
+dependencies[] = migrate_extras
+dependencies[] = date_migrate
+
+; Install contribs.
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_api
+dependencies[] = date_popup
+dependencies[] = date_views
+dependencies[] = context
+dependencies[] = entity
+dependencies[] = entity_token
+dependencies[] = token
+dependencies[] = field_group
+dependencies[] = rules
+dependencies[] = views
+dependencies[] = libraries
+dependencies[] = module_filter
+dependencies[] = pathauto
+dependencies[] = entityreference
+dependencies[] = menu_attributes
+dependencies[] = imce
+dependencies[] = metatag
+dependencies[] = menu_token
+dependencies[] = clone
+dependencies[] = redirect
+dependencies[] = scheduler
+dependencies[] = special_menu_items
+dependencies[] = globalredirect
+dependencies[] = googleanalytics
+dependencies[] = delta
+dependencies[] = ckeditor
+dependencies[] = views_field_view
+dependencies[] = webform
+dependencies[] = xmlsitemap
+dependencies[] = strongarm
+dependencies[] = services
+dependencies[] = rest_server
+
+
+; Install Features
+dependencies[] = features
+
+; Distribution modules.
+dependencies[] = elife_article
+dependencies[] = elife_services
+dependencies[] = elife_services_config
+
+; System Requirements.
+php_memory_limit = 256M
+
+
+; Install deploy_content module
+dependencies[] = elife_profile_deploy_content
+
+
+; Install controller module
+dependencies[] = elife_profile_controller

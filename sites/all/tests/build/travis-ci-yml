@@ -1,0 +1,59 @@
+language: php
+
+php:
+  - 5.4
+
+mysql:
+  database: %KICKSTART_PROFILE_CODE%
+  username: root
+  encoding: utf8
+
+install:
+  - sudo apt-get update > /dev/null
+
+  # Create MySQL Database
+  - mysql -e 'create database %KICKSTART_PROFILE_CODE%;'
+
+  # Install latest Drush 6.
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - composer global require --no-interaction drush/drush:6.*
+
+  # Build Behat dependencies
+  - cd ./sites/all/tests/behat
+  - composer install --no-interaction
+  - cd ../../../..
+
+  # Setup files
+  - sudo chmod -R 777 sites/all
+
+  # Setup display for Selenium
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 5
+
+  # Get Selenium
+  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar
+  - java -jar selenium-server-standalone-2.39.0.jar > /dev/null 2>&1 &
+  - sleep 5
+
+  # Disable sendmail
+  - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+before_script:
+
+  # Install Profile
+  - drush si %KICKSTART_PROFILE_CODE% --sites-subdir=default --db-url=mysql://root:@127.0.0.1/%KICKSTART_PROFILE_CODE% --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="%KICKSTART_PROFILE_NAME% Install Profile" --yes
+  - drush updatedb -y || true
+  - drush cc all --yes
+  - drush runserver --server=builtin 8888 > /dev/null 2>&1 &
+  - sleep 3
+
+  # Make the Travis tests repos agnostic by injecting drupal_root with BEHAT_PARAMS
+  - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension\Extension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
+
+  - cd ./sites/all/tests/behat
+
+script:
+
+  # Run behat tests
+  - ./bin/behat --config behat.travis.yml --tags='~@develop'

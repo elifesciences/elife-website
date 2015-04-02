@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * As update hooks are introduced remember to introduce code to the install hook so that developers who are enabling the
+ * deploy content module for the first time have all the desired alterations applied.
+ */
+function elife_profile_deploy_content_install() {
+
+}
+
+/**
+ * First update hook
+ */
+/*function elife_profile_deploy_content_update_7000() {
+
+}*/

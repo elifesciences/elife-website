@@ -1,0 +1,6 @@
+name = eLife: Services
+description = A collection of resources for eLife Services
+dependencies[] = services
+package = eLife
+core = 7.x
+files[] = tests/elife_services.test

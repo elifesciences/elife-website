@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * @file elife_services.module
+ * A collection of resources needed to provide a reliable service end point.
+ */
+
+/**
+ * Implements hook_services_resources().
+ */
+function elife_services_services_resources() {
+  $api = array(
+    'article' => array(
+      '#api_version' => 3002,
+      'operations' => array(
+
+        // Define the retrieve callback for a GET to /article/%doi.
+        'retrieve' => array(
+          'help' => 'Returns a single article specified by the doi.',
+          'callback' => '_elife_services_article_retrieve',
+          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'access callback' => '_elife_services_article_retrieve_access',
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'article_id',
+              'type' => 'string',
+              'description' => 'The doi of the article to retrieve.',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+            ),
+          ),
+        ),
+
+        // Define the create callback for a POST to /article.
+        'create' => array(
+          'help' => 'Creates a new article for the current API user.',
+          'callback' => '_elife_services_article_create',
+          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'access callback' => '_elife_services_article_create_access',
+          'args' => array(
+            array(
+              'name' => 'data',
+              'type' => 'array',
+              'description' => 'The article data to set on create.',
+              'optional' => FALSE,
+              'source' => 'data',
+            ),
+          ),
+        ),
+
+        // Define the update callback for a PUT to /article/%doi.
+        'update' => array(
+          'help' => 'Updates a single article specified by the doi.',
+          'callback' => '_elife_services_article_update',
+          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'access callback' => '_elife_services_article_update_access',
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'article_id',
+              'type' => 'string',
+              'description' => 'The doi of the article to update.',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+            ),
+            array(
+              'name' => 'data',
+              'type' => 'array',
+              'description' => 'The article data to update.',
+              'optional' => FALSE,
+              'source' => 'data',
+            ),
+          ),
+        ),
+
+        // Define the update callback for a DELETE to /article/%doi.
+        'delete' => array(
+          'help' => 'Delete a single article specified by the doi.',
+          'callback' => '_elife_services_article_delete',
+          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'access callback' => '_elife_services_article_delete_access',
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'article_id',
+              'type' => 'string',
+              'description' => 'The doi of the article to delete.',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  return $api;
+}
+
+/**
+ * Get user id for current user.
+ *
+ * @return int
+ *   User uid.
+ */
+function _elife_services_user_uid() {
+  $cache = &drupal_static(__FUNCTION__, FALSE);
+
+  if ($cache === FALSE) {
+    global $user;
+    // @todo - elife - nlisgo - Improve this when we have introduced authentication.
+    $cache = user_is_anonymous() ? 1 : $user->uid;
+  }
+
+  return $cache;
+}
