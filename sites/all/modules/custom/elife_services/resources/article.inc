@@ -8,10 +8,10 @@
 /**
  * Determines an API user's access to retrieve a given article.
  *
- * @param string $short_doi
+ * @param string $apath
  * @return bool
  */
-function _elife_services_article_retrieve_access($short_doi) {
+function _elife_services_article_retrieve_access($apath) {
   // @todo - elife - nlisgo - Implement some access control.
   return TRUE;
 }
@@ -32,7 +32,7 @@ function _elife_services_article_create_access($data) {
  * @param string $short_doi
  * @return bool
  */
-function _elife_services_article_update_access($short_doi) {
+function _elife_services_article_update_access($apath) {
   return TRUE;
 }
 
@@ -42,21 +42,20 @@ function _elife_services_article_update_access($short_doi) {
  * @param string $short_doi
  * @return bool
  */
-function _elife_services_article_delete_access($short_doi) {
+function _elife_services_article_delete_access($apath) {
   return TRUE;
 }
 
 /**
  * Callback function for elife_article retrieve.
  *
- * @param $short_doi
+ * @param $apath
  * @return array
  */
-function _elife_services_article_retrieve($short_doi) {
-  $doi = _elife_services_doi_add_prefix($short_doi);
-  $article = elife_article_from_doi($doi);
+function _elife_services_article_retrieve($apath) {
+  $article = elife_article_from_apath($apath);
   if (empty($article->nid) || $article->type !== 'elife_article') {
-    return services_error(t('Article @doi not found', array('@doi' => $doi)), 404);
+    return services_error(t('Article @apath not found', array('@apath' => $apath)), 404);
   }
 
   return $article;
@@ -81,12 +80,12 @@ function _elife_services_article_create($data) {
 /**
  * Callback function for elife_article update.
  *
- * @param $short_doi
+ * @param $apath
  * @param $data
  * @return mixed
  */
-function _elife_services_article_update($short_doi, $data) {
-  $article = _elife_services_article_retrieve($short_doi);
+function _elife_services_article_update($apath, $data) {
+  $article = _elife_services_article_retrieve($apath);
 
   return _elife_services_article_update_values($article, $data);
 }
@@ -94,10 +93,10 @@ function _elife_services_article_update($short_doi, $data) {
 /**
  * Callback function for elife_article delete.
  *
- * @param $short_doi
+ * @param $apath
  */
-function _elife_services_article_delete($short_doi) {
-  $article = _elife_services_article_retrieve($short_doi);
+function _elife_services_article_delete($apath) {
+  $article = _elife_services_article_retrieve($apath);
 
   $ewrapper = entity_metadata_wrapper('node', $article);
   $ewrapper->delete();
@@ -118,8 +117,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     'title',
   );
 
-  if ($new) {
-    $required[] = 'doi';
+  if ($new && empty($data['auto'])) {
+    $required[] = 'apath';
   }
 
   foreach ($required as $k => $req) {
@@ -133,29 +132,36 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   $ewrapper = entity_metadata_wrapper('node', $article);
+
+  // Set the title.
   if (!empty($data['title'])) {
     $ewrapper->title->set($data['title']);
   }
-  if ($new && !empty($data['doi'])) {
-    if (!elife_article_validate_doi($data['doi'], TRUE)) {
-      return services_error(t('Invalid value provided : @field', array('@field' => 'doi')), 406);
+
+  // Set the apath if article is new.
+  if ($new && !empty($data['apath']) && empty($data['auto'])) {
+    if (!elife_article_unique_apath($data['apath'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'apath')), 406);
+    }
+
+    $ewrapper->field_elife_a_apath->set($data['apath']);
+  }
+
+  if (!empty($data['doi'])) {
+    if (!elife_article_validate_doi($data['doi'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
     }
 
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
-
   $ewrapper->save();
 
-  return $ewrapper->raw();
-}
+  // Set apath if it is to be set automatically.
+  if ($new && !empty($data['auto'])) {
+    $ewrapper->field_elife_a_apath->set('id_' . $ewrapper->nid->value());
+    $ewrapper->save();
+  }
 
-/**
- * Convert the short doi to the standard doi string.
- *
- * @param $short_doi
- * @return string
- */
-function _elife_services_doi_add_prefix($short_doi) {
-  return ELIFE_ARTICLE_DOI_PREFIX . $short_doi;
+  return $ewrapper->raw();
 }
