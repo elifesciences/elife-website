@@ -113,12 +113,17 @@ function _elife_services_article_delete($apath) {
  * @throws ServicesException
  */
 function _elife_services_article_update_values($article, $data, $new = FALSE) {
-  $required = array(
-    'title',
-  );
+  $required = array();
 
-  if ($new && empty($data['auto'])) {
-    $required[] = 'apath';
+  if ($new) {
+    $required = array(
+      'title',
+      'doi',
+    );
+
+    if (empty($data['auto'])) {
+      $required[] = 'apath';
+    }
   }
 
   foreach ($required as $k => $req) {
