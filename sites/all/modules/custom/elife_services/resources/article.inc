@@ -164,7 +164,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   // Set the title.
   if (!empty($data['title'])) {
-    $ewrapper->title->set($data['title']);
+    $ewrapper->field_elife_a_full_title->set($data['title']);
+    $ewrapper->title->set(elife_article_clean_title($data['title']));
   }
 
   // Set the apath if article is new.
@@ -194,6 +195,14 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   if (isset($data['early'])) {
     $ewrapper->field_elife_a_early->set(!empty($data['early']));
+  }
+
+  if (isset($data['impact_statement'])) {
+    $ewrapper->field_elife_a_author_imp->set($data['impact_statement']);
+  }
+
+  if (isset($data['copyright'])) {
+    $ewrapper->field_elife_a_copyright->set($data['copyright']);
   }
 
   $ewrapper->save();
