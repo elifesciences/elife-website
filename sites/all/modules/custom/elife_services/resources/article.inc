@@ -119,6 +119,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $required = array(
       'title',
       'doi',
+      'pdate',
+      'path',
     );
 
     if (empty($data['auto'])) {
@@ -136,6 +138,28 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
   }
 
+  // Add or amend the content alias.
+  if (!empty($data['path'])) {
+    // Check to see that path is unique.
+    if ($new && $path = path_load(array('alias' => $data['path']))) {
+      if (!empty($article->nid) && $path['source'] != 'node/' . $article->nid) {
+        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+      }
+    }
+
+    // If the current node has a url_alias then load the values.
+    if (!empty($article->nid) && $path = path_load('node/' . $article->nid)) {
+      $article_path = $path;
+    }
+    else {
+      $article_path = array();
+    }
+
+    $article_path['alias'] = $data['path'];
+    $article_path['pathauto'] = FALSE;
+    $article->path = $article_path;
+  }
+
   $ewrapper = entity_metadata_wrapper('node', $article);
 
   // Set the title.
@@ -146,7 +170,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   // Set the apath if article is new.
   if ($new && !empty($data['apath']) && empty($data['auto'])) {
     if (!elife_article_unique_apath($data['apath'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'apath')), 406);
+      return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
     }
 
     $ewrapper->field_elife_a_apath->set($data['apath']);
@@ -160,6 +184,18 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
+  if (!empty($data['pdate'])) {
+    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
+  }
+
+  if (!empty($data['update'])) {
+    $ewrapper->field_elife_a_update->set(_elife_services_article_prepare_date($data['update']));
+  }
+
+  if (isset($data['early'])) {
+    $ewrapper->field_elife_a_early->set(!empty($data['early']));
+  }
+
   $ewrapper->save();
 
   // Set apath if it is to be set automatically.
@@ -169,4 +205,20 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   return $ewrapper->raw();
+}
+
+/**
+ * Prepare the date value for storing in date fields.
+ *
+ * @param $date
+ * @return int
+ */
+function _elife_services_article_prepare_date($date) {
+  // If the $date value is numeric then we will assume it is in unix time.
+  if (!is_numeric($date)) {
+    // Convert date string to unix time.
+    $date = strtotime($date);
+  }
+
+  return $date;
 }
