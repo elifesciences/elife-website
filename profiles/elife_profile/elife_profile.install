@@ -83,7 +83,7 @@ function _elife_profile_set_theme($target_theme) {
  */
 function install_welcome($form, &$form_state, &$install_state) {
   drupal_set_title(st('Welcome'));
-  $message = '<p>' . st('Thank you for choosing eLife Kickstart, a product offered by LexisNexis.') . '</p>';
+  $message = '<p>' . st('Thank you for choosing eLife Kickstart, a product offered by eLife.') . '</p>';
   $form = array();
   $form['welcome_message'] = array(
     '#markup' => $message,
