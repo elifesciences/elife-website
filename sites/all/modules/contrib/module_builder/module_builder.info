@@ -7,9 +7,9 @@ files[] = module_builder.module
 files[] = includes/module_builder.admin.inc
 files[] = tests/module_builder.test
 
-; Information added by Drupal.org packaging script on 2014-12-18
+; Information added by Drupal.org packaging script on 2015-04-21
 version = "7.x-2.x-dev"
 core = "7.x"
 project = "module_builder"
-datestamp = "1418913799"
+datestamp = "1429626511"
 
