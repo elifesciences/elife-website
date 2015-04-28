@@ -31,7 +31,7 @@ function _elife_services_article_create_access($data) {
 /**
  * Determines an API user's access to update a given article.
  *
- * @param string $short_doi
+ * @param string $apath
  * @return bool
  */
 function _elife_services_article_update_access($apath) {
@@ -41,7 +41,7 @@ function _elife_services_article_update_access($apath) {
 /**
  * Determines an API user's access to delete a given article.
  *
- * @param string $short_doi
+ * @param string $apath
  * @return bool
  */
 function _elife_services_article_delete_access($apath) {
@@ -55,7 +55,7 @@ function _elife_services_article_delete_access($apath) {
  * @return array
  */
 function _elife_services_article_retrieve($apath) {
-  $article = elife_article_from_apath($apath);
+  $article = ElifeArticle::fromApath($apath);
   if (empty($article->nid) || $article->type !== 'elife_article') {
     return services_error(t('Article @apath not found', array('@apath' => $apath)), 404);
   }

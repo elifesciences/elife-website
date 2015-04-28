@@ -19,7 +19,7 @@ class ElifeArticle {
    * @param string $bundle
    * @return bool
    */
-  function uniqueApath($apath, $bundle = 'elife_article') {
+  public static function uniqueApath($apath, $bundle = 'elife_article') {
     $nid = self::fromApath($apath, FALSE, $bundle);
 
     if (!empty($nid)) {
@@ -39,7 +39,7 @@ class ElifeArticle {
    * @param string $bundle
    * @return bool|mixed
    */
-  function fromDoi($doi, $load = TRUE, $bundle = 'elife_article') {
+  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article') {
     $doi_query = new ElifeEntityFieldQuery();
     $dois = $doi_query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
@@ -68,7 +68,7 @@ class ElifeArticle {
    * @param string $bundle
    * @return bool|mixed
    */
-  function fromApath($apath, $load = TRUE, $bundle = 'elife_article') {
+  public static function fromApath($apath, $load = TRUE, $bundle = 'elife_article') {
     $apath_query = new ElifeEntityFieldQuery();
     $apaths = $apath_query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
