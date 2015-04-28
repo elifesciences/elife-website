@@ -68,6 +68,7 @@ dependencies[] = xmlsitemap
 dependencies[] = strongarm
 dependencies[] = services
 dependencies[] = rest_server
+dependencies[] = xautoload (>= 7.x-5.0)
 
 
 ; Install Features

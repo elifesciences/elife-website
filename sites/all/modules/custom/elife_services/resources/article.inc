@@ -5,6 +5,8 @@
  * Contains the resource callbacks for articles.
  */
 
+use Drupal\elife_article\ElifeArticle;
+
 /**
  * Determines an API user's access to retrieve a given article.
  *
@@ -165,12 +167,12 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   // Set the title.
   if (!empty($data['title'])) {
     $ewrapper->field_elife_a_full_title->set($data['title']);
-    $ewrapper->title->set(elife_article_clean_title($data['title']));
+    $ewrapper->title->set(ElifeArticle::cleanTitle($data['title']));
   }
 
   // Set the apath if article is new.
   if ($new && !empty($data['apath']) && empty($data['auto'])) {
-    if (!elife_article_unique_apath($data['apath'])) {
+    if (!ElifeArticle::uniqueApath($data['apath'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
     }
 
@@ -178,7 +180,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (!empty($data['doi'])) {
-    if (!elife_article_validate_doi($data['doi'])) {
+    if (!ElifeArticle::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
     }
 
