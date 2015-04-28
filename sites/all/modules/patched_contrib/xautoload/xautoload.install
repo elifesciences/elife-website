@@ -1,16 +1,12 @@
 <?php
 
-// Due to https://www.drupal.org/node/2228825, it can happen that
-// xautoload.module is not included yet, so xautoload() would not work.
-require_once __DIR__ . '/xautoload.module';
-
 /**
  * Implements hook_install()
  */
 function xautoload_install() {
   // Set module weight for xautoload to run before other modules.
   // This has to work in unit tests!
-  xautoload()->system->installSetModuleWeight(-90);
+  db_query("UPDATE {system} SET weight = -90 WHERE name = 'xautoload' AND type = 'module'");
 }
 
 /**
