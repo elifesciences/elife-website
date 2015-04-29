@@ -101,6 +101,7 @@ function _elife_services_article_delete($apath) {
   $article = _elife_services_article_retrieve($apath);
 
   $ewrapper = entity_metadata_wrapper('node', $article);
+  // @todo - elife - nlisgo - we will want to delete all figure and subcomponent nodes.
   $ewrapper->delete();
 }
 
@@ -123,11 +124,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'doi',
       'pdate',
       'path',
+      'apath',
     );
-
-    if (empty($data['auto'])) {
-      $required[] = 'apath';
-    }
   }
 
   foreach ($required as $k => $req) {
@@ -175,7 +173,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   // Set the apath if article is new.
-  if ($new && !empty($data['apath']) && empty($data['auto'])) {
+  if ($new && !empty($data['apath'])) {
     if (!ElifeArticle::uniqueApath($data['apath'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
     }
@@ -221,11 +219,126 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   $ewrapper->save();
 
-  // Set apath if it is to be set automatically.
-  if ($new && !empty($data['auto'])) {
-    $ewrapper->field_elife_a_apath->set('id_' . $ewrapper->nid->value());
+  if (!empty($data['children'])) {
+    _elife_services_article_process_children($ewrapper, $data['children'], $new);
     $ewrapper->save();
   }
+
+  return $ewrapper->raw();
+}
+
+function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $children, $new = FALSE) {
+  $found = array();
+  foreach ($children as $type => $data) {
+    switch ($type) {
+      case 'decision_letter':
+      case 'author_response':
+        $child = _elife_services_article_child_update_values($data, $new);
+        $found[] = $child->nid;
+        break;
+    }
+  }
+  if (!empty($found)) {
+    $ewrapper->field_elife_a_children->set($found);
+  }
+}
+
+function _elife_services_article_child_update_values($data, $new = FALSE) {
+  $required = array(
+    'apath',
+  );
+
+  if ($new) {
+    $required = array(
+      'title',
+      'doi',
+      'pdate',
+      'path',
+    );
+  }
+
+  foreach ($required as $k => $req) {
+    if (!empty($data[$req])) {
+      unset($required[$k]);
+    }
+  }
+
+  if (!empty($required)) {
+    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+  }
+
+  if (!$new) {
+    $child = _elife_services_article_retrieve($data['apath']);
+  }
+  else {
+    $values = array(
+      'type' => 'elife_article',
+      'uid' => _elife_services_user_uid(),
+    );
+
+    $child = entity_create('node', $values);
+  }
+
+  // Add or amend the content alias.
+  if (!empty($data['path'])) {
+    // Check to see that path is unique.
+    if ($new && $path = path_load(array('alias' => $data['path']))) {
+      if (!empty($child->nid) && $path['source'] != 'node/' . $child->nid) {
+        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+      }
+    }
+
+    // If the current node has a url_alias then load the values.
+    if (!empty($child->nid) && $path = path_load('node/' . $child->nid)) {
+      $child_path = $path;
+    }
+    else {
+      $child_path = array();
+    }
+
+    $child_path['alias'] = $data['path'];
+    $child_path['pathauto'] = FALSE;
+    $child->path = $child_path;
+  }
+
+  $ewrapper = entity_metadata_wrapper('node', $child);
+
+  // Set the title.
+  if (!empty($data['title'])) {
+    $set = array(
+      'value' => $data['title'],
+      'format' => 'full_html',
+    );
+    $ewrapper->field_elife_a_full_title->set($set);
+    $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
+  }
+
+  // Set the apath if article is new.
+  if ($new && !empty($data['apath'])) {
+    if (!ElifeArticle::uniqueApath($data['apath'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
+    }
+
+    $ewrapper->field_elife_a_apath->set($data['apath']);
+  }
+
+  if (!empty($data['doi'])) {
+    if (!ElifeArticle::validateDoi($data['doi'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
+    }
+
+    $ewrapper->field_elife_a_doi->set($data['doi']);
+  }
+
+  if (!empty($data['pdate'])) {
+    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
+  }
+
+  if (isset($data['subcomponent'])) {
+    $ewrapper->field_elife_a_subcomponent->set(!empty($data['subcomponent']));
+  }
+
+  $ewrapper->save();
 
   return $ewrapper->raw();
 }
