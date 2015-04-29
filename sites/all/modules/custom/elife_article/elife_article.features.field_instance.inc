@@ -164,7 +164,7 @@ function elife_article_field_default_field_instances() {
     'label' => 'Author Impact Statement',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -204,7 +204,7 @@ function elife_article_field_default_field_instances() {
     'label' => 'Copyright Permissions',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -380,7 +380,7 @@ function elife_article_field_default_field_instances() {
     'label' => 'Full Title',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(

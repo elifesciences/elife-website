@@ -166,8 +166,12 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   // Set the title.
   if (!empty($data['title'])) {
-    $ewrapper->field_elife_a_full_title->set($data['title']);
-    $ewrapper->title->set(ElifeArticle::cleanTitle($data['title']));
+    $set = array(
+      'value' => $data['title'],
+      'format' => 'full_html',
+    );
+    $ewrapper->field_elife_a_full_title->set($set);
+    $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
   }
 
   // Set the apath if article is new.
@@ -200,11 +204,19 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (isset($data['impact_statement'])) {
-    $ewrapper->field_elife_a_author_imp->set($data['impact_statement']);
+    $set = array(
+      'value' => $data['impact_statement'],
+      'format' => 'full_html',
+    );
+    $ewrapper->field_elife_a_author_imp->set($set);
   }
 
   if (isset($data['copyright'])) {
-    $ewrapper->field_elife_a_copyright->set($data['copyright']);
+    $set = array(
+      'value' => $data['copyright'],
+      'format' => 'full_html',
+    );
+    $ewrapper->field_elife_a_copyright->set($set);
   }
 
   $ewrapper->save();
