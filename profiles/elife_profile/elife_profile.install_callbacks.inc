@@ -103,16 +103,6 @@ function _elife_profile_setup_blocks() {
     ),
     array(
       'module' => 'system',
-      'delta' => 'help',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'preface_first',
-      'pages' => '',
-      'cache' => DRUPAL_NO_CACHE,
-    ),
-    array(
-      'module' => 'system',
       'delta' => 'main',
       'theme' => $default_theme,
       'status' => 1,
