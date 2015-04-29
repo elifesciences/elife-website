@@ -7,6 +7,7 @@
 
 namespace Drupal\elife_article;
 
+use EntityFieldQuery;
 
 class ElifeArticle {
 
@@ -40,7 +41,7 @@ class ElifeArticle {
    * @return bool|mixed
    */
   public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article') {
-    $doi_query = new ElifeEntityFieldQuery();
+    $doi_query = new EntityFieldQuery();
     $dois = $doi_query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
       ->fieldCondition('field_elife_a_doi', 'value', $doi, '=')
@@ -69,7 +70,7 @@ class ElifeArticle {
    * @return bool|mixed
    */
   public static function fromApath($apath, $load = TRUE, $bundle = 'elife_article') {
-    $apath_query = new ElifeEntityFieldQuery();
+    $apath_query = new EntityFieldQuery();
     $apaths = $apath_query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
       ->fieldCondition('field_elife_a_apath', 'value', $apath, '=')
