@@ -178,6 +178,49 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-elife_article-field_elife_a_children'
+  $field_instances['node-elife_article-field_elife_a_children'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_children',
+    'label' => 'Children',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-elife_article-field_elife_a_copyright'
   $field_instances['node-elife_article-field_elife_a_copyright'] = array(
     'bundle' => 'elife_article',
@@ -394,21 +437,23 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_parent'
-  $field_instances['node-elife_article-field_elife_a_parent'] = array(
+  // Exported field_instance: 'node-elife_article-field_elife_a_subcomponent'
+  $field_instances['node-elife_article-field_elife_a_subcomponent'] = array(
     'bundle' => 'elife_article',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 2,
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -418,22 +463,20 @@ function elife_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_a_parent',
-    'label' => 'Parent',
+    'field_name' => 'field_elife_a_subcomponent',
+    'label' => 'Subcomponent',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'options',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
+        'display_label' => 1,
       ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 5,
+      'type' => 'options_onoff',
+      'weight' => 15,
     ),
   );
 
@@ -526,7 +569,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -579,12 +622,13 @@ function elife_article_field_default_field_instances() {
   t('Atom path');
   t('Author Impact Statement');
   t('Body');
+  t('Children');
   t('Copyright Permissions');
   t('DOI');
   t('Early Release');
   t('First Publication Date');
   t('Full Title');
-  t('Parent');
+  t('Subcomponent');
   t('Updated Date');
   t('Variants');
 

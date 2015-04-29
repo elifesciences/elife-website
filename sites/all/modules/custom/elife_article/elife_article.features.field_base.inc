@@ -71,6 +71,42 @@ function elife_article_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_elife_a_children'
+  $field_bases['field_elife_a_children'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_children',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_article' => 'elife_article',
+          'elife_fragment' => 'elife_fragment',
+        ),
+      ),
+      'target_type' => 'node',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_elife_a_copyright'
   $field_bases['field_elife_a_copyright'] = array(
     'active' => 1,
@@ -184,41 +220,29 @@ function elife_article_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_elife_a_parent'
-  $field_bases['field_elife_a_parent'] = array(
+  // Exported field_base: 'field_elife_a_subcomponent'
+  $field_bases['field_elife_a_subcomponent'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_elife_a_parent',
+    'field_name' => 'field_elife_a_subcomponent',
     'indexes' => array(
-      'target_id' => array(
-        0 => 'target_id',
+      'value' => array(
+        0 => 'value',
       ),
     ),
     'locked' => 0,
-    'module' => 'entityreference',
+    'module' => 'list',
     'settings' => array(
-      'handler' => 'base',
-      'handler_settings' => array(
-        'behaviors' => array(
-          'views-select-list' => array(
-            'status' => 0,
-          ),
-        ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'elife_adjunct' => 'elife_adjunct',
-          'elife_article' => 'elife_article',
-          'elife_fragment' => 'elife_fragment',
-        ),
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
       ),
-      'target_type' => 'node',
+      'allowed_values_function' => '',
     ),
     'translatable' => 0,
-    'type' => 'entityreference',
+    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_elife_a_update'
