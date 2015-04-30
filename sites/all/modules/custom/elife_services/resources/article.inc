@@ -6,7 +6,6 @@
  */
 
 use Drupal\elife_article\ElifeArticle;
-use EntityFieldQuery;
 
 /**
  * Determines an API user's access to retrieve a given article.
@@ -57,8 +56,8 @@ function _elife_services_article_delete_access($apath) {
  */
 function _elife_services_article_retrieve($apath) {
   $article = ElifeArticle::fromApath($apath);
-  if (empty($article->nid) || $article->type !== 'elife_article') {
-    return services_error(t('Article @apath not found', array('@apath' => $apath)), 404);
+  if (empty($article->nid)) {
+    return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
   }
 
   return $article;
@@ -100,20 +99,20 @@ function _elife_services_article_update($apath, $data) {
  */
 function _elife_services_article_delete($apath) {
   $article = _elife_services_article_retrieve($apath);
-
   $ewrapper = entity_metadata_wrapper('node', $article);
-  $parent_nid = $ewrapper->nid->value();
-  $ewrapper->delete();
 
-  // @todo - elife - nlisgo - this could be handled with a rule.
+  // Remove all child nodes.
   $query = new EntityFieldQuery;
-  $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $parent_nid)
+  $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $ewrapper->nid->value())
     ->execute();
 
   if (isset($result['node']) && count($result['node'])) {
     $node_ids = array_keys($result['node']);
     node_delete_multiple($node_ids);
   }
+
+  // Remove article node.
+  $ewrapper->delete();
 }
 
 /**
@@ -171,10 +170,23 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $article->path = $article_path;
   }
 
+  // We must do this here until nlmfield has a property callback.
+  if (isset($data['contributors'])) {
+    // @todo - elife - nlisgo - remove this after https://www.drupal.org/node/2480791
+    nlmfield_load_library();
+    $contributors = array();
+    foreach ($data['contributors'] as $contributor) {
+      $contributor = array('xml' => $contributor);
+      $contributors[] = nlmfield_compute_values($contributor, 'nlmfield_contributor');
+
+    }
+    $article->field_elife_a_contributors[LANGUAGE_NONE] = $contributors;
+  }
+
   $ewrapper = entity_metadata_wrapper('node', $article);
 
   // Set the title.
-  if (!empty($data['title'])) {
+  if (isset($data['title'])) {
     $set = array(
       'value' => $data['title'],
       'format' => 'full_html',
@@ -192,7 +204,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_apath->set($data['apath']);
   }
 
-  if (!empty($data['doi'])) {
+  if (isset($data['doi'])) {
     if (!ElifeArticle::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
     }
@@ -200,11 +212,11 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
-  if (!empty($data['pdate'])) {
+  if (isset($data['pdate'])) {
     $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
   }
 
-  if (!empty($data['update'])) {
+  if (isset($data['update'])) {
     $ewrapper->field_elife_a_update->set(_elife_services_article_prepare_date($data['update']));
   }
 
@@ -230,32 +242,39 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   $ewrapper->save();
 
-  if (!empty($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['children'], $new);
+  if (isset($data['children'])) {
+    _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new);
     $ewrapper->save();
   }
 
   return $ewrapper->raw();
 }
 
-function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $children, $new = FALSE) {
+function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
   $found = array();
-  foreach ($children as $type => $data) {
+  foreach ($children as $type => $pieces) {
     switch ($type) {
-      case 'decision_letter':
-      case 'author_response':
-        $data['parent'] = $ewrapper->nid->value();
-        $child = _elife_services_article_child_update_values($data, $new);
-        $found[] = $child->nid;
+      case 'subcomponent':
+        $subcomponent = TRUE;
+        foreach ($pieces as $piece) {
+          $piece['parent'] = $parent_nid;
+          $child = _elife_services_article_child_update_values($piece, 'elife_article', $subcomponent, $new);
+          $found[] = $child->nid;
+        }
         break;
+      case 'figure':
+        $subcomponent = ($ewrapper->value()->type == 'elife_article') ? FALSE : TRUE;
+        foreach ($pieces as $piece) {
+          $piece['parent'] = $parent_nid;
+          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subcomponent, $new);
+          $found[] = $child->nid;
+        }
     }
   }
-  if (!empty($found)) {
-    $ewrapper->field_elife_a_children->set($found);
-  }
+  $ewrapper->field_elife_a_children->set($found);
 }
 
-function _elife_services_article_child_update_values($data, $new = FALSE) {
+function _elife_services_article_child_update_values($data, $type, $subcomponent = FALSE, $new = FALSE) {
   $required = array(
     'apath',
   );
@@ -264,7 +283,6 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
     $required = array(
       'title',
       'doi',
-      'pdate',
       'path',
     );
   }
@@ -284,7 +302,7 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
   }
   else {
     $values = array(
-      'type' => 'elife_article',
+      'type' => $type,
       'uid' => _elife_services_user_uid(),
     );
 
@@ -292,7 +310,7 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
   }
 
   // Add or amend the content alias.
-  if (!empty($data['path'])) {
+  if (isset($data['path'])) {
     // Check to see that path is unique.
     if ($new && $path = path_load(array('alias' => $data['path']))) {
       if (!empty($child->nid) && $path['source'] != 'node/' . $child->nid) {
@@ -301,7 +319,7 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
     }
 
     // If the current node has a url_alias then load the values.
-    if (!empty($child->nid) && $path = path_load('node/' . $child->nid)) {
+    if (isset($child->nid) && $path = path_load('node/' . $child->nid)) {
       $child_path = $path;
     }
     else {
@@ -315,12 +333,12 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
 
   $ewrapper = entity_metadata_wrapper('node', $child);
 
-  if (!empty($data['parent'])) {
+  if (isset($data['parent'])) {
     $ewrapper->field_elife_a_parent->set($data['parent']);
   }
 
   // Set the title.
-  if (!empty($data['title'])) {
+  if (isset($data['title'])) {
     $set = array(
       'value' => $data['title'],
       'format' => 'full_html',
@@ -330,7 +348,7 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
   }
 
   // Set the apath if article is new.
-  if ($new && !empty($data['apath'])) {
+  if ($new && isset($data['apath'])) {
     if (!ElifeArticle::uniqueApath($data['apath'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
     }
@@ -338,7 +356,7 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
     $ewrapper->field_elife_a_apath->set($data['apath']);
   }
 
-  if (!empty($data['doi'])) {
+  if (isset($data['doi'])) {
     if (!ElifeArticle::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
     }
@@ -346,15 +364,18 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
-  if (!empty($data['pdate'])) {
+  if (isset($data['pdate'])) {
     $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
   }
 
-  if (isset($data['subcomponent'])) {
-    $ewrapper->field_elife_a_subcomponent->set(!empty($data['subcomponent']));
-  }
+  $ewrapper->field_elife_a_subcomponent->set($subcomponent);
 
   $ewrapper->save();
+
+  if (!$subcomponent && isset($data['children'])) {
+    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new);
+    $ewrapper->save();
+  }
 
   return $ewrapper->raw();
 }
