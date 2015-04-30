@@ -224,9 +224,9 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_early->set(!empty($data['early']));
   }
 
-  if (isset($data['impact_statement'])) {
+  if (isset($data['impact-statement'])) {
     $set = array(
-      'value' => $data['impact_statement'],
+      'value' => $data['impact-statement'],
       'format' => 'full_html',
     );
     $ewrapper->field_elife_a_author_imp->set($set);
