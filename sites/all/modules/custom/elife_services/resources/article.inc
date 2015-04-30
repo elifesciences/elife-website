@@ -380,6 +380,49 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
   return $ewrapper->raw();
 }
 
+function _elife_services_article_prepare_term($vocabulary, $term_name, $fields = array()) {
+  $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
+  $query = new EntityFieldQuery();
+  $query = $query
+    ->entityCondition('entity_type', 'taxonomy_term')
+    ->propertyCondition('name', $term_name)
+    ->propertyCondition('vid', $vocabulary->vid);
+
+  if (!empty($fields)) {
+    foreach($fields as $field => $value) {
+      $query = $query
+        ->fieldCondition($field, 'value', $value);
+    }
+  }
+
+  $result = $query
+    ->execute();
+
+  if(!empty($result)) {
+    return array_pop($result['taxonomy_term']);
+  }
+  else {
+    $values = array(
+      'vid' => $vocabulary->vid,
+      'name' => $term_name,
+    );
+
+    $term = entity_create('taxonomy_term', $values);
+    // I had some issues when I tried to save values using
+    // entity_metadata_wrapper.
+
+    if (!empty($fields)) {
+      foreach ($fields as $field => $value) {
+        $term->{$field}[LANGUAGE_NONE] = array(array('value' => $value));
+      }
+    }
+
+    entity_save('taxonomy_term', $term);
+
+    return $term;
+  }
+}
+
 /**
  * Prepare the date value for storing in date fields.
  *

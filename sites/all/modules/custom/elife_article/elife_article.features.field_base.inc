@@ -71,6 +71,41 @@ function elife_article_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_elife_a_category'
+  $field_bases['field_elife_a_category'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_category',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_categories' => 'elife_categories',
+        ),
+      ),
+      'target_type' => 'taxonomy_term',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_elife_a_children'
   $field_bases['field_elife_a_children'] = array(
     'active' => 1,
@@ -337,6 +372,27 @@ hwp|http://schema.highwire.org/Journal',
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_elife_a_variants',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_elife_category_type'
+  $field_bases['field_elife_category_type'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_category_type',
     'indexes' => array(
       'format' => array(
         0 => 'format',
