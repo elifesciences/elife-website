@@ -24,8 +24,9 @@ function entity_metadata_field_entity_property_info() {
       foreach ($field['bundles'] as $entity_type => $bundles) {
         foreach ($bundles as $bundle) {
           $instance = field_info_instance($entity_type, $field_name, $bundle);
-
           if ($instance && empty($instance['deleted'])) {
+            dpm($field_name);
+            dpm($field_type['property_callbacks']);
             foreach ($field_type['property_callbacks'] as $callback) {
               $callback($info, $entity_type, $field, $instance, $field_type);
             }
