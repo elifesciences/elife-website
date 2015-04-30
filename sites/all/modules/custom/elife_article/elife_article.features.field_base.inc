@@ -107,6 +107,27 @@ function elife_article_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_elife_a_contributors'
+  $field_bases['field_elife_a_contributors'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_contributors',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'nlmfield',
+    'settings' => array(
+      'additional_namespaces' => 'atom|http://www.w3.org/2005/Atom
+
+hwp|http://schema.highwire.org/Journal',
+      'nlmfield_namespace' => 'nlm',
+      'nlmfield_namespace_def_url' => 'http://schema.highwire.org/NLM/Journal',
+    ),
+    'translatable' => 0,
+    'type' => 'nlmfield_contributor',
+  );
+
   // Exported field_base: 'field_elife_a_copyright'
   $field_bases['field_elife_a_copyright'] = array(
     'active' => 1,
