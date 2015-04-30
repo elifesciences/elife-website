@@ -76,17 +76,7 @@
               "title": "Figure 2.2",
               "apath": "f05224.2.2",
               "doi": "10.7554/eLife.05224.017",
-              "path": "content/4/e05224/6",
-              "children": {
-                "figure": [
-                  {
-                    "title": "Figure 2.2.1",
-                    "apath": "f05224.2.2.1",
-                    "doi": "10.7554/eLife.05224.016",
-                    "path": "content/4/e05224/7"
-                  }
-                ]
-              }
+              "path": "content/4/e05224/6"
             }
           ]
         }
