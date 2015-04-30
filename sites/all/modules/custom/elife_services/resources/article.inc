@@ -195,6 +195,31 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
   }
 
+  if (isset($data['categories'])) {
+    $categories = array();
+    foreach ($data['categories'] as $group => $cats) {
+      $fields = array(
+        'field_elife_category_type' => $group,
+      );
+      foreach ($cats as $cat) {
+        if ($term = _elife_services_article_prepare_term('elife_categories', $cat, $fields)) {
+          $categories[] = $term->tid;
+        }
+      }
+    }
+    $ewrapper->field_elife_a_category->set($categories);
+  }
+
+  if (isset($data['keywords'])) {
+    $keywords = array();
+    foreach ($data['keywords'] as $keyword) {
+      if ($term = _elife_services_article_prepare_term('elife_keywords', $keyword)) {
+        $keywords[] = $term->tid;
+      }
+    }
+    $ewrapper->field_elife_a_keyword->set($keywords);
+  }
+
   // Set the apath if article is new.
   if ($new && !empty($data['apath'])) {
     if (!ElifeArticle::uniqueApath($data['apath'])) {
