@@ -1,10 +1,38 @@
 {
-  "impact_statement": "<strong>Impact</strong> statement",
+  "impact-statement": "<strong>Impact</strong> statement",
   "title": "Test title",
   "doi": "10.7554/eLife.05224",
   "apath": "05224",
   "pdate": "1979-08-17",
   "path": "content/4/e05224",
+  "categories": {
+    "display-channel": [
+      "Research article"
+    ],
+    "heading": [
+      "Biophysics and structural biology",
+      "Cell biology"
+    ],
+    "sub-display-channel": [
+      "Cell biology"
+    ]
+  },
+  "keywords": [
+    "endocytosis",
+    "palmitoylation",
+    "patch clamp",
+    "permeability transition pore"
+  ],
+  "related-article": [
+    {
+      "type": "corrected-article",
+      "href": "10.7554/eLife.06003"
+    },
+    {
+      "type": "article-reference",
+      "href": "10.7554/eLife.06956"
+    }
+  ],
   "contributors": [
     "<atom:author xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:nlm=\"http://schema.highwire.org/NLM/Journal\" xmlns:hwp=\"http://schema.highwire.org/Journal\" nlm:contrib-type=\"author\" nlm:corresp=\"yes\"><atom:name>Jenny Tung</atom:name><atom:email>jt5@duke.edu</atom:email><nlm:aff><nlm:label>1</nlm:label><nlm:institution content-type=\"dept\" hwp:id=\"institution-1\">Department of Evolutionary Anthropology</nlm:institution>, <nlm:institution hwp:id=\"institution-2\">Duke University</nlm:institution>, <nlm:addr-line><nlm:named-content content-type=\"city\" hwp:id=\"named-content-1\">Durham</nlm:named-content></nlm:addr-line>, <nlm:country>United States</nlm:country></nlm:aff><nlm:aff><nlm:label>2</nlm:label><nlm:institution content-type=\"dept\" hwp:id=\"institution-3\">Department of Biology</nlm:institution>, <nlm:institution hwp:id=\"institution-4\">Duke University</nlm:institution>, <nlm:addr-line><nlm:named-content content-type=\"city\" hwp:id=\"named-content-2\">Durham</nlm:named-content></nlm:addr-line>, <nlm:country>United States</nlm:country></nlm:aff><nlm:aff><nlm:label>3</nlm:label><nlm:institution content-type=\"dept\" hwp:id=\"institution-5\">Institute of Primate Research</nlm:institution>, <nlm:institution hwp:id=\"institution-6\">National Museums of Kenya</nlm:institution>, <nlm:addr-line><nlm:named-content content-type=\"city\" hwp:id=\"named-content-3\">Nairobi</nlm:named-content></nlm:addr-line>, <nlm:country>Kenya</nlm:country></nlm:aff><nlm:aff><nlm:label>4</nlm:label><nlm:institution content-type=\"dept\" hwp:id=\"institution-7\">Duke Population Research Institute</nlm:institution>, <nlm:institution hwp:id=\"institution-8\">Duke University</nlm:institution>, <nlm:addr-line><nlm:named-content content-type=\"city\" hwp:id=\"named-content-4\">Durham</nlm:named-content></nlm:addr-line>, <nlm:country>United States</nlm:country></nlm:aff><nlm:name name-style=\"western\" hwp:sortable=\"Tung Jenny\"><nlm:surname>Tung</nlm:surname><nlm:given-names>Jenny</nlm:given-names></nlm:name><nlm:contrib-id contrib-id-type=\"publisher\">author-18682</nlm:contrib-id><nlm:fn fn-type=\"conflict\" hwp:id=\"fn-1\"><nlm:p hwp:id=\"p-74\">The authors declare that no competing interests exist.</nlm:p></nlm:fn><nlm:fn fn-type=\"con\" hwp:id=\"fn-2\"><nlm:p hwp:id=\"p-75\">JT, Conception and design, Analysis and interpretation of data, Drafting or revising the article</nlm:p></nlm:fn></atom:author>",
     "<atom:contributor xmlns:atom=\"http://www.w3.org/2005/Atom\" xmlns:nlm=\"http://schema.highwire.org/NLM/Journal\" xmlns:hwp=\"http://schema.highwire.org/Journal\" nlm:contrib-type=\"author\"><atom:name>Luis B Barreiro</atom:name><nlm:aff><nlm:label>5</nlm:label><nlm:institution content-type=\"dept\" hwp:id=\"institution-9\">Department of Pediatrics, Sainte-Justine Hospital Research Centre</nlm:institution>, <nlm:institution hwp:id=\"institution-10\">University of Montreal</nlm:institution>, <nlm:addr-line><nlm:named-content content-type=\"city\" hwp:id=\"named-content-5\">Montreal</nlm:named-content></nlm:addr-line>, <nlm:country>Canada</nlm:country></nlm:aff><nlm:name name-style=\"western\" hwp:sortable=\"Barreiro Luis B\"><nlm:surname>Barreiro</nlm:surname><nlm:given-names>Luis B</nlm:given-names></nlm:name><nlm:contrib-id contrib-id-type=\"publisher\">author-5853</nlm:contrib-id><nlm:fn fn-type=\"conflict\" hwp:id=\"fn-1\"><nlm:p hwp:id=\"p-74\">The authors declare that no competing interests exist.</nlm:p></nlm:fn><nlm:fn fn-type=\"con\" hwp:id=\"fn-3\"><nlm:p hwp:id=\"p-76\">LBB, Conception and design, Analysis and interpretation of data, Drafting or revising the article</nlm:p></nlm:fn></atom:contributor>"
