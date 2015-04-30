@@ -6,6 +6,7 @@
  */
 
 use Drupal\elife_article\ElifeArticle;
+use EntityFieldQuery;
 
 /**
  * Determines an API user's access to retrieve a given article.
@@ -101,8 +102,18 @@ function _elife_services_article_delete($apath) {
   $article = _elife_services_article_retrieve($apath);
 
   $ewrapper = entity_metadata_wrapper('node', $article);
-  // @todo - elife - nlisgo - we will want to delete all figure and subcomponent nodes.
+  $parent_nid = $ewrapper->nid->value();
   $ewrapper->delete();
+
+  // @todo - elife - nlisgo - this could be handled with a rule.
+  $query = new EntityFieldQuery;
+  $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $parent_nid)
+    ->execute();
+
+  if (isset($result['node']) && count($result['node'])) {
+    $node_ids = array_keys($result['node']);
+    node_delete_multiple($node_ids);
+  }
 }
 
 /**
@@ -233,6 +244,7 @@ function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapp
     switch ($type) {
       case 'decision_letter':
       case 'author_response':
+        $data['parent'] = $ewrapper->nid->value();
         $child = _elife_services_article_child_update_values($data, $new);
         $found[] = $child->nid;
         break;
@@ -302,6 +314,10 @@ function _elife_services_article_child_update_values($data, $new = FALSE) {
   }
 
   $ewrapper = entity_metadata_wrapper('node', $child);
+
+  if (!empty($data['parent'])) {
+    $ewrapper->field_elife_a_parent->set($data['parent']);
+  }
 
   // Set the title.
   if (!empty($data['title'])) {
