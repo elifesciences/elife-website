@@ -276,6 +276,41 @@ hwp|http://schema.highwire.org/Journal',
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_elife_a_keyword'
+  $field_bases['field_elife_a_keyword'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_keyword',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_keywords' => 'elife_keywords',
+        ),
+      ),
+      'target_type' => 'taxonomy_term',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
+  );
+
   // Exported field_base: 'field_elife_a_parent'
   $field_bases['field_elife_a_parent'] = array(
     'active' => 1,
