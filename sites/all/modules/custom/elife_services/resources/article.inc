@@ -131,6 +131,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   if ($new) {
     $required = array(
       'title',
+      'article-type',
       'doi',
       'pdate',
       'path',
@@ -192,6 +193,10 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     );
     $ewrapper->field_elife_a_full_title->set($set);
     $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
+  }
+
+  if (isset($data['article-type'])) {
+    $ewrapper->field_elife_a_article_type->set($data['article-type']);
   }
 
   if (isset($data['categories'])) {
