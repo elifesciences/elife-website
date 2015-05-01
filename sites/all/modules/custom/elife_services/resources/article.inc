@@ -178,7 +178,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     foreach ($data['contributors'] as $contributor) {
       $contributor = array('xml' => $contributor);
       $contributors[] = nlmfield_compute_values($contributor, 'nlmfield_contributor');
-
     }
     $article->field_elife_a_contributors[LANGUAGE_NONE] = $contributors;
   }
@@ -213,7 +212,13 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   if (isset($data['keywords'])) {
     $keywords = array();
     foreach ($data['keywords'] as $keyword) {
-      if ($term = _elife_services_article_prepare_term('elife_keywords', $keyword)) {
+      $fields = array(
+        'field_elife_a_full_title' => array(
+          'value' => $keyword,
+          'format' => 'full_html',
+        ),
+      );
+      if ($term = _elife_services_article_prepare_term('elife_keywords', $keyword, array(), $fields)) {
         $keywords[] = $term->tid;
       }
     }
@@ -405,7 +410,8 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
   return $ewrapper->raw();
 }
 
-function _elife_services_article_prepare_term($vocabulary, $term_name, $fields = array()) {
+function _elife_services_article_prepare_term($vocabulary, $term_name, $conditions = array(), $fields = array()) {
+  $term_name = ElifeArticle::cleanTitle($term_name);
   $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
   $query = new EntityFieldQuery();
   $query = $query
@@ -413,8 +419,8 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $fields =
     ->propertyCondition('name', $term_name)
     ->propertyCondition('vid', $vocabulary->vid);
 
-  if (!empty($fields)) {
-    foreach($fields as $field => $value) {
+  if (!empty($conditions)) {
+    foreach($conditions as $field => $value) {
       $query = $query
         ->fieldCondition($field, 'value', $value);
     }
@@ -424,7 +430,8 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $fields =
     ->execute();
 
   if(!empty($result)) {
-    return array_pop($result['taxonomy_term']);
+    $term = array_pop($result['taxonomy_term']);
+    $term = taxonomy_term_load($term->tid);
   }
   else {
     $values = array(
@@ -436,16 +443,23 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $fields =
     // I had some issues when I tried to save values using
     // entity_metadata_wrapper.
 
-    if (!empty($fields)) {
-      foreach ($fields as $field => $value) {
+    if (!empty($conditions)) {
+      foreach ($conditions as $field => $value) {
         $term->{$field}[LANGUAGE_NONE] = array(array('value' => $value));
       }
     }
-
-    entity_save('taxonomy_term', $term);
-
-    return $term;
   }
+
+  if (!empty($fields)) {
+    foreach ($fields as $field => $value) {
+      $value = !is_array($value) ? array('value' => $value) : $value;
+      $term->{$field}[LANGUAGE_NONE] = array($value);
+    }
+  }
+
+  entity_save('taxonomy_term', $term);
+
+  return $term;
 }
 
 /**
