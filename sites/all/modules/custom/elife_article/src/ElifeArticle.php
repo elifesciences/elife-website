@@ -114,6 +114,7 @@ class ElifeArticle {
   public static function cleanTitle($title) {
     $title = self::unicodeFix($title, 'replace');
 
+    $title = trim($title);
     $title = strip_tags($title);
     $title = htmlspecialchars_decode($title);
 
