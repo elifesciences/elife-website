@@ -54,8 +54,8 @@ function _elife_services_article_delete_access($apath) {
  * @param $apath
  * @return array
  */
-function _elife_services_article_retrieve($apath) {
-  $article = ElifeArticle::fromApath($apath);
+function _elife_services_article_retrieve($apath, $bundle = 'elife_article') {
+  $article = ElifeArticle::fromApath($apath, TRUE, $bundle);
   if (empty($article->nid)) {
     return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
   }
@@ -323,7 +323,7 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
   }
 
   if (!$new) {
-    $child = _elife_services_article_retrieve($data['apath']);
+    $child = _elife_services_article_retrieve($data['apath'], $type);
   }
   else {
     $values = array(
