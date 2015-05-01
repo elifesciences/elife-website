@@ -27,6 +27,7 @@ dependencies[] = devel
 dependencies[] = context_ui
 dependencies[] = delta_ui
 dependencies[] = module_builder
+dependencies[] = relation_ui
 
 ; Install Migrate
 dependencies[] = migrate
@@ -70,6 +71,8 @@ dependencies[] = services
 dependencies[] = rest_server
 dependencies[] = xautoload
 dependencies[] = nlmfield
+dependencies[] = relation_endpoint
+dependencies[] = relation
 
 
 ; Install Features
