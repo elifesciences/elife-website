@@ -1,0 +1,65 @@
+<?php
+var_dump('wtf');
+
+/**
+ * @file
+ * Call the endpoint tests when no authentication is being used.
+ *
+ */
+
+/**
+ * Run test cases for the endpoint with no authentication turned on.
+ *
+ */
+class ElifeServicesResourceArticleTests extends ServicesWebTestCase {
+  // Class variables
+  protected $privilegedUser = NULL;
+  // Endpoint details.
+  protected $endpoint = NULL;
+
+  /**
+   * Implementation of setUp().
+   */
+  public function setUp() {
+    parent::setUp(
+      'ctools',
+      'services',
+      'rest_server',
+      'elife_article',
+      'features'
+    );
+    // Set up endpoint.
+    $this->endpoint = $this->saveNewEndpoint();
+  }
+
+  /**
+   * Implementation of getInfo().
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Resource eLife Article',
+      'description' => 'Test the resource Article methods and actions.',
+      'group' => 'eLife Services',
+    );
+  }
+
+  /**
+   * testing article_resource Get
+   */
+  public function testNewEndpointResourceArticleGet() {
+    // Create and log in our privileged user.
+    $this->privilegedUser = $this->drupalCreateUser(array(
+      'administer services',
+    ));
+    $this->drupalLogin($this->privilegedUser);
+    $apath = 1;
+    $article = $this->drupalCreateNode(array('type' => 'elife_article', 'field_elife_a_apath' => array(LANGUAGE_NONE => array(array('value' => $apath)))));
+    $responseArray = $this->servicesGet($this->endpoint->path . '/api/article/' . $apath);
+    $this->assertTrue($article->title == $responseArray['body']->title,
+      'Successfully received Article info', 'ArticleResource: Retrieve');
+    //Verify article not found.
+    unset($article);
+    $responseArray = $this->servicesGet($this->endpoint->path . '/api/article/99');
+    $this->assertTrue($responseArray['code'] == '404', 'Successfully was rejected to non existent article', 'ArticleResource: Retrieve');
+  }
+}

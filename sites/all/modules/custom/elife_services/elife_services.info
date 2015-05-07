@@ -4,4 +4,4 @@ dependencies[] = services
 dependencies[] = elife_article
 package = eLife
 core = 7.x
-files[] = tests/elife_services.test
+files[] = tests/functional/ElifeServicesResourceArticleTests.test
