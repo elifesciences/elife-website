@@ -282,7 +282,43 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->save();
   }
 
+  if (isset($data['related-article'])) {
+    _elife_services_article_process_related($ewrapper->nid->value(), $data['related-article']);
+  }
+
   return $ewrapper->raw();
+}
+
+function _elife_services_article_process_related($source_nid, $related) {
+  ElifeArticle::removeRelated($source_nid);
+
+  $dest_nids = array();
+
+  $relation_bundle = 'elife_relation';
+
+  foreach ($related as $rel) {
+    if ($dest_nid = ElifeArticle::vorFromDoi($rel['href'], FALSE)) {
+      $endpoints = array(
+        array(
+          'entity_type' => 'node',
+          'entity_id' => $source_nid,
+        ),
+        array(
+          'entity_type' => 'node',
+          'entity_id' => $dest_nid,
+        ),
+      );
+      $new_relation = relation_create($relation_bundle, $endpoints);
+      if (!empty($rel['type'])) {
+        $new_relation->field_elife_r_type = array(LANGUAGE_NONE => array(array('value' => $rel['type'])));
+      }
+      if ($rid = relation_save($new_relation)) {
+        $dest_nids[] = $dest_nid;
+      }
+    }
+  }
+
+  return $dest_nids;
 }
 
 function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {

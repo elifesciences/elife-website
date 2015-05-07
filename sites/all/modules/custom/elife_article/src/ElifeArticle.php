@@ -8,6 +8,7 @@
 namespace Drupal\elife_article;
 
 use EntityFieldQuery;
+use RelationQuery;
 
 class ElifeArticle {
 
@@ -31,21 +32,77 @@ class ElifeArticle {
   }
 
   /**
-   * Retrieve the article node or node id from the doi.
+   * Get poa from doi.
    *
-   * @todo - elife - nlisgo - This may return multiple results.
+   * This will not return the POA for articles that are now VOR.
+   *
+   * @param $doi
+   * @param bool $load
+   * @return bool|mixed
+   */
+  public static function poaFromDoi($doi, $load = TRUE) {
+    $conditions = array(
+      'field_elife_a_early' => 1,
+      'field_elife_a_current' => 1,
+    );
+
+    return self::fromDoi($doi, $load, 'elife_article', $conditions);
+  }
+
+  /**
+   * Get the vor from the doi.
+   *
+   * @param $doi
+   * @param bool $load
+   * @return bool|mixed
+   */
+  public static function vorFromDoi($doi, $load = TRUE) {
+    $conditions = array(
+      'field_elife_a_early' => 0,
+    );
+
+    return self::fromDoi($doi, $load, 'elife_article', $conditions);
+  }
+
+  /**
+   * Retrieve the article node or node id from the doi.
    *
    * @param $doi
    * @param bool $load
    * @param string $bundle
+   * @param array $conditions
    * @return bool|mixed
    */
-  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article') {
+  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article', $conditions = array()) {
     $doi_query = new EntityFieldQuery();
-    $dois = $doi_query->entityCondition('entity_type', 'node')
+    $doi_query = $doi_query
+      ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
-      ->fieldCondition('field_elife_a_doi', 'value', $doi, '=')
-      // @todo - elife - nlisgo - perhaps only return the current version.
+      ->fieldCondition('field_elife_a_doi', 'value', $doi, '=');
+
+    if (!empty($conditions)) {
+      foreach ($conditions as $field => $value) {
+        $column = 'value';
+        $operator = '=';
+        if (is_array($value)) {
+          $assert = $value[0];
+
+          if (!empty($value[1])) {
+            $column = $value[1];
+          }
+          if (!empty($value[2])) {
+            $operator = $value[2];
+          }
+        }
+        else {
+          $assert = $value;
+        }
+        $doi_query = $doi_query
+          ->fieldCondition($field, $column, $assert, $operator);
+      }
+    }
+
+    $dois = $doi_query
       ->execute();
 
     if (empty($dois['node'])) {
@@ -187,6 +244,44 @@ class ElifeArticle {
           '|\xED[\xA0-\xBF][\x80-\xBF]/S', '?', $string);
 
         return $string;
+    }
+  }
+
+  public static function removeRelated($source_nid, $index = 0) {
+    $relations = self::relatedArticles($source_nid, $index);
+    if (!empty($relations)) {
+      relation_delete_multiple(array_keys($relations));
+    }
+  }
+
+  public static function relatedArticles($source_nid, $index = NULL, $relation_type = NULL, $load = FALSE) {
+    $rel_query = new RelationQuery('node', $source_nid, $index);
+    $rel_query->entityCondition('bundle', 'elife_relation');
+    if ($relation_type) {
+      $rel_query->fieldCondition('field_elife_r_type', 'value', $relation_type);
+    }
+    $results = $rel_query->execute();
+    if (!empty($results) && $load) {
+      $relations = relation_load_multiple(array_keys($results));
+      $excludes = array(
+        $source_nid,
+      );
+      $related_nids = array();
+      foreach ($relations as $rid => $relation) {
+        if (!empty($relation->endpoints)) {
+          foreach ($relation->endpoints[LANGUAGE_NONE] as $item) {
+            if (!in_array($item['entity_id'], $excludes)) {
+              $related_nids[$item['entity_id']] = array(
+                'type' => (!empty($relation->field_elife_r_type)) ? $relation->field_elife_r_type[LANGUAGE_NONE][0]['value'] : NULL,
+              );
+            }
+          }
+        }
+      }
+      return $related_nids;
+    }
+    else {
+      return $results;
     }
   }
 } 

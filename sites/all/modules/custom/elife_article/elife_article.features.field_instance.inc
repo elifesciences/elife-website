@@ -262,7 +262,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 19,
+      'weight' => 20,
     ),
   );
 
@@ -342,7 +342,7 @@ function elife_article_field_default_field_instances() {
       'module' => 'nlmfield',
       'settings' => array(),
       'type' => 'nlmfield_xml',
-      'weight' => 18,
+      'weight' => 19,
     ),
   );
 
@@ -383,6 +383,49 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_current'
+  $field_instances['node-elife_article-field_elife_a_current'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_current',
+    'label' => 'Current',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 14,
     ),
   );
 
@@ -606,7 +649,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 20,
+      'weight' => 21,
     ),
   );
 
@@ -692,7 +735,7 @@ function elife_article_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 17,
+      'weight' => 18,
     ),
   );
 
@@ -1236,6 +1279,7 @@ function elife_article_field_default_field_instances() {
   t('Children');
   t('Contributors');
   t('Copyright Permissions');
+  t('Current');
   t('DOI');
   t('Early Release');
   t('First Publication Date');
