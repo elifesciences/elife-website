@@ -36,23 +36,23 @@ class ElifeArticle {
    *
    * This will not return the POA for articles that are now VOR.
    *
-   * @param $doi
+   * @param string $doi
+   * @param int $limit
    * @param bool $load
    * @return bool|mixed
    */
-  public static function poaFromDoi($doi, $load = TRUE) {
+  public static function poaFromDoi($doi, $limit = 1, $load = TRUE) {
     $conditions = array(
       'field_elife_a_early' => 1,
-      'field_elife_a_current' => 1,
     );
 
-    return self::fromDoi($doi, $load, 'elife_article', $conditions);
+    return self::fromDoi($doi, $load, 'elife_article', $conditions, $limit);
   }
 
   /**
    * Get the vor from the doi.
    *
-   * @param $doi
+   * @param string $doi
    * @param bool $load
    * @return bool|mixed
    */
@@ -61,24 +61,27 @@ class ElifeArticle {
       'field_elife_a_early' => 0,
     );
 
-    return self::fromDoi($doi, $load, 'elife_article', $conditions);
+    return self::fromDoi($doi, $load, 'elife_article', $conditions, 1);
   }
 
   /**
    * Retrieve the article node or node id from the doi.
    *
-   * @param $doi
+   * @param string $doi
    * @param bool $load
    * @param string $bundle
    * @param array $conditions
+   * @param int $limit
    * @return bool|mixed
    */
-  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article', $conditions = array()) {
+  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0) {
     $doi_query = new EntityFieldQuery();
     $doi_query = $doi_query
       ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
-      ->fieldCondition('field_elife_a_doi', 'value', $doi, '=');
+      ->fieldCondition('field_elife_a_doi', 'value', $doi, '=')
+      ->fieldOrderBy('field_elife_a_early', 'value', 'ASC')
+      ->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
@@ -102,6 +105,11 @@ class ElifeArticle {
       }
     }
 
+    if (!empty($limit)) {
+      $doi_query = $doi_query
+        ->range(0, $limit);
+    }
+
     $dois = $doi_query
       ->execute();
 
@@ -109,13 +117,24 @@ class ElifeArticle {
       return FALSE;
     }
     else {
-      $node = array_shift($dois['node'])->nid;
+      $nids = array_keys($dois['node']);
+
       if ($load) {
-        $node = node_load($node);
+        $nodes = node_load_multiple($nids);
+        if ($limit === 1) {
+          return array_shift($nodes);
+        }
+        else {
+          return $nodes;
+        }
+      }
+      elseif ($limit === 1) {
+        return array_shift($nids);
+      }
+      else {
+        return $nids;
       }
     }
-
-    return $node;
   }
 
   /**
@@ -124,26 +143,46 @@ class ElifeArticle {
    * @param $apath
    * @param bool $load
    * @param string $bundle
+   * @param int $limit
    * @return bool|mixed
    */
-  public static function fromApath($apath, $load = TRUE, $bundle = 'elife_article') {
+  public static function fromApath($apath, $load = TRUE, $bundle = 'elife_article', $limit = 1) {
     $apath_query = new EntityFieldQuery();
-    $apaths = $apath_query->entityCondition('entity_type', 'node')
+    $apath_query = $apath_query
+      ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
-      ->fieldCondition('field_elife_a_apath', 'value', $apath, '=')
+      ->fieldCondition('field_elife_a_apath', 'value', $apath, '=');
+
+    if (!empty($limit)) {
+      $apath_query = $apath_query
+        ->range(0, $limit);
+    }
+
+    $apaths = $apath_query
       ->execute();
 
     if (empty($apaths['node'])) {
       return FALSE;
     }
     else {
-      $node = array_shift($apaths['node'])->nid;
+      $nids = array_keys($apaths['node']);
+
       if ($load) {
-        $node = node_load($node);
+        $nodes = node_load_multiple($nids);
+        if ($limit === 1) {
+          return array_shift($nodes);
+        }
+        else {
+          return $nodes;
+        }
+      }
+      elseif ($limit === 1) {
+        return array_shift($nids);
+      }
+      else {
+        return $nids;
       }
     }
-
-    return $node;
   }
 
   /**
@@ -279,9 +318,6 @@ class ElifeArticle {
         }
       }
       return $related_nids;
-    }
-    else {
-      return $results;
     }
   }
 } 
