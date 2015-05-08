@@ -32,55 +32,56 @@ class ElifeArticle {
   }
 
   /**
-   * Get poa from doi.
+   * Get poa from article id.
    *
    * This will not return the POA for articles that are now VOR.
    *
-   * @param string $doi
+   * @param string $article_id
    * @param int $limit
    * @param bool $load
    * @return bool|mixed
    */
-  public static function poaFromDoi($doi, $limit = 1, $load = TRUE) {
+  public static function poaFromId($article_id, $limit = 1, $load = TRUE) {
     $conditions = array(
       'field_elife_a_early' => 1,
     );
 
-    return self::fromDoi($doi, $load, 'elife_article', $conditions, $limit);
+    return self::fromId($article_id, $load, 'elife_article', $conditions, $limit);
   }
 
   /**
-   * Get the vor from the doi.
+   * Get the vor from the article id.
    *
-   * @param string $doi
+   * @param string $article_id
    * @param bool $load
    * @return bool|mixed
    */
-  public static function vorFromDoi($doi, $load = TRUE) {
+  public static function vorFromId($article_id, $load = TRUE) {
     $conditions = array(
       'field_elife_a_early' => 0,
     );
 
-    return self::fromDoi($doi, $load, 'elife_article', $conditions, 1);
+    return self::fromId($article_id, $load, 'elife_article', $conditions, 1);
   }
 
   /**
-   * Retrieve the article node or node id from the doi.
+   * Retrieve the article node or node id from the article id.
    *
-   * @param string $doi
+   * @param string $article_id
    * @param bool $load
    * @param string $bundle
    * @param array $conditions
    * @param int $limit
    * @return bool|mixed
    */
-  public static function fromDoi($doi, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0) {
-    $doi_query = new EntityFieldQuery();
-    $doi_query = $doi_query
+  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0) {
+    $id_query = new EntityFieldQuery();
+    $id_query = $id_query
       ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
-      ->fieldCondition('field_elife_a_doi', 'value', $doi, '=')
+      ->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=')
       ->fieldOrderBy('field_elife_a_early', 'value', 'ASC')
+      ->fieldOrderBy('field_elife_a_version', 'value', 'DESC')
       ->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
 
     if (!empty($conditions)) {
@@ -100,24 +101,24 @@ class ElifeArticle {
         else {
           $assert = $value;
         }
-        $doi_query = $doi_query
+        $id_query = $id_query
           ->fieldCondition($field, $column, $assert, $operator);
       }
     }
 
     if (!empty($limit)) {
-      $doi_query = $doi_query
+      $id_query = $id_query
         ->range(0, $limit);
     }
 
-    $dois = $doi_query
+    $ids = $id_query
       ->execute();
 
-    if (empty($dois['node'])) {
+    if (empty($ids['node'])) {
       return FALSE;
     }
     else {
-      $nids = array_keys($dois['node']);
+      $nids = array_keys($ids['node']);
 
       if ($load) {
         $nodes = node_load_multiple($nids);
@@ -150,8 +151,12 @@ class ElifeArticle {
     $apath_query = new EntityFieldQuery();
     $apath_query = $apath_query
       ->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', $bundle)
       ->fieldCondition('field_elife_a_apath', 'value', $apath, '=');
+
+    if (!empty($bundle)) {
+      $apath_query = $apath_query
+        ->entityCondition('bundle', $bundle);
+    }
 
     if (!empty($limit)) {
       $apath_query = $apath_query

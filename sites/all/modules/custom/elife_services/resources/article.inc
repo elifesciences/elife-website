@@ -247,6 +247,14 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
+  if (isset($data['article-id'])) {
+    $ewrapper->field_elife_a_article_id->set($data['article-id']);
+  }
+
+  if (isset($data['version'])) {
+    $ewrapper->field_elife_a_version->set($data['version']);
+  }
+
   if (isset($data['pdate'])) {
     $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
   }
