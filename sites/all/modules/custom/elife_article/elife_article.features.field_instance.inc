@@ -386,49 +386,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_current'
-  $field_instances['node-elife_article-field_elife_a_current'] = array(
-    'bundle' => 'elife_article',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 18,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_current',
-    'label' => 'Current',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'node-elife_article-field_elife_a_doi'
   $field_instances['node-elife_article-field_elife_a_doi'] = array(
     'bundle' => 'elife_article',
@@ -829,6 +786,52 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_version'
+  $field_instances['node-elife_article-field_elife_a_version'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_version',
+    'label' => 'Version',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 14,
     ),
   );
 
@@ -1279,7 +1282,6 @@ function elife_article_field_default_field_instances() {
   t('Children');
   t('Contributors');
   t('Copyright Permissions');
-  t('Current');
   t('DOI');
   t('Early Release');
   t('First Publication Date');
@@ -1291,6 +1293,7 @@ function elife_article_field_default_field_instances() {
   t('Type');
   t('Updated Date');
   t('Variants');
+  t('Version');
   t('endpoints');
 
   return $field_instances;
