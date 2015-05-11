@@ -291,6 +291,12 @@ class ElifeArticle {
     }
   }
 
+  /**
+   * Delete the stored values for related articles.
+   *
+   * @param $source_nid
+   * @param int $index
+   */
   public static function removeRelated($source_nid, $index = 0) {
     $relations = self::relatedArticles($source_nid, $index);
     if (!empty($relations)) {
@@ -298,6 +304,15 @@ class ElifeArticle {
     }
   }
 
+  /**
+   * Retrieve the related articles.
+   *
+   * @param $source_nid
+   * @param null $index
+   * @param null $relation_type
+   * @param bool $load
+   * @return array
+   */
   public static function relatedArticles($source_nid, $index = NULL, $relation_type = NULL, $load = FALSE) {
     $rel_query = new RelationQuery('node', $source_nid, $index);
     $rel_query->entityCondition('bundle', 'elife_relation');
@@ -325,4 +340,4 @@ class ElifeArticle {
       return $related_nids;
     }
   }
-} 
+}
