@@ -292,37 +292,45 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (isset($data['related-article'])) {
-    _elife_services_article_process_related($ewrapper->nid->value(), $data['related-article']);
+    _elife_services_article_process_related($ewrapper->field_elife_a_doi->value(), $ewrapper->nid->value(), $data['related-article']);
   }
 
   return $ewrapper->raw();
 }
 
-function _elife_services_article_process_related($source_nid, $related) {
-  ElifeArticle::removeRelated($source_nid);
+function _elife_services_article_process_related($doi, $source_nid, $related, $dest_nid = NULL) {
+  ElifeArticle::removeRelated($source_nid, 0, $dest_nid);
 
   $dest_nids = array();
 
   $relation_bundle = 'elife_relation';
 
   foreach ($related as $rel) {
-    if ($dest_nid = ElifeArticle::vorFromDoi($rel['href'], FALSE)) {
-      $endpoints = array(
-        array(
-          'entity_type' => 'node',
-          'entity_id' => $source_nid,
-        ),
-        array(
-          'entity_type' => 'node',
-          'entity_id' => $dest_nid,
-        ),
-      );
-      $new_relation = relation_create($relation_bundle, $endpoints);
-      if (!empty($rel['type'])) {
-        $new_relation->field_elife_r_type = array(LANGUAGE_NONE => array(array('value' => $rel['type'])));
+    if ($rel['source'] == $doi) {
+      if ($dest_nid = ElifeArticle::vorFromDoi($rel['href'], FALSE)) {
+        $endpoints = array(
+          array(
+            'entity_type' => 'node',
+            'entity_id' => $source_nid,
+          ),
+          array(
+            'entity_type' => 'node',
+            'entity_id' => $dest_nid,
+          ),
+        );
+        $new_relation = relation_create($relation_bundle, $endpoints);
+        if (!empty($rel['type'])) {
+          $new_relation->field_elife_r_type = array(LANGUAGE_NONE => array(array('value' => $rel['type'])));
+        }
+        if ($rid = relation_save($new_relation)) {
+          $dest_nids[] = $dest_nid;
+        }
       }
-      if ($rid = relation_save($new_relation)) {
-        $dest_nids[] = $dest_nid;
+    }
+    elseif ($src_nid = ElifeArticle::vorFromDoi($rel['source'], FALSE)) {
+      $src_nids = _elife_services_article_process_related($rel['source'], $src_nid, array($rel), $source_nid);
+      if (!empty($src_nids)) {
+        $dest_nids = array_merge($dest_nids, $src_nids);
       }
     }
   }

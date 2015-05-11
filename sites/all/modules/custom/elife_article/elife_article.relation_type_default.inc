@@ -18,7 +18,7 @@ function elife_article_relation_default_relation_types() {
   $relation_type->reverse_label = 'eLife Relation';
   $relation_type->directional = 0;
   $relation_type->transitive = 0;
-  $relation_type->r_unique = 1;
+  $relation_type->r_unique = 0;
   $relation_type->min_arity = 2;
   $relation_type->max_arity = 2;
   $relation_type->source_bundles = array(
