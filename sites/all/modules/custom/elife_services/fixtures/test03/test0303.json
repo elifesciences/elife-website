@@ -1,0 +1,23 @@
+{
+  "title": "VOR 06956",
+  "version": 1,
+  "doi": "10.7554/eLife.06956",
+  "article-id": "10.7554/eLife.06956",
+  "apath": "06956",
+  "pdate": "1979-08-17",
+  "path": "content/4/e06956",
+  "article-type": "research-article",
+  "related-article": [
+    {
+      "type": "article-reference",
+      "href": "10.7554/eLife.06956",
+      "source": "10.7554/eLife.05224"
+    },
+    {
+      "type": "article-reference",
+      "href": "10.7554/eLife.05224",
+      "source": "10.7554/eLife.06956"
+    }
+  ],
+  "early": 0
+}

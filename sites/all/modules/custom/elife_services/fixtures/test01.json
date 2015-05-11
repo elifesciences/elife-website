@@ -29,11 +29,18 @@
   "related-article": [
     {
       "type": "corrected-article",
-      "href": "10.7554/eLife.06003"
+      "href": "10.7554/eLife.05224",
+      "source": "10.7554/eLife.06003"
     },
     {
       "type": "article-reference",
-      "href": "10.7554/eLife.06956"
+      "href": "10.7554/eLife.06956",
+      "source": "10.7554/eLife.05224"
+    },
+    {
+      "type": "article-reference",
+      "href": "10.7554/eLife.05224",
+      "source": "10.7554/eLife.06956"
     }
   ],
   "contributors": [
