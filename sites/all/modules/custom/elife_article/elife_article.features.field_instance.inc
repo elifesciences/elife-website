@@ -138,6 +138,46 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-elife_article-field_elife_a_article_id'
+  $field_instances['node-elife_article-field_elife_a_article_id'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This value should be the same for all versions of an article.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_article_id',
+    'label' => 'Article ID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 6,
+    ),
+  );
+
   // Exported field_instance: 'node-elife_article-field_elife_a_article_type'
   $field_instances['node-elife_article-field_elife_a_article_type'] = array(
     'bundle' => 'elife_article',
@@ -832,46 +872,6 @@ function elife_article_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => 15,
-    ),
-  );
-
-  // Exported field_instance: 'node-elife_article-field_elife_a_article_id'
-  $field_instances['node-elife_article-field_elife_a_article_id'] = array(
-    'bundle' => 'elife_article',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'This value should be the same for all versions of an article.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 19,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_article_id',
-    'label' => 'Article ID',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 6,
     ),
   );
 
