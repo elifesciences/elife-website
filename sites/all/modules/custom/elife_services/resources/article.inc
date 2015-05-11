@@ -134,6 +134,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'article-type',
       'doi',
       'pdate',
+      'version',
       'path',
       'apath',
     );
