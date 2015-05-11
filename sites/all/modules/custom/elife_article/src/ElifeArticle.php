@@ -37,11 +37,11 @@ class ElifeArticle {
    * This will not return the POA for articles that are now VOR.
    *
    * @param string $article_id
-   * @param int $limit
    * @param bool $load
+   * @param int $limit
    * @return bool|mixed
    */
-  public static function poaFromId($article_id, $limit = 1, $load = TRUE) {
+  public static function poaFromId($article_id, $load = TRUE, $limit = 1) {
     $conditions = array(
       'field_elife_a_early' => 1,
     );
