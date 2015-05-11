@@ -32,6 +32,39 @@ class ElifeArticle {
   }
 
   /**
+   * Get poa from doi.
+   *
+   * This will not return the POA for articles that are now VOR.
+   *
+   * @param string $doi
+   * @param bool $load
+   * @param int $limit
+   * @return bool|mixed
+   */
+  public static function poaFromDoi($doi, $load = TRUE, $limit = 1) {
+    $conditions = array(
+      'field_elife_a_early' => 1,
+    );
+
+    return self::fromId($doi, $load, 'elife_article', $conditions, $limit, 'field_elife_a_doi');
+  }
+
+  /**
+   * Get the vor from the doi.
+   *
+   * @param string $doi
+   * @param bool $load
+   * @return bool|mixed
+   */
+  public static function vorFromDoi($doi, $load = TRUE) {
+    $conditions = array(
+      'field_elife_a_early' => 0,
+    );
+
+    return self::fromId($doi, $load, 'elife_article', $conditions, 1, 'field_elife_a_doi');
+  }
+
+  /**
    * Get poa from article id.
    *
    * This will not return the POA for articles that are now VOR.
@@ -72,14 +105,15 @@ class ElifeArticle {
    * @param string $bundle
    * @param array $conditions
    * @param int $limit
+   * @param string $id_field
    * @return bool|mixed
    */
-  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0) {
+  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
     $id_query = new EntityFieldQuery();
     $id_query = $id_query
       ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
-      ->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=')
+      ->fieldCondition($id_field, 'value', $article_id, '=')
       ->fieldOrderBy('field_elife_a_early', 'value', 'ASC')
       ->fieldOrderBy('field_elife_a_version', 'value', 'DESC')
       ->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
@@ -296,9 +330,16 @@ class ElifeArticle {
    *
    * @param $source_nid
    * @param int $index
+   * @param int $dest_nid
    */
-  public static function removeRelated($source_nid, $index = 0) {
-    $relations = self::relatedArticles($source_nid, $index);
+  public static function removeRelated($source_nid, $index = 0, $dest_nid = NULL) {
+    $relations = self::relatedArticles($source_nid, $index, NULL, FALSE, $dest_nid);
+    $rel_query = new RelationQuery('node', $source_nid, $index);
+    if ($dest_nid) {
+      $rel_query = $rel_query->related('node', $dest_nid);
+    }
+    $rel_query->entityCondition('bundle', 'elife_relation');
+    $relations = $rel_query->execute();
     if (!empty($relations)) {
       relation_delete_multiple(array_keys($relations));
     }
@@ -320,7 +361,7 @@ class ElifeArticle {
       $rel_query->fieldCondition('field_elife_r_type', 'value', $relation_type);
     }
     $results = $rel_query->execute();
-    if (!empty($results) && $load) {
+    if (!empty($results)) {
       $relations = relation_load_multiple(array_keys($results));
       $excludes = array(
         $source_nid,
@@ -328,11 +369,15 @@ class ElifeArticle {
       $related_nids = array();
       foreach ($relations as $rid => $relation) {
         if (!empty($relation->endpoints)) {
-          foreach ($relation->endpoints[LANGUAGE_NONE] as $item) {
+          foreach ($relation->endpoints[LANGUAGE_NONE] as $i => $item) {
             if (!in_array($item['entity_id'], $excludes)) {
               $related_nids[$item['entity_id']] = array(
+                'index' => $i,
                 'type' => (!empty($relation->field_elife_r_type)) ? $relation->field_elife_r_type[LANGUAGE_NONE][0]['value'] : NULL,
               );
+              if ($load) {
+                $related_nids[$item['entity_id']]['data'] = node_load($item['entity_id']);
+              }
             }
           }
         }
