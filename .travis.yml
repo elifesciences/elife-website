@@ -51,11 +51,13 @@ before_script:
   - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension\Extension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
 
 script:
+  # Run behat tests
+  - basedir=$PWD
+  - cd ./sites/all/tests/behat
+  - ./bin/behat --config behat.travis.yml --tags='~@develop'
+  - cd $basedir
+
   # Run simpletest
   - drush en simpletest --yes
   - drush cc all
   - drush test-run 'eLife Services' --uri=http://127.0.0.1:80 --xml
-
-  # Run behat tests
-  - cd ./sites/all/tests/behat
-  - ./bin/behat --config behat.travis.yml --tags='~@develop'
