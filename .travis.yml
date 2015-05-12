@@ -20,7 +20,7 @@ install:
 
   # Build Behat dependencies
   - cd ./sites/all/tests/behat
-  - composer install --no-interaction
+  - composer install  --prefer-source --no-interaction
   - cd ../../../..
 
   # Setup files
@@ -32,8 +32,8 @@ install:
   - sleep 5
 
   # Get Selenium
-  - wget http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar
-  - java -jar selenium-server-standalone-2.39.0.jar > /dev/null 2>&1 &
+  - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
+  - java -jar selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
   - sleep 5
 
   # Disable sendmail
@@ -61,3 +61,4 @@ script:
   - drush en simpletest --yes
   - drush cc all
   - drush test-run 'eLife Services' --uri=http://127.0.0.1:8888 --xml
+  - cd $basedir
