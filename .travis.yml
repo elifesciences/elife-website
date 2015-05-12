@@ -60,4 +60,4 @@ script:
   # Run simpletest
   - drush en simpletest --yes
   - drush cc all
-  - drush test-run 'eLife Services' --uri=http://127.0.0.1:80 --xml
+  - drush test-run 'eLife Services' --uri=http://127.0.0.1:8888 --xml
