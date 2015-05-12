@@ -40,7 +40,6 @@ install:
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 before_script:
-
   # Install Profile
   - drush si elife_profile --sites-subdir=default --db-url=mysql://root:@127.0.0.1/elife_profile --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
   - drush updatedb -y || true
@@ -51,9 +50,11 @@ before_script:
   # Make the Travis tests repos agnostic by injecting drupal_root with BEHAT_PARAMS
   - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension\Extension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
 
-  - cd ./sites/all/tests/behat
-
 script:
+  # Run simpletest
+  - drush en simpletest --yes
+  - drush test-run 'eLife Services' --uri=http://127.0.0.1:80 --xml
 
   # Run behat tests
+  - cd ./sites/all/tests/behat
   - ./bin/behat --config behat.travis.yml --tags='~@develop'
