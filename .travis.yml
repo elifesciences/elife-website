@@ -48,7 +48,7 @@ before_script:
   - sleep 3
 
   # Make the Travis tests repos agnostic by injecting drupal_root with BEHAT_PARAMS
-  - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
+  # - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
 
 script:
   # Run behat tests
