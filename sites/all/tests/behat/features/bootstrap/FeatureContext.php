@@ -6,6 +6,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\WebApiExtension\Context\WebApiContext;
+use Drupal\elife_article\ElifeArticle;
 
 /**
  * Defines application features from the specific context.
@@ -28,7 +29,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iShouldCleanupArticles($articles)
   {
     $articles = explode(',', $articles);
-    $this->getDriver();
     module_load_include('inc', 'elife_services', 'resources/article');
     foreach ($articles as $article_id) {
       _elife_services_article_delete($article_id);
