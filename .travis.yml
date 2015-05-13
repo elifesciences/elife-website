@@ -48,7 +48,7 @@ before_script:
   - sleep 3
 
   # Make the Travis tests repos agnostic by injecting drupal_root with BEHAT_PARAMS
-  - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension\Extension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
+  - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
 
 script:
   # Run behat tests
@@ -58,7 +58,7 @@ script:
   - cd $basedir
 
   # Run simpletest
-  - drush en simpletest --yes
-  - drush cc all
-  - drush test-run 'eLife Services' --uri=http://127.0.0.1:8888 --xml
-  - cd $basedir
+  # - drush en simpletest --yes
+  # - drush cc all
+  # - drush test-run 'eLife Services' --uri=http://127.0.0.1:8888 --xml
+  # - cd $basedir

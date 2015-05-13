@@ -1,21 +1,24 @@
-# Behat.yml
 default:
-  paths:
-    features: 'features'
-    bootstrap: 'features/bootstrap'
-  context:
-    parameters:
-      default_browser: 'goutte'
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+        - Behat\WebApiExtension\Context\WebApiContext
   extensions:
-    Behat\MinkExtension\Extension:
+    Behat\WebApiExtension:
+      base_url: 'http://elife.ingest.dev'
+    Behat\MinkExtension:
       goutte: ~
       selenium2: ~
-      default_session: 'goutte'
-      javascript_session: 'selenium2'
-    Drupal\DrupalExtension\Extension:
+      base_url: 'http://elife.ingest.dev'
+    Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drupal'
-
-imports:
-  - behat.local.yml
-
+      drush:
+        alias: 'local'
+      drupal:
+        drupal_root: '/vagrant_sites/elife.ingest.dev/web'

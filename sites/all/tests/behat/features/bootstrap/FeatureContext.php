@@ -1,12 +1,24 @@
 <?php
 
-use Drupal\DrupalExtension\Context\DrupalContext;
-
-require 'vendor/autoload.php';
+use Behat\Behat\Tester\Exception\PendingException;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 
 /**
- * Features context.
+ * Defines application features from the specific context.
  */
-class FeatureContext extends DrupalContext {
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
+  /**
+   * Initializes context.
+   *
+   * Every scenario gets its own context instance.
+   * You can also pass arbitrary arguments to the
+   * context constructor through behat.yml.
+   */
+  public function __construct() {
+  }
 }
+

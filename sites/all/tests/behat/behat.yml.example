@@ -1,4 +1,3 @@
-# behat.travis.yml
 default:
   suites:
     default:
@@ -11,17 +10,15 @@ default:
         - Behat\WebApiExtension\Context\WebApiContext
   extensions:
     Behat\WebApiExtension:
-      base_url: http://127.0.0.1:8888
+      base_url: 'http://127.0.0.1:8888'
     Behat\MinkExtension:
       goutte: ~
       selenium2: ~
-      base_url: http://127.0.0.1:8888
+      base_url: 'http://127.0.0.1:8888'
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drupal'
       drush:
         alias: 'local'
-      # This will be setup by .travis.yml like so:
-      # export BEHAT_PARAMS="extensions[Drupal\\DrupalExtension][drupal][drupal_root]=$DRUPAL_ROOT"
-      #drupal:
-      #  drupal_root: "/path/to/drupal/root"
+      drupal:
+        drupal_root: '/path/to/kickstart'
