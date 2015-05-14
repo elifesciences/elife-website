@@ -3,9 +3,6 @@
 use Behat\Behat\Tester\Exception\PendingException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
-use Behat\WebApiExtension\Context\WebApiContext;
 use Drupal\elife_article\ElifeArticle;
 use Behat\Behat\Hook\Scope\BeforeStepScope;
 
