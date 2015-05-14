@@ -85,7 +85,6 @@ Feature: Article Resource (API)
     And the response code should be 200
     And I go to "content/4/e05227"
     Then I should see "VOR 05227" in the "h1" element
-    And I should cleanup articles "05227"
 
   Scenario: Post and article with an invalid doi
     Given I set header "Content-Type" with value "application/json"

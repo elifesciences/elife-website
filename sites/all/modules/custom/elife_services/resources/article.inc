@@ -51,12 +51,15 @@ function _elife_services_article_delete_access($apath) {
 /**
  * Callback function for elife_article retrieve.
  *
- * @param $apath
- * @return array
+ * @param string $apath
+ * @param string $bundle
+ * @param bool $trigger_error
+ * @return bool|mixed
+ * @throws ServicesException
  */
-function _elife_services_article_retrieve($apath, $bundle = 'elife_article') {
+function _elife_services_article_retrieve($apath, $bundle = 'elife_article', $trigger_error = TRUE) {
   $article = ElifeArticle::fromApath($apath, TRUE, $bundle);
-  if (empty($article->nid)) {
+  if ($trigger_error && empty($article->nid)) {
     return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
   }
 
@@ -97,22 +100,33 @@ function _elife_services_article_update($apath, $data) {
  *
  * @param $apath
  */
-function _elife_services_article_delete($apath) {
-  $article = _elife_services_article_retrieve($apath);
-  $ewrapper = entity_metadata_wrapper('node', $article);
 
-  // Remove all child nodes.
-  $query = new EntityFieldQuery;
-  $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $ewrapper->nid->value())
-    ->execute();
+/**
+ * Callback function for elife_article delete.
+ *
+ * @param $apath
+ * @param bool $trigger_error
+ * @throws Exception
+ */
+function _elife_services_article_delete($apath, $trigger_error = TRUE) {
+  $article = _elife_services_article_retrieve($apath, 'elife_article', $trigger_error);
 
-  if (isset($result['node']) && count($result['node'])) {
-    $node_ids = array_keys($result['node']);
-    node_delete_multiple($node_ids);
+  if ($article) {
+    $ewrapper = entity_metadata_wrapper('node', $article);
+
+    // Remove all child nodes.
+    $query = new EntityFieldQuery;
+    $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $ewrapper->nid->value())
+      ->execute();
+
+    if (isset($result['node']) && count($result['node'])) {
+      $node_ids = array_keys($result['node']);
+      node_delete_multiple($node_ids);
+    }
+
+    // Remove article node.
+    $ewrapper->delete();
   }
-
-  // Remove article node.
-  $ewrapper->delete();
 }
 
 /**
