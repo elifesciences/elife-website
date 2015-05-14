@@ -18,6 +18,11 @@ Feature: Article Resource (API)
         }
       """
 
+  Scenario: Request an article that is not available           |
+    Given I set header "Content-Type" with value "application/json"
+    And I send a GET request to "api/article/05224.json"
+    Then the response code should be 404
+
   @api
   Scenario: Update an article
     Given "elife_article" content:
@@ -39,6 +44,16 @@ Feature: Article Resource (API)
           "title": "Updated VOR 05224"
         }
       """
+
+  Scenario: Attempt to update an article that is not available
+    Given I set header "Content-Type" with value "application/json"
+    And I send a PUT request to "api/article/05224.json" with body:
+      """
+        {
+          "title": "Updated VOR 05224"
+        }
+      """
+    Then the response code should be 404
 
   @api
   Scenario: Delete an article
@@ -71,6 +86,25 @@ Feature: Article Resource (API)
     And I go to "content/4/e05227"
     Then I should see "VOR 05227" in the "h1" element
     And I should cleanup articles "05227"
+
+  Scenario: Post and article with an invalid doi
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05227",
+          "version": 1,
+          "doi": "invalid doi",
+          "article-id": "10.7554/eLife.05227",
+          "apath": "05227",
+          "pdate": "1979-08-17",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "early": 0
+        }
+      """
+    And the response code should be 406
+    And response should contain "Invalid value provided: doi"
 
   Scenario: Post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
