@@ -20,20 +20,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
   /**
    * Initializes context.
-   *
-   * Every scenario gets its own context instance.
-   * You can also pass arbitrary arguments to the
-   * context constructor through behat.yml.
    */
   public function __construct() {
   }
 
   /**
+   * Store article ids used to POST new content so we can cleanup later.
+   *
    * @BeforeStep
    *
    * @param BeforeStepScope $scope
    */
-  public function beforeStepCleanupApaths(BeforeStepScope $scope) {
+  public function beforeStepStoreApaths(BeforeStepScope $scope) {
     $text = $scope->getStep()->getText();
     if (preg_match('/send a POST request to "[^\"]+" with body\:$/i', $text)) {
       $strings = $scope->getStep()->getArguments();
@@ -48,6 +46,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * Delete articles for the store article ids.
+   *
    * @AfterScenario
    */
   public function cleanApaths() {
