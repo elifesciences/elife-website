@@ -86,14 +86,14 @@ Feature: Article Resource (API)
     And I go to "content/4/e05227"
     Then I should see "VOR 05227" in the "h1" element
 
-  Scenario: Post and article with an invalid doi
+  Scenario Outline: Post an article with an invalid doi
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
         {
           "title": "VOR 05227",
           "version": 1,
-          "doi": "invalid doi",
+          "doi": "<invalid_doi>",
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
           "pdate": "1979-08-17",
@@ -104,6 +104,11 @@ Feature: Article Resource (API)
       """
     And the response code should be 406
     And response should contain "Invalid value provided: doi"
+
+    Examples:
+      | invalid_doi |
+      | invalid doi |
+      | 10.7554/eLife.0522 |
 
   Scenario: Post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
