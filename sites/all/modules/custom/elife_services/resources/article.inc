@@ -57,9 +57,9 @@ function _elife_services_article_delete_access($apath) {
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve_raw($apath, $bundle = 'elife_article') {
+function _elife_services_article_retrieve_raw($apath, $bundle = 'elife_article', $trigger_error = TRUE) {
   $article = ElifeArticle::fromApath($apath, TRUE, $bundle);
-  if (empty($article->nid)) {
+  if ($trigger_error && empty($article->nid)) {
     return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
   }
 

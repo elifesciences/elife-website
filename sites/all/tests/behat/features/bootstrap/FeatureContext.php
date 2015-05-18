@@ -12,32 +12,11 @@ use Behat\Behat\Hook\Scope\BeforeStepScope;
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
-   * Keep track of maximum node id.
+   * Keep track of apaths so they can be cleaned up.
    *
-   * @var int
+   * @var array
    */
-  protected $maxNid = 0;
-
-  /**
-   * Keep track of maximum term id.
-   *
-   * @var int
-   */
-  protected $maxTid = 0;
-
-  /**
-   * Keep track of maximum relation id.
-   *
-   * @var int
-   */
-  protected $maxRid = 0;
-
-  /**
-   * Flag to determine whether max queries have been run.
-   *
-   * @var bool
-   */
-  private $maxQueriesRun = FALSE;
+  protected $apaths = array();
 
   /**
    * Initializes context.
@@ -46,75 +25,39 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Store maximum entity ids.
+   * Store article ids used to POST new content so we can cleanup later.
    *
    * @BeforeStep
    *
    * @param BeforeStepScope $scope
    */
-  public function beforeStepRunMaxQueries(BeforeStepScope $scope) {
-    if (!$this->maxQueriesRun) {
-      $text = $scope->getStep()->getText();
-      if (preg_match('/send a (POST|PUT) request to "[^\"]+" with body\:$/i', $text)) {
-        $result = db_query_range("SELECT nid FROM {node} ORDER BY nid DESC", 0, 1)->fetchField();
-        if ($result) {
-          $this->maxNid = $result;
+  public function beforeStepStoreApaths(BeforeStepScope $scope) {
+    $text = $scope->getStep()->getText();
+    if (preg_match('/send a POST request to "[^\"]+" with body\:$/i', $text)) {
+      $strings = $scope->getStep()->getArguments();
+      /* @var $string \Behat\Gherkin\Node\PyStringNode */
+      foreach ($strings as $string) {
+        $json = json_decode($string->getRaw());
+        if (!empty($json->apath)) {
+          $this->apaths[] = $json->apath;
         }
-        $result = db_query_range("SELECT tid FROM {taxonomy_term_data} ORDER BY tid DESC", 0, 1)->fetchField();
-        if ($result) {
-          $this->maxTid = $result;
-        }
-        $result = db_query_range("SELECT rid FROM {relation} ORDER BY rid DESC", 0, 1)->fetchField();
-        if ($result) {
-          $this->maxRid = $result;
-        }
-        $this->maxQueriesRun = TRUE;
       }
+    }
+    elseif (preg_match('/send a PUT request to "[^\"]+\/(?<apath>[^\.]+)\.json" with body\:$/i', $text, $matches)) {
+      $this->apaths[] = $matches['apath'];
     }
   }
 
   /**
-   * Delete entities above maximum ids.
+   * Delete articles for the store article ids.
    *
    * @AfterScenario
    */
-  public function afterScenario() {
-    if ($this->maxQueriesRun) {
-      $results = db_select('node', 'n')
-        ->fields('n', array('nid'))
-        ->condition('n.nid', $this->maxNid, '>')
-        ->execute();
-
-      $nids = array();
-      foreach ($results as $result) {
-        $nids[] = $result->nid;
-      }
-
-      if (!empty($nids)) {
-        node_delete_multiple($nids);
-      }
-
-      $results = db_select('taxonomy_term_data', 't')
-        ->fields('t', array('tid'))
-        ->condition('t.tid', $this->maxTid, '>')
-        ->execute();
-
-      foreach ($results as $result) {
-        taxonomy_term_delete($result->tid);
-      }
-
-      $results = db_select('relation', 'r')
-        ->fields('r', array('rid'))
-        ->condition('r.rid', $this->maxRid, '>')
-        ->execute();
-
-      $rids = array();
-      foreach ($results as $result) {
-        $rids[] = $result->rid;
-      }
-
-      if (!empty($rids)) {
-        relation_delete_multiple($rids);
+  public function cleanApaths() {
+    if (!empty($this->apaths)) {
+      module_load_include('inc', 'elife_services', 'resources/article');
+      foreach ($this->apaths as $article_id) {
+        _elife_services_article_delete($article_id, FALSE);
       }
     }
   }
