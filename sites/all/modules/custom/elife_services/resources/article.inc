@@ -49,7 +49,7 @@ function _elife_services_article_delete_access($apath) {
 }
 
 /**
- * Callback function for elife_article retrieve.
+ * Retrieve raw article entity.
  *
  * @param string $apath
  * @param string $bundle
@@ -57,13 +57,99 @@ function _elife_services_article_delete_access($apath) {
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve($apath, $bundle = 'elife_article', $trigger_error = TRUE) {
+function _elife_services_article_retrieve_raw($apath, $bundle = 'elife_article') {
   $article = ElifeArticle::fromApath($apath, TRUE, $bundle);
-  if ($trigger_error && empty($article->nid)) {
+  if (empty($article->nid)) {
     return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
   }
 
   return $article;
+}
+
+/**
+ * Callback function for elife_article retrieve.
+ *
+ * @param string $apath
+ * @param string $bundle
+ * @return bool|mixed
+ * @throws ServicesException
+ */
+function _elife_services_article_retrieve($apath, $bundle = 'elife_article') {
+  $article = _elife_services_article_retrieve_raw($apath, $bundle);
+  return _elife_services_article_prepare_json($article);
+}
+
+function _elife_services_article_prepare_json($article, $apath = NULL) {
+  $ewrapper = entity_metadata_wrapper('node', $article);
+
+  if (!$apath) {
+    $apath = $ewrapper->field_elife_a_apath->value();
+    $apath = (is_array($apath)) ? reset($apath) : $apath;
+  }
+
+  $top_level = array(
+    'title' => array(
+      'field' => 'field_elife_a_full_title',
+      'type' => 'string',
+    ),
+    'impact-statement' => array(
+      'field' => 'field_elife_a_author_imp',
+      'type' => 'string',
+    ),
+    'doi' => array(
+      'field' => 'field_elife_a_doi',
+      'type' => 'string',
+    ),
+    'volume' => array(
+      'field' => 'field_elife_a_volume',
+      'type' => 'int',
+    ),
+    'article-id' => array(
+      'field' => 'field_elife_a_article_id',
+      'type' => 'string',
+    ),
+    'version' => array(
+      'field' => 'field_elife_a_version',
+      'type' => 'int',
+    ),
+    'apath' => $apath,
+    'status' => array(
+      'field' => 'status',
+      'type' => 'int',
+    ),
+    'path' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getPath',
+    ),
+    'article-type' => array(
+      'field' => 'field_elife_a_article_type',
+      'type' => 'string',
+    ),
+  );
+
+  $json = array();
+
+  foreach ($top_level as $key => $value) {
+    $get = NULL;
+    if (isset($value['field'])) {
+      $get = $ewrapper->{$value['field']}->value();
+
+      if (is_array($get)) {
+        $get = reset($get);
+      }
+    }
+    elseif (isset($value['custom'])) {
+      $get = call_user_func_array($value['custom'], array($apath));
+    }
+    else {
+      $get = $value;
+    }
+
+    if ($get) {
+      $json[$key] = $get;
+    }
+  }
+
+  return $json;
 }
 
 /**
@@ -79,7 +165,8 @@ function _elife_services_article_create($data) {
   );
 
   $article = entity_create('node', $values);
-  return _elife_services_article_update_values($article, $data, TRUE);
+  $article = _elife_services_article_update_values($article, $data, TRUE);
+  return _elife_services_article_prepare_json($article);
 }
 
 /**
@@ -90,9 +177,10 @@ function _elife_services_article_create($data) {
  * @return mixed
  */
 function _elife_services_article_update($apath, $data) {
-  $article = _elife_services_article_retrieve($apath);
+  $article = _elife_services_article_retrieve_raw($apath);
 
-  return _elife_services_article_update_values($article, $data);
+  $article = _elife_services_article_update_values($article, $data);
+  return _elife_services_article_prepare_json($article);
 }
 
 /**
@@ -109,7 +197,7 @@ function _elife_services_article_update($apath, $data) {
  * @throws Exception
  */
 function _elife_services_article_delete($apath, $trigger_error = TRUE) {
-  $article = _elife_services_article_retrieve($apath, 'elife_article', $trigger_error);
+  $article = _elife_services_article_retrieve_raw($apath, 'elife_article', $trigger_error);
 
   if ($article) {
     $ewrapper = entity_metadata_wrapper('node', $article);
@@ -147,10 +235,12 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'title',
       'article-type',
       'doi',
+      'volume',
       'pdate',
       'version',
       'path',
       'apath',
+
     );
   }
 
@@ -208,6 +298,18 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     );
     $ewrapper->field_elife_a_full_title->set($set);
     $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
+  }
+
+  // Set as published or unpublished.
+  if (isset($data['status'])) {
+    $ewrapper->status->set($data['status']);
+    // @todo - elife - nlisgo - ensure that access to child nodes is dependant on parent node being published.
+    // @todo - elife - nlisgo - if this is VOR and there is a POA version of this article then if status is 1 then we should set the updated date.
+  }
+
+  // Set the volume number.
+  if (isset($data['volume'])) {
+    $ewrapper->field_elife_a_volume->set($data['volume']);
   }
 
   if (isset($data['article-type'])) {
@@ -400,7 +502,7 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
   }
 
   if (!$new) {
-    $child = _elife_services_article_retrieve($data['apath'], $type);
+    $child = _elife_services_article_retrieve_raw($data['apath'], $type);
   }
   else {
     $values = array(
