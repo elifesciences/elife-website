@@ -1,3 +1,4 @@
+@api
 Feature: Article Resource - PUT (API)
   In order to maintain article content
   As a production system

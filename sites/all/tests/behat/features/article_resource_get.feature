@@ -1,3 +1,4 @@
+@api
 Feature: Article Resource - GET (API)
   In order to access article content
   As a production system
