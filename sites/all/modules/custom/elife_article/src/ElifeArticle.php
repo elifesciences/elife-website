@@ -225,6 +225,17 @@ class ElifeArticle {
   }
 
   /**
+   * Get path for supplied apath.
+   *
+   * @param string $apath
+   * @return string
+   */
+  public static function getPath($apath) {
+    $article_nid = self::fromApath($apath, FALSE);
+    return drupal_get_path_alias('node/' . $article_nid);
+  }
+
+  /**
    * Validate the doi string.
    *
    * @param string $doi
