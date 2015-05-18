@@ -12,4 +12,9 @@ Feature: Article Resource - DELETE (API)
     And I send a DELETE request to "api/article/05224.json"
     And the response code should be 200
     And I send a GET request to "api/article/05224.json"
-    And the response code should be 404
+    Then the response code should be 404
+
+  Scenario: Attempt to delete an article that isn't present
+    Given I set header "Content-Type" with value "application/json"
+    And I send a DELETE request to "api/article/05224.json"
+    Then the response code should be 404

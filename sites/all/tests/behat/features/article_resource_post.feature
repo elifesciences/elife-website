@@ -39,10 +39,50 @@ Feature: Article Resource - POST (API)
           "early": 0
         }
       """
-    And the response code should be 406
+    Then response code should be 406
     And response should contain "Invalid value provided: doi"
 
     Examples:
       | invalid_doi |
       | invalid doi |
       | 10.7554/eLife.0522 |
+
+  @api
+  Scenario: Post an article with an id that isn't unique
+    Given "elife_article" content:
+      | title     | status | field_elife_a_apath |
+      | VOR 05227 | 1      | 05227               |
+    And I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05227",
+          "version": 1,
+          "doi": "10.7554/eLife.05227",
+          "article-id": "10.7554/eLife.05227",
+          "apath": "05227",
+          "pdate": "1979-08-17",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "early": 0
+        }
+      """
+    Then response code should be 406
+    And response should contain "Invalid value provided: apath (must be unique)"
+
+  Scenario Outline: Attempt to post an article with all required fields
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          <required_data>
+        }
+      """
+    Then response code should be 406
+    And response should contain "No value provided for required: <field_errors>"
+
+    Examples:
+      | required_data | field_errors |
+      |  | title, article-type, doi, pdate, version, path, apath |
+      | "title":"Title" | article-type, doi, pdate, version, path, apath |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, pdate, version, apath |
