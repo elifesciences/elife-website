@@ -20,6 +20,7 @@ Feature: Article Resource - DELETE (API)
           "article-type": "research-article"
         }
       """
+    And print response
     And the response code should be 200
     And I set header "Content-Type" with value "application/json"
     And I send a DELETE request to "api/article/05224.json"

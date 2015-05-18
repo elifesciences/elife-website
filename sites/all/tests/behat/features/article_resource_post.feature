@@ -21,6 +21,7 @@ Feature: Article Resource - POST (API)
           "early": 0
         }
       """
+    And print response
     And the response code should be 200
     And I go to "content/4/e05227"
     Then I should see "VOR 05227" in the "h1" element
@@ -67,6 +68,7 @@ Feature: Article Resource - POST (API)
           "early": 0
         }
       """
+    And print response
     And response code should be 200
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

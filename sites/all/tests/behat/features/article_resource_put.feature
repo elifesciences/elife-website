@@ -20,6 +20,7 @@ Feature: Article Resource - PUT (API)
           "article-type": "research-article"
         }
       """
+    And print response
     And the response code should be 200
     And I set header "Content-Type" with value "application/json"
     And I send a PUT request to "api/article/05224.json" with body:
