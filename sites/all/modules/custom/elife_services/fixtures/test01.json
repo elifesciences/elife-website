@@ -1,10 +1,12 @@
 {
-  "impact-statement": "<strong>Impact</strong> statement",
   "title": "Test title",
+  "impact-statement": "<strong>Impact</strong> statement",
   "doi": "10.7554/eLife.05224",
+  "volume": 4,
   "article-id": "10.7554/eLife.05224",
   "version": 1,
   "apath": "05224",
+  "status": 1,
   "pdate": "1979-08-17",
   "path": "content/4/e05224",
   "article-type": "research-article",
