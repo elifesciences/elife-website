@@ -503,6 +503,21 @@ hwp|http://schema.highwire.org/Journal',
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_elife_a_volume'
+  $field_bases['field_elife_a_volume'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_volume',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_elife_category_type'
   $field_bases['field_elife_category_type'] = array(
     'active' => 1,
