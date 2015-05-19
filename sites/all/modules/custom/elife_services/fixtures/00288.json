@@ -1,0 +1,322 @@
+{
+  "title": "Rapid localized spread and immunologic containment define Herpes simplex virus-2 reactivation in the human genital tract",
+  "impact-statement": "A combination of detailed sampling and mathematical modeling suggests that the response of immune cells to reactivation of herpes simplex virus 2 is extremely rapid and effective within microscopic areas of genital skin.",
+  "version": 1,
+  "doi": "10.7554/eLife.00288",
+  "status": 1,
+  "volume": 2,
+  "article-id": "10.7554/eLife.00288",
+  "apath": "00288",
+  "pdate": "2013-04-16 14:06:23",
+  "path": "content/2/e06956",
+  "article-type": "research-article",
+  "early": 0,
+  "contributors": [
+    {
+      "type": "author",
+      "corresp": "yes",
+      "id": "author-1921",
+      "surname": "Schiffer",
+      "given-names": "Joshua T",
+      "affiliations": [
+        "aff1",
+        "aff2"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, K23 AI087206",
+        "National Center For Advancing Translational Sciences of the National Institutes of Health, UL1TR000423"
+      ],
+      "emails": [
+        "jschiffe@fhcrc.org"
+      ],
+      "contribution": "JTS, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article, Contributed unpublished essential data or reagents"
+    }
+  ],
+  "affiliations": {
+    "aff1": {
+      "dept": "Vaccine and Infectious Diseases Division",
+      "institution": "Fred Hutchinson Cancer Research Center",
+      "city": "Seattle",
+      "country": "United States"
+    }
+  },
+  "children": {
+    "abstract": {
+      "title": "Abstract",
+      "apath": "00288.abstract-1",
+      "doi": "10.7554/eLife.00288.001",
+      "path": "content/2/e00288/abstract-1"
+    },
+    "executive-summary": {
+      "title": "eLife digest",
+      "apath": "00288.abstract-2",
+      "doi": "10.7554/eLife.00288.002",
+      "path": "content/2/e00288/abstract-2"
+    },
+    "fragment": [
+      {
+        "type": "table-wrap",
+        "title": "Table 1.",
+        "apath": "00288.T1",
+        "doi": "10.7554/eLife.00288.003",
+        "path": "content/2/e00288/T1"
+      },
+      {
+        "type": "fig",
+        "title": "Figure 1.",
+        "apath": "00288.F1",
+        "doi": "10.7554/eLife.00288.007",
+        "path": "content/2/e00288/F1",
+        "children": [
+          {
+            "type": "supplementary-material",
+            "title": "Figure 1—source data 1.",
+            "apath": "00288.F1.DC1",
+            "doi": "10.7554/eLife.00288.008",
+            "path": "content/2/e00288/F1/DC1"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 1—figure supplement 1.",
+            "apath": "00288.F1.F2",
+            "doi": "10.7554/eLife.00288.009",
+            "path": "content/2/e00288/F1/F2"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 1—figure supplement 2.",
+            "apath": "00288.F1.F3",
+            "doi": "10.7554/eLife.00288.010",
+            "path": "content/2/e00288/F1/F3"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 1—figure supplement 3.",
+            "apath": "00288.F1.F4",
+            "doi": "10.7554/eLife.00288.011",
+            "path": "content/2/e00288/F1/F4"
+          }
+        ]
+      },
+      {
+        "type": "fig",
+        "title": "Figure 2.",
+        "apath": "00288.F5",
+        "doi": "10.7554/eLife.00288.013",
+        "path": "content/2/e00288/F5",
+        "children": [
+          {
+            "type": "supplementary-material",
+            "title": "Figure 2—source data 1.",
+            "apath": "00288.F5.DC2",
+            "doi": "10.7554/eLife.00288.014",
+            "path": "content/2/e00288/F5/DC2"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 2—figure supplement 1.",
+            "apath": "00288.F5.F6",
+            "doi": "10.7554/eLife.00288.015",
+            "path": "content/2/e00288/F5/F6"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 2—figure supplement 2.",
+            "apath": "00288.F5.F7",
+            "doi": "10.7554/eLife.00288.016",
+            "path": "content/2/e00288/F5/F7"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 2—figure supplement 3.",
+            "apath": "00288.F5.F8",
+            "doi": "10.7554/eLife.00288.017",
+            "path": "content/2/e00288/F5/F8"
+          }
+        ]
+      },
+      {
+        "type": "fig",
+        "title": "Figure 3.",
+        "apath": "00288.F9",
+        "doi": "10.7554/eLife.00288.019",
+        "path": "content/2/e00288/F9",
+        "children": [
+          {
+            "type": "fig",
+            "title": "Figure 3—figure supplement 1.",
+            "apath": "00288.F9.F10",
+            "doi": "10.7554/eLife.00288.020",
+            "path": "content/2/e00288/F9/F10"
+          }
+        ]
+      },
+      {
+        "type": "fig",
+        "title": "Figure 4.",
+        "apath": "00288.F11",
+        "doi": "10.7554/eLife.00288.021",
+        "path": "content/2/e00288/F11",
+        "children": [
+          {
+            "type": "supplementary-material",
+            "title": "Figure 4—source data 1.",
+            "apath": "00288.F11.DC3",
+            "doi": "10.7554/eLife.00288.022",
+            "path": "content/2/e00288/F11/DC3"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 4—figure supplement 1.",
+            "apath": "00288.F11.F12",
+            "doi": "10.7554/eLife.00288.023",
+            "path": "content/2/e00288/F11/F12"
+          }
+        ]
+      },
+      {
+        "type": "table-wrap",
+        "title": "Table 2.",
+        "apath": "00288.T2",
+        "doi": "10.7554/eLife.00288.024",
+        "path": "content/2/e00288/T2"
+      },
+      {
+        "type": "media",
+        "title": "Video 1.",
+        "apath": "00288.media-4",
+        "doi": "10.7554/eLife.00288.025",
+        "path": "content/2/e00288/media-4"
+      },
+      {
+        "type": "fig",
+        "title": "Figure 5.",
+        "apath": "00288.F13",
+        "doi": "10.7554/eLife.00288.026",
+        "path": "content/2/e00288/F13"
+      },
+      {
+        "type": "media",
+        "title": "Video 2.",
+        "apath": "00288.media-5",
+        "doi": "10.7554/eLife.00288.027",
+        "path": "content/2/e00288/media-5"
+      },
+      {
+        "type": "media",
+        "title": "Video 3.",
+        "apath": "00288.media-6",
+        "doi": "10.7554/eLife.00288.028",
+        "path": "content/2/e00288/media-6"
+      },
+      {
+        "type": "media",
+        "title": "Video 4.",
+        "apath": "00288.media-7",
+        "doi": "10.7554/eLife.00288.029",
+        "path": "content/2/e00288/media-7"
+      },
+      {
+        "type": "media",
+        "title": "Video 5.",
+        "apath": "00288.media-8",
+        "doi": "10.7554/eLife.00288.030",
+        "path": "content/2/e00288/media-8"
+      },
+      {
+        "type": "table-wrap",
+        "title": "Table 3.",
+        "apath": "00288.T3",
+        "doi": "10.7554/eLife.00288.031",
+        "path": "content/2/e00288/T3"
+      },
+      {
+        "type": "media",
+        "title": "Video 6.",
+        "apath": "00288.media-9",
+        "doi": "10.7554/eLife.00288.032",
+        "path": "content/2/e00288/media-9"
+      },
+      {
+        "type": "media",
+        "title": "Video 7.",
+        "apath": "00288.media-10",
+        "doi": "10.7554/eLife.00288.033",
+        "path": "content/2/e00288/media-10"
+      },
+      {
+        "type": "media",
+        "title": "Video 8.",
+        "apath": "00288.media-11",
+        "doi": "10.7554/eLife.00288.034",
+        "path": "content/2/e00288/media-11"
+      },
+      {
+        "type": "media",
+        "title": "Video 9.",
+        "apath": "00288.media-12",
+        "doi": "10.7554/eLife.00288.035",
+        "path": "content/2/e00288/media-12"
+      },
+      {
+        "type": "fig",
+        "title": "Figure 6.",
+        "apath": "00288.F14",
+        "doi": "10.7554/eLife.00288.036",
+        "path": "content/2/e00288/F14",
+        "children": [
+          {
+            "type": "fig",
+            "title": "Figure 6—figure supplement 1.",
+            "apath": "00288.F14.F15",
+            "doi": "10.7554/eLife.00288.037",
+            "path": "content/2/e00288/F14/F15"
+          },
+          {
+            "type": "fig",
+            "title": "Figure 6—figure supplement 2.",
+            "apath": "00288.F14.F16",
+            "doi": "10.7554/eLife.00288.038",
+            "path": "content/2/e00288/F14/F16"
+          }
+        ]
+      },
+      {
+        "type": "table-wrap",
+        "title": "Table 4.",
+        "apath": "00288.T4",
+        "doi": "10.7554/eLife.00288.039",
+        "path": "content/2/e00288/T4"
+      },
+      {
+        "type": "table-wrap",
+        "title": "Table 5.",
+        "apath": "00288.T5",
+        "doi": "10.7554/eLife.00288.040",
+        "path": "content/2/e00288/T5"
+      },
+      {
+        "type": "table-wrap",
+        "title": "Table 6.",
+        "apath": "00288.T6",
+        "doi": "10.7554/eLife.00288.041",
+        "path": "content/2/e00288/T6"
+      }
+    ],
+    "subcomponent": [
+      {
+        "title": "Decision letter",
+        "apath": "00288.1",
+        "doi": "10.7554/eLife.00288.042",
+        "path": "content/2/e00288/1"
+      },
+      {
+        "title": "Author response",
+        "apath": "00288.1",
+        "doi": "10.7554/eLife.00288.043",
+        "path": "content/2/e00288/2"
+      }
+    ]
+  }
+}
