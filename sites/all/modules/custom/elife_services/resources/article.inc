@@ -466,7 +466,7 @@ function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapp
           $found[] = $child->nid;
         }
         break;
-      case 'figure':
+      case 'fragment':
         $subcomponent = ($ewrapper->value()->type == 'elife_article') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
