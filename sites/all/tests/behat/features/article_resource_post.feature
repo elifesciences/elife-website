@@ -49,24 +49,11 @@ Feature: Article Resource - POST (API)
       | invalid doi |
       | 10.7554/eLife.0522 |
 
+  @api
   Scenario: Post an article with an id that isn't unique
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
-      """
-        {
-          "title": "VOR 05227",
-          "version": 1,
-          "doi": "10.7554/eLife.05227",
-          "volume": 4,
-          "article-id": "10.7554/eLife.05227",
-          "apath": "05227",
-          "pdate": "1979-08-17",
-          "path": "content/4/e05227",
-          "article-type": "research-article",
-          "early": 0
-        }
-      """
-    And response code should be 200
+    Given "elife_article" content:
+      | field_elife_a_apath |
+      | 05227               |
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """

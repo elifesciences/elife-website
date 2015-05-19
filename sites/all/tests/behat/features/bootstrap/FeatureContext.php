@@ -43,9 +43,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         }
       }
     }
-    elseif (preg_match('/send a PUT request to "[^\"]+\/(?<apath>[^\.]+)\.json" with body\:$/i', $text, $matches)) {
-      $this->apaths[] = $matches['apath'];
-    }
   }
 
   /**
