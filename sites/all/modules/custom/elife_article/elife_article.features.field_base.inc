@@ -413,13 +413,13 @@ hwp|http://schema.highwire.org/Journal',
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_a_subcomponent'
-  $field_bases['field_elife_a_subcomponent'] = array(
+  // Exported field_base: 'field_elife_a_subarticle'
+  $field_bases['field_elife_a_subarticle'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_elife_a_subcomponent',
+    'field_name' => 'field_elife_a_subarticle',
     'indexes' => array(
       'value' => array(
         0 => 'value',

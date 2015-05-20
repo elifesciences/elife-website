@@ -471,19 +471,19 @@ function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapp
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
-      case 'subcomponent':
-        $subcomponent = TRUE;
+      case 'sub-article':
+        $subarticle = TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_article', $subcomponent, $new);
+          $child = _elife_services_article_child_update_values($piece, 'elife_article', $subarticle, $new);
           $found[] = $child->nid;
         }
         break;
       case 'fragment':
-        $subcomponent = ($ewrapper->value()->type == 'elife_article') ? FALSE : TRUE;
+        $subarticle = ($ewrapper->value()->type == 'elife_article') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subcomponent, $new);
+          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new);
           $found[] = $child->nid;
         }
     }
@@ -491,7 +491,7 @@ function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapp
   $ewrapper->field_elife_a_children->set($found);
 }
 
-function _elife_services_article_child_update_values($data, $type, $subcomponent = FALSE, $new = FALSE) {
+function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE) {
   $required = array(
     'apath',
   );
@@ -567,11 +567,11 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
     $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
   }
 
-  $ewrapper->field_elife_a_subcomponent->set($subcomponent);
+  $ewrapper->field_elife_a_subarticle->set($subarticle);
 
   $ewrapper->save();
 
-  if (!$subcomponent && isset($data['children'])) {
+  if (!$subarticle && isset($data['children'])) {
     _elife_services_article_process_children($ewrapper, $data['parent'], array('fragment' => $data['children']), $new);
     // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
     $ewrapper->save();

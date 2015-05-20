@@ -693,8 +693,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_subcomponent'
-  $field_instances['node-elife_article-field_elife_a_subcomponent'] = array(
+  // Exported field_instance: 'node-elife_article-field_elife_a_subarticle'
+  $field_instances['node-elife_article-field_elife_a_subarticle'] = array(
     'bundle' => 'elife_article',
     'default_value' => array(
       0 => array(
@@ -719,8 +719,8 @@ function elife_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_a_subcomponent',
-    'label' => 'Subcomponent',
+    'field_name' => 'field_elife_a_subarticle',
+    'label' => 'Sub article',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1171,8 +1171,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_subcomponent'
-  $field_instances['node-elife_fragment-field_elife_a_subcomponent'] = array(
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_subarticle'
+  $field_instances['node-elife_fragment-field_elife_a_subarticle'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => array(
       0 => array(
@@ -1197,8 +1197,8 @@ function elife_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_a_subcomponent',
-    'label' => 'Subcomponent',
+    'field_name' => 'field_elife_a_subarticle',
+    'label' => 'Sub article',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1375,7 +1375,7 @@ function elife_article_field_default_field_instances() {
   t('Full Title');
   t('Keyword');
   t('Parent');
-  t('Subcomponent');
+  t('Sub article');
   t('Template Type');
   t('This value should be the same for all versions of an article.');
   t('Type');
