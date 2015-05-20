@@ -10,10 +10,10 @@ use Drupal\elife_article\ElifeArticle;
 /**
  * Determines an API user's access to retrieve a given article.
  *
- * @param string $apath
+ * @param string $article_ver_id
  * @return bool
  */
-function _elife_services_article_retrieve_access($apath) {
+function _elife_services_article_retrieve_access($article_ver_id) {
   // @todo - elife - nlisgo - Implement some access control.
   return TRUE;
 }
@@ -31,36 +31,37 @@ function _elife_services_article_create_access($data) {
 /**
  * Determines an API user's access to update a given article.
  *
- * @param string $apath
+ * @param string $article_ver_id
  * @return bool
  */
-function _elife_services_article_update_access($apath) {
+function _elife_services_article_update_access($article_ver_id) {
   return TRUE;
 }
 
 /**
  * Determines an API user's access to delete a given article.
  *
- * @param string $apath
+ * @param string $article_ver_id
  * @return bool
  */
-function _elife_services_article_delete_access($apath) {
+function _elife_services_article_delete_access($article_ver_id) {
   return TRUE;
 }
 
 /**
  * Retrieve raw article entity.
  *
- * @param string $apath
+ * @param string $id
  * @param string $bundle
+ * @param string $id_field
  * @param bool $trigger_error
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve_raw($apath, $bundle = 'elife_article', $trigger_error = TRUE) {
-  $article = ElifeArticle::fromApath($apath, TRUE, $bundle);
+function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
+  $article = ElifeArticle::fromIdentifier($id, TRUE, $bundle, 1, $id_field);
   if ($trigger_error && empty($article->nid)) {
-    return services_error(t('Apath @apath not found', array('@apath' => $apath)), 404);
+    return services_error(t('Article version id @id not found', array('@id' => $id)), 404);
   }
 
   return $article;
@@ -69,23 +70,23 @@ function _elife_services_article_retrieve_raw($apath, $bundle = 'elife_article',
 /**
  * Callback function for elife_article retrieve.
  *
- * @param string $apath
+ * @param string $article_ver_id
  * @param string $bundle
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve($apath, $bundle = 'elife_article') {
-  $article = _elife_services_article_retrieve_raw($apath, $bundle);
+function _elife_services_article_retrieve($article_ver_id, $bundle = 'elife_article') {
+  $article = _elife_services_article_retrieve_raw($article_ver_id, $bundle);
   return _elife_services_article_prepare_json($article);
 }
 
-function _elife_services_article_prepare_json($article, $apath = NULL) {
+function _elife_services_article_prepare_json($article, $article_ver_id = NULL) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
 
-  if (!$apath) {
-    $apath = $ewrapper->field_elife_a_apath->value();
-    $apath = (is_array($apath)) ? reset($apath) : $apath;
+  if (!$article_ver_id) {
+    $article_ver_id = $ewrapper->field_elife_a_article_version_id->value();
+    $article_ver_id = (is_array($article_ver_id)) ? reset($article_ver_id) : $article_ver_id;
   }
 
   $top_level = array(
@@ -113,7 +114,7 @@ function _elife_services_article_prepare_json($article, $apath = NULL) {
       'field' => 'field_elife_a_version',
       'type' => 'int',
     ),
-    'apath' => $apath,
+    'article-version-id' => $article_ver_id,
     'publish' => array(
       'field' => 'status',
       'type' => 'int',
@@ -143,7 +144,7 @@ function _elife_services_article_prepare_json($article, $apath = NULL) {
       }
     }
     elseif (isset($value['custom'])) {
-      $get = call_user_func_array($value['custom'], array($apath));
+      $get = call_user_func_array($value['custom'], array($article_ver_id));
     }
     else {
       $get = $value;
@@ -177,12 +178,12 @@ function _elife_services_article_create($data) {
 /**
  * Callback function for elife_article update.
  *
- * @param $apath
+ * @param $article_ver_id
  * @param $data
  * @return mixed
  */
-function _elife_services_article_update($apath, $data) {
-  $article = _elife_services_article_retrieve_raw($apath);
+function _elife_services_article_update($article_ver_id, $data) {
+  $article = _elife_services_article_retrieve_raw($article_ver_id);
 
   $article = _elife_services_article_update_values($article, $data);
   return _elife_services_article_prepare_json($article);
@@ -191,18 +192,12 @@ function _elife_services_article_update($apath, $data) {
 /**
  * Callback function for elife_article delete.
  *
- * @param $apath
- */
-
-/**
- * Callback function for elife_article delete.
- *
- * @param $apath
+ * @param $article_ver_id
  * @param bool $trigger_error
  * @throws Exception
  */
-function _elife_services_article_delete($apath, $trigger_error = TRUE) {
-  $article = _elife_services_article_retrieve_raw($apath, 'elife_article', $trigger_error);
+function _elife_services_article_delete($article_ver_id, $trigger_error = TRUE) {
+  $article = _elife_services_article_retrieve_raw($article_ver_id, 'elife_article', 'field_elife_a_article_version_id', $trigger_error);
 
   if ($article) {
     /* @var EntityDrupalWrapper $ewrapper */
@@ -245,7 +240,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'pub-date',
       'version',
       'path',
-      'apath',
+      'article-version-id',
     );
   }
 
@@ -335,13 +330,13 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_keyword->set($keywords);
   }
 
-  // Set the apath if article is new.
-  if ($new && !empty($data['apath'])) {
-    if (!ElifeArticle::uniqueApath($data['apath'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
+  // Set the article-version-id if article is new.
+  if ($new && !empty($data['article-version-id'])) {
+    if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'Article version id (must be unique)')), 406);
     }
 
-    $ewrapper->field_elife_a_apath->set($data['apath']);
+    $ewrapper->field_elife_a_article_version_id->set($data['article-version-id']);
   }
 
   if (isset($data['doi'])) {
@@ -497,7 +492,7 @@ function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapp
 
 function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE) {
   $required = array(
-    'apath',
+    'doi',
   );
 
   if ($new) {
@@ -519,7 +514,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   if (!$new) {
-    $child = _elife_services_article_retrieve_raw($data['apath'], $type);
+    $child = _elife_services_article_retrieve_raw($data['doi'], $type, 'field_elife_a_doi');
   }
   else {
     $values = array(
@@ -548,15 +543,6 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     );
     $ewrapper->field_elife_a_full_title->set($set);
     $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
-  }
-
-  // Set the apath if article is new.
-  if ($new && isset($data['apath'])) {
-    if (!ElifeArticle::uniqueApath($data['apath'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'apath (must be unique)')), 406);
-    }
-
-    $ewrapper->field_elife_a_apath->set($data['apath']);
   }
 
   if (isset($data['doi'])) {

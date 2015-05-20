@@ -6,8 +6,8 @@ Feature: Article Resource - Related (API)
   @api
   Scenario: Post an article with related content
     Given "elife_article" content:
-      | field_elife_a_full_title | field_elife_a_apath | field_elife_a_doi   | field_elife_a_early | field_elife_a_version | field_elife_a_fpubdate |
-      | VOR 05224                | 05224               | 10.7554/eLife.05224 | 0                   | 1                     | 1979-08-17             |
+      | field_elife_a_full_title | field_elife_a_article_version_id | field_elife_a_doi   | field_elife_a_early | field_elife_a_version | field_elife_a_fpubdate |
+      | VOR 05224                | 05224                            | 10.7554/eLife.05224 | 0                   | 1                     | 1979-08-17             |
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
@@ -17,7 +17,7 @@ Feature: Article Resource - Related (API)
           "doi": "10.7554/eLife.06003",
           "volume": "4",
           "article-id": "10.7554/eLife.06003",
-          "apath": "06003",
+          "article-version-id": "06003",
           "pub-date": "1979-08-17",
           "path": "content/4/e06003",
           "article-type": "research-article",
@@ -44,7 +44,7 @@ Feature: Article Resource - Related (API)
           "doi": "10.7554/eLife.05224",
           "volume": "4",
           "article-id": "10.7554/eLife.05224",
-          "apath": "05224",
+          "article-version-id": "05224",
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
@@ -76,7 +76,7 @@ Feature: Article Resource - Related (API)
           "doi": "10.7554/eLife.06003",
           "volume": "4",
           "article-id": "10.7554/eLife.06003",
-          "apath": "06003",
+          "article-version-id": "06003",
           "pub-date": "1979-08-17",
           "path": "content/4/e06003",
           "article-type": "research-article",
@@ -98,7 +98,7 @@ Feature: Article Resource - Related (API)
           "doi": "10.7554/eLife.06956",
           "volume": "4",
           "article-id": "10.7554/eLife.06956",
-          "apath": "06956",
+          "article-version-id": "06956",
           "pub-date": "1979-08-17",
           "path": "content/4/e06956",
           "article-type": "research-article",

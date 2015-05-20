@@ -15,14 +15,14 @@ class ElifeArticle {
   const DOI_PREFIX = '10.7554/eLife.';
 
   /**
-   * Verify that the apath string is unique.
+   * Verify that the article version id string is unique.
    *
-   * @param $apath
+   * @param string $article_version_id
    * @param string $bundle
    * @return bool
    */
-  public static function uniqueApath($apath, $bundle = 'elife_article') {
-    $nid = self::fromApath($apath, FALSE, $bundle);
+  public static function uniqueArticleVersionId($article_version_id, $bundle = 'elife_article') {
+    $nid = self::fromIdentifier($article_version_id, FALSE, $bundle);
 
     if (!empty($nid)) {
       return FALSE;
@@ -173,38 +173,39 @@ class ElifeArticle {
   }
 
   /**
-   * Retrieve the article node or node id from the apath.
+   * Retrieve the article node or node id from the id (default is article version id).
    *
-   * @param $apath
+   * @param string $id
    * @param bool $load
    * @param string $bundle
    * @param int $limit
+   * @param string $id_field
    * @return bool|mixed
    */
-  public static function fromApath($apath, $load = TRUE, $bundle = 'elife_article', $limit = 1) {
-    $apath_query = new EntityFieldQuery();
-    $apath_query = $apath_query
+  public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article', $limit = 1, $id_field = 'field_elife_a_article_version_id') {
+    $id_query = new EntityFieldQuery();
+    $id_query = $id_query
       ->entityCondition('entity_type', 'node')
-      ->fieldCondition('field_elife_a_apath', 'value', $apath, '=');
+      ->fieldCondition($id_field, 'value', $id, '=');
 
     if (!empty($bundle)) {
-      $apath_query = $apath_query
+      $id_query = $id_query
         ->entityCondition('bundle', $bundle);
     }
 
     if (!empty($limit)) {
-      $apath_query = $apath_query
+      $id_query = $id_query
         ->range(0, $limit);
     }
 
-    $apaths = $apath_query
+    $ids = $id_query
       ->execute();
 
-    if (empty($apaths['node'])) {
+    if (empty($ids['node'])) {
       return FALSE;
     }
     else {
-      $nids = array_keys($apaths['node']);
+      $nids = array_keys($ids['node']);
 
       if ($load) {
         $nodes = node_load_multiple($nids);
@@ -225,13 +226,13 @@ class ElifeArticle {
   }
 
   /**
-   * Get path for supplied apath.
+   * Get path for supplied article version id.
    *
-   * @param string $apath
+   * @param string $article_version_id
    * @return string
    */
-  public static function getPath($apath) {
-    $article_nid = self::fromApath($apath, FALSE);
+  public static function getPath($article_version_id) {
+    $article_nid = self::fromIdentifier($article_version_id, FALSE);
     return drupal_get_path_alias('node/' . $article_nid);
   }
 

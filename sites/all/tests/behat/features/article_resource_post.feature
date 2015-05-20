@@ -13,7 +13,7 @@ Feature: Article Resource - POST (API)
           "doi": "10.7554/eLife.05227",
           "volume": "4",
           "article-id": "10.7554/eLife.05227",
-          "apath": "05227",
+          "article-version-id": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
@@ -34,7 +34,7 @@ Feature: Article Resource - POST (API)
           "doi": "<invalid_doi>",
           "volume": "4",
           "article-id": "10.7554/eLife.05227",
-          "apath": "05227",
+          "article-version-id": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
@@ -52,8 +52,8 @@ Feature: Article Resource - POST (API)
   @api
   Scenario: Post an article with an id that isn't unique
     Given "elife_article" content:
-      | field_elife_a_apath |
-      | 05227               |
+      | field_elife_a_article_version_id |
+      | 05227                            |
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
@@ -63,7 +63,7 @@ Feature: Article Resource - POST (API)
           "doi": "10.7554/eLife.05227",
           "volume": "4",
           "article-id": "10.7554/eLife.05227",
-          "apath": "05227",
+          "article-version-id": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
@@ -71,7 +71,7 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 406
-    And response should contain "Invalid value provided: apath (must be unique)"
+    And response should contain "Invalid value provided: Article version id (must be unique)"
 
   Scenario Outline: Attempt to post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
@@ -86,6 +86,6 @@ Feature: Article Resource - POST (API)
 
     Examples:
       | required_data | field_errors |
-      |  | title, article-type, doi, volume, pub-date, version, path, apath |
-      | "title":"Title" | article-type, doi, volume, pub-date, version, path, apath |
-      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, volume, pub-date, version, apath |
+      |  | title, article-type, doi, volume, pub-date, version, path, article-version-id |
+      | "title":"Title" | article-type, doi, volume, pub-date, version, path, article-version-id |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, volume, pub-date, version, article-version-id |

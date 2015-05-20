@@ -13,11 +13,11 @@ use PHPUnit_Framework_Assert as Assertions;
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
-   * Keep track of apaths so they can be cleaned up.
+   * Keep track of article-version-id's so they can be cleaned up.
    *
    * @var array
    */
-  protected $apaths = array();
+  protected $article_version_ids = array();
 
   /**
    * Initializes context.
@@ -26,36 +26,36 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Store article ids used to POST new content so we can cleanup later.
+   * Store article version ids used to POST new content so we can cleanup later.
    *
    * @BeforeStep
    *
    * @param BeforeStepScope $scope
    */
-  public function beforeStepStoreApaths(BeforeStepScope $scope) {
+  public function beforeStepStoreArticleVersionIds(BeforeStepScope $scope) {
     $text = $scope->getStep()->getText();
     if (preg_match('/send a POST request to "[^\"]+" with body\:$/i', $text)) {
       $strings = $scope->getStep()->getArguments();
       /* @var $string \Behat\Gherkin\Node\PyStringNode */
       foreach ($strings as $string) {
         $json = json_decode($string->getRaw());
-        if (!empty($json->apath)) {
-          $this->apaths[] = $json->apath;
+        if (!empty($json->{'article-version-id'})) {
+          $this->article_version_ids[] = $json->{'article-version-id'};
         }
       }
     }
   }
 
   /**
-   * Delete articles for the store article ids.
+   * Delete articles for the stored article version ids.
    *
    * @AfterScenario
    */
-  public function cleanApaths() {
-    if (!empty($this->apaths)) {
+  public function cleanArticleVersionIds() {
+    if (!empty($this->article_version_ids)) {
       module_load_include('inc', 'elife_services', 'resources/article');
-      foreach ($this->apaths as $article_id) {
-        _elife_services_article_delete($article_id, FALSE);
+      foreach ($this->article_version_ids as $article_version_id) {
+        _elife_services_article_delete($article_version_id, FALSE);
       }
     }
   }

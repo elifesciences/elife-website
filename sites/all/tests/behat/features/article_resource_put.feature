@@ -6,8 +6,8 @@ Feature: Article Resource - PUT (API)
   @api
   Scenario: Update an article
     Given "elife_article" content:
-      | field_elife_a_full_title | field_elife_a_apath |
-      | VOR 05224                | 05224               |
+      | field_elife_a_full_title | field_elife_a_article_version_id |
+      | VOR 05224                | 05224                            |
     And I set header "Content-Type" with value "application/json"
     And I send a PUT request to "api/article/05224.json" with body:
       """
