@@ -8,7 +8,7 @@
   "article-id": "10.7554/eLife.00288",
   "apath": "00288",
   "pdate": "2013-04-16 14:06:23",
-  "path": "content/2/e06956",
+  "path": "content/2/e00288",
   "article-type": "research-article",
   "early": 0,
   "contributors": [
@@ -313,7 +313,7 @@
       },
       {
         "title": "Author response",
-        "apath": "00288.1",
+        "apath": "00288.2",
         "doi": "10.7554/eLife.00288.043",
         "path": "content/2/e00288/2"
       }
