@@ -80,6 +80,7 @@ function _elife_services_article_retrieve($apath, $bundle = 'elife_article') {
 }
 
 function _elife_services_article_prepare_json($article, $apath = NULL) {
+  /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
 
   if (!$apath) {
@@ -200,6 +201,7 @@ function _elife_services_article_delete($apath, $trigger_error = TRUE) {
   $article = _elife_services_article_retrieve_raw($apath, 'elife_article', $trigger_error);
 
   if ($article) {
+    /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $article);
 
     // Remove all child nodes.
@@ -254,40 +256,23 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
   }
 
-  // Add or amend the content alias.
-  if (!empty($data['path'])) {
-    // Check to see that path is unique.
-    if ($new && $path = path_load(array('alias' => $data['path']))) {
-      if (!empty($article->nid) && $path['source'] != 'node/' . $article->nid) {
-        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
-      }
-    }
-
-    // If the current node has a url_alias then load the values.
-    if (!empty($article->nid) && $path = path_load('node/' . $article->nid)) {
-      $article_path = $path;
-    }
-    else {
-      $article_path = array();
-    }
-
-    $article_path['alias'] = $data['path'];
-    $article_path['pathauto'] = FALSE;
-    $article->path = $article_path;
-  }
-
   // We must do this here until nlmfield has a property callback.
   if (isset($data['contributors'])) {
     // @todo - elife - nlisgo - remove this after https://www.drupal.org/node/2480791
-    nlmfield_load_library();
+    // @todo - elife - nlisgo - this needs work since refactor of json
+    /*nlmfield_load_library();
     $contributors = array();
     foreach ($data['contributors'] as $contributor) {
       $contributor = array('xml' => $contributor);
       $contributors[] = nlmfield_compute_values($contributor, 'nlmfield_contributor');
     }
-    $article->field_elife_a_contributors[LANGUAGE_NONE] = $contributors;
+    $article->field_elife_a_contributors[LANGUAGE_NONE] = $contributors;*/
   }
 
+  // This ensures that paths will not be automatically generated.
+  $article->path['pathauto'] = FALSE;
+
+  /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
 
   // Set the title.
@@ -404,6 +389,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   if (isset($data['children'])) {
     _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new);
+    // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
     $ewrapper->save();
   }
 
@@ -411,7 +397,35 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     _elife_services_article_process_related($ewrapper->field_elife_a_doi->value(), $ewrapper->nid->value(), $data['related-article']);
   }
 
+  // Add or amend the content alias.
+  if (!empty($data['path'])) {
+    $source = 'node/' . $ewrapper->nid->value();
+    // Check to see that path is unique.
+    if ($new && $path = path_load(array('alias' => $data['path']))) {
+      if ($path['source'] != $source) {
+        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+      }
+    }
+
+    _elife_services_create_path($data['path'], $source);
+  }
+
   return $ewrapper->raw();
+}
+
+function _elife_services_create_path($path, $source) {
+  $content_path = array(
+    'alias' => $path,
+    'source' => $source,
+  );
+
+  $existing = path_load(array('source' => $source));
+
+  if ($existing) {
+    $content_path += $existing;
+  }
+
+  path_save($content_path);
 }
 
 function _elife_services_article_process_related($doi, $source_nid, $related, $dest_nid = NULL) {
@@ -513,28 +527,10 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
     $child = entity_create('node', $values);
   }
 
-  // Add or amend the content alias.
-  if (isset($data['path'])) {
-    // Check to see that path is unique.
-    if ($new && $path = path_load(array('alias' => $data['path']))) {
-      if (!empty($child->nid) && $path['source'] != 'node/' . $child->nid) {
-        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
-      }
-    }
+  // This ensures that paths will not be automatically generated.
+  $child->path['pathauto'] = FALSE;
 
-    // If the current node has a url_alias then load the values.
-    if (isset($child->nid) && $path = path_load('node/' . $child->nid)) {
-      $child_path = $path;
-    }
-    else {
-      $child_path = array();
-    }
-
-    $child_path['alias'] = $data['path'];
-    $child_path['pathauto'] = FALSE;
-    $child->path = $child_path;
-  }
-
+  /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $child);
 
   if (isset($data['parent'])) {
@@ -577,8 +573,22 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
   $ewrapper->save();
 
   if (!$subcomponent && isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new);
+    _elife_services_article_process_children($ewrapper, $data['parent'], array('fragment' => $data['children']), $new);
+    // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
     $ewrapper->save();
+  }
+
+  // Add or amend the content alias.
+  if (!empty($data['path'])) {
+    $source = 'node/' . $ewrapper->nid->value();
+    // Check to see that path is unique.
+    if ($new && $path = path_load(array('alias' => $data['path']))) {
+      if ($path['source'] != $source) {
+        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+      }
+    }
+
+    _elife_services_create_path($data['path'], $source);
   }
 
   return $ewrapper->raw();
