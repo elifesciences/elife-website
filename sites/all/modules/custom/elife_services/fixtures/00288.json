@@ -31,12 +31,221 @@
         "jschiffe@fhcrc.org"
       ],
       "contribution": "JTS, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article, Contributed unpublished essential data or reagents"
+    },
+    {
+      "type": "author",
+      "id": "author-2466",
+      "surname": "Swan",
+      "given-names": "David",
+      "affiliations": [
+        "aff1"
+      ],
+      "contribution": "DS, Conception and design, Analysis and interpretation of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2467",
+      "surname": "Al Sallaq",
+      "given-names": "Ramzi",
+      "affiliations": [
+        "aff1"
+      ],
+      "contribution": "RAS, Conception and design, Analysis and interpretation of data",
+      "present_address": "College of Nursing Global, New York University, New York, United States"
+    },
+    {
+      "type": "author",
+      "id": "author-2468",
+      "surname": "Magaret",
+      "given-names": "Amalia",
+      "affiliations": [
+        "aff1",
+        "aff3"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731"
+      ],
+      "contribution": "AM, Analysis and interpretation of data, Drafting or revising the article"
+    },
+    {
+      "type": "author",
+      "id": "author-2469",
+      "surname": "Johnston",
+      "given-names": "Christine",
+      "affiliations": [
+        "aff1",
+        "aff4"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, K23 AI079394"
+      ],
+      "contribution": "CJ, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article"
+    },
+    {
+      "type": "author",
+      "id": "author-2470",
+      "surname": "Mark",
+      "given-names": "Karen E",
+      "affiliations": [
+        "aff4"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, K23 AI071257"
+      ],
+      "contribution": "KEM, Conception and design, Acquisition of data",
+      "present_address": "The Office of AIDS, California Department of Public Health, Sacramento, United States"
+    },
+    {
+      "type": "author",
+      "id": "author-2471",
+      "surname": "Selke",
+      "given-names": "Stacy",
+      "affiliations": [
+        "aff3"
+      ],
+      "contribution": "SS, Conception and design, Acquisition of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2472",
+      "surname": "Ocbamichael",
+      "given-names": "Negusse",
+      "affiliations": [
+        "aff3"
+      ],
+      "contribution": "NO, Conception and design, Acquisition of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2473",
+      "surname": "Kuntz",
+      "given-names": "Steve",
+      "affiliations": [
+        "aff3"
+      ],
+      "contribution": "SK, Conception and design, Acquisition of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2474",
+      "surname": "Zhu",
+      "given-names": "Jia",
+      "affiliations": [
+        "aff1",
+        "aff3"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, R37 AI042528"
+      ],
+      "contribution": "JZ, Acquisition of data, Analysis and interpretation of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2475",
+      "surname": "Robinson",
+      "given-names": "Barry",
+      "affiliations": [
+        "aff3"
+      ],
+      "contribution": "BR, Acquisition of data, Analysis and interpretation of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2476",
+      "surname": "Huang",
+      "given-names": "Meei-Li",
+      "affiliations": [
+        "aff3"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731"
+      ],
+      "contribution": "M-LH, Acquisition of data, Analysis and interpretation of data"
+    },
+    {
+      "type": "author",
+      "id": "author-2477",
+      "surname": "Jerome",
+      "given-names": "Keith R",
+      "affiliations": [
+        "aff3"
+      ],
+      "contribution": "KRJ, Conception and design, Drafting or revising the article"
+    },
+    {
+      "type": "author",
+      "id": "author-2478",
+      "surname": "Wald",
+      "given-names": "Anna",
+      "affiliations": [
+        "aff1",
+        "aff3",
+        "aff4",
+        "aff5"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, K24 AI07113"
+      ],
+      "contribution": "AW, Conception and design, Drafting or revising the article"
+    },
+    {
+      "type": "author",
+      "id": "author-2479",
+      "surname": "Corey",
+      "given-names": "Lawrence",
+      "affiliations": [
+        "aff1",
+        "aff3",
+        "aff4"
+      ],
+      "fundings": [
+        "National Institutes of Health, P01 AI030731",
+        "National Institutes of Health, R37 AI042528"
+      ],
+      "contribution": "LC, Conception and design, Drafting or revising the article"
+    },
+    {
+      "type": "editor",
+      "surname": "Sgaier",
+      "given-names": "Sema",
+      "affiliation": {
+        "institution": "Bill & Melinda Gates Foundation",
+        "country": "India"
+      }
     }
   ],
   "affiliations": {
     "aff1": {
       "dept": "Vaccine and Infectious Diseases Division",
       "institution": "Fred Hutchinson Cancer Research Center",
+      "city": "Seattle",
+      "country": "United States"
+    },
+    "aff2": {
+      "dept": "Department of Medicine",
+      "institution": "University of Washington",
+      "city": "Seattle",
+      "country": "United States"
+    },
+    "aff3": {
+      "dept": "Department of Laboratory Medicine",
+      "institution": "University of Washington",
+      "city": "Seattle",
+      "country": "United States"
+    },
+    "aff4": {
+      "dept": "Department of Medicine",
+      "institution": "University of Washington",
+      "city": "Seattle",
+      "country": "United States"
+    },
+    "aff5": {
+      "dept": "Department of Epidemiology",
+      "institution": "University of Washington",
       "city": "Seattle",
       "country": "United States"
     }
