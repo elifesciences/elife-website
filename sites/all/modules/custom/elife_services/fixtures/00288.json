@@ -272,6 +272,27 @@
         "path": "content/2/e00288/T1"
       },
       {
+        "type": "boxed-text",
+        "title": "Box 1.",
+        "apath": "00288.B1",
+        "doi": "10.7554/eLife.00288.004",
+        "path": "content/2/e00288/B1"
+      },
+      {
+        "type": "boxed-text",
+        "title": "Box 2.",
+        "apath": "00288.B2",
+        "doi": "10.7554/eLife.00288.005",
+        "path": "content/2/e00288/B2"
+      },
+      {
+        "type": "boxed-text",
+        "title": "Box 3.",
+        "apath": "00288.B3",
+        "doi": "10.7554/eLife.00288.006",
+        "path": "content/2/e00288/B3"
+      },
+      {
         "type": "fig",
         "title": "Figure 1.",
         "apath": "00288.F1",
@@ -309,6 +330,13 @@
         ]
       },
       {
+        "type": "boxed-text",
+        "title": "Box 4.",
+        "apath": "00288.B4",
+        "doi": "10.7554/eLife.00288.012",
+        "path": "content/2/e00288/B4"
+      },
+      {
         "type": "fig",
         "title": "Figure 2.",
         "apath": "00288.F5",
@@ -344,6 +372,13 @@
             "path": "content/2/e00288/F5/F8"
           }
         ]
+      },
+      {
+        "type": "boxed-text",
+        "title": "Box 5.",
+        "apath": "00288.B5",
+        "doi": "10.7554/eLife.00288.018",
+        "path": "content/2/e00288/B5"
       },
       {
         "type": "fig",
