@@ -14,7 +14,7 @@ Feature: Article Resource - POST (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "early": 0
@@ -35,7 +35,7 @@ Feature: Article Resource - POST (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "early": 0
@@ -64,7 +64,7 @@ Feature: Article Resource - POST (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "early": 0
@@ -86,6 +86,6 @@ Feature: Article Resource - POST (API)
 
     Examples:
       | required_data | field_errors |
-      |  | title, article-type, doi, volume, pdate, version, path, apath |
-      | "title":"Title" | article-type, doi, volume, pdate, version, path, apath |
-      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, volume, pdate, version, apath |
+      |  | title, article-type, doi, volume, pub-date, version, path, apath |
+      | "title":"Title" | article-type, doi, volume, pub-date, version, path, apath |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, volume, pub-date, version, apath |

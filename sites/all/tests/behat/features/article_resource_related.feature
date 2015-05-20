@@ -18,7 +18,7 @@ Feature: Article Resource - Related (API)
           "volume": 4,
           "article-id": "10.7554/eLife.06003",
           "apath": "06003",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e06003",
           "article-type": "research-article",
           "related-article": [
@@ -45,7 +45,7 @@ Feature: Article Resource - Related (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "related-article": [
@@ -77,7 +77,7 @@ Feature: Article Resource - Related (API)
           "volume": 4,
           "article-id": "10.7554/eLife.06003",
           "apath": "06003",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e06003",
           "article-type": "research-article",
           "related-article": [
@@ -99,7 +99,7 @@ Feature: Article Resource - Related (API)
           "volume": 4,
           "article-id": "10.7554/eLife.06956",
           "apath": "06956",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e06956",
           "article-type": "research-article",
           "related-article": [

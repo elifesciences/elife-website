@@ -18,7 +18,7 @@ Feature: Article Resource - Versions (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "early": 0
@@ -43,7 +43,7 @@ Feature: Article Resource - Versions (API)
           "volume": 4,
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
-          "pdate": "1979-08-17",
+          "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "early": 0

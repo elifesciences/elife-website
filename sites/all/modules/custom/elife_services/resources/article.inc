@@ -238,7 +238,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'article-type',
       'doi',
       'volume',
-      'pdate',
+      'pub-date',
       'version',
       'path',
       'apath',
@@ -357,8 +357,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_version->set($data['version']);
   }
 
-  if (isset($data['pdate'])) {
-    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
+  if (isset($data['pub-date'])) {
+    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
   }
 
   if (isset($data['update'])) {
@@ -564,8 +564,8 @@ function _elife_services_article_child_update_values($data, $type, $subcomponent
     $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
-  if (isset($data['pdate'])) {
-    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pdate']));
+  if (isset($data['pub-date'])) {
+    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
   }
 
   $ewrapper->field_elife_a_subcomponent->set($subcomponent);
