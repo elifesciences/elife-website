@@ -8,9 +8,6 @@ export BEHAT_PARAMS="{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\
 cd $basedir/sites/all/tests/behat
 ./bin/behat --config behat.ci.yml --tags='~@develop'
 
-cd $basedir
-sudo cat /var/log/apache2/error.log
-
 # Run simpletest
 # - drush en simpletest --yes
 # - drush cc all
