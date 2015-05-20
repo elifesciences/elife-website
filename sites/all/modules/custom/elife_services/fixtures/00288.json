@@ -1,16 +1,16 @@
 {
   "title": "Rapid localized spread and immunologic containment define Herpes simplex virus-2 reactivation in the human genital tract",
   "impact-statement": "A combination of detailed sampling and mathematical modeling suggests that the response of immune cells to reactivation of herpes simplex virus 2 is extremely rapid and effective within microscopic areas of genital skin.",
-  "version": 1,
+  "version": "1",
   "doi": "10.7554/eLife.00288",
-  "status": 1,
-  "volume": 2,
+  "publish": "1",
+  "volume": "2",
   "article-id": "10.7554/eLife.00288",
   "apath": "00288",
   "pub-date": "2013-04-16",
   "path": "content/2/e00288",
   "article-type": "research-article",
-  "early": 0,
+  "status": "VOR",
   "contributors": [
     {
       "type": "author",

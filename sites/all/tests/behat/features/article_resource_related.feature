@@ -13,9 +13,9 @@ Feature: Article Resource - Related (API)
       """
         {
           "title": "VOR 06003",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.06003",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.06003",
           "apath": "06003",
           "pub-date": "1979-08-17",
@@ -28,7 +28,7 @@ Feature: Article Resource - Related (API)
               "source": "10.7554/eLife.06003"
             }
           ],
-          "early": 0
+          "status": "VOR"
         }
       """
     And the response code should be 200
@@ -40,9 +40,9 @@ Feature: Article Resource - Related (API)
       """
         {
           "title": "VOR 05224",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.05224",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
           "pub-date": "1979-08-17",
@@ -65,16 +65,16 @@ Feature: Article Resource - Related (API)
               "source": "10.7554/eLife.06956"
             }
           ],
-          "early": 0
+          "status": "VOR"
         }
       """
     And I send a POST request to "api/article.json" with body:
       """
         {
           "title": "VOR 06003",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.06003",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.06003",
           "apath": "06003",
           "pub-date": "1979-08-17",
@@ -87,16 +87,16 @@ Feature: Article Resource - Related (API)
               "source": "10.7554/eLife.06003"
             }
           ],
-          "early": 0
+          "status": "VOR"
         }
       """
     And I send a POST request to "api/article.json" with body:
       """
         {
           "title": "VOR 06956",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.06956",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.06956",
           "apath": "06956",
           "pub-date": "1979-08-17",
@@ -114,7 +114,7 @@ Feature: Article Resource - Related (API)
               "source": "10.7554/eLife.06956"
             }
           ],
-          "early": 0
+          "status": "VOR"
         }
       """
     Then there should be 2 related article for "10.7554/eLife.05224"

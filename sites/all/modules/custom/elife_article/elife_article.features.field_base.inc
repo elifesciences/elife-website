@@ -270,31 +270,6 @@ hwp|http://schema.highwire.org/Journal',
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_a_early'
-  $field_bases['field_elife_a_early'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elife_a_early',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => '',
-        1 => '',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
-  );
-
   // Exported field_base: 'field_elife_a_fpubdate'
   $field_bases['field_elife_a_fpubdate'] = array(
     'active' => 1,
@@ -411,6 +386,31 @@ hwp|http://schema.highwire.org/Journal',
     ),
     'translatable' => 0,
     'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_elife_a_status'
+  $field_bases['field_elife_a_status'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_status',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'POA' => 'POA',
+        'VOR' => 'VOR',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_elife_a_subarticle'

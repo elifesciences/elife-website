@@ -13,15 +13,15 @@ Feature: Article Resource - Versions (API)
       """
         {
           "title": "VOR 05224",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.05224",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
-          "early": 0
+          "status": "VOR"
         }
       """
     And the response code should be 200
@@ -38,15 +38,15 @@ Feature: Article Resource - Versions (API)
       """
         {
           "title": "VOR 05224",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.05224",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05224",
           "apath": "05224",
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
-          "early": 0
+          "status": "VOR"
         }
       """
     And the response code should be 200

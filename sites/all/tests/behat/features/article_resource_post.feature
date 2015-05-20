@@ -9,15 +9,15 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.05227",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "early": 0
+          "status": "VOR"
         }
       """
     And the response code should be 200
@@ -30,15 +30,15 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": 1,
+          "version": "1",
           "doi": "<invalid_doi>",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "early": 0
+          "status": "VOR"
         }
       """
     Then response code should be 406
@@ -59,15 +59,15 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": 1,
+          "version": "1",
           "doi": "10.7554/eLife.05227",
-          "volume": 4,
+          "volume": "4",
           "article-id": "10.7554/eLife.05227",
           "apath": "05227",
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "early": 0
+          "status": "VOR"
         }
       """
     Then response code should be 406

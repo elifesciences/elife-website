@@ -114,9 +114,13 @@ function _elife_services_article_prepare_json($article, $apath = NULL) {
       'type' => 'int',
     ),
     'apath' => $apath,
-    'status' => array(
+    'publish' => array(
       'field' => 'status',
       'type' => 'int',
+    ),
+    'status' => array(
+      'field' => 'field_elife_a_status',
+      'type' => 'string',
     ),
     'path' => array(
       'custom' => 'Drupal\elife_article\ElifeArticle::getPath',
@@ -285,10 +289,10 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   // Set as published or unpublished.
-  if (isset($data['status'])) {
-    $ewrapper->status->set($data['status']);
+  if (isset($data['publish'])) {
+    $ewrapper->status->set($data['publish']);
     // @todo - elife - nlisgo - ensure that access to child nodes is dependant on parent node being published.
-    // @todo - elife - nlisgo - if this is VOR and there is a POA version of this article then if status is 1 then we should set the updated date.
+    // @todo - elife - nlisgo - if this is VOR and there is a POA version of this article then if publish is 1 then we should set the updated date.
   }
 
   // Set the volume number.
@@ -364,8 +368,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_update->set(_elife_services_article_prepare_date($data['update']));
   }
 
-  if (isset($data['early'])) {
-    $ewrapper->field_elife_a_early->set(!empty($data['early']));
+  if (isset($data['status'])) {
+    $ewrapper->field_elife_a_status->set($data['status']);
   }
 
   if (isset($data['impact-statement'])) {

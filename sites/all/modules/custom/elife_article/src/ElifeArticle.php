@@ -43,7 +43,7 @@ class ElifeArticle {
    */
   public static function poaFromDoi($doi, $load = TRUE, $limit = 1) {
     $conditions = array(
-      'field_elife_a_early' => 1,
+      'field_elife_a_status' => 'POA',
     );
 
     return self::fromId($doi, $load, 'elife_article', $conditions, $limit, 'field_elife_a_doi');
@@ -58,7 +58,7 @@ class ElifeArticle {
    */
   public static function vorFromDoi($doi, $load = TRUE) {
     $conditions = array(
-      'field_elife_a_early' => 0,
+      'field_elife_a_status' => 'VOR',
     );
 
     return self::fromId($doi, $load, 'elife_article', $conditions, 1, 'field_elife_a_doi');
@@ -76,7 +76,7 @@ class ElifeArticle {
    */
   public static function poaFromId($article_id, $load = TRUE, $limit = 1) {
     $conditions = array(
-      'field_elife_a_early' => 1,
+      'field_elife_a_status' => 'POA',
     );
 
     return self::fromId($article_id, $load, 'elife_article', $conditions, $limit);
@@ -91,7 +91,7 @@ class ElifeArticle {
    */
   public static function vorFromId($article_id, $load = TRUE) {
     $conditions = array(
-      'field_elife_a_early' => 0,
+      'field_elife_a_status' => 'VOR',
     );
 
     return self::fromId($article_id, $load, 'elife_article', $conditions, 1);
@@ -114,7 +114,7 @@ class ElifeArticle {
       ->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', $bundle)
       ->fieldCondition($id_field, 'value', $article_id, '=')
-      ->fieldOrderBy('field_elife_a_early', 'value', 'ASC')
+      ->fieldOrderBy('field_elife_a_status', 'value', 'DESC')
       ->fieldOrderBy('field_elife_a_version', 'value', 'DESC')
       ->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
 
