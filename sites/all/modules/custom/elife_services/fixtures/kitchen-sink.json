@@ -1,0 +1,341 @@
+{
+  "title": "Bacterial regulation of colony development in the closest living relatives of animals",
+  "impact-statement": "The chemical nature of RIF-1 may reveal a new class of bacterial signaling molecules.",
+  "version": 1,
+  "doi": "10.7554/eLife.00013",
+  "status": 1,
+  "volume": 3,
+  "article-id": "10.7554/eLife.00013",
+  "apath": "00013",
+  "pub-date": "2014-02-s8",
+  "path": "content/2/e00013",
+  "article-type": "research-article",
+  "early": 0,
+  "contributors": [
+    {
+      "type": "author",
+      "equal-contrib": "yes",
+      "id": "author-23",
+      "surname": "Alegado",
+      "given-names": "Rosanna A",
+      "suffix": "Jnr",
+      "affiliations": [
+        "aff1",
+        "aff2"
+      ],
+      "equal-contribs": [
+        "equal-contrib"
+      ],
+      "fundings": [
+        "par-1",
+        "par-2"
+      ],
+      "contribution": [
+        "con1"
+      ],
+      "competing-interests": [
+        "conf2"
+      ],
+      "present_address": [
+        "pa1"
+      ],
+      "related-objects": [
+        "dataro1",
+        "dataro2"
+      ]
+    },
+    {
+      "type": "author",
+      "equal-contrib": "yes",
+      "id": "author-17",
+      "surname": "Brown",
+      "given-names": "Laura W",
+      "orcid": "http://orcid.org/0000-0002-7361-560X",
+      "affiliations": [
+        "aff2"
+      ],
+      "equal-contribs": [
+        "equal-contrib"
+      ],
+      "fundings": [
+        "par-1",
+        "par-3"
+      ],
+      "contributions": [
+        "con2"
+      ],
+      "competing-interests": [
+        "conf2"
+      ],
+      "present_addresses": [
+        "pa2"
+      ]
+    },
+    {
+      "type": "author",
+      "id": "author-3",
+      "surname": "Cao",
+      "given-names": "Shugeng",
+      "affiliations": [
+        "aff2"
+      ],
+      "equal-contribs": [
+        "equal-contrib2"
+      ],
+      "contributions": [
+        "con3"
+      ],
+      "competing-interests": [
+        "conf2"
+      ]
+    },
+    {
+      "type": "author",
+      "id": "author-4",
+      "surname": "Dermenjian",
+      "given-names": "Renee Kathryn",
+      "affiliations": [
+        "aff2"
+      ],
+      "equal-contribs": [
+        "equal-contrib2"
+      ],
+      "contributions": [
+        "con4"
+      ],
+      "competing-interests": [
+        "conf2"
+      ],
+      "present_addresses": [
+        "pa3"
+      ]
+    },
+    {
+      "type": "author",
+      "deceased": "yes",
+      "id": "author-5",
+      "surname": "Zuzow",
+      "given-names": "Richard",
+      "affiliations": [
+        "aff3"
+      ],
+      "contributions": [
+        "con5"
+      ],
+      "competing-interests": [
+        "conf2"
+      ]
+    },
+    {
+      "type": "author",
+      "id": "author-6",
+      "surname": "Fairclough",
+      "given-names": "Stephen R",
+      "affiliations": [
+        "aff1"
+      ],
+      "fundings": [
+        "par-6"
+      ],
+      "contributions": [
+        "con6"
+      ],
+      "competing-interests": [
+        "conf2"
+      ]
+    },
+    {
+      "type": "author",
+      "corresp": "yes",
+      "id": "author-7",
+      "surname": "Clardy",
+      "given-names": "Jon",
+      "affiliations": [
+        "aff2"
+      ],
+      "corresps": [
+        "cor1"
+      ],
+      "fundings": [
+        "par-4",
+        "par-5"
+      ],
+      "contributions": [
+        "con7"
+      ],
+      "competing-interests": [
+        "conf1"
+      ]
+    },
+    {
+      "type": "author",
+      "corresp": "yes",
+      "id": "author-8",
+      "surname": "King",
+      "given-names": "Nicole",
+      "affiliations": [
+        "aff1"
+      ],
+      "corresps": [
+        "cor2"
+      ],
+      "fundings": [
+        "par-1",
+        "par-2",
+        "par-3",
+        "par-4",
+        "par-5"
+      ],
+      "contributions": [
+        "con8"
+      ],
+      "competing-interests": [
+        "conf2"
+      ]
+    },
+    {
+      "type": "author",
+      "corresp": "yes",
+      "group-author-key": "group-author-id1",
+      "collab": "NISC Comparative Sequencing Program",
+      "affiliations": [
+        "aff3"
+      ],
+      "corresps": [
+        "cor3"
+      ],
+      "fundings": [
+        "par-7"
+      ],
+      "contributions": [
+        "con9"
+      ],
+      "competing-interests": [
+        "conf2"
+      ]
+    }
+  ],
+  "equal-contrib": {
+    "equal-contrib": "These authors contributed equally to this work",
+    "equal-contrib2": "These authors contributed equally to this work"
+  },
+  "corresps": {
+    "cor1": "jon_clardy@hms.harvard.edu",
+    "cor2": "nking@berkeley.edu",
+    "cor3": "mharrison@elifesciences.org"
+  },
+  "fundings": {
+    "par-1": {
+      "id": "dx.doi.org/10.13039/100000011",
+      "id-type": "FundRef",
+      "institution": "Howard Hughes Medical Institute",
+      "institution-type": "university"
+    },
+    "par-2": {
+      "id": "dx.doi.org/10.13039/100000002",
+      "id-type": "FundRef",
+      "institution": "National Institutes of Health",
+      "institution-type": "university",
+      "award-id": "F32 GM086054"
+    },
+    "par-3": {
+      "id": "dx.doi.org/10.13039/100000002",
+      "id-type": "FundRef",
+      "institution": "National Institutes of Health",
+      "institution-type": "university",
+      "award-id": "F32 GM089018"
+    },
+    "par-4": {
+      "id": "dx.doi.org/10.13039/100000002",
+      "id-type": "FundRef",
+      "institution": "National Institutes of Health",
+      "institution-type": "university",
+      "award-id": "R01 GM086258"
+    },
+    "par-5": {
+      "id": "dx.doi.org/10.13039/100000002",
+      "id-type": "FundRef",
+      "institution": "National Institutes of Health",
+      "institution-type": "university",
+      "award-id": "R01 GM099533"
+    },
+    "par-6": {
+      "id": "dx.doi.org/10.13039/100000002",
+      "id-type": "FundRef",
+      "institution": "National Institutes of Health",
+      "institution-type": "university",
+      "award-id": "T32 HG00047"
+    },
+    "par-7": {
+      "institution": "Laura and John Arnold Foundation",
+      "institution-type": "university",
+      "statement": "The funders had no role in study design; collection, analysis, and interpretation of data; writing the article; and or the decision to submit to the journal."
+    }
+  },
+  "competing-interests": {
+    "conf1": "JC: Reviewing editor, <italic>eLife</italic>.",
+    "conf2": "The other authors declare that no competing interests exist."
+  },
+  "contributions": {
+    "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
+    "con2": "LWB, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
+    "con3": "CS, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
+    "con4": "RKD, Acquisition of data, Analysis and interpretation of data",
+    "con5": "RZ, Acquisition of data, Analysis and interpretation of data",
+    "con6": "SRF, Acquisition of data, Analysis and interpretation of data",
+    "con7": "JC, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
+    "con8": "NK, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
+    "con9": "NISC Comparative Sequencing Program: JM did X, IM did Y and JB did Z and Y"
+  },
+  "present_addresses": {
+    "pa1": "Department of Wellcome Trust, Sanger Institute, London, United Kingdom",
+    "pa2": "Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, United States",
+    "pa3": "eLife Sciences editorial Office, eLife Sciences, Cambridge, United Kingdom"
+  },
+  "affiliations": {
+    "aff1": {
+      "label": 1,
+      "dept": "Department of Molecular and Cell Biology",
+      "institution": "University of California, Berkeley",
+      "city": "Berkeley",
+      "country": "United States"
+    },
+    "aff2": {
+      "label": 2,
+      "dept": "Department of Biological Chemistry and Molecular Pharmacology",
+      "institution": "Harvard Medical School",
+      "city": "Boston",
+      "country": "United States"
+    },
+    "aff3": {
+      "label": 3,
+      "dept": "Department of Biochemistry",
+      "institution": "Stanford University School of Medicine",
+      "city": "Stanford",
+      "country": "United States"
+    }
+  },
+  "related-objects": {
+    "dataro1": {
+      "type": "generated-dataset",
+      "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",
+      "source-id-type": "uri",
+      "year": 2011,
+      "source": "A protein complex essential initiation of DNA replication",
+      "comment": "Publicly available at RCSB Protein Data Bank."
+    },
+    "dataro2": {
+      "type": "generated-dataset",
+      "source-id": "http://www.ncbi.nlm.nih.gov/sra/SRX528181",
+      "source-id-type": "uri",
+      "year": 2014,
+      "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
+      "comment": "Publicly available at NCBI Short Read Archive."
+    }
+  },
+  "children": {
+    "fragment": [],
+    "subcomponent": []
+  },
+  "citations": []
+}
