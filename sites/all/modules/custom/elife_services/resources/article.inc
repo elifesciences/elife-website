@@ -242,7 +242,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'version',
       'path',
       'apath',
-
     );
   }
 
