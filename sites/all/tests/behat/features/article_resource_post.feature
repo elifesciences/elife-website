@@ -73,7 +73,7 @@ Feature: Article Resource - POST (API)
     Then response code should be 406
     And response should contain "Invalid value provided: apath (must be unique)"
 
-  Scenario Outline: Attempt to post an article with all required fields
+  Scenario Outline: Attempt to post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
