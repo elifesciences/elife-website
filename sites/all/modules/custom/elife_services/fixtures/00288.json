@@ -23,14 +23,16 @@
         "aff2"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, K23 AI087206",
-        "National Center For Advancing Translational Sciences of the National Institutes of Health, UL1TR000423"
+        "par-1",
+        "par-4",
+        "par-7"
       ],
       "emails": [
-        "jschiffe@fhcrc.org"
+        "cor1"
       ],
-      "contribution": "JTS, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article, Contributed unpublished essential data or reagents"
+      "contributions": [
+        "con1"
+      ]
     },
     {
       "type": "author",
@@ -40,7 +42,9 @@
       "affiliations": [
         "aff1"
       ],
-      "contribution": "DS, Conception and design, Analysis and interpretation of data"
+      "contributions": [
+        "con2"
+      ]
     },
     {
       "type": "author",
@@ -50,8 +54,12 @@
       "affiliations": [
         "aff1"
       ],
-      "contribution": "RAS, Conception and design, Analysis and interpretation of data",
-      "present_address": "College of Nursing Global, New York University, New York, United States"
+      "contributions": [
+        "con3"
+      ],
+      "present_addresses": [
+        "pa1"
+      ]
     },
     {
       "type": "author",
@@ -63,9 +71,11 @@
         "aff3"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731"
+        "par-1"
       ],
-      "contribution": "AM, Analysis and interpretation of data, Drafting or revising the article"
+      "contributions": [
+        "con4"
+      ]
     },
     {
       "type": "author",
@@ -77,10 +87,12 @@
         "aff4"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, K23 AI079394"
+        "par-1",
+        "par-5"
       ],
-      "contribution": "CJ, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article"
+      "contributions": [
+        "con5"
+      ]
     },
     {
       "type": "author",
@@ -91,11 +103,15 @@
         "aff4"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, K23 AI071257"
+        "par-1",
+        "par-6"
       ],
-      "contribution": "KEM, Conception and design, Acquisition of data",
-      "present_address": "The Office of AIDS, California Department of Public Health, Sacramento, United States"
+      "contributions": [
+        "con6"
+      ],
+      "present_addresses": [
+        "pa2"
+      ]
     },
     {
       "type": "author",
@@ -105,7 +121,9 @@
       "affiliations": [
         "aff3"
       ],
-      "contribution": "SS, Conception and design, Acquisition of data"
+      "contributions": [
+        "con7"
+      ]
     },
     {
       "type": "author",
@@ -115,7 +133,9 @@
       "affiliations": [
         "aff3"
       ],
-      "contribution": "NO, Conception and design, Acquisition of data"
+      "contributions": [
+        "con8"
+      ]
     },
     {
       "type": "author",
@@ -125,7 +145,9 @@
       "affiliations": [
         "aff3"
       ],
-      "contribution": "SK, Conception and design, Acquisition of data"
+      "contributions": [
+        "con9"
+      ]
     },
     {
       "type": "author",
@@ -137,10 +159,12 @@
         "aff3"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, R37 AI042528"
+        "par-1",
+        "par-2"
       ],
-      "contribution": "JZ, Acquisition of data, Analysis and interpretation of data"
+      "contributions": [
+        "con10"
+      ]
     },
     {
       "type": "author",
@@ -150,7 +174,9 @@
       "affiliations": [
         "aff3"
       ],
-      "contribution": "BR, Acquisition of data, Analysis and interpretation of data"
+      "contributions": [
+        "con11"
+      ]
     },
     {
       "type": "author",
@@ -161,9 +187,11 @@
         "aff3"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731"
+        "par-1"
       ],
-      "contribution": "M-LH, Acquisition of data, Analysis and interpretation of data"
+      "contributions": [
+        "con12"
+      ]
     },
     {
       "type": "author",
@@ -173,7 +201,9 @@
       "affiliations": [
         "aff3"
       ],
-      "contribution": "KRJ, Conception and design, Drafting or revising the article"
+      "contributions": [
+        "con13"
+      ]
     },
     {
       "type": "author",
@@ -187,10 +217,12 @@
         "aff5"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, K24 AI07113"
+        "par-1",
+        "par-3"
       ],
-      "contribution": "AW, Conception and design, Drafting or revising the article"
+      "contributions": [
+        "con14"
+      ]
     },
     {
       "type": "author",
@@ -203,10 +235,12 @@
         "aff4"
       ],
       "fundings": [
-        "National Institutes of Health, P01 AI030731",
-        "National Institutes of Health, R37 AI042528"
+        "par-1",
+        "par-2"
       ],
-      "contribution": "LC, Conception and design, Drafting or revising the article"
+      "contributions": [
+        "con15"
+      ]
     },
     {
       "type": "editor",
@@ -218,6 +252,60 @@
       }
     }
   ],
+  "emails": {
+    "cor1": "jschiffe@fhcrc.org"
+  },
+  "fundings": {
+    "par-1": {
+      "institution": "National Institutes of Health",
+      "award-id": "P01 AI030731"
+    },
+    "par-2": {
+      "institution": "National Institutes of Health",
+      "award-id": "R37 AI042528"
+    },
+    "par-3": {
+      "institution": "National Institutes of Health",
+      "award-id": "K24 AI07113"
+    },
+    "par-4": {
+      "institution": "National Institutes of Health",
+      "award-id": "K23 AI087206"
+    },
+    "par-5": {
+      "institution": "National Institutes of Health",
+      "award-id": "K23 AI079394"
+    },
+    "par-6": {
+      "institution": "National Institutes of Health",
+      "award-id": "K23 AI071257"
+    },
+    "par-7": {
+      "institution": "National Center For Advancing Translational Sciences of the National Institutes of Health",
+      "award-id": "UL1TR000423"
+    }
+  },
+  "contributions": {
+    "con1": "JTS, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article, Contributed unpublished essential data or reagents",
+    "con2": "DS, Conception and design, Analysis and interpretation of data",
+    "con3": "RAS, Conception and design, Analysis and interpretation of data",
+    "con4": "AM, Analysis and interpretation of data, Drafting or revising the article",
+    "con5": "CJ, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
+    "con6": "KEM, Conception and design, Acquisition of data",
+    "con7": "SS, Conception and design, Acquisition of data",
+    "con8": "NO, Conception and design, Acquisition of data",
+    "con9": "SK, Conception and design, Acquisition of data",
+    "con10": "JZ, Acquisition of data, Analysis and interpretation of data",
+    "con11": "BR, Acquisition of data, Analysis and interpretation of data",
+    "con12": "M-LH, Acquisition of data, Analysis and interpretation of data",
+    "con13": "KRJ, Conception and design, Drafting or revising the article",
+    "con14": "AW, Conception and design, Drafting or revising the article",
+    "con15": "LC, Conception and design, Drafting or revising the article"
+  },
+  "present_addresses": {
+    "pa1": "College of Nursing Global, New York University, New York, United States",
+    "pa2": "The Office of AIDS, California Department of Public Health, Sacramento, United States"
+  },
   "affiliations": {
     "aff1": {
       "dept": "Vaccine and Infectious Diseases Division",
