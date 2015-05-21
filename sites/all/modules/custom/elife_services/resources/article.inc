@@ -10,10 +10,10 @@ use Drupal\elife_article\ElifeArticle;
 /**
  * Determines an API user's access to retrieve a given article.
  *
- * @param string $article_ver_id
+ * @param string $article_version_id
  * @return bool
  */
-function _elife_services_article_retrieve_access($article_ver_id) {
+function _elife_services_article_retrieve_access($article_version_id) {
   // @todo - elife - nlisgo - Implement some access control.
   return TRUE;
 }
@@ -31,20 +31,20 @@ function _elife_services_article_create_access($data) {
 /**
  * Determines an API user's access to update a given article.
  *
- * @param string $article_ver_id
+ * @param string $article_version_id
  * @return bool
  */
-function _elife_services_article_update_access($article_ver_id) {
+function _elife_services_article_update_access($article_version_id) {
   return TRUE;
 }
 
 /**
  * Determines an API user's access to delete a given article.
  *
- * @param string $article_ver_id
+ * @param string $article_version_id
  * @return bool
  */
-function _elife_services_article_delete_access($article_ver_id) {
+function _elife_services_article_delete_access($article_version_id) {
   return TRUE;
 }
 
@@ -70,23 +70,23 @@ function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article', $i
 /**
  * Callback function for elife_article retrieve.
  *
- * @param string $article_ver_id
+ * @param string $article_version_id
  * @param string $bundle
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve($article_ver_id, $bundle = 'elife_article') {
-  $article = _elife_services_article_retrieve_raw($article_ver_id, $bundle);
+function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_article') {
+  $article = _elife_services_article_retrieve_raw($article_version_id, $bundle);
   return _elife_services_article_prepare_json($article);
 }
 
-function _elife_services_article_prepare_json($article, $article_ver_id = NULL) {
+function _elife_services_article_prepare_json($article, $article_version_id = NULL) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
 
-  if (!$article_ver_id) {
-    $article_ver_id = $ewrapper->field_elife_a_article_version_id->value();
-    $article_ver_id = (is_array($article_ver_id)) ? reset($article_ver_id) : $article_ver_id;
+  if (!$article_version_id) {
+    $article_version_id = $ewrapper->field_elife_a_article_version_id->value();
+    $article_version_id = (is_array($article_version_id)) ? reset($article_version_id) : $article_version_id;
   }
 
   $top_level = array(
@@ -114,7 +114,7 @@ function _elife_services_article_prepare_json($article, $article_ver_id = NULL) 
       'field' => 'field_elife_a_version',
       'type' => 'int',
     ),
-    'article-version-id' => $article_ver_id,
+    'article-version-id' => $article_version_id,
     'publish' => array(
       'field' => 'status',
       'type' => 'int',
@@ -144,7 +144,7 @@ function _elife_services_article_prepare_json($article, $article_ver_id = NULL) 
       }
     }
     elseif (isset($value['custom'])) {
-      $get = call_user_func_array($value['custom'], array($article_ver_id));
+      $get = call_user_func_array($value['custom'], array($article_version_id));
     }
     else {
       $get = $value;
@@ -178,12 +178,12 @@ function _elife_services_article_create($data) {
 /**
  * Callback function for elife_article update.
  *
- * @param $article_ver_id
+ * @param $article_version_id
  * @param $data
  * @return mixed
  */
-function _elife_services_article_update($article_ver_id, $data) {
-  $article = _elife_services_article_retrieve_raw($article_ver_id);
+function _elife_services_article_update($article_version_id, $data) {
+  $article = _elife_services_article_retrieve_raw($article_version_id);
 
   $article = _elife_services_article_update_values($article, $data);
   return _elife_services_article_prepare_json($article);
@@ -192,12 +192,12 @@ function _elife_services_article_update($article_ver_id, $data) {
 /**
  * Callback function for elife_article delete.
  *
- * @param $article_ver_id
+ * @param $article_version_id
  * @param bool $trigger_error
  * @throws Exception
  */
-function _elife_services_article_delete($article_ver_id, $trigger_error = TRUE) {
-  $article = _elife_services_article_retrieve_raw($article_ver_id, 'elife_article', 'field_elife_a_article_version_id', $trigger_error);
+function _elife_services_article_delete($article_version_id, $trigger_error = TRUE) {
+  $article = _elife_services_article_retrieve_raw($article_version_id, 'elife_article', 'field_elife_a_article_version_id', $trigger_error);
 
   if ($article) {
     /* @var EntityDrupalWrapper $ewrapper */

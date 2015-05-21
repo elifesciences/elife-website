@@ -14,18 +14,18 @@ function elife_services_services_resources() {
       '#api_version' => 3002,
       'operations' => array(
 
-        // Define the retrieve callback for a GET to /article/%apath.
+        // Define the retrieve callback for a GET to /article/%article-version-id.
         'retrieve' => array(
-          'help' => 'Returns a single article specified by the apath.',
+          'help' => 'Returns a single article specified by the article version id.',
           'callback' => '_elife_services_article_retrieve',
           'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
           'access callback' => '_elife_services_article_retrieve_access',
           'access arguments append' => TRUE,
           'args' => array(
             array(
-              'name' => 'article_id',
+              'name' => 'article_version_id',
               'type' => 'string',
-              'description' => 'The apath of the article to retrieve.',
+              'description' => 'The article version id of the article to retrieve.',
               'optional' => FALSE,
               'source' => array('path' => 0),
             ),
@@ -49,18 +49,18 @@ function elife_services_services_resources() {
           ),
         ),
 
-        // Define the update callback for a PUT to /article/%apath.
+        // Define the update callback for a PUT to /article/%article-version-id.
         'update' => array(
-          'help' => 'Updates a single article specified by the apath.',
+          'help' => 'Updates a single article specified by the article version id.',
           'callback' => '_elife_services_article_update',
           'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
           'access callback' => '_elife_services_article_update_access',
           'access arguments append' => TRUE,
           'args' => array(
             array(
-              'name' => 'article_id',
+              'name' => 'article_version_id',
               'type' => 'string',
-              'description' => 'The apath of the article to update.',
+              'description' => 'The article version id of the article to update.',
               'optional' => FALSE,
               'source' => array('path' => 0),
             ),
@@ -74,18 +74,18 @@ function elife_services_services_resources() {
           ),
         ),
 
-        // Define the update callback for a DELETE to /article/%apath.
+        // Define the update callback for a DELETE to /article/%article-version-id.
         'delete' => array(
-          'help' => 'Delete a single article specified by the apath.',
+          'help' => 'Delete a single article specified by the article version id.',
           'callback' => '_elife_services_article_delete',
           'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
           'access callback' => '_elife_services_article_delete_access',
           'access arguments append' => TRUE,
           'args' => array(
             array(
-              'name' => 'article_id',
+              'name' => 'article_version_id',
               'type' => 'string',
-              'description' => 'The apath of the article to delete.',
+              'description' => 'The article version id of the article to delete.',
               'optional' => FALSE,
               'source' => array('path' => 0),
             ),
