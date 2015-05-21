@@ -11,6 +11,28 @@
   "path": "content/2/e00013",
   "article-type": "research-article",
   "status": "VOR",
+  "categories": {
+    "display-channel": [
+      "Research article"
+    ],
+    "heading": [
+      "Cell biology",
+      "Computer science"
+    ]
+  },
+  "keywords": {
+    "author-keywords": [
+      "<italic>Salpingoeca rosetta</italic>",
+      "Algoriphagus",
+      "bacterial sulfonolipid",
+      "multicellular development"
+    ],
+    "research-organism": [
+      "Mouse",
+      "<italic>C. elegans</italic>",
+      "Other"
+    ]
+  },
   "contributors": [
     {
       "type": "author",

@@ -11,6 +11,27 @@
   "path": "content/2/e00288",
   "article-type": "research-article",
   "status": "VOR",
+  "categories": {
+    "display-channel": [
+      "Research article"
+    ],
+    "heading": [
+      "Immunology",
+      "Microbiology and infectious disease"
+    ]
+  },
+  "keywords": {
+    "author-keywords": [
+      "Herpes simplex",
+      "Mucosal immunity",
+      "Mathematical modeling"
+    ],
+    "research-organism": [
+      "Human",
+      "Viruses",
+      "Other"
+    ]
+  },
   "contributors": [
     {
       "type": "author",
