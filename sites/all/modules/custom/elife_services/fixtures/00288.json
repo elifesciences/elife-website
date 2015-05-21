@@ -340,7 +340,6 @@
   },
   "children": {
     "abstract": {
-      "title": "Abstract",
       "doi": "10.7554/eLife.00288.001",
       "path": "content/2/e00288/abstract-1"
     },
@@ -379,32 +378,34 @@
         "title": "Figure 1.",
         "doi": "10.7554/eLife.00288.007",
         "path": "content/2/e00288/F1",
-        "children": [
-          {
-            "type": "supplementary-material",
-            "title": "Figure 1—source data 1.",
-            "doi": "10.7554/eLife.00288.008",
-            "path": "content/2/e00288/F1/DC1"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 1—figure supplement 1.",
-            "doi": "10.7554/eLife.00288.009",
-            "path": "content/2/e00288/F1/F2"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 1—figure supplement 2.",
-            "doi": "10.7554/eLife.00288.010",
-            "path": "content/2/e00288/F1/F3"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 1—figure supplement 3.",
-            "doi": "10.7554/eLife.00288.011",
-            "path": "content/2/e00288/F1/F4"
-          }
-        ]
+        "children": {
+          "fragment": [
+            {
+              "type": "supplementary-material",
+              "title": "Figure 1—source data 1.",
+              "doi": "10.7554/eLife.00288.008",
+              "path": "content/2/e00288/F1/DC1"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 1—figure supplement 1.",
+              "doi": "10.7554/eLife.00288.009",
+              "path": "content/2/e00288/F1/F2"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 1—figure supplement 2.",
+              "doi": "10.7554/eLife.00288.010",
+              "path": "content/2/e00288/F1/F3"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 1—figure supplement 3.",
+              "doi": "10.7554/eLife.00288.011",
+              "path": "content/2/e00288/F1/F4"
+            }
+          ]
+        }
       },
       {
         "type": "boxed-text",
@@ -417,32 +418,34 @@
         "title": "Figure 2.",
         "doi": "10.7554/eLife.00288.013",
         "path": "content/2/e00288/F5",
-        "children": [
-          {
-            "type": "supplementary-material",
-            "title": "Figure 2—source data 1.",
-            "doi": "10.7554/eLife.00288.014",
-            "path": "content/2/e00288/F5/DC2"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 2—figure supplement 1.",
-            "doi": "10.7554/eLife.00288.015",
-            "path": "content/2/e00288/F5/F6"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 2—figure supplement 2.",
-            "doi": "10.7554/eLife.00288.016",
-            "path": "content/2/e00288/F5/F7"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 2—figure supplement 3.",
-            "doi": "10.7554/eLife.00288.017",
-            "path": "content/2/e00288/F5/F8"
-          }
-        ]
+        "children": {
+          "fragment": [
+            {
+              "type": "supplementary-material",
+              "title": "Figure 2—source data 1.",
+              "doi": "10.7554/eLife.00288.014",
+              "path": "content/2/e00288/F5/DC2"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 2—figure supplement 1.",
+              "doi": "10.7554/eLife.00288.015",
+              "path": "content/2/e00288/F5/F6"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 2—figure supplement 2.",
+              "doi": "10.7554/eLife.00288.016",
+              "path": "content/2/e00288/F5/F7"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 2—figure supplement 3.",
+              "doi": "10.7554/eLife.00288.017",
+              "path": "content/2/e00288/F5/F8"
+            }
+          ]
+        }
       },
       {
         "type": "boxed-text",
@@ -455,34 +458,38 @@
         "title": "Figure 3.",
         "doi": "10.7554/eLife.00288.019",
         "path": "content/2/e00288/F9",
-        "children": [
-          {
-            "type": "fig",
-            "title": "Figure 3—figure supplement 1.",
-            "doi": "10.7554/eLife.00288.020",
-            "path": "content/2/e00288/F9/F10"
-          }
-        ]
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "title": "Figure 3—figure supplement 1.",
+              "doi": "10.7554/eLife.00288.020",
+              "path": "content/2/e00288/F9/F10"
+            }
+          ]
+        }
       },
       {
         "type": "fig",
         "title": "Figure 4.",
         "doi": "10.7554/eLife.00288.021",
         "path": "content/2/e00288/F11",
-        "children": [
-          {
-            "type": "supplementary-material",
-            "title": "Figure 4—source data 1.",
-            "doi": "10.7554/eLife.00288.022",
-            "path": "content/2/e00288/F11/DC3"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 4—figure supplement 1.",
-            "doi": "10.7554/eLife.00288.023",
-            "path": "content/2/e00288/F11/F12"
-          }
-        ]
+        "children": {
+          "fragment": [
+            {
+              "type": "supplementary-material",
+              "title": "Figure 4—source data 1.",
+              "doi": "10.7554/eLife.00288.022",
+              "path": "content/2/e00288/F11/DC3"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 4—figure supplement 1.",
+              "doi": "10.7554/eLife.00288.023",
+              "path": "content/2/e00288/F11/F12"
+            }
+          ]
+        }
       },
       {
         "type": "table-wrap",
@@ -561,20 +568,22 @@
         "title": "Figure 6.",
         "doi": "10.7554/eLife.00288.036",
         "path": "content/2/e00288/F14",
-        "children": [
-          {
-            "type": "fig",
-            "title": "Figure 6—figure supplement 1.",
-            "doi": "10.7554/eLife.00288.037",
-            "path": "content/2/e00288/F14/F15"
-          },
-          {
-            "type": "fig",
-            "title": "Figure 6—figure supplement 2.",
-            "doi": "10.7554/eLife.00288.038",
-            "path": "content/2/e00288/F14/F16"
-          }
-        ]
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "title": "Figure 6—figure supplement 1.",
+              "doi": "10.7554/eLife.00288.037",
+              "path": "content/2/e00288/F14/F15"
+            },
+            {
+              "type": "fig",
+              "title": "Figure 6—figure supplement 2.",
+              "doi": "10.7554/eLife.00288.038",
+              "path": "content/2/e00288/F14/F16"
+            }
+          ]
+        }
       },
       {
         "type": "table-wrap",

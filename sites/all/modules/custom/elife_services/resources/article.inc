@@ -561,8 +561,8 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
 
   $ewrapper->save();
 
-  if (!$subarticle && isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['parent'], array('fragment' => $data['children']), $new);
+  if (isset($data['children'])) {
+    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new);
     // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
     $ewrapper->save();
   }
