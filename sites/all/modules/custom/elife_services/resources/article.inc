@@ -501,6 +501,10 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
       'doi',
       'path',
     );
+
+    if ($data['type'] == 'abstract' && empty($data['title'])) {
+      $data['title'] = t('Abstract');
+    }
   }
 
   foreach ($required as $k => $req) {
