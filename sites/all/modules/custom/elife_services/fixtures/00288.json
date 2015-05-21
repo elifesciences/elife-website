@@ -339,16 +339,18 @@
     }
   },
   "children": {
-    "abstract": {
-      "doi": "10.7554/eLife.00288.001",
-      "path": "content/2/e00288/abstract-1"
-    },
-    "executive-summary": {
-      "title": "eLife digest",
-      "doi": "10.7554/eLife.00288.002",
-      "path": "content/2/e00288/abstract-2"
-    },
     "fragment": [
+      {
+        "type": "abstract",
+        "doi": "10.7554/eLife.00288.001",
+        "path": "content/2/e00288/abstract-1"
+      },
+      {
+        "type": "abstract",
+        "abstract-type": "executive-summary",
+        "doi": "10.7554/eLife.00288.002",
+        "path": "content/2/e00288/abstract-2"
+      },
       {
         "type": "table-wrap",
         "title": "Table 1.",
