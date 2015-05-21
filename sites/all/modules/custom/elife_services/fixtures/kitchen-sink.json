@@ -437,6 +437,12 @@
       }
     }
   },
+  "related-articles": [
+    {
+      "type": "commentary",
+      "href": "10.7554/eLife.00013"
+    }
+  ],
   "children": {
     "fragment": [
       {
