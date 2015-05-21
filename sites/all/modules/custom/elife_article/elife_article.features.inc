@@ -37,6 +37,14 @@ function elife_article_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'elife_contributor' => array(
+      'name' => t('eLife Contributor'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'elife_fragment' => array(
       'name' => t('eLife Fragment'),
       'base' => 'node_content',

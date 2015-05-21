@@ -119,6 +119,27 @@ function elife_article_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_elife_a_author_id'
+  $field_bases['field_elife_a_author_id'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_author_id',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_author_imp'
   $field_bases['field_elife_a_author_imp'] = array(
     'active' => 1,
@@ -136,6 +157,27 @@ function elife_article_field_default_field_bases() {
     'settings' => array(),
     'translatable' => 0,
     'type' => 'text_long',
+  );
+
+  // Exported field_base: 'field_elife_a_author_suffix'
+  $field_bases['field_elife_a_author_suffix'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_author_suffix',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_elife_a_category'
@@ -209,25 +251,60 @@ function elife_article_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_elife_a_contrib_type'
+  $field_bases['field_elife_a_contrib_type'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_contrib_type',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_contributors'
   $field_bases['field_elife_a_contributors'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_elife_a_contributors',
-    'indexes' => array(),
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'nlmfield',
+    'module' => 'entityreference',
     'settings' => array(
-      'additional_namespaces' => 'atom|http://www.w3.org/2005/Atom
-
-hwp|http://schema.highwire.org/Journal',
-      'nlmfield_namespace' => 'nlm',
-      'nlmfield_namespace_def_url' => 'http://schema.highwire.org/NLM/Journal',
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_contributor' => 'elife_contributor',
+        ),
+      ),
+      'target_type' => 'node',
     ),
     'translatable' => 0,
-    'type' => 'nlmfield_contributor',
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_elife_a_copyright'
@@ -256,6 +333,52 @@ hwp|http://schema.highwire.org/Journal',
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_elife_a_doi',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_elife_a_equal_contrib'
+  $field_bases['field_elife_a_equal_contrib'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_equal_contrib',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'field_elife_a_fnames'
+  $field_bases['field_elife_a_fnames'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_fnames',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -353,6 +476,27 @@ hwp|http://schema.highwire.org/Journal',
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_elife_a_orcid_id'
+  $field_bases['field_elife_a_orcid_id'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_orcid_id',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_parent'
   $field_bases['field_elife_a_parent'] = array(
     'active' => 1,
@@ -436,6 +580,27 @@ hwp|http://schema.highwire.org/Journal',
     ),
     'translatable' => 0,
     'type' => 'list_boolean',
+  );
+
+  // Exported field_base: 'field_elife_a_surname'
+  $field_bases['field_elife_a_surname'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_surname',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_elife_a_update'
