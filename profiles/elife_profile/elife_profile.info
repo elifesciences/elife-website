@@ -70,7 +70,6 @@ dependencies[] = strongarm
 dependencies[] = services
 dependencies[] = rest_server
 dependencies[] = xautoload
-dependencies[] = nlmfield
 dependencies[] = relation_endpoint
 dependencies[] = relation
 

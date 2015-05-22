@@ -8,7 +8,6 @@ dependencies[] = date
 dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = list
-dependencies[] = nlmfield
 dependencies[] = number
 dependencies[] = options
 dependencies[] = relation
