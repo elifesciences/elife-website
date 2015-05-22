@@ -378,6 +378,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   $ewrapper->save();
 
   $trigger_save = FALSE;
+  // @todo - elife - nlisgo - move this into own function
   if (isset($data['referenced'])) {
     if (!$new) {
       // Delete existing referenced for this article.
@@ -430,6 +431,61 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           'institution' => $field_fund_ref . '_inst',
           'institution-type' => $field_fund_ref . '_inst_type',
           'award-id' => $field_fund_ref . '_award_id',
+        );
+        foreach ($mappings as $k => $field) {
+          if (isset($values[$k])) {
+            $fc_wrapper->{$field}->set($values[$k]);
+          }
+        }
+        $fc_wrapper->save();
+        $trigger_save = TRUE;
+      }
+    }
+
+    // Save affiliation references.
+    if (isset($data['referenced']['affiliations'])) {
+      $field_aff_ref = 'field_elife_a_aff_ref';
+      foreach ($data['referenced']['affiliations'] as $key => $values) {
+        $fc_item = entity_create('field_collection_item', array('field_name' => $field_aff_ref));
+        $fc_item->setHostEntity('node', $ewrapper->raw());
+
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+        $fc_wrapper->{$field_aff_ref . '_key'}->set($key);
+        $mappings = array(
+          'label' => $field_aff_ref . '_label',
+          'dept' => $field_aff_ref . '_dept',
+          'institution' => $field_aff_ref . '_inst',
+          'city' => $field_aff_ref . '_city',
+          'country' => $field_aff_ref . '_country',
+        );
+        foreach ($mappings as $k => $field) {
+          if (isset($values[$k])) {
+            $fc_wrapper->{$field}->set($values[$k]);
+          }
+        }
+        $fc_wrapper->save();
+        $trigger_save = TRUE;
+      }
+    }
+
+    // Save related object references.
+    if (isset($data['referenced']['related-objects'])) {
+      $field_rel_ref = 'field_elife_a_rel_ref';
+      foreach ($data['referenced']['related-objects'] as $key => $values) {
+        $fc_item = entity_create('field_collection_item', array('field_name' => $field_rel_ref));
+        $fc_item->setHostEntity('node', $ewrapper->raw());
+
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+        $fc_wrapper->{$field_rel_ref . '_key'}->set($key);
+        $mappings = array(
+          'type' => $field_rel_ref . '_type',
+          'source-id' => $field_rel_ref . '_src_id',
+          'source-id-type' => $field_rel_ref . '_src_id_typ',
+          'year' => $field_rel_ref . '_year',
+          'src' => $field_rel_ref . '_src',
+          'comment' => $field_rel_ref . '_comment',
         );
         foreach ($mappings as $k => $field) {
           if (isset($values[$k])) {
