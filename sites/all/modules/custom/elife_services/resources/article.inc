@@ -6,6 +6,7 @@
  */
 
 use Drupal\elife_article\ElifeArticle;
+use Drupal\elife_article\ElifeContributor;
 
 /**
  * Determines an API user's access to retrieve a given article.
@@ -254,19 +255,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
   }
 
-  // We must do this here until nlmfield has a property callback.
-  if (isset($data['contributors'])) {
-    // @todo - elife - nlisgo - remove this after https://www.drupal.org/node/2480791
-    // @todo - elife - nlisgo - this needs work since refactor of json
-    /*nlmfield_load_library();
-    $contributors = array();
-    foreach ($data['contributors'] as $contributor) {
-      $contributor = array('xml' => $contributor);
-      $contributors[] = nlmfield_compute_values($contributor, 'nlmfield_contributor');
-    }
-    $article->field_elife_a_contributors[LANGUAGE_NONE] = $contributors;*/
-  }
-
   // This ensures that paths will not be automatically generated.
   $article->path['pathauto'] = FALSE;
 
@@ -385,9 +373,18 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   $ewrapper->save();
 
+  $trigger_save = FALSE;
+  if (isset($data['contributors'])) {
+    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $new);
+    $trigger_save = TRUE;
+  }
+
   if (isset($data['children'])) {
     _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new);
-    // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
+    $trigger_save = TRUE;
+  }
+
+  if ($trigger_save) {
     $ewrapper->save();
   }
 
@@ -464,6 +461,74 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   }
 
   return $dest_nids;
+}
+
+function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $new = FALSE) {
+  $contribs = array();
+  foreach ($contributors as $contributor) {
+    $contributor['parent'] = $ewrapper->nid->value();
+    $contrib = _elife_services_article_contributor_update_values($contributor, $new);
+    $contribs[] = $contrib->nid;
+  }
+  $ewrapper->field_elife_a_contributors->set($contribs);
+}
+
+function _elife_services_article_contributor_update_values($data, $new = FALSE) {
+  $required = array(
+    'id',
+  );
+
+  foreach ($required as $k => $req) {
+    if (!empty($data[$req])) {
+      unset($required[$k]);
+    }
+  }
+
+  if (!empty($required)) {
+    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+  }
+
+  $type = 'elife_contributor';
+
+  if (!$new) {
+    $contributor = ElifeContributor::fromId($data['id'], $data['parent']);
+  }
+  else {
+    $values = array(
+      'type' => $type,
+      'uid' => _elife_services_user_uid(),
+    );
+
+    $contributor = entity_create('node', $values);
+  }
+
+  /* @var EntityDrupalWrapper $ewrapper */
+  $ewrapper = entity_metadata_wrapper('node', $contributor);
+
+  if (isset($data['parent'])) {
+    $ewrapper->field_elife_a_parent->set($data['parent']);
+  }
+
+  $ewrapper->title->set($data['id']);
+
+  $ewrapper->field_elife_a_author_id->set($data['id']);
+
+  if (isset($data['surname'])) {
+    $ewrapper->field_elife_a_surname->set($data['surname']);
+  }
+
+  if (isset($data['given-names'])) {
+    $ewrapper->field_elife_a_fnames->set($data['given-names']);
+  }
+
+  if (isset($data['suffix'])) {
+    $ewrapper->field_elife_a_author_suffix->set($data['suffix']);
+  }
+
+  $ewrapper->save();
+
+  return $ewrapper->raw();
+
 }
 
 function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
