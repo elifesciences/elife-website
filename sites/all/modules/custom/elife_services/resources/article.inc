@@ -589,6 +589,11 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
 
 function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $new = FALSE) {
   $contribs = array();
+  if (!$new) {
+    if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
+      node_delete_multiple($existing);
+    }
+  }
   foreach ($contributors as $contributor) {
     $contributor['parent'] = $ewrapper->nid->value();
     $contrib = _elife_services_article_contributor_update_values($contributor, $new);
@@ -598,56 +603,91 @@ function _elife_services_article_process_contributors(EntityMetadataWrapper &$ew
 }
 
 function _elife_services_article_contributor_update_values($data, $new = FALSE) {
-  $required = array(
+  $either = array(
     'id',
+    'group-author-key',
   );
 
-  foreach ($required as $k => $req) {
+  $id_found = FALSE;
+  foreach ($either as $k => $req) {
     if (!empty($data[$req])) {
-      unset($required[$k]);
+      unset($either[$k]);
+      $id_found = $req;
+      break;
     }
   }
 
-  if (!empty($required)) {
-    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+  if (!empty($either) && !$id_found) {
+    return services_error(t('No value provided for required: @fields', array('@fields' => implode(' or ', $either))), 406);
   }
 
   $type = 'elife_contributor';
 
-  if (!$new) {
-    $contributor = ElifeContributor::fromId($data['id'], $data['parent']);
-  }
-  else {
-    $values = array(
-      'type' => $type,
-      'uid' => _elife_services_user_uid(),
-    );
+  $values = array(
+    'type' => $type,
+    'uid' => _elife_services_user_uid(),
+  );
 
-    $contributor = entity_create('node', $values);
-  }
+  $contributor = entity_create('node', $values);
 
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $contributor);
 
-  if (isset($data['parent'])) {
-    $ewrapper->field_elife_a_parent->set($data['parent']);
+  $field_prefix = 'field_elife_a';
+  $mappings = array(
+    'parent' => $field_prefix . '_parent',
+    'id' => $field_prefix . '_author_id',
+    'surname' => $field_prefix . '_surname',
+    'given-names' => $field_prefix . '_fnames',
+    'suffix' => $field_prefix . '_author_suffix',
+    'orcid' => $field_prefix . '_orcid_id',
+    'role' => $field_prefix . '_author_role',
+    'group-author-key' => $field_prefix . '_group_author_key',
+    'collab' => $field_prefix . '_collab',
+  );
+  foreach ($mappings as $k => $field) {
+    if (isset($data[$k])) {
+      $ewrapper->{$field}->set($data[$k]);
+    }
   }
 
-  $ewrapper->title->set($data['id']);
-
-  $ewrapper->field_elife_a_author_id->set($data['id']);
-
-  if (isset($data['surname'])) {
-    $ewrapper->field_elife_a_surname->set($data['surname']);
+  if (isset($data['equal-contrib'])) {
+    $ewrapper->field_elife_a_equal_contrib->set(($data['equal-contrib'] == 'yes'));
   }
 
-  if (isset($data['given-names'])) {
-    $ewrapper->field_elife_a_fnames->set($data['given-names']);
+  if (isset($data['affiliation'])) {
+    $mappings = array(
+      'dept' => $field_prefix . '_aff_dept',
+      'institution' => $field_prefix . '_aff_inst',
+      'city' => $field_prefix . '_aff_city',
+      'country' => $field_prefix . '_aff_country',
+    );
+    foreach ($mappings as $k => $field) {
+      if (isset($data['affiliation'][$k])) {
+        $ewrapper->{$field}->set($data['affiliation'][$k]);
+      }
+    }
   }
 
-  if (isset($data['suffix'])) {
-    $ewrapper->field_elife_a_author_suffix->set($data['suffix']);
+  $title = $data[$id_found];
+  $extend = array(
+    'given-names',
+    'surname',
+    'suffix',
+    'collab',
+  );
+  $title_ext = array();
+  foreach ($extend as $ext) {
+    if (!empty($data[$ext])) {
+      $title_ext[] = $data[$ext];
+    }
   }
+
+  if (!empty($title_ext)) {
+    $title .= ' (' . implode(' ', $title_ext) . ')';
+  }
+
+  $ewrapper->title->set($title);
 
   $ewrapper->save();
 
