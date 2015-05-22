@@ -376,10 +376,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   $ewrapper->save();
 
   $trigger_save = FALSE;
-  if ((isset($data['referenced']) xor isset($data['contributors']))) {
-    return services_error(t('contributors and referenced must be both supplied together or not at all.'), 406);
-  }
-
   $ref_links = array();
 
   // @todo - elife - nlisgo - move this into own function
@@ -508,6 +504,14 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     }
   }
 
+  if (!$new && (isset($data['referenced']) || isset($data['contributors']))) {
+    if (!$new) {
+      if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
+        node_delete_multiple($existing);
+      }
+    }
+  }
+
   if (isset($data['contributors'])) {
     _elife_services_article_process_contributors($ewrapper, $data['contributors'], $ref_links, $new);
     $trigger_save = TRUE;
@@ -599,11 +603,6 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
 
 function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $ref_links, $new = FALSE) {
   $contribs = array();
-  if (!$new) {
-    if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
-      node_delete_multiple($existing);
-    }
-  }
   foreach ($contributors as $contributor) {
     $contributor['parent'] = $ewrapper->nid->value();
     $contrib = _elife_services_article_contributor_update_values($contributor, $ref_links, $new);
