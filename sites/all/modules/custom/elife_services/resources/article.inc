@@ -327,24 +327,26 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'Article version id (must be unique)')), 406);
     }
-
-    $ewrapper->field_elife_a_article_version_id->set($data['article-version-id']);
   }
 
   if (isset($data['doi'])) {
     if (!ElifeArticle::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
     }
-
-    $ewrapper->field_elife_a_doi->set($data['doi']);
   }
 
-  if (isset($data['article-id'])) {
-    $ewrapper->field_elife_a_article_id->set($data['article-id']);
-  }
-
-  if (isset($data['version'])) {
-    $ewrapper->field_elife_a_version->set($data['version']);
+  $field_prefix = 'field_elife_a';
+  $mappings = array(
+    'article-version-id' => $field_prefix . '_article_version_id',
+    'doi' => $field_prefix . '_doi',
+    'article-id' => $field_prefix . '_article_id',
+    'version' => $field_prefix . '_version',
+    'status' => $field_prefix . '_status',
+  );
+  foreach ($mappings as $k => $field) {
+    if (isset($data[$k])) {
+      $ewrapper->{$field}->set($data[$k]);
+    }
   }
 
   if (isset($data['pub-date'])) {
@@ -353,10 +355,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   if (isset($data['update'])) {
     $ewrapper->field_elife_a_update->set(_elife_services_article_prepare_date($data['update']));
-  }
-
-  if (isset($data['status'])) {
-    $ewrapper->field_elife_a_status->set($data['status']);
   }
 
   if (isset($data['impact-statement'])) {
