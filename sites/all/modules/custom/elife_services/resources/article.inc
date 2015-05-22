@@ -419,9 +419,9 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     }
 
     // Save funding references.
-    if (isset($data['referenced']['fundings'])) {
+    if (isset($data['referenced']['funding'])) {
       $field_fund_ref = 'field_elife_a_fund_ref';
-      foreach ($data['referenced']['fundings'] as $key => $values) {
+      foreach ($data['referenced']['funding'] as $key => $values) {
         $fc_item = entity_create('field_collection_item', array('field_name' => $field_fund_ref));
         $fc_item->setHostEntity('node', $ewrapper->raw());
 
@@ -441,15 +441,15 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
-        $ref_links['fundings'][$key] = $fc_wrapper->item_id->value();
+        $ref_links['funding'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
 
     // Save affiliation references.
-    if (isset($data['referenced']['affiliations'])) {
+    if (isset($data['referenced']['affiliation'])) {
       $field_aff_ref = 'field_elife_a_aff_ref';
-      foreach ($data['referenced']['affiliations'] as $key => $values) {
+      foreach ($data['referenced']['affiliation'] as $key => $values) {
         $fc_item = entity_create('field_collection_item', array('field_name' => $field_aff_ref));
         $fc_item->setHostEntity('node', $ewrapper->raw());
 
@@ -469,15 +469,15 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
-        $ref_links['affiliations'][$key] = $fc_wrapper->item_id->value();
+        $ref_links['affiliation'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
 
     // Save related object references.
-    if (isset($data['referenced']['related-objects'])) {
+    if (isset($data['referenced']['related-object'])) {
       $field_rel_ref = 'field_elife_a_rel_ref';
-      foreach ($data['referenced']['related-objects'] as $key => $values) {
+      foreach ($data['referenced']['related-object'] as $key => $values) {
         $fc_item = entity_create('field_collection_item', array('field_name' => $field_rel_ref));
         $fc_item->setHostEntity('node', $ewrapper->raw());
 
@@ -498,7 +498,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
-        $ref_links['related-objects'][$key] = $fc_wrapper->item_id->value();
+        $ref_links['related-object'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
@@ -719,9 +719,9 @@ function _elife_services_article_contributor_update_values($data, $ref_links, $n
   }
 
   $other_refs = array(
-    'fundings' => 'field_elife_a_fund_ref_links',
-    'affiliations' => 'field_elife_a_aff_ref_links',
-    'related-objects' => 'field_elife_a_rel_ref_links',
+    'funding' => 'field_elife_a_fund_ref_links',
+    'affiliation' => 'field_elife_a_aff_ref_links',
+    'related-object' => 'field_elife_a_rel_ref_links',
   );
 
   foreach ($other_refs as $type => $field) {

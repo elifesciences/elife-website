@@ -520,11 +520,11 @@ function elife_article_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'equal-contribs' => 'equal-contribs',
-        'emails' => 'emails',
-        'competing-interests' => 'competing-interests',
-        'contributions' => 'contributions',
-        'present_addresses' => 'present_addresses',
+        'equal-contrib' => 'equal-contrib',
+        'email' => 'email',
+        'competing-interest' => 'competing-interest',
+        'contribution' => 'contribution',
+        'present-address' => 'present-address',
       ),
       'allowed_values_function' => '',
     ),

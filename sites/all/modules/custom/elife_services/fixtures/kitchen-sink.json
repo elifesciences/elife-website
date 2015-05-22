@@ -42,27 +42,27 @@
       "given-names": "Rosanna A",
       "suffix": "Jnr",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff2"
         ],
-        "equal-contribs": [
+        "equal-contrib": [
           "equal-contrib"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-2"
         ],
-        "contributions": [
+        "contribution": [
           "con1"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ],
-        "present_addresses": [
+        "present-address": [
           "pa1"
         ],
-        "related-objects": [
+        "related-object": [
           "dataro1",
           "dataro2"
         ]
@@ -76,23 +76,23 @@
       "given-names": "Laura W",
       "orcid": "http://orcid.org/0000-0002-7361-560X",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff2"
         ],
-        "equal-contribs": [
+        "equal-contrib": [
           "equal-contrib"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-3"
         ],
-        "contributions": [
+        "contribution": [
           "con2"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ],
-        "present_addresses": [
+        "present-address": [
           "pa2"
         ]
       }
@@ -103,16 +103,16 @@
       "surname": "Cao",
       "given-names": "Shugeng",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff2"
         ],
-        "equal-contribs": [
+        "equal-contrib": [
           "equal-contrib2"
         ],
-        "contributions": [
+        "contribution": [
           "con3"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ]
       }
@@ -123,19 +123,19 @@
       "surname": "Dermenjian",
       "given-names": "Renee Kathryn",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff2"
         ],
-        "equal-contribs": [
+        "equal-contrib": [
           "equal-contrib2"
         ],
-        "contributions": [
+        "contribution": [
           "con4"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ],
-        "present_addresses": [
+        "present-address": [
           "pa3"
         ]
       }
@@ -147,13 +147,13 @@
       "surname": "Zuzow",
       "given-names": "Richard",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con5"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ]
       }
@@ -164,16 +164,16 @@
       "surname": "Fairclough",
       "given-names": "Stephen R",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1"
         ],
-        "fundings": [
+        "funding": [
           "par-6"
         ],
-        "contributions": [
+        "contribution": [
           "con6"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ]
       }
@@ -185,20 +185,20 @@
       "surname": "Clardy",
       "given-names": "Jon",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff2"
         ],
         "emails": [
           "cor1"
         ],
-        "fundings": [
+        "funding": [
           "par-4",
           "par-5"
         ],
-        "contributions": [
+        "contribution": [
           "con7"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf1"
         ]
       }
@@ -210,23 +210,23 @@
       "surname": "King",
       "given-names": "Nicole",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1"
         ],
         "emails": [
           "cor2"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-2",
           "par-3",
           "par-4",
           "par-5"
         ],
-        "contributions": [
+        "contribution": [
           "con8"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ]
       }
@@ -237,19 +237,19 @@
       "group-author-key": "group-author-id1",
       "collab": "NISC Comparative Sequencing Program",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
         "emails": [
           "cor3"
         ],
-        "fundings": [
+        "funding": [
           "par-7"
         ],
-        "contributions": [
+        "contribution": [
           "con9"
         ],
-        "competing-interests": [
+        "competing-interest": [
           "conf2"
         ]
       }
@@ -319,7 +319,7 @@
     }
   ],
   "referenced": {
-    "equal-contribs": {
+    "equal-contrib": {
       "equal-contrib": "These authors contributed equally to this work",
       "equal-contrib2": "These authors contributed equally to this work"
     },
@@ -328,7 +328,7 @@
       "cor2": "nking@berkeley.edu",
       "cor3": "mharrison@elifesciences.org"
     },
-    "fundings": {
+    "funding": {
       "par-1": {
         "id": "dx.doi.org/10.13039/100000011",
         "id-type": "FundRef",
@@ -375,11 +375,11 @@
         "institution-type": "university"
       }
     },
-    "competing-interests": {
+    "competing-interest": {
       "conf1": "JC: Reviewing editor, <italic>eLife</italic>.",
       "conf2": "The other authors declare that no competing interests exist."
     },
-    "contributions": {
+    "contribution": {
       "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
       "con2": "LWB, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
       "con3": "CS, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
@@ -390,12 +390,12 @@
       "con8": "NK, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
       "con9": "NISC Comparative Sequencing Program: JM did X, IM did Y and JB did Z and Y"
     },
-    "present_addresses": {
+    "present-address": {
       "pa1": "Department of Wellcome Trust, Sanger Institute, London, United Kingdom",
       "pa2": "Department of Biological Chemistry and Molecular Pharmacology, Harvard Medical School, Boston, United States",
       "pa3": "eLife Sciences editorial Office, eLife Sciences, Cambridge, United Kingdom"
     },
-    "affiliations": {
+    "affiliation": {
       "aff1": {
         "label": 1,
         "dept": "Department of Molecular and Cell Biology",
@@ -418,7 +418,7 @@
         "country": "United States"
       }
     },
-    "related-objects": {
+    "related-object": {
       "dataro1": {
         "type": "generated-dataset",
         "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",

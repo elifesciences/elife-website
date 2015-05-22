@@ -3,7 +3,7 @@ Feature: Article Resource - Related (API)
   As a production system
   I need to be able to post article content with contributors via the resource api
 
-  Scenario: Load an article with contributors
+  Scenario: Load an article with related articles
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
@@ -17,7 +17,7 @@ Feature: Article Resource - Related (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
-          "contributors": [
+          "related-article": [
             {
               "type": "corrected-article",
               "href": "10.7554/eLife.05224",
@@ -27,6 +27,11 @@ Feature: Article Resource - Related (API)
               "type": "article-reference",
               "href": "10.7554/eLife.06956",
               "source": "10.7554/eLife.05224"
+            },
+            {
+              "type": "article-reference",
+              "href": "10.7554/eLife.05224",
+              "source": "10.7554/eLife.06956"
             }
           ],
           "status": "VOR"

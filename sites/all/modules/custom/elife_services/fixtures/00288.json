@@ -40,19 +40,19 @@
       "surname": "Schiffer",
       "given-names": "Joshua T",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff2"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-4",
           "par-7"
         ],
-        "emails": [
+        "email": [
           "cor1"
         ],
-        "contributions": [
+        "contribution": [
           "con1"
         ]
       }
@@ -63,10 +63,10 @@
       "surname": "Swan",
       "given-names": "David",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1"
         ],
-        "contributions": [
+        "contribution": [
           "con2"
         ]
       }
@@ -77,13 +77,13 @@
       "surname": "Al Sallaq",
       "given-names": "Ramzi",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1"
         ],
-        "contributions": [
+        "contribution": [
           "con3"
         ],
-        "present_addresses": [
+        "present-address": [
           "pa1"
         ]
       }
@@ -94,14 +94,14 @@
       "surname": "Magaret",
       "given-names": "Amalia",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff3"
         ],
-        "fundings": [
+        "funding": [
           "par-1"
         ],
-        "contributions": [
+        "contribution": [
           "con4"
         ]
       }
@@ -112,15 +112,15 @@
       "surname": "Johnston",
       "given-names": "Christine",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff4"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-5"
         ],
-        "contributions": [
+        "contribution": [
           "con5"
         ]
       }
@@ -131,17 +131,17 @@
       "surname": "Mark",
       "given-names": "Karen E",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff4"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-6"
         ],
-        "contributions": [
+        "contribution": [
           "con6"
         ],
-        "present_addresses": [
+        "present-address": [
           "pa2"
         ]
       }
@@ -152,10 +152,10 @@
       "surname": "Selke",
       "given-names": "Stacy",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con7"
         ]
       }
@@ -166,10 +166,10 @@
       "surname": "Ocbamichael",
       "given-names": "Negusse",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con8"
         ]
       }
@@ -180,10 +180,10 @@
       "surname": "Kuntz",
       "given-names": "Steve",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con9"
         ]
       }
@@ -194,15 +194,15 @@
       "surname": "Zhu",
       "given-names": "Jia",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff3"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-2"
         ],
-        "contributions": [
+        "contribution": [
           "con10"
         ]
       }
@@ -213,10 +213,10 @@
       "surname": "Robinson",
       "given-names": "Barry",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con11"
         ]
       }
@@ -227,13 +227,13 @@
       "surname": "Huang",
       "given-names": "Meei-Li",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "fundings": [
+        "funding": [
           "par-1"
         ],
-        "contributions": [
+        "contribution": [
           "con12"
         ]
       }
@@ -244,10 +244,10 @@
       "surname": "Jerome",
       "given-names": "Keith R",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff3"
         ],
-        "contributions": [
+        "contribution": [
           "con13"
         ]
       }
@@ -258,17 +258,17 @@
       "surname": "Wald",
       "given-names": "Anna",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff3",
           "aff4",
           "aff5"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-3"
         ],
-        "contributions": [
+        "contribution": [
           "con14"
         ]
       }
@@ -279,16 +279,16 @@
       "surname": "Corey",
       "given-names": "Lawrence",
       "references": {
-        "affiliations": [
+        "affiliation": [
           "aff1",
           "aff3",
           "aff4"
         ],
-        "fundings": [
+        "funding": [
           "par-1",
           "par-2"
         ],
-        "contributions": [
+        "contribution": [
           "con15"
         ]
       }
@@ -304,10 +304,10 @@
     }
   ],
   "referenced": {
-    "emails": {
+    "email": {
       "cor1": "jschiffe@fhcrc.org"
     },
-    "fundings": {
+    "funding": {
       "par-1": {
         "institution": "National Institutes of Health",
         "award-id": "P01 AI030731"
@@ -337,7 +337,7 @@
         "award-id": "UL1TR000423"
       }
     },
-    "contributions": {
+    "contribution": {
       "con1": "JTS, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article, Contributed unpublished essential data or reagents",
       "con2": "DS, Conception and design, Analysis and interpretation of data",
       "con3": "RAS, Conception and design, Analysis and interpretation of data",
@@ -354,11 +354,11 @@
       "con14": "AW, Conception and design, Drafting or revising the article",
       "con15": "LC, Conception and design, Drafting or revising the article"
     },
-    "present_addresses": {
+    "present-address": {
       "pa1": "College of Nursing Global, New York University, New York, United States",
       "pa2": "The Office of AIDS, California Department of Public Health, Sacramento, United States"
     },
-    "affiliations": {
+    "affiliation": {
       "aff1": {
         "dept": "Vaccine and Infectious Diseases Division",
         "institution": "Fred Hutchinson Cancer Research Center",
