@@ -378,6 +378,12 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   $ewrapper->save();
 
   $trigger_save = FALSE;
+  if ((isset($data['referenced']) xor isset($data['contributors']))) {
+    return services_error(t('contributors and referenced must be both supplied together or not at all.'), 406);
+  }
+
+  $ref_links = array();
+
   // @todo - elife - nlisgo - move this into own function
   if (isset($data['referenced'])) {
     if (!$new) {
@@ -411,6 +417,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
             $fc_wrapper->{$field_ref_key}->set($key);
             $fc_wrapper->{$field_basic_ref . '_value'}->set($value);
             $fc_wrapper->save();
+            $ref_links[$brt][$key] = $fc_wrapper->item_id->value();
             $trigger_save = TRUE;
           }
         }
@@ -440,6 +447,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
+        $ref_links['fundings'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
@@ -467,6 +475,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
+        $ref_links['affiliations'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
@@ -495,13 +504,14 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           }
         }
         $fc_wrapper->save();
+        $ref_links['related-objects'][$key] = $fc_wrapper->item_id->value();
         $trigger_save = TRUE;
       }
     }
   }
 
   if (isset($data['contributors'])) {
-    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $new);
+    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $ref_links, $new);
     $trigger_save = TRUE;
   }
 
@@ -589,7 +599,7 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   return $dest_nids;
 }
 
-function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $new = FALSE) {
+function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $ref_links, $new = FALSE) {
   $contribs = array();
   if (!$new) {
     if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
@@ -598,13 +608,13 @@ function _elife_services_article_process_contributors(EntityMetadataWrapper &$ew
   }
   foreach ($contributors as $contributor) {
     $contributor['parent'] = $ewrapper->nid->value();
-    $contrib = _elife_services_article_contributor_update_values($contributor, $new);
+    $contrib = _elife_services_article_contributor_update_values($contributor, $ref_links, $new);
     $contribs[] = $contrib->nid;
   }
   $ewrapper->field_elife_a_contributors->set($contribs);
 }
 
-function _elife_services_article_contributor_update_values($data, $new = FALSE) {
+function _elife_services_article_contributor_update_values($data, $ref_links, $new = FALSE) {
   $either = array(
     'id',
     'group-author-key',
@@ -690,6 +700,44 @@ function _elife_services_article_contributor_update_values($data, $new = FALSE) 
   }
 
   $ewrapper->title->set($title);
+
+  $field_info = field_info_field('field_elife_a_basic_ref_type');
+  $refs = array();
+  $basic_found = FALSE;
+  if (!empty($field_info['settings']['allowed_values'])) {
+    $basic_ref_types = array_keys($field_info['settings']['allowed_values']);
+    foreach ($basic_ref_types as $brt) {
+      if (isset($data['references'][$brt])) {
+        $basic_found = TRUE;
+        foreach ($data['references'][$brt] as $ref) {
+          if (!empty($ref_links[$brt][$ref])) {
+            $refs[] = $ref_links[$brt][$ref];
+          }
+        }
+      }
+    }
+  }
+  if ($basic_found) {
+    $ewrapper->field_elife_a_basic_ref_links->set($refs);
+  }
+
+  $other_refs = array(
+    'fundings' => 'field_elife_a_fund_ref_links',
+    'affiliations' => 'field_elife_a_aff_ref_links',
+    'related-objects' => 'field_elife_a_rel_ref_links',
+  );
+
+  foreach ($other_refs as $type => $field) {
+    if (isset($data['references'][$type])) {
+      $refs = array();
+      foreach ($data['references'][$type] as $ref) {
+        if (!empty($ref_links[$type][$ref])) {
+          $refs[] = $ref_links[$type][$ref];
+        }
+      }
+      $ewrapper->{$field}->set($refs);
+    }
+  }
 
   $ewrapper->save();
 

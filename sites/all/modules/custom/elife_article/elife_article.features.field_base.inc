@@ -520,7 +520,7 @@ function elife_article_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
-        'equal_contrib' => 'equal_contrib',
+        'equal-contribs' => 'equal-contribs',
         'emails' => 'emails',
         'competing-interests' => 'competing-interests',
         'contributions' => 'contributions',
