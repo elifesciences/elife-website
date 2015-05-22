@@ -304,15 +304,18 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   if (isset($data['keywords'])) {
     $keywords = array();
-    foreach ($data['keywords'] as $keyword) {
-      $fields = array(
-        'field_elife_a_full_title' => array(
-          'value' => $keyword,
-          'format' => 'full_html',
-        ),
-      );
-      if ($term = _elife_services_article_prepare_term('elife_keywords', $keyword, array(), $fields)) {
-        $keywords[] = $term->tid;
+    // @todo - elife - nlisgo - we need to store the category appropriately.
+    foreach ($data['keywords'] as $category => $kwds) {
+      foreach ($kwds as $kwd) {
+        $fields = array(
+          'field_elife_a_full_title' => array(
+            'value' => $kwd,
+            'format' => 'full_html',
+          ),
+        );
+        if ($term = _elife_services_article_prepare_term('elife_keywords', $kwd, array(), $fields)) {
+          $keywords[] = $term->tid;
+        }
       }
     }
     $ewrapper->field_elife_a_keyword->set($keywords);
@@ -374,6 +377,29 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   $ewrapper->save();
 
   $trigger_save = FALSE;
+  if (isset($data['referenced'])) {
+    $field_basic_ref = 'field_elife_a_basic_ref';
+    $field_info = field_info_field($field_basic_ref . '_type');
+    if (!empty($field_info['settings']['allowed_values'])) {
+      $basic_ref_types = array_keys($field_info['settings']['allowed_values']);
+      foreach ($basic_ref_types as $brt) {
+        if (isset($data['referenced'][$brt])) {
+          foreach ($data['referenced'][$brt] as $key => $value) {
+            $fc_item = entity_create('field_collection_item', array('field_name' => $field_basic_ref));
+            $fc_item->setHostEntity('node', $ewrapper->raw());
+            /* @var EntityDrupalWrapper $fc_wrapper */
+            $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+            $fc_wrapper->{$field_basic_ref . '_type'}->set($brt);
+            $fc_wrapper->{$field_basic_ref . '_key'}->set($key);
+            $fc_wrapper->{$field_basic_ref . '_value'}->set($value);
+            $fc_wrapper->save(TRUE);
+            $trigger_save = TRUE;
+          }
+        }
+      }
+    }
+  }
+
   if (isset($data['contributors'])) {
     _elife_services_article_process_contributors($ewrapper, $data['contributors'], $new);
     $trigger_save = TRUE;
