@@ -59,7 +59,7 @@
         "competing-interests": [
           "conf2"
         ],
-        "present_address": [
+        "present_addresses": [
           "pa1"
         ],
         "related-objects": [
@@ -319,7 +319,7 @@
     }
   ],
   "referenced": {
-    "equal-contrib": {
+    "equal-contribs": {
       "equal-contrib": "These authors contributed equally to this work",
       "equal-contrib2": "These authors contributed equally to this work"
     },
