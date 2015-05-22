@@ -35,4 +35,4 @@ Feature: Article Resource - Related (API)
           "status": "VOR"
         }
       """
-    Then there should be 2 contributors for "10.7554/eLife.05224"
+    Then there should be 2 contributors for "05224"

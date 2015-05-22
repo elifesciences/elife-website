@@ -92,4 +92,22 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $actual = count($related);
     Assertions::assertSame($expected, $actual);
   }
+
+  /**
+   * Checks that we have the expected contributors.
+   *
+   * @param int $expected number of contributors
+   * @param string $article_version_id
+   *
+   * @Then /^there should be (\d+) contributors for "([^"]+)"$/
+   */
+  public function thereShouldBeContributorsFor($expected, $article_version_id)
+  {
+    $expected = intval($expected);
+    $article = ElifeArticle::fromIdentifier($article_version_id);
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $article);
+    $actual = $ewrapper->field_elife_a_contributors->count();
+    Assertions::assertSame($expected, $actual);
+  }
 }
