@@ -513,7 +513,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (isset($data['contributors'])) {
-    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $ref_links, $new);
+    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $ref_links);
     $trigger_save = TRUE;
   }
 
@@ -601,17 +601,17 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   return $dest_nids;
 }
 
-function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $ref_links, $new = FALSE) {
+function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $ref_links) {
   $contribs = array();
   foreach ($contributors as $contributor) {
     $contributor['parent'] = $ewrapper->nid->value();
-    $contrib = _elife_services_article_contributor_update_values($contributor, $ref_links, $new);
+    $contrib = _elife_services_article_contributor_update_values($contributor, $ref_links);
     $contribs[] = $contrib->nid;
   }
   $ewrapper->field_elife_a_contributors->set($contribs);
 }
 
-function _elife_services_article_contributor_update_values($data, $ref_links, $new = FALSE) {
+function _elife_services_article_contributor_update_values($data, $ref_links) {
   $either = array(
     'id',
     'group-author-key',
@@ -624,10 +624,6 @@ function _elife_services_article_contributor_update_values($data, $ref_links, $n
       $id_found = $req;
       break;
     }
-  }
-
-  if (!empty($either) && !$id_found) {
-    return services_error(t('No value provided for required: @fields', array('@fields' => implode(' or ', $either))), 406);
   }
 
   $type = 'elife_contributor';
@@ -678,7 +674,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links, $n
     }
   }
 
-  $title = $data[$id_found];
+  $title = ($id_found) ? $data[$id_found] : '';
   $extend = array(
     'given-names',
     'surname',
@@ -693,7 +689,13 @@ function _elife_services_article_contributor_update_values($data, $ref_links, $n
   }
 
   if (!empty($title_ext)) {
-    $title .= ' (' . implode(' ', $title_ext) . ')';
+    $title_ext = implode(' ', $title_ext);
+    if (empty($title)) {
+      $title = $title_ext;
+    }
+    else {
+      $title .= ' (' . $title_ext . ')';
+    }
   }
 
   $ewrapper->title->set($title);
@@ -841,9 +843,19 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
 
   $ewrapper->save();
 
+  $trigger_save = FALSE;
+
+  if (isset($data['contributors'])) {
+    _elife_services_article_process_contributors($ewrapper, $data['contributors'], array());
+    $trigger_save = TRUE;
+  }
+
   if (isset($data['children'])) {
     _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new);
-    // @todo - elife - nlisgo - saving again causes duplicate entry in url_alias
+    $trigger_save = TRUE;
+  }
+
+  if ($trigger_save) {
     $ewrapper->save();
   }
 
