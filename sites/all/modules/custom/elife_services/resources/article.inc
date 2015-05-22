@@ -312,6 +312,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
             'value' => $kwd,
             'format' => 'full_html',
           ),
+          'field_elife_a_kwd_type' => $category,
         );
         if ($term = _elife_services_article_prepare_term('elife_keywords', $kwd, array(), $fields)) {
           $keywords[] = $term->tid;
@@ -378,6 +379,19 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   $trigger_save = FALSE;
   if (isset($data['referenced'])) {
+    if (!$new) {
+      // Delete existing referenced for this article.
+      $referenced = ElifeArticle::getReferences($ewrapper->nid->value());
+      foreach ($referenced as $type => $refs) {
+        foreach ($refs as $ref) {
+          field_collection_item_delete($ref);
+        }
+      }
+      $ewrapper->{$field_basic_ref}->set();
+      $trigger_save = TRUE;
+    }
+
+    // Save basic references.
     $field_basic_ref = 'field_elife_a_basic_ref';
     $field_info = field_info_field($field_basic_ref . '_type');
     if (!empty($field_info['settings']['allowed_values'])) {
@@ -387,12 +401,13 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
           foreach ($data['referenced'][$brt] as $key => $value) {
             $fc_item = entity_create('field_collection_item', array('field_name' => $field_basic_ref));
             $fc_item->setHostEntity('node', $ewrapper->raw());
+
             /* @var EntityDrupalWrapper $fc_wrapper */
             $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
             $fc_wrapper->{$field_basic_ref . '_type'}->set($brt);
             $fc_wrapper->{$field_basic_ref . '_key'}->set($key);
             $fc_wrapper->{$field_basic_ref . '_value'}->set($value);
-            $fc_wrapper->save(TRUE);
+            $fc_wrapper->save();
             $trigger_save = TRUE;
           }
         }
