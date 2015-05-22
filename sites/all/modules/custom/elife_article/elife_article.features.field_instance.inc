@@ -112,6 +112,216 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_award_id',
+    'label' => 'Award Id',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 36,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_id',
+    'label' => 'Id',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id_type'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id_type'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_id_type',
+    'label' => 'Id type',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_inst',
+    'label' => 'Institution',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 34,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst_type'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst_type'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_inst_type',
+    'label' => 'Institution type',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 35,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_key'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_key'] = array(
+    'bundle' => 'field_elife_a_fund_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_fund_ref_key',
+    'label' => 'Key',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 31,
+    ),
+  );
+
   // Exported field_instance: 'node-elife_adjunct-body'
   $field_instances['node-elife_adjunct-body'] = array(
     'bundle' => 'elife_adjunct',
@@ -713,6 +923,49 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'text_textarea',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_fund_ref'
+  $field_instances['node-elife_article-field_elife_a_fund_ref'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 25,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_fund_ref',
+    'label' => 'Funding references',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 26,
     ),
   );
 
@@ -1892,6 +2145,7 @@ function elife_article_field_default_field_instances() {
   t('Article ID');
   t('Article version ID');
   t('Author Impact Statement');
+  t('Award Id');
   t('Basic references');
   t('Body');
   t('Category');
@@ -1903,7 +2157,11 @@ function elife_article_field_default_field_instances() {
   t('First Publication Date');
   t('First names');
   t('Full Title');
+  t('Funding references');
   t('Id');
+  t('Id type');
+  t('Institution');
+  t('Institution type');
   t('Key');
   t('Keyword');
   t('Orcid Id');

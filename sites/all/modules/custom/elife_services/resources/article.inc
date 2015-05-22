@@ -413,6 +413,33 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
         }
       }
     }
+
+    // Save funding references.
+    if (isset($data['referenced']['fundings'])) {
+      $field_fund_ref = 'field_elife_a_fund_ref';
+      foreach ($data['referenced']['fundings'] as $key => $values) {
+        $fc_item = entity_create('field_collection_item', array('field_name' => $field_fund_ref));
+        $fc_item->setHostEntity('node', $ewrapper->raw());
+
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+        $fc_wrapper->{$field_fund_ref . '_key'}->set($key);
+        $mappings = array(
+          'id' => $field_fund_ref . '_id',
+          'id-type' => $field_fund_ref . '_id_type',
+          'institution' => $field_fund_ref . '_inst',
+          'institution-type' => $field_fund_ref . '_inst_type',
+          'award-id' => $field_fund_ref . '_award_id',
+        );
+        foreach ($mappings as $k => $field) {
+          if (isset($values[$k])) {
+            $fc_wrapper->{$field}->set($values[$k]);
+          }
+        }
+        $fc_wrapper->save();
+        $trigger_save = TRUE;
+      }
+    }
   }
 
   if (isset($data['contributors'])) {
