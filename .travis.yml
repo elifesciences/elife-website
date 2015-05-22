@@ -13,14 +13,14 @@ install:
 
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
-  - sudo apt-get install -y --force-yes apache2 php5-dev php-pear php5-mysql php5-xsl php5-gd php5-curl php5-mcrypt libpcre3-dev > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-dev php-pear php5-mysql php5-xsl php5-gd php5-cli php5-cgi php5-curl php5-mcrypt libpcre3-dev > /dev/null
   # - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi libapache2-mod-php5 php5-cli php5-cgi php5-curl php5-gd php5-mysql php5-xsl > /dev/null
   - sudo a2enmod rewrite actions alias
-  - sudo service apache2 restart
 
   # configure apache virtual hosts
   - sudo cp -f sites/all/tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+  # restart the server
   - sudo service apache2 restart
   - cat /etc/apache2/sites-available/default
   - sleep 5s
@@ -75,6 +75,7 @@ script:
   - ./bin/behat --config behat.travis.yml --tags='~@develop'
   - cd $basedir
   - sudo cat /var/log/apache2/error.log
+  - sudo cat /var/log/apache2/access.log
 
   # Run simpletest
   # - drush en simpletest --yes

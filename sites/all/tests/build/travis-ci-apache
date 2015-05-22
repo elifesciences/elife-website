@@ -4,11 +4,14 @@
   DocumentRoot %TRAVIS_BUILD_DIR%
 
   <Directory "%TRAVIS_BUILD_DIR%">
-    Options FollowSymLinks MultiViews ExecCGI
+    Options Indexes FollowSymLinks MultiViews
     AllowOverride All
-    Order deny,allow
-    Allow from all
+    Order allow,deny
+    allow from all
   </Directory>
+
+  DirectoryIndex index.php index.html
+  AddType application/x-httpd-php5 .php
 
   # [...]
 </VirtualHost>
