@@ -392,6 +392,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       $trigger_save = TRUE;
     }
 
+    $field_ref_key = 'field_elife_a_ref_key';
+
     // Save basic references.
     $field_basic_ref = 'field_elife_a_basic_ref';
     $field_info = field_info_field($field_basic_ref . '_type');
@@ -406,7 +408,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
             /* @var EntityDrupalWrapper $fc_wrapper */
             $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
             $fc_wrapper->{$field_basic_ref . '_type'}->set($brt);
-            $fc_wrapper->{$field_basic_ref . '_key'}->set($key);
+            $fc_wrapper->{$field_ref_key}->set($key);
             $fc_wrapper->{$field_basic_ref . '_value'}->set($value);
             $fc_wrapper->save();
             $trigger_save = TRUE;
@@ -424,7 +426,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
         /* @var EntityDrupalWrapper $fc_wrapper */
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-        $fc_wrapper->{$field_fund_ref . '_key'}->set($key);
+        $fc_wrapper->{$field_ref_key}->set($key);
         $mappings = array(
           'id' => $field_fund_ref . '_id',
           'id-type' => $field_fund_ref . '_id_type',
@@ -451,7 +453,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
         /* @var EntityDrupalWrapper $fc_wrapper */
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-        $fc_wrapper->{$field_aff_ref . '_key'}->set($key);
+        $fc_wrapper->{$field_ref_key}->set($key);
         $mappings = array(
           'label' => $field_aff_ref . '_label',
           'dept' => $field_aff_ref . '_dept',
@@ -478,7 +480,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
         /* @var EntityDrupalWrapper $fc_wrapper */
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-        $fc_wrapper->{$field_rel_ref . '_key'}->set($key);
+        $fc_wrapper->{$field_ref_key}->set($key);
         $mappings = array(
           'type' => $field_rel_ref . '_type',
           'source-id' => $field_rel_ref . '_src_id',

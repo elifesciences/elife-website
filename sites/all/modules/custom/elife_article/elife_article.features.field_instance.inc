@@ -41,7 +41,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => 6,
     ),
   );
 
@@ -76,7 +76,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 7,
     ),
   );
 
@@ -111,7 +111,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 4,
     ),
   );
 
@@ -146,42 +146,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 34,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_key'
-  $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_key'] = array(
-    'bundle' => 'field_elife_a_aff_ref',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_aff_ref_key',
-    'label' => 'Key',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 5,
     ),
   );
 
@@ -216,14 +181,14 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 32,
+      'weight' => 3,
     ),
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_key'
-  $field_instances['field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_key'] = array(
-    'bundle' => 'field_elife_a_basic_ref',
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_ref_key'
+  $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_ref_key'] = array(
+    'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -233,11 +198,11 @@ function elife_article_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_basic_ref_key',
+    'field_name' => 'field_elife_a_ref_key',
     'label' => 'Key',
     'required' => 0,
     'settings' => array(
@@ -251,7 +216,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 32,
+      'weight' => 1,
     ),
   );
 
@@ -283,7 +248,7 @@ function elife_article_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 31,
+      'weight' => 1,
     ),
   );
 
@@ -318,7 +283,42 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_ref_key'
+  $field_instances['field_collection_item-field_elife_a_basic_ref-field_elife_a_ref_key'] = array(
+    'bundle' => 'field_elife_a_basic_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_ref_key',
+    'label' => 'Key',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
     ),
   );
 
@@ -353,7 +353,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 7,
     ),
   );
 
@@ -388,7 +388,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 32,
+      'weight' => 3,
     ),
   );
 
@@ -423,7 +423,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 4,
     ),
   );
 
@@ -458,7 +458,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 34,
+      'weight' => 5,
     ),
   );
 
@@ -493,13 +493,13 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => 6,
     ),
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_key'
-  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_key'] = array(
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_ref_key'
+  $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
     'deleted' => 0,
@@ -510,11 +510,11 @@ function elife_article_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_fund_ref_key',
+    'field_name' => 'field_elife_a_ref_key',
     'label' => 'Key',
     'required' => 0,
     'settings' => array(
@@ -528,7 +528,42 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_rel_ref-field_elife_a_ref_key'
+  $field_instances['field_collection_item-field_elife_a_rel_ref-field_elife_a_ref_key'] = array(
+    'bundle' => 'field_elife_a_rel_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_ref_key',
+    'label' => 'Key',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
     ),
   );
 
@@ -563,42 +598,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_elife_a_rel_ref-field_elife_a_rel_ref_key'
-  $field_instances['field_collection_item-field_elife_a_rel_ref-field_elife_a_rel_ref_key'] = array(
-    'bundle' => 'field_elife_a_rel_ref',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_rel_ref_key',
-    'label' => 'Key',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 7,
     ),
   );
 
@@ -633,7 +633,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -773,7 +773,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 

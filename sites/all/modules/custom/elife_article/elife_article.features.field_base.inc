@@ -246,27 +246,6 @@ function elife_article_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_a_aff_ref_key'
-  $field_bases['field_elife_a_aff_ref_key'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elife_a_aff_ref_key',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_elife_a_aff_ref_label'
   $field_bases['field_elife_a_aff_ref_label'] = array(
     'active' => 1,
@@ -488,27 +467,6 @@ function elife_article_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'field_collection',
-  );
-
-  // Exported field_base: 'field_elife_a_basic_ref_key'
-  $field_bases['field_elife_a_basic_ref_key'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elife_a_basic_ref_key',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
   );
 
   // Exported field_base: 'field_elife_a_basic_ref_links'
@@ -1004,27 +962,6 @@ function elife_article_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_a_fund_ref_key'
-  $field_bases['field_elife_a_fund_ref_key'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elife_a_fund_ref_key',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_elife_a_fund_ref_links'
   $field_bases['field_elife_a_fund_ref_links'] = array(
     'active' => 1,
@@ -1193,6 +1130,27 @@ function elife_article_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_elife_a_ref_key'
+  $field_bases['field_elife_a_ref_key'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_ref_key',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_rel_ref'
   $field_bases['field_elife_a_rel_ref'] = array(
     'active' => 1,
@@ -1222,27 +1180,6 @@ function elife_article_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_elife_a_rel_ref_comment',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_elife_a_rel_ref_key'
-  $field_bases['field_elife_a_rel_ref_key'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elife_a_rel_ref_key',
     'indexes' => array(
       'format' => array(
         0 => 'format',
