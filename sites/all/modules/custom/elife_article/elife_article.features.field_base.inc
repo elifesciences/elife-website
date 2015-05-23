@@ -282,18 +282,19 @@ function elife_article_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'base',
+      'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'field_elife_a_aff_ref' => 'field_elife_a_aff_ref',
+        'view' => array(
+          'args' => array(
+            0 => '[node:field-elife-a-parent:nid]',
+          ),
+          'display_name' => 'contributor_aff_ref_filter',
+          'view_name' => 'elife_contributor_ref_filter',
         ),
       ),
       'target_type' => 'field_collection_item',
@@ -484,18 +485,19 @@ function elife_article_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'base',
+      'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'field_elife_a_basic_ref' => 'field_elife_a_basic_ref',
+        'view' => array(
+          'args' => array(
+            0 => '[node:field-elife-a-parent:nid]',
+          ),
+          'display_name' => 'contributor_basic_ref_filter',
+          'view_name' => 'elife_contributor_ref_filter',
         ),
       ),
       'target_type' => 'field_collection_item',
@@ -977,18 +979,19 @@ function elife_article_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'base',
+      'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'field_elife_a_fund_ref' => 'field_elife_a_fund_ref',
+        'view' => array(
+          'args' => array(
+            0 => '[node:field-elife-a-parent:nid]',
+          ),
+          'display_name' => 'contributor_fund_ref_filter',
+          'view_name' => 'elife_contributor_ref_filter',
         ),
       ),
       'target_type' => 'field_collection_item',
@@ -1209,18 +1212,19 @@ function elife_article_field_default_field_bases() {
     'locked' => 0,
     'module' => 'entityreference',
     'settings' => array(
-      'handler' => 'base',
+      'handler' => 'views',
       'handler_settings' => array(
         'behaviors' => array(
           'views-select-list' => array(
             'status' => 0,
           ),
         ),
-        'sort' => array(
-          'type' => 'none',
-        ),
-        'target_bundles' => array(
-          'field_elife_a_rel_ref' => 'field_elife_a_rel_ref',
+        'view' => array(
+          'args' => array(
+            0 => '[node:field-elife-a-parent:nid]',
+          ),
+          'display_name' => 'contributor_rel_ref_filter',
+          'view_name' => 'elife_contributor_ref_filter',
         ),
       ),
       'target_type' => 'field_collection_item',

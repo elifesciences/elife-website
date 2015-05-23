@@ -2108,13 +2108,9 @@ function elife_article_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
       'weight' => 18,
     ),
   );
@@ -2274,13 +2270,9 @@ function elife_article_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
       'weight' => 16,
     ),
   );
@@ -2484,13 +2476,9 @@ function elife_article_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
       'weight' => 17,
     ),
   );
@@ -2658,13 +2646,9 @@ function elife_article_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
       'weight' => 19,
     ),
   );
