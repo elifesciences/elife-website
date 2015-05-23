@@ -513,7 +513,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (isset($data['contributors'])) {
-    _elife_services_article_process_contributors($ewrapper, $data['contributors'], $ref_links);
+    _elife_services_article_process_contributors($ewrapper, $ewrapper->nid->value(), $data['contributors'], $ref_links);
     $trigger_save = TRUE;
   }
 
@@ -601,10 +601,10 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   return $dest_nids;
 }
 
-function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $contributors, $ref_links) {
+function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $parent_nid, $contributors, $ref_links) {
   $contribs = array();
   foreach ($contributors as $contributor) {
-    $contributor['parent'] = $ewrapper->nid->value();
+    $contributor['parent'] = $parent_nid;
     $contrib = _elife_services_article_contributor_update_values($contributor, $ref_links);
     $contribs[] = $contrib->nid;
   }
@@ -846,7 +846,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   $trigger_save = FALSE;
 
   if (isset($data['contributors'])) {
-    _elife_services_article_process_contributors($ewrapper, $data['contributors'], array());
+    _elife_services_article_process_contributors($ewrapper, $data['parent'], $data['contributors'], array());
     $trigger_save = TRUE;
   }
 
