@@ -281,6 +281,69 @@ class ElifeArticle {
   }
 
   /**
+   * Get contributors for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return array
+   */
+  public static function getContributors($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $contributors = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      $field_prefix = 'field_elife_a';
+      $mappings = array(
+        'type' => $field_prefix . '_contrib_type',
+        'id' => $field_prefix . '_author_id',
+        'surname' => $field_prefix . '_surname',
+        'given-names' => $field_prefix . '_fnames',
+        'suffix' => $field_prefix . '_author_suffix',
+        'orcid' => $field_prefix . '_orcid_id',
+        'role' => $field_prefix . '_author_role',
+        'group-author-key' => $field_prefix . '_group_author_key',
+        'collab' => $field_prefix . '_collab',
+      );
+      /* @var EntityDrupalWrapper $contrib_wrapper */
+      foreach ($ewrapper->field_elife_a_contributors as $contrib_wrapper) {
+        $contributor = array();
+        $references = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $contrib_wrapper->{$field}->value()) {
+            $contributor[$k] = $value;
+          }
+        }
+
+        $types = array(
+          'basic' => $field_prefix . '_basic_ref_type',
+          'fund' => 'funding',
+          'aff' => 'affiliation',
+          'rel' => 'related-object',
+        );
+        foreach ($types as $k => $t) {
+          $field = 'field_elife_a_' . $k . '_ref_links';
+          $type = $t;
+          /* @var EntityDrupalWrapper $fc_wrapper */
+          foreach ($contrib_wrapper->{$field} as $fc_wrapper) {
+            if ($k == 'basic') {
+              $type = $fc_wrapper->{$t}->value();
+            }
+            $references[$type][] = $fc_wrapper->field_elife_a_ref_key->value();
+          }
+        }
+        if (!empty($contributor)) {
+          if (!empty($references)) {
+            $contributor['references'] = $references;
+          }
+          $contributors[] = $contributor;
+        }
+      }
+    }
+
+    return $contributors;
+  }
+
+  /**
    * Get contributor references for supplied article version id.
    *
    * @param string $article_version_id
