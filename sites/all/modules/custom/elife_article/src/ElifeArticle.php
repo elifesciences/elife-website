@@ -357,6 +357,9 @@ class ElifeArticle {
             if ($sub_wrapper->field_elife_a_children->value()) {
               $subarticle['children']['fragment'] = self::getChildFragments($sub_wrapper->field_elife_a_children);
             }
+            if ($sub_wrapper->field_elife_a_contributors->value()) {
+              $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors);
+            }
             if (!empty($subarticle)) {
               $subarticles[] = $subarticle;
             }
@@ -422,51 +425,81 @@ class ElifeArticle {
 
     /* @var EntityDrupalWrapper $ewrapper */
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      $field_prefix = 'field_elife_a';
-      $mappings = array(
-        'type' => $field_prefix . '_contrib_type',
-        'id' => $field_prefix . '_author_id',
-        'surname' => $field_prefix . '_surname',
-        'given-names' => $field_prefix . '_fnames',
-        'suffix' => $field_prefix . '_author_suffix',
-        'orcid' => $field_prefix . '_orcid_id',
-        'role' => $field_prefix . '_author_role',
-        'group-author-key' => $field_prefix . '_group_author_key',
-        'collab' => $field_prefix . '_collab',
-      );
-      /* @var EntityDrupalWrapper $contrib_wrapper */
-      foreach ($ewrapper->field_elife_a_contributors as $contrib_wrapper) {
-        $contributor = array();
-        $references = array();
-        foreach ($mappings as $k => $field) {
-          if ($value = $contrib_wrapper->{$field}->value()) {
-            $contributor[$k] = $value;
-          }
-        }
+      if ($ewrapper->field_elife_a_contributors->value()) {
+        $contributors = self::getChildContributors($ewrapper->field_elife_a_contributors);
+      }
+    }
 
-        $types = array(
-          'basic' => $field_prefix . '_basic_ref_type',
-          'fund' => 'funding',
-          'aff' => 'affiliation',
-          'rel' => 'related-object',
-        );
-        foreach ($types as $k => $t) {
-          $field = 'field_elife_a_' . $k . '_ref_links';
-          $type = $t;
-          /* @var EntityDrupalWrapper $fc_wrapper */
-          foreach ($contrib_wrapper->{$field} as $fc_wrapper) {
-            if ($k == 'basic') {
-              $type = $fc_wrapper->{$t}->value();
-            }
-            $references[$type][] = $fc_wrapper->field_elife_a_ref_key->value();
+    return $contributors;
+  }
+
+  /**
+   * Get child fragments for supplied entity.
+   *
+   * @param EntityListWrapper $contrib_list
+   * @return array
+   */
+  public static function getChildContributors(EntityListWrapper $contrib_list) {
+    $contributors = array();
+    $field_prefix = 'field_elife_a';
+    $mappings = array(
+      'type' => $field_prefix . '_contrib_type',
+      'id' => $field_prefix . '_author_id',
+      'surname' => $field_prefix . '_surname',
+      'given-names' => $field_prefix . '_fnames',
+      'suffix' => $field_prefix . '_author_suffix',
+      'orcid' => $field_prefix . '_orcid_id',
+      'role' => $field_prefix . '_author_role',
+      'group-author-key' => $field_prefix . '_group_author_key',
+      'collab' => $field_prefix . '_collab',
+    );
+    /* @var EntityDrupalWrapper $contrib_wrapper */
+    foreach ($contrib_list as $contrib_wrapper) {
+      $contributor = array();
+      $references = array();
+      foreach ($mappings as $k => $field) {
+        if ($value = $contrib_wrapper->{$field}->value()) {
+          $contributor[$k] = $value;
+        }
+      }
+
+      $types = array(
+        'basic' => $field_prefix . '_basic_ref_type',
+        'fund' => 'funding',
+        'aff' => 'affiliation',
+        'rel' => 'related-object',
+      );
+      foreach ($types as $k => $t) {
+        $field = 'field_elife_a_' . $k . '_ref_links';
+        $type = $t;
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        foreach ($contrib_wrapper->{$field} as $fc_wrapper) {
+          if ($k == 'basic') {
+            $type = $fc_wrapper->{$t}->value();
+          }
+          $references[$type][] = $fc_wrapper->field_elife_a_ref_key->value();
+        }
+      }
+      $aff_mappings = array(
+        'affiliation' => array(
+          'dept' => $field_prefix . '_aff_dept',
+          'inst' => $field_prefix . '_aff_inst',
+          'city' => $field_prefix . '_aff_city',
+          'country' => $field_prefix . '_aff_country',
+        ),
+      );
+      foreach ($aff_mappings as $group => $fields) {
+        foreach ($fields as $k => $field) {
+          if ($value = $contrib_wrapper->{$field}->value()) {
+            $contributor[$group][$k] = $value;
           }
         }
-        if (!empty($contributor)) {
-          if (!empty($references)) {
-            $contributor['references'] = $references;
-          }
-          $contributors[] = $contributor;
+      }
+      if (!empty($contributor)) {
+        if (!empty($references)) {
+          $contributor['references'] = $references;
         }
+        $contributors[] = $contributor;
       }
     }
 

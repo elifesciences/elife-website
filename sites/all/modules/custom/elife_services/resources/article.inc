@@ -124,6 +124,10 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'field' => 'field_elife_a_status',
       'type' => 'string',
     ),
+    'pub-date' => array(
+      'field' => 'field_elife_a_fpubdate',
+      'type' => 'date',
+    ),
     'path' => array(
       'custom' => 'Drupal\elife_article\ElifeArticle::getPath',
       'type' => 'array',
@@ -164,6 +168,12 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     $get = NULL;
     if (isset($value['field'])) {
       $get = $ewrapper->{$value['field']}->value();
+
+      if (isset($value['type'])) {
+        if ($value['type'] == 'date') {
+          $get = format_date($get, 'medium', 'Y-m-d H:i:s');
+        }
+      }
 
       if (is_array($get)) {
         $get = reset($get);
