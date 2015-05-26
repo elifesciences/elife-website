@@ -567,11 +567,10 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $mappings = array(
       'id' => $field_cit_prefix . '_id',
       'publication-type' => $field_cit_prefix . '_pub_type',
-      'person-group-type' => $field_cit_prefix . '_grp_type',
-      'authors' => $field_cit_prefix . '_authors',
       'year' => $field_cit_prefix . '_year',
       'title' => $field_cit_prefix . '_title',
       'source' => $field_cit_prefix . '_source',
+      'edition' => $field_cit_prefix . '_edition',
       'volume' => $field_cit_prefix . '_volume',
       'fpage' => $field_cit_prefix . '_fpage',
       'lpage' => $field_cit_prefix . '_lpage',
@@ -592,7 +591,28 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
         }
       }
       $fc_wrapper->save();
-      $trigger_save = TRUE;
+      // @todo - elife - nlisgo - this is taking too long!!
+//      if (isset($values['authors'])) {
+//        $author_mappings = array(
+//          'group-type' => $field_cit_prefix . '_author_group',
+//          'name' => $field_cit_prefix . '_author_name',
+//        );
+//        foreach ($values['authors'] as $author) {
+//          /* @var FieldCollectionItemEntity $fc_author */
+//          $fc_author = entity_create('field_collection_item', array('field_name' => $field_cit_prefix . '_authors'));
+//          $fc_author->setHostEntity('field_collection_item', $fc_wrapper->raw());
+//          /* @var EntityDrupalWrapper $fc_author_wrapper */
+//          $fc_author_wrapper = entity_metadata_wrapper('field_collection_item', $fc_author);
+//          foreach ($author_mappings as $k => $field) {
+//            if (isset($author[$k])) {
+//              $fc_author_wrapper->{$field}->set($author[$k]);
+//            }
+//          }
+//          $fc_author_wrapper->save();
+//        }
+//        $fc_wrapper->save();
+//      }
+//      $trigger_save = TRUE;
     }
   }
 
