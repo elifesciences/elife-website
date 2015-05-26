@@ -241,7 +241,7 @@ class ElifeArticle {
    * Get categories for supplied article version id.
    *
    * @param string $article_version_id
-   * @return string
+   * @return array
    */
   public static function getCategories($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -262,7 +262,7 @@ class ElifeArticle {
    * Get keywords for supplied article version id.
    *
    * @param string $article_version_id
-   * @return string
+   * @return array
    */
   public static function getKeywords($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -278,6 +278,138 @@ class ElifeArticle {
     }
 
     return $keywords;
+  }
+
+  /**
+   * Get contributor references for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return array
+   */
+  public static function getContributorReferences($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $references = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      $field_ref_key = 'field_elife_a_ref_key';
+
+      $field_basic_ref = 'field_elife_a_basic_ref';
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->{$field_basic_ref} as $fc_wrapper) {
+        $key = $fc_wrapper->{$field_ref_key}->value();
+        $references[$fc_wrapper->{$field_basic_ref . '_type'}->value()][$key] = $fc_wrapper->{$field_basic_ref . '_value'}->value();
+      }
+
+      $field_fund_ref = 'field_elife_a_fund_ref';
+      $type = 'funding';
+      $mappings = array(
+        'id' => $field_fund_ref . '_id',
+        'id-type' => $field_fund_ref . '_id_type',
+        'institution' => $field_fund_ref . '_inst',
+        'institution-type' => $field_fund_ref . '_inst_type',
+        'award-id' => $field_fund_ref . '_award_id',
+      );
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->{$field_fund_ref} as $fc_wrapper) {
+        $key = $fc_wrapper->{$field_ref_key}->value();
+        $references[$type][$key] = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $fc_wrapper->{$field}->value()) {
+            $references[$type][$key][$k] = $value;
+          }
+        }
+      }
+
+      $field_aff_ref = 'field_elife_a_aff_ref';
+      $type = 'affiliation';
+      $mappings = array(
+        'label' => $field_aff_ref . '_label',
+        'dept' => $field_aff_ref . '_dept',
+        'institution' => $field_aff_ref . '_inst',
+        'city' => $field_aff_ref . '_city',
+        'country' => $field_aff_ref . '_country',
+      );
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->{$field_aff_ref} as $fc_wrapper) {
+        $key = $fc_wrapper->{$field_ref_key}->value();
+        $references[$type][$key] = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $fc_wrapper->{$field}->value()) {
+            $references[$type][$key][$k] = $value;
+          }
+        }
+      }
+
+      $field_rel_ref = 'field_elife_a_rel_ref';
+      $type = 'related-object';
+      $mappings = array(
+        'type' => $field_rel_ref . '_type',
+        'source-id' => $field_rel_ref . '_src_id',
+        'source-id-type' => $field_rel_ref . '_src_id_typ',
+        'year' => $field_rel_ref . '_year',
+        'src' => $field_rel_ref . '_src',
+        'comment' => $field_rel_ref . '_comment',
+      );
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->{$field_rel_ref} as $fc_wrapper) {
+        $key = $fc_wrapper->{$field_ref_key}->value();
+        $references[$type][$key] = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $fc_wrapper->{$field}->value()) {
+            $references[$type][$key][$k] = $value;
+          }
+        }
+      }
+    }
+
+    return $references;
+  }
+
+  /**
+   * Get citations for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return array
+   */
+  public static function getCitations($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $citations = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      $field_citations = 'field_elife_a_citations';
+      $field_cit_prefix = 'field_elife_a_cit';
+      $mappings = array(
+        'id' => $field_cit_prefix . '_id',
+        'publication-type' => $field_cit_prefix . '_pub_type',
+        'person-group-type' => $field_cit_prefix . '_grp_type',
+        'authors' => $field_cit_prefix . '_authors',
+        'year' => $field_cit_prefix . '_year',
+        'title' => $field_cit_prefix . '_title',
+        'source' => $field_cit_prefix . '_source',
+        'volume' => $field_cit_prefix . '_volume',
+        'fpage' => $field_cit_prefix . '_fpage',
+        'lpage' => $field_cit_prefix . '_lpage',
+        'doi' => $field_cit_prefix . '_doi',
+        'publisher-loc' => $field_cit_prefix . '_pub_loc',
+        'publisher-name' => $field_cit_prefix . '_pub_name',
+      );
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->{$field_citations} as $fc_wrapper) {
+        $citation = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $fc_wrapper->{$field}->value()) {
+            $citation[$k] = $value;
+          }
+        }
+        if (!empty($citation)) {
+          $citations[] = $citation;
+        }
+      }
+    }
+
+    return $citations;
   }
 
   /**

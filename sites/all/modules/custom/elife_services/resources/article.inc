@@ -140,6 +140,14 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'custom' => 'Drupal\elife_article\ElifeArticle::getKeywords',
       'type' => 'array',
     ),
+    'referenced' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getContributorReferences',
+      'type' => 'array',
+    ),
+    'citations' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getCitations',
+      'type' => 'array',
+    ),
   );
 
   $json = array();
