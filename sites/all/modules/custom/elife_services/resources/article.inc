@@ -105,7 +105,7 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     ),
     'volume' => array(
       'field' => 'field_elife_a_volume',
-      'type' => 'int',
+      'type' => 'string',
     ),
     'article-id' => array(
       'field' => 'field_elife_a_article_id',
@@ -113,12 +113,12 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     ),
     'version' => array(
       'field' => 'field_elife_a_version',
-      'type' => 'int',
+      'type' => 'string',
     ),
     'article-version-id' => $article_version_id,
     'publish' => array(
       'field' => 'status',
-      'type' => 'int',
+      'type' => 'string',
     ),
     'status' => array(
       'field' => 'field_elife_a_status',
@@ -126,10 +126,19 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     ),
     'path' => array(
       'custom' => 'Drupal\elife_article\ElifeArticle::getPath',
+      'type' => 'array',
     ),
     'article-type' => array(
       'field' => 'field_elife_a_article_type',
       'type' => 'string',
+    ),
+    'categories' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getCategories',
+      'type' => 'array',
+    ),
+    'keywords' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getKeywords',
+      'type' => 'array',
     ),
   );
 

@@ -8,6 +8,7 @@
 namespace Drupal\elife_article;
 
 use EntityFieldQuery;
+use EntityDrupalWrapper;
 use RelationQuery;
 
 class ElifeArticle {
@@ -234,6 +235,49 @@ class ElifeArticle {
   public static function getPath($article_version_id) {
     $article_nid = self::fromIdentifier($article_version_id, FALSE);
     return drupal_get_path_alias('node/' . $article_nid);
+  }
+
+  /**
+   * Get categories for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return string
+   */
+  public static function getCategories($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $categories = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      /* @var EntityDrupalWrapper $category */
+      foreach ($ewrapper->field_elife_a_category as $category) {
+        $categories[$category->field_elife_category_type->value()][] = $category->name->value();
+      }
+    }
+
+    return $categories;
+  }
+
+  /**
+   * Get keywords for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return string
+   */
+  public static function getKeywords($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $keywords = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      /* @var EntityDrupalWrapper $keyword */
+      foreach ($ewrapper->field_elife_a_keyword as $keyword) {
+        $value = $keyword->field_elife_a_full_title->value();
+        $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value['value'];
+      }
+    }
+
+    return $keywords;
   }
 
   /**
