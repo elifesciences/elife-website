@@ -323,6 +323,461 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_authors',
+    'label' => 'Authors',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 34,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_doi'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_doi'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_doi',
+    'label' => 'DOI',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 41,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_fpage'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_fpage'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 8,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_fpage',
+    'label' => 'First page',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 39,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_grp_type'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_grp_type'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_grp_type',
+    'label' => 'Person group type',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 33,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_id'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_id'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_id',
+    'label' => 'Id',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 31,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_lpage'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_lpage'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_lpage',
+    'label' => 'Last page',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 40,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_loc'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_loc'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 11,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_pub_loc',
+    'label' => 'Publisher location',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 42,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_name'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_name'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 12,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_pub_name',
+    'label' => 'Publisher name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 43,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_type'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_pub_type'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_pub_type',
+    'label' => 'Publication type',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_source'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_source'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_source',
+    'label' => 'Source',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 37,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_title'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_title'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_title',
+    'label' => 'Title',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 36,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_volume'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_volume'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_volume',
+    'label' => 'Volume',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 38,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_year'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_year'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_year',
+    'label' => 'Year',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 35,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'] = array(
     'bundle' => 'field_elife_a_fund_ref',
@@ -1200,6 +1655,49 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_citations'
+  $field_instances['node-elife_article-field_elife_a_citations'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 28,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_citations',
+    'label' => 'Citations',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 29,
     ),
   );
 
@@ -3136,11 +3634,13 @@ function elife_article_field_default_field_instances() {
   t('Article ID');
   t('Article version ID');
   t('Author Impact Statement');
+  t('Authors');
   t('Award Id');
   t('Basic references');
   t('Body');
   t('Category');
   t('Children');
+  t('Citations');
   t('City');
   t('Collab');
   t('Comment');
@@ -3152,6 +3652,7 @@ function elife_article_field_default_field_instances() {
   t('Equal contributor');
   t('First Publication Date');
   t('First names');
+  t('First page');
   t('Full Title');
   t('Funding references');
   t('Group author key');
@@ -3162,8 +3663,13 @@ function elife_article_field_default_field_instances() {
   t('Key');
   t('Keyword');
   t('Label');
+  t('Last page');
   t('Orcid Id');
   t('Parent');
+  t('Person group type');
+  t('Publication type');
+  t('Publisher location');
+  t('Publisher name');
   t('Related object references');
   t('Role');
   t('Source');
@@ -3175,6 +3681,7 @@ function elife_article_field_default_field_instances() {
   t('Surname');
   t('Template Type');
   t('This value should be the same for all versions of an article.');
+  t('Title');
   t('Type');
   t('Updated Date');
   t('Value');
