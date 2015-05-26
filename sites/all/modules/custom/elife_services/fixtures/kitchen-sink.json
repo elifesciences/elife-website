@@ -188,7 +188,7 @@
         "affiliation": [
           "aff2"
         ],
-        "emails": [
+        "email": [
           "cor1"
         ],
         "funding": [
@@ -213,7 +213,7 @@
         "affiliation": [
           "aff1"
         ],
-        "emails": [
+        "email": [
           "cor2"
         ],
         "funding": [
@@ -240,7 +240,7 @@
         "affiliation": [
           "aff3"
         ],
-        "emails": [
+        "email": [
           "cor3"
         ],
         "funding": [
@@ -323,7 +323,7 @@
       "equal-contrib": "These authors contributed equally to this work",
       "equal-contrib2": "These authors contributed equally to this work"
     },
-    "emails": {
+    "email": {
       "cor1": "jon_clardy@hms.harvard.edu",
       "cor2": "nking@berkeley.edu",
       "cor3": "mharrison@elifesciences.org"
