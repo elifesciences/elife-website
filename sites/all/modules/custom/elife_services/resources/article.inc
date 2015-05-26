@@ -520,7 +520,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
         'source-id' => $field_rel_ref . '_src_id',
         'source-id-type' => $field_rel_ref . '_src_id_typ',
         'year' => $field_rel_ref . '_year',
-        'src' => $field_rel_ref . '_src',
+        'source' => $field_rel_ref . '_src',
         'comment' => $field_rel_ref . '_comment',
       );
       foreach ($data['referenced']['related-object'] as $key => $values) {
@@ -733,6 +733,14 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
 
   if (isset($data['equal-contrib'])) {
     $ewrapper->field_elife_a_equal_contrib->set(($data['equal-contrib'] == 'yes'));
+  }
+
+  if (isset($data['corresp'])) {
+    $ewrapper->field_elife_a_corresp->set(($data['corresp'] == 'yes'));
+  }
+
+  if (isset($data['deceased'])) {
+    $ewrapper->field_elife_a_deceased->set(($data['deceased'] == 'yes'));
   }
 
   if (isset($data['affiliation'])) {

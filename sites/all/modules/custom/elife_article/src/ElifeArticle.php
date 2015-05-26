@@ -463,6 +463,24 @@ class ElifeArticle {
         }
       }
 
+      if ($value = $contrib_wrapper->{$field_prefix . '_equal_contrib'}->value()) {
+        if (!empty($value)) {
+          $contributor['equal-contrib'] = 'yes';
+        }
+      }
+
+      if ($value = $contrib_wrapper->{$field_prefix . '_corresp'}->value()) {
+        if (!empty($value)) {
+          $contributor['corresp'] = 'yes';
+        }
+      }
+
+      if ($value = $contrib_wrapper->{$field_prefix . '_deceased'}->value()) {
+        if (!empty($value)) {
+          $contributor['deceased'] = 'yes';
+        }
+      }
+
       $types = array(
         'basic' => $field_prefix . '_basic_ref_type',
         'fund' => 'funding',
@@ -574,7 +592,7 @@ class ElifeArticle {
         'source-id' => $field_rel_ref . '_src_id',
         'source-id-type' => $field_rel_ref . '_src_id_typ',
         'year' => $field_rel_ref . '_year',
-        'src' => $field_rel_ref . '_src',
+        'source' => $field_rel_ref . '_src',
         'comment' => $field_rel_ref . '_comment',
       );
       /* @var EntityDrupalWrapper $fc_wrapper */

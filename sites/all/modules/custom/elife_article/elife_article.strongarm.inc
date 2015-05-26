@@ -71,16 +71,16 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '22',
+          'weight' => '24',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '21',
+          'weight' => '23',
         ),
         'redirect' => array(
-          'weight' => '20',
+          'weight' => '22',
         ),
       ),
       'display' => array(),
