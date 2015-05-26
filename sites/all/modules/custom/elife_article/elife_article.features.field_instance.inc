@@ -323,9 +323,9 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'
-  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'] = array(
-    'bundle' => 'field_elife_a_citations',
+  // 'field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_group'
+  $field_instances['field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_group'] = array(
+    'bundle' => 'field_elife_a_cit_authors',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -335,12 +335,12 @@ function elife_article_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 1,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_cit_authors',
-    'label' => 'Authors',
+    'field_name' => 'field_elife_a_cit_author_group',
+    'label' => 'Group type',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -353,7 +353,80 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 34,
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_name'
+  $field_instances['field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_name'] = array(
+    'bundle' => 'field_elife_a_cit_authors',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_author_name',
+    'label' => 'Name',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_authors'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'field_collection',
+        'settings' => array(
+          'add' => 'Add',
+          'delete' => 'Delete',
+          'description' => TRUE,
+          'edit' => 'Edit',
+          'view_mode' => 'full',
+        ),
+        'type' => 'field_collection_view',
+        'weight' => 13,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_authors',
+    'label' => 'Authors',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'field_collection',
+      'settings' => array(),
+      'type' => 'field_collection_embed',
+      'weight' => 3,
     ),
   );
 
@@ -388,7 +461,42 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 41,
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_edition'
+  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_edition'] = array(
+    'bundle' => 'field_elife_a_citations',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 14,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_edition',
+    'label' => 'Edition',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 7,
     ),
   );
 
@@ -423,42 +531,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_elife_a_citations-field_elife_a_cit_grp_type'
-  $field_instances['field_collection_item-field_elife_a_citations-field_elife_a_cit_grp_type'] = array(
-    'bundle' => 'field_elife_a_citations',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_elife_a_cit_grp_type',
-    'label' => 'Person group type',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 9,
     ),
   );
 
@@ -493,7 +566,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 1,
     ),
   );
 
@@ -528,7 +601,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 40,
+      'weight' => 10,
     ),
   );
 
@@ -563,7 +636,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 42,
+      'weight' => 12,
     ),
   );
 
@@ -598,7 +671,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 13,
     ),
   );
 
@@ -633,7 +706,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 32,
+      'weight' => 2,
     ),
   );
 
@@ -668,7 +741,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 6,
     ),
   );
 
@@ -703,7 +776,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 5,
     ),
   );
 
@@ -738,7 +811,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 38,
+      'weight' => 8,
     ),
   );
 
@@ -773,7 +846,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => 4,
     ),
   );
 
@@ -3817,6 +3890,7 @@ function elife_article_field_default_field_instances() {
   t('DOI');
   t('Deceased');
   t('Department');
+  t('Edition');
   t('Equal contributor');
   t('First Publication Date');
   t('First names');
@@ -3824,6 +3898,7 @@ function elife_article_field_default_field_instances() {
   t('Full Title');
   t('Funding references');
   t('Group author key');
+  t('Group type');
   t('Id');
   t('Id type');
   t('Institution');
@@ -3832,9 +3907,9 @@ function elife_article_field_default_field_instances() {
   t('Keyword');
   t('Label');
   t('Last page');
+  t('Name');
   t('Orcid Id');
   t('Parent');
-  t('Person group type');
   t('Publication type');
   t('Publisher location');
   t('Publisher name');
