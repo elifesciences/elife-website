@@ -640,6 +640,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
 
   $field_prefix = 'field_elife_a';
   $mappings = array(
+    'type' => $field_prefix . '_contrib_type',
     'parent' => $field_prefix . '_parent',
     'id' => $field_prefix . '_author_id',
     'surname' => $field_prefix . '_surname',
