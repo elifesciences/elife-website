@@ -148,6 +148,10 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'custom' => 'Drupal\elife_article\ElifeArticle::getContributorReferences',
       'type' => 'array',
     ),
+    'children' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getArticleChildren',
+      'type' => 'array',
+    ),
     'citations' => array(
       'custom' => 'Drupal\elife_article\ElifeArticle::getCitations',
       'type' => 'array',
@@ -661,7 +665,7 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   return $dest_nids;
 }
 
-function _elife_services_article_process_contributors(EntityMetadataWrapper &$ewrapper, $parent_nid, $contributors, $ref_links) {
+function _elife_services_article_process_contributors(EntityDrupalWrapper &$ewrapper, $parent_nid, $contributors, $ref_links) {
   $contribs = array();
   foreach ($contributors as $contributor) {
     $contributor['parent'] = $parent_nid;
@@ -805,7 +809,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
 
 }
 
-function _elife_services_article_process_children(EntityMetadataWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
+function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
@@ -836,13 +840,13 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
 
   if ($new) {
     $required = array(
-      'title',
+      // 'title',
       'doi',
       'path',
     );
 
-    if ($data['type'] == 'abstract' && empty($data['title'])) {
-      $data['title'] = t('Abstract');
+    if ($type == 'elife_fragment') {
+      $required[] = 'type';
     }
   }
 
@@ -878,6 +882,19 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $ewrapper->field_elife_a_parent->set($data['parent']);
   }
 
+  if (isset($data['type']) && isset($data[$data['type'] . '-type'])) {
+    $data['sub-type'] = $data[$data['type'] . '-type'];
+  }
+
+  if (isset($data['type']) && $data['type'] == 'abstract' && empty($data['title'])) {
+    if (isset($data['sub-type']) && $data['sub-type'] == 'executive-summary') {
+      $data['title'] = t('eLife digest');
+    }
+    else {
+      $data['title'] = t('Abstract');
+    }
+  }
+
   // Set the title.
   if (isset($data['title'])) {
     $set = array(
@@ -901,6 +918,14 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   $ewrapper->field_elife_a_subarticle->set($subarticle);
+
+  if (isset($data['type'])) {
+    $ewrapper->field_elife_a_frag_type->set($data['type']);
+  }
+
+  if (isset($data['sub-type'])) {
+    $ewrapper->field_elife_a_sub_type->set($data['sub-type']);
+  }
 
   $ewrapper->save();
 

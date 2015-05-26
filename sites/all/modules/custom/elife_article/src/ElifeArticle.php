@@ -9,6 +9,7 @@ namespace Drupal\elife_article;
 
 use EntityFieldQuery;
 use EntityDrupalWrapper;
+use EntityListWrapper;
 use RelationQuery;
 
 class ElifeArticle {
@@ -278,6 +279,93 @@ class ElifeArticle {
     }
 
     return $keywords;
+  }
+
+  /**
+   * Get article children for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return array
+   */
+  public static function getArticleChildren($article_version_id) {
+    $children = array();
+    $subarticles = array();
+
+    $fragments = self::getArticleFragments($article_version_id);
+    if (!empty($fragments)) {
+      $children['fragment'] = $fragments;
+    }
+
+    // $subarticles = self::getArticleSubarticles($article_version_id);
+    if (!empty($subarticles)) {
+      $children['sub-article'] = $fragments;
+    }
+
+    return $children;
+  }
+
+
+  /**
+   * Get article fragments for supplied article version id.
+   *
+   * @param string $article_version_id
+   * @return array
+   */
+  public static function getArticleFragments($article_version_id) {
+    $article = self::fromIdentifier($article_version_id);
+    $fragments = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      if ($ewrapper->field_elife_a_children->value()) {
+        $fragments = self::getChildFragments($ewrapper->field_elife_a_children);
+      }
+    }
+
+    return $fragments;
+  }
+
+  /**
+   * Get child fragments for supplied entity.
+   *
+   * @param EntityListWrapper $frag_list
+   * @return array
+   */
+  public static function getChildFragments(EntityListWrapper $frag_list, $level = 0) {
+    $next_level = $level + 1;
+    $fragments = array();
+
+    $field_prefix = 'field_elife_a';
+    $mappings = array(
+      'type' => $field_prefix . '_frag_type',
+      'title' => 'title',
+      'doi' => $field_prefix . '_doi',
+    );
+    /* @var EntityDrupalWrapper $frag_wrapper */
+    foreach ($frag_list as $frag_wrapper) {
+      if ($frag_wrapper->getBundle() == 'elife_fragment') {
+        $fragment = array();
+        foreach ($mappings as $k => $field) {
+          if ($value = $frag_wrapper->{$field}->value()) {
+            $fragment[$k] = $value;
+          }
+        }
+        if (isset($fragment['type']) && $value = $frag_wrapper->field_elife_a_sub_type->value()) {
+          $fragment[$fragment['type'] . '-type'] = $value;
+        }
+        if ($path = drupal_get_path_alias('node/' . $frag_wrapper->nid->value())) {
+          $fragment['path'] = $path;
+        }
+        if ($frag_wrapper->field_elife_a_children->value()) {
+          $fragment['children']['fragment'] = self::getChildFragments($frag_wrapper->field_elife_a_children, $next_level);
+        }
+        if (!empty($fragment)) {
+          $fragments[] = $fragment;
+        }
+      }
+    }
+
+    return $fragments;
   }
 
   /**
