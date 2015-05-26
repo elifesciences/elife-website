@@ -741,9 +741,11 @@
     {
       "id": "bib1",
       "publication-type": "book",
-      "person-group-type": "author",
       "authors": [
-        "WC Agosta"
+        {
+          "group-type": "author",
+          "name": "WC Agosta"
+        }
       ],
       "year": "1992",
       "source": "Chemical Communication",
@@ -753,11 +755,19 @@
     {
       "id": "bib2",
       "publication-type": "journal",
-      "person-group-type": "author",
       "authors": [
-        "I Ahmed",
-        "A Yokota",
-        "T Fujiwara"
+        {
+          "group-type": "author",
+          "name": "I Ahmed"
+        },
+        {
+          "group-type": "author",
+          "name": "A Yokota"
+        },
+        {
+          "group-type": "author",
+          "name": "T Fujiwara"
+        }
       ],
       "year": "1992",
       "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
