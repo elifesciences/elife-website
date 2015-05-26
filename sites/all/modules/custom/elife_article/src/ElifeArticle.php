@@ -483,7 +483,7 @@ class ElifeArticle {
       $aff_mappings = array(
         'affiliation' => array(
           'dept' => $field_prefix . '_aff_dept',
-          'inst' => $field_prefix . '_aff_inst',
+          'institution' => $field_prefix . '_aff_inst',
           'city' => $field_prefix . '_aff_city',
           'country' => $field_prefix . '_aff_country',
         ),
