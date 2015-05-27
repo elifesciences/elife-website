@@ -1,11 +1,15 @@
 {
   "require": {
-    "drupal/drupal-extension": "~3.0"
+    "behat/drupal-propeople-context": "~1.2",
+    "emuse/behat-html-formatter": "dev-master"
   },
   "require-dev": {
     "behat/web-api-extension": "~1.0@dev"
   },
   "config": {
     "bin-dir": "bin/"
+  },
+  "scripts": {
+    "post-install-cmd": "mv bin/bdpc bin/behat"
   }
 }
