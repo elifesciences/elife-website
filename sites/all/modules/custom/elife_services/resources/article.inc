@@ -606,6 +606,7 @@ function _elife_services_create_path($path, $source) {
 }
 
 function _elife_services_article_process_related($doi, $source_nid, $related, $dest_nid = NULL) {
+  // @todo - elife - nlisgo - related articles will need to have an endpoint for all versions of an article.
   ElifeArticle::removeRelated($source_nid, 0, $dest_nid);
 
   $dest_nids = array();
@@ -629,6 +630,7 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
         if (!empty($rel['type'])) {
           $new_relation->field_elife_r_type = array(LANGUAGE_NONE => array(array('value' => $rel['type'])));
         }
+        $new_relation->field_elife_r_destination = array(LANGUAGE_NONE => array(array('value' => $rel['href'])));
         if ($rid = relation_save($new_relation)) {
           $dest_nids[] = $dest_nid;
         }

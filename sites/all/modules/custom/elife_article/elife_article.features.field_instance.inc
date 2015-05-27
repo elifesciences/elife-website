@@ -3886,6 +3886,41 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance:
+  // 'relation-elife_relation-field_elfie_r_destination'
+  $field_instances['relation-elife_relation-field_elfie_r_destination'] = array(
+    'bundle' => 'elife_relation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'relation',
+    'field_name' => 'field_elfie_r_destination',
+    'label' => 'Destination',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 32,
+    ),
+  );
+
   // Exported field_instance: 'relation-elife_relation-field_elife_r_type'
   $field_instances['relation-elife_relation-field_elife_r_type'] = array(
     'bundle' => 'elife_relation',
@@ -4053,6 +4088,7 @@ function elife_article_field_default_field_instances() {
   t('DOI');
   t('Deceased');
   t('Department');
+  t('Destination');
   t('Edition');
   t('Equal contributor');
   t('First Publication Date');
