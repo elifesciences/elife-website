@@ -201,14 +201,19 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
  * @return mixed
  */
 function _elife_services_article_create($data) {
-  $values = array(
-    'type' => 'elife_article',
-    'uid' => _elife_services_user_uid(),
-  );
-
-  $article = entity_create('node', $values);
-  $article = _elife_services_article_update_values($article, $data, TRUE);
-  return _elife_services_article_prepare_json($article);
+  // If force flag set then update if article-version-id recognised.
+  if (!empty($data['force']) && !empty($data['article-version-id']) && !ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
+    return _elife_services_article_update($data['article-version-id'], $data);
+  }
+  else {
+    $values = array(
+      'type' => 'elife_article',
+      'uid' => _elife_services_user_uid(),
+    );
+    $article = entity_create('node', $values);
+    $article = _elife_services_article_update_values($article, $data, TRUE);
+    return _elife_services_article_prepare_json($article);
+  }
 }
 
 /**
