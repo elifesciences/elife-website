@@ -834,31 +834,4 @@ class ElifeArticle {
       return $related_nids;
     }
   }
-
-  public static function getReferences($article_nid, $type = NULL, $key = NULL, $load = FALSE) {
-    $results = array();
-    $field_basic_ref = 'field_elife_a_basic_ref';
-    $query = db_select('field_collection_item', 'fci');
-    $query->fields('fci', array('item_id'));
-    $query->innerJoin('field_data_' . $field_basic_ref, 'br', 'br.' . $field_basic_ref . '_value = fci.item_id');
-    $query->condition('br.entity_id', $article_nid);
-    if ($type) {
-      $query->innerJoin('field_data_' . $field_basic_ref . '_type', 'brt', 'brt.entity_id = fci.item_id');
-      $query->condition('brt.' . $field_basic_ref . '_type_value', $type);
-    }
-    if ($key) {
-      $query->innerJoin('field_data_' . $field_basic_ref . '_key', 'brk', 'brk.entity_id = fci.item_id');
-      $query->condition('brk.' . $field_basic_ref . '_key_value', $key);
-    }
-
-    $result = $query->execute()->fetchCol();
-    if (!empty($result)) {
-      if ($load) {
-        $result = field_collection_item_load_multiple($result);
-      }
-      $results['basic'] = $result;
-    }
-
-    return $results;
-  }
 }
