@@ -11,6 +11,7 @@
   "path": "content/2/e00288",
   "article-type": "research-article",
   "status": "VOR",
+  "force": "1",
   "categories": {
     "display-channel": [
       "Research article"
