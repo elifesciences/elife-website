@@ -638,11 +638,11 @@ class ElifeArticle {
         'publisher-loc' => $field_cit_prefix . '_pub_loc',
         'publisher-name' => $field_cit_prefix . '_pub_name',
       );
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      foreach ($ewrapper->{$field_citations} as $fc_wrapper) {
+      /* @var EntityDrupalWrapper $cit_wrapper */
+      foreach ($ewrapper->{$field_citations} as $cit_wrapper) {
         $citation = array();
         foreach ($mappings as $k => $field) {
-          if ($value = $fc_wrapper->{$field}->value()) {
+          if ($value = $cit_wrapper->{$field}->value()) {
             $citation[$k] = $value;
           }
         }
@@ -652,18 +652,18 @@ class ElifeArticle {
           'name' => $field_cit_prefix . '_author_name',
         );
         // @todo - elife - nlisgo - this is taking too long!!
-        /* @var EntityDrupalWrapper $fc_author_wrapper */
-        /*foreach ($fc_wrapper->{$field_cit_prefix . '_authors'} as $fc_author_wrapper) {
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        foreach ($cit_wrapper->{$field_cit_prefix . '_authors'} as $fc_wrapper) {
           $author = array();
           foreach ($author_mappings as $k => $field) {
-            if ($value = $fc_author_wrapper->{$field}->value()) {
+            if ($value = $fc_wrapper->{$field}->value()) {
               $author[$k] = $value;
             }
           }
           if (!empty($author)) {
             $citation['authors'][] = $author;
           }
-        }*/
+        }
         if (!empty($citation)) {
           $citations[] = $citation;
         }

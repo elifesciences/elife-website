@@ -561,7 +561,12 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $trigger_save = TRUE;
   }
 
-  if ($data['citations']) {
+  if (isset($data['citations'])) {
+    _elife_services_article_process_citations($ewrapper, $ewrapper->nid->value(), $data['citations']);
+    $trigger_save = TRUE;
+  }
+
+  if ($data['citations'] && FALSE) {
     $field_citations = 'field_elife_a_citations';
     $field_cit_prefix = 'field_elife_a_cit';
     $mappings = array(
@@ -592,27 +597,27 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       }
       $fc_wrapper->save();
       // @todo - elife - nlisgo - this is taking too long!!
-//      if (isset($values['authors'])) {
-//        $author_mappings = array(
-//          'group-type' => $field_cit_prefix . '_author_group',
-//          'name' => $field_cit_prefix . '_author_name',
-//        );
-//        foreach ($values['authors'] as $author) {
-//          /* @var FieldCollectionItemEntity $fc_author */
-//          $fc_author = entity_create('field_collection_item', array('field_name' => $field_cit_prefix . '_authors'));
-//          $fc_author->setHostEntity('field_collection_item', $fc_wrapper->raw());
-//          /* @var EntityDrupalWrapper $fc_author_wrapper */
-//          $fc_author_wrapper = entity_metadata_wrapper('field_collection_item', $fc_author);
-//          foreach ($author_mappings as $k => $field) {
-//            if (isset($author[$k])) {
-//              $fc_author_wrapper->{$field}->set($author[$k]);
-//            }
-//          }
-//          $fc_author_wrapper->save();
-//        }
-//        $fc_wrapper->save();
-//      }
-//      $trigger_save = TRUE;
+      if (isset($values['authors'])) {
+        $author_mappings = array(
+          'group-type' => $field_cit_prefix . '_author_group',
+          'name' => $field_cit_prefix . '_author_name',
+        );
+        foreach ($values['authors'] as $author) {
+          /* @var FieldCollectionItemEntity $fc_author */
+          $fc_author = entity_create('field_collection_item', array('field_name' => $field_cit_prefix . '_authors'));
+          $fc_author->setHostEntity('field_collection_item', $fc_wrapper->raw());
+          /* @var EntityDrupalWrapper $fc_author_wrapper */
+          $fc_author_wrapper = entity_metadata_wrapper('field_collection_item', $fc_author);
+          foreach ($author_mappings as $k => $field) {
+            if (isset($author[$k])) {
+              $fc_author_wrapper->{$field}->set($author[$k]);
+            }
+          }
+          $fc_author_wrapper->save();
+        }
+        $fc_wrapper->save();
+      }
+      $trigger_save = TRUE;
     }
   }
 
@@ -693,6 +698,118 @@ function _elife_services_article_process_related($doi, $source_nid, $related, $d
   }
 
   return $dest_nids;
+}
+
+function _elife_services_article_process_citations(EntityDrupalWrapper &$ewrapper, $parent_nid, $citations) {
+  $cits = array();
+  if ($existing = $ewrapper->field_elife_a_citations->raw()) {
+    node_delete_multiple($existing);
+  }
+  foreach ($citations as $cit) {
+    $cit['parent'] = $parent_nid;
+    $cit['article-version-id'] = $ewrapper->field_elife_a_article_version_id->value();
+    $citation = _elife_services_article_citation_update_values($cit);
+    $cits[] = $citation->nid;
+  }
+  $ewrapper->field_elife_a_citations->set($cits);
+}
+
+function _elife_services_article_citation_update_values($data) {
+  $required = array(
+    'id',
+  );
+
+  foreach ($required as $k => $req) {
+    if (!empty($data[$req])) {
+      unset($required[$k]);
+    }
+  }
+
+  if (!empty($required)) {
+    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+  }
+
+  $type = 'elife_citation';
+
+  $values = array(
+    'type' => $type,
+    'uid' => _elife_services_user_uid(),
+  );
+
+  $citation = entity_create('node', $values);
+
+  /* @var EntityDrupalWrapper $ewrapper */
+  $ewrapper = entity_metadata_wrapper('node', $citation);
+
+  $field_prefix = 'field_elife_a';
+  $field_cit_prefix = $field_prefix . '_cit';
+  $mappings = array(
+    'id' => $field_cit_prefix . '_id',
+    'parent' => $field_prefix . '_parent',
+    'publication-type' => $field_cit_prefix . '_pub_type',
+    'year' => $field_cit_prefix . '_year',
+    'title' => $field_cit_prefix . '_title',
+    'source' => $field_cit_prefix . '_source',
+    'edition' => $field_cit_prefix . '_edition',
+    'volume' => $field_cit_prefix . '_volume',
+    'fpage' => $field_cit_prefix . '_fpage',
+    'lpage' => $field_cit_prefix . '_lpage',
+    'doi' => $field_cit_prefix . '_doi',
+    'publisher-loc' => $field_cit_prefix . '_pub_loc',
+    'publisher-name' => $field_cit_prefix . '_pub_name',
+  );
+  foreach ($mappings as $k => $field) {
+    if (isset($data[$k])) {
+      $ewrapper->{$field}->set($data[$k]);
+    }
+  }
+
+  $title = '';
+  if (isset($data['id'])) {
+    $title = $data['id'];
+  }
+
+  if (isset($data['article-version-id'])) {
+    if (empty($title)) {
+      $title = $data['article-version-id'];
+    }
+    else {
+      $title .= ' (' . $data['article-version-id'] . ')';
+    }
+  }
+  $ewrapper->title->set($title);
+
+  $ewrapper->save();
+
+  if (isset($data['authors'])) {
+    $field_cit_prefix = 'field_elife_a_cit';
+    $field_authors = $field_cit_prefix . '_authors';
+    $mappings = array(
+      'group-type' => $field_cit_prefix . '_author_group',
+      'name' => $field_cit_prefix . '_author_name',
+    );
+
+    foreach ($data['authors'] as $author) {
+      /* @var FieldCollectionItemEntity $fc_item */
+      $fc_item = entity_create('field_collection_item', array('field_name' => $field_authors));
+      $fc_item->setHostEntity('node', $ewrapper->raw());
+
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+
+      foreach ($mappings as $k => $field) {
+        if (isset($author[$k])) {
+          $fc_wrapper->{$field}->set($author[$k]);
+        }
+      }
+      $fc_wrapper->save();
+    }
+    $ewrapper->save();
+  }
+
+  $ewrapper->save();
+
+  return $ewrapper->raw();
 }
 
 function _elife_services_article_process_contributors(EntityDrupalWrapper &$ewrapper, $parent_nid, $contributors, $ref_links) {
@@ -878,7 +995,6 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
 
   if ($new) {
     $required = array(
-      // 'title',
       'doi',
       'path',
     );

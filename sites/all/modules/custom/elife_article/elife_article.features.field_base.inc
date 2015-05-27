@@ -950,18 +950,31 @@ function elife_article_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_elife_a_citations',
     'indexes' => array(
-      'revision_id' => array(
-        0 => 'revision_id',
+      'target_id' => array(
+        0 => 'target_id',
       ),
     ),
     'locked' => 0,
-    'module' => 'field_collection',
+    'module' => 'entityreference',
     'settings' => array(
-      'hide_blank_items' => 1,
-      'path' => '',
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_citation' => 'elife_citation',
+        ),
+      ),
+      'target_type' => 'node',
     ),
     'translatable' => 0,
-    'type' => 'field_collection',
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_elife_a_collab'
