@@ -28,14 +28,6 @@ function elife_article_views_api($module = NULL, $api = NULL) {
  */
 function elife_article_node_info() {
   $items = array(
-    'elife_adjunct' => array(
-      'name' => t('eLife Adjunct'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
     'elife_article' => array(
       'name' => t('eLife Article'),
       'base' => 'node_content',

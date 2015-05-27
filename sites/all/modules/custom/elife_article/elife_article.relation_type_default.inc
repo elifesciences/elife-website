@@ -22,8 +22,7 @@ function elife_article_relation_default_relation_types() {
   $relation_type->min_arity = 2;
   $relation_type->max_arity = 2;
   $relation_type->source_bundles = array(
-    0 => 'node:elife_adjunct',
-    1 => 'node:elife_article',
+    0 => 'node:elife_article',
   );
   $relation_type->target_bundles = array();
   $export['elife_relation'] = $relation_type;
