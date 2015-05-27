@@ -1374,8 +1374,8 @@
       ],
       "source": "Fields Virology",
       "edition": "5th ed",
-      "publisher_location": "Philadelphia",
-      "publisher_name": "Lippincott Williams & Wilkins",
+      "publisher-loc": "Philadelphia",
+      "publisher-name": "Lippincott Williams & Wilkins",
       "year": "2007"
     },
     {
@@ -1391,7 +1391,6 @@
           "name": "PA Schaffer"
         }
       ],
-      "doi": "",
       "source": "J Virol",
       "volume": "61",
       "fpage": "829",
@@ -1549,9 +1548,6 @@
       ],
       "doi": "http://dx.doi.org/10.1038/nature11522",
       "source": "Nature",
-      "volume": "",
-      "fpage": "",
-      "lpage": "",
       "year": "2012"
     },
     {
@@ -1619,7 +1615,6 @@
           "name": "JC Overall, Jr"
         }
       ],
-      "doi": "",
       "source": "Infect Immun",
       "volume": "36",
       "fpage": "907",
@@ -1719,7 +1714,6 @@
           "name": "JO Hendley"
         }
       ],
-      "doi": "",
       "source": "Pediatrics",
       "volume": "70",
       "fpage": "547",
