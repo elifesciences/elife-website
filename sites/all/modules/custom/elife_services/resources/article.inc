@@ -166,7 +166,11 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
 
   foreach ($top_level as $key => $value) {
     $get = NULL;
-    if (isset($value['field'])) {
+
+    if (!is_array($value)) {
+      $get = $value;
+    }
+    elseif (isset($value['field'])) {
       $get = $ewrapper->{$value['field']}->value();
 
       if (isset($value['type'])) {
@@ -181,9 +185,6 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     }
     elseif (isset($value['custom'])) {
       $get = call_user_func_array($value['custom'], array($article_version_id));
-    }
-    else {
-      $get = $value;
     }
 
     if ($get) {
