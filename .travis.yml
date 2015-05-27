@@ -14,7 +14,6 @@ install:
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
   - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-dev php-pear php5-mysql php5-xsl php5-gd php5-cli php5-cgi php5-curl php5-mcrypt libpcre3-dev > /dev/null
-  # - sudo apt-get install -y --force-yes apache2 libapache2-mod-fastcgi libapache2-mod-php5 php5-cli php5-cgi php5-curl php5-gd php5-mysql php5-xsl > /dev/null
   - sudo a2enmod rewrite actions alias
 
   # configure apache virtual hosts
@@ -24,12 +23,6 @@ install:
   - sudo service apache2 restart
   - cat /etc/apache2/sites-available/default
   - sleep 5s
-
-  # enable php-fpm
-  # - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  # - sudo a2enmod rewrite actions fastcgi alias
-  # - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  # - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
   # Install latest Drush 6.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -52,33 +45,9 @@ before_script:
   - drush updatedb -y || true
   - drush cc all --yes
 
-  # - drush runserver --server=builtin 8888 > /dev/null 2>&1 &
-  # - sleep 3
-
-  # Make the Travis tests repos agnostic by injecting drupal_root with BEHAT_PARAMS
-  # - export BEHAT_PARAMS="extensions[Drupal\DrupalExtension][drupal][drupal_root]=$TRAVIS_BUILD_DIR"
-
-  # Setup display for Selenium
-  # - export DISPLAY=:99.0
-  # - sh -e /etc/init.d/xvfb start
-  # - sleep 5
-
-  # Get Selenium
-  # - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
-  # - java -jar selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
-  # - sleep 5
-
 script:
   # Run behat tests
   - basedir=$PWD
   - cd ./sites/all/tests/behat
   - ./bin/behat --config behat.travis.yml --tags='~@develop'
   - cd $basedir
-  - sudo cat /var/log/apache2/error.log
-  - sudo cat /var/log/apache2/access.log
-
-  # Run simpletest
-  # - drush en simpletest --yes
-  # - drush cc all
-  # - drush test-run 'eLife Services' --uri=http://127.0.0.1:80 --xml
-  # - cd $basedir
