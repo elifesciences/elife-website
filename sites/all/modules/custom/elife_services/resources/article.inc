@@ -420,22 +420,22 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   // @todo - elife - nlisgo - move this into own function
   if (isset($data['referenced'])) {
+    $field_basic_ref = 'field_elife_a_basic_ref';
+    $field_fund_ref = 'field_elife_a_fund_ref';
+    $field_aff_ref = 'field_elife_a_aff_ref';
+    $field_rel_ref = 'field_elife_a_rel_ref';
     if (!$new) {
       // Delete existing referenced for this article.
-      $referenced = ElifeArticle::getReferences($ewrapper->nid->value());
-      foreach ($referenced as $type => $refs) {
-        foreach ($refs as $ref) {
-          field_collection_item_delete($ref);
-        }
-      }
       $ewrapper->{$field_basic_ref}->set();
+      $ewrapper->{$field_fund_ref}->set();
+      $ewrapper->{$field_aff_ref}->set();
+      $ewrapper->{$field_rel_ref}->set();
       $trigger_save = TRUE;
     }
 
     $field_ref_key = 'field_elife_a_ref_key';
 
     // Save basic references.
-    $field_basic_ref = 'field_elife_a_basic_ref';
     $field_info = field_info_field($field_basic_ref . '_type');
     if (!empty($field_info['settings']['allowed_values'])) {
       $basic_ref_types = array_keys($field_info['settings']['allowed_values']);
@@ -461,7 +461,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
     // Save funding references.
     if (isset($data['referenced']['funding'])) {
-      $field_fund_ref = 'field_elife_a_fund_ref';
       $mappings = array(
         'id' => $field_fund_ref . '_id',
         'id-type' => $field_fund_ref . '_id_type',
@@ -490,7 +489,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
     // Save affiliation references.
     if (isset($data['referenced']['affiliation'])) {
-      $field_aff_ref = 'field_elife_a_aff_ref';
       $mappings = array(
         'label' => $field_aff_ref . '_label',
         'dept' => $field_aff_ref . '_dept',
@@ -519,7 +517,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
     // Save related object references.
     if (isset($data['referenced']['related-object'])) {
-      $field_rel_ref = 'field_elife_a_rel_ref';
       $mappings = array(
         'type' => $field_rel_ref . '_type',
         'source-id' => $field_rel_ref . '_src_id',
@@ -549,10 +546,8 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (!$new && (isset($data['referenced']) || isset($data['contributors']))) {
-    if (!$new) {
-      if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
-        node_delete_multiple($existing);
-      }
+    if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
+      node_delete_multiple($existing);
     }
   }
 
