@@ -37,5 +37,5 @@ Feature: Article Resource - Categories (API)
 
     Examples:
       | keywords                                                                                                                                          |
-      | "author-keywords": ["<italic>Salpingoeca rosetta</italic>", "Algoriphagus", "wtf"]                                                                       |
+      | "author-keywords": ["<italic>Salpingoeca rosetta</italic>", "Algoriphagus"]                                                                       |
       | "author-keywords": ["<italic>Salpingoeca rosetta</italic>", "Algoriphagus"], "research-organism": ["Mouse","<italic>C. elegans</italic>","Other"] |

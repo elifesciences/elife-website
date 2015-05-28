@@ -186,6 +186,7 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
         switch ($value['type']) {
           case 'date':
             $get = format_date($get, 'medium', 'Y-m-d H:i:s');
+            // If time is blank then strip it out.
             $get = preg_replace('/^([0-9]{4}-[0-9]{2}-[0-9]{2}) 00:00:00$/', '$1', $get);
             break;
           case 'string':
