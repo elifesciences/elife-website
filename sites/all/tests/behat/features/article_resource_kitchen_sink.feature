@@ -803,7 +803,7 @@ Feature: Article Resource - Citations (API)
           "volume": "3",
           "article-id": "10.7554/eLife.00013",
           "article-version-id": "00013.VOR.1",
-          "pub-date": "2014-02-28 00:00:00",
+          "pub-date": "2014-02-28",
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
