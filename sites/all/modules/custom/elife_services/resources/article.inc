@@ -647,124 +647,119 @@ function _elife_services_article_citation_update_values($data) {
 }
 
 function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapper, $referenced, &$ref_links = array(), $new = FALSE) {
-  $field_basic_ref = 'field_elife_a_basic_ref';
-  $field_fund_ref = 'field_elife_a_fund_ref';
-  $field_aff_ref = 'field_elife_a_aff_ref';
-  $field_rel_ref = 'field_elife_a_rel_ref';
+  $ref_templates = array(
+    'basic' => array(
+      'expand' => TRUE,
+      'field' => 'field_elife_a_basic_ref',
+      'mapping_template' => array(
+        'type' => '_type',
+        'value' => '_value',
+      ),
+    ),
+    'funding' => array(
+      'field' => 'field_elife_a_fund_ref',
+      'mapping_template' => array(
+        'id' => '_id',
+        'id-type' => '_id_type',
+        'institution' => '_inst',
+        'institution-type' => '_inst_type',
+        'award-id' => '_award_id',
+      ),
+    ),
+    'affiliation' => array(
+      'field' => 'field_elife_a_aff_ref',
+      'mapping_template' => array(
+        'label' => '_label',
+        'dept' => '_dept',
+        'institution' => '_inst',
+        'city' => '_city',
+        'country' => '_country',
+      ),
+    ),
+    'related-object' => array(
+      'field' => 'field_elife_a_rel_ref',
+      'mapping_template' => array(
+        'type' => '_type',
+        'source-id' => '_src_id',
+        'source-id-type' => '_src_id_typ',
+        'year' => '_year',
+        'source' => '_src',
+        'comment' => '_comment',
+      ),
+    ),
+  );
+  $ref_types = array();
+
+  foreach ($ref_templates as $ref_type => $options) {
+    if (empty($options['mapping']) && !empty($options['mapping_template'])) {
+      $options['mapping'] = array();
+      $prefix = (!empty($options['field'])) ? $options['field'] : '';
+      foreach ($options['mapping_template'] as $key => $field_end) {
+        $options['mapping'][$key] = $prefix . $field_end;
+      }
+    }
+
+    // If expand option is set then prepare the ref types from the allowed
+    // values of the field. Currently this is just used for basic key-value
+    // pairs of references (e.g. email)
+    if (!empty($options['expand']) && !empty($options['mapping']['type'])) {
+      $field_info = field_info_field($options['mapping']['type']);
+      if (!empty($field_info['settings']['allowed_values'])) {
+        $expand_ref_types = array_keys($field_info['settings']['allowed_values']);
+        foreach ($expand_ref_types as $ert) {
+          if (isset($referenced[$ert])) {
+            $restructure = array();
+            foreach ($referenced[$ert] as $key => $value) {
+              $restructure[$key] = array(
+                'type' => $ert,
+                'value' => $value,
+              );
+            }
+            $referenced[$ert] = $restructure;
+            $opts = $options;
+            unset($opts['expand']);
+            $ref_types[$ert] = $opts;
+          }
+        }
+      }
+    }
+    else {
+      $ref_types[$ref_type] = $options;
+    }
+  }
+
   if (!$new) {
     // Delete existing referenced for this article.
-    $ewrapper->{$field_basic_ref}->set();
-    $ewrapper->{$field_fund_ref}->set();
-    $ewrapper->{$field_aff_ref}->set();
-    $ewrapper->{$field_rel_ref}->set();
+    foreach ($ref_templates as $ref_type) {
+      $ewrapper->{$ref_type['field']}->set();
+    }
   }
 
   $article = $ewrapper->raw();
 
   $field_ref_key = 'field_elife_a_ref_key';
 
-  // Save basic references.
-  $field_info = field_info_field($field_basic_ref . '_type');
-  if (!empty($field_info['settings']['allowed_values'])) {
-    $basic_ref_types = array_keys($field_info['settings']['allowed_values']);
-    foreach ($basic_ref_types as $brt) {
-      if (isset($referenced[$brt])) {
-        foreach ($referenced[$brt] as $key => $value) {
-          /* @var FieldCollectionItemEntity $fc_item */
-          $fc_item = entity_create('field_collection_item', array('field_name' => $field_basic_ref));
-          $fc_item->setHostEntity('node', $article);
+  // Save all contributor references.
+  foreach ($ref_types as $ref_type => $options) {
+    if (isset($referenced[$ref_type])) {
+      $ref_field = $options['field'];
+      $mapping = $options['mapping'];
+      foreach ($referenced[$ref_type] as $key => $values) {
+        /* @var FieldCollectionItemEntity $fc_item */
+        $fc_item = entity_create('field_collection_item', array('field_name' => $ref_field));
+        $fc_item->setHostEntity('node', $article);
 
-          /* @var EntityDrupalWrapper $fc_wrapper */
-          $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-          $fc_wrapper->{$field_basic_ref . '_type'}->set($brt);
-          $fc_wrapper->{$field_ref_key}->set($key);
-          $fc_wrapper->{$field_basic_ref . '_value'}->set($value);
-          $fc_wrapper->save();
-          $ref_links[$brt][$key] = $fc_wrapper->item_id->value();
+        /* @var EntityDrupalWrapper $fc_wrapper */
+        $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+        $fc_wrapper->{$field_ref_key}->set($key);
+        foreach ($mapping as $k => $field) {
+          if (isset($values[$k])) {
+            $fc_wrapper->{$field}->set($values[$k]);
+          }
         }
+        $fc_wrapper->save();
+        $ref_links[$ref_type][$key] = $fc_wrapper->item_id->value();
       }
-    }
-  }
-
-  // Save funding references.
-  if (isset($referenced['funding'])) {
-    $mappings = array(
-      'id' => $field_fund_ref . '_id',
-      'id-type' => $field_fund_ref . '_id_type',
-      'institution' => $field_fund_ref . '_inst',
-      'institution-type' => $field_fund_ref . '_inst_type',
-      'award-id' => $field_fund_ref . '_award_id',
-    );
-    foreach ($referenced['funding'] as $key => $values) {
-      /* @var FieldCollectionItemEntity $fc_item */
-      $fc_item = entity_create('field_collection_item', array('field_name' => $field_fund_ref));
-      $fc_item->setHostEntity('node', $article);
-
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-      $fc_wrapper->{$field_ref_key}->set($key);
-      foreach ($mappings as $k => $field) {
-        if (isset($values[$k])) {
-          $fc_wrapper->{$field}->set($values[$k]);
-        }
-      }
-      $fc_wrapper->save();
-      $ref_links['funding'][$key] = $fc_wrapper->item_id->value();
-    }
-  }
-
-  // Save affiliation references.
-  if (isset($referenced['affiliation'])) {
-    $mappings = array(
-      'label' => $field_aff_ref . '_label',
-      'dept' => $field_aff_ref . '_dept',
-      'institution' => $field_aff_ref . '_inst',
-      'city' => $field_aff_ref . '_city',
-      'country' => $field_aff_ref . '_country',
-    );
-    foreach ($referenced['affiliation'] as $key => $values) {
-      /* @var FieldCollectionItemEntity $fc_item */
-      $fc_item = entity_create('field_collection_item', array('field_name' => $field_aff_ref));
-      $fc_item->setHostEntity('node', $article);
-
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-      $fc_wrapper->{$field_ref_key}->set($key);
-      foreach ($mappings as $k => $field) {
-        if (isset($values[$k])) {
-          $fc_wrapper->{$field}->set($values[$k]);
-        }
-      }
-      $fc_wrapper->save();
-      $ref_links['affiliation'][$key] = $fc_wrapper->item_id->value();
-    }
-  }
-
-  // Save related object references.
-  if (isset($referenced['related-object'])) {
-    $mappings = array(
-      'type' => $field_rel_ref . '_type',
-      'source-id' => $field_rel_ref . '_src_id',
-      'source-id-type' => $field_rel_ref . '_src_id_typ',
-      'year' => $field_rel_ref . '_year',
-      'source' => $field_rel_ref . '_src',
-      'comment' => $field_rel_ref . '_comment',
-    );
-    foreach ($referenced['related-object'] as $key => $values) {
-      /* @var FieldCollectionItemEntity $fc_item */
-      $fc_item = entity_create('field_collection_item', array('field_name' => $field_rel_ref));
-      $fc_item->setHostEntity('node', $article);
-
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-      $fc_wrapper->{$field_ref_key}->set($key);
-      foreach ($mappings as $k => $field) {
-        if (isset($values[$k])) {
-          $fc_wrapper->{$field}->set($values[$k]);
-        }
-      }
-      $fc_wrapper->save();
-      $ref_links['related-object'][$key] = $fc_wrapper->item_id->value();
     }
   }
 }
