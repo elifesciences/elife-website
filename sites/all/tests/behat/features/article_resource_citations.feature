@@ -18,9 +18,8 @@ Feature: Article Resource - Kitchen sink (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "citations": [
-            {
-              "id": "bib1",
+          "citations": {
+            "bib1": {
               "publication-type": "book",
               "authors": [
                 {
@@ -33,8 +32,7 @@ Feature: Article Resource - Kitchen sink (API)
               "publisher-loc": "New York",
               "publisher-name": "Scientific American Press"
             },
-            {
-              "id": "bib2",
+            "bib2": {
               "publication-type": "journal",
               "authors": [
                 {
@@ -58,7 +56,7 @@ Feature: Article Resource - Kitchen sink (API)
               "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
-          ]
+          }
         }
       """
     And the response code should be 200
@@ -67,9 +65,8 @@ Feature: Article Resource - Kitchen sink (API)
       """
         {
           "title": "VOR 05224",
-          "citations": [
-            {
-              "id": "bib1",
+          "citations": {
+            "bib1": {
               "publication-type": "book",
               "authors": [
                 {
@@ -82,8 +79,7 @@ Feature: Article Resource - Kitchen sink (API)
               "publisher-loc": "New York",
               "publisher-name": "Scientific American Press"
             },
-            {
-              "id": "bib2",
+            "bib2": {
               "publication-type": "journal",
               "authors": [
                 {
@@ -107,6 +103,6 @@ Feature: Article Resource - Kitchen sink (API)
               "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
-          ]
+          }
         }
       """

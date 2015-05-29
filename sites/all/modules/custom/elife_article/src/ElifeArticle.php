@@ -664,8 +664,10 @@ class ElifeArticle {
             $citation['authors'][] = $author;
           }
         }
-        if (!empty($citation)) {
-          $citations[] = $citation;
+        if (!empty($citation['id'])) {
+          $id = $citation['id'];
+          unset($citation['id']);
+          $citations[$id] = $citation;
         }
       }
     }

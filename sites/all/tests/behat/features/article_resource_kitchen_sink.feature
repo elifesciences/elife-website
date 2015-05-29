@@ -441,6 +441,14 @@ Feature: Article Resource - Citations (API)
                 "year": "2014",
                 "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
                 "comment": "Publicly available at NCBI Short Read Archive."
+              },
+              "dataro3": {
+                "type": "existing-dataset",
+                "source-id": "http://dx.doi.org/10.5061/dryad.mh2qf615",
+                "source-id-type": "uri",
+                "year": "2012",
+                "source": "The evolution of experience-mediated plasticity in mate preference",
+                "comment": "Available at Dryad Digital Repository under a CC0 Public Domain Dedication."
               }
             }
           },
@@ -747,9 +755,8 @@ Feature: Article Resource - Citations (API)
               }
             ]
           },
-          "citations": [
-            {
-              "id": "bib1",
+          "citations": {
+            "bib1": {
               "publication-type": "book",
               "authors": [
                 {
@@ -762,8 +769,7 @@ Feature: Article Resource - Citations (API)
               "publisher-loc": "New York",
               "publisher-name": "Scientific American Press"
             },
-            {
-              "id": "bib2",
+            "bib2": {
               "publication-type": "journal",
               "authors": [
                 {
@@ -787,7 +793,7 @@ Feature: Article Resource - Citations (API)
               "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
-          ]
+          }
         }
       """
     And the response code should be 200
@@ -1227,6 +1233,14 @@ Feature: Article Resource - Citations (API)
                 "year": "2014",
                 "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
                 "comment": "Publicly available at NCBI Short Read Archive."
+              },
+              "dataro3": {
+                "type": "existing-dataset",
+                "source-id": "http://dx.doi.org/10.5061/dryad.mh2qf615",
+                "source-id-type": "uri",
+                "year": "2012",
+                "source": "The evolution of experience-mediated plasticity in mate preference",
+                "comment": "Available at Dryad Digital Repository under a CC0 Public Domain Dedication."
               }
             }
           },
@@ -1529,9 +1543,8 @@ Feature: Article Resource - Citations (API)
               }
             ]
           },
-          "citations": [
-            {
-              "id": "bib1",
+          "citations": {
+            "bib1": {
               "publication-type": "book",
               "authors": [
                 {
@@ -1544,8 +1557,7 @@ Feature: Article Resource - Citations (API)
               "publisher-loc": "New York",
               "publisher-name": "Scientific American Press"
             },
-            {
-              "id": "bib2",
+            "bib2": {
               "publication-type": "journal",
               "authors": [
                 {
@@ -1569,6 +1581,6 @@ Feature: Article Resource - Citations (API)
               "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
-          ]
+          }
         }
       """

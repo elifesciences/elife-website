@@ -540,30 +540,17 @@ function _elife_services_article_process_citations(EntityDrupalWrapper &$ewrappe
   if ($existing = $ewrapper->field_elife_a_citations->raw()) {
     node_delete_multiple($existing);
   }
-  foreach ($citations as $cit) {
+  foreach ($citations as $id => $cit) {
     $cit['parent'] = $parent_nid;
     $cit['article-version-id'] = $ewrapper->field_elife_a_article_version_id->value();
-    $citation = _elife_services_article_citation_update_values($cit);
+    $citation = _elife_services_article_citation_update_values($id, $cit);
     $cits[] = $citation->nid;
   }
   $ewrapper->field_elife_a_citations->set($cits);
 }
 
-function _elife_services_article_citation_update_values($data) {
-  $required = array(
-    'id',
-  );
-
-  foreach ($required as $k => $req) {
-    if (!empty($data[$req])) {
-      unset($required[$k]);
-    }
-  }
-
-  if (!empty($required)) {
-    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
-  }
-
+function _elife_services_article_citation_update_values($id, $data) {
+  $data['id'] = $id;
   $type = 'elife_citation';
 
   $values = array(
@@ -599,10 +586,7 @@ function _elife_services_article_citation_update_values($data) {
     }
   }
 
-  $title = '';
-  if (isset($data['id'])) {
-    $title = $data['id'];
-  }
+  $title = $data['id'];
 
   if (isset($data['article-version-id'])) {
     if (empty($title)) {

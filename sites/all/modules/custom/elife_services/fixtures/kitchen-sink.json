@@ -738,9 +738,8 @@
       }
     ]
   },
-  "citations": [
-    {
-      "id": "bib1",
+  "citations": {
+    "bib1": {
       "publication-type": "book",
       "authors": [
         {
@@ -753,8 +752,7 @@
       "publisher-loc": "New York",
       "publisher-name": "Scientific American Press"
     },
-    {
-      "id": "bib2",
+    "bib2": {
       "publication-type": "journal",
       "authors": [
         {
@@ -778,5 +776,5 @@
       "lpage": "92",
       "doi": "10.1099/ijs.0.64728-0"
     }
-  ]
+  }
 }
