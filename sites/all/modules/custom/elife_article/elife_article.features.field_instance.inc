@@ -3801,116 +3801,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'relation-elife_relation-endpoints'
-  $field_instances['relation-elife_relation-endpoints'] = array(
-    'bundle' => 'elife_relation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'relation_endpoint',
-        'settings' => array(
-          'view_modes' => array(
-            'file' => 'default',
-            'node' => 'default',
-            'redirect' => 'default',
-            'relation' => 'default',
-            'rules_config' => 'default',
-            'taxonomy_term' => 'default',
-            'taxonomy_vocabulary' => 'default',
-            'user' => 'default',
-          ),
-        ),
-        'type' => 'relation_endpoint',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'relation',
-    'field_name' => 'endpoints',
-    'label' => 'endpoints',
-    'required' => FALSE,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'relation_endpoint',
-      'settings' => array(),
-      'type' => 'relation_endpoint',
-      'weight' => 0,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'relation-elife_relation-field_elfie_r_destination'
-  $field_instances['relation-elife_relation-field_elfie_r_destination'] = array(
-    'bundle' => 'elife_relation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-    ),
-    'entity_type' => 'relation',
-    'field_name' => 'field_elfie_r_destination',
-    'label' => 'Destination',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 32,
-    ),
-  );
-
-  // Exported field_instance: 'relation-elife_relation-field_elife_r_type'
-  $field_instances['relation-elife_relation-field_elife_r_type'] = array(
-    'bundle' => 'elife_relation',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
-      ),
-    ),
-    'entity_type' => 'relation',
-    'field_name' => 'field_elife_r_type',
-    'label' => 'Type',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 31,
-    ),
-  );
-
   // Exported field_instance:
   // 'taxonomy_term-elife_categories-field_elife_category_type'
   $field_instances['taxonomy_term-elife_categories-field_elife_category_type'] = array(
@@ -4044,7 +3934,6 @@ function elife_article_field_default_field_instances() {
   t('DOI');
   t('Deceased');
   t('Department');
-  t('Destination');
   t('Edition');
   t('Equal contributor');
   t('First Publication Date');
@@ -4087,7 +3976,6 @@ function elife_article_field_default_field_instances() {
   t('Version');
   t('Volume');
   t('Year');
-  t('endpoints');
 
   return $field_instances;
 }

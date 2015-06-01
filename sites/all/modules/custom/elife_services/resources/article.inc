@@ -6,7 +6,6 @@
  */
 
 use Drupal\elife_article\ElifeArticle;
-use Drupal\elife_article\ElifeContributor;
 
 // @todo - elife - nlisgo - ensure that when an article is updated/deleted that any orphaned nodes and possibly categories/keywords are removed.
 
@@ -460,10 +459,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->save();
   }
 
-  if (isset($data['related-article'])) {
-    _elife_services_article_process_related($ewrapper->field_elife_a_doi->value(), $ewrapper->nid->value(), $data['related-article']);
-  }
-
   // Add or amend the content alias.
   if (!empty($data['path'])) {
     $source = 'node/' . $ewrapper->nid->value();
@@ -493,48 +488,6 @@ function _elife_services_create_path($path, $source) {
   }
 
   path_save($content_path);
-}
-
-function _elife_services_article_process_related($doi, $source_nid, $related, $dest_nid = NULL) {
-  // @todo - elife - nlisgo - related articles will need to have an endpoint for all versions of an article.
-  ElifeArticle::removeRelated($source_nid, 0, $dest_nid);
-
-  $dest_nids = array();
-
-  $relation_bundle = 'elife_relation';
-
-  foreach ($related as $rel) {
-    if ($rel['source'] == $doi) {
-      if ($dest_nid = ElifeArticle::vorFromDoi($rel['href'], FALSE)) {
-        $endpoints = array(
-          array(
-            'entity_type' => 'node',
-            'entity_id' => $source_nid,
-          ),
-          array(
-            'entity_type' => 'node',
-            'entity_id' => $dest_nid,
-          ),
-        );
-        $new_relation = relation_create($relation_bundle, $endpoints);
-        if (!empty($rel['type'])) {
-          $new_relation->field_elife_r_type = array(LANGUAGE_NONE => array(array('value' => $rel['type'])));
-        }
-        $new_relation->field_elife_r_destination = array(LANGUAGE_NONE => array(array('value' => $rel['href'])));
-        if ($rid = relation_save($new_relation)) {
-          $dest_nids[] = $dest_nid;
-        }
-      }
-    }
-    elseif ($src_nid = ElifeArticle::vorFromDoi($rel['source'], FALSE)) {
-      $src_nids = _elife_services_article_process_related($rel['source'], $src_nid, array($rel), $source_nid);
-      if (!empty($src_nids)) {
-        $dest_nids = array_merge($dest_nids, $src_nids);
-      }
-    }
-  }
-
-  return $dest_nids;
 }
 
 function _elife_services_article_process_citations(EntityDrupalWrapper &$ewrapper, $parent_nid, $citations) {
@@ -1025,6 +978,9 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   $trigger_save = FALSE;
 
   if (isset($data['contributors'])) {
+    if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
+      node_delete_multiple($existing);
+    }
     _elife_services_article_process_contributors($ewrapper, $data['parent'], $data['contributors'], array());
     $trigger_save = TRUE;
   }

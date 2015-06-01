@@ -77,23 +77,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Checks that we have the expected related articles.
-   *
-   * @param int $expected number of related articles
-   * @param string $doi doi of article
-   *
-   * @Then /^there should be (\d+) related article for "([^"]+)"$/
-   */
-  public function thereShouldBeRelatedArticleFor($expected, $doi)
-  {
-    $expected = intval($expected);
-    $article_nid = ElifeArticle::vorFromDoi($doi, FALSE);
-    $related = ElifeArticle::relatedArticles($article_nid);
-    $actual = count($related);
-    Assertions::assertSame($expected, $actual);
-  }
-
-  /**
    * Checks that we have the expected contributors.
    *
    * @param int $expected number of contributors
