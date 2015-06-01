@@ -8,6 +8,8 @@
 use Drupal\elife_article\ElifeArticle;
 use Drupal\elife_article\ElifeContributor;
 
+// @todo - elife - nlisgo - ensure that when an article is updated/deleted that any orphaned nodes and possibly categories/keywords are removed.
+
 /**
  * Determines an API user's access to retrieve a given article.
  *
