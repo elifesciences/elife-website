@@ -1,3 +1,4 @@
+@negative
 Feature: Article Resource - GetDelete requests (API)
   In order to verify that we get the expected result
   As a production system
@@ -19,3 +20,5 @@ Feature: Article Resource - GetDelete requests (API)
       """
     And I send a DELETE request to "api/article/05227.json"
     Then the response code should be 200
+    And I send a DELETE request to "api/article/05227.json"
+    Then the response code should be 404

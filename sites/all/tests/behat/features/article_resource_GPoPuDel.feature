@@ -1,10 +1,10 @@
-Feature: Article Resource - GetPost requests (API)
+Feature: Article Resource - GetPostPutDelete requests (API)
   In order to verify that we get the expected result
   As a production system
-  I need to GET and POST an article
+  I need to GET, POST, PUT and DELETE an article
 
   @api
-  Scenario: GET and POST an article in sequence
+  Scenario: GET, POST, PUT and DELETE an article in sequence
     Given "elife_article" content:
       | field_elife_a_full_title | field_elife_a_article_version_id |
       | VOR 05227                | 05227                            |
@@ -33,3 +33,12 @@ Feature: Article Resource - GetPost requests (API)
         }
       """
     And the response code should be 406
+    And I send a PUT request to "api/article/05227.json" with body:
+    """
+        {
+          "title": "Updated VOR 05227"
+        }
+      """
+    And the response code should be 200
+    And I send a DELETE request to "api/article/05227.json"
+    Then the response code should be 200
