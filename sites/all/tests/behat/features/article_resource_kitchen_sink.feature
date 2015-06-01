@@ -15,7 +15,7 @@ Feature: Article Resource - Citations (API)
           "publish": "1",
           "volume": "3",
           "article-id": "10.7554/eLife.00013",
-          "article-version-id": "00013.VOR.1",
+          "article-version-id": "00013.1",
           "pub-date": "2014-02-28",
           "path": "content/3/e00013",
           "article-type": "research-article",
@@ -797,7 +797,7 @@ Feature: Article Resource - Citations (API)
         }
       """
     And the response code should be 200
-    When I send a GET request to "api/article/00013.VOR.1.json"
+    When I send a GET request to "api/article/00013.1.json"
     Then the response should contain json:
       """
         {
@@ -808,7 +808,7 @@ Feature: Article Resource - Citations (API)
           "publish": "1",
           "volume": "3",
           "article-id": "10.7554/eLife.00013",
-          "article-version-id": "00013.VOR.1",
+          "article-version-id": "00013.1",
           "pub-date": "2014-02-28",
           "path": "content/3/e00013",
           "article-type": "research-article",
