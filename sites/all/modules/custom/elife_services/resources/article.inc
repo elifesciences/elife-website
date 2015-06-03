@@ -857,6 +857,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
 }
 
 function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
+  // @todo - elife - nlisgo - review when subarticle should be set.
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
