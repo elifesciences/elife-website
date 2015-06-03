@@ -90,8 +90,8 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
   $possible_xpath = '//' . implode(' | //', $fragment_types);
 
   $parent_types = $fragment_types;
-  $parent_types[] = 'fig-group/fig';
   $parent_xpath = 'ancestor::' . implode(' | ancestor::', $parent_types);
+  $parent_xpath_fig = $parent_xpath . ' | ancestor::fig-group/fig';
 
   $possible_fragments = $xml->xpath($possible_xpath);
 
@@ -100,6 +100,8 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
   $child_types = array();
 
   $slugs = array();
+  $paths = array();
+  $preferred_paths = array();
   $preferred_slugs = array();
 
   foreach ($possible_fragments as $possible_fragment) {
@@ -153,18 +155,24 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
       $frag['title'] = (string) $title[0];
     }
 
-    $parent_fragment = $fragment[0]->xpath($parent_xpath);
+    if ($frag['type'] == 'fig') {
+      $parent_xpath_query = $parent_xpath_fig;
+    }
+    else {
+      $parent_xpath_query = $parent_xpath;
+    }
+    $parent_fragment = $fragment[0]->xpath($parent_xpath_query);
     $parent_found = FALSE;
     if ($parent_fragment) {
       $parent_doi = $parent_fragment[0]->xpath($xpath_object_doi . ' | front-stub/' . $xpath_article_doi);
       if ($parent_doi) {
         $parent_doi = (string) $parent_doi[0];
         if ($parent_doi != $doi) {
-          // If parent isn't boxed-text.
+          // If parent isn't boxed-text and parent slug to path.
           if (!preg_match('/^B[0-9]/', $slugs[$parent_doi])) {
-            $frag['path'] .= $slugs[$parent_doi] . '/';
+            $frag['path'] = $paths[$parent_doi] . '/';
           }
-          $preferred_path .= $preferred_slugs[$parent_doi] . '/';
+          $preferred_path = $preferred_paths[$parent_doi] . '/';
           $parent_found = TRUE;
           if (!$skip) {
             $structure[$parent_doi][$doi] = array();
@@ -222,6 +230,7 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
 
     $slugs[$doi] = $slug;
     $frag['path'] .= $slug;
+    $paths[$doi] = $frag['path'];
 
     if (!empty($frag['title']) && $frag['title'] == 'Decision letter') {
       $preferred_slug = 'decision';
@@ -238,6 +247,7 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
 
     $preferred_slugs[$doi] = $preferred_slug;
     $preferred_path .= $preferred_slug;
+    $preferred_paths[$doi] = $preferred_path;
 
     if ($add_preferred_paths) {
       $frag['preferred_path'] = $preferred_path;
@@ -245,6 +255,15 @@ function xml_parse_fragments(SimpleXMLElement $xml, $url_prefix, &$structure = a
 
     if (!$skip) {
       $fragments[$doi] = $frag;
+    }
+  }
+
+  foreach ($structure as $doi => $child_structure) {
+    foreach ($child_structure as $child_doi => $child_child_structure) {
+      if (isset($structure[$child_doi])) {
+        $structure[$doi][$child_doi] = $structure[$child_doi];
+        unset($structure[$child_doi]);
+      }
     }
   }
 
