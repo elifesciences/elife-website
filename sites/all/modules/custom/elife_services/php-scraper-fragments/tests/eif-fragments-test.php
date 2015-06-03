@@ -7,10 +7,9 @@ class EifTest extends PHPUnit_Framework_TestCase
   var $sitemap = array();
   var $manuscripts = array();
   var $paths_of_interest = array();
+  var $offset = 0;
   var $limit = 0;
-  var $problems = array(
-  	'content/3/e02304/F3/DC1',
-  );
+  var $problems = array();
 
   public function setUp()
   {
@@ -39,7 +38,7 @@ class EifTest extends PHPUnit_Framework_TestCase
       $this->manuscripts = file(__DIR__ . '/manuscripts.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
       if ($this->limit > 0)
       {
-        $this->manuscripts = array_slice($this->manuscripts, 0, $this->limit);
+        $this->manuscripts = array_slice($this->manuscripts, $this->offset, $this->limit);
       }
       $this->setSitemap();
       foreach ($this->manuscripts as $manuscript_id)
