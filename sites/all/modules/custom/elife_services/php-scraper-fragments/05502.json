@@ -1,0 +1,177 @@
+{
+  "children": {
+    "fragment": [
+      {
+        "type": "abstract",
+        "doi": "10.7554/eLife.05502.001",
+        "path": "content/4/e05502/abstract-1"
+      },
+      {
+        "type": "abstract",
+        "doi": "10.7554/eLife.05502.002",
+        "path": "content/4/e05502/abstract-2",
+        "abstract-type": "executive-summary"
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.003",
+        "path": "content/4/e05502/F1",
+        "title": "Figure 1."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.004",
+        "path": "content/4/e05502/F2",
+        "title": "Figure 2.",
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.005",
+              "path": "content/4/e05502/F2/F3",
+              "title": "Figure 2—figure supplement 1."
+            },
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.006",
+              "path": "content/4/e05502/F2/F4",
+              "title": "Figure 2—figure supplement 2."
+            }
+          ]
+        }
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.007",
+        "path": "content/4/e05502/F5",
+        "title": "Figure 3.",
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.008",
+              "path": "content/4/e05502/F5/F6",
+              "title": "Figure 3—figure supplement 1."
+            }
+          ]
+        }
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.009",
+        "path": "content/4/e05502/F7",
+        "title": "Figure 4."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.010",
+        "path": "content/4/e05502/F8",
+        "title": "Figure 5.",
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.011",
+              "path": "content/4/e05502/F8/F9",
+              "title": "Figure 5—figure supplement 1."
+            }
+          ]
+        }
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.012",
+        "path": "content/4/e05502/F10",
+        "title": "Figure 6."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.013",
+        "path": "content/4/e05502/F11",
+        "title": "Figure 7."
+      },
+      {
+        "type": "boxed-text",
+        "doi": "10.7554/eLife.05502.014",
+        "path": "content/4/e05502/B1",
+        "title": "Box 1.",
+        "children": {
+          "fragment": [
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.015",
+              "path": "content/4/e05502/F12",
+              "title": "Box figure 1."
+            },
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.05502.016",
+              "path": "content/4/e05502/F13",
+              "title": "Box figure 2."
+            }
+          ]
+        }
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.017",
+        "path": "content/4/e05502/F14",
+        "title": "Figure 8."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.018",
+        "path": "content/4/e05502/F15",
+        "title": "Figure 9."
+      },
+      {
+        "type": "table-wrap",
+        "doi": "10.7554/eLife.05502.019",
+        "path": "content/4/e05502/T1",
+        "title": "Table 1."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.020",
+        "path": "content/4/e05502/F16",
+        "title": "Figure 10."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.021",
+        "path": "content/4/e05502/F17",
+        "title": "Figure 11."
+      },
+      {
+        "type": "table-wrap",
+        "doi": "10.7554/eLife.05502.022",
+        "path": "content/4/e05502/T2",
+        "title": "Table 2."
+      },
+      {
+        "type": "fig",
+        "doi": "10.7554/eLife.05502.023",
+        "path": "content/4/e05502/F18",
+        "title": "Figure 12."
+      },
+      {
+        "type": "supplementary-material",
+        "doi": "10.7554/eLife.05502.024",
+        "path": "content/4/e05502/DC1",
+        "title": "Supplementary file 1."
+      }
+    ],
+    "sub-article": [
+      {
+        "doi": "10.7554/eLife.05502.025",
+        "path": "content/4/e05502/1",
+        "title": "Decision letter"
+      },
+      {
+        "doi": "10.7554/eLife.05502.026",
+        "path": "content/4/e05502/2",
+        "title": "Author response"
+      }
+    ]
+  }
+}
