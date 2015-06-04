@@ -28,8 +28,8 @@ function elife_article_views_api($module = NULL, $api = NULL) {
  */
 function elife_article_node_info() {
   $items = array(
-    'elife_article' => array(
-      'name' => t('eLife Article'),
+    'elife_article_ver' => array(
+      'name' => t('eLife Article Version'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

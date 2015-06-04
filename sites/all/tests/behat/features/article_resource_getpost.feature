@@ -6,7 +6,7 @@ Feature: Article Resource - GetPost requests (API)
 
   @api
   Scenario: GET and POST an article in sequence
-    Given "elife_article" content:
+    Given "elife_article_ver" content:
       | field_elife_a_full_title | field_elife_a_article_version_id |
       | VOR 05227                | 05227                            |
     And I set header "Content-Type" with value "application/json"

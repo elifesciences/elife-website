@@ -5,7 +5,7 @@ Feature: Article Resource - GET (API)
 
   @api
   Scenario: Get an article
-    Given "elife_article" content:
+    Given "elife_article_ver" content:
       | field_elife_a_full_title | field_elife_a_article_version_id |
       | VOR 05224                | 05224                            |
     And I set header "Content-Type" with value "application/json"

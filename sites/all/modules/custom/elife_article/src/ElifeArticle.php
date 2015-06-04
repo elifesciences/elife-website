@@ -23,7 +23,7 @@ class ElifeArticle {
    * @param string $bundle
    * @return bool
    */
-  public static function uniqueArticleVersionId($article_version_id, $bundle = 'elife_article') {
+  public static function uniqueArticleVersionId($article_version_id, $bundle = 'elife_article_ver') {
     $nid = self::fromIdentifier($article_version_id, FALSE, $bundle);
 
     if (!empty($nid)) {
@@ -48,7 +48,7 @@ class ElifeArticle {
       'field_elife_a_status' => 'POA',
     );
 
-    return self::fromId($doi, $load, 'elife_article', $conditions, $limit, 'field_elife_a_doi');
+    return self::fromId($doi, $load, 'elife_article_ver', $conditions, $limit, 'field_elife_a_doi');
   }
 
   /**
@@ -63,7 +63,7 @@ class ElifeArticle {
       'field_elife_a_status' => 'VOR',
     );
 
-    return self::fromId($doi, $load, 'elife_article', $conditions, 1, 'field_elife_a_doi');
+    return self::fromId($doi, $load, 'elife_article_ver', $conditions, 1, 'field_elife_a_doi');
   }
 
   /**
@@ -81,7 +81,7 @@ class ElifeArticle {
       'field_elife_a_status' => 'POA',
     );
 
-    return self::fromId($article_id, $load, 'elife_article', $conditions, $limit);
+    return self::fromId($article_id, $load, 'elife_article_ver', $conditions, $limit);
   }
 
   /**
@@ -96,7 +96,7 @@ class ElifeArticle {
       'field_elife_a_status' => 'VOR',
     );
 
-    return self::fromId($article_id, $load, 'elife_article', $conditions, 1);
+    return self::fromId($article_id, $load, 'elife_article_ver', $conditions, 1);
   }
 
   /**
@@ -110,7 +110,7 @@ class ElifeArticle {
    * @param string $id_field
    * @return bool|mixed
    */
-  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
+  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article_ver', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
     $id_query = new EntityFieldQuery();
     $id_query = $id_query
       ->entityCondition('entity_type', 'node')
@@ -184,7 +184,7 @@ class ElifeArticle {
    * @param string $id_field
    * @return bool|mixed
    */
-  public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article', $limit = 1, $id_field = 'field_elife_a_article_version_id') {
+  public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article_ver', $limit = 1, $id_field = 'field_elife_a_article_version_id') {
     $id_query = new EntityFieldQuery();
     $id_query = $id_query
       ->entityCondition('entity_type', 'node')
@@ -344,7 +344,7 @@ class ElifeArticle {
         );
         /* @var EntityDrupalWrapper $sub_wrapper */
         foreach ($ewrapper->field_elife_a_children as $sub_wrapper) {
-          if ($sub_wrapper->getBundle() == 'elife_article') {
+          if ($sub_wrapper->getBundle() == 'elife_article_ver') {
             $subarticle = array();
             foreach ($mappings as $k => $field) {
               if ($value = $sub_wrapper->{$field}->value()) {

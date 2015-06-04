@@ -5,7 +5,7 @@ Feature: Article Resource - Versions (API)
 
   @api
   Scenario: Post a new version of an article - test case 1
-    Given "elife_article" content:
+    Given "elife_article_ver" content:
       | field_elife_a_full_title | field_elife_a_article_version_id | field_elife_a_article_id | field_elife_a_early | field_elife_a_version | field_elife_a_fpubdate |
       | Early 05224 v1           | 05224.early.v1                   | 10.7554/eLife.05224      | 1                   | 1                     | 1979-08-15             |
     And I set header "Content-Type" with value "application/json"
@@ -29,7 +29,7 @@ Feature: Article Resource - Versions (API)
 
   @api
   Scenario: Post a new version of an article - test case 2
-    Given "elife_article" content:
+    Given "elife_article_ver" content:
       | field_elife_a_full_title | field_elife_a_article_version_id | field_elife_a_article_id | field_elife_a_early | field_elife_a_version | field_elife_a_fpubdate |
       | Early 05224 v1           | 05224.early.v1                   | 10.7554/eLife.05224      | 1                   | 1                     | 1979-08-15             |
       | Early 05224 v2           | 05224.early.v2                   | 10.7554/eLife.05224      | 1                   | 2                     | 1979-08-16             |

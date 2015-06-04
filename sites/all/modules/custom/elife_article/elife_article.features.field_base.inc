@@ -591,7 +591,7 @@ function elife_article_field_default_field_bases() {
           'type' => 'none',
         ),
         'target_bundles' => array(
-          'elife_article' => 'elife_article',
+          'elife_article_ver' => 'elife_article_ver',
           'elife_fragment' => 'elife_fragment',
         ),
       ),
@@ -1521,7 +1521,7 @@ function elife_article_field_default_field_bases() {
           'type' => 'none',
         ),
         'target_bundles' => array(
-          'elife_article' => 'elife_article',
+          'elife_article_ver' => 'elife_article_ver',
         ),
       ),
       'target_type' => 'node',

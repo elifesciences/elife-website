@@ -60,7 +60,7 @@ function _elife_services_article_delete_access($article_version_id) {
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
+function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
   $article = ElifeArticle::fromIdentifier($id, TRUE, $bundle, 1, $id_field);
   if ($trigger_error && empty($article->nid)) {
     return services_error(t('Article version id @id not found', array('@id' => $id)), 404);
@@ -70,14 +70,14 @@ function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article', $i
 }
 
 /**
- * Callback function for elife_article retrieve.
+ * Callback function for elife_article_ver retrieve.
  *
  * @param string $article_version_id
  * @param string $bundle
  * @return bool|mixed
  * @throws ServicesException
  */
-function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_article') {
+function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_article_ver') {
   $article = _elife_services_article_retrieve_raw($article_version_id, $bundle);
   return _elife_services_article_prepare_json($article);
 }
@@ -206,7 +206,7 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
 }
 
 /**
- * Callback function for elife_article create.
+ * Callback function for elife_article_ver create.
  *
  * @param $data
  * @return mixed
@@ -218,7 +218,7 @@ function _elife_services_article_create($data) {
   }
   else {
     $values = array(
-      'type' => 'elife_article',
+      'type' => 'elife_article_ver',
       'uid' => _elife_services_user_uid(),
     );
     $article = entity_create('node', $values);
@@ -228,7 +228,7 @@ function _elife_services_article_create($data) {
 }
 
 /**
- * Callback function for elife_article update.
+ * Callback function for elife_article_ver update.
  *
  * @param $article_version_id
  * @param $data
@@ -242,14 +242,14 @@ function _elife_services_article_update($article_version_id, $data) {
 }
 
 /**
- * Callback function for elife_article delete.
+ * Callback function for elife_article_ver delete.
  *
  * @param $article_version_id
  * @param bool $trigger_error
  * @throws Exception
  */
 function _elife_services_article_delete($article_version_id, $trigger_error = TRUE) {
-  $article = _elife_services_article_retrieve_raw($article_version_id, 'elife_article', 'field_elife_a_article_version_id', $trigger_error);
+  $article = _elife_services_article_retrieve_raw($article_version_id, 'elife_article_ver', 'field_elife_a_article_version_id', $trigger_error);
 
   if ($article) {
     /* @var EntityDrupalWrapper $ewrapper */
@@ -271,7 +271,7 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
 }
 
 /**
- * Updates specific values of an existing elife_article entity.
+ * Updates specific values of an existing elife_article_ver entity.
  *
  * @param $article
  * @param $data
@@ -865,12 +865,12 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
         $subarticle = TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_article', $subarticle, $new);
+          $child = _elife_services_article_child_update_values($piece, 'elife_article_ver', $subarticle, $new);
           $found[] = $child->nid;
         }
         break;
       case 'fragment':
-        $subarticle = ($ewrapper->value()->type == 'elife_article') ? FALSE : TRUE;
+        $subarticle = ($ewrapper->value()->type == 'elife_article_ver') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
           $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new);
