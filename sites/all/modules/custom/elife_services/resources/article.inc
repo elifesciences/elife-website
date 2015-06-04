@@ -7,13 +7,17 @@
 
 use Drupal\elife_article\ElifeArticle;
 
-// @todo - elife - nlisgo - ensure that when an article is updated/deleted that any orphaned nodes and possibly categories/keywords are removed.
+// @todo - elife - nlisgo - ensure that when an article is updated/deleted that
+// any orphaned nodes and possibly categories/keywords are removed.
 
 /**
  * Determines an API user's access to retrieve a given article.
  *
  * @param string $article_version_id
+ *   Article version id.
+ *
  * @return bool
+ *   returns TRUE or FALSE
  */
 function _elife_services_article_retrieve_access($article_version_id) {
   // @todo - elife - nlisgo - Implement some access control.
@@ -24,7 +28,10 @@ function _elife_services_article_retrieve_access($article_version_id) {
  * Determines an API user's access to create an article.
  *
  * @param array $data
+ *   Array of data submitted in the request.
+ *
  * @return bool
+ *   returns TRUE or FALSE.
  */
 function _elife_services_article_create_access($data) {
   return TRUE;
@@ -34,7 +41,10 @@ function _elife_services_article_create_access($data) {
  * Determines an API user's access to update a given article.
  *
  * @param string $article_version_id
+ *   Article version id.
+ *
  * @return bool
+ *   returns TRUE or FALSE
  */
 function _elife_services_article_update_access($article_version_id) {
   return TRUE;
@@ -44,7 +54,10 @@ function _elife_services_article_update_access($article_version_id) {
  * Determines an API user's access to delete a given article.
  *
  * @param string $article_version_id
+ *   Article version id.
+ *
  * @return bool
+ *   returns TRUE or FALSE
  */
 function _elife_services_article_delete_access($article_version_id) {
   return TRUE;
@@ -54,10 +67,17 @@ function _elife_services_article_delete_access($article_version_id) {
  * Retrieve raw article entity.
  *
  * @param string $id
+ *   Article identifier.
  * @param string $bundle
+ *   Bundle/content type.
  * @param string $id_field
+ *   Id field in database.
  * @param bool $trigger_error
- * @return bool|mixed
+ *   Triggers services_error if set and appropriate.
+ *
+ * @return mixed
+ *   Return article node.
+ *
  * @throws ServicesException
  */
 function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
@@ -73,8 +93,13 @@ function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver'
  * Callback function for elife_article_ver retrieve.
  *
  * @param string $article_version_id
+ *   Article version id.
  * @param string $bundle
- * @return bool|mixed
+ *   Bundle/content type.
+ *
+ * @return mixed
+ *   Return article node.
+ *
  * @throws ServicesException
  */
 function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_article_ver') {
@@ -82,6 +107,17 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
   return _elife_services_article_prepare_json($article);
 }
 
+/**
+ * Prepare json for the response.
+ *
+ * @param object $article
+ *   Article data object.
+ * @param null|string $article_version_id
+ *   Article version id.
+ *
+ * @return array
+ *   Structured article data.
+ */
 function _elife_services_article_prepare_json($article, $article_version_id = NULL) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
@@ -190,6 +226,7 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
             // If time is blank then strip it out.
             $get = preg_replace('/^([0-9]{4}-[0-9]{2}-[0-9]{2}) 00:00:00$/', '$1', $get);
             break;
+
           case 'string':
             $get = (string) $get;
             break;
@@ -208,8 +245,11 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
 /**
  * Callback function for elife_article_ver create.
  *
- * @param $data
+ * @param array $data
+ *   Article data submitted in the request.
+ *
  * @return mixed
+ *   Return array to be output as json.
  */
 function _elife_services_article_create($data) {
   // If force flag set then update if article-version-id recognised.
@@ -221,6 +261,7 @@ function _elife_services_article_create($data) {
       'type' => 'elife_article_ver',
       'uid' => _elife_services_user_uid(),
     );
+    /* @var object $article */
     $article = entity_create('node', $values);
     $article = _elife_services_article_update_values($article, $data, TRUE);
     return _elife_services_article_prepare_json($article);
@@ -230,9 +271,13 @@ function _elife_services_article_create($data) {
 /**
  * Callback function for elife_article_ver update.
  *
- * @param $article_version_id
- * @param $data
+ * @param string $article_version_id
+ *   Article version id.
+ * @param array $data
+ *   Article data submitted in the request.
+ *
  * @return mixed
+ *   Return array to be output as json.
  */
 function _elife_services_article_update($article_version_id, $data) {
   $article = _elife_services_article_retrieve_raw($article_version_id);
@@ -244,8 +289,11 @@ function _elife_services_article_update($article_version_id, $data) {
 /**
  * Callback function for elife_article_ver delete.
  *
- * @param $article_version_id
+ * @param string $article_version_id
+ *   Article version id.
  * @param bool $trigger_error
+ *   If TRUE then trigger services_error if appropriate.
+ *
  * @throws Exception
  */
 function _elife_services_article_delete($article_version_id, $trigger_error = TRUE) {
@@ -256,7 +304,7 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
     $ewrapper = entity_metadata_wrapper('node', $article);
 
     // Remove all child nodes.
-    $query = new EntityFieldQuery;
+    $query = new EntityFieldQuery();
     $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $ewrapper->nid->value())
       ->execute();
 
@@ -273,10 +321,16 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
 /**
  * Updates specific values of an existing elife_article_ver entity.
  *
- * @param $article
- * @param $data
+ * @param object $article
+ *   Object of article data prepared by Drupal.
+ * @param array $data
+ *   Array of values supplied in request.
  * @param bool $new
- * @return mixed
+ *   Flag set to TRUE for new content.
+ *
+ * @return object
+ *   Return the raw article data object.
+ *
  * @throws EntityMetadataWrapperException
  * @throws ServicesException
  */
@@ -325,8 +379,10 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   // Set as published or unpublished.
   if (isset($data['publish'])) {
     $ewrapper->status->set($data['publish']);
-    // @todo - elife - nlisgo - ensure that access to child nodes is dependant on parent node being published.
-    // @todo - elife - nlisgo - if this is VOR and there is a POA version of this article then if publish is 1 then we should set the updated date.
+    // @todo - elife - nlisgo - ensure that access to child nodes is dependant
+    // on parent node being published.
+    // @todo - elife - nlisgo - if this is VOR and there is a POA version of
+    // this article then if publish is 1 then we should set the updated date.
   }
 
   // Set the volume number.
@@ -475,6 +531,14 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   return $ewrapper->raw();
 }
 
+/**
+ * Create a path alias.
+ *
+ * @param string $path
+ *   Path alias.
+ * @param string $source
+ *   Source value (e.g. node/1234).
+ */
 function _elife_services_create_path($path, $source) {
   $content_path = array(
     'alias' => $path,
@@ -490,6 +554,18 @@ function _elife_services_create_path($path, $source) {
   path_save($content_path);
 }
 
+/**
+ * Process the citations data from the request.
+ *
+ * @param \EntityDrupalWrapper $ewrapper
+ *   Article object.
+ * @param int $parent_nid
+ *   Node id of parent.
+ * @param array $citations
+ *   Array of citation data supplied in request body.
+ *
+ * @throws \Exception
+ */
 function _elife_services_article_process_citations(EntityDrupalWrapper &$ewrapper, $parent_nid, $citations) {
   $cits = array();
   if ($existing = $ewrapper->field_elife_a_citations->raw()) {
@@ -504,6 +580,20 @@ function _elife_services_article_process_citations(EntityDrupalWrapper &$ewrappe
   $ewrapper->field_elife_a_citations->set($cits);
 }
 
+/**
+ * Create/update the values of an article citation.
+ *
+ * @param string $id
+ *   Identifier for the citation.
+ * @param array $data
+ *   Citation details.
+ *
+ * @return mixed
+ *   Data object of the citation node.
+ *
+ * @throws \EntityMetadataWrapperException
+ * @throws \Exception
+ */
 function _elife_services_article_citation_update_values($id, $data) {
   $data['id'] = $id;
   $type = 'elife_citation';
@@ -586,6 +676,21 @@ function _elife_services_article_citation_update_values($id, $data) {
   return $ewrapper->raw();
 }
 
+/**
+ * Process the contributor references.
+ *
+ * @param \EntityDrupalWrapper $ewrapper
+ *   Article entity.
+ * @param array $referenced
+ *   Contributor reference data.
+ * @param array $ref_links
+ *   Array to collect the reference ids and associated node ids.
+ * @param bool $new
+ *   Flag set to TRUE for new content.
+ *
+ * @throws \EntityMetadataWrapperException
+ * @throws \Exception
+ */
 function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapper, $referenced, &$ref_links = array(), $new = FALSE) {
   $ref_templates = array(
     'basic' => array(
@@ -641,7 +746,7 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
 
     // If expand option is set then prepare the ref types from the allowed
     // values of the field. Currently this is just used for basic key-value
-    // pairs of references (e.g. email)
+    // pairs of references (e.g. email).
     if (!empty($options['expand']) && !empty($options['mapping']['type'])) {
       $field_info = field_info_field($options['mapping']['type']);
       if (!empty($field_info['settings']['allowed_values'])) {
@@ -704,6 +809,18 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
   }
 }
 
+/**
+ * Process the contributors.
+ *
+ * @param \EntityDrupalWrapper $ewrapper
+ *   Article entity.
+ * @param int $parent_nid
+ *   Node id of the parent.
+ * @param array $contributors
+ *   Array of contributor data.
+ * @param array $ref_links
+ *   Array of reference data to link.
+ */
 function _elife_services_article_process_contributors(EntityDrupalWrapper &$ewrapper, $parent_nid, $contributors, $ref_links) {
   $contribs = array();
   foreach ($contributors as $contributor) {
@@ -714,6 +831,19 @@ function _elife_services_article_process_contributors(EntityDrupalWrapper &$ewra
   $ewrapper->field_elife_a_contributors->set($contribs);
 }
 
+/**
+ * Update the values of a contributor to the article.
+ *
+ * @param array $data
+ *   Contributor details.
+ * @param array $ref_links
+ *   Array of reference data to link.
+ *
+ * @return mixed
+ *   The contributor entity.
+ *
+ * @throws \EntityMetadataWrapperException
+ */
 function _elife_services_article_contributor_update_values($data, $ref_links) {
   $either = array(
     'id',
@@ -856,6 +986,18 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
 
 }
 
+/**
+ * Process the block of child fragments and subarticles.
+ *
+ * @param \EntityDrupalWrapper $ewrapper
+ *   Parent entity.
+ * @param int $parent_nid
+ *   Parent node id.
+ * @param array $children
+ *   Array of child data.
+ * @param bool $new
+ *   Flag set to TRUE for new content.
+ */
 function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
   // @todo - elife - nlisgo - review when subarticle should be set.
   $found = array();
@@ -869,6 +1011,7 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
           $found[] = $child->nid;
         }
         break;
+
       case 'fragment':
         $subarticle = ($ewrapper->value()->type == 'elife_article_ver') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
@@ -876,11 +1019,32 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
           $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new);
           $found[] = $child->nid;
         }
+        break;
+
     }
   }
   $ewrapper->field_elife_a_children->set($found);
 }
 
+/**
+ * Update the values of the child fragments.
+ *
+ * @param array $data
+ *   Data associated with child fragment.
+ * @param string $type
+ *   Bundle/content type.
+ * @param bool $subarticle
+ *   TRUE if this is a subarticle or child of subarticle.
+ * @param bool $new
+ *   Flag set to TRUE for new content.
+ *
+ * @return mixed
+ *   Child entity object.
+ *
+ * @throws \EntityMetadataWrapperException
+ * @throws \Exception
+ * @throws \ServicesException
+ */
 function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE) {
   $required = array(
     'doi',
@@ -1011,26 +1175,38 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   return $ewrapper->raw();
 }
 
+/**
+ * Prepare category or keyword term.
+ *
+ * @param string $vocabulary
+ *   Vocabulary.
+ * @param string $term_name
+ *   Term name.
+ * @param array $conditions
+ *   Conditions on query for existing term.
+ * @param array $fields
+ *   Fields and values to assign to those fields.
+ *
+ * @return bool|mixed
+ *   Created or existing term.
+ */
 function _elife_services_article_prepare_term($vocabulary, $term_name, $conditions = array(), $fields = array()) {
   $term_name = ElifeArticle::cleanTitle($term_name);
   $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
   $query = new EntityFieldQuery();
-  $query = $query
-    ->entityCondition('entity_type', 'taxonomy_term')
-    ->propertyCondition('name', $term_name)
-    ->propertyCondition('vid', $vocabulary->vid);
+  $query->entityCondition('entity_type', 'taxonomy_term');
+  $query->propertyCondition('name', $term_name);
+  $query->propertyCondition('vid', $vocabulary->vid);
 
   if (!empty($conditions)) {
-    foreach($conditions as $field => $value) {
-      $query = $query
-        ->fieldCondition($field, 'value', $value);
+    foreach ($conditions as $field => $value) {
+      $query->fieldCondition($field, 'value', $value);
     }
   }
 
-  $result = $query
-    ->execute();
+  $result = $query->execute();
 
-  if(!empty($result)) {
+  if (!empty($result)) {
     $term = array_pop($result['taxonomy_term']);
     $term = taxonomy_term_load($term->tid);
   }
@@ -1066,8 +1242,11 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $conditio
 /**
  * Prepare the date value for storing in date fields.
  *
- * @param $date
+ * @param string $date
+ *   Date provided as a string.
+ *
  * @return int
+ *   Date in unix time.
  */
 function _elife_services_article_prepare_date($date) {
   // If the $date value is numeric then we will assume it is in unix time.

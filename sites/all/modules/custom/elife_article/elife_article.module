@@ -12,6 +12,8 @@ include_once 'elife_article.features.inc';
 function elife_article_preprocess_node(&$variables) {
   $node = $variables['node'];
 
-  $variables['submitted'] .= t(' and last modified on !changed-date', array(
-    '!changed-date' => format_date($node->changed)));
+  $variables['submitted'] = t('Created !created-date and last modified on !changed-date', array(
+    '!created-date' => format_date($node->created),
+    '!changed-date' => format_date($node->changed),
+  ));
 }

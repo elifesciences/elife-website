@@ -10,7 +10,6 @@ namespace Drupal\elife_article;
 use EntityFieldQuery;
 use EntityDrupalWrapper;
 use EntityListWrapper;
-use RelationQuery;
 
 class ElifeArticle {
 
@@ -20,8 +19,12 @@ class ElifeArticle {
    * Verify that the article version id string is unique.
    *
    * @param string $article_version_id
+   *   Article version id.
    * @param string $bundle
+   *   Bundle/content type.
+   *
    * @return bool
+   *   TRUE if unique.
    */
   public static function uniqueArticleVersionId($article_version_id, $bundle = 'elife_article_ver') {
     $nid = self::fromIdentifier($article_version_id, FALSE, $bundle);
@@ -34,14 +37,19 @@ class ElifeArticle {
   }
 
   /**
-   * Get poa from doi.
+   * Get POA from DOI.
    *
    * This will not return the POA for articles that are now VOR.
    *
    * @param string $doi
+   *   Article version DOI.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
    * @param int $limit
+   *   Limit the number of articles returned.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function poaFromDoi($doi, $load = TRUE, $limit = 1) {
     $conditions = array(
@@ -52,11 +60,15 @@ class ElifeArticle {
   }
 
   /**
-   * Get the vor from the doi.
+   * Get the VOR from the DOI.
    *
    * @param string $doi
+   *   Article version DOI.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function vorFromDoi($doi, $load = TRUE) {
     $conditions = array(
@@ -67,14 +79,19 @@ class ElifeArticle {
   }
 
   /**
-   * Get poa from article id.
+   * Get POA from article id.
    *
    * This will not return the POA for articles that are now VOR.
    *
    * @param string $article_id
+   *   Article ID.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
    * @param int $limit
+   *   Limit the number of articles returned.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function poaFromId($article_id, $load = TRUE, $limit = 1) {
     $conditions = array(
@@ -88,8 +105,12 @@ class ElifeArticle {
    * Get the vor from the article id.
    *
    * @param string $article_id
+   *   Article ID.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function vorFromId($article_id, $load = TRUE) {
     $conditions = array(
@@ -103,22 +124,29 @@ class ElifeArticle {
    * Retrieve the article node or node id from the article id.
    *
    * @param string $article_id
+   *   Article ID.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
    * @param string $bundle
+   *   Bundle/content type.
    * @param array $conditions
+   *   Array of conditions for sql query.
    * @param int $limit
+   *   Limit the number of articles returned.
    * @param string $id_field
+   *   Field of the identifier.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article_ver', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
     $id_query = new EntityFieldQuery();
-    $id_query = $id_query
-      ->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', $bundle)
-      ->fieldCondition($id_field, 'value', $article_id, '=')
-      ->fieldOrderBy('field_elife_a_status', 'value', 'DESC')
-      ->fieldOrderBy('field_elife_a_version', 'value', 'DESC')
-      ->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
+    $id_query->entityCondition('entity_type', 'node');
+    $id_query->entityCondition('bundle', $bundle);
+    $id_query->fieldCondition($id_field, 'value', $article_id, '=');
+    $id_query->fieldOrderBy('field_elife_a_status', 'value', 'DESC');
+    $id_query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
+    $id_query->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
@@ -137,18 +165,15 @@ class ElifeArticle {
         else {
           $assert = $value;
         }
-        $id_query = $id_query
-          ->fieldCondition($field, $column, $assert, $operator);
+        $id_query->fieldCondition($field, $column, $assert, $operator);
       }
     }
 
     if (!empty($limit)) {
-      $id_query = $id_query
-        ->range(0, $limit);
+      $id_query->range(0, $limit);
     }
 
-    $ids = $id_query
-      ->execute();
+    $ids = $id_query->execute();
 
     if (empty($ids['node'])) {
       return FALSE;
@@ -175,33 +200,38 @@ class ElifeArticle {
   }
 
   /**
-   * Retrieve the article node or node id from the id (default is article version id).
+   * Retrieve the article node or node id from the id.
+   *
+   * (default is article version id).
    *
    * @param string $id
+   *   Identifier.
    * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
    * @param string $bundle
+   *   Bundle/content type.
    * @param int $limit
+   *   Limit the number of articles returned.
    * @param string $id_field
+   *   Field of the identifier.
+   *
    * @return bool|mixed
+   *   Details of the articles that match criteria.
    */
   public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article_ver', $limit = 1, $id_field = 'field_elife_a_article_version_id') {
     $id_query = new EntityFieldQuery();
-    $id_query = $id_query
-      ->entityCondition('entity_type', 'node')
-      ->fieldCondition($id_field, 'value', $id, '=');
+    $id_query->entityCondition('entity_type', 'node');
+    $id_query->fieldCondition($id_field, 'value', $id, '=');
 
     if (!empty($bundle)) {
-      $id_query = $id_query
-        ->entityCondition('bundle', $bundle);
+      $id_query->entityCondition('bundle', $bundle);
     }
 
     if (!empty($limit)) {
-      $id_query = $id_query
-        ->range(0, $limit);
+      $id_query->range(0, $limit);
     }
 
-    $ids = $id_query
-      ->execute();
+    $ids = $id_query->execute();
 
     if (empty($ids['node'])) {
       return FALSE;
@@ -231,7 +261,10 @@ class ElifeArticle {
    * Get path for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return string
+   *   Content alias from article.
    */
   public static function getPath($article_version_id) {
     $article_nid = self::fromIdentifier($article_version_id, FALSE);
@@ -242,7 +275,10 @@ class ElifeArticle {
    * Get categories for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Categories.
    */
   public static function getCategories($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -263,7 +299,10 @@ class ElifeArticle {
    * Get keywords for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Keywords.
    */
   public static function getKeywords($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -285,7 +324,10 @@ class ElifeArticle {
    * Get article children for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Article sub-articles and fragments.
    */
   public static function getArticleChildren($article_version_id) {
     $children = array();
@@ -307,7 +349,10 @@ class ElifeArticle {
    * Get article fragments for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Fragments.
    */
   public static function getArticleFragments($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -327,7 +372,10 @@ class ElifeArticle {
    * Get sub articles for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Subarticles.
    */
   public static function getArticleSubarticles($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -375,7 +423,10 @@ class ElifeArticle {
    * Get child fragments for supplied entity.
    *
    * @param EntityListWrapper $frag_list
+   *   List of fragment entities.
+   *
    * @return array
+   *   Fragment data.
    */
   public static function getChildFragments(EntityListWrapper $frag_list) {
     $fragments = array();
@@ -417,7 +468,10 @@ class ElifeArticle {
    * Get contributors for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Contributors.
    */
   public static function getContributors($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -437,7 +491,10 @@ class ElifeArticle {
    * Get child fragments for supplied entity.
    *
    * @param EntityListWrapper $contrib_list
+   *   List of contributor entities.
+   *
    * @return array
+   *   Contributor data.
    */
   public static function getChildContributors(EntityListWrapper $contrib_list) {
     $contributors = array();
@@ -528,7 +585,10 @@ class ElifeArticle {
    * Get contributor references for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Contributor references.
    */
   public static function getContributorReferences($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -614,7 +674,10 @@ class ElifeArticle {
    * Get citations for supplied article version id.
    *
    * @param string $article_version_id
+   *   Article version id.
+   *
    * @return array
+   *   Citations.
    */
   public static function getCitations($article_version_id) {
     $article = self::fromIdentifier($article_version_id);
@@ -651,7 +714,7 @@ class ElifeArticle {
           'group-type' => $field_cit_prefix . '_author_group',
           'name' => $field_cit_prefix . '_author_name',
         );
-        // @todo - elife - nlisgo - this is taking too long!!
+
         /* @var EntityDrupalWrapper $fc_wrapper */
         foreach ($cit_wrapper->{$field_cit_prefix . '_authors'} as $fc_wrapper) {
           $author = array();
@@ -679,7 +742,10 @@ class ElifeArticle {
    * Validate the doi string.
    *
    * @param string $doi
+   *   DOI.
+   *
    * @return bool
+   *   TRUE if valid.
    */
   public static function validateDoi($doi) {
     $pattern = '/^' . preg_quote(self::DOI_PREFIX, '/') . '[0-9]{5}(\.[0-9]+)?$/';
@@ -695,7 +761,10 @@ class ElifeArticle {
    * Clean the title.
    *
    * @param string $title
+   *   Title to clean.
+   *
    * @return string
+   *   Clean title.
    */
   public static function cleanTitle($title) {
     $title = self::unicodeFix($title, 'replace');
@@ -708,7 +777,7 @@ class ElifeArticle {
     $title = str_replace("  ", ' ', $title);
 
     if (mb_strlen($title) > 255) {
-      //TODO: Trim on word boundary
+      // @todo - elife - nlisgo - Trim on word boundary.
       $title = mb_substr($title, 0, 254) . '…';
     }
     return $title;
@@ -735,44 +804,37 @@ class ElifeArticle {
    *   returns either TRUE/FALSE on 'check' or modified string on 'replace'
    */
   public static function unicodeFix($string, $action = 'replace') {
+    $pattern_2byte = '/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]|[\x00-\x7F][\x80-\xBF]+|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S';
+
+    $pattern_3byte = '/\xE0[\x80-\x9F][\x80-\xBF]|\xED[\xA0-\xBF][\x80-\xBF]/S';
+
     switch ($action) {
       case 'check':
         // Check for overly long 2 byte sequences, as well as characters above
-        // U+10000 and replace with ?.
-        $two_byte = preg_match('/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]' .
-          '|[\x00-\x7F][\x80-\xBF]+' .
-          '|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*' .
-          '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})' .
-          '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
-          $string);
+        // U+10000.
+        $two_byte = preg_match($pattern_2byte, $string);
 
-        // Reject overly long 3 byte sequences and UTF-16 surrogates and replace
-        // with ?.
-        $three_byte = preg_match('/\xE0[\x80-\x9F][\x80-\xBF]' .
-          '|\xED[\xA0-\xBF][\x80-\xBF]/S', '?', $string);
+        // Reject overly long 3 byte sequences and UTF-16 surrogates.
+        $three_byte = preg_match($pattern_3byte, $string);
 
         $has_replacement = FALSE;
         if ($two_byte == 1 || $three_byte == 1) {
           $has_replacement = TRUE;
         }
-        return $has_replacement;
+        $output = $has_replacement;
+        break;
 
-      case 'replace':
-        // Reject overly long 2 byte sequences, as well as characters above
+      default:
+        // Check for overly long 2 byte sequences, as well as characters above
         // U+10000 and replace with ?.
-        $string = preg_replace('/[\x00-\x08\x10\x0B\x0C\x0E-\x19\x7F]' .
-          '|[\x00-\x7F][\x80-\xBF]+' .
-          '|([\xC0\xC1]|[\xF0-\xFF])[\x80-\xBF]*' .
-          '|[\xC2-\xDF]((?![\x80-\xBF])|[\x80-\xBF]{2,})' .
-          '|[\xE0-\xEF](([\x80-\xBF](?![\x80-\xBF]))|(?![\x80-\xBF]{2})|[\x80-\xBF]{3,})/S',
-          '?', $string);
+        $string = preg_replace($pattern_2byte, '?', $string);
 
         // Reject overly long 3 byte sequences and UTF-16 surrogates and replace
         // with ?.
-        $string = preg_replace('/\xE0[\x80-\x9F][\x80-\xBF]' .
-          '|\xED[\xA0-\xBF][\x80-\xBF]/S', '?', $string);
-
-        return $string;
+        $output = preg_replace($pattern_3byte, '?', $string);
+        break;
     }
+
+    return $output;
   }
 }

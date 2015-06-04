@@ -1,7 +1,9 @@
 <?php
 
 /**
- * @file elife_services.module
+ * @file
+ * elife_services.module
+ *
  * A collection of resources needed to provide a reliable service end point.
  */
 
