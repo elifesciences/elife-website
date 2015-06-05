@@ -847,6 +847,138 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-elife_article-body'
+  $field_instances['node-elife_article-body'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(
+          'trim_length' => 600,
+        ),
+        'type' => 'text_summary_or_trimmed',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'body',
+    'label' => 'Body',
+    'required' => FALSE,
+    'settings' => array(
+      'display_summary' => TRUE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_article_id'
+  $field_instances['node-elife_article-field_elife_a_article_id'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_article_id',
+    'label' => 'Article ID',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article-field_elife_a_versions'
+  $field_instances['node-elife_article-field_elife_a_versions'] = array(
+    'bundle' => 'elife_article',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_versions',
+    'label' => 'Article versions',
+    'required' => 0,
+    'settings' => array(
+      'behaviors' => array(
+        'taxonomy-index' => array(
+          'status' => TRUE,
+        ),
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-elife_article_ver-body'
   $field_instances['node-elife_article_ver-body'] = array(
     'bundle' => 'elife_article_ver',
@@ -974,7 +1106,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_article_type'
+  // Exported field_instance:
+  // 'node-elife_article_ver-field_elife_a_article_type'
   $field_instances['node-elife_article_ver-field_elife_a_article_type'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1277,7 +1410,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_contributors'
+  // Exported field_instance:
+  // 'node-elife_article_ver-field_elife_a_contributors'
   $field_instances['node-elife_article_ver-field_elife_a_contributors'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -3915,6 +4049,7 @@ function elife_article_field_default_field_instances() {
   t('Affiliation references');
   t('Article ID');
   t('Article version ID');
+  t('Article versions');
   t('Author Impact Statement');
   t('Authors');
   t('Award Id');
