@@ -290,6 +290,7 @@ function _elife_article_publish($publish = NULL) {
  *   Return array to be output as json.
  */
 function _elife_services_article_update($article_version_id, $data) {
+  // @todo - elife - nlisgo - do a better job of not updating if values same.
   $article = _elife_services_article_retrieve_raw($article_version_id);
 
   $article = _elife_services_article_update_values($article, $data);
