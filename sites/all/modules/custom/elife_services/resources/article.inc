@@ -303,16 +303,6 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $article);
 
-    // Remove all child nodes.
-    $query = new EntityFieldQuery();
-    $result = $query->fieldCondition('field_elife_a_parent', 'target_id', $ewrapper->nid->value())
-      ->execute();
-
-    if (isset($result['node']) && count($result['node'])) {
-      $node_ids = array_keys($result['node']);
-      node_delete_multiple($node_ids);
-    }
-
     // Remove article node.
     $ewrapper->delete();
   }
