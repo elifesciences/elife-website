@@ -22,30 +22,8 @@ function elife_article_preprocess_node(&$variables) {
  * Implements hook_node_delete().
  */
 function elife_article_node_delete($node) {
-  if ($node->type == 'elife_article_ver') {
-    // Delete article node if we have no article versions left.
-    $query = db_select('node', 'n');
-    $query->condition('n.type', 'elife_article');
-    $query->fields('n', array('nid'));
-    $query->leftJoin('field_data_field_elife_a_versions', 'v', 'v.entity_id = n.nid');
-    $query->leftJoin('node', 'nv', 'v.field_elife_a_versions_target_id = nv.nid');
-    $query->isNull('nv.nid');
-
-    if ($result = $query->execute()->fetchAllAssoc('nid')) {
-      node_delete_multiple(array_keys($result));
-    }
-
-    // Remove all child nodes.
-    $query = new EntityFieldQuery();
-    $query->fieldCondition('field_elife_a_parent', 'target_id', $node->nid);
-    if ($result = $query->execute()) {
-
-      if (isset($result['node']) && !empty($result['node'])) {
-        node_delete_multiple(array_keys($result['node']));
-      }
-    }
-  }
-  elseif ($node->type == 'elife_article') {
+  // Delete all versions of an article if article entity deleted.
+  if ($node->type == 'elife_article') {
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $node);
 
@@ -53,20 +31,95 @@ function elife_article_node_delete($node) {
       node_delete_multiple($versions);
     }
   }
+  elseif ($node->type == 'elife_article_ver') {
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $node);
+
+    if (!$ewrapper->field_elife_a_subarticle->value()) {
+      // Delete article node if we have no article versions left.
+      $query = db_select('node', 'n');
+      $query->condition('n.type', 'elife_article');
+      $query->fields('n', array('nid'));
+      $query->leftJoin('field_data_field_elife_a_versions', 'v', 'v.entity_id = n.nid');
+      $query->leftJoin('node', 'nv', 'v.field_elife_a_versions_target_id = nv.nid');
+      $query->isNull('nv.nid');
+
+      if ($result = $query->execute()->fetchAllAssoc('nid')) {
+        node_delete_multiple(array_keys($result));
+      }
+
+      // Remove all child nodes.
+      $query = new EntityFieldQuery();
+      $query->fieldCondition('field_elife_a_parent', 'target_id', $node->nid);
+      if ($result = $query->execute()) {
+        if (isset($result['node']) && !empty($result['node'])) {
+          node_delete_multiple(array_keys($result['node']));
+        }
+      }
+    }
+    // Delete nodes associated with a subarticle.
+    else {
+      $delete = array();
+      if ($children = $ewrapper->field_elife_a_children->raw()) {
+        $delete += $children;
+      }
+      if ($contributors = $ewrapper->field_elife_a_contributors->raw()) {
+        $delete += $contributors;
+      }
+      if ($citations = $ewrapper->field_elife_a_citations->raw()) {
+        $delete += $citations;
+      }
+      if (!empty($delete)) {
+        node_delete_multiple($delete);
+      }
+    }
+  }
+  elseif ($node->type == 'elife_fragment') {
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $node);
+
+    if ($children = $ewrapper->field_elife_a_children->raw()) {
+      node_delete_multiple($children);
+    }
+  }
 }
 
 /**
- * Implements hook_node_presave().
+ * Implements hook_node_update().
  */
-function elife_article_node_presave($node) {
+function elife_article_node_update($node) {
   // Set all child nodes to same status if status new or different.
   // Add entity reference to appropriate elife_article if new.
   // Create associated elife_article if it doesn't exist.
   if ($node->type == 'elife_article_ver') {
-
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $node);
+    if (!$ewrapper->field_elife_a_subarticle->value()) {
+      if ($node->original->status != $node->status) {
+        $query = new EntityFieldQuery();
+        $query->fieldCondition('field_elife_a_parent', 'target_id', $node->nid);
+        if ($result = $query->execute()) {
+          if (isset($result['node']) && !empty($result['node'])) {
+            $children = node_load_multiple(array_keys($result['node']));
+            foreach ($children as $child) {
+              $child->status = $node->status;
+              node_save($child);
+            }
+          }
+        }
+      }
+    }
   }
-  // Set all version nodes to same status if status new or different.
-  elseif ($node->type == 'elife_article') {
-
+  // Set the status of the child node to the same as the parent.
+  if (in_array($node->type, array(
+    'elife_article_ver',
+    'elife_fragment',
+    'elife_contributor',
+    'elife_citation'))) {
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $node);
+    if ($ewrapper->field_elife_a_parent->value()) {
+      $node->status = $ewrapper->field_elife_a_parent->status->value();
+    }
   }
 }

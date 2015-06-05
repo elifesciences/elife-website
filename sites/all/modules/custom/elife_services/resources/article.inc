@@ -268,6 +268,16 @@ function _elife_services_article_create($data) {
   }
 }
 
+function _elife_article_publish($publish = NULL) {
+  $cache = &drupal_static(__FUNCTION__, NULL);
+
+  if ($publish !== NULL) {
+    $cache = $publish;
+  }
+
+  return $cache;
+}
+
 /**
  * Callback function for elife_article_ver update.
  *
@@ -366,13 +376,15 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
   }
 
-  // Set as published or unpublished.
   if (isset($data['publish'])) {
     $ewrapper->status->set($data['publish']);
-    // @todo - elife - nlisgo - ensure that access to child nodes is dependant
-    // on parent node being published.
-    // @todo - elife - nlisgo - if this is VOR and there is a POA version of
-    // this article then if publish is 1 then we should set the updated date.
+    _elife_article_publish($data['publish']);
+  }
+  elseif ($new) {
+    _elife_article_publish(1);
+  }
+  else {
+    _elife_article_publish($ewrapper->status->value());
   }
 
   // Set the volume number.
@@ -591,6 +603,7 @@ function _elife_services_article_citation_update_values($id, $data) {
   $values = array(
     'type' => $type,
     'uid' => _elife_services_user_uid(),
+    'status' => _elife_article_publish(),
   );
 
   $citation = entity_create('node', $values);
@@ -854,6 +867,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
   $values = array(
     'type' => $type,
     'uid' => _elife_services_user_uid(),
+    'status' => _elife_article_publish(),
   );
 
   $contributor = entity_create('node', $values);
@@ -1068,6 +1082,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $values = array(
       'type' => $type,
       'uid' => _elife_services_user_uid(),
+      'status' => _elife_article_publish(),
     );
 
     $child = entity_create('node', $values);
