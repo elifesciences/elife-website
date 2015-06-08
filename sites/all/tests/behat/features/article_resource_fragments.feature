@@ -250,10 +250,9 @@ Feature: Article Resource - Fragments (API)
                 "title": "Appendix 2 Figure 2",
                 "doi": "10.7554/eLife.00013.036",
                 "path": "content/3/e00013/F24"
-              }
-            ],
-            "sub-article": [
+              },
               {
+                "type": "sub-article",
                 "title": "Decision letter",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/1",
@@ -293,6 +292,7 @@ Feature: Article Resource - Fragments (API)
                 ]
               },
               {
+                "type": "sub-article",
                 "title": "Author response",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/2",
@@ -302,13 +302,13 @@ Feature: Article Resource - Fragments (API)
                       "type": "fig",
                       "title": "Author response image 1",
                       "doi": "10.7554/eLife.00013.038",
-                      "path": "content/2/e00288/2/F25"
+                      "path": "content/3/e00288/2/F25"
                     },
                     {
                       "type": "table-wrap",
                       "title": "Author response table 1.",
                       "doi": "10.7554/eLife.00013.039",
-                      "path": "content/2/e00288/2/T4"
+                      "path": "content/3/e00288/2/T4"
                     }
                   ]
                 }
@@ -556,10 +556,9 @@ Feature: Article Resource - Fragments (API)
                 "title": "Appendix 2 Figure 2",
                 "doi": "10.7554/eLife.00013.036",
                 "path": "content/3/e00013/F24"
-              }
-            ],
-            "sub-article": [
+              },
               {
+                "type": "sub-article",
                 "title": "Decision letter",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/1",
@@ -599,6 +598,7 @@ Feature: Article Resource - Fragments (API)
                 ]
               },
               {
+                "type": "sub-article",
                 "title": "Author response",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/2",
@@ -608,13 +608,13 @@ Feature: Article Resource - Fragments (API)
                       "type": "fig",
                       "title": "Author response image 1",
                       "doi": "10.7554/eLife.00013.038",
-                      "path": "content/2/e00288/2/F25"
+                      "path": "content/3/e00288/2/F25"
                     },
                     {
                       "type": "table-wrap",
                       "title": "Author response table 1.",
                       "doi": "10.7554/eLife.00013.039",
-                      "path": "content/2/e00288/2/T4"
+                      "path": "content/3/e00288/2/T4"
                     }
                   ]
                 }
@@ -643,11 +643,13 @@ Feature: Article Resource - Fragments (API)
             "fragment": [
               {
                 "type": "abstract",
+                "title": "Abstract",
                 "doi": "10.7554/eLife.00013.001",
                 "path": "content/3/e00013/abstract-1"
               },
               {
                 "type": "abstract",
+                "title": "eLife digest",
                 "abstract-type": "executive-summary",
                 "doi": "10.7554/eLife.00013.002",
                 "path": "content/3/e00013/abstract-2"
@@ -664,7 +666,7 @@ Feature: Article Resource - Fragments (API)
               {
                 "type": "abstract",
                 "doi": "10.7554/eLife.00013.001",
-                "path": "content/3/e00013/abstract-x"
+                "path": "content/3/e00013/abstract-1"
               },
               {
                 "type": "abstract",
@@ -687,7 +689,7 @@ Feature: Article Resource - Fragments (API)
                 "type": "abstract",
                 "title": "Abstract",
                 "doi": "10.7554/eLife.00013.001",
-                "path": "content/3/e00013/abstract-x"
+                "path": "content/3/e00013/abstract-1"
               },
               {
                 "type": "abstract",

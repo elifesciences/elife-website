@@ -719,14 +719,12 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
         'id' => '_id',
         'id-type' => '_id_type',
         'institution' => '_inst',
-        'institution-type' => '_inst_type',
         'award-id' => '_award_id',
       ),
     ),
     'affiliation' => array(
       'field' => 'field_elife_a_aff_ref',
       'mapping_template' => array(
-        'label' => '_label',
         'dept' => '_dept',
         'institution' => '_inst',
         'city' => '_city',
@@ -735,14 +733,7 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
     ),
     'related-object' => array(
       'field' => 'field_elife_a_rel_ref',
-      'mapping_template' => array(
-        'type' => '_type',
-        'source-id' => '_src_id',
-        'source-id-type' => '_src_id_typ',
-        'year' => '_year',
-        'source' => '_src',
-        'comment' => '_comment',
-      ),
+      'mapping_template' => array(),
     ),
   );
   $ref_types = array();
@@ -1018,12 +1009,18 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
-
       case 'fragment':
         $subarticle = ($ewrapper->value()->type == 'elife_article_ver') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new, $processed_dois);
+          if ($piece['type'] == 'sub-article') {
+            unset($piece['type']);
+            $type = 'elife_article_ver';
+          }
+          else {
+            $type = 'elife_fragment';
+          }
+          $child = _elife_services_article_child_update_values($piece, $type, $subarticle, $new, $processed_dois);
           $found[] = $child->nid;
         }
         break;
@@ -1087,7 +1084,6 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   if (!$child) {
-    watchdog('elife_services', 'Type @type: <pre>@data</pre>', array('@type' => $type, '@data' => print_r($data, TRUE)), WATCHDOG_DEBUG);
     $new = TRUE;
     $values = array(
       'type' => $type,

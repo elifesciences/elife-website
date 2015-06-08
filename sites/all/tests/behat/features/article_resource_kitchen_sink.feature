@@ -342,47 +342,40 @@ Feature: Article Resource - Citations (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute",
-                "institution-type": "university"
+                "institution": "Howard Hughes Medical Institute"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation",
-                "institution-type": "university"
+                "institution": "Laura and John Arnold Foundation"
               }
             },
             "competing-interest": {
@@ -426,30 +419,8 @@ Feature: Article Resource - Citations (API)
               }
             },
             "related-object": {
-              "dataro1": {
-                "type": "generated-dataset",
-                "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",
-                "source-id-type": "uri",
-                "year": "2011",
-                "source": "A protein complex essential initiation of DNA replication",
-                "comment": "Publicly available at RCSB Protein Data Bank."
-              },
-              "dataro2": {
-                "type": "generated-dataset",
-                "source-id": "http://www.ncbi.nlm.nih.gov/sra/SRX528181",
-                "source-id-type": "uri",
-                "year": "2014",
-                "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
-                "comment": "Publicly available at NCBI Short Read Archive."
-              },
-              "dataro3": {
-                "type": "existing-dataset",
-                "source-id": "http://dx.doi.org/10.5061/dryad.mh2qf615",
-                "source-id-type": "uri",
-                "year": "2012",
-                "source": "The evolution of experience-mediated plasticity in mate preference",
-                "comment": "Available at Dryad Digital Repository under a CC0 Public Domain Dedication."
-              }
+              "dataro1": {},
+              "dataro2": {}
             }
           },
           "related-articles": [
@@ -690,10 +661,9 @@ Feature: Article Resource - Citations (API)
                 "title": "Appendix 2 Figure 2",
                 "doi": "10.7554/eLife.00013.036",
                 "path": "content/3/e00013/F24"
-              }
-            ],
-            "sub-article": [
+              },
               {
+                "type": "sub-article",
                 "title": "Decision letter",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/1",
@@ -733,6 +703,7 @@ Feature: Article Resource - Citations (API)
                 ]
               },
               {
+                "type": "sub-article",
                 "title": "Author response",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/2",
@@ -742,13 +713,13 @@ Feature: Article Resource - Citations (API)
                       "type": "fig",
                       "title": "Author response image 1",
                       "doi": "10.7554/eLife.00013.038",
-                      "path": "content/2/e00288/2/F25"
+                      "path": "content/3/e00288/2/F25"
                     },
                     {
                       "type": "table-wrap",
                       "title": "Author response table 1.",
                       "doi": "10.7554/eLife.00013.039",
-                      "path": "content/2/e00288/2/T4"
+                      "path": "content/3/e00288/2/T4"
                     }
                   ]
                 }
@@ -764,13 +735,9 @@ Feature: Article Resource - Citations (API)
                   "name": "WC Agosta"
                 }
               ],
-              "year": "1992",
-              "source": "Chemical Communication",
-              "publisher-loc": "New York",
-              "publisher-name": "Scientific American Press"
+              "year": "1992"
             },
             "bib2": {
-              "publication-type": "journal",
               "authors": [
                 {
                   "group-type": "author",
@@ -787,10 +754,6 @@ Feature: Article Resource - Citations (API)
               ],
               "year": "1992",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
-              "source": "International journal of systematic and evolutionary microbiology",
-              "volume": "57",
-              "fpage": "986",
-              "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
           }
@@ -1134,47 +1097,40 @@ Feature: Article Resource - Citations (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute",
-                "institution-type": "university"
+                "institution": "Howard Hughes Medical Institute"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation",
-                "institution-type": "university"
+                "institution": "Laura and John Arnold Foundation"
               }
             },
             "competing-interest": {
@@ -1218,30 +1174,8 @@ Feature: Article Resource - Citations (API)
               }
             },
             "related-object": {
-              "dataro1": {
-                "type": "generated-dataset",
-                "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",
-                "source-id-type": "uri",
-                "year": "2011",
-                "source": "A protein complex essential initiation of DNA replication",
-                "comment": "Publicly available at RCSB Protein Data Bank."
-              },
-              "dataro2": {
-                "type": "generated-dataset",
-                "source-id": "http://www.ncbi.nlm.nih.gov/sra/SRX528181",
-                "source-id-type": "uri",
-                "year": "2014",
-                "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
-                "comment": "Publicly available at NCBI Short Read Archive."
-              },
-              "dataro3": {
-                "type": "existing-dataset",
-                "source-id": "http://dx.doi.org/10.5061/dryad.mh2qf615",
-                "source-id-type": "uri",
-                "year": "2012",
-                "source": "The evolution of experience-mediated plasticity in mate preference",
-                "comment": "Available at Dryad Digital Repository under a CC0 Public Domain Dedication."
-              }
+              "dataro1": {},
+              "dataro2": {}
             }
           },
           "children": {
@@ -1478,10 +1412,9 @@ Feature: Article Resource - Citations (API)
                 "title": "Appendix 2 Figure 2",
                 "doi": "10.7554/eLife.00013.036",
                 "path": "content/3/e00013/F24"
-              }
-            ],
-            "sub-article": [
+              },
               {
+                "type": "sub-article",
                 "title": "Decision letter",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/1",
@@ -1521,6 +1454,7 @@ Feature: Article Resource - Citations (API)
                 ]
               },
               {
+                "type": "sub-article",
                 "title": "Author response",
                 "doi": "10.7554/eLife.00013.037",
                 "path": "content/3/e00013/2",
@@ -1530,13 +1464,13 @@ Feature: Article Resource - Citations (API)
                       "type": "fig",
                       "title": "Author response image 1",
                       "doi": "10.7554/eLife.00013.038",
-                      "path": "content/2/e00288/2/F25"
+                      "path": "content/3/e00288/2/F25"
                     },
                     {
                       "type": "table-wrap",
                       "title": "Author response table 1.",
                       "doi": "10.7554/eLife.00013.039",
-                      "path": "content/2/e00288/2/T4"
+                      "path": "content/3/e00288/2/T4"
                     }
                   ]
                 }
@@ -1552,13 +1486,9 @@ Feature: Article Resource - Citations (API)
                   "name": "WC Agosta"
                 }
               ],
-              "year": "1992",
-              "source": "Chemical Communication",
-              "publisher-loc": "New York",
-              "publisher-name": "Scientific American Press"
+              "year": "1992"
             },
             "bib2": {
-              "publication-type": "journal",
               "authors": [
                 {
                   "group-type": "author",
@@ -1575,10 +1505,6 @@ Feature: Article Resource - Citations (API)
               ],
               "year": "1992",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
-              "source": "International journal of systematic and evolutionary microbiology",
-              "volume": "57",
-              "fpage": "986",
-              "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
           }

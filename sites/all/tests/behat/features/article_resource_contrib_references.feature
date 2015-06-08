@@ -32,47 +32,40 @@ Feature: Article Resource - Contributor references (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute",
-                "institution-type": "university"
+                "institution": "Howard Hughes Medical Institute"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation",
-                "institution-type": "university"
+                "institution": "Laura and John Arnold Foundation"
               }
             },
             "competing-interest": {
@@ -116,22 +109,8 @@ Feature: Article Resource - Contributor references (API)
               }
             },
             "related-object": {
-              "dataro1": {
-                "type": "generated-dataset",
-                "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",
-                "source-id-type": "uri",
-                "year": "2011",
-                "source": "A protein complex essential initiation of DNA replication",
-                "comment": "Publicly available at RCSB Protein Data Bank."
-              },
-              "dataro2": {
-                "type": "generated-dataset",
-                "source-id": "http://www.ncbi.nlm.nih.gov/sra/SRX528181",
-                "source-id-type": "uri",
-                "year": "2014",
-                "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
-                "comment": "Publicly available at NCBI Short Read Archive."
-              }
+              "dataro1": {},
+              "dataro2": {}
             }
           }
         }
@@ -139,9 +118,18 @@ Feature: Article Resource - Contributor references (API)
     And the response code should be 200
     When I send a GET request to "api/article/05224.json"
     Then the response should contain json:
-      """
+    """
         {
           "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
           "referenced": {
             "equal-contrib": {
               "equal-contrib": "These authors contributed equally to this work",
@@ -156,47 +144,40 @@ Feature: Article Resource - Contributor references (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute",
-                "institution-type": "university"
+                "institution": "Howard Hughes Medical Institute"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation",
-                "institution-type": "university"
+                "institution": "Laura and John Arnold Foundation"
               }
             },
             "competing-interest": {
@@ -240,22 +221,8 @@ Feature: Article Resource - Contributor references (API)
               }
             },
             "related-object": {
-              "dataro1": {
-                "type": "generated-dataset",
-                "source-id": "http://www.rcsb.org/pdb/explore/explore.do?structureId=3ANW",
-                "source-id-type": "uri",
-                "year": "2011",
-                "source": "A protein complex essential initiation of DNA replication",
-                "comment": "Publicly available at RCSB Protein Data Bank."
-              },
-              "dataro2": {
-                "type": "generated-dataset",
-                "source-id": "http://www.ncbi.nlm.nih.gov/sra/SRX528181",
-                "source-id-type": "uri",
-                "year": "2014",
-                "source": "Data from: MicroRNAmediated repression of nonsense mRNAs",
-                "comment": "Publicly available at NCBI Short Read Archive."
-              }
+              "dataro1": {},
+              "dataro2": {}
             }
           }
         }

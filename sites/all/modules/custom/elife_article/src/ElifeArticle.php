@@ -339,7 +339,10 @@ class ElifeArticle {
 
     $subarticles = self::getArticleSubarticles($article_version_id);
     if (!empty($subarticles)) {
-      $children['sub-article'] = $subarticles;
+      if (empty($children['fragment'])) {
+        $children['fragment'] = array();
+      }
+      $children['fragment'] = array_merge($children['fragment'], $subarticles);
     }
 
     return $children;
@@ -409,6 +412,7 @@ class ElifeArticle {
               $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors);
             }
             if (!empty($subarticle)) {
+              $subarticle['type'] = 'sub-article';
               $subarticles[] = $subarticle;
             }
           }
