@@ -13,7 +13,7 @@ use Drupal\elife_article\ElifeArticle;
 // @todo - elife - nlisgo - ensure we can ingest sub-display channel. Not
 // included in kitchen sink.
 
-// @todo - elife - nlisgo - consider possiblity of ingesting multiple p tags in
+// @todo - elife - nlisgo - consider possibility of ingesting multiple p tags in
 // referenced simple.
 
 /**
