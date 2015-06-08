@@ -10,6 +10,12 @@ use Drupal\elife_article\ElifeArticle;
 // @todo - elife - nlisgo - ensure that when an article is updated/deleted that
 // any orphaned nodes and possibly categories/keywords are removed.
 
+// @todo - elife - nlisgo - ensure we can ingest sub-display channel. Not
+// included in kitchen sink.
+
+// @todo - elife - nlisgo - consider possiblity of ingesting multiple p tags in
+// referenced simple.
+
 /**
  * Determines an API user's access to retrieve a given article.
  *
@@ -505,7 +511,9 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   if (isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new);
+    $processed_dois = array();
+    _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new, $processed_dois);
+    // @todo - elife - nlisgo - child fragments without processed doi should be deleted.
     $trigger_save = TRUE;
   }
 
@@ -780,7 +788,7 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
   if (!$new) {
     // Delete existing referenced for this article.
     foreach ($ref_templates as $ref_type) {
-      $ewrapper->{$ref_type['field']}->set();
+      $ewrapper->{$ref_type['field']}->set(array());
     }
   }
 
@@ -1002,26 +1010,20 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
  *   Array of child data.
  * @param bool $new
  *   Flag set to TRUE for new content.
+ * @param array $processed_dois
+ *   Array to store list of processed dois.
  */
-function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE) {
+function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE, &$processed_dois = array()) {
   // @todo - elife - nlisgo - review when subarticle should be set.
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
-      case 'sub-article':
-        $subarticle = TRUE;
-        foreach ($pieces as $piece) {
-          $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_article_ver', $subarticle, $new);
-          $found[] = $child->nid;
-        }
-        break;
 
       case 'fragment':
         $subarticle = ($ewrapper->value()->type == 'elife_article_ver') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new);
+          $child = _elife_services_article_child_update_values($piece, 'elife_fragment', $subarticle, $new, $processed_dois);
           $found[] = $child->nid;
         }
         break;
@@ -1042,6 +1044,8 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
  *   TRUE if this is a subarticle or child of subarticle.
  * @param bool $new
  *   Flag set to TRUE for new content.
+ * @param array $processed_dois
+ *   Array to store list of processed dois.
  *
  * @return mixed
  *   Child entity object.
@@ -1050,7 +1054,7 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
  * @throws \Exception
  * @throws \ServicesException
  */
-function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE) {
+function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE, &$processed_dois = array()) {
   $required = array(
     'doi',
   );
@@ -1076,10 +1080,15 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
   }
 
+  $child = NULL;
+
   if (!$new) {
-    $child = _elife_services_article_retrieve_raw($data['doi'], $type, 'field_elife_a_doi');
+    $child = _elife_services_article_retrieve_raw($data['doi'], $type, 'field_elife_a_doi', FALSE);
   }
-  else {
+
+  if (!$child) {
+    watchdog('elife_services', 'Type @type: <pre>@data</pre>', array('@type' => $type, '@data' => print_r($data, TRUE)), WATCHDOG_DEBUG);
+    $new = TRUE;
     $values = array(
       'type' => $type,
       'uid' => _elife_services_user_uid(),
@@ -1157,7 +1166,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   if (isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new);
+    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new, $processed_dois);
     $trigger_save = TRUE;
   }
 
