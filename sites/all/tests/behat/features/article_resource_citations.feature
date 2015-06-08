@@ -20,20 +20,15 @@ Feature: Article Resource - Kitchen sink (API)
           "status": "VOR",
           "citations": {
             "bib1": {
-              "publication-type": "book",
               "authors": [
                 {
                   "group-type": "author",
                   "name": "WC Agosta"
                 }
               ],
-              "year": "1992",
-              "source": "Chemical Communication",
-              "publisher-loc": "New York",
-              "publisher-name": "Scientific American Press"
+              "year": "1992"
             },
             "bib2": {
-              "publication-type": "journal",
               "authors": [
                 {
                   "group-type": "author",
@@ -50,10 +45,6 @@ Feature: Article Resource - Kitchen sink (API)
               ],
               "year": "1992",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
-              "source": "International journal of systematic and evolutionary microbiology",
-              "volume": "57",
-              "fpage": "986",
-              "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
           }
@@ -67,20 +58,15 @@ Feature: Article Resource - Kitchen sink (API)
           "title": "VOR 05224",
           "citations": {
             "bib1": {
-              "publication-type": "book",
               "authors": [
                 {
                   "group-type": "author",
                   "name": "WC Agosta"
                 }
               ],
-              "year": "1992",
-              "source": "Chemical Communication",
-              "publisher-loc": "New York",
-              "publisher-name": "Scientific American Press"
+              "year": "1992"
             },
             "bib2": {
-              "publication-type": "journal",
               "authors": [
                 {
                   "group-type": "author",
@@ -97,10 +83,6 @@ Feature: Article Resource - Kitchen sink (API)
               ],
               "year": "1992",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
-              "source": "International journal of systematic and evolutionary microbiology",
-              "volume": "57",
-              "fpage": "986",
-              "lpage": "92",
               "doi": "10.1099/ijs.0.64728-0"
             }
           }

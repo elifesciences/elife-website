@@ -615,7 +615,6 @@ class ElifeArticle {
         'id' => $field_fund_ref . '_id',
         'id-type' => $field_fund_ref . '_id_type',
         'institution' => $field_fund_ref . '_inst',
-        'institution-type' => $field_fund_ref . '_inst_type',
         'award-id' => $field_fund_ref . '_award_id',
       );
       /* @var EntityDrupalWrapper $fc_wrapper */
@@ -632,7 +631,6 @@ class ElifeArticle {
       $field_aff_ref = 'field_elife_a_aff_ref';
       $type = 'affiliation';
       $mappings = array(
-        'label' => $field_aff_ref . '_label',
         'dept' => $field_aff_ref . '_dept',
         'institution' => $field_aff_ref . '_inst',
         'city' => $field_aff_ref . '_city',
@@ -651,14 +649,7 @@ class ElifeArticle {
 
       $field_rel_ref = 'field_elife_a_rel_ref';
       $type = 'related-object';
-      $mappings = array(
-        'type' => $field_rel_ref . '_type',
-        'source-id' => $field_rel_ref . '_src_id',
-        'source-id-type' => $field_rel_ref . '_src_id_typ',
-        'year' => $field_rel_ref . '_year',
-        'source' => $field_rel_ref . '_src',
-        'comment' => $field_rel_ref . '_comment',
-      );
+      $mappings = array();
       /* @var EntityDrupalWrapper $fc_wrapper */
       foreach ($ewrapper->{$field_rel_ref} as $fc_wrapper) {
         $key = $fc_wrapper->{$field_ref_key}->value();
@@ -693,17 +684,9 @@ class ElifeArticle {
       $field_cit_prefix = 'field_elife_a_cit';
       $mappings = array(
         'id' => $field_cit_prefix . '_id',
-        'publication-type' => $field_cit_prefix . '_pub_type',
         'year' => $field_cit_prefix . '_year',
         'title' => $field_cit_prefix . '_title',
-        'source' => $field_cit_prefix . '_source',
-        'edition' => $field_cit_prefix . '_edition',
-        'volume' => $field_cit_prefix . '_volume',
-        'fpage' => $field_cit_prefix . '_fpage',
-        'lpage' => $field_cit_prefix . '_lpage',
         'doi' => $field_cit_prefix . '_doi',
-        'publisher-loc' => $field_cit_prefix . '_pub_loc',
-        'publisher-name' => $field_cit_prefix . '_pub_name',
       );
       /* @var EntityDrupalWrapper $cit_wrapper */
       foreach ($ewrapper->{$field_citations} as $cit_wrapper) {

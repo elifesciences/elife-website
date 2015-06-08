@@ -728,7 +728,6 @@ Feature: Article Resource - Citations (API)
           },
           "citations": {
             "bib1": {
-              "publication-type": "book",
               "authors": [
                 {
                   "group-type": "author",
@@ -1479,7 +1478,6 @@ Feature: Article Resource - Citations (API)
           },
           "citations": {
             "bib1": {
-              "publication-type": "book",
               "authors": [
                 {
                   "group-type": "author",

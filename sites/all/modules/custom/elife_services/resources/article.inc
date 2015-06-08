@@ -625,17 +625,9 @@ function _elife_services_article_citation_update_values($id, $data) {
   $mappings = array(
     'id' => $field_cit_prefix . '_id',
     'parent' => $field_prefix . '_parent',
-    'publication-type' => $field_cit_prefix . '_pub_type',
     'year' => $field_cit_prefix . '_year',
     'title' => $field_cit_prefix . '_title',
-    'source' => $field_cit_prefix . '_source',
-    'edition' => $field_cit_prefix . '_edition',
-    'volume' => $field_cit_prefix . '_volume',
-    'fpage' => $field_cit_prefix . '_fpage',
-    'lpage' => $field_cit_prefix . '_lpage',
     'doi' => $field_cit_prefix . '_doi',
-    'publisher-loc' => $field_cit_prefix . '_pub_loc',
-    'publisher-name' => $field_cit_prefix . '_pub_name',
   );
   foreach ($mappings as $k => $field) {
     if (isset($data[$k])) {
