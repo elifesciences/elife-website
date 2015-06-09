@@ -1000,16 +1000,17 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
     switch ($type) {
       case 'fragment':
         foreach ($pieces as $piece) {
+          $set_subarticle = $subarticle;
           $piece['parent'] = $parent_nid;
           if (isset($piece['type']) && $piece['type'] == 'sub-article') {
-            $subarticle = TRUE;
+            $set_subarticle = TRUE;
             unset($piece['type']);
             $type = 'elife_article_ver';
           }
           else {
             $type = 'elife_fragment';
           }
-          $child = _elife_services_article_child_update_values($piece, $type, $subarticle, $new, $processed_dois);
+          $child = _elife_services_article_child_update_values($piece, $type, $set_subarticle, $new, $processed_dois);
           $found[] = $child->nid;
         }
         break;
