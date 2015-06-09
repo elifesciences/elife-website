@@ -417,7 +417,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   if (isset($data['keywords'])) {
     $keywords = array();
-    // @todo - elife - nlisgo - we need to store the category appropriately.
     foreach ($data['keywords'] as $category => $kwds) {
       foreach ($kwds as $kwd) {
         $fields = array(
@@ -992,17 +991,18 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
  *   Flag set to TRUE for new content.
  * @param array $processed_dois
  *   Array to store list of processed dois.
+ * @param bool $subarticle
+ *   Flag set to TRUE for sub-articles and child fragments of sub-articles.
  */
-function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE, &$processed_dois = array()) {
-  // @todo - elife - nlisgo - review when subarticle should be set.
+function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE, &$processed_dois = array(), $subarticle = FALSE) {
   $found = array();
   foreach ($children as $type => $pieces) {
     switch ($type) {
       case 'fragment':
-        $subarticle = ($ewrapper->value()->type == 'elife_article_ver') ? FALSE : TRUE;
         foreach ($pieces as $piece) {
           $piece['parent'] = $parent_nid;
-          if ($piece['type'] == 'sub-article') {
+          if (isset($piece['type']) && $piece['type'] == 'sub-article') {
+            $subarticle = TRUE;
             unset($piece['type']);
             $type = 'elife_article_ver';
           }
@@ -1151,7 +1151,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   if (isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new, $processed_dois);
+    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new, $processed_dois, $subarticle);
     $trigger_save = TRUE;
   }
 
