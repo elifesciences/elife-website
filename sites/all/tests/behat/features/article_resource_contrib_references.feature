@@ -3,6 +3,7 @@ Feature: Article Resource - Contributor references (API)
   As a production system
   I need to be able to assign contributor references to the article via the resource api
 
+  @debug
   Scenario: Set contributor references
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -70,7 +71,7 @@ Feature: Article Resource - Contributor references (API)
             },
             "competing-interest": {
               "conf1": "JC: Reviewing editor, <italic>eLife</italic>.",
-              "conf2": "The other authors declare that no competing interests exist."
+              "conf2": "The author reviewed Goldacre's first book for the BMJ, and is mentioned briefly in Bad Pharma. Over the years he has had some meals paid for by drug companies and spoken at meetings sponsored by drug companies (as has Goldacre), which is hard to avoid if you speak at all as a doctor. 30 years ago he won an award from the Medical Journalists' Association that was sponsored by Eli Lilly, and discovered that the company thought it had bought him. Since then he has avoided prizes awarded by drug companies."
             },
             "contribution": {
               "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
@@ -182,7 +183,7 @@ Feature: Article Resource - Contributor references (API)
             },
             "competing-interest": {
               "conf1": "JC: Reviewing editor, <italic>eLife</italic>.",
-              "conf2": "The other authors declare that no competing interests exist."
+              "conf2": "The author reviewed Goldacre's first book for the BMJ, and is mentioned briefly in Bad Pharma. Over the years he has had some meals paid for by drug companies and spoken at meetings sponsored by drug companies (as has Goldacre), which is hard to avoid if you speak at all as a doctor. 30 years ago he won an award from the Medical Journalists' Association that was sponsored by Eli Lilly, and discovered that the company thought it had bought him. Since then he has avoided prizes awarded by drug companies."
             },
             "contribution": {
               "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",

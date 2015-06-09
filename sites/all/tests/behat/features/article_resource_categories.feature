@@ -52,7 +52,6 @@ Feature: Article Resource - Categories (API)
       | Research article |
       | Insight          |
 
-  @debug
   Scenario Outline: Set a sub-display channel
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

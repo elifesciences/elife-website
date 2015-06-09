@@ -248,7 +248,7 @@ function elife_article_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -265,7 +265,7 @@ function elife_article_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 4,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -280,10 +280,10 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'size' => 60,
+        'rows' => 5,
       ),
-      'type' => 'text_textfield',
-      'weight' => 4,
+      'type' => 'text_textarea',
+      'weight' => 2,
     ),
   );
 
@@ -318,7 +318,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
