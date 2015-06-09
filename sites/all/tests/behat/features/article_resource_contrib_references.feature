@@ -3,7 +3,6 @@ Feature: Article Resource - Contributor references (API)
   As a production system
   I need to be able to assign contributor references to the article via the resource api
 
-  @debug
   Scenario: Set contributor references
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

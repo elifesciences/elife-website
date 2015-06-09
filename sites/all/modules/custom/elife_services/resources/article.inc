@@ -296,6 +296,7 @@ function _elife_services_article_update($article_version_id, $data) {
   // @todo - elife - nlisgo - do a better job of not updating if values same.
   $article = _elife_services_article_retrieve_raw($article_version_id);
 
+  $data['article-version-id'] = $article_version_id;
   $article = _elife_services_article_update_values($article, $data);
   return _elife_services_article_prepare_json($article);
 }
@@ -494,6 +495,9 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     _elife_services_article_process_referenced($ewrapper, $data['referenced'], $ref_links, $new);
     $trigger_save = TRUE;
   }
+  elseif (!$new && $data['contributors']) {
+    $ref_links = ElifeArticle::getContributorRefLinks($data['article-version-id']);
+  }
 
   // If referenced or contributors supplied then delete existing contributors as
   // we will need to restore entity references.
@@ -503,7 +507,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     }
   }
 
-  // @todo - elife - nlisgo - are you sure $ref_links is set?!
   if (isset($data['contributors'])) {
     _elife_services_article_process_contributors($ewrapper, $ewrapper->nid->value(), $data['contributors'], $ref_links);
     $trigger_save = TRUE;

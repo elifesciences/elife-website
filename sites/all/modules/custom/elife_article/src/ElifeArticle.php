@@ -636,6 +636,19 @@ class ElifeArticle {
   }
 
   /**
+   * Get contributor reference links with item ids.
+   *
+   * @param string $article_version_id
+   *   Article version id.
+   *
+   * @return array
+   *   Contributor reference links.
+   */
+  public static function getContributorRefLinks($article_version_id) {
+    return self::getContributorReferences($article_version_id, TRUE);
+  }
+
+  /**
    * Get contributor references for supplied article version id.
    *
    * @param string $article_version_id
@@ -644,7 +657,7 @@ class ElifeArticle {
    * @return array
    *   Contributor references.
    */
-  public static function getContributorReferences($article_version_id) {
+  public static function getContributorReferences($article_version_id, $simple = FALSE) {
     $article = self::fromIdentifier($article_version_id);
     $references = array();
 
@@ -656,7 +669,12 @@ class ElifeArticle {
       /* @var EntityDrupalWrapper $fc_wrapper */
       foreach ($ewrapper->{$field_basic_ref} as $fc_wrapper) {
         $key = $fc_wrapper->{$field_ref_key}->value();
-        $references[$fc_wrapper->{$field_basic_ref . '_type'}->value()][$key] = $fc_wrapper->{$field_basic_ref . '_value'}->value();
+        if ($simple) {
+          $references[$fc_wrapper->{$field_basic_ref . '_type'}->value()][$key] = $fc_wrapper->item_id->value();
+        }
+        else {
+          $references[$fc_wrapper->{$field_basic_ref . '_type'}->value()][$key] = $fc_wrapper->{$field_basic_ref . '_value'}->value();
+        }
       }
 
       $field_fund_ref = 'field_elife_a_fund_ref';
@@ -670,10 +688,15 @@ class ElifeArticle {
       /* @var EntityDrupalWrapper $fc_wrapper */
       foreach ($ewrapper->{$field_fund_ref} as $fc_wrapper) {
         $key = $fc_wrapper->{$field_ref_key}->value();
-        $references[$type][$key] = array();
-        foreach ($mappings as $k => $field) {
-          if ($value = $fc_wrapper->{$field}->value()) {
-            $references[$type][$key][$k] = $value;
+        if ($simple) {
+          $references[$type][$key] = $fc_wrapper->item_id->value();
+        }
+        else {
+          $references[$type][$key] = array();
+          foreach ($mappings as $k => $field) {
+            if ($value = $fc_wrapper->{$field}->value()) {
+              $references[$type][$key][$k] = $value;
+            }
           }
         }
       }
@@ -689,10 +712,15 @@ class ElifeArticle {
       /* @var EntityDrupalWrapper $fc_wrapper */
       foreach ($ewrapper->{$field_aff_ref} as $fc_wrapper) {
         $key = $fc_wrapper->{$field_ref_key}->value();
-        $references[$type][$key] = array();
-        foreach ($mappings as $k => $field) {
-          if ($value = $fc_wrapper->{$field}->value()) {
-            $references[$type][$key][$k] = $value;
+        if ($simple) {
+          $references[$type][$key] = $fc_wrapper->item_id->value();
+        }
+        else {
+          $references[$type][$key] = array();
+          foreach ($mappings as $k => $field) {
+            if ($value = $fc_wrapper->{$field}->value()) {
+              $references[$type][$key][$k] = $value;
+            }
           }
         }
       }
@@ -703,10 +731,15 @@ class ElifeArticle {
       /* @var EntityDrupalWrapper $fc_wrapper */
       foreach ($ewrapper->{$field_rel_ref} as $fc_wrapper) {
         $key = $fc_wrapper->{$field_ref_key}->value();
-        $references[$type][$key] = array();
-        foreach ($mappings as $k => $field) {
-          if ($value = $fc_wrapper->{$field}->value()) {
-            $references[$type][$key][$k] = $value;
+        if ($simple) {
+          $references[$type][$key] = $fc_wrapper->item_id->value();
+        }
+        else {
+          $references[$type][$key] = array();
+          foreach ($mappings as $k => $field) {
+            if ($value = $fc_wrapper->{$field}->value()) {
+              $references[$type][$key][$k] = $value;
+            }
           }
         }
       }
