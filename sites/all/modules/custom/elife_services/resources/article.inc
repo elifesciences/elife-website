@@ -509,7 +509,9 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   if (isset($data['children'])) {
     $processed_dois = array();
     _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new, $processed_dois);
-    // @todo - elife - nlisgo - child fragments without processed doi should be deleted.
+    $orphaned_dois = ElifeArticle::getArticleChildDois($data['article-version-id'], $processed_dois);
+    // @todo - elife - nlisgo - delete nodes that have orphaned dois for this
+    // article version.
     $trigger_save = TRUE;
   }
 
@@ -788,9 +790,11 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
         /* @var EntityDrupalWrapper $fc_wrapper */
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
         $fc_wrapper->{$field_ref_key}->set($key);
-        foreach ($mapping as $k => $field) {
-          if (isset($values[$k])) {
-            $fc_wrapper->{$field}->set($values[$k]);
+        if (!empty($mapping)) {
+          foreach ($mapping as $k => $field) {
+            if (isset($values[$k])) {
+              $fc_wrapper->{$field}->set($values[$k]);
+            }
           }
         }
         $fc_wrapper->save();

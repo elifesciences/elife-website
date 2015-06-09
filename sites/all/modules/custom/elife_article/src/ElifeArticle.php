@@ -10,6 +10,8 @@ namespace Drupal\elife_article;
 use EntityFieldQuery;
 use EntityDrupalWrapper;
 use EntityListWrapper;
+use RecursiveArrayIterator;
+use RecursiveIteratorIterator;
 
 class ElifeArticle {
 
@@ -346,6 +348,54 @@ class ElifeArticle {
     }
 
     return $children;
+  }
+
+  /**
+   * Get an array of DOIs for article child fragments.
+   *
+   * @param string $article_version_id
+   *   Article version id.
+   * @param array $exclude
+   *   Array of dois to exclude.
+   *
+   * @return array
+   *   Array of fragment dois.
+   */
+  public static function getArticleChildDois($article_version_id, $exclude = array()) {
+    $children = self::getArticleChildren($article_version_id);
+    $dois = array();
+    if (!empty($children)) {
+      $dois = self::recursiveFind($children, 'doi', $exclude);
+    }
+
+    return $dois;
+  }
+
+  /**
+   * Recursively find values that match the supplied key.
+   *
+   * @see http://stackoverflow.com/questions/3975585/search-for-a-key-in-an-array-recursivly
+   *
+   * @param array $array
+   *   Array to search.
+   * @param string $needle
+   *   Key to find values of.
+   * @param array $exclude
+   *   Array of values to exclude.
+   *
+   * @return array
+   *   Matched values.
+   */
+  public static function recursiveFind(array $array, $needle, $exclude = array()) {
+    $iterator  = new RecursiveArrayIterator($array);
+    $recursive = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
+    $found = array();
+    foreach ($recursive as $key => $value) {
+      if ($key === $needle && !in_array($value, $exclude)) {
+        array_push($found, $value);
+      }
+    }
+    return $found;
   }
 
   /**
