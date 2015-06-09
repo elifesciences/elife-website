@@ -828,6 +828,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     'group-author-key',
   );
 
+  // Use either id or group as id key.
   $id_found = FALSE;
   foreach ($either as $k => $req) {
     if (!empty($data[$req])) {
@@ -895,6 +896,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     }
   }
 
+  // Set title.
   $title = ($id_found) ? $data[$id_found] : '';
   $extend = array(
     'given-names',
@@ -902,7 +904,9 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     'suffix',
     'collab',
   );
-  // @todo - elife - nlisgo - Add note here!
+
+  // Prepare extended title
+  // (e.g. Rosanna A Alegado Jnr or NISC Comparative Sequencing Program).
   $title_ext = array();
   foreach ($extend as $ext) {
     if (!empty($data[$ext])) {
@@ -910,6 +914,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     }
   }
 
+  // If extended title exists then append to existing title.
   if (!empty($title_ext)) {
     $title_ext = implode(' ', $title_ext);
     if (empty($title)) {
@@ -1082,11 +1087,13 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $ewrapper->field_elife_a_parent->set($data['parent']);
   }
 
-  // @todo - elife - nlisgo - explain what is going on here
+  // If element type is available then make it accessible as the sub-type (e.g.
+  // for abstract the value of abstract-type could be assigned to sub-type).
   if (isset($data['type']) && isset($data[$data['type'] . '-type'])) {
     $data['sub-type'] = $data[$data['type'] . '-type'];
   }
 
+  // Set titles to for abstract elements if not provided.
   if (isset($data['type']) && $data['type'] == 'abstract' && empty($data['title'])) {
     if (isset($data['sub-type']) && $data['sub-type'] == 'executive-summary') {
       $data['title'] = t('eLife digest');
