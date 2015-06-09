@@ -10,9 +10,6 @@ use Drupal\elife_article\ElifeArticle;
 // @todo - elife - nlisgo - ensure that when an article is updated/deleted that
 // any orphaned nodes and possibly categories/keywords are removed.
 
-// @todo - elife - nlisgo - ensure we can ingest sub-display channel. Not
-// included in kitchen sink.
-
 // @todo - elife - nlisgo - consider possibility of ingesting multiple p tags in
 // referenced simple.
 
