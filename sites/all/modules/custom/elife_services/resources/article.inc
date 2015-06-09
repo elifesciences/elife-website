@@ -370,6 +370,19 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $article);
 
+  // Set the article-version-id if article is new.
+  if ($new && !empty($data['article-version-id'])) {
+    if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'Article version id (must be unique)')), 406);
+    }
+  }
+
+  if (isset($data['doi'])) {
+    if (!ElifeArticle::validateDoi($data['doi'])) {
+      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
+    }
+  }
+
   // Set the title.
   if (isset($data['title'])) {
     $set = array(
@@ -434,19 +447,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_keyword->set($keywords);
   }
 
-  // Set the article-version-id if article is new.
-  if ($new && !empty($data['article-version-id'])) {
-    if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'Article version id (must be unique)')), 406);
-    }
-  }
-
-  if (isset($data['doi'])) {
-    if (!ElifeArticle::validateDoi($data['doi'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
-    }
-  }
-
   $field_prefix = 'field_elife_a';
   $mappings = array(
     'article-version-id' => $field_prefix . '_article_version_id',
@@ -495,12 +495,15 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $trigger_save = TRUE;
   }
 
+  // If referenced or contributors supplied then delete existing contributors as
+  // we will need to restore entity references.
   if (!$new && (isset($data['referenced']) || isset($data['contributors']))) {
     if ($existing = $ewrapper->field_elife_a_contributors->raw()) {
       node_delete_multiple($existing);
     }
   }
 
+  // @todo - elife - nlisgo - are you sure $ref_links is set?!
   if (isset($data['contributors'])) {
     _elife_services_article_process_contributors($ewrapper, $ewrapper->nid->value(), $data['contributors'], $ref_links);
     $trigger_save = TRUE;
@@ -538,29 +541,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   return $ewrapper->raw();
-}
-
-/**
- * Create a path alias.
- *
- * @param string $path
- *   Path alias.
- * @param string $source
- *   Source value (e.g. node/1234).
- */
-function _elife_services_create_path($path, $source) {
-  $content_path = array(
-    'alias' => $path,
-    'source' => $source,
-  );
-
-  $existing = path_load(array('source' => $source));
-
-  if ($existing) {
-    $content_path += $existing;
-  }
-
-  path_save($content_path);
 }
 
 /**
@@ -919,6 +899,7 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     'suffix',
     'collab',
   );
+  // @todo - elife - nlisgo - Add note here!
   $title_ext = array();
   foreach ($extend as $ext) {
     if (!empty($data[$ext])) {
@@ -1098,6 +1079,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $ewrapper->field_elife_a_parent->set($data['parent']);
   }
 
+  // @todo - elife - nlisgo - explain what is going on here
   if (isset($data['type']) && isset($data[$data['type'] . '-type'])) {
     $data['sub-type'] = $data[$data['type'] . '-type'];
   }
@@ -1178,6 +1160,29 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   return $ewrapper->raw();
+}
+
+/**
+ * Create a path alias.
+ *
+ * @param string $path
+ *   Path alias.
+ * @param string $source
+ *   Source value (e.g. node/1234).
+ */
+function _elife_services_create_path($path, $source) {
+  $content_path = array(
+    'alias' => $path,
+    'source' => $source,
+  );
+
+  $existing = path_load(array('source' => $source));
+
+  if ($existing) {
+    $content_path += $existing;
+  }
+
+  path_save($content_path);
 }
 
 /**
