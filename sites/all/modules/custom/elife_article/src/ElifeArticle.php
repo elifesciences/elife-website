@@ -769,6 +769,7 @@ class ElifeArticle {
         'id' => $field_cit_prefix . '_id',
         'year' => $field_cit_prefix . '_year',
         'title' => $field_cit_prefix . '_title',
+        'source' => $field_cit_prefix . '_source',
         'doi' => $field_cit_prefix . '_doi',
       );
       /* @var EntityDrupalWrapper $cit_wrapper */

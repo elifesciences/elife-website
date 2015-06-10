@@ -608,8 +608,13 @@ function _elife_services_article_citation_update_values($id, $data) {
     'parent' => $field_prefix . '_parent',
     'year' => $field_cit_prefix . '_year',
     'title' => $field_cit_prefix . '_title',
+    'source' => $field_cit_prefix . '_source',
     'doi' => $field_cit_prefix . '_doi',
   );
+  // If title isn't set then use id.
+  if (!isset($data['title'])) {
+    $data['title'] = $data['id'];
+  }
   foreach ($mappings as $k => $field) {
     if (isset($data[$k])) {
       $ewrapper->{$field}->set($data[$k]);
