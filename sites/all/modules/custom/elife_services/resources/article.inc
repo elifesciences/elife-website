@@ -271,6 +271,15 @@ function _elife_services_article_create($data) {
   }
 }
 
+/**
+ * Set or retrieve the published status.
+ *
+ * @param int|null $publish
+ *   Set the publish or don't supply parameter to retrieve.
+ *
+ * @return int|null
+ *   Retrieve the published status.
+ */
 function _elife_article_publish($publish = NULL) {
   $cache = &drupal_static(__FUNCTION__, NULL);
 
@@ -352,17 +361,21 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'version',
       'path',
       'article-version-id',
+      'status',
     );
   }
 
   foreach ($required as $k => $req) {
     if (!empty($data[$req])) {
+      if ($req == 'status') {
+        var_dump($data[$req]);
+      }
       unset($required[$k]);
     }
   }
 
   if (!empty($required)) {
-    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+    return services_error(t('No value provided for required: @fields.', array('@fields' => implode(', ', $required))), 406);
   }
 
   // This ensures that paths will not be automatically generated.
@@ -374,13 +387,13 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   // Set the article-version-id if article is new.
   if ($new && !empty($data['article-version-id'])) {
     if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'Article version id (must be unique)')), 406);
+      return services_error(t('Invalid value provided: @field.', array('@field' => 'Article version id (must be unique)')), 406);
     }
   }
 
   if (isset($data['doi'])) {
     if (!ElifeArticle::validateDoi($data['doi'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
+      return services_error(t('Invalid value provided: @field.', array('@field' => 'doi')), 406);
     }
   }
 
@@ -536,7 +549,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     // Check to see that path is unique.
     if ($new && $path = path_load(array('alias' => $data['path']))) {
       if ($path['source'] != $source) {
-        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+        return services_error(t('Path is already in use: @path.', array('@path' => $data['path'])), 406);
       }
     }
 
@@ -1062,7 +1075,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
   }
 
   if (!empty($required)) {
-    return services_error(t('No value provided for required: @fields', array('@fields' => implode(', ', $required))), 406);
+    return services_error(t('No value provided for required: @fields.', array('@fields' => implode(', ', $required))), 406);
   }
 
   $child = NULL;
@@ -1120,7 +1133,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
 
   if (isset($data['doi'])) {
     if (!ElifeArticle::validateDoi($data['doi'])) {
-      return services_error(t('Invalid value provided: @field', array('@field' => 'doi')), 406);
+      return services_error(t('Invalid value provided: @field.', array('@field' => 'doi')), 406);
     }
 
     $ewrapper->field_elife_a_doi->set($data['doi']);
@@ -1167,7 +1180,7 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     // Check to see that path is unique.
     if ($new && $path = path_load(array('alias' => $data['path']))) {
       if ($path['source'] != $source) {
-        return services_error(t('Path is already in use: @path', array('@path' => $data['path'])), 406);
+        return services_error(t('Path is already in use: @path.', array('@path' => $data['path'])), 406);
       }
     }
 

@@ -42,7 +42,7 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 406
-    And response should contain "Invalid value provided: doi"
+    And response should contain "Invalid value provided: doi."
 
     Examples:
       | invalid_doi |
@@ -71,8 +71,9 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 406
-    And response should contain "Invalid value provided: Article version id (must be unique)"
+    And response should contain "Invalid value provided: Article version id (must be unique)."
 
+  @debug
   Scenario Outline: Attempt to post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -82,13 +83,13 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 406
-    And response should contain "No value provided for required: <field_errors>"
+    And response should contain "No value provided for required: <field_errors>."
 
     Examples:
       | required_data | field_errors |
-      |  | title, article-type, doi, volume, pub-date, version, path, article-version-id |
-      | "title":"Title" | article-type, doi, volume, pub-date, version, path, article-version-id |
-      | "title":"Title","doi":"DOI","path":"content/4/e05224" | article-type, volume, pub-date, version, article-version-id |
+      |  | title, article-type, doi, volume, pub-date, version, path, article-version-id, status |
+      | "title":"Title" | article-type, doi, volume, pub-date, version, path, article-version-id, status |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224", "status": "VOR" | article-type, volume, pub-date, version, article-version-id |
 
   Scenario: Use POST protocol to update an article
     Given I set header "Content-Type" with value "application/json"
