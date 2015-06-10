@@ -3,6 +3,7 @@ Feature: Article Resource - Kitchen sink (API)
   As a production system
   I need to be able to load the kitchen sink article via the resource api
 
+  @debug
   Scenario: POST an article with citations
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

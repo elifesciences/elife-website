@@ -780,6 +780,9 @@ class ElifeArticle {
             $citation[$k] = $value;
           }
         }
+        if (isset($citation['title']) && isset($citation['id']) && $citation['title'] == $citation['id']) {
+          unset($citation['title']);
+        }
 
         $author_mappings = array(
           'group-type' => $field_cit_prefix . '_author_group',
