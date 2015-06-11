@@ -367,9 +367,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
 
   foreach ($required as $k => $req) {
     if (!empty($data[$req])) {
-      if ($req == 'status') {
-        var_dump($data[$req]);
-      }
       unset($required[$k]);
     }
   }
