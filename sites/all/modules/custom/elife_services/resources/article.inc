@@ -13,6 +13,8 @@ use Drupal\elife_article\ElifeArticle;
 // @todo - elife - nlisgo - consider possibility of ingesting multiple p tags in
 // referenced simple.
 
+// @todo - elife - nlisgo - move volume value to article from article version.
+
 /**
  * Determines an API user's access to retrieve a given article.
  *
