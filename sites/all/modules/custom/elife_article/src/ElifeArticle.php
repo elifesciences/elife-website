@@ -323,7 +323,7 @@ class ElifeArticle {
   }
 
   /**
-   * Get article children for supplied article version id.
+   * Get article fragments and sub-articles for supplied article version id.
    *
    * @param string $article_version_id
    *   Article version id.
@@ -331,20 +331,17 @@ class ElifeArticle {
    * @return array
    *   Article sub-articles and fragments.
    */
-  public static function getArticleChildren($article_version_id) {
+  public static function getArticleFragmentsAndSubArticles($article_version_id) {
     $children = array();
 
     $fragments = self::getArticleFragments($article_version_id);
     if (!empty($fragments)) {
-      $children['fragment'] = $fragments;
+      $children = $fragments;
     }
 
     $subarticles = self::getArticleSubarticles($article_version_id);
     if (!empty($subarticles)) {
-      if (empty($children['fragment'])) {
-        $children['fragment'] = array();
-      }
-      $children['fragment'] = array_merge($children['fragment'], $subarticles);
+      $children = array_merge($children, $subarticles);
     }
 
     return $children;
@@ -361,8 +358,8 @@ class ElifeArticle {
    * @return array
    *   Array of fragment dois.
    */
-  public static function getArticleChildDois($article_version_id, $exclude = array()) {
-    $children = self::getArticleChildren($article_version_id);
+  public static function getArticleFragmentDois($article_version_id, $exclude = array()) {
+    $children = self::getArticleFragmentsAndSubArticles($article_version_id);
     $dois = array();
     if (!empty($children)) {
       $dois = self::recursiveFind($children, 'doi', $exclude);
@@ -413,8 +410,8 @@ class ElifeArticle {
 
     /* @var EntityDrupalWrapper $ewrapper */
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      if ($ewrapper->field_elife_a_children->value()) {
-        $fragments = self::getChildFragments($ewrapper->field_elife_a_children);
+      if ($ewrapper->field_elife_a_fragments->value()) {
+        $fragments = self::getChildFragments($ewrapper->field_elife_a_fragments);
       }
     }
 
@@ -436,7 +433,7 @@ class ElifeArticle {
 
     /* @var EntityDrupalWrapper $ewrapper */
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      if ($ewrapper->field_elife_a_children->value()) {
+      if ($ewrapper->field_elife_a_fragments->value()) {
 
         $field_prefix = 'field_elife_a';
         $mappings = array(
@@ -444,7 +441,7 @@ class ElifeArticle {
           'doi' => $field_prefix . '_doi',
         );
         /* @var EntityDrupalWrapper $sub_wrapper */
-        foreach ($ewrapper->field_elife_a_children as $sub_wrapper) {
+        foreach ($ewrapper->field_elife_a_fragments as $sub_wrapper) {
           if ($sub_wrapper->getBundle() == 'elife_article_ver') {
             $subarticle = array();
             foreach ($mappings as $k => $field) {
@@ -455,8 +452,8 @@ class ElifeArticle {
             if ($path = drupal_get_path_alias('node/' . $sub_wrapper->nid->value())) {
               $subarticle['path'] = $path;
             }
-            if ($sub_wrapper->field_elife_a_children->value()) {
-              $subarticle['children']['fragment'] = self::getChildFragments($sub_wrapper->field_elife_a_children);
+            if ($sub_wrapper->field_elife_a_fragments->value()) {
+              $subarticle['fragments'] = self::getChildFragments($sub_wrapper->field_elife_a_fragments);
             }
             if ($sub_wrapper->field_elife_a_contributors->value()) {
               $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors);
@@ -500,14 +497,11 @@ class ElifeArticle {
             $fragment[$k] = $value;
           }
         }
-        if (isset($fragment['type']) && $value = $frag_wrapper->field_elife_a_sub_type->value()) {
-          $fragment[$fragment['type'] . '-type'] = $value;
-        }
         if ($path = drupal_get_path_alias('node/' . $frag_wrapper->nid->value())) {
           $fragment['path'] = $path;
         }
-        if ($frag_wrapper->field_elife_a_children->value()) {
-          $fragment['children']['fragment'] = self::getChildFragments($frag_wrapper->field_elife_a_children);
+        if ($frag_wrapper->field_elife_a_fragments->value()) {
+          $fragment['fragments'] = self::getChildFragments($frag_wrapper->field_elife_a_fragments);
         }
         if (!empty($fragment)) {
           $fragments[] = $fragment;

@@ -1074,49 +1074,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_children'
-  $field_instances['node-elife_article_ver-field_elife_a_children'] = array(
-    'bundle' => 'elife_article_ver',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 11,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_children',
-    'label' => 'Children',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 11,
-    ),
-  );
-
   // Exported field_instance: 'node-elife_article_ver-field_elife_a_citations'
   $field_instances['node-elife_article_ver-field_elife_a_citations'] = array(
     'bundle' => 'elife_article_ver',
@@ -1344,6 +1301,49 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'date_popup',
       'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fragments'
+  $field_instances['node-elife_article_ver-field_elife_a_fragments'] = array(
+    'bundle' => 'elife_article_ver',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_fragments',
+    'label' => 'Fragments',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 11,
     ),
   );
 
@@ -3121,49 +3121,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_children'
-  $field_instances['node-elife_fragment-field_elife_a_children'] = array(
-    'bundle' => 'elife_fragment',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_children',
-    'label' => 'Children',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 9,
-    ),
-  );
-
   // Exported field_instance: 'node-elife_fragment-field_elife_a_doi'
   $field_instances['node-elife_fragment-field_elife_a_doi'] = array(
     'bundle' => 'elife_fragment',
@@ -3241,6 +3198,49 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_fragments'
+  $field_instances['node-elife_fragment-field_elife_a_fragments'] = array(
+    'bundle' => 'elife_fragment',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_fragments',
+    'label' => 'Fragments',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 9,
     ),
   );
 
@@ -3324,46 +3324,6 @@ function elife_article_field_default_field_instances() {
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 11,
-    ),
-  );
-
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_sub_type'
-  $field_instances['node-elife_fragment-field_elife_a_sub_type'] = array(
-    'bundle' => 'elife_fragment',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_sub_type',
-    'label' => 'Sub type',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 3,
     ),
   );
 
@@ -3531,7 +3491,6 @@ function elife_article_field_default_field_instances() {
   t('Basic references');
   t('Body');
   t('Category');
-  t('Children');
   t('Citation title');
   t('Citations');
   t('City');
@@ -3546,6 +3505,7 @@ function elife_article_field_default_field_instances() {
   t('Equal contributor');
   t('First Publication Date');
   t('First names');
+  t('Fragments');
   t('Full Title');
   t('Funding references');
   t('Group author key');
@@ -3564,7 +3524,6 @@ function elife_article_field_default_field_instances() {
   t('Source');
   t('Status');
   t('Sub article');
-  t('Sub type');
   t('Suffix');
   t('Surname');
   t('Template Type');

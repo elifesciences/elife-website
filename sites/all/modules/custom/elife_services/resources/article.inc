@@ -194,8 +194,8 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'custom' => 'Drupal\elife_article\ElifeArticle::getContributorReferences',
       'type' => 'array',
     ),
-    'children' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getArticleChildren',
+    'fragments' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticle::getArticleFragmentsAndSubArticles',
       'type' => 'array',
     ),
     'citations' => array(
@@ -507,7 +507,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     _elife_services_article_process_referenced($ewrapper, $data['referenced'], $ref_links, $new);
     $trigger_save = TRUE;
   }
-  elseif (!$new && $data['contributors']) {
+  elseif (!$new && isset($data['contributors'])) {
     $ref_links = ElifeArticle::getContributorRefLinks($data['article-version-id']);
   }
 
@@ -524,10 +524,15 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $trigger_save = TRUE;
   }
 
-  if (isset($data['children'])) {
+  // @todo - elife - nlisgo - Remove this when we no longer support children
+  if (!isset($data['fragments']) && isset($data['children']) && !empty($data['children']['fragment'])) {
+    $data['fragments'] = $data['children']['fragment'];
+  }
+
+  if (isset($data['fragments'])) {
     $processed_dois = array();
-    _elife_services_article_process_children($ewrapper, $ewrapper->nid->value(), $data['children'], $new, $processed_dois);
-    $orphaned_dois = ElifeArticle::getArticleChildDois($data['article-version-id'], $processed_dois);
+    _elife_services_article_process_fragments($ewrapper, $ewrapper->nid->value(), $data['fragments'], $new, $processed_dois);
+    $orphaned_dois = ElifeArticle::getArticleFragmentDois($data['article-version-id'], $processed_dois);
     // @todo - elife - nlisgo - delete nodes that have orphaned dois for this
     // article version.
     $trigger_save = TRUE;
@@ -899,6 +904,11 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
     $ewrapper->field_elife_a_deceased->set(($data['deceased'] == 'yes'));
   }
 
+  // @todo - elife - nlisgo - you probably need to store multiple affiliations
+  if (!isset($data['affiliation']) && !empty($data['affiliations'])) {
+    $data['affiliation'] = $data['affiliations'][0];
+  }
+
   if (isset($data['affiliation'])) {
     $mappings = array(
       'dept' => $field_prefix . '_aff_dept',
@@ -995,8 +1005,8 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
  *   Parent entity.
  * @param int $parent_nid
  *   Parent node id.
- * @param array $children
- *   Array of child data.
+ * @param array $fragments
+ *   Array of fragment data.
  * @param bool $new
  *   Flag set to TRUE for new content.
  * @param array $processed_dois
@@ -1004,30 +1014,23 @@ function _elife_services_article_contributor_update_values($data, $ref_links) {
  * @param bool $subarticle
  *   Flag set to TRUE for sub-articles and child fragments of sub-articles.
  */
-function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper, $parent_nid, $children, $new = FALSE, &$processed_dois = array(), $subarticle = FALSE) {
+function _elife_services_article_process_fragments(EntityDrupalWrapper &$ewrapper, $parent_nid, $fragments, $new = FALSE, &$processed_dois = array(), $subarticle = FALSE) {
   $found = array();
-  foreach ($children as $type => $pieces) {
-    switch ($type) {
-      case 'fragment':
-        foreach ($pieces as $piece) {
-          $set_subarticle = $subarticle;
-          $piece['parent'] = $parent_nid;
-          if (isset($piece['type']) && $piece['type'] == 'sub-article') {
-            $set_subarticle = TRUE;
-            unset($piece['type']);
-            $type = 'elife_article_ver';
-          }
-          else {
-            $type = 'elife_fragment';
-          }
-          $child = _elife_services_article_child_update_values($piece, $type, $set_subarticle, $new, $processed_dois);
-          $found[] = $child->nid;
-        }
-        break;
-
+  foreach ($fragments as $fragment) {
+    $set_subarticle = $subarticle;
+    $fragment['parent'] = $parent_nid;
+    if (isset($fragment['type']) && $fragment['type'] == 'sub-article') {
+      $set_subarticle = TRUE;
+      unset($fragment['type']);
+      $type = 'elife_article_ver';
     }
+    else {
+      $type = 'elife_fragment';
+    }
+    $child = _elife_services_article_fragment_update_values($fragment, $type, $set_subarticle, $new, $processed_dois);
+    $found[] = $child->nid;
   }
-  $ewrapper->field_elife_a_children->set($found);
+  $ewrapper->field_elife_a_fragments->set($found);
 }
 
 /**
@@ -1051,7 +1054,7 @@ function _elife_services_article_process_children(EntityDrupalWrapper &$ewrapper
  * @throws \Exception
  * @throws \ServicesException
  */
-function _elife_services_article_child_update_values($data, $type, $subarticle = FALSE, $new = FALSE, &$processed_dois = array()) {
+function _elife_services_article_fragment_update_values($data, $type, $subarticle = FALSE, $new = FALSE, &$processed_dois = array()) {
   $required = array(
     'doi',
   );
@@ -1104,20 +1107,9 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $ewrapper->field_elife_a_parent->set($data['parent']);
   }
 
-  // If element type is available then make it accessible as the sub-type (e.g.
-  // for abstract the value of abstract-type could be assigned to sub-type).
-  if (isset($data['type']) && isset($data[$data['type'] . '-type'])) {
-    $data['sub-type'] = $data[$data['type'] . '-type'];
-  }
-
-  // Set titles to for abstract elements if not provided.
+  // Set titles to Abstract for abstract elements, if not provided.
   if (isset($data['type']) && $data['type'] == 'abstract' && empty($data['title'])) {
-    if (isset($data['sub-type']) && $data['sub-type'] == 'executive-summary') {
-      $data['title'] = t('eLife digest');
-    }
-    else {
-      $data['title'] = t('Abstract');
-    }
+    $data['title'] = t('Abstract');
   }
 
   // Set the title.
@@ -1148,10 +1140,6 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $ewrapper->field_elife_a_frag_type->set($data['type']);
   }
 
-  if (isset($data['sub-type'])) {
-    $ewrapper->field_elife_a_sub_type->set($data['sub-type']);
-  }
-
   $ewrapper->save();
 
   $trigger_save = FALSE;
@@ -1164,8 +1152,13 @@ function _elife_services_article_child_update_values($data, $type, $subarticle =
     $trigger_save = TRUE;
   }
 
-  if (isset($data['children'])) {
-    _elife_services_article_process_children($ewrapper, $data['parent'], $data['children'], $new, $processed_dois, $subarticle);
+  // @todo - elife - nlisgo - Remove this when we no longer support children
+  if (!isset($data['fragments']) && isset($data['children']) && !empty($data['children']['fragment'])) {
+    $data['fragments'] = $data['children']['fragment'];
+  }
+
+  if (isset($data['fragments'])) {
+    _elife_services_article_process_fragments($ewrapper, $data['parent'], $data['fragments'], $new, $processed_dois, $subarticle);
     $trigger_save = TRUE;
   }
 

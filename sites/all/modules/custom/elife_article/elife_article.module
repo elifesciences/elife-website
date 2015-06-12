@@ -60,7 +60,7 @@ function elife_article_node_delete($node) {
     // Delete nodes associated with a subarticle.
     else {
       $delete = array();
-      if ($children = $ewrapper->field_elife_a_children->raw()) {
+      if ($children = $ewrapper->field_elife_a_fragments->raw()) {
         $delete += $children;
       }
       if ($contributors = $ewrapper->field_elife_a_contributors->raw()) {
@@ -78,7 +78,7 @@ function elife_article_node_delete($node) {
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $node);
 
-    if ($children = $ewrapper->field_elife_a_children->raw()) {
+    if ($children = $ewrapper->field_elife_a_fragments->raw()) {
       node_delete_multiple($children);
     }
   }
