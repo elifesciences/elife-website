@@ -285,20 +285,24 @@ Feature: Article Resource - Contributors (API)
               "surname": "Sneden",
               "given-names": "Christopher",
               "role": "Reviewing editor",
-              "affiliation": {
-                "institution": "Pediatric Dengue Vaccine Initiative",
-                "country": "United States"
-              }
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "author non-byline",
               "group-author-key": "group-author-id1",
               "surname": "Mullikin",
               "given-names": "Jim",
-              "affiliation": {
-                "institution": "Science Exchange, Palo Alto",
-                "city": "California"
-              }
+              "affiliations": [
+                {
+                  "institution": "Science Exchange, Palo Alto",
+                  "city": "California"
+                }
+              ]
             },
             {
               "type": "author non-byline",
@@ -679,20 +683,24 @@ Feature: Article Resource - Contributors (API)
               "surname": "Sneden",
               "given-names": "Christopher",
               "role": "Reviewing editor",
-              "affiliation": {
-                "institution": "Pediatric Dengue Vaccine Initiative",
-                "country": "United States"
-              }
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "author non-byline",
               "group-author-key": "group-author-id1",
               "surname": "Mullikin",
               "given-names": "Jim",
-              "affiliation": {
-                "institution": "Science Exchange, Palo Alto",
-                "city": "California"
-              }
+              "affiliations": [
+                {
+                  "institution": "Science Exchange, Palo Alto",
+                  "city": "California"
+                }
+              ]
             },
             {
               "type": "author non-byline",
@@ -1195,20 +1203,24 @@ Feature: Article Resource - Contributors (API)
               "surname": "Sneden",
               "given-names": "Christopher",
               "role": "Reviewing editor",
-              "affiliation": {
-                "institution": "Pediatric Dengue Vaccine Initiative",
-                "country": "United States"
-              }
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "author non-byline",
               "group-author-key": "group-author-id1",
               "surname": "Mullikin",
               "given-names": "Jim",
-              "affiliation": {
-                "institution": "Science Exchange, Palo Alto",
-                "city": "California"
-              }
+              "affiliations": [
+                {
+                  "institution": "Science Exchange, Palo Alto",
+                  "city": "California"
+                }
+              ]
             },
             {
               "type": "author non-byline",
@@ -1487,20 +1499,24 @@ Feature: Article Resource - Contributors (API)
               "surname": "Sneden",
               "given-names": "Christopher",
               "role": "Reviewing editor",
-              "affiliation": {
-                "institution": "Pediatric Dengue Vaccine Initiative",
-                "country": "United States"
-              }
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "author non-byline",
               "group-author-key": "group-author-id1",
               "surname": "Mullikin",
               "given-names": "Jim",
-              "affiliation": {
-                "institution": "Science Exchange, Palo Alto",
-                "city": "California"
-              }
+              "affiliations": [
+                {
+                  "institution": "Science Exchange, Palo Alto",
+                  "city": "California"
+                }
+              ]
             },
             {
               "type": "author non-byline",

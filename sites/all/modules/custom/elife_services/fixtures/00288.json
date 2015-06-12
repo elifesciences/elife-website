@@ -298,10 +298,12 @@
       "type": "editor",
       "surname": "Sgaier",
       "given-names": "Sema",
-      "affiliation": {
-        "institution": "Bill & Melinda Gates Foundation",
-        "country": "India"
-      }
+      "affiliations": [
+        {
+          "institution": "Bill & Melinda Gates Foundation",
+          "country": "India"
+        }
+      ]
     }
   ],
   "referenced": {

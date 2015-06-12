@@ -618,6 +618,14 @@ class ElifeArticle {
           }
         }
       }
+      // @todo - elife - nlisgo - we need to be able to store and retrieve
+      // multiple affiliations and funding groups directly with a contributor.
+      if (!empty($contributor['affiliation'])) {
+        $contributor['affiliations'] = array(
+          $contributor['affiliation'],
+        );
+        unset($contributor['affiliation']);
+      }
       if (!empty($contributor)) {
         if (!empty($references)) {
           $contributor['references'] = $references;

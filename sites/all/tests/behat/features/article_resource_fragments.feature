@@ -253,10 +253,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Sneden",
                   "given-names": "Christopher",
                   "role": "Reviewing editor",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 },
                 {
                   "type": "reviewer",
@@ -264,10 +266,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Harrison",
                   "given-names": "Melissa",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 },
                 {
                   "type": "reviewer",
@@ -275,10 +279,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Roderick",
                   "given-names": "Sian",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 }
               ]
             },
@@ -546,10 +552,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Sneden",
                   "given-names": "Christopher",
                   "role": "Reviewing editor",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 },
                 {
                   "type": "reviewer",
@@ -557,10 +565,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Harrison",
                   "given-names": "Melissa",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 },
                 {
                   "type": "reviewer",
@@ -568,10 +578,12 @@ Feature: Article Resource - Fragments (API)
                   "surname": "Roderick",
                   "given-names": "Sian",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 }
               ]
             },
