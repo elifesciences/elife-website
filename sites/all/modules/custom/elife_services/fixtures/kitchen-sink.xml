@@ -47,7 +47,7 @@
                     <xref ref-type="other" rid="par-2"/>
                     <xref ref-type="fn" rid="con1"/>
                     <xref ref-type="fn" rid="conf2"/>
-                    <xref ref-type="fn" rid="pa1">&#xb6;</xref>
+                    <xref ref-type="fn" rid="pa1">&#167;</xref>
                     <xref ref-type="other" rid="dataro1"/>
                     <xref ref-type="other" rid="dataro2"/>
                 </contrib>
@@ -63,7 +63,7 @@
                     <xref ref-type="other" rid="par-3"/>
                     <xref ref-type="fn" rid="con2"/>
                     <xref ref-type="fn" rid="conf2"/>
-                    <xref ref-type="fn" rid="pa2">&#x2016;</xref>
+                    <xref ref-type="fn" rid="pa2">&#xb6;</xref>
                 </contrib>
                 <contrib contrib-type="author" id="author-3">
                     <name>
@@ -84,7 +84,7 @@
                     <xref ref-type="fn" rid="equal-contrib2">&#x2021;</xref>
                     <xref ref-type="fn" rid="con4"/>
                     <xref ref-type="fn" rid="conf2"/>
-                    <xref ref-type="fn" rid="pa3"/>
+                    <xref ref-type="fn" rid="pa3">&#x2a;&#x2a;</xref>
                 </contrib>
                 <contrib contrib-type="author" deceased="yes" id="author-5">
                     <name>
@@ -95,7 +95,7 @@
                     <xref ref-type="fn" rid="con5"/>
                     <xref ref-type="fn" rid="conf2"/>
                     <xref ref-type="fn" rid="pa3"/>
-                    <xref ref-type="fn" rid="fn1">&#x2a;&#x2a;</xref>
+                    <xref ref-type="fn" rid="fn1">&#x2020;&#x2020;</xref>
                 </contrib>
                 <contrib contrib-type="author" id="author-6">
                     <name>
@@ -250,11 +250,11 @@
             <author-notes>
                 <corresp id="cor1">
                     <label>&#x2a;</label>For
-                    correspondence: <email>jon_clardy@hms.harvard.edu</email>(JC);</corresp>
+                    correspondence: <email>jon_clardy@hms.harvard.edu</email> (JC);</corresp>
                 <corresp id="cor2">
-                    <email>nking@berkeley.edu</email>(NK)</corresp>
+                    <email>nking@berkeley.edu</email> (NK)</corresp>
                 <corresp id="cor3">
-                    <email>mharrison@elifesciences.org</email>(MH)</corresp>
+                    <email>mharrison@elifesciences.org</email> (MH)</corresp>
                 <fn fn-type="con" id="equal-contrib">
                     <label>&#x2020;</label>
                     <p>These authors contributed equally to this work</p>
@@ -264,20 +264,21 @@
                     <p>These authors contributed equally to this work</p>
                 </fn>
                 <fn fn-type="present-address" id="pa1">
-                    <label>&#xb6;</label>
+                    <label>&#167;</label>
                     <p>Department of Wellcome Trust, Sanger Institute, London, United Kingdom</p>
                 </fn>
                 <fn fn-type="present-address" id="pa2">
-                    <label>&#x2016;</label>
+                    <label>&#xb6;</label>
                     <p>Department of Biological Chemistry and Molecular Pharmacology, Harvard
                         Medical School, Boston, United States</p>
                 </fn>
                 <fn fn-type="present-address" id="pa3">
+                    <label>&#x2a;&#x2a;</label>
                     <p>eLife Sciences editorial Office, eLife Sciences, Cambridge, United
                         Kingdom</p>
                 </fn>
                 <fn fn-type="deceased" id="fn1">
-                    <label>&#x2a;&#x2a;</label>
+                    <label>&#x2020;&#x2020;</label>
                     <p>Deceased</p>
                 </fn>
             </author-notes>
@@ -854,7 +855,7 @@
                                     <italic>Algoriphagus locisalis</italic>MSS-170</td>
                                 <td>AY835922</td>
                                 <td>
-                                    <xref ref-type="bibr" rid="bib100">Yoon et al. (2005)</xref>
+                                    <xref ref-type="bibr" rid="bib100">Yoon et al. (2005a)</xref>
                                 </td>
                                 <td>&#x2b;</td>
                             </tr>
@@ -891,7 +892,7 @@
                                     <italic>Algoriphagus yeomjeoni</italic>MSS-160</td>
                                 <td>AY699794</td>
                                 <td>
-                                    <xref ref-type="bibr" rid="bib99">Yoon et al. (2005)</xref>
+                                    <xref ref-type="bibr" rid="bib99">Yoon et al. (2005b)</xref>
                                 </td>
                                 <td>&#x2b;</td>
                             </tr>
@@ -1132,8 +1133,7 @@
                 independent bacterial isolates from ATCC50818 and monitored for the appearance of
                 rosette colonies. Only one bacterial species from ATCC50818, the previously
                 undescribed <italic>Algoriphagus machipongonensis</italic> (phylum Bacteroidetes)
-                (<xref
-                        ref-type="bibr" rid="bib3">Alegado et al., 2012</xref>), induced rosette
+                (<xref ref-type="bibr" rid="bib3">Alegado et al., 2012</xref>), induced rosette
                 colony development in the RCA cell line (<xref ref-type="fig" rid="fig1">Figure
                     1C</xref>). <italic>S. rosetta</italic> cultures fed solely with <italic>A.
                     machipongonensis</italic> yielded high percentages of rosette colonies (<xref
@@ -2050,8 +2050,8 @@
                     1988</xref>; <xref ref-type="bibr" rid="bib38">Godchaux and Leadbetter,
                     1984</xref>; <xref ref-type="bibr" rid="bib37">Godchaux and Leadbetter,
                     1983</xref>; <xref ref-type="bibr" rid="bib36">Godchaux and Leadbetter,
-                    1980</xref>; <xref ref-type="bibr" rid="bib48">Kamiyama et al., 1995</xref>;
-                <xref ref-type="bibr" rid="bib47">Kamiyama et al., 1995</xref>; <xref
+                    1980</xref>; <xref ref-type="bibr" rid="bib48">Kamiyama et al., 1995a</xref>;
+                <xref ref-type="bibr" rid="bib47">Kamiyama et al., 1995b</xref>; <xref
                         ref-type="bibr" rid="bib56">Kobayashi et al., 1995</xref>) and no other
                 <italic>A machipongonensis</italic> lipid tested in this study induced rosette
                 colony development. Therefore we favor a model in which <italic>A.
@@ -2105,7 +2105,7 @@
                 receptor antagonists, and flavocristamide A, from a related bacterial species, was
                 reported as a DNA polymerase a inhibitor (<xref ref-type="bibr" rid="bib25">Dayel et
                     al., 2011</xref>; <xref ref-type="bibr" rid="bib47">Kamiyama et al.,
-                    1995</xref>; <xref ref-type="bibr" rid="bib56">Kobayashi et al., 1995</xref>). The
+                    1995a</xref>; <xref ref-type="bibr" rid="bib56">Kobayashi et al., 1995</xref>). The
                 pervasiveness of interactions between Bacteroidetes and animals (<xref
                         ref-type="bibr" rid="bib3">Alegado et al., 2012</xref>; <xref ref-type="bibr"
                                                                                       rid="bib95">Wexler, 2007</xref>; <xref ref-type="bibr" rid="bib93">Webster et
@@ -2135,7 +2135,7 @@
             <title>Discussion</title>
             <p>The discussion usually does not have subsections.</p>
         </sec>
-        <sec sec-type="materials|methods" id="s4">
+        <sec sec-type="materials|methods"  id="s4">
             <title>Materials and methods</title>
             <p>First level contents of the materials and methods section</p>
         </sec>
@@ -2143,16 +2143,24 @@
             <title>Choanoflagellate husbandry and microscopy</title>
             <p>The environmental isolate of <italic>Salpingoeca rosetta</italic> is deposited at
                 the American Tissue Culture Collection (ATCC) under the designation ATCC50818
-                (<xref
-                        ref-type="bibr" rid="bib58">Koropatnick et al., 2004</xref>; <xref
-                        ref-type="bibr" rid="bib44">Hoffmann et al., 1999</xref>; <xref ref-type="bibr"
-                                                                                        rid="bib89">Takeuchi et al., 1999</xref>; <xref ref-type="bibr" rid="bib57">Kopp and Medzhitov, 1999</xref>; <xref ref-type="bibr" rid="bib70">Medzhitov and Janeway, 2000</xref>; <xref ref-type="bibr" rid="bib50">Kimbrell and Beutler, 2001</xref>; <xref ref-type="bibr" rid="bib24">Cohn and Morse, 1960</xref>; <xref ref-type="bibr" rid="bib52">King et al., 2003</xref>). The
+                (<xref ref-type="bibr" rid="bib58">Koropatnick et al., 2004</xref>; <xref
+                        ref-type="bibr" rid="bib44">Hoffmann et al., 1999</xref>; <xref
+                        ref-type="bibr" rid="bib89">Takeuchi et al., 1999</xref>; <xref
+                        ref-type="bibr" rid="bib57">Kopp and Medzhitov, 1999</xref>; <xref
+                        ref-type="bibr" rid="bib70">Medzhitov and Janeway, 2000</xref>; <xref
+                        ref-type="bibr" rid="bib50">Kimbrell and Beutler, 2001</xref>; <xref
+                        ref-type="bibr" rid="bib24">Cohn and Morse, 1960</xref>; <xref
+                        ref-type="bibr" rid="bib52">King et al., 2003</xref>). The
                 <underline>R</underline>osette <underline>C</underline>olonies
                 <underline>A</underline>bsent (RCA) culture line was produced from ATCC50818
                 by serial treatment with chloramphenicol (68 &#x3bc;g ml<sup>-1</sup>),
                 ampicillin (50 &#x3bc;g ml<sup>-1</sup>), streptomycin (50 &#x3bc;g
-                ml<sup>-1</sup>), and erythromycin (50 &#x3bc;g ml<sup>-1</sup>) (<xref ref-type="bibr" rid="bib58"
-                        >Koropatnick et al., 2004</xref>; <xref ref-type="bibr" rid="bib31">Fairclough et al., 2010</xref>; <xref ref-type="bibr" rid="bib44">Hoffmann et al., 1999</xref>; <xref ref-type="bibr" rid="bib89">Takeuchi et al., 1999</xref>; <xref ref-type="bibr" rid="bib57">Kopp and Medzhitov, 1999</xref>; <xref
+                ml<sup>-1</sup>), and erythromycin (50 &#x3bc;g ml<sup>-1</sup>) (<xref
+                        ref-type="bibr" rid="bib58">Koropatnick et al., 2004</xref>; <xref
+                        ref-type="bibr" rid="bib31">Fairclough et al., 2010</xref>; <xref
+                        ref-type="bibr" rid="bib44">Hoffmann et al., 1999</xref>; <xref
+                        ref-type="bibr" rid="bib89">Takeuchi et al., 1999</xref>; <xref
+                        ref-type="bibr" rid="bib57">Kopp and Medzhitov, 1999</xref>; <xref
                         ref-type="bibr" rid="bib70">Medzhitov and Janeway, 2000</xref>; <xref
                         ref-type="bibr" rid="bib50">Kimbrell and Beutler, 2001</xref>; <xref
                         ref-type="bibr" rid="bib24">Cohn and Morse, 1960</xref>). A monoxenic line
@@ -2163,15 +2171,14 @@
                 dilution, a single cell was isolated by FACS and supplemented with <italic>A.
                     machipongonensis</italic> (<xref ref-type="bibr" rid="bib25">Dayel et al.,
                     2011</xref>; <xref ref-type="bibr" rid="bib41">Hannun et al., 2001</xref>;
-                <xref
-                        ref-type="bibr" rid="bib71">Merrill et al., 2001</xref>; <xref ref-type="bibr"
-                                                                                       rid="bib79">Prieschl and Baumruker, 2000</xref>; <xref ref-type="bibr"
-                                                                                                                                              rid="bib88">Spiegel and Milstien, 2000</xref>; <xref ref-type="bibr" rid="bib42"
-                        >Herr et al., 2003</xref>; <xref ref-type="bibr" rid="bib81">Pyne and Pyne, 2000</xref>). All three <italic>S.
+                <xref ref-type="bibr" rid="bib71">Merrill et al., 2001</xref>; <xref
+                        ref-type="bibr" rid="bib79">Prieschl and Baumruker, 2000</xref>; <xref
+                        ref-type="bibr" rid="bib88">Spiegel and Milstien, 2000</xref>; <xref
+                        ref-type="bibr" rid="bib42">Herr et al., 2003</xref>; <xref ref-type="bibr"
+                                                                                    rid="bib81">Pyne and Pyne, 2000</xref>). All three <italic>S.
                     rosetta</italic> cell lines (ATCC 50818, RCA, and Px1) were grown in cereal
                 grass infused seawater at 25 &#xb0;C and maintained by splitting cultures 1:10
-                into fresh medium every three days (<xref ref-type="bibr"
-                                                          rid="bib40">Hall et
+                into fresh medium every three days (<xref ref-type="bibr" rid="bib40">Hall et
                     al., 2012</xref>; <xref ref-type="bibr" rid="bib54">King et al.,
                     2009</xref>). Live cells were imaged with a Leica DMI6000B microscope equipped
                 with a DFC350 FX camera.</p>
@@ -2185,8 +2192,9 @@
             <p>Under laboratory conditions, <italic>S. rosetta</italic> differentiates into a
                 variety of cell types including attached thecate cells, solitary swimmers,
                 rosette colonies, chain colonies and loose, disorganized associations of cells
-                attached to one another at the collar or to bacterial biofilms (<xref ref-type="bibr"
-                                                                                      rid="bib25">Dayel et al., 2011</xref>; <xref ref-type="bibr" rid="bib4">An et al., 2011</xref>; <xref ref-type="bibr" rid="bib78">Olsen
+                attached to one another at the collar or to bacterial biofilms (<xref
+                        ref-type="bibr" rid="bib25">Dayel et al., 2011</xref>; <xref ref-type="bibr"
+                                                                                     rid="bib4">An et al., 2011</xref>; <xref ref-type="bibr" rid="bib78">Olsen
                     and Jantzen, 2001</xref>). <italic>S. rosetta</italic> rosette colonies can
                 be distinguished from other cell types in that they contain clusters of at least
                 four closely associated cells with organized polarity; each cell oriented with
@@ -2230,8 +2238,8 @@
             </title>
             <p>A partial representation of the bacterial flora from ATCC50818 was isolated by
                 standard dilution-plating technique on modified Zobell medium agar (<xref
-                        ref-type="bibr" rid="bib87">Schaefer et al., 1996</xref>; <xref ref-type="bibr"
-                                                                                        rid="bib17">Carlucci and Pramer, 1957</xref>) at 25 &#xb0;C.
+                        ref-type="bibr" rid="bib87">Schaefer et al., 1996</xref>; <xref
+                        ref-type="bibr" rid="bib17">Carlucci and Pramer, 1957</xref>) at 25 &#xb0;C.
                 Individual isolates were tested for their morphogenic activity by supplementing
                 RCA cultures with a single colony of each isolate. Of 64 isolates tested, the
                 only one that restored rosette colony development to the RCA cell line was a
@@ -2241,14 +2249,17 @@
                 was isolated using a Bacterial Genomic DNA Mini-prep Kit (Bay Gene, Burlingame,
                 CA) according to the manufacturer&#x2019;s specifications. The 16S rRNA gene was
                 amplified using universal primers 8F (5&#x2019;-AGAGTTTGATCCTGGCTCAG-3&#x2019;)
-                and 1492R (5&#x2019;-ACCTTGTTACGRCTT-3&#x2019;) (<xref ref-type="bibr" rid="bib103">Ziegler and Forward, 2007</xref>; <xref ref-type="bibr" rid="bib94">Weisburg et al., 1991</xref>); comparison of the PR1 16S rRNA
-                sequence to the Greengenes 16S rRNA database (<xref ref-type="bibr" rid="bib16">Butenandt et al., 1961</xref>; <xref
-                        ref-type="bibr" rid="bib1">Agosta,
-                    1992</xref>; <xref ref-type="bibr"
-                                       rid="bib27">DeSantis et al., 2006</xref>)
+                and 1492R (5&#x2019;-ACCTTGTTACGRCTT-3&#x2019;) (<xref ref-type="bibr"
+                                                                       rid="bib103">Ziegler and Forward, 2007</xref>; <xref ref-type="bibr"
+                                                                                                                            rid="bib94">Weisburg et al., 1991</xref>); comparison of the PR1 16S rRNA
+                sequence to the Greengenes 16S rRNA database (<xref ref-type="bibr" rid="bib16"
+                        >Butenandt et al., 1961</xref>; <xref ref-type="bibr" rid="bib1">Agosta,
+                    1992</xref>; <xref ref-type="bibr" rid="bib27">DeSantis et al., 2006</xref>)
                 revealed strain PR1 to be most closely related to members of the
                 <italic>Algoriphagus</italic> genus within the Bacteroidetes phylum. PR1 was
-                subsequently named <italic>Algoriphagus machipongonensis</italic> (<xref ref-type="bibr" rid="bib83">Roelofs, 1995</xref>; <xref ref-type="bibr" rid="bib13">Bradley et al., 2009</xref>)<italic>.</italic>
+                subsequently named <italic>Algoriphagus machipongonensis</italic> (<xref
+                        ref-type="bibr" rid="bib83">Roelofs, 1995</xref>; <xref ref-type="bibr"
+                                                                                rid="bib13">Bradley et al., 2009</xref>)<italic>.</italic>
             </p>
         </sec>
         <sec id="s4-4">
@@ -2267,21 +2278,21 @@
             <p>To determine the phylogenetic distribution of morphogenic activity in the
                 bacterial species tested (<xref ref-type="table" rid="tbl1">Table 1</xref>), a
                 sequence alignment of 16S rDNA genes from each species was generated by
-                iterative pairwise comparisons using FSA (<xref ref-type="bibr" rid="bib29">Drijber and McGill, 1994</xref>; <xref ref-type="bibr" rid="bib39">Godchaux
+                iterative pairwise comparisons using FSA (<xref ref-type="bibr" rid="bib29"
+                        >Drijber and McGill, 1994</xref>; <xref ref-type="bibr" rid="bib39">Godchaux
                     and Leadbetter, 1988</xref>; <xref ref-type="bibr" rid="bib38">Godchaux and
                     Leadbetter, 1984</xref>; <xref ref-type="bibr" rid="bib37">Godchaux and
                     Leadbetter, 1983</xref>; <xref ref-type="bibr" rid="bib36">Godchaux and
                     Leadbetter, 1980</xref>; <xref ref-type="bibr" rid="bib48">Kamiyama et al.,
-                    1995</xref>; <xref ref-type="bibr" rid="bib47">Kamiyama et al., 1995</xref>;
-                <xref
-                        ref-type="bibr" rid="bib56">Kobayashi et al., 1995</xref>; <xref ref-type="bibr"
-                                                                                         rid="bib13">Bradley et al., 2009</xref>). Poorly aligned
-                regions were removed by Gblocks version 0.91b (<xref ref-type="bibr" rid="bib19">Castresana, 2000</xref>; <xref ref-type="bibr" rid="bib90">Talavera and
+                    1995a</xref>; <xref ref-type="bibr" rid="bib47">Kamiyama et al., 1995b</xref>;
+                <xref ref-type="bibr" rid="bib56">Kobayashi et al., 1995</xref>; <xref
+                        ref-type="bibr" rid="bib13">Bradley et al., 2009</xref>). Poorly aligned
+                regions were removed by Gblocks version 0.91b (<xref ref-type="bibr" rid="bib19"
+                        >Castresana, 2000</xref>; <xref ref-type="bibr" rid="bib90">Talavera and
                     Castresana, 2007</xref>) using default block parameters. A distance matrix
                 (distance options according to the Kimura two-parameter model), including
                 clustering with the maximum likelihood algorithm, was calculated using Phylip
-                version 3.67 (<xref ref-type="bibr"
-                                    rid="bib32">Falenstein, 1989</xref>).
+                version 3.67 (<xref ref-type="bibr" rid="bib32">Falenstein, 1989</xref>).
                 Support for the resulting tree topology was estimated using bootstrap analysis
                 (1,000 replicates).</p>
         </sec>
@@ -2295,8 +2306,7 @@
                 in <xref ref-type="table" rid="tbl2">Table 2</xref>. Conditioned medium (CM) was
                 generated by pelleting either choanoflagellates grown in cereal grass infused
                 with seawater or <italic>A. machipongonensis</italic> cultures grown in seawater
-                complete medium (<xref
-                        ref-type="bibr" rid="bib7">Atlas, 2004</xref>) and
+                complete medium (<xref ref-type="bibr" rid="bib7">Atlas, 2004</xref>) and
                 filtering the culture supernatant through a 0.22 &#x3bc;m pore filter
                 (Millipore) to remove live bacteria. To test whether RIF-1 activity required
                 live bacteria, <italic>A. machipongonensis</italic> was grown overnight at 25
@@ -2319,8 +2329,8 @@
                 with methanol. Each suspension was centrifuged at 8,000 rpm for 5 min and the
                 methanol layer recovered and dried.</p>
             <p>To test whether RIF-1 was a lipid, <italic>A. machipongonensis</italic> cell
-                pellet was extracted according to the Bligh-Dyer method (<xref ref-type="bibr" rid="bib11"
-                        >Bligh and Dyer, 1959</xref>). Briefly, the cell pellet was
+                pellet was extracted according to the Bligh-Dyer method (<xref ref-type="bibr"
+                                                                               rid="bib11">Bligh and Dyer, 1959</xref>). Briefly, the cell pellet was
                 resuspended in 3 volumes of 1:2 (v/v) CHCl<sub>3</sub>:MeOH and vortexed. One
                 volume of CHCl<sub>3</sub>was added, and the mixture vortexed. 1 volume of
                 distilled water was then added, and the mixture vortexed. The same was then
@@ -2416,8 +2426,7 @@
                 Inova 600 MHz equipped with a cryoprobe, respectively. Chemical shifts are
                 reported in ppm from tetramethylsilane with the solvent resonance resulting from
                 incomplete deuteration as the internal standard (DMSO: d 2.50). Data are
-                reported in <xref ref-type="table"
-                                  rid="tbl3">Table 3</xref>as follows: chemical
+                reported in <xref ref-type="table" rid="tbl3">Table 3</xref>as follows: chemical
                 shift, multiplicity (s &#x3d; singlet, d &#x3d; doublet, t &#x3d; triplet, q
                 &#x3d; quartet, br &#x3d; broad, m &#x3d; multiplet), coupling constants, and
                 integration. Optical rotation was measured on a Jasco P-2000 digital polarimeter
@@ -2454,20 +2463,18 @@
                 in a linear gradient from solvent A (60% methanol/water with 0.1% ammonium
                 hydroxide) to solvent B (100% methanol with 0.1% ammonium hydroxide). The RIF-1
                 was detected in the conditioned medium at a concentration of 80 ng
-                L<sup>-1</sup>. The purified RIF-1 was used as the standard (<xref ref-type="fig" rid="sfig5">Figure 4&#x2014;figure supplement 1</xref>).</p>
+                L<sup>-1</sup>. The purified RIF-1 was used as the standard (<xref
+                        ref-type="fig" rid="sfig5">Figure 4&#x2014;figure supplement 1</xref>).</p>
             <p>As input, our algorithm requires a genealogical tree, e.g. a tree reconstructed
                 from a sample of genomic sequences. For a given tree <italic>T</italic>, we
                 derived the joint probability distribution
                 <inline-formula>
-                    <mml:math id="inf1"
-                            >
+                    <mml:math id="inf1">
                         <mml:mrow>
                             <mml:mi>P</mml:mi>
                             <mml:mrow>
                                 <mml:mo>(</mml:mo>
-                                <mml:mrow><mml:mi
-                                        mathvariant="bold"
-                                        >x</mml:mi>
+                                <mml:mrow><mml:mi mathvariant="bold">x</mml:mi>
                                     <mml:mo>|</mml:mo>
                                     <mml:mi>T</mml:mi>
                                 </mml:mrow>
@@ -2484,8 +2491,7 @@
                 <italic>x</italic><sub><italic>i</italic></sub> of each node
                 <italic>i</italic> is measured relative to the population mean fitness at
                 the time when the corresponding individual was sampled.
-                <inline-formula><mml:math
-                        id="inf3"
+                <inline-formula><mml:math id="inf3"
                         ><mml:mrow><mml:mi>P</mml:mi><mml:mrow><mml:mo>(</mml:mo><mml:mrow><mml:mi
                         mathvariant="bold"
                         >x</mml:mi><mml:mo>|</mml:mo><mml:mi>T</mml:mi></mml:mrow><mml:mo>)</mml:mo></mml:mrow></mml:mrow></mml:math></inline-formula>
@@ -2512,8 +2518,7 @@
                 and <inline-formula><mml:math id="inf8"
                         ><mml:mrow><mml:msub><mml:mi>i</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:math></inline-formula>
                 denote the two children of node <italic>i</italic>, while
-                <inline-formula><mml:math
-                        id="inf9"
+                <inline-formula><mml:math id="inf9"
                         ><mml:mrow><mml:mi>Z</mml:mi><mml:mrow><mml:mo>(</mml:mo><mml:mi>T</mml:mi><mml:mo>)</mml:mo></mml:mrow></mml:mrow></mml:math></inline-formula>
                 ensures normalization of the distribution.
                 <xref ref-type="disp-formula" rid="equ2">Eq. (1)</xref> has a structure similar to the expression for the
@@ -2521,8 +2526,7 @@
                 phylogenetic analysis (<xref ref-type="bibr" rid="bib10">Felsenstein,
                     2003</xref>). The main difference is that instead of defining the
                 probability of mutation from one character state to another, the branch
-                propagator <inline-formula><mml:math
-                        id="inf10"
+                propagator <inline-formula><mml:math id="inf10"
                         ><mml:mrow><mml:mi>g</mml:mi><mml:mrow><mml:mo>(</mml:mo><mml:mrow><mml:msub><mml:mi>x</mml:mi><mml:mi>j</mml:mi></mml:msub><mml:mo>,</mml:mo><mml:mtext> </mml:mtext><mml:msub><mml:mi>t</mml:mi><mml:mi>j</mml:mi></mml:msub><mml:mo>|</mml:mo><mml:msub><mml:mi>x</mml:mi><mml:mi>i</mml:mi></mml:msub><mml:mo>,</mml:mo><mml:mtext> </mml:mtext><mml:msub><mml:mi>t</mml:mi><mml:mi>i</mml:mi></mml:msub></mml:mrow><mml:mo>)</mml:mo></mml:mrow></mml:mrow></mml:math></inline-formula>
                 describes the likelihood of the lineage to connect an ancestor with fitness
                 <inline-formula><mml:math id="inf11"
@@ -2548,7 +2552,8 @@
                 ul DMSO and this 1 g L<sup>-1</sup>stock was stored at -80 &#xb0;C. For each
                 experiment, serial dilutions ranging from 10<sup>-1</sup>g L<sup>-1</sup>down to
                 10<sup>-17</sup>g L<sup>-1</sup>were made in DMSO. 2 &#x3bc;L of each
-                dilution was premixed with 1 mL of fresh cereal grass infused seawater (<xref ref-type="bibr" rid="bib52">King et al., 2003</xref>) to avoid precipitation
+                dilution was premixed with 1 mL of fresh cereal grass infused seawater (<xref
+                        ref-type="bibr" rid="bib52">King et al., 2003</xref>) to avoid precipitation
                 of RIF-1 and the premixed RIF-1 dilution was then added to 1 mL RCA cultures to
                 yield final concentrations ranging from 10<sup>-3</sup>g L<sup>-1</sup>to
                 10<sup>-20</sup>g L<sup>-1</sup>, equivalent to 1.6 x 10<sup>9</sup>fM down
@@ -2630,7 +2635,7 @@
                 </fn>
             </fn-group>
         </sec>
-        <sec sec-type="supplementary-material" id="s6" >
+        <sec sec-type="supplementary-material" id="s6">
             <title>Additional files</title>
             <supplementary-material id="SD3-data">
                 <object-id pub-id-type="doi">10.7554/eLife.00013.031</object-id>
@@ -4255,7 +4260,7 @@
                             <given-names>K</given-names>
                         </name>
                     </person-group>
-                    <year>1995</year>
+                    <year iso-8601-date="1995">1995a</year>
                     <article-title>Sulfobacins A and B, novel von Willebrand factor receptor
                         antagonists. II. Structural elucidation</article-title>
                     <source>The Journal of antibiotics</source>
@@ -4297,7 +4302,7 @@
                             <given-names>K</given-names>
                         </name>
                     </person-group>
-                    <year>1995</year>
+                    <year iso-8601-date="1995">1995b</year>
                     <article-title>Sulfobacins A and B, novel von Willebrand factor receptor
                         antagonists. I. Production, isolation, characterization and biological
                         activities</article-title>
@@ -6135,7 +6140,7 @@
                             <given-names>TK</given-names>
                         </name>
                     </person-group>
-                    <year>2005</year>
+                    <year iso-8601-date="2005">2005a</year>
                     <article-title>Algoriphagus yeomjeoni sp. nov., isolated from a marine solar
                         saltern in the Yellow Sea, Korea</article-title>
                     <source>International journal of systematic and evolutionary
@@ -6162,7 +6167,7 @@
                             <given-names>TK</given-names>
                         </name>
                     </person-group>
-                    <year>2005</year>
+                    <year iso-8601-date="2005">2005b</year>
                     <article-title>Algoriphagus locisalis sp. nov., isolated from a marine solar
                         saltern</article-title>
                     <source>International journal of systematic and evolutionary
@@ -6686,7 +6691,7 @@
     </sub-article>
     <sub-article article-type="reply" id="SA2">
         <front-stub>
-            <article-id pub-id-type="doi">10.7554/eLife.00013.038</article-id>
+            <article-id pub-id-type="doi">10.7554/eLife.00013.037</article-id>
             <title-group>
                 <article-title>Author response</article-title>
             </title-group>
@@ -6718,7 +6723,7 @@
                     Gram-negative bacteria and Bacteroidetes (50,51) and that additional membrane
                     constituents might be required for the full potency of RIF-1.</italic>&#x201d;
                 <fig id="fig5" position="float">
-                    <object-id pub-id-type="doi">10.7554/eLife.00013.039</object-id>
+                    <object-id pub-id-type="doi">10.7554/eLife.00013.038</object-id>
                     <label>Author response image 1</label>
                     <caption>
                         <title>Correlation between mean Voxel Number and resulting mean Decoding
@@ -6733,7 +6738,7 @@
                             triangle symbols): r<sup>2</sup>&#x3d;0.026, p&#x3d;0.598.</p>
                         <p>
                             <bold>DOI:</bold>
-                            <ext-link ext-link-type="doi" xlink:href="10.7554/eLife.00013.039"
+                            <ext-link ext-link-type="doi" xlink:href="10.7554/eLife.00013.038"
                                     >http://dx.doi.org/10.7554/eLife.00013.038</ext-link>
                         </p>
                     </caption>
@@ -6751,7 +6756,7 @@
                     sulfonolipids in the literature (<xref ref-type="table" rid="tbl4">Author
                         response table 1</xref>)</italic>.
                 <table-wrap id="tbl4" position="float">
-                    <object-id pub-id-type="doi">10.7554/eLife.00013.040</object-id>
+                    <object-id pub-id-type="doi">10.7554/eLife.00013.039</object-id>
                     <label>Author response table 1.</label>
                     <caption>
                         <p>GC-MS analysis of cuticular hydrocarbon extracts from control,
@@ -6759,7 +6764,7 @@
                             <italic>miR-124&#x3e;tra-RNAi</italic> males</p>
                         <p>
                             <bold>DOI:</bold>
-                            <ext-link ext-link-type="doi" xlink:href="10.7554/eLife.00013.040"
+                            <ext-link ext-link-type="doi" xlink:href="10.7554/eLife.00013.039"
                                     >http://dx.doi.org/10.7554/eLife.00013.039</ext-link>
                         </p>
                     </caption>
