@@ -132,7 +132,28 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     $article_version_id = (is_array($article_version_id)) ? reset($article_version_id) : $article_version_id;
   }
 
-  $top_level = array(
+  $article_id = $ewrapper->field_elife_a_article_id->value();
+
+  $article_collection = ElifeArticle::getCollection($article_id);
+  /* @var EntityDrupalWrapper $ac_wrapper */
+  $ac_wrapper = entity_metadata_wrapper('node', $article_collection);
+
+  $article_level = array(
+    'volume' => array(
+      'field' => 'field_elife_a_volume',
+      'type' => 'string',
+    ),
+    'article-id' => array(
+      'field' => 'field_elife_a_article_id',
+      'type' => 'string',
+    ),
+    'pub-date' => array(
+      'field' => 'field_elife_a_fpubdate',
+      'type' => 'date',
+    ),
+  );
+
+  $version_level = array(
     'title' => array(
       'field' => 'field_elife_a_full_title',
       'type' => 'string',
@@ -145,14 +166,14 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'field' => 'field_elife_a_doi',
       'type' => 'string',
     ),
-    'volume' => array(
+    /*'volume' => array(
       'field' => 'field_elife_a_volume',
       'type' => 'string',
     ),
     'article-id' => array(
       'field' => 'field_elife_a_article_id',
       'type' => 'string',
-    ),
+    ),*/
     'version' => array(
       'field' => 'field_elife_a_version',
       'type' => 'string',
@@ -166,8 +187,8 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'field' => 'field_elife_a_status',
       'type' => 'string',
     ),
-    'pub-date' => array(
-      'field' => 'field_elife_a_fpubdate',
+    'update' => array(
+      'field' => 'field_elife_a_update',
       'type' => 'date',
     ),
     'path' => array(
@@ -205,8 +226,29 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
   );
 
   $json = array();
+  $json = _elife_services_article_prepare_json_items($article_level, $ac_wrapper, $article_id, $json);
+  $json = _elife_services_article_prepare_json_items($version_level, $ewrapper, $article_version_id, $json);
 
-  foreach ($top_level as $key => $value) {
+  return $json;
+}
+
+/**
+ * Parse list of items for preparation to output json.
+ *
+ * @param array $items
+ *   Items array
+ * @param EntityDrupalWrapper $wrapper
+ *   Entity wrapper
+ * @param string $custom_identifier
+ *   Identifier (e.g. article-id or article-version-id)
+ * @param array $json
+ *   json array.
+ *
+ * @return mixed
+ *   json array after processing.
+ */
+function _elife_services_article_prepare_json_items($items, $wrapper, $custom_identifier, $json = array()) {
+  foreach ($items as $key => $value) {
     $get = NULL;
 
     if (!is_array($value)) {
@@ -214,14 +256,14 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     }
     else {
       if (isset($value['field'])) {
-        $get = $ewrapper->{$value['field']}->value();
+        $get = $wrapper->{$value['field']}->value();
 
         if (is_array($get)) {
           $get = reset($get);
         }
       }
       elseif (isset($value['custom'])) {
-        $get = call_user_func_array($value['custom'], array($article_version_id));
+        $get = call_user_func_array($value['custom'], array($custom_identifier));
       }
 
       if (isset($value['type'])) {
@@ -362,6 +404,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'pub-date',
       'version',
       'path',
+      'article-id',
       'article-version-id',
       'status',
     );
@@ -417,11 +460,6 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     _elife_article_publish($ewrapper->status->value());
   }
 
-  // Set the volume number.
-  if (isset($data['volume'])) {
-    $ewrapper->field_elife_a_volume->set($data['volume']);
-  }
-
   if (isset($data['article-type'])) {
     $ewrapper->field_elife_a_article_type->set($data['article-type']);
   }
@@ -439,6 +477,43 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       }
     }
     $ewrapper->field_elife_a_category->set($categories);
+  }
+
+  $article_collection = NULL;
+
+  if (!$new && isset($data['article-id'])) {
+    $article_collection = ElifeArticle::getCollection($data['article-id']);
+  }
+
+  if (!$article_collection) {
+    $values = array(
+      'type' => 'elife_article',
+      'uid' => _elife_services_user_uid(),
+    );
+    /* @var object $article_collection */
+    $article_collection = entity_create('node', $values);
+  }
+
+  /* @var EntityDrupalWrapper $ac_wrapper */
+  $ac_wrapper = entity_metadata_wrapper('node', $article_collection);
+
+  // Set the title.
+  if (isset($data['title'])) {
+    $ac_wrapper->title->set(ElifeArticle::cleanTitle($data['title']));
+  }
+
+  $field_prefix = 'field_elife_a';
+  $mappings = array(
+    'article-id' => $field_prefix . '_article_id',
+    'volume' => $field_prefix . '_volume',
+  );
+  foreach ($mappings as $k => $field) {
+    if (isset($data[$k])) {
+      $ac_wrapper->{$field}->set($data[$k]);
+    }
+  }
+  if (isset($data['pub-date'])) {
+    $ac_wrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
   }
 
   if (isset($data['keywords'])) {
@@ -474,12 +549,11 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     }
   }
 
-  if (isset($data['pub-date'])) {
-    $ewrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
-  }
-
   if (isset($data['update'])) {
     $ewrapper->field_elife_a_update->set(_elife_services_article_prepare_date($data['update']));
+  }
+  elseif ($new) {
+    $ewrapper->field_elife_a_update->set(time());
   }
 
   if (isset($data['impact-statement'])) {
@@ -499,6 +573,11 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   $ewrapper->save();
+  $versions = $ac_wrapper->field_elife_a_versions->raw();
+  if (!in_array($ewrapper->nid->value(), $versions)) {
+    $versions[] = $ewrapper->nid->value();
+    $ac_wrapper->save();
+  }
 
   $trigger_save = FALSE;
   $ref_links = array();

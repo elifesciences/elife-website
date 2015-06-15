@@ -148,7 +148,7 @@ class ElifeArticle {
     $id_query->fieldCondition($id_field, 'value', $article_id, '=');
     $id_query->fieldOrderBy('field_elife_a_status', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
-    $id_query->fieldOrderBy('field_elife_a_fpubdate', 'value', 'DESC');
+    $id_query->fieldOrderBy('field_elife_a_update', 'value', 'DESC');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
@@ -257,6 +257,21 @@ class ElifeArticle {
         return $nids;
       }
     }
+  }
+
+  /**
+   * Retrieve the article collection node from the article-id.
+   *
+   * @param string $article_id
+   *   Article Id.
+   * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
+   *
+   * @return bool|mixed
+   *   Details of the article collection entity.
+   */
+  public static function getCollection($article_id, $load = TRUE) {
+    return self::fromIdentifier($article_id, $load, 'elife_article', 1, 'field_elife_a_article_id');
   }
 
   /**
