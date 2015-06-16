@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\elife_article\ElifeArticle.
+ * Contains \Drupal\elife_article\ElifeArticleVersion.
  */
 
 namespace Drupal\elife_article;
@@ -13,7 +13,7 @@ use EntityListWrapper;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 
-class ElifeArticle {
+class ElifeArticleVersion {
 
   const DOI_PREFIX = '10.7554/eLife.';
 
@@ -270,7 +270,7 @@ class ElifeArticle {
    * @return bool|mixed
    *   Details of the article collection entity.
    */
-  public static function getCollection($article_id, $load = TRUE) {
+  public static function getArticle($article_id, $load = TRUE) {
     return self::fromIdentifier($article_id, $load, 'elife_article', 1, 'field_elife_a_article_id');
   }
 
@@ -666,6 +666,39 @@ class ElifeArticle {
   }
 
   /**
+   * Get related articles for supplied article id.
+   *
+   * @param string $article_id
+   *   Article version id.
+   *
+   * @return array
+   *   Related articles.
+   */
+  public static function getRelatedArticles($article_id) {
+    $article = self::getArticle($article_id);
+    $related_articles = array();
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      foreach ($ewrapper->field_elife_a_related_articles as $fc_wrapper) {
+        $related_article = array();
+        if ($fc_wrapper->field_elife_a_rel_article_type->value()) {
+          $related_article['type'] = $fc_wrapper->field_elife_a_rel_article_type->value();
+        }
+        if ($fc_wrapper->field_elife_a_doi->value()) {
+          $related_article['href'] = $fc_wrapper->field_elife_a_doi->value();
+        }
+        if (!empty($related_article)) {
+          $related_articles[] = $related_article;
+        }
+      }
+    }
+
+    return $related_articles;
+  }
+
+  /**
    * Get contributor references for supplied article version id.
    *
    * @param string $article_version_id
@@ -927,5 +960,70 @@ class ElifeArticle {
     }
 
     return $output;
+  }
+
+  /**
+   * Process all unverified related articles.
+   *
+   * @return array
+   *   Results of query
+   *
+   * @throws \EntityMetadataWrapperException
+   */
+  public static function processUnverifiedRelatedArticles() {
+    $results = self::retrieveRelatedArticles(FALSE);
+
+    if (!empty($results)) {
+      foreach ($results as $item_id => $result) {
+        if ($fc_item = field_collection_item_load($item_id)) {
+          /* @var EntityDrupalWrapper $fc_wrapper */
+          $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+          $fc_wrapper->field_elife_a_rel_article_ref->set($result->entity_id);
+          $fc_wrapper->save();
+        }
+      }
+    }
+
+    return $results;
+  }
+
+  /**
+   * Retrieve related articles.
+   *
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
+   *
+   * @return array
+   *   Results of query
+   *
+   * @throws \EntityMetadataWrapperException
+   */
+  public static function retrieveRelatedArticles($verified = TRUE) {
+    $results = array();
+
+    $query = db_select('field_collection_item', 'fc');
+    $query->condition('fc.field_name', 'field_elife_a_related_articles');
+    $query->fields('fc', array('item_id'));
+    $query->fields('ver', array('entity_id'));
+    $query->leftJoin('field_data_field_elife_a_doi', 'doi', "doi.entity_type = 'field_collection_item' AND doi.entity_id = fc.item_id");
+    $query->leftJoin('field_data_field_elife_a_rel_article_ref', 'ref', "ref.entity_type = 'field_collection_item' AND ref.entity_id = fc.item_id");
+    $query->leftJoin('field_data_field_elife_a_doi', 'doi_dest', "doi_dest.entity_type = 'node' AND doi_dest.field_elife_a_doi_value = doi.field_elife_a_doi_value");
+    $query->leftJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = doi_dest.entity_id');
+
+    if ($verified) {
+      $query->where('ref.field_elife_a_rel_article_ref_target_id = ver.entity_id');
+    }
+    else {
+      $db_or = db_or();
+      $db_or->where('ref.field_elife_a_rel_article_ref_target_id != ver.entity_id');
+      $db_or->isNull('ref.field_elife_a_rel_article_ref_target_id');
+      $query->condition($db_or);
+    }
+
+    if ($query_results = $query->execute()->fetchAllAssoc('item_id')) {
+      $results = $query_results;
+    }
+
+    return $results;
   }
 }

@@ -23,15 +23,7 @@ function elife_article_preprocess_node(&$variables) {
  */
 function elife_article_node_delete($node) {
   // Delete all versions of an article if article entity deleted.
-  if ($node->type == 'elife_article') {
-    /* @var EntityDrupalWrapper $ewrapper */
-    $ewrapper = entity_metadata_wrapper('node', $node);
-
-    if ($versions = $ewrapper->field_elife_a_versions->raw()) {
-      node_delete_multiple($versions);
-    }
-  }
-  elseif ($node->type == 'elife_article_ver') {
+  if ($node->type == 'elife_article_ver') {
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $node);
 
@@ -39,11 +31,13 @@ function elife_article_node_delete($node) {
       // Delete article node if we have no article versions left.
       $query = db_select('node', 'n');
       $query->condition('n.type', 'elife_article');
-      $query->fields('n', array('nid'));
+      $query->addField('n', 'nid', 'nid');
       $query->leftJoin('field_data_field_elife_a_versions', 'v', 'v.entity_id = n.nid');
       $query->leftJoin('node', 'nv', 'v.field_elife_a_versions_target_id = nv.nid');
-      $query->isNull('nv.nid');
-
+      $db_or = db_or();
+      $db_or->condition('nv.nid', $ewrapper->nid->value(), '=');
+      $db_or->isNull('nv.nid');
+      $query->condition($db_or);
       if ($result = $query->execute()->fetchAllAssoc('nid')) {
         node_delete_multiple(array_keys($result));
       }

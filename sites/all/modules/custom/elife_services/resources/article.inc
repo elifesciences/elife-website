@@ -5,7 +5,7 @@
  * Contains the resource callbacks for articles.
  */
 
-use Drupal\elife_article\ElifeArticle;
+use Drupal\elife_article\ElifeArticleVersion;
 
 // @todo - elife - nlisgo - ensure that when an article is updated/deleted that
 // any orphaned nodes and possibly categories/keywords are removed.
@@ -86,12 +86,12 @@ function _elife_services_article_delete_access($article_version_id) {
  * @throws ServicesException
  */
 function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
-  $article = ElifeArticle::fromIdentifier($id, TRUE, $bundle, 1, $id_field);
-  if ($trigger_error && empty($article->nid)) {
+  $article_version = ElifeArticleVersion::fromIdentifier($id, TRUE, $bundle, 1, $id_field);
+  if ($trigger_error && empty($article_version->nid)) {
     return services_error(t('Article version id @id not found', array('@id' => $id)), 404);
   }
 
-  return $article;
+  return $article_version;
 }
 
 /**
@@ -108,14 +108,14 @@ function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver'
  * @throws ServicesException
  */
 function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_article_ver') {
-  $article = _elife_services_article_retrieve_raw($article_version_id, $bundle);
-  return _elife_services_article_prepare_json($article);
+  $article_version = _elife_services_article_retrieve_raw($article_version_id, $bundle);
+  return _elife_services_article_prepare_json($article_version);
 }
 
 /**
  * Prepare json for the response.
  *
- * @param object $article
+ * @param object $article_version
  *   Article data object.
  * @param null|string $article_version_id
  *   Article version id.
@@ -123,9 +123,9 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
  * @return array
  *   Structured article data.
  */
-function _elife_services_article_prepare_json($article, $article_version_id = NULL) {
+function _elife_services_article_prepare_json($article_version, $article_version_id = NULL) {
   /* @var EntityDrupalWrapper $ewrapper */
-  $ewrapper = entity_metadata_wrapper('node', $article);
+  $ewrapper = entity_metadata_wrapper('node', $article_version);
 
   if (!$article_version_id) {
     $article_version_id = $ewrapper->field_elife_a_article_version_id->value();
@@ -134,9 +134,9 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
 
   $article_id = $ewrapper->field_elife_a_article_id->value();
 
-  $article_collection = ElifeArticle::getCollection($article_id);
-  /* @var EntityDrupalWrapper $ac_wrapper */
-  $ac_wrapper = entity_metadata_wrapper('node', $article_collection);
+  $article = ElifeArticleVersion::getArticle($article_id);
+  /* @var EntityDrupalWrapper $art_wrapper */
+  $art_wrapper = entity_metadata_wrapper('node', $article);
 
   $article_level = array(
     'volume' => array(
@@ -150,6 +150,10 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
     'pub-date' => array(
       'field' => 'field_elife_a_fpubdate',
       'type' => 'date',
+    ),
+    'related-articles' => array(
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getRelatedArticles',
+      'type' => 'array',
     ),
   );
 
@@ -166,14 +170,6 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'field' => 'field_elife_a_doi',
       'type' => 'string',
     ),
-    /*'volume' => array(
-      'field' => 'field_elife_a_volume',
-      'type' => 'string',
-    ),
-    'article-id' => array(
-      'field' => 'field_elife_a_article_id',
-      'type' => 'string',
-    ),*/
     'version' => array(
       'field' => 'field_elife_a_version',
       'type' => 'string',
@@ -192,7 +188,7 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'type' => 'date',
     ),
     'path' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getPath',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getPath',
       'type' => 'array',
     ),
     'article-type' => array(
@@ -200,33 +196,33 @@ function _elife_services_article_prepare_json($article, $article_version_id = NU
       'type' => 'string',
     ),
     'categories' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getCategories',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getCategories',
       'type' => 'array',
     ),
     'keywords' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getKeywords',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getKeywords',
       'type' => 'array',
     ),
     'contributors' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getContributors',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getContributors',
       'type' => 'array',
     ),
     'referenced' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getContributorReferences',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getContributorReferences',
       'type' => 'array',
     ),
     'fragments' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getArticleFragmentsAndSubArticles',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getArticleFragmentsAndSubArticles',
       'type' => 'array',
     ),
     'citations' => array(
-      'custom' => 'Drupal\elife_article\ElifeArticle::getCitations',
+      'custom' => 'Drupal\elife_article\ElifeArticleVersion::getCitations',
       'type' => 'array',
     ),
   );
 
   $json = array();
-  $json = _elife_services_article_prepare_json_items($article_level, $ac_wrapper, $article_id, $json);
+  $json = _elife_services_article_prepare_json_items($article_level, $art_wrapper, $article_id, $json);
   $json = _elife_services_article_prepare_json_items($version_level, $ewrapper, $article_version_id, $json);
 
   return $json;
@@ -300,7 +296,7 @@ function _elife_services_article_prepare_json_items($items, $wrapper, $custom_id
  */
 function _elife_services_article_create($data) {
   // If force flag set then update if article-version-id recognised.
-  if (!empty($data['force']) && !empty($data['article-version-id']) && !ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
+  if (!empty($data['force']) && !empty($data['article-version-id']) && !ElifeArticleVersion::uniqueArticleVersionId($data['article-version-id'])) {
     return _elife_services_article_update($data['article-version-id'], $data);
   }
   else {
@@ -308,10 +304,10 @@ function _elife_services_article_create($data) {
       'type' => 'elife_article_ver',
       'uid' => _elife_services_user_uid(),
     );
-    /* @var object $article */
-    $article = entity_create('node', $values);
-    $article = _elife_services_article_update_values($article, $data, TRUE);
-    return _elife_services_article_prepare_json($article);
+    /* @var object $article_version */
+    $article_version = entity_create('node', $values);
+    $article_version = _elife_services_article_update_values($article_version, $data, TRUE);
+    return _elife_services_article_prepare_json($article_version);
   }
 }
 
@@ -347,11 +343,11 @@ function _elife_article_publish($publish = NULL) {
  */
 function _elife_services_article_update($article_version_id, $data) {
   // @todo - elife - nlisgo - do a better job of not updating if values same.
-  $article = _elife_services_article_retrieve_raw($article_version_id);
+  $article_version = _elife_services_article_retrieve_raw($article_version_id);
 
   $data['article-version-id'] = $article_version_id;
-  $article = _elife_services_article_update_values($article, $data);
-  return _elife_services_article_prepare_json($article);
+  $article_version = _elife_services_article_update_values($article_version, $data);
+  return _elife_services_article_prepare_json($article_version);
 }
 
 /**
@@ -365,11 +361,11 @@ function _elife_services_article_update($article_version_id, $data) {
  * @throws Exception
  */
 function _elife_services_article_delete($article_version_id, $trigger_error = TRUE) {
-  $article = _elife_services_article_retrieve_raw($article_version_id, 'elife_article_ver', 'field_elife_a_article_version_id', $trigger_error);
+  $article_version = _elife_services_article_retrieve_raw($article_version_id, 'elife_article_ver', 'field_elife_a_article_version_id', $trigger_error);
 
-  if ($article) {
+  if ($article_version) {
     /* @var EntityDrupalWrapper $ewrapper */
-    $ewrapper = entity_metadata_wrapper('node', $article);
+    $ewrapper = entity_metadata_wrapper('node', $article_version);
 
     // Remove article node.
     $ewrapper->delete();
@@ -379,7 +375,7 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
 /**
  * Updates specific values of an existing elife_article_ver entity.
  *
- * @param object $article
+ * @param object $article_version
  *   Object of article data prepared by Drupal.
  * @param array $data
  *   Array of values supplied in request.
@@ -392,7 +388,7 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
  * @throws EntityMetadataWrapperException
  * @throws ServicesException
  */
-function _elife_services_article_update_values($article, $data, $new = FALSE) {
+function _elife_services_article_update_values($article_version, $data, $new = FALSE) {
   $required = array();
 
   if ($new) {
@@ -421,20 +417,20 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   // This ensures that paths will not be automatically generated.
-  $article->path['pathauto'] = FALSE;
+  $article_version->path['pathauto'] = FALSE;
 
   /* @var EntityDrupalWrapper $ewrapper */
-  $ewrapper = entity_metadata_wrapper('node', $article);
+  $ewrapper = entity_metadata_wrapper('node', $article_version);
 
   // Set the article-version-id if article is new.
   if ($new && !empty($data['article-version-id'])) {
-    if (!ElifeArticle::uniqueArticleVersionId($data['article-version-id'])) {
+    if (!ElifeArticleVersion::uniqueArticleVersionId($data['article-version-id'])) {
       return services_error(t('Invalid value provided: @field.', array('@field' => 'Article version id (must be unique)')), 406);
     }
   }
 
   if (isset($data['doi'])) {
-    if (!ElifeArticle::validateDoi($data['doi'])) {
+    if (!ElifeArticleVersion::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field.', array('@field' => 'doi')), 406);
     }
   }
@@ -446,7 +442,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
       'format' => 'full_html',
     );
     $ewrapper->field_elife_a_full_title->set($set);
-    $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
+    $ewrapper->title->set(ElifeArticleVersion::cleanTitle($set['value']));
   }
 
   if (isset($data['publish'])) {
@@ -479,27 +475,27 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $ewrapper->field_elife_a_category->set($categories);
   }
 
-  $article_collection = NULL;
+  $article = NULL;
 
   if (!$new && isset($data['article-id'])) {
-    $article_collection = ElifeArticle::getCollection($data['article-id']);
+    $article = ElifeArticleVersion::getArticle($data['article-id']);
   }
 
-  if (!$article_collection) {
+  if (!$article) {
     $values = array(
       'type' => 'elife_article',
       'uid' => _elife_services_user_uid(),
     );
-    /* @var object $article_collection */
-    $article_collection = entity_create('node', $values);
+    /* @var object $article */
+    $article = entity_create('node', $values);
   }
 
-  /* @var EntityDrupalWrapper $ac_wrapper */
-  $ac_wrapper = entity_metadata_wrapper('node', $article_collection);
+  /* @var EntityDrupalWrapper $art_wrapper */
+  $art_wrapper = entity_metadata_wrapper('node', $article);
 
   // Set the title.
   if (isset($data['title'])) {
-    $ac_wrapper->title->set(ElifeArticle::cleanTitle($data['title']));
+    $art_wrapper->title->set(ElifeArticleVersion::cleanTitle($data['title']));
   }
 
   $field_prefix = 'field_elife_a';
@@ -509,11 +505,11 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   );
   foreach ($mappings as $k => $field) {
     if (isset($data[$k])) {
-      $ac_wrapper->{$field}->set($data[$k]);
+      $art_wrapper->{$field}->set($data[$k]);
     }
   }
   if (isset($data['pub-date'])) {
-    $ac_wrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
+    $art_wrapper->field_elife_a_fpubdate->set(_elife_services_article_prepare_date($data['pub-date']));
   }
 
   if (isset($data['keywords'])) {
@@ -573,11 +569,37 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   }
 
   $ewrapper->save();
-  $versions = $ac_wrapper->field_elife_a_versions->raw();
+  $versions = $art_wrapper->field_elife_a_versions->raw();
   if (!in_array($ewrapper->nid->value(), $versions)) {
     $versions[] = $ewrapper->nid->value();
-    $ac_wrapper->save();
+    $art_wrapper->field_elife_a_versions->set($versions);
   }
+
+  $art_wrapper->save();
+
+  if (isset($data['related-articles'])) {
+    // @todo - elife - nlisgo - only overwrite related articles if this is the
+    // latest version of an article.
+    foreach ($data['related-articles'] as $related_article) {
+      /* @var FieldCollectionItemEntity $fc_item */
+      $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_related_articles'));
+      $fc_item->setHostEntity('node', $art_wrapper->raw());
+
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+
+      if (isset($related_article['type'])) {
+        $fc_wrapper->field_elife_a_rel_article_type->set($related_article['type']);
+      }
+      if (isset($related_article['href'])) {
+        $fc_wrapper->field_elife_a_doi->set($related_article['href']);
+      }
+      $fc_wrapper->save();
+    }
+    $art_wrapper->save();
+  }
+
+  ElifeArticleVersion::processUnverifiedRelatedArticles();
 
   $trigger_save = FALSE;
   $ref_links = array();
@@ -587,7 +609,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
     $trigger_save = TRUE;
   }
   elseif (!$new && isset($data['contributors'])) {
-    $ref_links = ElifeArticle::getContributorRefLinks($data['article-version-id']);
+    $ref_links = ElifeArticleVersion::getContributorRefLinks($data['article-version-id']);
   }
 
   // If referenced or contributors supplied then delete existing contributors as
@@ -611,7 +633,7 @@ function _elife_services_article_update_values($article, $data, $new = FALSE) {
   if (isset($data['fragments'])) {
     $processed_dois = array();
     _elife_services_article_process_fragments($ewrapper, $ewrapper->nid->value(), $data['fragments'], $new, $processed_dois);
-    $orphaned_dois = ElifeArticle::getArticleFragmentDois($data['article-version-id'], $processed_dois);
+    $orphaned_dois = ElifeArticleVersion::getArticleFragmentDois($data['article-version-id'], $processed_dois);
     // @todo - elife - nlisgo - delete nodes that have orphaned dois for this
     // article version.
     $trigger_save = TRUE;
@@ -857,7 +879,7 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
     }
   }
 
-  $article = $ewrapper->raw();
+  $article_version = $ewrapper->raw();
 
   $field_ref_key = 'field_elife_a_ref_key';
 
@@ -869,7 +891,7 @@ function _elife_services_article_process_referenced(EntityDrupalWrapper &$ewrapp
       foreach ($referenced[$ref_type] as $key => $values) {
         /* @var FieldCollectionItemEntity $fc_item */
         $fc_item = entity_create('field_collection_item', array('field_name' => $ref_field));
-        $fc_item->setHostEntity('node', $article);
+        $fc_item->setHostEntity('node', $article_version);
 
         /* @var EntityDrupalWrapper $fc_wrapper */
         $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
@@ -1198,11 +1220,11 @@ function _elife_services_article_fragment_update_values($data, $type, $subarticl
       'format' => 'full_html',
     );
     $ewrapper->field_elife_a_full_title->set($set);
-    $ewrapper->title->set(ElifeArticle::cleanTitle($set['value']));
+    $ewrapper->title->set(ElifeArticleVersion::cleanTitle($set['value']));
   }
 
   if (isset($data['doi'])) {
-    if (!ElifeArticle::validateDoi($data['doi'])) {
+    if (!ElifeArticleVersion::validateDoi($data['doi'])) {
       return services_error(t('Invalid value provided: @field.', array('@field' => 'doi')), 406);
     }
 
@@ -1300,7 +1322,7 @@ function _elife_services_create_path($path, $source) {
  *   Created or existing term.
  */
 function _elife_services_article_prepare_term($vocabulary, $term_name, $conditions = array(), $fields = array()) {
-  $term_name = ElifeArticle::cleanTitle($term_name);
+  $term_name = ElifeArticleVersion::cleanTitle($term_name);
   $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'taxonomy_term');

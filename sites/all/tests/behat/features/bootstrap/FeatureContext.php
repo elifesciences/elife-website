@@ -3,7 +3,7 @@
 use Behat\Behat\Tester\Exception\PendingException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Drupal\elife_article\ElifeArticle;
+use Drupal\elife_article\ElifeArticleVersion;
 use Behat\Behat\Hook\Scope\BeforeStepScope;
 use PHPUnit_Framework_Assert as Assertions;
 
@@ -71,7 +71,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function thereShouldBeVersionsOfArticle($expected, $article_id)
   {
     $expected = intval($expected);
-    $versions = ElifeArticle::fromId($article_id, FALSE);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE);
     $actual = count($versions);
     Assertions::assertSame($expected, $actual);
   }
@@ -87,10 +87,32 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function thereShouldBeContributorsFor($expected, $article_version_id)
   {
     $expected = intval($expected);
-    $article = ElifeArticle::fromIdentifier($article_version_id);
+    $article = ElifeArticleVersion::fromIdentifier($article_version_id);
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $article);
     $actual = $ewrapper->field_elife_a_contributors->count();
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then /^there should be (\d+) verified related articles?$/
+   */
+  public function thereShouldBeVerifiedRelatedArticle($expected)
+  {
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles();
+    $actual = count($results);
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then /^there should be (\d+) unverified related articles?$/
+   */
+  public function thereShouldBeUnverifiedRelatedArticles($expected)
+  {
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE);
+    $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
 }

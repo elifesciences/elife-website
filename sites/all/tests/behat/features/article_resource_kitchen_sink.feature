@@ -43,6 +43,12 @@ Feature: Article Resource - Citations (API)
               "Other"
             ]
           },
+          "related-articles": [
+            {
+              "type": "commentary",
+              "href": "10.7554/eLife.00013"
+            }
+          ],
           "contributors": [
             {
               "type": "author",
@@ -795,6 +801,12 @@ Feature: Article Resource - Citations (API)
               "Other"
             ]
           },
+          "related-articles": [
+            {
+              "type": "commentary",
+              "href": "10.7554/eLife.00013"
+            }
+          ],
           "contributors": [
             {
               "type": "author",
