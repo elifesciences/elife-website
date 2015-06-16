@@ -23,7 +23,8 @@ Feature: Article Resource - Kitchen sink (API)
               "authors": [
                 {
                   "group-type": "author",
-                  "name": "WC Agosta"
+                  "surname": "Agosta",
+                  "given-names": "WC"
                 }
               ],
               "year": "1992",
@@ -33,15 +34,18 @@ Feature: Article Resource - Kitchen sink (API)
               "authors": [
                 {
                   "group-type": "author",
-                  "name": "I Ahmed"
+                  "surname": "Ahmed",
+                  "given-names": "I"
                 },
                 {
                   "group-type": "author",
-                  "name": "A Yokota"
+                  "surname": "Yokota",
+                  "given-names": "A"
                 },
                 {
                   "group-type": "author",
-                  "name": "T Fujiwara"
+                  "surname": "Fujiwara",
+                  "given-names": "T"
                 }
               ],
               "year": "1992",
@@ -63,7 +67,8 @@ Feature: Article Resource - Kitchen sink (API)
               "authors": [
                 {
                   "group-type": "author",
-                  "name": "WC Agosta"
+                  "surname": "Agosta",
+                  "given-names": "WC"
                 }
               ],
               "year": "1992",
@@ -73,15 +78,18 @@ Feature: Article Resource - Kitchen sink (API)
               "authors": [
                 {
                   "group-type": "author",
-                  "name": "I Ahmed"
+                  "surname": "Ahmed",
+                  "given-names": "I"
                 },
                 {
                   "group-type": "author",
-                  "name": "A Yokota"
+                  "surname": "Yokota",
+                  "given-names": "A"
                 },
                 {
                   "group-type": "author",
-                  "name": "T Fujiwara"
+                  "surname": "Fujiwara",
+                  "given-names": "T"
                 }
               ],
               "year": "1992",
