@@ -758,6 +758,7 @@ function _elife_services_article_citation_update_values($id, $data) {
     $field_authors = $field_cit_prefix . '_authors';
     $mappings = array(
       'group-type' => $field_cit_prefix . '_author_group',
+      'collab' => $field_cit_prefix . '_author_collab',
       'surname' => $field_cit_prefix . '_author_surname',
       'given-names' => $field_cit_prefix . '_author_fnames',
       'suffix' => $field_cit_prefix . '_author_suffix',

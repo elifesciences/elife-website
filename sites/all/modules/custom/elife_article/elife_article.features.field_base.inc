@@ -563,6 +563,27 @@ function elife_article_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+  // Exported field_base: 'field_elife_a_cit_author_collab'
+  $field_bases['field_elife_a_cit_author_collab'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_cit_author_collab',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_cit_author_fnames'
   $field_bases['field_elife_a_cit_author_fnames'] = array(
     'active' => 1,
@@ -746,11 +767,9 @@ function elife_article_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
+    'settings' => array(),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_elife_a_cit_year'

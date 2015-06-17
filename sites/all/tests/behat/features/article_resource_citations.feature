@@ -1,7 +1,7 @@
-Feature: Article Resource - Kitchen sink (API)
+Feature: Article Resource - Citations (API)
   In order to maintain article content
   As a production system
-  I need to be able to load the kitchen sink article via the resource api
+  I need to be able to assign citations to the article via the resource api
 
   Scenario: POST an article with citations
     Given I set header "Content-Type" with value "application/json"
@@ -48,10 +48,21 @@ Feature: Article Resource - Kitchen sink (API)
                   "given-names": "T"
                 }
               ],
-              "year": "1992",
+              "year": "2007",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
               "source": "International journal of systematic and evolutionary microbiology",
               "doi": "10.1099/ijs.0.64728-0"
+            },
+            "bib96": {
+              "authors": [
+                {
+                  "group-type": "author",
+                  "collab": "WHO"
+                }
+              ],
+              "year": "2011",
+              "title": "FlyBase 101-the basics of navigating FlyBase",
+              "source": "Nucleic acids research"
             }
           }
         }
@@ -92,10 +103,21 @@ Feature: Article Resource - Kitchen sink (API)
                   "given-names": "T"
                 }
               ],
-              "year": "1992",
+              "year": "2007",
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
               "source": "International journal of systematic and evolutionary microbiology",
               "doi": "10.1099/ijs.0.64728-0"
+            },
+            "bib96": {
+              "authors": [
+                {
+                  "group-type": "author",
+                  "collab": "WHO"
+                }
+              ],
+              "year": "2011",
+              "title": "FlyBase 101-the basics of navigating FlyBase",
+              "source": "Nucleic acids research"
             }
           }
         }

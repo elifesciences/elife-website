@@ -323,6 +323,41 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_collab'
+  $field_instances['field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_collab'] = array(
+    'bundle' => 'field_elife_a_cit_authors',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_cit_author_collab',
+    'label' => 'Collab',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_fnames'
   $field_instances['field_collection_item-field_elife_a_cit_authors-field_elife_a_cit_author_fnames'] = array(
     'bundle' => 'field_elife_a_cit_authors',
@@ -2274,7 +2309,7 @@ function elife_article_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2295,9 +2330,9 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'size' => 60,
+        'rows' => 5,
       ),
-      'type' => 'text_textfield',
+      'type' => 'text_textarea',
       'weight' => 6,
     ),
   );
