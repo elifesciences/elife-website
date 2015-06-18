@@ -5,9 +5,9 @@ $databases = [
     [
       'default' =>
         [
-          'database' => 'root',
-          'username' => '',
-          'password' => 'elife_profile',
+          'database' => 'elife_profile',
+          'username' => 'root',
+          'password' => '',
           'host' => 'localhost',
           'port' => '',
           'driver' => 'mysql',
