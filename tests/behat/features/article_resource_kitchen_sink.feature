@@ -2369,7 +2369,8 @@ Feature: Article Resource - Kitchen sink (API)
               ],
               "year": "2009",
               "title": "Starting and maintaining Monosiga brevicollis cultures",
-              "source": "Cold Spring Harbor protocols"
+              "source": "Cold Spring Harbor protocols",
+              "comment": "pdb.prot5148"
             },
             "bib55": {
               "authors": [
@@ -6338,7 +6339,8 @@ Feature: Article Resource - Kitchen sink (API)
               ],
               "year": "2009",
               "title": "Starting and maintaining Monosiga brevicollis cultures",
-              "source": "Cold Spring Harbor protocols"
+              "source": "Cold Spring Harbor protocols",
+              "comment": "pdb.prot5148"
             },
             "bib55": {
               "authors": [

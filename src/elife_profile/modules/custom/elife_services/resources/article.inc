@@ -727,6 +727,7 @@ function _elife_services_article_citation_update_values($id, $data) {
     'year' => $field_cit_prefix . '_year',
     'title' => $field_cit_prefix . '_title',
     'source' => $field_cit_prefix . '_source',
+    'comment' => $field_cit_prefix . '_comment',
     'doi' => $field_cit_prefix . '_doi',
   );
   // If title isn't set then use id.

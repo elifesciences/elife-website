@@ -820,6 +820,7 @@ class ElifeArticleVersion {
         'year' => $field_cit_prefix . '_year',
         'title' => $field_cit_prefix . '_title',
         'source' => $field_cit_prefix . '_source',
+        'comment' => $field_cit_prefix . '_comment',
         'doi' => $field_cit_prefix . '_doi',
       );
       /* @var EntityDrupalWrapper $cit_wrapper */
