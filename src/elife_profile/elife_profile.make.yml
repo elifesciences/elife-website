@@ -75,6 +75,8 @@ projects:
     version: '2.9'
   scheduler:
     version: '1.3'
+  semanticviews:
+    version: '1.0-rc2'
   services:
     version: '3.12'
   special_menu_items:
@@ -85,6 +87,12 @@ projects:
     version: '1.6'
   views:
     version: '3.11'
+  views_ctools_field:
+    version: '2.x-dev'
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/views_ctools_field.git'
+      revision: 'e0df94393ad00009cd02c61b9511aba03ef4b691'
   views_field_view:
     version: '1.1'
   webform:

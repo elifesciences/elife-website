@@ -1,0 +1,4 @@
+name = eLife: Templates
+description = A home for custom templates
+package = eLife
+core = 7.x

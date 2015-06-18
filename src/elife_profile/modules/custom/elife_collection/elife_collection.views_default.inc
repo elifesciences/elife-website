@@ -29,9 +29,11 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
-  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'semanticviews_default';
+  $handler->display->display_options['style_options']['row']['element_type'] = '';
+  $handler->display->display_options['style_options']['row']['first_class'] = '';
+  $handler->display->display_options['style_options']['row']['last_class'] = '';
+  $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_elife_a_versions_target_id']['id'] = 'field_elife_a_versions_target_id';
@@ -53,6 +55,7 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
@@ -64,18 +67,11 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['sorts']['field_elife_a_update_value']['field'] = 'field_elife_a_update_value';
   $handler->display->display_options['sorts']['field_elife_a_update_value']['relationship'] = 'field_elife_a_versions_target_id';
   $handler->display->display_options['sorts']['field_elife_a_update_value']['order'] = 'DESC';
-  /* Sort criterion: Content: Article version ID (field_elife_a_article_version_id) */
-  $handler->display->display_options['sorts']['field_elife_a_article_version_id_value']['id'] = 'field_elife_a_article_version_id_value';
-  $handler->display->display_options['sorts']['field_elife_a_article_version_id_value']['table'] = 'field_data_field_elife_a_article_version_id';
-  $handler->display->display_options['sorts']['field_elife_a_article_version_id_value']['field'] = 'field_elife_a_article_version_id_value';
-  $handler->display->display_options['sorts']['field_elife_a_article_version_id_value']['relationship'] = 'field_elife_a_versions_target_id';
-  $handler->display->display_options['sorts']['field_elife_a_article_version_id_value']['order'] = 'DESC';
   /* Contextual filter: Field: Full Title (field_elife_a_full_title) */
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['id'] = 'field_elife_a_full_title_value';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['table'] = 'field_data_field_elife_a_full_title';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['field'] = 'field_elife_a_full_title_value';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['relationship'] = 'field_elife_a_keyword_target_id';
-  $handler->display->display_options['arguments']['field_elife_a_full_title_value']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['summary']['format'] = 'default_summary';

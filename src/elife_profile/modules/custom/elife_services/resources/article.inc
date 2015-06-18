@@ -477,7 +477,7 @@ function _elife_services_article_update_values($article_version, $data, $new = F
 
   $article = NULL;
 
-  if (!$new && isset($data['article-id'])) {
+  if (isset($data['article-id'])) {
     $article = ElifeArticleVersion::getArticle($data['article-id']);
   }
 
@@ -569,11 +569,16 @@ function _elife_services_article_update_values($article_version, $data, $new = F
   }
 
   $ewrapper->save();
-  $versions = $art_wrapper->field_elife_a_versions->raw();
-  if (!in_array($ewrapper->nid->value(), $versions)) {
-    $versions[] = $ewrapper->nid->value();
-    $art_wrapper->field_elife_a_versions->set($versions);
+  $versions = array(
+    $ewrapper->field_elife_a_version->value() => $ewrapper->nid->value(),
+  );
+  /* @var EntityDrupalWrapper $version */
+  foreach ($art_wrapper->field_elife_a_versions as $version) {
+    $versions[$version->field_elife_a_version->value()] = $version->nid->value();
   }
+
+  krsort($versions);
+  $art_wrapper->field_elife_a_versions->set(array_values($versions));
 
   $art_wrapper->save();
 

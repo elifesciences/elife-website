@@ -50,6 +50,7 @@ dependencies[] = field_group
 dependencies[] = rules
 dependencies[] = views
 dependencies[] = views_content
+dependencies[] = views_ctools_field
 dependencies[] = libraries
 dependencies[] = module_filter
 dependencies[] = pathauto
@@ -77,6 +78,7 @@ dependencies[] = relation_endpoint
 dependencies[] = relation
 dependencies[] = field_collection
 dependencies[] = panels
+dependencies[] = semanticviews
 
 
 ; Install Features
@@ -87,6 +89,7 @@ dependencies[] = elife_article
 dependencies[] = elife_collection
 dependencies[] = elife_services
 dependencies[] = elife_services_config
+dependencies[] = elife_templates
 
 ; System Requirements.
 php_memory_limit = 256M
