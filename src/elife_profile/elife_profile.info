@@ -81,6 +81,7 @@ dependencies[] = features
 
 ; Distribution modules.
 dependencies[] = elife_article
+dependencies[] = elife_collection
 dependencies[] = elife_services
 dependencies[] = elife_services_config
 
