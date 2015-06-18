@@ -15,5 +15,3 @@ $databases = [
         ],
     ],
 ];
-
-$base_url = 'http://localhost';
