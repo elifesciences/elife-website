@@ -18,6 +18,7 @@ dependencies[] = taxonomy
 dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = admin_menu
+dependencies[] = page_manager
 
 ; Install devel modules.
 dependencies[] = dblog
@@ -48,6 +49,7 @@ dependencies[] = token
 dependencies[] = field_group
 dependencies[] = rules
 dependencies[] = views
+dependencies[] = views_content
 dependencies[] = libraries
 dependencies[] = module_filter
 dependencies[] = pathauto
