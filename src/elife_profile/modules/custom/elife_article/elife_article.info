@@ -229,4 +229,4 @@ features[variable][] = node_submitted_elife_citation
 features[variable][] = node_submitted_elife_contributor
 features[variable][] = node_submitted_elife_fragment
 features[views_view][] = elife_contributor_ref_filter
-project path = sites/all/modules/custom
+project path = profiles/elife_profile/modules/custom
