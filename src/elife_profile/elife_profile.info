@@ -74,6 +74,7 @@ dependencies[] = xautoload
 dependencies[] = relation_endpoint
 dependencies[] = relation
 dependencies[] = field_collection
+dependencies[] = panels
 
 
 ; Install Features
