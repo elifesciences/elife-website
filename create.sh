@@ -8,9 +8,8 @@ if [ -d ./web/ ]; then
   rm -rf ./web
 fi
 drush make ./src/drupal.make.yml ./web
-ln -s "$SCRIPTPATH/src/" "$SCRIPTPATH/web/profiles/"
-mv ./web/profiles/src ./web/profiles/elife_profile
-cp ./settings.php ./web/sites/default
+ln -s "$SCRIPTPATH/src/elife_profile" "$SCRIPTPATH/web/profiles/"
+ln -s "$SCRIPTPATH/src/settings.php" "$SCRIPTPATH/web/sites/default/"
 ./remake.sh
 cd ./web
 drush site-install elife_profile --account-name=admin --account-pass=password --site-name="eLife Sciences" --yes

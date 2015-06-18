@@ -1,5 +1,5 @@
-/settings.php
-/src/libraries/
-/src/modules/contrib/
-/src/themes/contrib/
+/local.settings.php
+/src/elife_profile/libraries/
+/src/elife_profile/modules/contrib/
+/src/elife_profile/themes/contrib/
 /web/

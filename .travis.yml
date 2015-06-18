@@ -45,7 +45,8 @@ install:
 before_script:
   # Install Profile
   - cd web
-  - drush si elife_profile --sites-subdir=default --db-url=mysql://root:@127.0.0.1/elife_profile --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
+  - cp ./tests/build/travis.local.settings.php ./local.settings.php
+  - drush si elife_profile --sites-subdir=default --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
   - drush updatedb -y || true
   - drush cc all --yes
   - cd ../
