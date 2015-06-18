@@ -36,20 +36,9 @@ install:
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
-  # Build Drush dependencies
-  - drush make ./src/drupal.make.yml ./web
-  - ln -s "$PWD/src/" "$PWD/web/profiles/"
-  - mv ./web/profiles/src ./web/profiles/elife_profile
-  - drush make --no-core --concurrency=3 --contrib-destination=. ./src/elife_profile.make.yml ./src
-
-before_script:
-  # Install Profile
-  - cd web
+  # Build site
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
-  - drush si elife_profile --sites-subdir=default --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
-  - drush updatedb -y || true
-  - drush cc all --yes
-  - cd ../
+  - ./create.sh
 
 script:
   # Run behat tests
