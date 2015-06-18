@@ -45,7 +45,7 @@ projects:
   menu_token:
     version: '1.0-beta5'
   metatag:
-    version: '1.4'
+    version: '1.5'
   migrate:
     version: '2.7'
   migrate_extras:
@@ -86,7 +86,7 @@ projects:
   views_field_view:
     version: '1.1'
   webform:
-    version: '4.8'
+    version: '4.9'
   xautoload:
     version: '5.1'
     patch:
