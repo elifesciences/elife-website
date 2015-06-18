@@ -1,7 +1,7 @@
 <VirtualHost *:80>
   # [...]
 
-  DocumentRoot %TRAVIS_BUILD_DIR/web%
+  DocumentRoot %TRAVIS_BUILD_DIR%/web
 
   <Directory "%TRAVIS_BUILD_DIR%/web">
     Options Indexes FollowSymLinks MultiViews
