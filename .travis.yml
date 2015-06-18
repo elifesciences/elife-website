@@ -17,37 +17,42 @@ install:
   - sudo a2enmod rewrite actions alias
 
   # configure apache virtual hosts
-  - sudo cp -f sites/all/tests/build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   # restart the server
   - sudo service apache2 restart
   - cat /etc/apache2/sites-available/default
   - sleep 5s
 
-  # Install latest Drush 6.
+  # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --no-interaction drush/drush:6.*
+  - composer global require --no-interaction drush/drush:7.*
 
   # Build Behat dependencies
-  - cd ./sites/all/tests/behat
+  - cd ./tests/behat
   - composer install  --prefer-source --no-interaction
-  - cd ../../../..
-
-  # Setup files
-  - sudo chmod -R 777 sites/all
+  - cd ../..
 
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
+  # Build Drush dependencies
+  - drush make ./src/drupal.make.yml ./web
+  - ln -s "$PWD/src/" "$PWD/web/profiles/"
+  - mv ./web/profiles/src ./web/profiles/elife_profile
+  - drush make --no-core --concurrency=3 --contrib-destination=. ./src/elife_profile.make.yml ./src
+
 before_script:
   # Install Profile
+  - cd web
   - drush si elife_profile --sites-subdir=default --db-url=mysql://root:@127.0.0.1/elife_profile --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
   - drush updatedb -y || true
   - drush cc all --yes
+  - cd ../
 
 script:
   # Run behat tests
   - basedir=$PWD
-  - cd ./sites/all/tests/behat
+  - cd ./tests/behat
   - ./bin/behat --config behat.travis.yml --tags='~@develop'
   - cd $basedir

@@ -2,10 +2,10 @@
 cd /srv/ingestor/
 basedir=$PWD
 
-export BEHAT_PARAMS="{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"$basedir\"}}}}"
+export BEHAT_PARAMS="{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"$basedir/web\"}}}}"
 
 # Run behat tests
-cd $basedir/sites/all/tests/behat
+cd $basedir/tests/behat
 ./bin/behat --config behat.ci.yml --tags='~@develop'
 
 # Run simpletest
