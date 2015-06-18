@@ -12,4 +12,4 @@ ln -s "$SCRIPTPATH/src/elife_profile" "$SCRIPTPATH/web/profiles/"
 ln -s "$SCRIPTPATH/src/settings.php" "$SCRIPTPATH/web/sites/default/"
 ./remake.sh
 cd ./web
-drush site-install elife_profile --account-name=admin --account-pass=password --site-name="eLife Sciences" --yes
+/usr/bin/env PHP_OPTIONS="-d sendmail_path=`which true`" drush site-install elife_profile --account-name=admin --account-pass=password --site-name="eLife Sciences" --yes
