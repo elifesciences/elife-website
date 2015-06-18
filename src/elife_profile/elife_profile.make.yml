@@ -6,6 +6,8 @@ defaults:
     subdir: 'contrib'
 
 projects:
+  admin_menu:
+    version: '3.0-rc5'
   ckeditor:
     version: '1.16'
   context:

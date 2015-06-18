@@ -17,7 +17,7 @@ dependencies[] = path
 dependencies[] = taxonomy
 dependencies[] = field_ui
 dependencies[] = file
-dependencies[] = toolbar
+dependencies[] = admin_menu
 
 ; Install devel modules.
 dependencies[] = dblog
@@ -28,6 +28,7 @@ dependencies[] = context_ui
 dependencies[] = delta_ui
 dependencies[] = module_builder
 dependencies[] = relation_ui
+dependencies[] = admin_devel
 
 ; Install Migrate
 dependencies[] = migrate
