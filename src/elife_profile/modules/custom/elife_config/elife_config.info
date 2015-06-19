@@ -1,0 +1,12 @@
+name = eLife: Configuration
+description = Configuration for the site
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_config
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = jquery_update_jquery_version
+project path = profiles/elife_profile/modules/custom
