@@ -20,6 +20,12 @@ default:
       api_driver: 'drupal'
       drush:
         alias: 'local'
+      region_map:
+        footer: '#section-footer'
+        sidebar: '.sidebar-wrapper'
+        searchsortby: '.elife-searchlist-sortby'
+        searchpager: '.elife-searchlist-pagerbar-pager'
+        searchpagerrows: '.elife-searchlist-pagerbar-rows'
       # This will be setup by .travis.yml like so:
       # export BEHAT_PARAMS="{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"$basedir\"}}}}"`
       #drupal:

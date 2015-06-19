@@ -20,5 +20,11 @@ default:
       api_driver: 'drupal'
       drush:
         alias: 'local'
+      region_map:
+        footer: '#section-footer'
+        sidebar: '.sidebar-wrapper'
+        searchsortby: '.elife-searchlist-sortby'
+        searchpager: '.elife-searchlist-pagerbar-pager'
+        searchpagerrows: '.elife-searchlist-pagerbar-rows'
       drupal:
         drupal_root: '/path/to/site'
