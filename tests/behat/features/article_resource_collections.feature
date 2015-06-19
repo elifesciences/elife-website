@@ -1,4 +1,3 @@
-@debug
 Feature: Article Resource - Collections (API)
   In order to present compelling content
   As a feature editor
