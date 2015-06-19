@@ -6,7 +6,6 @@ exclusive = 1
 
 ; Install necessary core modules.
 dependencies[] = block
-;dependencies[] = comment
 dependencies[] = contextual
 dependencies[] = image
 dependencies[] = list
@@ -79,7 +78,8 @@ dependencies[] = relation
 dependencies[] = field_collection
 dependencies[] = panels
 dependencies[] = semanticviews
-
+dependencies[] = jquery_update
+dependencies[] = omega_tools
 
 ; Install Features
 dependencies[] = features
@@ -87,17 +87,12 @@ dependencies[] = features
 ; Distribution modules.
 dependencies[] = elife_article
 dependencies[] = elife_collection
+dependencies[] = elife_config
+dependencies[] = elife_footer
+dependencies[] = elife_header
 dependencies[] = elife_services
 dependencies[] = elife_services_config
 dependencies[] = elife_templates
 
 ; System Requirements.
 php_memory_limit = 256M
-
-
-; Install deploy_content module
-dependencies[] = elife_profile_deploy_content
-
-
-; Install controller module
-dependencies[] = elife_profile_controller
