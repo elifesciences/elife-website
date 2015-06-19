@@ -1,0 +1,385 @@
+.page_header {
+  font-size: 16px;
+}
+
+.page_header ol,
+.page_header ul,
+.page_header li,
+.page_header div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+.page_header ol,
+.page_header ul {
+  list-style: none;
+}
+
+.page_header img {
+  border: none;
+}
+
+.page_header,
+.page_header * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page_header {
+  background-color: #fff;
+  color: #848484;
+  float: left;
+  width: 100%;
+  line-height: 1;
+}
+
+.header__nav .hidden {
+  display: none;
+}
+
+.header__nav {
+  display: block;
+  width: 100%;
+}
+
+.header__identity {
+  display: block;
+  float: left;
+  height: 55px;
+  padding: 5px 1em 5px 1.6865em;
+  margin: auto 0;
+}
+
+.header__list {
+  float: right;
+}
+
+.header__list_item,
+.header__list_secondary_item {
+  float: left;
+}
+
+.header__list_link {
+  padding: 1.5em 0em 1.5em 1.25em;
+  height: 4em;
+}
+
+.header__list_link--about {
+  padding-left: 0;
+}
+
+.header__list_link--careers {
+  padding-left: 1.25em;
+}
+
+.header__list_link--labs {
+  padding-left: 1.25em;
+}
+
+.header__list_link {
+  display: block;
+  font-family: "Avenir LT W01 35 Light", Helvetica, Arial, Verdana, sans-serif;
+  height: 4em;
+}
+
+.header__list_link:link,
+.header__list_link:visited {
+  color: #848484;
+  text-decoration: none;
+}
+
+.header__list_link:hover,
+.header__list_link:focus,
+.header__list_link:active {
+  opacity: 0.6;
+  -webkit-transition: opacity 75ms linear;
+  -moz-transition: opacity 75ms linear;
+  -o-transition: opacity 75ms linear;
+  transition: opacity 75ms linear;
+}
+
+.header__list_link--submit {
+  text-align: center;
+  padding-left: 1.25em;
+  padding-right: 0.625em;
+}
+
+.header__list_link--submit div {
+  background-color: #ededed;
+  color: #cf0c4e;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: -0.75em;
+  padding: 0.75em 1.5em;
+}
+
+.header__list_link--submit:link,
+.header__list_link--submit:visited {
+  color: #cf0c4e;
+}
+
+.header__list_link--submit:hover div,
+.header__list_link--submit:focus div,
+.header__list_link--submit:active div {
+  color: rgba(207, 12, 78, 0.5);
+}
+
+.header__list_link--search {
+  padding-left: 0.625em;
+  padding-right: 0.625em;
+  border-left: 1px solid #ededed;
+  border-right: 1px solid #ededed;
+}
+
+.header__list_link--search,
+.header__list_link--menu {
+  height: 4rem;
+  font-size: 0.85em;
+  padding-top: 1.7647em; /* 1.5em + (1 / 0.85) 1.5em is the padding on the other instances of .header__list_link  */
+}
+
+.header__list_link--menu {
+  padding-left: 0.625em;
+  padding-right: 0.125em;
+  float: left;
+}
+
+.header__list_secondary,
+.header__list_secondary_item {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.header__list_secondary {
+  width: 100%;
+  float: left;
+  padding: 1em 1.6865em; /* same as padding on the logo */
+  display: block;
+}
+
+.page_header li.header__list_secondary {
+  padding: 1em 1.6865em; /* same as padding on the logo */
+}
+
+.header__list_secondary_item,
+.page_header li.header__list_secondary_item {
+  padding-right: 1.618em;
+}
+
+.header__list_secondary,
+.header__list_secondary a,
+.header__list_secondary .elife-jumpto a {
+  color: #fff;
+  font-family: "Avenir LT W01 35 Light", Helvetica, Arial, Verdana, sans-serif;
+}
+
+.header__list_secondary a:link,
+.header__list_secondary a:hover,
+.header__list_secondary a:focus,
+.header__list_secondary a:active,
+.header__list_secondary a:visited {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header__list_secondary_item_link {
+  line-height: 2;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link::before {
+  content: ' ';
+  font-size: 0.618em;
+  display: inline-block;
+  margin-right: 1em;
+  background-color: #273b81;
+  width: 0.75em;
+  height: 0.75em;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.editorials::before {
+  background-color: #0961ab;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.insights::before {
+  background-color: #629f43;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.features::before {
+  background-color: #cf0c4e;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.research::before {
+  background-color: #273b81;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.advance::before {
+  background-color: #273b81;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.reproducibility-project::before {
+  background-color: #273b81;
+}
+
+/* The registered-report and replication-study types are not wanted
+ * in the header; it's not a mistake that they're not here.
+ */
+
+.header__list_secondary--section .header__list_secondary_item_link.tools::before {
+  background-color: #273b81;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.short::before {
+    background-color: #273b81;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.podcasts::before {
+  background-color: #732060;
+}
+
+.header__list_secondary--section .header__list_secondary_item_link.news::before {
+  background-color: #0a9dd9;
+}
+
+/* With js:
+ *    - hide the link to the 'all subjects' page if js enabled (all subjects are listed individually in this case,
+ *        but there is not enough screen space to offer this without js)
+ *    - hide the secondary menu (will be made visible by js)
+ */
+.js .header__list_secondary--category .header__list_secondary_item:first-child {
+  display: none;
+}
+
+.header__list {
+  width: 20em;
+}
+
+.js .header__list_secondary {
+  position: absolute;
+  top: 4em;
+  right: 0;
+  z-index: 99;
+  display: none;
+}
+
+.js .header__list_secondary,
+.js .header__list_secondary_item {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.js .header__list_secondary_item_link {
+  font-size: 0.618em;
+}
+
+.js .page_header .elife-jumpto a {
+  font-size: 0.75em;
+  line-height: 3em;
+}
+
+.js .header__list_secondary_item_link,
+.js .header__list_secondary--category__heading {
+  text-transform: uppercase;
+}
+
+.js .header__list_secondary--category__heading {
+  color: #0961ab;
+  font-family: "Avenir LT W01 35 Light", Helvetica, Arial, Verdana, sans-serif;
+  font-size: 0.725em;
+  font-weight: normal;
+  padding-bottom: 1em;
+}
+
+.js .header__list_secondary {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+.js .header__list_secondary_item {
+  float: none;
+  padding-bottom: 1em;
+}
+
+.js .header__list_secondary {
+  width: 18.75em;
+}
+
+.js .header__list_secondary_close {
+  float: right;
+  font-size: 0.618em;
+  padding-right: 2em;
+  background: url(../images/white-cross-trans.png) right center no-repeat;
+}
+
+.js .header__list_secondary_item_link--category {
+  display: block;
+  margin-left: 1.75em;
+}
+
+/* Header breakpoint set to use the same as for the rest of the site */
+/* header-specific break point to enable header to remain on screen when wrapping */
+@media only all and (min-width: 586px) {
+  .header__list_link--careers {
+    padding-left: 1.5em;
+  }
+  .header__list_link--labs {
+    padding-left: 1.5em;
+  }
+  .header__list_link--submit {
+    padding-left: 1.5em;
+    padding-right: 0.75em;
+  }
+  .header__list_link--search {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+  }
+  .header__list_link--menu {
+    padding-left: 0.75em;
+  }
+  .page_header {
+    margin-bottom: 1.25em;
+  }
+  .header__list {
+    width: 24.5625em;
+  }
+  .js .header__list {
+    width: 27.5625em;
+  }
+}
+
+/* need to set left & right on submit,search & menu because of the border line */
+@media only all and (min-width: 708px) {
+  .header__list_link--careers {
+    padding-left: 2em;
+  }
+  .header__list_link--labs {
+    padding-left: 2em;
+  }
+  .header__list_link--submit {
+    padding-left: 2em;
+    padding-right: 1em;
+  }
+  .header__list_link--search {
+    background: url(../images/search.png) 85% center no-repeat;
+    padding-right: 4em;
+    padding-left: 1em;
+  }
+  .header__list_link--menu {
+    background: url(../images/menu.png) 85% center no-repeat;
+    padding-right: 3.4em;
+    padding-left: 1em;
+  }
+  .header__list {
+    width: 29.5625em;
+  }
+  .js .header__list {
+    width: 35.0625em;
+  }
+}

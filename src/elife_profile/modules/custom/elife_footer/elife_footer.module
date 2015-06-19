@@ -1,0 +1,256 @@
+<?php
+/**
+ * @file
+ * Code for the eLife - footer feature.
+ */
+
+include_once 'elife_footer.features.inc';
+
+/**
+ * Implements hook_theme().
+ */
+function elife_footer_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $path = drupal_get_path('module', 'elife_footer');
+    $templates = array(
+      'elife_footer' => array(
+        'variables' => array(
+          'details' => NULL,
+          'social_links' => NULL,
+          'misc_links' => NULL,
+          'section_links' => NULL,
+        ),
+        'template' => 'elife_footer',
+        'path' => $path . '/templates',
+      ),
+    );
+    return $templates;
+  }
+}
+
+/**
+ * Function to prepare the footer output.
+ *
+ * @return string
+ *   footer block
+ */
+function elife_footer_footer_load() {
+  $variables = array();
+  $path = drupal_get_path('module', 'elife_footer');
+
+  $default_detail = 'eLife Sciences is a unique, non-profit collaboration ' .
+    'between the funders and practitioners of research to improve the way ' .
+    'important results are presented and shared. The open-access <i>eLife</i> ' .
+    'journal is the first step in this initiative to make science publishing ' .
+    'more effectively benefit science and scientists.';
+
+  $default_company_info = 'eLife Sciences Publications, Ltd is a limited liability ' .
+    'non-profit non-stock corporation incorporated in the State of Delaware, USA, ' .
+    'with company number 5030732, and is registered in the UK with company number ' .
+    'FC030576 and branch number BR015634 at the address:';
+
+  $default_company_address_fn = 'eLife Sciences Publications, Ltd';
+  $default_company_address_ln1 = '1st Floor, 24 Hills Road';
+  $default_company_address_loc = 'Cambridge';
+  $default_company_address_pc = 'CB2 1JP';
+  $default_company_address_cn = 'UK';
+
+  // Prepare details section which can be amended by updating the variable
+  // elife_footer_details
+  $variables['details'] = t(variable_get('elife_footer_details', $default_detail));
+  $variables['company_info'] = t(variable_get('elife_footer_company_info', $default_company_info));
+
+  $variables['address_fn'] = t(variable_get('elife_footer_address_fullname', $default_company_address_fn));
+  $variables['address_ln1'] = t(variable_get('elife_footer_address_line1', $default_company_address_ln1));
+  $variables['address_loc'] = t(variable_get('elife_footer_address_locality', $default_company_address_loc));
+  $variables['address_pc'] = t(variable_get('elife_footer_address_pcode', $default_company_address_pc));
+  $variables['address_cn'] = t(variable_get('elife_footer_address_country', $default_company_address_cn));
+
+  // Prepare social links.
+  $social_links_attributes = array('class' => array('site-footer__social_link'));
+  $social_links_li_class = array('site-footer__social_icon');
+  $social_links = array(
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/facebook-icon.png',
+        'alt' => t('Facebook icon'),
+        'attributes' => array(),
+      )), 'https://www.facebook.com/elifesciences', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/twitter-icon.png',
+        'alt' => t('Twitter icon'),
+        'attributes' => array(),
+      )), 'https://twitter.com/elife', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/linkedin-icon.png',
+        'alt' => t('LinkedIn icon'),
+        'attributes' => array(),
+      )), 'http://www.linkedin.com/company/elife-sciences-publications-ltd', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/google-plus-icon.png',
+        'alt' => t('Google plus icon'),
+        'attributes' => array(),
+      )), 'https://plus.google.com/102129675554093758550/posts', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/medium-icon.png',
+        'alt' => t('Medium icon'),
+        'attributes' => array(),
+      )), 'https://medium.com/@eLife', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+    array(
+      'data' => l(theme_image(array(
+        'path' => $path . '/images/flickr-icon.png',
+        'alt' => t('Flickr icon'),
+        'attributes' => array(),
+      )), 'https://www.flickr.com/photos/128643624@N07/', array(
+        'attributes' => $social_links_attributes,
+        'external' => TRUE,
+        'html' => TRUE,
+      )),
+      'class' => $social_links_li_class,
+    ),
+  );
+  $variables['social_links'] = theme('item_list', array('type' => 'ol', 'items' => $social_links));
+
+  // Prepare misc links.
+  $misc_links_attributes = array('class' => array('site-footer__misc_link'));
+  $misc_links = array();
+  $misc_links[] = l(t('Home'), '<front>', array('attributes' => $misc_links_attributes));
+
+  // Only display link to about once elife_about module has been introduced.
+  if (module_exists('elife_about')) {
+    $misc_links[] = l(t('About'), 'about', array('attributes' => $misc_links_attributes));
+  }
+
+  $misc_links[] = l(t('Submit'), 'http://submit.elifesciences.org', array(
+    'attributes' => $misc_links_attributes,
+    'external' => TRUE,
+  ));
+  $misc_links[] = l(t('Careers'), 'careers', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Labs'), 'labs', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Contact'), 'contact', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('For the press'), 'for-the-press', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Sign up for alerts'), 'alerts-and-feeds', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Downloads'), 'resources', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Annual reports'), 'annual-reports', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Who we work with'), 'who-we-work-with', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Terms & conditions'), 'terms-and-conditions-of-use', array('attributes' => $misc_links_attributes));
+  $misc_links[] = l(t('Privacy policy'), 'privacy-policy', array('attributes' => $misc_links_attributes));
+  $variables['misc_links'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $misc_links,
+    'attributes' => array('class' => array('site-footer__misc_links')),
+  ));
+
+  // Prepare section links.
+  $section_links_attributes = array('class' => array('site-footer__misc_link'));
+  $section_links = array(
+    array(
+      'data' => l(t('Research articles'), 'category/research-article', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--research'),
+    ),
+    array(
+      'data' => l(t('Short reports'), 'category/short-report', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--short'),
+    ),
+    array(
+      'data' => l(t('Tools and resources'), 'category/tools-and-resources', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--tools'),
+    ),
+    array(
+      'data' => l(t('Research advances'), 'category/research-advance', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--advance'),
+    ),
+    array(
+      'data' => l(t('Reproducibility Project'), 'collections/reproducibility-project-cancer-biology', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--reproducibility-project'),
+    ),
+    array(
+      'data' => l(t('Editorials'), 'category/editorial', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--editorials'),
+    ),
+    array(
+      'data' => l(t('Insights'), 'category/insight', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--insights'),
+    ),
+    array(
+      'data' => l(t('Features'), 'category/feature-article', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--features'),
+    ),
+    array(
+      'data' => l(t('Podcasts'), 'podcast', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--podcasts'),
+    ),
+  );
+
+  // Only display link to elife-news once elife_news module has been introduced.
+  if (module_exists('elife_news')) {
+    $section_links[] = array(
+      'data' => l(t('eLife news'), 'elife-news', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--news'),
+    );
+  }
+  $variables['section_links'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $section_links,
+    'attributes' => array('class' => array('site-footer__section_links')),
+  ));
+
+  // Prepare output of footer by passing variables to elife_footer template.
+  return theme('elife_footer', $variables);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function elife_footer_block_info() {
+  $blocks['elife_footer'] = array(
+    'info' => t('eLife: Footer'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function elife_footer_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_footer':
+      return array('subject' => NULL, 'content' => elife_footer_footer_load());
+
+  }
+}

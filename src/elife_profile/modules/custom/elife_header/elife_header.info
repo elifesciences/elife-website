@@ -1,0 +1,6 @@
+name = eLife - header
+description = Feature to store the assets to prepare site wide header.
+core = 7.x
+package = eLife
+stylesheets[all][] = css/header.css
+files[] = elife_header.module

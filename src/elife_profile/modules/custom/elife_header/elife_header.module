@@ -1,0 +1,287 @@
+<?php
+/**
+ * @file
+ * Code for the eLife - header feature.
+ */
+
+// @todo - elife - nlisgo - remove menu-elife-bar-menu from site in cleanup
+
+/**
+ * Implements hook_theme().
+ */
+function elife_header_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $path = drupal_get_path('module', 'elife_header');
+    $templates = array(
+      'elife_header' => array(
+        'variables' => array(
+          'identity' => NULL,
+          'header_li' => NULL,
+          'header_li_section' => NULL,
+          'header_li_category' => NULL,
+        ),
+        'template' => 'elife_header',
+        'path' => $path . '/templates',
+      ),
+    );
+    return $templates;
+  }
+}
+
+/**
+ * Function to prepare the header output.
+ *
+ * @return string
+ *   Header html
+ */
+function elife_header_header_load() {
+  $variables = array();
+  $path = drupal_get_path('module', 'elife_header');
+
+  // eLife Labs landing page uses a different header logo.
+  if (current_path() == 'labs') {
+    $elife_logo = theme_image(
+      array(
+        'path' => $path . '/images/elife-identity-header-labs.png',
+        'alt' => t('eLife Labs'),
+        'attributes' => array(),
+      )
+    );
+  }
+  else {
+    $elife_logo = theme_image(
+      array(
+        'path' => $path . '/images/elife-identity-header.jpg',
+        'alt' => t('eLife'),
+        'attributes' => array(),
+      )
+    );
+  }
+  $elife_logo_linkattrs = array(
+    'attributes' => array(
+      'class' => array('header__identity'),
+    ),
+    'html' => TRUE,
+  );
+
+  $is_coverpage = FALSE;
+  if ($panel_page = page_manager_get_current_page()) {
+    $is_coverpage = ($panel_page['name'] == 'page-elife_coverpage') && drupal_is_front_page();
+  }
+
+  // On the coverpage we need to wrap the header logo with H1 for SEO purposes.
+  if ($is_coverpage) {
+    $slogan = variable_get('site_slogan');
+    if (empty($slogan)) {
+      $slogan = 'eLife';
+    }
+    else {
+      $slogan = 'eLife - ' . $slogan;
+    }
+    $elife_logo_span = '<span class="off-screen">' . $slogan . '</span>';
+    $elife_logo_h1 = '<h1>' . $elife_logo_span . $elife_logo . '</h1>';
+    $elife_logo_link = l($elife_logo_h1, '<front>', $elife_logo_linkattrs);
+  }
+  else {
+    $elife_logo_link = l($elife_logo, '<front>', $elife_logo_linkattrs);
+  }
+  $variables['identity'] = $elife_logo_link;
+
+  $header_li_ol_class = array('header__list');
+  $header_li_a_class = array('header__list_link');
+  $header_li_class = array('header__list_item');
+  $header_li = array();
+  $header_li[] = array(
+    'data' => l(t('About'), 'about', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--about'))))),
+    'class' => $header_li_class,
+  );
+  $header_li[] = array(
+    'data' => l(t('Careers'), 'careers', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--careers'))))),
+    'class' => $header_li_class,
+  );
+  $header_li[] = array(
+    'data' => l(t('Labs'), 'labs', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--labs'))))),
+    'class' => $header_li_class,
+  );
+  $header_li[] = array(
+    'data' => l(t('<div>Submit</div>'), 'http://submit.elifesciences.org/', array(
+      'attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--submit'))),
+      'html' => TRUE,
+    )),
+    'class' => $header_li_class,
+  );
+  $header_li[] = array(
+    'data' => l(t('Search'), 'elife/search', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--search'))))),
+    'class' => $header_li_class,
+  );
+  $variables['header_li'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $header_li,
+    'attributes' => array('class' => $header_li_ol_class),
+    'div_class' => 'no',
+  ));
+
+  $header_li_section_a_class = array('header__list_secondary_item_link', 'header__list_secondary_item_link--section');
+  $header_li_section_class = array('header__list_secondary_item');
+  $header_li_section = array();
+  $header_li_section[] = array(
+    'data' => l(t('Research articles'), 'category/research-article', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('research'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Short reports'), 'category/short-report', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('short'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Tools and resources'), 'category/tools-and-resources', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('tools'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Research advances'), 'category/research-advance', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('advance'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Reproducibility Project'), 'collections/reproducibility-project-cancer-biology', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('reproducibility-project'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Editorials'), 'category/editorial', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('editorials'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Insights'), 'category/insight', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('insights'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Features'), 'category/feature-article', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('features'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('Podcasts'), 'podcast', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('podcasts'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
+    'data' => l(t('eLife News'), 'elife-news', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('news'))))),
+    'class' => $header_li_section_class,
+  );
+  $variables['header_li_section'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $header_li_section,
+    'attributes' => array('class' => array('header__list_secondary--section')),
+    'div_class' => 'no'
+  ));
+
+  $header_li_category_a_class = array('header__list_secondary_item_link', 'header__list_secondary_item_link--category');
+  $header_li_category_class = array('header__list_secondary_item');
+  $header_li_category = array();
+  $header_li_category[] = array(
+    'data' => l(t('All categories'), 'major-subject-areas', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => $header_li_category_class,
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Biochemistry'), 'category/biochemistry', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Biophysics and structural biology'), 'category/biophysics-and-structural-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Cancer biology'), 'collections/reproducibility-project-cancer-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Cell biology'), 'category/cell-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Computational and systems biology'), 'category/computational-and-systems-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Developmental biology and stem cells'), 'category/developmental-biology-and-stem-cells', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Ecology'), 'category/ecology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Epidemiology and global health'), 'category/epidemiology-and-global-health', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Genes and chromosomes'), 'category/genes-and-chromosomes', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Genomics and evolutionary biology'), 'category/genomics-and-evolutionary-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Human biology and medicine'), 'category/human-biology-and-medicine', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Immunology'), 'category/immunology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Microbiology and infectious disease'), 'category/microbiology-and-infectious-disease', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Neuroscience'), 'category/neuroscience', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $header_li_category[] = array(
+    'data' => l(t('Plant biology'), 'category/plant-biology', array('attributes' => array('class' => $header_li_category_a_class))),
+    'class' => array_merge($header_li_category_class, array('hidden')),
+  );
+  $variables['header_li_category'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $header_li_category,
+    'attributes' => array('class' => array('header__list_secondary--category')),
+    'div_class' => 'no',
+  ));
+
+  // Prepare output of header by passing variables to elife_header template.
+  return theme('elife_header', $variables);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function elife_header_block_info() {
+  $blocks = array();
+  $blocks['elife_header'] = array(
+    'info' => t('eLife: Header'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function elife_header_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_header':
+      return array('subject' => NULL, 'content' => elife_header_header_load());
+
+  }
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function elife_header_page_alter(&$page) {
+  if (!path_is_admin(current_path())) {
+    $path = drupal_get_path('module', 'elife_header');
+    drupal_add_css($path . '/css/header.css', array('group' => -100));
+    drupal_add_js($path . '/js/elife_header.js', array('scope' => 'footer'));
+    $page['page_top']['elife_header'] = array(
+      '#markup' => elife_header_header_load(),
+    );
+  }
+}
