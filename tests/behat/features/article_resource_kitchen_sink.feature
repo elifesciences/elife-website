@@ -1,3 +1,4 @@
+@develop @kitchen-sink
 Feature: Article Resource - Kitchen sink (API)
   In order to maintain article content
   As a production system
