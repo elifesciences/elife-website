@@ -147,6 +147,14 @@ function elife_front_matter_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'elife_front_matter' => array(
+      'name' => t('eLife Front Matter'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
   );
   drupal_alter('node_info', $items);
   return $items;
