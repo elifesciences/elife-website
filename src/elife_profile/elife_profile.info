@@ -81,6 +81,8 @@ dependencies[] = semanticviews
 dependencies[] = jquery_update
 dependencies[] = omega_tools
 dependencies[] = entityqueue
+dependencies[] = imagecache_actions
+dependencies[] = imagecache_coloractions
 
 ; Install Features
 dependencies[] = features

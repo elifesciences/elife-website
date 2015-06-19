@@ -38,6 +38,8 @@ projects:
     version: '1.5'
   google_analytics:
     version: '2.1'
+  imagecache_actions:
+    version: '1.5'
   imce:
     version: '1.9'
   jquery_update:
