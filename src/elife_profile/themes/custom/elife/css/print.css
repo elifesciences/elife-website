@@ -1,0 +1,79 @@
+/* This file will hold the print styles for your website. */
+
+/* -----------------------------------*/
+/* ---------->>> PRINT <<<-----------*/
+/* -----------------------------------*/
+
+  .tabs,
+  .panel-region-sidebar-top,
+  .zone-header-wrapper,
+  .top-wrapper,
+  .sidebar-wrapper,
+  .region-header-first,
+  #section-content .ctools-toggle,
+	#fig-data .group .elife-fig-data-title-jump-link a,
+  #section-content div.highwire-markup .table-inline .callout,
+  #section-content .highwire-markup .elife-figure-links,
+  #section-header,
+  #section-footer #footer-logos,
+  #section-footer #region-footer-second {
+    display: none;
+    visibility: hidden;
+  }
+  
+  #section-content .ctools-collapsible-content {
+		margin: 0;
+  }
+ 
+  
+  #section-content .elife-reflink-indicators-left .elife-reflink-indicator-number {
+  	color: #444;
+  	font-size: 1em;
+  	position: relative;
+  	 left: -0.25cm;
+  }
+  
+  #section-content #fig-data .group .elife-fig-data-title-jump-link::before {
+  	content: "";
+  	margin: 0;
+  }
+  
+  #section-content #fig-data .group h2 {
+  	background: none;
+  	color: #565656;
+  	padding-left: 0;
+  }
+  
+  
+  #section-content #fig-data .group > .item-list > ul > li,
+  #section-content #fig-data .group > div.highwire-markup, 
+  #section-content #fig-data .group .section {
+  	margin-left: 0;
+  	margin-right: 0;
+  }
+  
+  #section-content #fig-data .group .elife-fig-data-title-jump-link,
+  #section-content div.highwire-markup .article div.section h2,
+  #section-content div.highwire-markup .article div.section h3, 
+	#section-content div.highwire-markup .article div.section h4,
+  h2.pane-title {
+  	color: #565656;
+  	margin-left: 0;
+  }
+  
+  #section-content .elife-reflink-indicators-left .elife-reflink-indicator-number span {
+  	color: #565656;
+  }
+  
+	#section-content .fig-inline-img-set .fig-inline-img,
+	#section-content .fig-inline-img-set .fig-inline-img a.figure-expand-popup,
+	#section-content .fig-inline-img-set .fig-inline-img a.figure-expand-popup img {
+		border: 0;
+		display: block;
+	}
+  
+  #section-content .fig-inline-img-set .fig-inline-img a.figure-expand-popup img {
+  	border: 1px solid #ccc;
+  	max-width: 100%;
+  	margin-bottom: 40mm;
+  }

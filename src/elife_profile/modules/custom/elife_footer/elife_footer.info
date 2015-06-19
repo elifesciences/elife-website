@@ -1,0 +1,13 @@
+name = eLife - footer
+description = Feature to store the assets to prepare site wide footer.
+core = 7.x
+package = eLife
+php = 5.2.4
+dependencies[] = context
+dependencies[] = features
+stylesheets[all][] = css/footer.css
+features[context][] = elife_footer
+features[ctools][] = context:context:3
+features[features_api][] = api:1
+files[] = elife_footer.module
+project path = profiles/elife_profile/modules/custom

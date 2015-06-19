@@ -53,6 +53,39 @@ Feature: Article Resource - Citations (API)
               "source": "International journal of systematic and evolutionary microbiology",
               "doi": "10.1099/ijs.0.64728-0"
             },
+            "bib54": {
+              "authors": [
+                {
+                  "group-type": "author",
+                  "surname": "King",
+                  "given-names": "N"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Young",
+                  "given-names": "SL"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Abedin",
+                  "given-names": "M"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Carr",
+                  "given-names": "M"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Leadbeater",
+                  "given-names": "BSC"
+                }
+              ],
+              "year": "2009",
+              "title": "Starting and maintaining Monosiga brevicollis cultures",
+              "source": "Cold Spring Harbor protocols",
+              "comment": "pdb.prot5148"
+            },
             "bib96": {
               "authors": [
                 {
@@ -107,6 +140,39 @@ Feature: Article Resource - Citations (API)
               "title": "Chimaereicella boritolerans sp nov., a boron-tolerant and alkaliphilic bacterium of the family Flavobacteriaceae isolated from soil",
               "source": "International journal of systematic and evolutionary microbiology",
               "doi": "10.1099/ijs.0.64728-0"
+            },
+            "bib54": {
+              "authors": [
+                {
+                  "group-type": "author",
+                  "surname": "King",
+                  "given-names": "N"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Young",
+                  "given-names": "SL"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Abedin",
+                  "given-names": "M"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Carr",
+                  "given-names": "M"
+                },
+                {
+                  "group-type": "author",
+                  "surname": "Leadbeater",
+                  "given-names": "BSC"
+                }
+              ],
+              "year": "2009",
+              "title": "Starting and maintaining Monosiga brevicollis cultures",
+              "source": "Cold Spring Harbor protocols",
+              "comment": "pdb.prot5148"
             },
             "bib96": {
               "authors": [

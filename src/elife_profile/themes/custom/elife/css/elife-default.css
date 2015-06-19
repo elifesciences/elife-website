@@ -1,0 +1,779 @@
+/**
+ * This file is loaded for Normal+ breakpoints or medium-large.
+ */
+
+
+body {
+  font-size:14px; /* define here instead of elife-text for media query purposes */
+  line-height: 1.71em;
+
+  /* Gradient permalink:
+      http://www.colorzilla.com/gradient-editor/#dfdddd+20,f1f1f1+100;Custom */
+  background: url('../i/bg.png') left top repeat-x fixed #f1f1f1; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIyMCUiIHN0b3AtY29sb3I9IiNkZmRkZGQiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZjFmMWYxIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+  background: -moz-linear-gradient(top,  #dfdddd 20%, #f1f1f1 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(20%,#dfdddd), color-stop(100%,#f1f1f1)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #dfdddd 20%,#f1f1f1 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #dfdddd 20%,#f1f1f1 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #dfdddd 20%,#f1f1f1 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #dfdddd 20%,#f1f1f1 100%); /* W3C */
+
+  background-attachment: fixed;
+  background-color: #f1f1f1;
+  background-repeat: no-repeat;
+  /* Adjust bg size to keep gradient at a set height */
+  -webkit-background-size: 200% 600px;
+          background-size: 200% 600px;
+}
+body.front .block-jnl-elife-responsive-bar {
+  display:none;
+}
+
+div.highwire-markup p {
+  line-height: 1.75em; /* ~24px */
+  margin-bottom: 10px;
+}
+h1, h2 {
+  font-size: 2em; /* ~28px */
+}
+.form-checkboxes .form-item, .form-radios .form-item {
+  margin-bottom:.4em;
+}
+
+
+/**
+ * Structure
+ */
+
+/* min-height on #region-header-second so breadcrumb is aligned properly */
+#region-header-second {
+  min-height: 1px;
+}
+
+/* User Menu on home page */
+.front #block-panels-mini-jnl-elife-user-menu .links li {
+  display: block;
+  margin-right: 0;
+}
+
+#zone-header {
+  margin-bottom: 1.8em;
+}
+.no-panels-page #zone-content .region-inner,
+.panels-page #zone-content .panel-display .panel-panel .inside {
+  padding: 25px;
+}
+
+.panels-page #zone-content .elife-article-layout .panel-region-content-top .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-main .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-side-second .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-top-side-third .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-middle .inside {
+  padding: 0;
+}
+
+#zone-content .panel-separator {
+  margin: 15px 0 14px;
+  clear:both;
+}
+
+/**
+ * PAGE STRUCTURE
+ */
+#zone-content {
+  background:transparent;
+  padding:0px;
+}
+.no-panels-page #zone-content .region,
+.panels-page #zone-content .panel-display .panel-panel {
+  background-color: #FFFFFF;
+  margin-bottom: 10px;
+
+  /* CSS3 box shadow */
+  -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+          box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
+
+.no-panels-page #zone-content .region-inner,
+.panels-page #zone-content .panel-display .panel-panel .inside {
+  padding: 25px;
+}
+
+
+/* remove default box styling for select panel regions, and nested panels */
+.panels-page #zone-content .panel-display .panel-panel .panel-panel,
+.panels-page #zone-content .elife-article-layout .panel-region-content-top {
+  background: transparent;
+  margin-bottom: 0;
+
+  /* CSS3 box shadow */
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.panels-page #zone-content .elife-article-layout .panel-region-content-top .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-main .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-side-second .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-top-side-third .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-middle .inside {
+  padding: 0;
+}
+
+
+
+/* Home page panels layout */
+/* remove bottom margin on home page -> top-side-third region bc of equal heights */
+/*.panels-page #zone-content .panel-display#elife-home-page .panel-panel.panel-region-top-side-third { margin-bottom: 0; }*/
+
+/* position featured items list */
+#elife-home-page .elife-home-featured-wrapper .elife-home-featured-items {
+  position: absolute;
+   bottom: 10px;
+}
+
+/**
+ * Utility classes, similar to Bootstrap/Foundation.
+ * TODO: Replace with Bootstrap.
+ */
+
+.visible-small {
+  display:none;
+}
+
+.hidden-small,
+ul.links.hidden-small {
+  display:block;
+}
+/* Remove panel-separator border for visible-small elements */
+.visible-small + .panel-separator {
+  display:none;
+}
+.hidden-small + .panel-separator {
+  display:block;
+}
+#zone-content .pane-elife-article-doi + .panel-separator {
+  background-color:#DFDDDD;
+}
+
+/**
+ * Ajax tabs
+ */
+ul.panels-ajax-tab li {
+  display: inline-block;
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  position: relative;
+
+  /* CSS3 box shadow */
+  -webkit-box-shadow: 0px 0px 5px 0px #BBB;
+          box-shadow: 0px 0px 5px 0px #BBB;
+}
+ul.panels-ajax-tab li.last {
+  margin: 0;
+}
+
+ul.panels-ajax-tab li a {
+  background: #8e8e8f;
+  color: #fff;
+  display: inline-block;
+  padding: 0.3em 1em 0.2em;
+  width:auto;
+  text-align:left;
+  border:none;
+  border-radius:0;
+  -webkit-transition: background-color 200ms ease-in, color 200ms ease-in;
+     -moz-transition: background-color 200ms ease-in, color 200ms ease-in;
+      -ms-transition: background-color 200ms ease-in, color 200ms ease-in;
+       -o-transition: background-color 200ms ease-in, color 200ms ease-in;
+          transition: background-color 200ms ease-in, color 200ms ease-in;
+}
+ul.panels-ajax-tab li a:hover {
+   background: #a5a5a6;
+}
+
+ul.panels-ajax-tab li.active {
+  z-index: 5;
+
+  /* CSS3 box shadow */
+  -webkit-box-shadow: 0px 0px 5px 0px #AAAAAA;
+          box-shadow: 0px 0px 5px 0px #AAAAAA;
+}
+ul.panels-ajax-tab li.active a {
+  background: #fff;
+  color: #6d6e70;
+  border-bottom: 10px solid #fff;
+  margin-bottom: -10px;
+}
+
+
+/**
+ * FIGURES & TABLES
+ */
+div.highwire-markup .table-inline .callout {
+  margin: 8px 0;
+  position: absolute;
+  right: 0;
+  top: 15px;
+}
+div.highwire-markup .table-inline .callout-links li {
+  float:none;
+  margin-bottom:0px
+}
+
+
+#fig-data .group > .item-list > ul > li {
+  margin: 0 30px 30px 30px;
+}
+
+#fig-data .group > div.highwire-markup,
+#fig-data .group .section {
+  margin: 0 30px 0 30px;
+}
+
+/* Images on highwire-fragment node page */
+img.elife-embed-fragment-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 80%;
+}
+
+/* Default image fig-expansions */
+.fig-inline-img-set {
+  border-bottom: 1px solid #dfdddd;
+  margin-bottom: 25px;
+  margin-top: 20px;
+  padding-bottom: 15px;
+}
+
+.fig-inline-img-set .fig-inline-img {
+  border: 1px solid #dfdddd;
+  height: 440px;
+  display: table;
+  width: 100%;
+}
+
+.boxed-text .fig-inline-img-set .fig-inline-img {
+  height: auto;
+  table-layout: fixed;
+}
+
+.fig-inline-img-set .fig-inline-img:hover {
+  border: 1px solid #dfdddd;
+}
+
+.fig-inline-img-set .fig-inline-img a.figure-expand-popup {
+  display: table-cell;
+  height: 440px;
+  overflow: hidden;
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.boxed-text .fig-inline-img-set .fig-inline-img a.figure-expand-popup {
+  display: table-cell;
+  height: auto;
+  overflow: auto;
+  padding: 0;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.fig-inline-img-set .fig-inline-img img {
+  display: inline;
+  height: auto;
+  margin: 0 auto;
+  max-height: 420px;
+  max-width: 100%;
+  width: auto;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links,
+.elife-video-links {
+  float: right;
+  margin-top: 5px;
+}
+
+.fig-inline-img-set .fig-expansion .fig-caption {
+  margin-top: 15px;
+}
+
+
+/* Article image sets */
+.fig-inline-img-set-carousel,
+.fig-inline-img-set-carousel .fig-inline-img {
+  display: table;
+  width: 100%;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-wrapper,
+.fig-inline-img-set-carousel .elife-fig-image-caption-wrapper {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.fig-inline-img-set-carousel .fig-expansion .fig-caption {
+  margin-left: -92px; /* 82px carousel width + 10px padding */
+}
+
+/* vertical image thumbnail carousel */
+.fig-inline-img-set-carousel .elife-fig-slider-wrapper {
+  width: 82px;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider { padding-right: 10px; }
+
+.fig-inline-img-set-carousel .elife-fig-slider-primary,
+.fig-inline-img-set-carousel .elife-fig-slider-secondary {
+  border: 1px solid #dfdddd;
+  cursor: pointer;
+  height: 80px;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  width: 80px;
+  float:none;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-secondary {
+  height: 60px;
+  width: 60px;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-img {
+  text-align: center;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-img:hover,
+.fig-inline-img-set-carousel .elife-fig-slider-img.active-icon {
+  border: 1px solid #22a0d8;
+}
+
+.fig-inline-img-set-carousel .figure-carousel {
+  margin: 0 auto;
+  max-height: 288px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up,
+.fig-inline-img-set-carousel .figure-carousel-down {
+  background: url('../i/icons-fig_carousel_arrows.png') no-repeat transparent;
+  cursor: pointer;
+  height: 30px;
+  margin: 0 auto;
+  width: 60px;
+}
+.fig-inline-img-set-carousel .figure-carousel-up.button-disabled,
+.fig-inline-img-set-carousel .figure-carousel-down.button-disabled {
+  cursor: default;
+  filter: alpha(opacity=30); /* IE8 and earlier */
+  opacity: 0.3;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up,
+.fig-inline-img-set-carousel .figure-carousel-up.button-disabled:hover {
+  background-position: center -30px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up:hover {
+  background-position: center top;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-down,
+.fig-inline-img-set-carousel .figure-carousel-down.button-disabled:hover {
+  background-position: center -60px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-down:hover {
+  background-position: center bottom;
+}
+
+/**
+ * Figure links
+ */
+.fig-inline-img-set .fig-caption .elife-figure-links > span,
+div.highwire-markup .table-inline ul.callout-links,
+div.highwire-markup .table-inline .callout-links li {
+  display: inline-block;
+  width:auto;
+  text-align:left;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links > span,
+div.highwire-markup .table-inline .callout-links li {
+  border-width:0px 0px 0px 1px;
+  margin:0 0 0 10px;
+  padding:0 0 0 10px;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links > span:first-child,
+div.highwire-markup .table-inline .callout-links li:first-child {
+  border-left: 0;
+  margin-left: 0;
+
+}
+
+
+
+
+/**
+ * CTOOLS COLLAPSIBLE TOGGLES
+ */
+/* collapsible container toggle */
+.ctools-collapsible-container span.ctools-toggle,
+html.js .ctools-collapsible-container .ctools-collapsible-handle {
+  display: inline-block;
+}
+
+.ctools-collapsible-container span.ctools-toggle {
+  background: url('../i/icons-collapsible.gif') 0 -11px no-repeat transparent;
+  height: 11px;
+  margin: 10px 12px 0 17px;
+  width: 19px;
+}
+
+.elife-home-subject-switcher.ctools-collapsible-container span.ctools-toggle {
+  margin-left: 0;
+}
+.ctools-collapsible-container span.ctools-toggle-collapsed {
+  background-position: 0 0;
+}
+.ctools-collapsible-container .ctools-collapsible-handle {
+  margin-bottom: 0;
+}
+
+.ctools-collapsible-container .ctools-collapsible-content {
+  margin-left: 48px;
+  margin-right: 30px;
+  padding-top: 10px;
+}
+
+
+
+/* -----------------------------------*/
+/* ---------->>> HEADER <<<-----------*/
+/* -----------------------------------*/
+/* reduce z-index for contextual links so they don't
+    appear above the admin menu & elife bar */
+div.contextual-links-wrapper {
+  z-index: 399;
+}
+
+
+/* Bugfix for eLife lens icon breaking for layouts < 1220px */
+.pane-elife-article-lens-icon img {
+  max-width:100%;
+}
+
+
+/**
+ * Responsive Bar
+ */
+
+#mini-panel-jnl_elife_responsive_bar {
+  padding:0 5px;
+}
+#elife-searchlist-quicksearch-form a.elife-advanced-search,
+#elife-searchlist-quicksearch-form--2 a.elife-advanced-search {
+  display: block;
+  text-align: right;
+}
+
+/* Show sidebar for wider screens. */
+.panels-layout-elife_article .sidebar-wrapper {
+  display:block;
+}
+
+/**
+ * Breadcrumb
+ *
+ * Let's show all the crumbs for desktop.
+ */
+.pane-page-breadcrumb .crumb {display:inline-block;}
+.pane-page-breadcrumb .crumb .wrapper {
+  background-image: url('../i/breadcrumb-divider.png');
+}
+
+/**
+ * Categories
+ */
+ul.elife-article-categories li a {
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.3em 0.5em;
+}
+
+/**
+ * Mobile Sidebar
+ */
+.text-sizes {
+  display:block;
+}
+
+/**
+ * Footer
+ */
+.pane-menu-menu-footer-menu ul.menu ul.menu li {
+  display:inline;
+}
+.pane-menu-menu-footer-menu ul.menu ul.menu li a {
+  display:inline-block;
+  padding:0 5px;
+  border-right:solid #ccc 1px;
+}
+.pane-menu-menu-footer-menu ul.menu ul.menu li.first {
+  padding-left:0;
+}
+.pane-menu-menu-footer-menu ul.menu ul.menu li.last a {
+  border:none;
+}
+#zone-footer ul.menu a {
+  line-height:1em;
+}
+
+/**
+ * Article Author Attributes
+ */
+.elife-institutions-list {
+  display:block;
+}
+.pane-elife-article-authors .author-list {
+  font-size:1.3em;
+}
+
+/* Article References */
+.elife-reflink-title,
+.elife-reflinks-reflink {
+  margin-top: 15px;
+}
+.elife-reflink-title {
+  margin-bottom:0;
+}
+.elife-reflink-main .elife-reflink-authors,
+.highwire-article-citation .highwire-cite-authors {
+	line-height: 1.3em;
+}
+.elife-reflink-author a {
+  padding-left:0;
+}
+
+/**
+ * Article Title Icons
+ */
+#zone-content .pane-elife-article-title .elife-article-indicators > a {
+  margin-bottom:5px;
+}
+/*
+ * Article SVG
+ */
+
+#elife-article-metrics-chart svg {
+  display:inline;
+}
+.article-metrics-chart-switcher {
+  display:block;
+}
+
+/**
+ * Front page slider
+ */
+.block-panels-mini-elife-home-tagline {
+  display:block;
+}
+
+
+/**
+ * Pagers
+ */
+.elife-searchlist-pagerbar .pager li {
+  font-size: 0.86em;
+}
+.pager li a,
+.pager li.pager-current {
+  padding: 1px 4px 0;
+}
+.item-list .pager li,
+.item-list .pager ul li {
+  display: inline-block;
+  margin: 0 3px;
+}
+.pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a,
+.pager li.pager-last a {
+  background: url('../i/icons-pager_arrows.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  text-indent: -9999em;
+  padding: 0;
+  width: 14px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-first a:hover,
+.pager li.pager-previous a,
+.pager li.pager-previous a:hover,
+.pager li.pager-next a,
+.pager li.pager-next a:hover,
+.pager li.pager-last a,
+.pager li.pager-last a:hover {
+  -webkit-border-radius: 15px;
+          border-radius: 15px;
+}
+/* bg colors & positions for pager arrows */
+.pager li.pager-first a {
+  background-color: #22a0d8;
+  background-position: -1px -1px;
+}
+
+.pager li.pager-previous a {
+  background-color: #74c9ea;
+  background-position: -1px -15px;
+}
+
+.pager li.pager-next a {
+  background-color: #74c9ea;
+  background-position: 0 -29px;
+}
+
+.pager li.pager-last a {
+  background-color: #22a0d8;
+  background-position: 0 -43px;
+}
+
+/**
+ * Browse/Search Pager
+ */
+#zone-content .pane-elife-searchlist-sort + .panel-separator {
+  margin: 9px 0 10px 0;
+}
+
+#zone-content	.pane-elife-searchlist-title + .panel-separator {
+  background: transparent;
+  margin: 0;
+}
+
+.elife-searchlist-pagerbar {
+  max-width:100%;
+  margin:auto;
+  text-align:left;
+}
+
+/* pagerbar -- pager on left, # rows & result counter on right */
+.elife-searchlist-pagerbar .elife-searchlist-pagerbar-pager {
+  clear: left;
+  float: left;
+  position: relative;
+  top: -4px;
+}
+
+.elife-searchlist-pagerbar .elife-searchlist-pagerbar-rows,
+.elife-searchlist-pagerbar .elife-searchlist-pagerbar-count {
+  clear: right;
+  float: right;
+}
+
+.elife-searchlist-pagerbar-rows {
+  margin-bottom: 8px;
+}
+
+.elife-searchlist-pagerbar-rows span,
+.elife-searchlist-pagerbar-rows a {
+  display: inline-block;
+  padding: 1px 4px 0;
+  vertical-align: middle;
+}
+
+.elife-searchlist-pagerbar-rows span.elife-searchlist-pagerbar-rows-suffix {
+  padding-right: 0;
+}
+
+.elife-searchlist-pagerbar-rows a {
+  margin: 0 3px;
+}
+
+.elife-searchlist-pagerbar-rows a.selected {
+  background: #929497;
+  color: #fff;
+
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.elife-searchlist-pagerbar-count {
+  color: #929497;
+}
+
+/**
+ * Search sort
+ */
+.elife-reflinks-sortby ul.elife-reflinks-sort-tabs,
+.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li,
+.elife-searchlist-sortby ul.elife-searchlist-sort-tabs,
+.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li {
+  display: inline-block;
+  margin: 0 0 0 5px;
+  padding: 0;
+}
+
+.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li,
+.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li {
+  border-right: 1px solid #dfdddd;
+  line-height: 0.5em;
+}
+.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li.last,
+.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li.last {
+  border: 0;
+}
+.elife-reflinks-sortby .elife-reflinks-sort-tab a,
+.elife-searchlist-sortby .elife-searchlist-sort-tab a {
+  background: url('../i/icons-sort_order.gif') right top no-repeat transparent;
+  color: #6d6e70;
+  padding: 0 20px 0 5px;
+}
+
+/**
+ * Homepage
+ */
+
+.panels-page #zone-content #elife-home-page .panel-region-top-side-third .inside {
+  padding: 25px 0;
+}
+
+/* show/hide subject switcher */
+#elife-home-page .ctools-toggle-region .elife-home-subject-switcher {
+  padding-left: 10px;
+}
+
+/* Submit Work button */
+.pane-elife-home-submit a {
+  background: url('../i/icon-submit_work2.png') 25px center no-repeat #22a0d8;
+  color: #fff;
+  height: 100%;
+  text-align: right;
+
+  -webkit-transition: background-color 0.3s ease-in-out;
+     -moz-transition: background-color 0.3s ease-in-out;
+       -o-transition: background-color 0.3s ease-in-out;
+          transition: background-color 0.3s ease-in-out;
+}
+
+.pane-elife-home-submit a:hover {
+  background-color: #59b8e2;
+}
+
+.pane-elife-home-submit a span {
+  display: inline-block;
+  padding: 25px 25px 25px 92px;
+}
+
+#region-responsive-header {
+    display: block;
+}
+
+.page_header .elife-jumpto {
+    display: none;
+}

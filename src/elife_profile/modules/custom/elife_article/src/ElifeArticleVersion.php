@@ -330,7 +330,7 @@ class ElifeArticleVersion {
       /* @var EntityDrupalWrapper $keyword */
       foreach ($ewrapper->field_elife_a_keyword as $keyword) {
         $value = $keyword->field_elife_a_full_title->value();
-        $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value['value'];
+        $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value;
       }
     }
 
@@ -820,6 +820,7 @@ class ElifeArticleVersion {
         'year' => $field_cit_prefix . '_year',
         'title' => $field_cit_prefix . '_title',
         'source' => $field_cit_prefix . '_source',
+        'comment' => $field_cit_prefix . '_comment',
         'doi' => $field_cit_prefix . '_doi',
       );
       /* @var EntityDrupalWrapper $cit_wrapper */

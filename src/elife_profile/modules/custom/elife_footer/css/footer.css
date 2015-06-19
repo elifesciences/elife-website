@@ -1,0 +1,367 @@
+.site-footer h2,
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer,
+.site-footer * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.site-footer {
+  background-color: #1b1b1b;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.site-footer address {
+  margin: 0;
+}
+
+.site-footer h2 {
+  font-size: 1em;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+.site-footer ul,
+.site-footer ol {
+  margin: 0;
+  padding: 0;
+}
+
+.site-footer .item-list ul li,
+.site-footer .item-list ol li {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+.site-footer__main {
+  padding-top: 3em;
+}
+
+.site-footer__identity {
+  padding-bottom: 1.5em;
+}
+
+.site-footer__funders {
+  background-color: #383838;
+  color: #fff;
+  clear: both;
+  min-height: 110px;
+}
+
+.site-footer__funder,
+.site-footer .item-list ol li.site-footer__funder {
+  padding-left: 2em;
+}
+
+.site-footer__funder,
+.site-footer__funders_intro {
+  background-color: #383838;
+  float: left;
+}
+
+.site-footer__funders__inner {
+  width: 100%;
+  margin: auto 0;
+  font-family: 'Avenir LT W01 45 Book', sans-serif;
+  padding-top: 25px;
+}
+
+.site-footer__main,
+.site-footer__copyright-line {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.site-footer__text_and_links,
+.site-footer__social,
+.site-footer__misc_links {
+  font-family: 'Avenir LT W01 45 Book', sans-serif;
+}
+
+.site-footer__section_links {
+  font-family: normal;
+}
+
+.site-footer__statement_heading {
+  font-family: 'Avenir LT W01 85 Heavy', sans-serif;
+  padding-top: 1.5em;
+}
+
+.site-footer__social_icon {
+  display: inline-block;
+}
+
+.site-footer__social_icon,
+.site-footer .item-list ol li.site-footer__social_icon {
+  margin: 0;
+  padding: 0.875em 0 1.325em 1em;
+}
+
+.site-footer__social_twitter {
+  padding-left: 42px;
+  min-height: 25px;
+  background: url(../images/twitter-bird.png) no-repeat center left;
+}
+
+.site-footer__statement_text {
+  font-family: 'Avenir LT W01 35 Light', sans-serif;
+  color: #aaa;
+  clear: both;
+  float: none;
+  font-size: 0.875em;
+  line-height: 1.3em;
+  margin-bottom: 0;
+}
+
+.site-footer__address {
+  color: #aaa;
+  font-size: 0.875em;
+  line-height: 1.3em;
+  padding: 1.5em 0;
+}
+
+.site-footer__company-info {
+  font-family: 'Avenir LT W01 35 Light', sans-serif;
+  color: #aaa;
+  clear: both;
+  float: none;
+  font-size: 0.875em;
+  line-height: 1.3em;
+  margin-bottom: 0;
+  padding-top: 1.5em;
+}
+
+.site-footer__tel {
+  padding-top: 1.5em;
+}
+
+.site-footer__misc_link,
+.site-footer__section_link {
+  text-transform: uppercase;
+}
+
+.site-footer__misc_link,
+.site-footer__section_link {
+  font-family: 'Avenir LT W01 45 Book', sans-serif;
+  color: #fff;
+  font-size: 0.875em;
+  display: inline-block;
+  padding-bottom: 1.76em;
+}
+
+.site-footer__misc_links {
+  padding-top: 1em;
+}
+
+.site-footer .site-footer__section_links {
+  padding-top: 2em;
+}
+
+.site-footer__section_list_item,
+.site-footer .item-list ol li.site-footer__section_list_item {
+  padding-bottom: 1em;
+}
+
+.site-footer__section_list_item::before {
+  content: '\2588';
+  font-size: 0.618em;
+  display: inline-block;
+  padding-right: 1em;
+}
+
+.site-footer__section_list_item {
+  color: #273b81;
+}
+
+.site-footer__section_list_item--insights::before {
+  color: #629f43;
+}
+
+.site-footer__section_list_item--news {
+  color: #0a9dd9;
+}
+
+.site-footer__section_list_item--editorials {
+  color: #0961ab;
+}
+
+.site-footer__section_list_item--features {
+  color: #cf0c4e;
+}
+
+.site-footer__section_list_item--podcasts {
+  color: #732060;
+}
+
+.site-footer__section_list_item--research {
+  color: #273b81;
+}
+
+.site-footer__section_list_item--reproducibility-project {
+  color: #273b81;
+}
+
+/* The registered-report and replication-study types are not wanted
+ * in the footer; it's not a mistake that they're not here.
+ */
+
+.site-footer__section_list_item--advance {
+  color: #273b81;
+}
+
+.site-footer__section_list_item--tools {
+  color: #273b81;
+}
+
+.site-footer__section_list_item--short {
+  color: #273b81;
+}
+
+.site-footer__copyright-line {
+  font-family: 'Avenir LT W01 45 Book', sans-serif;
+  color: #787878;
+  background-color: #000;
+  font-size: 0.875em;
+  min-height: 4em;
+  margin: auto auto;
+  padding-top: 1.3em;
+  padding-bottom: 1.3em;
+}
+
+.site-footer a,
+.site-footer a:link,
+.site-footer a:visited {
+  color: #fff;
+  text-decoration: none;
+
+  -webkit-transition: color 0.3s ease-in-out;
+  -moz-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
+}
+
+.site-footer a:hover,
+.site-footer a:active {
+  color: #6D6E70;
+  text-decoration: none;
+}
+
+.site-footer .site-footer__copyright-line a {
+  color: #aaa;
+}
+
+.site-footer .site-footer__copyright-line a:hover {
+  color: #fff;
+}
+
+.site-footer .site-footer__funder_img img {
+  padding: 0 0 1em 0;
+  display: inline-block;
+  width: -webkit-calc(292px + 1.5em);
+  width: calc(292px + 1.5em);
+  height: -webkit-calc(50px + 1em);
+  height: calc(50px + 1em);
+  /* img width 585x100 px */
+}
+
+/* only horizontally pad funder graphic are if viewport's wide enough */
+@media only all and (min-width: 350px) {
+  .site-footer__funders {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .site-footer .site-footer__funder_img img {
+    padding-left: 1.5em;
+  }
+
+  .site-footer__funders_intro {
+    padding-left: 1em;
+  }
+}
+
+.site-footer .site-footer__funders_intro {
+  padding-top: 0;
+  font-size: 0.85em;
+}
+@media only all and (min-width: 32em) {
+  .site-footer .site-footer__funders_intro {
+    padding-top: 13px;
+    /* pixels to match the image i.e. not rel. to font */
+  }
+
+  .site-footer__funder_img img {
+    padding: 0 0 1em 1.5em;
+    display: inline-block;
+    width: -webkit-calc(439px + 1.5em);
+    width: calc(439px + 1.5em);
+    height: -webkit-calc(75px + 1em);
+    height: calc(75px + 1em);
+    /* img width 585x100 px */
+  }
+}
+
+@media only all and (min-width: 55em) {
+  .site-footer .site-footer__funders_intro {
+    padding-top: 18px;
+    /* pixels to match the image i.e. not rel. to font */
+  }
+
+  .site-footer .site-footer__funder_img img {
+    padding: 0 0 1em 1.5em;
+    display: inline-block;
+    width: -webkit-calc(585px + 1.5em);
+    width: calc(585px + 1.5em);
+    height: -webkit-calc(100px + 1em);
+    height: calc(100px + 1em);
+    /* img width 585x100 px */
+  }
+
+  .site-footer__funder,
+  .site-footer__funders_intro {
+    float: left;
+  }
+
+  .site-footer__text_and_links,
+  .site-footer__social,
+  .site-footer__misc_links,
+  .site-footer__section_links {
+    float: left;
+    width: 25%;
+  }
+
+  .site-footer__social {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  .site-footer__misc_links {
+    padding-top: 0;
+    padding-left: 1em;
+  }
+
+  .site-footer .site-footer__section_links {
+    padding-top: 0;
+  }
+
+  .site-footer__misc_link,
+  .site-footer__section_link {
+    padding-bottom: 0.618em;
+  }
+
+  .site-footer__copyright-line {
+    clear: both;
+    display: block;
+    margin: auto 0;
+    text-align: center;
+  }
+}

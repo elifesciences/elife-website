@@ -1,0 +1,84 @@
+<?php
+
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_templates_ctools_plugin_directory($owner, $plugin_type) {
+  return "plugins/$plugin_type";
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_templates_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $template_path = drupal_get_path('module', 'elife_templates') . '/templates';
+    $templates = array(
+      'elife_hero' => array(
+        'variables' => array(
+          'title' => NULL,
+          'title_detail' => NULL,
+          'identifier' => NULL,
+          'body' => NULL,
+          'details' => NULL,
+        ),
+        'template' => 'elife_hero',
+        'path' => $template_path,
+      ),
+      'elife_article_block' => array(
+        'variables' => array(
+          'identifier' => 'elife-article',
+          'section' => NULL,
+          'section_id' => NULL,
+          'title' => NULL,
+          'detail' => NULL,
+        ),
+        'template' => 'elife_article',
+        'path' => $template_path,
+      ),
+      'elife_article_detail' => array(
+        'variables' => array(
+          'identifier' => 'elife-article',
+          'summary' => NULL,
+          'author' => NULL,
+          'doi' => NULL,
+          'date' => NULL,
+          'date_machine' => NULL,
+        ),
+        'template' => 'elife_article_detail',
+        'path' => $template_path,
+      ),
+      'elife_article_repro_block' => array(
+        'variables' => array(
+          'identifier' => 'registered-report',
+          'date' => NULL,
+          'date_machine' => NULL,
+          'title' => NULL,
+          'details' => NULL,
+        ),
+        'template' => 'elife_article_repro_block',
+        'path' => $template_path,
+      ),
+      'elife_article_repro_details' => array(
+        'variables' => array(
+          'author' => NULL,
+          'source' => NULL,
+          'doi' => NULL,
+        ),
+        'template' => 'elife_article_repro_details',
+        'path' => $template_path,
+      ),
+    );
+    return $templates;
+  }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function elife_templates_theme_registry_alter(&$theme_registry) {
+  if (isset($theme_registry['views_view_unformatted'])) {
+    $theme_registry['views_view_unformatted']['path'] = drupal_get_path('module', 'elife_templates') . '/templates';
+  }
+}

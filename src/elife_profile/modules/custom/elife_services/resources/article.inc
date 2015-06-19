@@ -477,7 +477,7 @@ function _elife_services_article_update_values($article_version, $data, $new = F
 
   $article = NULL;
 
-  if (!$new && isset($data['article-id'])) {
+  if (isset($data['article-id'])) {
     $article = ElifeArticleVersion::getArticle($data['article-id']);
   }
 
@@ -569,11 +569,16 @@ function _elife_services_article_update_values($article_version, $data, $new = F
   }
 
   $ewrapper->save();
-  $versions = $art_wrapper->field_elife_a_versions->raw();
-  if (!in_array($ewrapper->nid->value(), $versions)) {
-    $versions[] = $ewrapper->nid->value();
-    $art_wrapper->field_elife_a_versions->set($versions);
+  $versions = array(
+    $ewrapper->field_elife_a_version->value() => $ewrapper->nid->value(),
+  );
+  /* @var EntityDrupalWrapper $version */
+  foreach ($art_wrapper->field_elife_a_versions as $version) {
+    $versions[$version->field_elife_a_version->value()] = $version->nid->value();
   }
+
+  krsort($versions);
+  $art_wrapper->field_elife_a_versions->set(array_values($versions));
 
   $art_wrapper->save();
 
@@ -727,6 +732,7 @@ function _elife_services_article_citation_update_values($id, $data) {
     'year' => $field_cit_prefix . '_year',
     'title' => $field_cit_prefix . '_title',
     'source' => $field_cit_prefix . '_source',
+    'comment' => $field_cit_prefix . '_comment',
     'doi' => $field_cit_prefix . '_doi',
   );
   // If title isn't set then use id.

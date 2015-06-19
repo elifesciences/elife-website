@@ -1,0 +1,33 @@
+<?php
+/**
+ * @file
+ * elife_footer.install
+ */
+
+/**
+ * Implements hook_enable().
+ */
+function elife_footer_enable() {
+
+  // Remove all blocks from "Footer First" Region
+  $query = db_update('block')
+    ->fields(array(
+      'status' => 0,
+      'weight' => 0,
+      'region' => '-1',
+      'visibility' => 0,
+      'pages' => '',
+      'cache' => -1,
+    ))
+    ->condition('region', 'footer_first')
+    ->condition('theme', 'elife')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function elife_footer_uninstall() {
+  // delete variables only needed for this module
+  variable_del('elife_footer_details');
+}

@@ -2130,7 +2130,7 @@ function elife_article_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -2177,6 +2177,46 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-elife_citation-field_elife_a_cit_comment'
+  $field_instances['node-elife_citation-field_elife_a_cit_comment'] = array(
+    'bundle' => 'elife_citation',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 17,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_cit_comment',
+    'label' => 'Comment',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'node-elife_citation-field_elife_a_cit_doi'
   $field_instances['node-elife_citation-field_elife_a_cit_doi'] = array(
     'bundle' => 'elife_citation',
@@ -2213,7 +2253,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -3683,7 +3723,7 @@ function elife_article_field_default_field_instances() {
     'label' => 'Full Title',
     'required' => 0,
     'settings' => array(
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -3752,6 +3792,7 @@ function elife_article_field_default_field_instances() {
   t('Citations');
   t('City');
   t('Collab');
+  t('Comment');
   t('Contributors');
   t('Copyright Permissions');
   t('Corresponding author');

@@ -1,0 +1,35 @@
+/* This file will hold styles that are loaded using the same media query as the wide grid. */
+
+/* Debug grid */
+.alpha-grid-debug .container-32 {
+	background: url('grid/elife_default/wide/elife-default-wide-32.png') repeat transparent;
+}
+
+/* Max-width for rotating tagline */
+.front #elife-rotating-tagline {
+	max-width: 660px;
+}
+
+/* Submit work button */
+.pane-elife-home-submit a span {
+	margin-top: 28px;
+}
+
+/* max-width for images w/o carousel */
+.fig-inline-img-set .fig-inline-img img {
+	max-width: 634px;
+}
+
+/* max-width for image set w/ carousel fig-expansion img */
+.fig-inline-img-set-carousel .fig-inline-img img {
+	max-width: 542px;
+}
+
+/* metrics tab adjustments */
+.elfie-article-metrics .elife-article-metrics-table {
+	width: 30%;
+}
+
+#elife-article-metrics-summary .elife-article-metrics-summary-date .date-string { 
+	display: inline; 
+}

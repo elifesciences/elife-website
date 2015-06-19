@@ -1,4 +1,0 @@
-name = "eLife deploy content"
-description = "Create some items such as nodes and taxonomy terms"
-core = 7.x
-package = eLife

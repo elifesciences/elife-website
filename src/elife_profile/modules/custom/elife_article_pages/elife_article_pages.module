@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Article Pages feature.
+ */
+
+include_once 'elife_article_pages.features.inc';

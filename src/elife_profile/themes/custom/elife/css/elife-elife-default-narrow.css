@@ -1,0 +1,36 @@
+/* This file will hold styles that are loaded using the same media query as the narrow grid. */
+
+/* Debug grid */
+.alpha-grid-debug .container-32 {
+	background: url('grid/elife_default/narrow/elife-default-narrow-32.png') repeat transparent;
+}
+
+/* @TODO: reduce default margins & padding */
+
+.no-panels-page #zone-content .region-inner, 
+.panels-page #zone-content .panel-display .panel-panel .inside {
+	padding: 15px 20px;
+}
+
+.panels-page #zone-content .elife-article-layout .panel-region-content-top .inside, 
+.panels-page #zone-content .elife-home-layout .panel-region-top-main .inside, 
+.panels-page #zone-content .elife-home-layout .panel-region-top-side-second .inside, 
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-top-side-third .inside, 
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-middle .inside {
+	padding: 0;
+}
+
+#zone-content .panel-separator {
+	margin: 10px 0 9px;
+}
+
+
+/* THIS WILL NEED TO CHANGE WHEN I FIX THE PADDING OF PANE REGIONS */
+/* max-width for image w/o carousel */
+.fig-inline-img-set .fig-inline-img img {
+	max-width: 319px;
+}
+/* max-width for image set w/ carousel fig-expansion img */
+.fig-inline-img-set-carousel .fig-inline-img img {
+	max-width: 227px;
+}
