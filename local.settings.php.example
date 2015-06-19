@@ -1,0 +1,17 @@
+<?php
+
+$databases = [
+  'default' =>
+    [
+      'default' =>
+        [
+          'database' => 'database',
+          'username' => 'username',
+          'password' => 'password',
+          'host' => 'localhost',
+          'port' => '',
+          'driver' => 'mysql',
+          'prefix' => '',
+        ],
+    ],
+];

@@ -8,46 +8,47 @@ mysql:
   username: root
   encoding: utf8
 
-install:
-  - sudo apt-get update > /dev/null
+before_install:
+  - sudo apt-get update
 
+install:
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-dev php-pear php5-mysql php5-xsl php5-gd php5-cli php5-cgi php5-curl php5-mcrypt libpcre3-dev > /dev/null
-  - sudo a2enmod rewrite actions alias
+
+  # Set up Apache
+  - sudo apt-get install apache2 libapache2-mod-fastcgi
+  - sudo a2enmod rewrite actions fastcgi alias
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
   # configure apache virtual hosts
-  - sudo cp -f sites/all/tests/build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   # restart the server
   - sudo service apache2 restart
   - cat /etc/apache2/sites-available/default
   - sleep 5s
 
-  # Install latest Drush 6.
+  # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --no-interaction drush/drush:6.*
+  - composer global require --no-interaction drush/drush:7.*
 
   # Build Behat dependencies
-  - cd ./sites/all/tests/behat
+  - cd ./tests/behat
   - composer install  --prefer-source --no-interaction
-  - cd ../../../..
-
-  # Setup files
-  - sudo chmod -R 777 sites/all
+  - cd ../..
 
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
-before_script:
-  # Install Profile
-  - drush si elife_profile --sites-subdir=default --db-url=mysql://root:@127.0.0.1/elife_profile --account-name=admin --account-pass=admin --site-mail=admin@example.com --site-name="eLife Install Profile" --yes
-  - drush updatedb -y || true
-  - drush cc all --yes
+  # Build site
+  - cp ./tests/build/travis.local.settings.php ./local.settings.php
+  - ./create.sh
 
 script:
   # Run behat tests
   - basedir=$PWD
-  - cd ./sites/all/tests/behat
+  - cd ./tests/behat
   - ./bin/behat --config behat.travis.yml --tags='~@develop'
   - cd $basedir
