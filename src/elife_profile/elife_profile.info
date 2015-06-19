@@ -80,6 +80,7 @@ dependencies[] = panels
 dependencies[] = semanticviews
 dependencies[] = jquery_update
 dependencies[] = omega_tools
+dependencies[] = entityqueue
 
 ; Install Features
 dependencies[] = features
@@ -90,6 +91,7 @@ dependencies[] = elife_article_pages
 dependencies[] = elife_collection
 dependencies[] = elife_config
 dependencies[] = elife_footer
+dependencies[] = elife_front_matter
 dependencies[] = elife_header
 dependencies[] = elife_podcast
 dependencies[] = elife_services
