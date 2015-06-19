@@ -140,7 +140,7 @@ function elife_profile_install_additional_modules() {
 
   $operations = array();
   // Enable and set as default the correct theme.
-  $theme = 'bartik';
+  $theme = 'elife';
   $operations[] = array('_elife_profile_enable_theme', array($theme));
   // Enable the selected modules.
   foreach ($modules_sorted as $module => $weight) {
