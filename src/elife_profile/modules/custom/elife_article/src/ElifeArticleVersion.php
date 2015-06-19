@@ -330,7 +330,7 @@ class ElifeArticleVersion {
       /* @var EntityDrupalWrapper $keyword */
       foreach ($ewrapper->field_elife_a_keyword as $keyword) {
         $value = $keyword->field_elife_a_full_title->value();
-        $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value['value'];
+        $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value;
       }
     }
 
