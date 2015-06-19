@@ -1,0 +1,3667 @@
+/* This file will hold the main styles for your website. */
+
+
+/**
+ * These are the main styles of the website, and includes default mobile styles.
+ * For wider screens, elife-elife-default.css gets appended.
+ * For even wider screens, elife-elife-default-wide.css
+ */
+
+/* ================================= */
+/* ------  TABLE of CONTENTS ------- */
+/* --------------------------------- */
+/* ------- 1. Global Styles -------- */
+/* ------- 2. Library -------------- */
+/* ------- 3. Header --------------- */
+/* ------- 4. Footer --------------- */
+/* ------- 5. Page Structure ------- */
+/* ------- 8. Navigation ----------- */
+/* ------- 9. Forms ---------------- */
+/* ------ 10. Panels --------------- */
+/* ------ 11. Views ---------------- */
+/* ------ 12. Node ----------------- */
+/* ------ 13. Misc. ---------------- */
+/* --------------------------------- */
+/* ================================= */
+
+
+/* -----------------------------------*/
+/* ---------->>> GLOBAL <<<-----------*/
+/* -----------------------------------*/
+html, body {
+  /*
+  overflow-x:hidden;
+  overflow-y: auto;
+  */
+}
+body {
+  background:#f1f1f1;
+  min-width:320px;
+  font-size: 16px; /* Bump up font size for small screens */
+  line-height: 1.5em;
+}
+
+.highwire-markup #references {
+  margin-top: -28px;
+  padding-top: 28px;
+}
+
+
+/* links */
+/**/
+a, a:link, a:visited {
+  color: #22a0d8;
+  text-decoration: none;
+
+  -webkit-transition: color 0.3s ease-in-out;
+     -moz-transition: color 0.3s ease-in-out;
+       -o-transition: color 0.3s ease-in-out;
+          transition: color 0.3s ease-in-out;
+}
+
+a:hover, a:active {
+  color: #6D6E70;
+  text-decoration: none;
+}
+
+table {
+  margin-bottom: 10px;
+}
+
+/* Lists */
+ul {
+  list-style: disc outside;
+  padding-left: 2em;
+}
+ul ul {
+  list-style: circle outside;
+  margin-bottom: 0.5em;
+}
+
+ol {
+  list-style: decimal outside;
+  padding-left: 2em;
+}
+ol ol {
+  list-style: upper-alpha outside;
+  margin-bottom: 0.5em;
+}
+ol.inline,
+ol.links.inline {
+  display: inline;
+  padding-left: 0;
+}
+ol.inline li {
+  display: inline;
+  list-style-type: none;
+  padding: 0 0.5em;
+}
+
+  .highwire-article-citation-list ul { padding-left: 0; }
+
+
+/* Other text elements */
+blockquote {
+  background: #f6f6f6;
+  border-left: 4px solid #929497;
+  margin-left: 1em;
+  margin-bottom: 1.5em;
+  padding: 0.2em 1em;
+}
+
+code {
+  background: #f6f6f6;
+  border: 1px dashed #929497;
+  display: block;
+  font-family: monospace;
+  margin-bottom: 1.5em;
+  padding: 0.2em 0.5em;
+}
+
+#messages code {
+  background: transparent;
+  border: 0;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  background: #dfdddd;
+  color: #dfdddd;
+  border: 0;
+  height: 1px;
+  width: 80%;
+}
+
+
+/* Pager */
+/* reset Omega's positioning */
+
+.item-list .pager li,
+.item-list .pager ul li { float: none; }
+
+.pager li.pager-first,
+.pager li.pager-first a,
+.pager li.pager-previous,
+.pager li.pager-previous a,
+.pager li.pager-next,
+.pager li.pager-next a,
+.pager li.pager-last,
+.pager li.pager-last a {
+  position: static;
+  width: auto;
+}
+
+/* reset Omega's colors */
+.pager,
+.pager li,
+.pager li.pager-first,
+.pager li.pager-previous,
+.pager li.pager-next,
+.pager li.pager-last,
+.pager li a {
+  background: transparent;
+  border: 0;
+}
+
+/* now apply eLife style */
+
+.item-list .pager li,
+.item-list .pager ul li {
+  display: inline-block;
+  margin: 0 6px;
+}
+  .item-list .pager li.first,
+  .item-list .pager li.pager-first { margin-left: 0; }
+  .item-list .pager li.last,
+  .item-list .pager li.pager-last { margin-right: 0; }
+
+  .item-list .pager li.pager-previous { margin-right: 8px; }
+  .item-list .pager li.pager-next { margin-left: 8px; }
+
+.pager li a,
+.pager li.pager-current {
+  padding: 1px 8px 0;
+  vertical-align: middle;
+
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.pager li a {
+  color: #22a0d8;
+}
+
+.pager li.first, .pager li.first a, .pager li.first a:hover,
+.pager li.last, .pager li.last a, .pager li.last a:hover {
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+}
+
+.pager li.pager-current {
+  background: #929497;
+  color: #fff;
+  position: relative;
+  top: 1px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a,
+.pager li.pager-last a {
+  color:#22a0d8;
+  display:inline-block;
+  font-size:1.5em;
+  padding:0px 4px 4px;
+}
+
+
+
+h1, h2 {
+  font-size: 1.6em; /* ~28px */
+}
+
+
+
+
+/* ------------------------------------*/
+/* ---------->>> LIBRARY <<<-----------*/
+/* ------------------------------------*/
+.elife-article-author-item { cursor:pointer; }
+.nlm-bold {
+  font-weight: bold;
+}
+  .author-tooltip-name .nlm-bold {
+    font-family: 'Avenir LT W01 95 Black', sans-serif;
+    font-weight: normal;
+  }
+
+.nlm-italic {
+  font-style: italic;
+}
+  .author-tooltip-name .nlm-italic {
+    font-family: 'AvenirLTW01-85HeavyObli', sans-serif;
+    font-style: normal;
+  }
+
+.underline {
+  text-decoration: underline;
+}
+
+.float-me-left {
+  float: left;
+}
+
+.float-me-right {
+  float: right;
+}
+
+
+.block-panels-mini-elife-home-tagline {
+  display:none; /* Hide for mobile */
+}
+/* rotating tagline - front page only, header first region */
+.front #zone-header {
+  padding-top: 10px;
+}
+
+#elife-rotating-tagline {
+  margin-left: -10px;
+  min-height: 50px;
+  position: relative;
+}
+
+#elife-rotating-tagline .logo-image {
+  position: absolute;
+   bottom: 0;
+   top: -8px;
+}
+
+#elife-rotating-tagline .item-list {
+  margin-left: 140px;
+}
+
+#elife-rotating-tagline .item-list .elife-tagline-list,
+#elife-rotating-tagline .item-list .elife-tagline-list li {
+  margin: 0;
+  padding: 0;
+}
+
+#elife-rotating-tagline .item-list .elife-tagline-list {
+  line-height: 40px;
+  min-height: 40px;
+  position: relative;
+}
+
+#elife-rotating-tagline .item-list .elife-tagline-list li {
+  position: absolute;
+   left: 0;
+   top: 0;
+}
+
+#elife-rotating-tagline .tagline-controls {
+  line-height: 38px;
+  position: absolute;
+    right: -35px;
+    top: 0;
+}
+
+#elife-rotating-tagline .tagline-controls a {
+  color: #b9b9ba;
+  display: inline-block;
+  padding: 0 5px;
+  vertical-align: bottom;
+}
+#elife-rotating-tagline .tagline-controls a:hover {
+  color: #929497;
+}
+
+
+/**
+ * Breadcrumb
+ *
+ * In jnl_elife_responsive_bar mini-panel, inside of header-first region.
+ * class changed from #breadcrumb to .pane-page-breadcrumb.
+ */
+
+.pane-page-breadcrumb .breadcrumbs {
+  margin-bottom: 0;
+  padding-left: 0;
+  font-size:14px;
+}
+
+.pane-page-breadcrumb .crumb,
+.pane-page-breadcrumb .crumb .wrapper,
+.pane-page-breadcrumb .crumb a {
+  display: inline-block;
+  line-height: 21px;
+  height: 21px;
+}
+
+.pane-page-breadcrumb .crumb {
+  margin: 0;
+  padding: 0;
+}
+
+/* breadcrumb links */
+.pane-page-breadcrumb .crumb .wrapper {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: right -23px;
+  color: #6d6e70;
+  margin-left: -7px;
+  padding: 0;
+  position: relative;
+  z-index: 5;
+}
+.pane-page-breadcrumb {
+  margin-left:7px; /* Adjust for negative margin */
+}
+.pane-page-breadcrumb .crumb .wrapper:hover {
+  background-color: #e9e8e7;
+  background-position: right top;
+  z-index: 4;
+}
+
+.pane-page-breadcrumb .crumb a:first-child { padding-left: 1.1em; }
+.pane-page-breadcrumb .crumb a:last-child { padding-right: 1.3em; }
+
+.pane-page-breadcrumb .crumb a,
+#region-header-second a {
+  color: #6d6e70;
+}
+.pane-page-breadcrumb .crumb a:hover,
+#region-header-second a:hover {
+  color: #000;
+}
+
+/* elife logo in breadcrumb */
+.pane-page-breadcrumb .crumb.first .wrapper {
+  margin-left: 5px;
+}
+.pane-page-breadcrumb .crumb.first a:first-child {
+  padding-left: 0;
+}
+.pane-page-breadcrumb .crumb.first a .logo {
+  background: url('../i/logo_breadcrumb_elife.png') no-repeat;
+  background-size:contain;
+  display: inline-block;
+  height: 21px;
+  width: 21px;
+  position: absolute;
+  left: -10px;
+  top: 0;
+}
+
+/* Hide extra breadcrumbs for mobile. */
+.pane-page-breadcrumb .crumb {display:none;}
+.pane-page-breadcrumb .crumb.first { display:inline-block }
+
+
+/* User menu - in region-header-second */
+#region-header-second .links li {
+  padding: 0;
+}
+
+#region-header-second .region-inner {
+  /* margin-right: 15px;*/
+  text-align: right;
+}
+
+.front #region-header-second .region-inner {
+  padding-top: 5px;
+}
+
+#region-header-second .links .last {
+  margin-right: 0;
+  padding-left: 0.05em;
+}
+
+/* move contextual links because they're over the logout button */
+#region-header-second .block-panels-mini div.contextual-links-wrapper {
+  right: -30px;
+}
+
+#zone-header {
+  /*margin-bottom: 1.8em;*/
+}
+
+
+/* Tabs */
+ul.primary {
+  border: 0;
+  font-size: 0.85em;
+  margin: 0 0 1em 0;
+  padding: 0;
+}
+
+ul.primary li a {
+  background: transparent;
+  border: 0;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+  color: #6D6E70;
+  padding: 0.25em 1em;
+
+  -webkit-transition: background-color 0.3s ease-in-out;
+     -moz-transition: background-color 0.3s ease-in-out;
+       -o-transition: background-color 0.3s ease-in-out;
+          transition: background-color 0.3s ease-in-out;
+}
+ul.primary li.active a,
+ul.primary li a:hover {
+  background: #f1f1f1;
+  border: 0;
+  color: #000;
+}
+
+
+/* -----------------------------------*/
+/* ---------->>> FOOTER <<<-----------*/
+/* -----------------------------------*/
+#zone-footer {
+  color: #929497;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+/* -------------------------------------*/
+/* ------->>> PAGE STRUCTURE <<<--------*/
+/* -------------------------------------*/
+/* Content Box styles */
+#zone-content {
+  background:#FFF;
+    padding:10px;
+}
+.no-panels-page #zone-content .region,
+.panels-page #zone-content .panel-display .panel-panel {
+  background-color: transparent;
+  margin-bottom: 10px;
+}
+
+.no-panels-page #zone-content .region-inner,
+.panels-page #zone-content .panel-display .panel-panel .inside {
+  padding: 0px;
+}
+
+/* remove default box styling for select panel regions, and nested panels */
+.panels-page #zone-content .panel-display .panel-panel .panel-panel,
+.panels-page #zone-content .elife-article-layout .panel-region-content-top {
+  background: transparent;
+  margin-bottom: 0;
+
+  /* CSS3 box shadow */
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.panels-page #zone-content .elife-article-layout .panel-region-content-top .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-main .inside,
+.panels-page #zone-content .elife-home-layout .panel-region-top-side-second .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-top-side-third .inside,
+.panels-page #zone-content .elife-home-layout .panel-panel.panel-region-middle .inside {
+  padding: 0;
+}
+
+/* Panel Separators */
+#zone-content .panel-separator {
+  background: #DFDDDD;
+  height: 1px;
+  margin: 15px 0 14px 0;
+  /*clear:both;*/
+}
+
+#zone-content .elife-article-layout .panel-region-content-top > .inside > .panel-separator {
+  background: transparent;
+  height: auto;
+  margin: 0;
+}
+
+
+/* -----------------------------------*/
+/* -------->>> NAVIGATION <<<---------*/
+/* -----------------------------------*/
+
+
+/* Icons */
+
+#region-menu .block-panels-mini .pane-title {
+  min-height: 30px;
+  position: relative;
+}
+
+#region-menu .block-panels-mini .pane-title .icon {
+  background-image: url('../i/icons_menu.png');
+  background-color: transparent;
+  background-position: -50px -50px;
+  background-repeat: no-repeat;
+  height: 24px;
+  position: absolute;
+   left: 0;
+   top: 2px;
+  width: 24px;
+
+  -webkit-transition: opacity 0.35s ease-in-out;
+     -moz-transition: opacity 0.35s ease-in-out;
+       -o-transition: opacity 0.35s ease-in-out;
+          transition: opacity 0.35s ease-in-out;
+}
+
+#region-menu .block-panels-mini .pane-title .icon.icon-hover,
+#region-menu .block-panels-mini .pane-title a:hover .icon {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+#region-menu .block-panels-mini .pane-title a:hover .icon.icon-hover {
+  filter: none;
+  opacity: 1;
+}
+
+/* Items w/ no icon */
+#region-menu .panel-pane.no-title-icon .pane-title .icon {
+  height: 0;
+}
+#region-menu .panel-pane.no-title-icon,
+#region-menu .panel-pane.no-title-icon + .panel-separator {
+  display: none;
+}
+
+
+/* Home */
+#region-menu #main-menu-links-home .pane-title a .icon {
+  background-position: 0 0;
+}
+
+#region-menu #main-menu-links-home .pane-title a .icon.icon-hover {
+  background-position: 0 -24px;
+}
+
+/* Search */
+#region-menu #main-menu-search .pane-title a .icon {
+  background-position: -24px 0;
+}
+
+#region-menu #main-menu-search .pane-title a .icon.icon-hover {
+  background-position: -24px -24px;
+}
+
+/* hide 'eLife' which is wrapped in an em tag */
+#region-menu #main-menu-search .pane-title a .title em { display: none; }
+
+
+/* About */
+#region-menu #main-menu-links-about .pane-title a .icon {
+  background-position: -48px 0;
+}
+
+#region-menu #main-menu-links-about .pane-title a .icon.icon-hover {
+  background-position: -48px -24px;
+}
+
+
+/* Alerts / Feeds */
+.page-alerts #zone-content .panel-display .panel-panel > div{
+    padding: 25px;
+}
+
+#region-menu #main-menu-links-alerts .pane-title a .icon {
+  background-position: -72px -1px;
+}
+
+#region-menu #main-menu-links-alerts .pane-title a .icon.icon-hover {
+  background-position: -72px -25px;
+}
+    /* Press */
+#region-menu #main-menu-links-press .pane-title a .icon {
+  background-position: -140px -2px;
+}
+
+#region-menu #main-menu-links-press .pane-title a .icon.icon-hover {
+  background-position: -140px -24px;
+}
+    /* podcast */
+#region-menu #main-menu-links-podcast .pane-title a .icon {
+  background-position: -94px -2px;
+}
+
+#region-menu #main-menu-links-podcast .pane-title a .icon.icon-hover {
+  background-position: -94px -24px;
+}
+    /* authors */
+#region-menu #main-menu-links-authors .pane-title a .icon {
+  background-position: -116px -1px;
+}
+
+#region-menu #main-menu-links-authors .pane-title a .icon.icon-hover {
+  background-position: -116px -24px;
+}
+.pane-menu-menu-mobile-menu .pane-title,
+.icon-menu {
+  margin:0;
+  padding:0;
+  text-align:left;
+  text-indent:-999em;
+  display:block;
+  height:20px;
+  width:20px;
+  margin-bottom:-3px;
+  overflow:hidden;
+  cursor:pointer;
+  background: url('../i/icon-mobile-menu.png') no-repeat center center;
+
+  -webkit-transition: opacity 0.35s ease-in-out;
+     -moz-transition: opacity 0.35s ease-in-out;
+       -o-transition: opacity 0.35s ease-in-out;
+          transition: opacity 0.35s ease-in-out;
+}
+
+
+
+
+/* Nested Menus (& Search form) */
+#region-menu .block-panels-mini .menu,
+#region-menu #main-menu-search .pane-content {
+  margin-left: 28px;
+  margin-right: 20px;
+}
+
+/* Panel Separators */
+#region-menu .block-panels-mini .panel-separator {
+  background: #dfdddd;
+  height: 1px;
+}
+
+/* hide pane-content for some menus */
+#region-menu .panel-pane.hide-menu-children .pane-content {
+  display: none;
+}
+
+
+/* ----------------------------------*/
+/* ---------->>> FORMS <<<-----------*/
+/* ----------------------------------*/
+.form-checkboxes .form-item, .form-radios .form-item {
+  margin-bottom:1.2em;
+}
+
+textarea, select,
+input[type="date"], input[type="datetime"],
+input[type="datetime-local"], input[type="email"],
+input[type="month"], input[type="number"],
+input[type="password"], input[type="search"],
+input[type="tel"], input[type="text"],
+input[type="time"], input[type="url"], input[type="week"] {
+  border: 1px solid #DFDDDD;
+  max-width: 100%;
+  padding: 2px 5px;
+  position: relative;
+
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+
+  -webkit-transition: border-color 0.3s ease-in-out;
+     -moz-transition: border-color 0.3s ease-in-out;
+       -o-transition: border-color 0.3s ease-in-out;
+          transition: border-color 0.3s ease-in-out;
+
+  behavior: url(/sites/default/themes/elife/css/PIE/PIE.htc);
+}
+
+/* Placeholder text */
+::-webkit-input-placeholder {
+  color: #bfbdbd;
+}
+
+input:-moz-placeholder {
+  color: #bfbdbd;
+}
+
+/* Elements w/ focus */
+button:focus, button:active,
+input:focus, input:active,
+select:focus, select:active,
+textarea:focus, textarea:active {
+  border-color: #6d6e70;
+
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+/* Buttons, yay! */
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"] {
+  background: #22a0d8;
+  border: 0;
+  color: #fff;
+  padding: 4px 10px;
+  text-shadow: none;
+
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+  -webkit-transition: background-color 0.3s ease-in-out;
+     -moz-transition: background-color 0.3s ease-in-out;
+       -o-transition: background-color 0.3s ease-in-out;
+          transition: background-color 0.3s ease-in-out;
+}
+button:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background: #59B8E2;
+}
+
+/* Custom Radio Buttons & Checkboxes */
+/* clip instead of display:none for screen reader accessibility */
+/* use #foo:checked which means nothing but prevents browsers that don't support :checked
+   (read: INTERNET EXPLORER!) from using these styles. */
+
+/* hide custom inputs by default for unsupported browsers */
+.form-type-radio label > .input-wrapper,
+.form-tyoe-checkbox label > .input-wrapper {
+  display: none;
+}
+
+.form-type-radio input[type="radio"],
+.form-type-checkbox input[type="checkbox"] {
+  position: relative;
+   top: -2px;
+}
+
+#foo:checked,
+.form-type-radio input[type="radio"],
+.form-type-checkbox input[type="checkbox"] {
+  position: absolute;
+  clip:rect(0,0,0,0);
+}
+
+#foo:checked,
+.form-type-radio label > span,
+.form-type-checkbox label > span,
+.form-type-radio label > .input-wrapper,
+.form-tyoe-checkbox label > .input-wrapper {
+  display: block;
+}
+
+#foo:checked,
+.form-type-radio label .label-wrapper,
+.form-type-checkbox label .label-wrapper {
+  margin-left: 22px;
+}
+
+#foo:checked,
+.form-type-radio input[type="radio"] + label .input-wrapper,
+.form-type-checkbox input[type="checkbox"] + label .input-wrapper {
+  background: url('../i/icons-form_radio.png') 0 0 no-repeat transparent;
+  float: left;
+  height: 12px;
+  margin-right: 10px;
+  margin-top: 2px;
+  overflow: hidden;
+  width: 12px;
+}
+
+#foo:checked,
+.form-type-checkbox input[type="checkbox"] + label .input-wrapper {
+  background-image: url('../i/icons-form_checkbox.png');
+  margin-right: 9px;
+  width: 13px;
+}
+  /* various form states (default, checked, disabled, active, focus) */
+  /* default + checked */
+  #foo:checked,
+  .form-type-radio input[type="radio"]:checked + label .input-wrapper,
+  .form-type-checkbox input[type="checkbox"]:checked + label .input-wrapper {
+    background-position: 0 -12px;
+  }
+
+  /* focus + unchecked */
+  #foo:checked,
+  .form-type-radio input[type="radio"]:focus + label .input-wrapper,
+  .form-type-checkbox input[type="checkbox"]:focus + label .input-wrapper {
+    background-position: 0 -48px;
+  }
+
+  /* focus + checked */
+  #foo:checked,
+  .form-type-radio input[type="radio"]:focus:checked + label .input-wrapper,
+  .form-type-checkbox input[type="checkbox"]:focus:checked + label .input-wrapper {
+    background-position: 0 -60px;
+  }
+
+  /* active + unchecked */
+  #foo:checked,
+  .form-type-radio input[type="radio"]:active + label .input-wrapper,
+  .form-type-radio input[type="radio"] + label:active .input-wrapper,
+  .form-type-checkbox input[type="checkbox"]:active + label .input-wrapper,
+  .form-type-checkbox input[type="checkbox"] + label:active .input-wrapper {
+    background-position: 0 -24px;
+  }
+
+  /* active + checked */
+  #foo:checked,
+  .form-type-radio input[type="radio"]:active:checked + label .input-wrapper,
+  .form-type-checkbox input[type="checkbox"]:active:checked + label .input-wrapper {
+    background-position: 0 -36px;
+  }
+
+  /* disabled + unchecked */
+  #foo:checked,
+  .form-type-radio.form-disabled input[type="radio"] + label .input-wrapper,
+  .form-type-checkbox.form-disabled input[type="checkbox"] + label .input-wrapper {
+    background-position: 0 -72px;
+  }
+
+  /* disabled + checked */
+  #foo:checked,
+  .form-type-radio.form-disabled input[type="radio"]:checked + label .input-wrapper,
+  .form-type-checkbox.form-disabled input[type="checkbox"]:checked + label .input-wrapper {
+    background-position: 0 -84px;
+  }
+
+  #foo:checked,
+  .form-type-radio.form-disabled label .label-wrapper,
+  .form-type-checkbox.form-disabled label .label-wrapper {
+    color: #babcc0;
+  }
+
+/* Search block form & searchlist page's search form */
+#elife-searchlist-quicksearch-form .form-item-keys,
+#elife-searchlist-quicksearch-form--2 .form-item-keys {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+#elife-searchlist-quicksearch-form input.form-text,
+#elife-searchlist-quicksearch-form--2 input.form-text {
+  height: 26px;
+  padding-right: 24px;
+  width: 100%;
+
+}
+
+
+#elife-searchlist-quicksearch-form > div,
+#elife-searchlist-quicksearch-form--2 > div {
+  position: relative;
+}
+
+#elife-searchlist-quicksearch-form .form-submit,
+#elife-searchlist-quicksearch-form--2 .form-submit {
+  background: url('../i/button-search.png') center center no-repeat #dfdddd;
+  border: 0;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+   right: 3px;
+   top: 3px;
+  text-indent: -999em;
+  width: 19px;
+  z-index: 5;
+
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+
+
+#elife-searchlist-quicksearch-form .form-submit:hover,
+#elife-searchlist-quicksearch-form .form-submit:focus,
+#elife-searchlist-quicksearch-form--2 .form-submit:hover,
+#elife-searchlist-quicksearch-form--2 .form-submit:focus {
+  background-color: #22a0d8;
+}
+
+@-moz-document url-prefix() {
+  #elife-searchlist-quicksearch-form .form-submit,
+  #elife-searchlist-quicksearch-form--2 .form-submit {
+    top: 2px;
+  }
+}
+
+#elife-archive-goto-form .form-item {
+  margin-top: 0;
+}
+
+body.page-archive #zone-content h1,
+body.page-archive .form-item-elife-archive-month,
+body.page-archive .form-item-elife-archive-month label,
+body.page-archive .form-item-elife-archive-month #edit-elife-archive-month,
+body.page-archive #elife-archive-goto-form #edit-submit-button {
+  float: left;
+}
+
+body.page-archive .form-item-elife-archive-month label {
+  margin-right: 0.8em;
+}
+
+body.page-archive #elife-archive-goto-form #edit-submit-button {
+  margin-left: 0.8em;
+}
+
+body.page-archive #edit-elife-archive-month {
+  padding-right: 1.5em;
+}
+
+body.page-archive #zone-content #elife-archive-goto-form {
+  float: right;
+}
+
+
+/* -----------------------------------*/
+/* ---------->>> PANELS <<<-----------*/
+/* -----------------------------------*/
+/* remove left margin on the first column in each row
+   and right margin on the last column in each row
+   in order for the grid to fit properly */
+.panels-960-layout .col-first {
+  margin-left: 0;
+}
+.panels-960-layout .col-last {
+  margin-right: 0;
+}
+
+
+/**
+ * Default Mobile Panels Ajax Tab Styles
+ */
+.panels-ajax-tab-panel img.loading {
+  margin-top: 5px;
+}
+
+ul.panels-ajax-tab {
+  margin:0 auto;
+}
+
+ul.panels-ajax-tab li {
+  display: inline-block;
+  margin: .5em 1em .75em 0;
+  padding: 0;
+
+  /* CSS3 box shadow */
+  /*
+  -webkit-box-shadow: 0px 0px 5px 0px #BBB;
+          box-shadow: 0px 0px 5px 0px #BBB;
+          */
+}
+ul.panels-ajax-tab li.last {
+  margin: 0;
+}
+
+ul.panels-ajax-tab li a {
+  background: #f7f7f7;
+  color: #6d6e70;
+  display: inline-block;
+  padding: .75em .75em;
+  width:110px;
+  text-align:center;
+  border:solid 1px #e4e4e4;
+  border-radius:3px;
+  -webkit-transition: background-color 200ms ease-in, color 200ms ease-in;
+     -moz-transition: background-color 200ms ease-in, color 200ms ease-in;
+      -ms-transition: background-color 200ms ease-in, color 200ms ease-in;
+       -o-transition: background-color 200ms ease-in, color 200ms ease-in;
+          transition: background-color 200ms ease-in, color 200ms ease-in;
+}
+/* TODO: move into separate media query stylesheet */
+@media (max-width: 380px) {
+  ul.panels-ajax-tab li,
+  ul.panels-ajax-tab li a {
+    padding:.5em;
+    margin:0;
+  }
+}
+
+
+ul.panels-ajax-tab li a:hover {
+   /*background: #a5a5a6;*/
+
+
+}
+
+ul.panels-ajax-tab li.active a {
+  background: #8e8e8f;
+  color:#fff;
+}
+
+
+/* Home Page */
+/* Setup initial state with css */
+#elife-rotating-tagline .item-list .elife-tagline-list li { display: none; }
+#elife-rotating-tagline .item-list .elife-tagline-list li.first { display: block; }
+
+/* featured articles */
+#elife-home-page .panel-region-top-main,
+.elife-home-featured-wrapper .elife-home-featured-column-left h2 {
+  position: relative;
+}
+
+.pane-elife-home-featured,
+.pane-elife-home-featured .pane-content,
+#elife-home-page .panel-region-top-main .inside,
+#elife-home-page .panel-region-top-main .bg-container {
+  height: 100%;
+  -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+}
+
+#elife-home-page .panel-region-top-main .bg-container {
+  position: absolute;
+   left: 0;
+   top: 0;
+  width: 100%;
+}
+
+#elife-home-page .elife-home-featured-wrapper .elife-home-featured-column-left {
+  position: static;
+}
+
+.pane-elife-home-featured .pane-content {
+  position: relative;
+}
+
+.pane-elife-home-featured .pane-content .elife-home-featured-active-credit {
+  filter: alpha(opacity=90);
+  opacity: 0.9;
+  padding: 0 15px 10px 0;
+  position: absolute;
+   bottom: 0;
+   right: 0;
+}
+
+.elife-home-featured-active-credit,
+.elife-home-featured-wrapper,
+.elife-home-featured-wrapper a,
+.elife-home-featured-wrapper h2 {
+  color: #fff;
+}
+
+.elife-home-featured-wrapper {
+  padding: 25px 0;
+}
+
+.elife-home-featured-wrapper .elife-home-featured-column-left h2 {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.elife-home-featured-wrapper .elife-home-featured-column-right > div {
+  padding-right: 25px;
+}
+
+.elife-home-featured-active .elife-home-featured-active-title {
+  margin-top: 5px;
+}
+
+.elife-home-featured-items .elife-home-featured-item  {
+  cursor: pointer;
+  margin-right: 25px;
+  padding: 10px 10px 10px 48px;
+  position: relative;
+}
+
+.elife-home-featured-items .elife-home-featured-item .border-top {
+  background: rgba(255,255,255,0.5);
+  height: 1px;
+  position: absolute;
+   top: 0;
+   left: 0;
+  width: 100%;
+}
+
+.elife-home-featured-items .elife-home-featured-item:first-child .border-top {
+  background: none;
+  height: 0;
+}
+
+.elife-home-featured-items .elife-home-featured-item-title-index {
+  margin: 0;
+  position: relative;
+  z-index: 5;
+}
+
+.elife-home-featured-item .elife-home-featured-item-index {
+  background-color: rgba(255,255,255,0.5);
+  display: block;
+  padding: 2px 0;
+  text-align: center;
+  position: absolute;
+   left: -22px;
+   top: 2px;
+  width: 13px;
+
+
+  /* CSS3 border radius + background-clip */
+  -webkit-border-radius: 10px;
+          border-radius: 10px;
+
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+
+  -webkit-transition: background-color 0.3s ease-out;
+     -moz-transition: background-color 0.3s ease-out;
+       -o-transition: background-color 0.3s ease-out;
+          transition: background-color 0.3s ease-out;
+}
+
+
+
+.elife-home-featured-item .elife-home-featured-item-index:before {
+  content: attr(data-counter);
+}
+
+/* Magenta */
+.elife-home-featured-item .elife-home-featured-item-index:before,
+.elife-home-featured-items[class*="-red"]  .elife-home-featured-item .elife-home-featured-item-index:before{
+  color: #d51d5a;
+}
+
+/* med blue */
+.elife-home-featured-items[class*="-mediumblue"] .elife-home-featured-item .elife-home-featured-item-index:before {
+  color: #0560ab;
+}
+
+/* lt blue */
+.elife-home-featured-items[class*="-blue"] .elife-home-featured-item .elife-home-featured-item-index:before {
+  color: #22a0d8;
+}
+
+/* green */
+.elife-home-featured-items[class*="-green"] .elife-home-featured-item .elife-home-featured-item-index:before {
+  color: #629f43;
+}
+
+/* purple */
+.elife-home-featured-items[class*="-purple"] .elife-home-featured-item .elife-home-featured-item-index:before {
+  color: #732060;
+}
+
+.elife-home-featured-item h4 .elife-home-featured-item-title {
+  color: #fff;
+  color: rgba(255,255,255,0.5);
+  display: inline-block; 			/* applies 'hasLayout' so filter:alpha works in IE8 */
+  filter: alpha(opacity=50);
+
+  -webkit-transition: color 0.3s ease-out;
+     -moz-transition: color 0.3s ease-out;
+       -o-transition: color 0.3s ease-out;
+          transition: color 0.3s ease-out;
+}
+
+.elife-home-featured-item.active .elife-home-featured-item-index {
+  background-color: rgba(255,255,255,1);
+}
+
+.elife-home-featured-item.active h4 .elife-home-featured-item-title {
+  color: rgba(255,255,255,1);
+  filter: none;
+}
+
+
+/* top sidebar */
+#elife-home-page .panel-region-top-side-second .inside,
+.pane-elife-home-submit,
+.pane-elife-home-submit .pane-content,
+.pane-elife-home-subjects-switcher,
+.pane-elife-home-subjects-switcher .pane-content {
+  height: 100%;
+  width: 100%;
+}
+
+.pane-elife-home-submit .pane-content a,
+.pane-elife-home-subjects-switcher .pane-content .elife-home-subject-switcher {
+  display: block;
+}
+
+#elife-home-page .panel-region-top-side-third .pane-title {
+  margin-bottom: 0;
+}
+
+/* Submit Work button */
+.pane-elife-home-submit a {
+  background: url('../i/icon-submit_work2.png') 25px center no-repeat #22a0d8;
+  color: #fff;
+  height: 100%;
+  text-align: right;
+
+  -webkit-transition: background-color 0.3s ease-in-out;
+     -moz-transition: background-color 0.3s ease-in-out;
+       -o-transition: background-color 0.3s ease-in-out;
+          transition: background-color 0.3s ease-in-out;
+
+}
+
+.pane-elife-home-submit a:hover {
+  background-color: #59b8e2;
+}
+
+.pane-elife-home-submit a span {
+  display: inline-block;
+  padding: 25px 25px 25px 92px;
+}
+
+  /* Learn about eLife pane */
+  .pane-elife-home-about li {
+	padding-left: 0;
+  }
+
+.panel-display .pane-elife-archive-elife-archive-jumpto #elife-archive-goto-form {
+  text-align: right;
+}
+
+.panel-display .pane-elife-archive-elife-archive-jumpto #edit-elife-archive-month {
+  width: 100%;
+}
+
+  #elife-home-page .ctools-toggle-region .above-subject-list-spacer {
+  	display: block;
+  	filter: alpha(opacity=0);
+  	height: 15px;
+  	opacity: 0;
+  	position: relative;
+  		top: 0;
+  	width: 100%;
+  	z-index: 3;
+}
+
+#elife-home-page .ctools-toggle-region .inside {
+  background: #fff;
+  margin-bottom: -15px;
+  position: relative;
+  z-index: 4;
+}
+
+#elife-home-page .ctools-toggle-region .arrow {
+  background: url('../i/icon-arrowdown.png') center bottom no-repeat transparent;
+  display: block;
+  filter: alpha(opacity=0);
+  height: 15px;
+  opacity: 0;
+  position: relative;
+    top: 0;
+  width: 100%;
+  z-index: 3;
+
+  -webkit-transition: opacity 300ms ease-in-out, top 300ms ease-in-out;
+     -moz-transition: opacity 300ms ease-in-out, top 300ms ease-in-out;
+       -o-transition: opacity 300ms ease-in-out, top 300ms ease-in-out;
+          transition: opacity 300ms ease-in-out, top 300ms ease-in-out;
+}
+#elife-home-page .ctools-toggle-region.ctools-toggle-opened .arrow {
+  filter: none;
+  opacity: 1;
+  top: 15px;
+}
+
+/* Subject Collections list pane */
+#elife-home-page .pane-elife-home-subjects .pane-title {
+  color: #0560ab;
+  padding: 25px 25px 0;
+}
+
+.pane-elife-home-subjects .column .item-list {
+  padding: 25px;
+}
+
+/* remove columns top padding if title is shown */
+.pane-elife-home-subjects .pane-title + .pane-content .column .item-list {
+  padding-top: 0;
+}
+
+.item-list ul.elife-home-subjects {
+  margin-bottom: 0;
+}
+
+.item-list ul.elife-home-subjects li {
+  margin: 0 0 15px 0;
+}
+
+.elife-home-subjects li .subjects-count { color: #929497; }
+
+/* START Home page update Feb 2014 */
+
+.elife-home-layout .panel-region-top-main {
+    height: 29.5em;
+}
+
+.elife-home-middle {
+	margin-top: -10px;
+}
+
+.pane-elife-home-subjects .category-heading {
+  margin-bottom: 0.8em;
+  margin-right: 0.5em;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 0.80em;
+  line-height: 1.2em;
+  font-weight: normal;
+  border-radius: 0.5em;
+  padding: 0.4em 0.6em;
+}
+
+.pane-elife-home-subjects .category-heading,
+.pane-elife-home-subjects .category-heading a {
+  background-color: #22A0D8;
+  background-color: rgb(34, 160, 216);
+  color: #fff;
+}
+
+.pane-elife-home-subjects .category-heading:hover,
+.pane-elife-home-subjects .category-heading:active,
+.pane-elife-home-subjects .category-heading a:hover,
+.pane-elife-home-subjects .category-heading a:active {
+  background-color: #22A0D8;
+  background-color: rgba(34, 160, 216, 0.9);
+  color: #fff;
+}
+
+.pane-elife-home-subjects ul {
+    padding: 25px;
+}
+
+/* Overridden in 'normal' css file */
+.elife-home-layout .home-ed-choice {
+    display: none;
+}
+.elife-home-layout .home-article-listing-wrapper {
+    padding-top: 1.5em;
+}
+
+@media all and (max-width: 767px) {
+    .not-on-narrow {
+        display: none;
+    }
+}
+
+/* END Home page update Feb 2014 */
+
+
+/* Home bottom */
+#elife-home-page .panel-region-bottom-first .pane-title,
+#elife-home-page .panel-region-bottom-second .pane-title {
+	margin-bottom: 0;
+}
+
+.view-elife-home-latest .view-header {
+  margin-bottom: 25px;
+}
+
+.view-elife-home-latest .view-content {
+  border-top: 1px solid #dfdddd;
+  padding-top: 20px;
+}
+
+/* Tweets list */
+.tweets-pulled-listing {
+  padding-left: 0;
+}
+
+.tweets-pulled-listing li {
+  clear: left;
+  margin-bottom: 30px;
+}
+
+.tweets-pulled-listing .tweet-authorphoto img {
+  height: 18px;
+  vertical-align: middle;
+  width: 18px;
+}
+
+.tweets-pulled-listing .tweet-author {
+  vertical-align: middle;
+}
+
+.tweets-pulled-listing .tweet-text {
+  clear: left;
+  display: block;
+  margin: 5px 0;
+}
+
+div.tweets-pulled-listing div.tweet-divider {
+  border: 0;
+  margin: 0;
+}
+
+.tweets-pulled-listing .tweet-time a {
+  color: #929497;
+}
+
+/* Home alerts pane */
+
+  .home-signup-wrapper .pane-title,
+  .home-signup-wrapper .pane-content {
+  	padding: 0;
+  	margin: 0;
+}
+  .elife-sign-up-form {
+  	text-align: right;
+  }
+
+.elife-sign-up-form input[type="submit"] {
+	color: #FFF;
+	background-color: #CF0C4E;
+	background-color: rgb(206, 12, 78);
+}
+
+.elife-sign-up-form input[type="submit"]:hover,
+.elife-sign-up-form input[type="submit"]:active {
+	color: #FFF;
+	background-color: rgba(206, 12, 78, 0.8);
+}
+
+/* Funder logos */
+	#elife-home-page .panel-region-bottom-third .pane-snippet a {
+		margin: 0 auto;
+	}
+
+
+#elife-home-page .panel-region-bottom-third .pane-snippet p {
+  margin-bottom: 30px;
+}
+
+#elife-home-page .panel-region-bottom-third .pane-snippet .snippet-title {
+  margin-bottom: 20px;
+}
+
+a.logo-hhmi {
+  background: url('../i/funder_logo_hhmi.png') left top no-repeat transparent;
+  display: block;
+  height: 31px;
+  text-indent: -9999em;
+  width: 124px;
+}
+
+a.logo-mpg {
+  background: url('../i/funder_logo_mpg.png') left top no-repeat transparent;
+  display: block;
+  height: 86px;
+  text-indent: -9999em;
+  width: 107px;
+}
+
+a.logo-wt {
+  background: url('../i/funder_logo_wt.png') left top no-repeat transparent;
+  display: block;
+  height: 18px;
+  text-indent: -9999em;
+  width: 150px;
+}
+
+
+/* quicksearch form panel pane */
+#region-content .panel-display .pane-elife-searchlist-quicksearch .pane-title a {
+  color: #6d6e70;
+}
+
+
+/* ----------------------------------*/
+/* ---------->>> VIEWS <<<-----------*/
+/* ----------------------------------*/
+
+
+
+/* ----------------------------------*/
+/* ---------->>> NODE <<<------------*/
+/* ----------------------------------*/
+/* center ajax loading graphic */
+
+/* >>> eLIFE ARTICLE & FRAGMENT (CONTENT) <<< */
+#zone-content .pane-elife-article-title .elife-article-indicators {
+  float: right;
+  margin-top: 5px;
+  margin-left:10px;
+}
+
+#zone-content .pane-elife-article-title .elife-article-indicators > a {
+  display: block;
+  margin-bottom: 28px;
+  opacity: 0.5;
+  text-align: center;
+
+  -webkit-transition: opacity 0.3s ease-in-out;
+     -moz-transition: opacity 0.3s ease-in-out;
+       -o-transition: opacity 0.3s ease-in-out;
+          transition: opacity 0.3s ease-in-out;
+}
+
+#zone-content .pane-elife-article-title .elife-article-indicators > a:hover {
+  opacity: 1;
+}
+
+#zone-content .pane-elife-article-title + .panel-separator,
+#zone-content .pane-elife-article-fragment-title + .panel-separator,
+#zone-content .pane-elife-article-authors + .panel-separator,
+.node-type-highwire-fragment #zone-content .elife-fragment-doi + .panel-separator {
+  background: transparent;
+  height: 0;
+  margin: 0;
+}
+
+
+/* author list */
+.pane-elife-article-authors .author-list {
+  font-size:1.1em;
+}
+.author-list ul,
+.elife-institutions-list {
+  margin-bottom: 15px;
+  padding: 0;
+}
+
+.author-list .elife-article-author-item,
+.elife-institutions-list .elife-institution {
+  -webkit-transition: color 0.3s ease-in-out;
+     -moz-transition: color 0.3s ease-in-out;
+       -o-transition: color 0.3s ease-in-out;
+          transition: color 0.3s ease-in-out;
+}
+
+.author-list .elife-article-author-item:hover,
+.elife-institutions-list .institution-highlight {
+  color: #22A0D8;
+}
+
+.elife-article-author-item.corresp .corresp-icon {
+  margin-bottom: 3px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.node-type-highwire-article #zone-content .panel-region-main-content .inside > .pane-highwire-doi + .panel-separator,
+.node-type-highwire-fragment #zone-content .panel-region-main-content .inside > .pane-highwire-doi + .panel-separator {
+  height: 0;
+  margin: 0;
+}
+
+.pane-elife-article-doi .highwire-doi-doi,
+.pane-elife-article-doi .highwire-doi-epubdate,
+.pane-elife-article-doi .highwire-doi-cite-as,
+.pane-elife-article-doi .elife-article-correction,
+.pane-elife-article-doi .elife-article-retraction
+.pane-elife-article-doi .elife-article-addendum {
+  display: block;
+}
+
+.pane-elife-article-doi .elife-article-corrections {
+  float: right;
+  font-size: 1.1em;
+}
+.pane-elife-article-doi .elife-article-corrections a {
+  margin-left: 5px;
+}
+
+.pane-elife-article-doi i.icon-exclamation-sign{
+  color: #22a0d8;
+}
+.pane-elife-article-doi .elife-article-retraction i.icon-warning-sign,
+.pane-elife-article-doi .elife-article-retraction a {
+  color: #f80a0a;
+}
+
+/* >> Article Tab (highwire markup) << */
+/* Markup styles */
+div.highwire-markup .article div.section h2 {
+  border: 0;
+  font-size: 1.29em; /* ~18px */
+  line-height: 1.67em; /* ~30px */
+  margin-top: 0;
+}
+
+div.highwire-markup a.xref-bibr,
+div.highwire-markup a.xref-fig,
+div.highwire-markup a.xref-table {
+  font-weight: lighter;
+}
+
+div.highwire-markup .article div.section h3,
+div.highwire-markup .article div.section h4 {
+  color: #6d6e70;
+  display: block;
+  font-size: 1.3em; /* ~18px */
+  font-weight: normal;
+  line-height: 1.67em; /* ~30px */
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+
+div.highwire-markup .article div.section h4 {
+  font-family: 'AvenirLTW01-35LightObli', sans-serif;
+  font-size: 1.14em;
+  font-style: normal;
+  line-height: 1.5em;
+}
+
+div.highwire-markup p {
+  line-height: 1.75em; /* ~24px */
+  margin-bottom: 10px;
+  /* Fix for very wide or unbreakable text. TODO: Target long unbreakable strings and use word-wrap:break-word;*/
+  word-wrap:break-word;
+}
+
+.highwire-markup img.highwire-embed { max-width: 100%; }
+
+  /* boxed-text */
+  div.highwire-markup .boxed-text {
+    background: #e9f5fb;
+    font-size: 0.86em;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+  }
+
+  div.highwire-markup .boxed-text p {
+    line-height: 1.2em;
+  }
+  div.highwire-markup .boxed-text > p:last-child {
+    margin-bottom: 0;
+  }
+
+    /* Insight articles - position boxed-text images to left */
+    div.highwire-markup .boxed-text.insight-image {
+      min-height: 103px;
+      position: relative;
+    }
+
+    div.highwire-markup .boxed-text.insight-image img {
+      border: 1px solid #929497;
+      height: auto;
+      position: absolute;
+      left: 20px;
+      max-height: 110px;
+      top: 15px;
+      width: 100px;
+    }
+
+    div.highwire-markup .boxed-text.insight-image > p {
+      padding-left: 115px;
+    }
+
+/* Figures, Tables, Video, Supplementary Data in markup */
+div.highwire-markup .fig-caption,
+div.highwire-markup .table-caption,
+div.highwire-markup .table-caption .table-caption,
+#colorbox .table-expansion .table-caption,
+div.highwire-markup .table-inline .callout-links {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Supplementary Data */
+div.highwire-markup .supplementary-material > p,
+div.highwire-markup .fig-caption .supplementary-material .caption-title {
+  margin-bottom: 0;
+}
+
+.highwire-markup .media-caption .media-label,
+.highwire-markup .media-caption .caption-title,
+.fig-inline-img-set .fig-caption .fig-label,
+.fig-inline-img-set .fig-caption .caption-title,
+div.highwire-markup .fig-caption p > .supplementary-material,
+div.highwire-markup .supplementary-material-expansion .supplementary-material-label,
+div.highwire-markup .supplementary-material-expansion .caption-title,
+div.highwire-markup span.inline-linked-media-wrapper {
+  display: block;
+}
+
+div.highwire-markup .fig-caption p > .supplementary-material {
+  margin-bottom: -10px;
+}
+
+div.highwire-markup .supplementary-material-expansion p + .inline-linked-media-wrapper,
+div.highwire-markup .fig-caption p + .inline-linked-media-wrapper {
+  margin-top: -10px;
+}
+
+div.highwire-markup .inline-linked-media-wrapper a .icon-download-alt {
+  color: #575759;
+}
+
+div.highwire-markup .inline-linked-media-wrapper a .inline-linked-media-filename {
+  color: #929497;
+}
+
+#fig-data-additional-files .supplementary-material-expansion > .inline-linked-media-wrapper {
+  margin-bottom: 15px;
+}
+
+/* Video */
+div.highwire-markup .media,
+div.highwire-markup .media .media-caption {
+  margin-top: 15px;
+}
+
+div.highwire-markup .media .media-inline,
+.highwire-markup .video-content .video-callout {
+  text-align: center;
+}
+
+.highwire-markup .video-content object,
+.highwire-markup .video-content video {
+  max-width: 100%;
+}
+
+
+/* Tables */
+div.highwire-markup div.article .table {
+  margin: 20px 0;
+  position: relative;
+}
+
+.table-right {
+  text-align: right;
+}
+
+div.highwire-markup .table-inline {
+  background: transparent;
+  border: none;
+  float: none;
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+div.highwire-markup .table-inline table,
+div.highwire-markup .table-inline table tr,
+div.highwire-markup .table-inline table tr td {
+  border: 1px solid #dfdddd;
+  margin-bottom: 0;
+}
+
+div.highwire-markup .table-inline .callout {
+  margin: 0;
+  position: absolute;
+  right: 0;
+  top: 15px;
+}
+div.highwire-markup .fig-inline-img-set + div.table .table-inline .callout,
+div.highwire-markup p:empty + div.table .table-inline .callout {
+  top: 0;
+}
+
+  div.highwire-markup .table-inline .callout > span {
+    position: absolute;
+    clip: rect(0,0,0,0);
+  }
+
+div.highwire-markup .media,
+div.highwire-markup .table-caption {
+  border-bottom: 1px solid #dfdddd;
+  padding-bottom: 15px;
+}
+
+div.highwire-markup .media,
+div.highwire-markup .table-inline + .table-caption {
+  border-top: 1px solid #dfdddd;
+  padding-top: 15px;
+}
+
+div.highwire-markup .media {
+  padding-top: 20px;
+}
+
+div.highwire-markup .media + .media,
+div.highwire-markup .fig-inline-img-set + .media,
+div.highwire-markup .table + .media,
+div.highwire-markup .fig-inline-img-set + div.table .table-inline + .table-caption,
+div.highwire-markup p:empty + div.table .table-inline + .table-caption {
+  border-top: 0;
+  padding-top: 0;
+}
+
+div.highwire-markup .table-caption .table-label {
+  display: block;
+  padding-right: 140px;
+}
+
+div.highwire-markup .table-caption .table-expansion {
+  overflow-x: auto;
+  width: 100%;
+}
+
+div.highwire-markup .table-expansion ul.table-footnotes {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+/**
+ * Figure links
+ */
+.fig-inline-img-set .fig-caption .elife-figure-links > span,
+div.highwire-markup .table-inline ul.callout-links,
+div.highwire-markup .table-inline .callout-links li {
+  display: block;
+  width:auto;
+  text-align:center;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links > span,
+div.highwire-markup .table-inline .callout-links li {
+  border: 1px solid #dfdddd;
+  margin-bottom: 10px;
+  padding: 10px;
+
+}
+div.highwire-markup .table-inline .callout-links li {
+  float:left;
+  margin-left:10px;
+  margin-bottom:15px;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links > span:first-child,
+div.highwire-markup .table-inline .callout-links li:first-child {
+  /*border-left: 0;
+  margin-left: 0;
+  */
+}
+
+/**
+ * FIGURES
+ */
+
+/* Images on highwire-fragment node page */
+img.elife-embed-fragment-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 80%;
+}
+
+/* Default image fig-expansions */
+.fig-inline-img-set {
+  border-bottom: 1px solid #dfdddd;
+  margin-bottom: 25px;
+  margin-top: 20px;
+  padding-bottom: 15px;
+}
+
+.fig-inline-img-set .fig-inline-img {
+  border: 1px solid #dfdddd;
+  max-width:100%;
+}
+
+.fig-inline-img-set .fig-inline-img:hover {
+  border: 1px solid #dfdddd;
+}
+
+.fig-inline-img-set .fig-inline-img a.figure-expand-popup {
+
+}
+
+.fig-inline-img-set .fig-inline-img img {
+  height: auto;
+  margin: 0 auto;
+  /*max-height: 420px;*/
+  width: 100%;
+}
+
+.fig-inline-img-set .fig-caption .elife-figure-links,
+.elife-video-links {
+  margin-top: 5px;
+}
+
+.fig-inline-img-set .fig-expansion .fig-caption {
+  margin-top: 15px;
+}
+
+
+/* Article image sets */
+.fig-inline-img-set-carousel,
+.fig-inline-img-set-carousel .fig-inline-img {
+  display: block;
+  max-width: 100%;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-wrapper,
+.fig-inline-img-set-carousel .elife-fig-image-caption-wrapper {
+  vertical-align: top;
+}
+
+.fig-inline-img-set-carousel .fig-expansion .fig-caption {
+}
+
+/* vertical image thumbnail carousel */
+.fig-inline-img-set-carousel .elife-fig-slider-wrapper {
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider { padding-right: 10px; overflow:auto;}
+
+.fig-inline-img-set-carousel .elife-fig-slider-primary,
+.fig-inline-img-set-carousel .elife-fig-slider-secondary {
+  border: 1px solid #dfdddd;
+  cursor: pointer;
+  height: 80px;
+  margin: 10px 15px 10px 0;
+  overflow: hidden;
+  width: 80px;
+  float:left;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-secondary {
+  height: 60px;
+  width: 60px;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-img {
+  text-align: center;
+}
+
+.fig-inline-img-set-carousel .elife-fig-slider-img:hover,
+.fig-inline-img-set-carousel .elife-fig-slider-img.active-icon {
+  border: 1px solid #22a0d8;
+}
+
+.fig-inline-img-set-carousel .figure-carousel {
+  margin: 0 auto;
+  max-height: 278px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up,
+.fig-inline-img-set-carousel .figure-carousel-down {
+  background: url('../i/icons-fig_carousel_arrows.png') no-repeat transparent;
+  cursor: pointer;
+  height: 30px;
+  margin: 0 auto;
+  width: 60px;
+}
+.fig-inline-img-set-carousel .figure-carousel-up.button-disabled,
+.fig-inline-img-set-carousel .figure-carousel-down.button-disabled {
+  cursor: default;
+  filter: alpha(opacity=30); /* IE8 and earlier */
+  opacity: 0.3;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up,
+.fig-inline-img-set-carousel .figure-carousel-up.button-disabled:hover {
+  background-position: center -30px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-up:hover {
+  background-position: center top;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-down,
+.fig-inline-img-set-carousel .figure-carousel-down.button-disabled:hover {
+  background-position: center -60px;
+}
+
+.fig-inline-img-set-carousel .figure-carousel-down:hover {
+  background-position: center bottom;
+}
+
+
+	/* Math equations */
+	div.highwire-markup span.disp-formula {
+		display: block;
+		text-align: center;
+		margin: 10px 0;
+		padding-right: 15px;
+		position: relative;
+	}
+
+	div.highwire-markup span.disp-formula .disp-formula-label {
+		position: absolute;
+		 right: -8px;
+		 top: 0;
+	}
+	/* Article References */
+	.elife-reflinks-reflink {
+		clear: both;
+		margin-top: 25px;
+	}
+  .elife-reflink-authors {
+    margin:.3em 0;
+  }
+  .elife-reflink-main .elife-reflink-authors,
+  .highwire-article-citation .highwire-cite-authors {
+    line-height: 1.8em;
+  }
+  .elife-reflink-author a {
+    padding-left:.5em;
+  }
+  .elife-reflink-authors .elife-reflink-author:first-child a {
+    padding-left:0;
+  }
+
+  .ui-cluetip-content .elife-reflinks-reflink {
+  	font-size: 1.17em;
+  	margin-top: 0;
+  }
+
+	.elife-reflinks-reflink .elife-reflink-indicators {
+		float: left;
+		margin-right: 10px;
+	}
+		/* indicators:
+			left:
+				top: citation #
+				bottom: dl link
+			right:
+				top: editor's choice icon
+				bottom: open access icon
+		*/
+		/* .elife-reflink-indicators > div { margin-right: 10px; } */
+
+		.elife-reflink-indicators-left .elife-reflink-indicator-number {
+			width: 17px;
+		}
+		.elife-reflink-indicators-left .elife-reflink-indicator-number span {
+			background: #22a0d8;
+			color: #fff;
+			cursor: default;
+			line-height: 1em;
+			padding: 1px 5px 2px;
+			vertical-align: middle;
+
+			/* CSS3 border radius + background-clip */
+		  -webkit-border-radius: 10px;
+		          border-radius: 10px;
+
+		  -webkit-background-clip: padding-box;
+		 		 -moz-background-clip: padding;
+		  				background-clip: padding-box;
+		}
+
+	/* elife-reflinks-main = citation wrapper */
+	.elife-reflink-main {
+		margin-left: 54px;		/* indicator col width + margin = 27px; 2*27 = 54px */
+		margin-left: 27px;
+	}
+
+	.elife-reflink-title {
+		display: block;
+	}
+
+	.elife-reflinks-reflink .elife-reflink-links-wrapper {
+		margin: 2px 0 0;
+	}
+
+	.elife-reflinks-reflink .elife-reflink-links-wrapper > span {
+		border-left: 1px solid #dfdddd;
+		margin-left: 10px;
+		padding-left: 10px;
+	}
+	.elife-reflinks-reflink .elife-reflink-links-wrapper > span:first-child {
+		border-left: 0;
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.elife-reflinks-reflink .elife-reflink-details-doi a {
+		color: #575759;
+	}
+
+	#fig-data .section span.ext-link a,
+	.elife-reflinks-reflink .elife-reflink-link.life-reflink-link-uri a {
+		word-wrap: break-word;
+	}
+
+	/* Editorial Decisions & Author Response */
+	.elife-article-editors {
+		margin-bottom: 15px;
+	}
+
+	.elife-article-editors h3,
+	.elife-article-decision-letter h3 {
+		color: #6d6e70;
+	}
+
+	/* >> Figures & Data tab (list + grid view) << */
+	/* View Options selector */
+	#fig-data .view-options {
+		float: right;
+		line-height: 20px;
+		padding-right: 30px;
+	}
+
+	#fig-data .view-options span {
+		text-transform: uppercase;
+		vertical-align: middle;
+	}
+
+	#fig-data .view-options ul {
+		display: inline;
+		margin: 0;
+		padding: 0;
+		vertical-align: middle;
+	}
+
+	#fig-data .view-options li {
+		display: inline-block;
+		height: 14px;
+		vertical-align: top;
+		width: 23px;
+	}
+	#fig-data .view-options li.option-list {
+		margin-right: 10px;
+		margin-left: 20px;
+	}
+
+	#fig-data .view-options li a {
+		background: url('../i/icons-view_options.png') no-repeat transparent;
+		display: inline-block;
+		height: 14px;
+		overflow: hidden;
+		text-indent: -9999em;
+		vertical-align: middle;
+		width: 23px;
+	}
+
+		/* bg image positions */
+		#fig-data .view-options li.option-list a {
+			background-position: 0 0;
+		}
+		#fig-data .view-options li.option-list.active a {
+			background-position: 0 -14px;
+		}
+
+		#fig-data .view-options li.option-grid a {
+			background-position: -29px 0;
+		}
+		#fig-data .view-options li.option-grid.active a {
+			background-position: -29px -14px;
+		}
+
+	/* Group Headers & jump link */
+	#fig-data .group h2 {
+		background: url('../i/icons-data_types.png') 0 -93px no-repeat transparent;
+		display: inline-block;
+		margin: 0;
+		padding-left: 35px;
+		vertical-align: bottom;
+	}
+		/* bg image positions */
+		#fig-data .group.frag-figure h2 {
+			background-position: 0 -3px;
+		}
+
+		#fig-data .group.frag-table h2 {
+			background-position: 0 -33px;
+		}
+
+		#fig-data .group.major-datasets h2 {
+			background-position: 0 -63px;
+		}
+
+		#fig-data .group.additional-files h2 {
+			background-position: 0 -93px;
+		}
+
+		#fig-data .group.frag-video h2 {
+			background-position: 0 -123px;
+		}
+
+	#fig-data .elife-fig-data-title-jump {
+		border-top: 1px solid #dfdddd;
+		margin: 15px 0;
+		padding-left: 5px;
+		padding-top: 20px;
+	}
+		#fig-data .group:first-child .elife-fig-data-title-jump {
+			border-top: 0;
+			margin-top: 0;
+			padding-top: 0;
+		}
+
+	#fig-data .group .elife-fig-data-title-jump-link {
+		display: inline-block;
+		margin-left: 15px;
+	}
+
+	#fig-data .group .elife-fig-data-title-jump-link:before {
+		color: #929497;
+		content: "\007C";
+		font-size: 0.86em; /* 14 * 1.14 * 0.86 = 14px */
+		margin-right: 15px;
+	}
+
+		#fig-data .group .elife-fig-data-title-jump-link:first-child {
+			margin-left: 0;
+		}
+
+		#fig-data .group .elife-fig-data-title-jump-link:first-child:before {
+			content: none;
+			margin-right: 0;
+		}
+
+	#fig-data .group .elife-fig-data-title-jump-link a {
+		color: #6d6e70;
+	}
+
+	#fig-data .group .elife-fig-data-title-jump-link a:hover {
+		color: #22a0d8;
+	}
+
+
+	/* Group containers */
+	#fig-data .item-list ul,
+	#fig-data .item-list ul li {
+		margin: 0;
+		padding: 0;
+	}
+
+	#fig-data #fig-data-movies .item-list ul li {
+		border-bottom: 1px solid #dfdddd;
+		padding-bottom: 15px;
+	}
+
+	#fig-data .group > .item-list > ul > li {
+		margin: 0;
+	}
+
+	#fig-data .group > div.highwire-markup,
+	#fig-data .group .section {
+		margin: 0;
+	}
+
+	#fig-data #fragments-table > li {
+		margin-bottom: 15px;
+	}
+
+	#fig-data .group > .item-list > ul > li.last,
+	#fig-data #fragments-table > li.last {
+		margin-bottom: 0;
+	}
+
+	#fig-data .group > .item-list > ul > li .fig-inline-img-set {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	#fig-data #fig-data-movies .item-list ul li.last,
+	#fig-data .group > .item-list > ul > li.last .fig-inline-img-set,
+	#fig-data #fragments-table > li.last .table-caption {
+		border-bottom: 0;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+
+	/* Adjusments to additional files layout */
+	#fig-data .section .related-object,
+	#fig-data .section .related-object > span.comment,
+	#fig-data .section .related-object > span.source,
+	#fig-data .section .related-object > span.ext-link {
+  	display: block;
+  	margin-bottom: 3px;
+	}
+
+	#fig-data .section .related-object {
+		margin-bottom: 15px;
+	}
+
+	#fig-data .section .related-object .name .surname + .given-names {
+		padding-left: 4px;
+	}
+
+	/* This crazy CSS removes commas from before and after elements we have designated as block */
+  #fig-data span.comment + .x,
+  #fig-data span.ext-link + .x,
+  #fig-data span.year + .x,
+  #fig-data span.source + .x {
+      display: none;
+  }
+
+	/* List View @@TODO: THESE SHOULD BE GRIDS */
+	.fig-data-list .element-fig-data .column { float: left; }
+	.fig-data-list .element-fig-data .column-left { width: 220px; }
+	.fig-data-list .element-fig-data .column-right { width: 440px; }
+
+	/* Grid View */
+	.pane-elife-article-fig-data .group .fig-data-grid .element-fig-data {
+		padding: 15px;
+	}
+
+	#fig-data ul.fig-data-grid {
+		margin-right: -10px;
+	}
+	#fig-data ul.fig-data-grid li {
+		display: inline-block;
+		vertical-align: top;
+		width: 33.33%;
+	}
+	#fig-data ul.fig-data-grid li .element-fig-data {
+		margin-right: 10px;
+	}
+
+	.fig-data-grid .element-fig {
+		margin-bottom: 15px;
+	}
+
+
+	/* >> Metrics << */
+	/* Graph header & legend (top) */
+	.elfie-article-metrics {
+		margin-top: 5px;
+	}
+
+	#elife-article-metrics-summary {
+		float: left;
+		width: 50%;
+	}
+
+	#elife-article-metrics-summary .elife-article-metrics-summary-date,
+	#elife-article-metrics-summary .elife-article-metrics-summary-date .date-string {
+		display: block;
+	}
+
+	.elfie-article-metrics .elife-article-metrics-table {
+		float: right;
+		width: 50%;
+	}
+
+	.elife-article-metrics-table,
+	.elife-article-metrics-table tr,
+	.elife-article-metrics-table th,
+	.elife-article-metrics-table td,
+	.elife-article-metrics-table tr:hover td {
+		background: transparent;
+		border-collapse: separate;
+		border-spacing: 2px;
+		border: 0;
+	}
+
+	#metrics-html-highwire, #metrics-html-pmc,
+	#metrics-pdf-highwire, #metrics-pdf-pmc,
+	#metrics-xml-highwire, #metrics-xml-pmc,
+	.elfie-article-metrics .elife-article-metrics-table th {
+		text-align: center;
+	}
+
+	.elife-article-metrics-table .metrics-html-header {
+		background: #0561ab;
+		color: #fff;
+	}
+
+	.elife-article-metrics-table .metrics-pdf-header {
+		background: #22a0d8;
+		color: #fff;
+	}
+
+	.elife-article-metrics-table .metrics-xml-header {
+		background: #74c9ea;
+		color: #fff;
+	}
+
+
+	.elfie-article-metrics .elife-article-metrics-table td,
+	.elfie-article-metrics .elife-article-metrics-table th {
+		padding: 2px 4px;
+	}
+
+	/* Metrics chart switcher */
+	.article-metrics-chart-switcher {
+		margin: 10px 0 20px;
+	}
+
+	.article-metrics-chart-switcher .chart-switcher {
+		color: #22a0d8;
+		display: inline-block;
+		margin-left: 5px;
+		padding: 1px 4px;
+
+		-webkit-border-radius: 0.3em;
+	          border-radius: 0.3em;
+	  -webkit-background-clip: padding-box;
+	  	 -moz-background-clip: padding;
+	  				background-clip: padding-box;
+	}
+
+	.article-metrics-chart-switcher .chart-switcher.selected {
+		background: #929497;
+		color: #fff;
+	}
+.article-metrics-chart-switcher,
+#elife-article-metrics-chart svg {
+  /*Hide SVG metrics for mobile. */
+  display:none;
+}
+
+
+	/* Usage statistics (bottom) */
+	/* columns */
+	#saved_cited {
+		float: left;
+		width: 50%;
+	}
+	#discussed {
+		float: right;
+		width: 50%;
+	}
+
+	#saved_cited > h2,
+  #discussed > h2 {
+    font-family: 'Avenir LT W01 85 Heavy', Helvetica, Arial, Verdana, sans-serif;
+ 	}
+
+	#saved_cited > h2,
+	#saved_cited > div {
+		margin-right: 5px;
+	}
+
+	#discussed > h2,
+	#discussed > div {
+		margin-left: 5px;
+	}
+
+	#metrics_cited .providers-list,
+	#metrics_cited .citations {
+		padding-left: 26px;
+	}
+
+	#metrics_cited .pane-title,
+	#metrics_cited .providers-list {
+		margin-bottom: 0;
+	}
+
+	#metrics_cited .via,
+	#metrics_cited .providers-list li {
+		margin-bottom: 25px;
+	}
+	#metrics_cited .citations {
+		margin-bottom: 15px;
+	}
+
+	#metrics_cited .providers-list li {
+		margin-left: 0;
+	}
+
+	#metrics_cited .providers-list li { position: relative; }
+
+	#metrics_cited .providers-list .provider-icon img {
+		height: 16px;
+		position: absolute;
+		 left: -25px;
+		 top: 2px;
+		width: 16px;
+	}
+
+
+	/* >> Article & Author Info Tab << */
+	/* rows & columns layout */
+	.elife-author-info .elife-author-info-column,
+	.elife-article-info .elife-article-info-column  {
+
+    /* Remove two column layout as it doesn't work well on mobile
+    float: left;
+		width: 50%;
+		*/
+	}
+
+	.elife-author-info .elife-author-info-row .elife-author-info-item,
+	.elife-article-info .elife-article-info-row .elife-article-info-item {
+		margin-bottom: 25px;
+	}
+
+	.elife-author-info .elife-author-info-column-left .elife-author-info-item,
+	.elife-article-info .elife-article-info-column-left .elife-article-info-item {
+		/*margin-right: 10px;*/
+	}
+	.elife-author-info .elife-author-info-column-right .elife-author-info-item,
+	.elife-article-info .elife-article-info-column-right .elife-article-info-item {
+		/*margin-left: 10px;*/
+	}
+
+	/* remove default margins for item-lists */
+	.elife-author-info-text ul li,
+	.elife-article-info-text ul li {
+		margin: 0;
+	}
+
+	/* info label + content */
+	.elife-author-info-text .info-label,
+	.elife-author-info-text .info-content,
+	.elife-article-info-text .info-label,
+	.elife-article-info-text .info-content {
+		display: block;
+	}
+
+	/* content spacing */
+	.elife-author-info-funding .award-group,
+	.elife-author-info-title,
+	.elife-article-info-title {
+		margin-bottom: 15px;
+	}
+
+	.elife-author-info-item .elife-author-info-equal-contrib,
+	.elife-author-info-text p,
+	.elife-author-info-text .info-content,
+	.elife-article-info-text p,
+	.elife-article-info-text .info-content {
+		margin-bottom: 10px;
+	}
+
+	/* Markup display formatting */
+	.elife-author-info-funding .award-group,
+	.elife-author-info-funding .award-group > span,
+	.elife-author-info-funding .principal-award-recipient .name {
+		display: block;
+	}
+
+	.elife-author-info-funding .principal-award-recipient {
+		margin-top: 5px;
+	}
+
+	.elife-author-info-funding .award-group .funding-source {
+		display: inline;
+		margin-right: 0.5em;
+	}
+
+	.elife-author-info-funding .principal-award-recipient .name {
+		margin-left: 8px;
+		margin-bottom: 2px;
+	}
+	.elife-author-info-funding .principal-award-recipient .name:before {
+		color: #ccc;
+		content: "\2022";
+		margin-right: 6px;
+		position: relative;
+		 top: 1px;
+	}
+
+
+	/* >>> ARTICLE SIDEBAR <<< */
+
+
+	/* Article Tools & Text Size switcher */
+	.article-tools ul.inline,
+	.article-text-size ul.inline {
+		display: inline-block;
+		margin: 0 0 9px 0;
+		padding: 0;
+	}
+
+	.article-tools .tools-list li {
+		margin: 0 10px 0 0;
+		padding: 0;
+	}
+
+	.article-text-size .text-sizes li {
+		margin: 0 8px 0 0;
+		padding: 0;
+	}
+
+	.article-tools .tools-list li.last,
+	.article-text-size .text-sizes li.last {
+		margin-right: 0;
+	}
+
+	.article-text-size a {
+		color: #bbbdc1;
+	}
+	.article-text-size a.active {
+		color: #212122;
+	}
+
+	.article-text-size .text-small {
+		font-size: 0.8em;
+	}
+	.article-text-size .text-large {
+		font-size: 1.2em;
+	}
+
+	.download-citations a,
+	.article-share a,
+	.open-citations a {
+		color: #6d6e70;
+	}
+
+	.citations-list {
+    text-transform: uppercase;
+	}
+
+  .citation-col {
+    float: left;
+    width: 50%;
+  }
+
+  .citation-links > li > .item-list {
+    display:none;
+  }
+
+  ul.citation-links > li {
+    display: inline-block;
+    margin: 0 1.5em 0 0;
+    position: relative;
+  }
+
+  .citation-links > li > .item-list li, .citation-links > li > .item-list ul {
+    margin: 0;
+  }
+
+  li.show-article-toolbox-tooltip > .item-list {
+    background: transparent;
+    border: 1px solid #000;
+    display: block;
+    height: 200px;
+    position: absolute;
+    width: 335px;
+    left: -125px;
+  }
+  li.show-article-toolbox-tooltip#download .citation-col{
+    width:40%;
+  }
+  li.show-article-toolbox-tooltip#download .citation-col + .citation-col{
+    width:60%;
+  }
+  li.show-article-toolbox-tooltip#open > .item-list{
+    width: 275px;
+    left: -120px;
+  }
+  li.show-article-toolbox-tooltip#share > .item-list{
+    width: 240px;
+    left: -95px;
+  }
+
+  li.show-article-toolbox-tooltip > .item-list li {
+    display: block;
+    width:100%;
+  }
+  #download #citations_options ul li{
+    margin-bottom:5px;
+  }
+  #open_options li a{
+    background-image: url('../i/icons-reference-tools.png');
+    background-repeat: no-repeat;
+    line-height:2em;
+    padding-left:25px
+  }
+  #open_options li a.citeulike{
+    background-position: 0 -32px;
+  }
+  #open_options li a.mendeley{
+    background-position: 0 -60px;
+  }
+  #open_options li a.readcube{
+    background-position: 0 -87px;
+  }
+  #open_options li a.utopiadocs{
+    background-position: 0 -120px;
+  }
+  #open_options li a.papersapp{
+    background-position: 0 -3px;
+  }
+ 	.download-citations .icon,
+	.article-share .icon {
+		background: #d51d5a;
+		color: #fff;
+		display: inline-block;
+		height: 14px;
+		line-height: 14px;
+		margin-right: 5px;
+		text-align: center;
+		position: relative;
+		 top: -1px;
+		vertical-align: middle;
+		width: 14px;
+
+		-webkit-border-radius: 0.4em;
+						border-radius: 0.4em;
+	}
+
+	.citation-link {
+	  display: inline;
+	}
+
+  .citation-tooltip-head {
+    border-bottom: 1px solid #dfdddd;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  li.show-article-toolbox-tooltip .citation-tooltip-head {
+    padding-top:15px;
+    margin:0 0 15px;
+  }
+  .citation-links {
+    text-transform: uppercase;
+  }
+
+  .panel-region-sidebar-bottom {
+    z-index: 2;
+  }
+
+  .article-tools .article-tools__list.inline {
+    padding-top: 4px;
+  }
+  .article-tools__list .article-tools__list_item {
+      padding-left: 0;
+    }
+
+  .article-tools__link {
+    display: inline-block;
+    background-repeat: no-repeat;
+    padding: 0 0 0 27px;
+    background-image: url('../i/icons-article_tools.png');
+    background-color: transparent;
+    height: 22px;
+    margin: 0;
+  }
+
+  .article-tools__link--pdf-article {
+    background-position: 0 0;
+  }
+
+  .article-tools__link--pdf-figures {
+    background-position: 0 -120px;
+  }
+    .sharethis-wrapper .stButton, .elife-share-wrapper .stButton, #article-jumplinks-anchor-region .stButton {
+        margin: 0;
+    }
+
+    #article-jumplinks-anchor-region .pane-elife-article-share .pane-title {
+        display: none;
+    }
+
+	/* API expanded content */
+	#api_box {
+		padding-bottom: 15px;
+	}
+
+	#api_box .api-dev-link,
+	#api_box .api-rest-text {
+		text-align: center;
+		margin-bottom: 5px;
+	}
+
+	#api_box .api-rest-text {
+		color: #929497;
+	}
+
+	#api_box .api-rest-input input {
+		width: 100%;
+	}
+
+  /* citations options */
+  #citations_options ul,
+  #citations_options ul li {
+   list-style-type: none;
+   margin: 0;
+  }
+
+  #citations_options ul {
+  	padding: 0 0 10px 17px;
+  }
+
+  #citations_options ul li {
+  	line-height: 1.1em;
+  	padding: 4px 0 4px 25px;
+  	position: relative;
+  }
+
+  #citations_options ul li .name + .note {
+  	color: #929497;
+  	padding-left: 5px;
+  }
+
+  /* By default, show Font Awesome download-alt icon */
+  .icon-citation-download:before {
+  	content: "\f019";
+  }
+
+  #citations_options .icon-citation-download {
+		background: transparent;
+    font-size: 18px;
+    height: 20px;
+    line-height: 1.25em;
+    position: absolute;
+     left: 0;
+     top: 0;
+    width: 20px;
+  }
+
+  #citations_options .icon-citation-bibtex,
+  #citations_options .icon-citation-endnote,
+  #citations_options .icon-citation-endnote-8,
+  #citations_options .icon-citation-refworks-tagged,
+  #citations_options .icon-citation-ris {
+  	background: url('../i/icons-citation_download.png') no-repeat 0 0 transparent;
+  }
+
+	#citations_options .icon-citation-bibtex:before,
+  #citations_options .icon-citation-endnote:before,
+  #citations_options .icon-citation-endnote-8:before,
+  #citations_options .icon-citation-refworks-tagged:before,
+  #citations_options .icon-citation-ris:before {
+  	content: "";
+  }
+
+  #citations_options .icon-citation-bibtex {
+    background-position: 0 0;
+  }
+
+  #citations_options .icon-citation-endnote {
+    background-position: 0 -20px;
+  }
+
+  #citations_options .icon-citation-endnote-8 {
+    background-position: 0 -40px;
+  }
+
+  #citations_options .icon-citation-refworks-tagged {
+    background-position: 0 -60px;
+  }
+
+  #citations_options .icon-citation-ris {
+    background-position: 0 -80px;
+  }
+
+
+
+	/* Sharethis options */
+	.pane-sharethis-sharethis-block .pane-content {
+		margin-top: 5px;
+		padding-left: 23px;
+	}
+
+	/* Article Jump-To links */
+	.elife-jumpto .item-list ul,
+	.elife-jumpto .item-list li {
+		line-height: 1em;
+		margin: 0;
+	}
+
+
+	/* Items within the Article tab */
+	.elife-jumpto .item-list li ul li a {
+		background: #fff;
+		display: block;
+		padding-left: 10px;
+	}
+
+	.elife-jumpto .item-list li ul li {
+		background: url('../i/icons-jumpto.gif') 11px top no-repeat transparent;
+		padding-left: 22px;
+	}
+	.elife-jumpto .item-list li ul li.last {
+		background-image: url('../i/icons-jumpto-last.gif');
+	}
+		/* Items within the full-text section of Article tab */
+		.elife-jumpto .item-list li ul li ul li {
+			background: url('../i/icons-jumpto.gif') -1px top no-repeat transparent;
+			margin-left: -11px;
+		}
+
+	/* Article Categories & Tags */
+	ul.elife-article-categories {
+		margin: 0;
+	}
+
+	ul.elife-article-categories li {
+		display: inline;
+		line-height: 1em;
+		margin: 0;
+		padding: 0;
+		vertical-align: middle;
+	}
+
+	ul.elife-article-categories li a {
+		background: #85bf67;
+		color: #fff;
+		display: inline-block;
+		margin: 0 1.1em 1.1em 0;
+		padding: 0.5em 0.7em;
+		vertical-align: top;
+
+		/* CSS3 border radius & background-clip (to prevent bg color from leaking) */
+	  -webkit-border-radius: 0.5em;
+	          border-radius: 0.5em;
+	  -webkit-background-clip: padding-box;
+	  	 -moz-background-clip: padding;
+	  				background-clip: padding-box;
+	}
+		/* bottom padding needs to be smaller for mozilla */
+		@-moz-document url-prefix() {
+		    ul.elife-article-categories li a { padding-bottom: 0.25em; }
+		}
+
+	/* category-display-channel = dark blue bg */
+	ul.elife-article-categories li a.category-display-channel { background: #0560ab; }
+	/* category-heading = light blue bg */
+	ul.elife-article-categories li a.category-heading { background: #22a0d8; }
+	/* category-keyword = light green bg */
+	ul.elife-article-categories li a.category-keyword { background: #85bf67; }
+
+
+	/* >>> SEARCH LIST PAGES <<< */
+	#zone-content .pane-elife-searchlist-sort + .panel-separator {
+		margin: 9px 0 10px 0;
+	}
+
+	#zone-content	.pane-elife-searchlist-title + .panel-separator {
+		background: transparent;
+		margin: 0;
+	}
+  .elife-searchlist-pagerbar {
+    max-width:318px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .elife-searchlist-pagerbar .pager li {
+    font-size:1em;
+  }
+	/* pagerbar -- pager on left, # rows & result counter on right */
+	.elife-searchlist-pagerbar .elife-searchlist-pagerbar-pager {
+
+		position: relative;
+		top: -4px;
+	}
+
+	.elife-searchlist-pagerbar .elife-searchlist-pagerbar-rows,
+	.elife-searchlist-pagerbar .elife-searchlist-pagerbar-count {
+
+	}
+
+	.elife-searchlist-pagerbar-rows {
+		margin-bottom: 8px;
+	}
+
+	.elife-searchlist-pagerbar-rows span,
+	.elife-searchlist-pagerbar-rows a {
+		display: inline-block;
+		padding: 1px 4px 0;
+		vertical-align: middle;
+	}
+
+	.elife-searchlist-pagerbar-rows span.elife-searchlist-pagerbar-rows-suffix {
+		padding-right: 0;
+	}
+
+	.elife-searchlist-pagerbar-rows a {
+		margin: 0 10px;
+	}
+
+	.elife-searchlist-pagerbar-rows a.selected {
+		background: #929497;
+		color: #fff;
+
+		-webkit-border-radius: 3px;
+	          border-radius: 3px;
+	  -webkit-background-clip: padding-box;
+	  	 -moz-background-clip: padding;
+	  				background-clip: padding-box;
+	}
+
+	.elife-searchlist-pagerbar-count {
+		color: #929497;
+	}
+
+	/* search list results */
+	.elife-searchlist-results {
+		border-bottom: 1px solid #dfdddd;
+		margin-bottom: 10px;
+		margin-top: 25px;
+	}
+
+	/* eLife Citation Styles */
+	.highwire-article-citation .highwire-cite {
+		clear: both;
+		margin-bottom: 30px;
+	}
+
+	.highwire-article-citation-list ul li {
+		margin-bottom: 0;
+	}
+
+	.highwire-article-citation .highwire-cite > div {
+		margin-bottom: 5px;
+	}
+
+	.highwire-article-citation .highwire-cite-ec {
+		float: left;
+		filter: alpha(opacity=50);
+		margin: 1px 8px 0 2px;
+		opacity: 0.5;
+	}
+
+	.highwire-article-citation .highwire-cite-categories .elife-citation-categories {
+		display: inline-block;
+		margin-bottom: 0;
+		padding-top: 0;
+	}
+
+	.highwire-article-citation .highwire-cite-impact-statement {
+		margin: 5px 0;
+	}
+
+	.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories li {
+		display: inline-block;
+		margin-bottom: 0;
+	}
+
+	.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories .elife-citation-categories li {
+		margin-bottom: 5px;
+	}
+
+	.highwire-article-citation .highwire-cite-categories li,
+	.highwire-article-citation .highwire-cite-categories + .highwire-cite-date {
+		margin-left: 0;
+		margin-right: 0;
+		padding: 0;
+	}
+		.highwire-article-citation .highwire-cite-categories li:after,
+		.highwire-article-citation .highwire-cite-categories + .highwire-cite-date:before {
+			color: #c8c9cb;
+			content: "\2014";
+			margin-left: 8px;
+			margin-right: 8px;
+		}
+
+		.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories li:after,
+		.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories + .highwire-cite-date:before {
+			margin-left: 5px;
+			margin-right: 5px;
+		}
+
+	.highwire-article-citation .highwire-cite-categories li.last:after,
+	.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories li.last:after {
+		content: none;
+		margin-right: 0;
+		margin-left: 0;
+	}
+
+	.highwire-article-citation .highwire-cite-categories li a {
+		color: #6d6e70;
+		font-style: italic;
+	}
+
+  .highwire-article-citation .highwire-cite-manuscript {
+    color: #22A0D8;
+    font-style: normal;
+    text-transform: uppercase;
+    /*font-size: 0.86em;*/
+  }
+
+  /* Content type link colors */
+  .highwire-article-citation  .highwire-cite-categories a.citation-cat-display-channel {
+    font-style: normal;
+    background: #273b81;
+    color: #fff;
+    display: inline-block;
+    padding: 0.3em 0.5em;
+    vertical-align: top;
+
+    /* CSS3 border radius & background-clip (to prevent bg color from leaking) */
+    -webkit-border-radius: 0.5em;
+    border-radius: 0.5em;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 1em;
+  }
+
+  /* bottom padding needs to be smaller for mozilla */
+  @-moz-document url-prefix() {
+    .highwire-article-citation  .highwire-cite-categories a.citation-cat-display-channel { padding-bottom: 0.2em; }
+  }
+
+  /* Highwire Striking Image */
+  .highwire-article-citation .highwire-cite-striking-image {
+    display: block;
+    float: left;
+  }
+
+  .highwire-article-citation .highwire-cite-striking-image a {
+    margin: 0 10px 10px 0;
+    border: 1px solid #dfdddd;
+    width: 60px;
+    height: 60px;
+    display: block;
+    text-align: center;
+  }
+
+  .highwire-article-citation .highwire-cite-striking-image a:hover {
+    border-color: #22a0d8;
+  }
+
+  .highwire-article-citation .elife-citation-elife-striking-image-true .highwire-cite-body {
+    margin-left: 72px;
+  }
+
+  /* Research Articles = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.research-article {
+    background-color: #273b81;
+  }
+
+  /* Research Advances = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.research-advance {
+    background-color: #273b81;
+  }
+
+  /* Registered reports = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.registered-report {
+    background-color: #273b81;
+  }
+
+  /* Replication studies = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.replication-study {
+    background-color: #273b81;
+  }
+
+  /* Tools and resources = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.tools-and-resources {
+    background-color: #273b81;
+  }
+
+  /* Short Reports = dark blue */
+  .highwire-cite-categories a.citation-cat-display-channel.short-report {
+    background-color: #273b81;
+  }
+
+  /* Editorials = medium blue */
+  .highwire-cite-categories a.citation-cat-display-channel.editorial {
+    background-color: #0961ab;
+  }
+
+  /* Insights = light green */
+  .highwire-cite-categories a.citation-cat-display-channel.insight {
+    background-color: #629f43;
+  }
+
+  /* Features = red */
+  .highwire-cite-categories a.citation-cat-display-channel.feature-article {
+    background-color: #cf0c4e;
+  }
+
+	/* >> SEARCHLIST SIDEBAR << */
+	/* Searchlist search box */
+	.panel-display .pane-elife-searchlist-quicksearch .pane-title {
+		margin-bottom: 3px;
+	}
+
+	#elife-searchlist-quicksearch-form a.elife-advanced-search,
+	#elife-searchlist-quicksearch-form--2 a.elife-advanced-search {
+		display: none;
+	}
+
+	/* Searchlist Filters */
+	.elife-searchlist-filter .searchlist-count {
+		color: #929497;
+		font-style: italic;
+	}
+
+	.elife-searchlist-filter .form-disabled .searchlist-count {
+		color: #babcc0;
+	}
+
+/* ---------------------------------*/
+/* ---------->>> MISC <<<-----------*/
+/* ---------------------------------*/
+
+	/* collapsible container toggle */
+	.ctools-collapsible-container span.ctools-toggle,
+	html.js .ctools-collapsible-container .ctools-collapsible-handle {
+		display: inline-block;
+	}
+
+	.ctools-collapsible-container span.ctools-toggle {
+		background: url('../i/icons-collapsible.gif') 0 -11px no-repeat transparent;
+		height: 11px;
+		margin: 10px 12px 0 0px;
+		width: 19px;
+	}
+	.home-section-low .ctools-collapsible-container span.ctools-toggle {
+		margin-left: 0;
+	}
+	.ctools-collapsible-container span.ctools-toggle-collapsed {
+		background-position: 0 0;
+	}
+	.ctools-collapsible-container .ctools-collapsible-handle {
+		margin-bottom: 0;
+	}
+
+	.ctools-collapsible-container .ctools-collapsible-content {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 15px;
+	}
+
+
+
+	/* Sorting options (ie: reflinks & search lists) */
+	.elife-reflinks-sortby > div,
+	.elife-searchlist-sortby > div {
+		display: inline;
+	}
+
+	.elife-reflinks-sortby ul.elife-reflinks-sort-tabs,
+	.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li,
+	.elife-searchlist-sortby ul.elife-searchlist-sort-tabs,
+	.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li {
+		display: inline-block;
+		margin: 0 0 0 0px;
+		padding: 0;
+	}
+
+	.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li,
+	.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li {
+		border-right: 1px solid #dfdddd;
+		line-height: 0.5em;
+	}
+	.elife-reflinks-sortby ul.elife-reflinks-sort-tabs li.last,
+	.elife-searchlist-sortby ul.elife-searchlist-sort-tabs li.last {
+		border: 0;
+	}
+
+	.elife-reflinks-sortby .elife-reflinks-sort-tab a,
+	.elife-searchlist-sortby .elife-searchlist-sort-tab a {
+		background: url('../i/icons-sort_order.gif') right top no-repeat transparent;
+		color: #6d6e70;
+		padding: 0 17px 0 4px;
+	}
+		/* asc / desc bg position */
+		.elife-reflinks-sortby .elife-reflinks-sort-tab.asc a,
+		.elife-searchlist-sortby .elife-searchlist-sort-tab.asc a { background-position: right top; }
+
+		.elife-reflinks-sortby .elife-reflinks-sort-tab.desc a,
+		.elife-searchlist-sortby .elife-searchlist-sort-tab.desc a { background-position: right bottom; }
+
+		/* selected / not-selected link color */
+		.elife-reflinks-sortby .elife-reflinks-sort-tab.not-selected a,
+		.elife-searchlist-sortby .elife-searchlist-sort-tab.not-selected a { color: #6d6e70; }
+
+		.elife-reflinks-sortby .elife-reflinks-sort-tab.selected a,
+		.elife-searchlist-sortby .elife-searchlist-sort-tab.selected a { color: #22a0d8; }
+
+
+	/* eLife cluetip (js tooltip styles) */
+	.cluetip.ui-widget-content,
+	.cluetip .ui-widget-content {
+		background: #fff;
+		border: 0;
+	}
+
+  .cluetip-default,
+	.cluetip-default .cluetip-outer {
+		background: #fff;
+	}
+
+  li.show-article-toolbox-tooltip > .item-list > ul,
+	.cluetip-default .cluetip-outer {
+	  -webkit-box-shadow: 0px 0px 5px 0px #aaa;
+	  				box-shadow: 0px 0px 5px 0px #aaa;
+	}
+  li.show-article-toolbox-tooltip > .item-list > ul {
+    float:left;
+    width:100%;
+    background: #fff;
+  }
+	.cluetip-default  .cluetip-inner {
+		padding: 15px 20px;
+	}
+
+	/* Override the default-style that javascript gives to the title - we never want to display it */
+	.cluetip-title {
+  	display: none !important;
+	}
+	/* Override the default z-index that javascript gives - MOAR Z-INDEX! */
+	#cluetip {
+  	z-index: 600 !important;
+	}
+
+	/* When displaying a preview for an aticle, hide everything but the abstract/executive-summary */
+	.cluetip-inner .highwire-markup h2,
+	.cluetip-inner .highwire-markup .contributors,
+	.cluetip-inner .highwire-markup .kwd-group-title,
+	.cluetip-inner .highwire-markup .kwd-group,
+	.cluetip-inner .highwire-markup .copyright-statement,
+	.cluetip-inner .highwire-markup .license,
+	.cluetip-inner .highwire-markup .fn-group,
+	.cluetip-inner .highwire-markup .history-list {
+  	display: none;
+	}
+
+  .elife-article-author-affiliation-item,
+	.ui-cluetip-content {
+		color: #6d6e70;
+	}
+  /* .elife-article-author-affiliation-item is used in elife_article_affiliation.inc. Spits all author information out into one block */
+	.author-list ul,
+	.author-list ul li {
+    list-style: none;
+  }
+
+  .author-detail > div,
+  .author-tooltip > div {
+		margin-bottom: 10px;
+	}
+
+  .author-detail > .author-detail-name,
+	.author-tooltip > .author-tooltip-name {
+		margin-bottom: 0;
+	}
+
+	div.clue-top-default .cluetip-arrows {
+		background-image: url(../i/icon-arrowdown.png);
+		margin-left: -12px;
+		width: 24px;
+		height: 15px;
+	}
+  div.clue-bottom-default .cluetip-arrows,
+  li.show-article-toolbox-tooltip .citation-tooltip-head{
+    background-image: url(../i/icon-arrowup.png);
+  }
+
+  li.show-article-toolbox-tooltip .citation-tooltip-head{
+    padding:35px 0 15px;
+    background-repeat:no-repeat;;
+    background-position: 50% 0%;
+    background-color: transparent;
+    margin-top:-15px;
+  }
+  li.show-article-toolbox-tooltip > .item-list{
+      border:none;
+      margin-top:10px;
+      padding:0;
+  }
+  li.show-article-toolbox-tooltip > .item-list  div.sharethis-wrapper,
+  li.show-article-toolbox-tooltip > .item-list ul.citations-list{
+    padding:0 10px 10px;
+  }
+	div.clue-bottom-default .cluetip-arrows {
+		margin-left: -12px;
+		top: -15px;
+		width: 24px;
+		height: 15px;
+	}
+
+	/* SHARETHIS */
+	/* Add mendeley icon because sharethis does not include this service */
+	.st-mendeley .chicklets {
+		background-image: url('../i/st_mendeley.png');
+		margin-left: 4px;
+		text-indent: -9999em;
+		width: 16px;
+	}
+.pane-elife-searchlist-filters .elife-searchlist-filter .option .label-wrapper{
+         color:#6D6E70;
+}
+
+.js .elife-searchlist-filter .form-submit {
+  display: none;
+  float: none;
+}
+
+.nlm-sup {
+	vertical-align: super;
+}
+
+.elife-podcast-link{
+	display: inline;
+}
+
+.elife-podcast-link img {
+	float: left;
+  vertical-align: middle;
+}
+
+.elife-podcast-link a:link{
+	font-weight: bold;
+	display: block;
+	line-height: 20px;
+	margin-left: 42px;
+}
+
+#stcpDiv {
+	width: 1px;
+	height: 1px;
+}
+
+
+
+/* Hide search label for mobile menu*/
+#mini-panel-jnl_elife_mobile_menu_bar #main-menu-search .pane-title { display:none; }
+#mini-panel-jnl_elife_mobile_menu_bar #main-menu-search .elife-advanced-search { display:none; }
+
+/**
+ * Mobile Responsive Bar (see: eLife Responsive Bar Mini Panel)
+ */
+#mini-panel-jnl_elife_responsive_bar .pane-elife-searchlist-quicksearch {
+  width:40%;
+  max-width:200px;
+  -webkit-transition: width 0.3s;
+     -moz-transition: width 0.3s;
+          transition: width 0.3s;
+}
+#mini-panel-jnl_elife_responsive_bar .pane-elife-searchlist-quicksearch.focus { width:50%;}
+
+.pane-menu-menu-mobile-menu .pane-content,
+.pane-elife-searchlist-quicksearch .elife-advanced-search,
+.pane-elife-searchlist-quicksearch .pane-title,
+.pane-elife-searchlist-quicksearch .title { display:none; }
+
+.pane-elife-searchlist-quicksearch { margin-right:32px;}
+
+.pane-menu-menu-mobile-menu .pane-title {}
+.pane-menu-menu-mobile-menu .pane-content.expanded {
+  display:block;
+  margin-top:30px;
+  position:absolute;
+  top:30px;
+  left:10px;
+  right:10px;
+  z-index:999;
+  background:rgba(0, 0, 0, .85);
+  border:solid #000 5px;
+}
+.pane-menu-menu-mobile-menu {
+  width:100%;
+  margin-top:-30px;
+}
+.pane-menu-menu-mobile-menu ul.menu,
+.pane-menu-menu-mobile-menu ul.menu li {
+  text-indent:0;
+  margin:0;
+  padding:0;
+  list-style:none;
+
+}
+
+.pane-menu-menu-mobile-menu ul.menu li a {
+  display:block;
+  color:#FFF;
+  border-bottom:solid 1px #FFF;
+  padding:5px;
+}
+.pane-menu-menu-mobile-menu .elife-jumpto,
+.pane-menu-menu-mobile-menu .elife-jumpto a,
+.pane-menu-menu-mobile-menu .elife-jumpto .item-list li ul li a {
+  color:#FFF;
+  background:none;
+}
+.pane-menu-menu-mobile-menu .elife-jumpto {
+  padding:5px;
+}
+.pane-menu-menu-mobile-menu .elife-jumpto .item-list li ul li {
+  background:url(../i/mobile-icons-jumpto.gif) no-repeat 11px 50%;
+  padding-left:20px;
+}
+.pane-menu-menu-mobile-menu .elife-jumpto .item-list li ul li.last {
+  background-image:url(../i/mobile-icons-jumpto-last.gif);
+}
+.pane-menu-menu-mobile-menu ul.menu ul li a {
+  padding-left:20px;
+}
+.pane-menu-menu-mobile-menu ul.menu li.expanded ul {
+  display:none;
+  -webkit-transition: opacity 300ms ease-in;
+     -moz-transition: opacity 300ms ease-in;
+      -ms-transition: opacity 300ms ease-in;
+       -o-transition: opacity 300ms ease-in;
+          transition: opacity 300ms ease-in;
+}
+.pane-menu-menu-mobile-menu ul.menu li.show ul {
+  display:block; /*  */
+}
+/* Hide tertiary level*/
+.pane-menu-menu-mobile-menu .elife-jumpto ul ul ul {
+  display:none;
+}
+.page_header .elife-jumpto,
+.page_header .elife-jumpto a,
+.page_header .elife-jumpto .item-list li ul li a {
+    color:#FFF;
+    background:none;
+}
+.page_header .elife-jumpto {
+    padding:5px;
+}
+.page_header .elife-jumpto .item-list li ul li {
+    background:url(../i/mobile-icons-jumpto.gif) no-repeat 11px 50%;
+    padding-left:20px;
+}
+.page_header .elife-jumpto .item-list li ul li.last {
+    background-image:url(../i/mobile-icons-jumpto-last.gif);
+}
+.page_header .elife-jumpto ul ul ul {
+    display:none;
+}
+
+#mini-panel-jnl_elife_responsive_bar {
+  padding:15px;
+}
+.pane-menu-menu-mobile-menu .pane-title {
+  margin-left:15px;
+  float:right;
+}
+
+/* Hide elife top bar menu and sidebar on mobile. */
+/*.panels-layout-elife_article .sidebar-wrapper */
+#block-menu-menu-elife-bar-menu {
+  display:none;
+}
+
+
+.cluetip-close {
+  text-transform:uppercase;
+  font-size:10px;
+  float:right;
+}
+
+a.back-to-top {
+  text-transform:uppercase;
+  font-size:14px;
+  padding:5px 25px 5px 5px;
+  text-align:right;
+  margin:5px 0;
+  background:url(../i/icon-arrowup-circle.png) no-repeat center right;
+  line-height:21px;
+  color:#6d6e70;
+  opacity:.4;
+}
+a.back-to-top:active,
+a.back-to-top:hover {
+  opacity:1;
+}
+
+/**
+ * Categories & Tags pane
+ */
+.pane-elife-article-categories.visible-small .pane-title.ctools-collapsible-handler {
+  font-size:1em;
+  color:#000;
+  font-weight:bold;
+  font-size:14px;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  line-spacing:normal;
+}
+/**
+ * Article Category Color Coding
+ */
+.pane-node-field-highwire-article-category .pane-content a {
+  color: #FFF;
+  background-color:rgb(5, 96, 171); /* default */
+  padding: 2px 5px 0px;
+  display:block;
+}
+.elife-cat-research-article .pane-content a { background-color:rgb(5, 96, 171);}
+.elife-cat-research-article .pane-content a:hover,
+.elife-cat-research-article .pane-content a:active { background-color:rgba(5, 96, 171, .9);}
+
+.elife-cat-insight .pane-content a { background-color:rgb(98, 159, 67);}
+.elife-cat-insight .pane-content a:hover,
+.elife-cat-insight .pane-content a:active { background-color:rgba(98, 159, 67, .9);}
+
+.elife-cat-editorial .pane-content a { background-color:rgb(168, 47, 140);}
+.elife-cat-editorial .pane-content a:hover,
+.elife-cat-editorial .pane-content a:active { background-color:rgba(168, 47, 140, .9);}
+
+.elife-cat-feature-article .pane-content a { background-color:rgb(194, 0, 62);}
+.elife-cat-feature-article .pane-content a:hover,
+.elife-cat-feature-article .pane-content a:active { background-color:rgba(194, 0, 62, .9);}
+
+.elife-cat-correction .pane-content a { background-color:rgb(109, 110, 112);}
+.elife-cat-correction .pane-content a:hover,
+.elife-cat-correction .pane-content a:active { background-color:rgba(109, 110, 112, .9);}
+
+/**
+ * Article Author Attributes
+ */
+.elife-institutions-list {
+  display:none;
+}
+
+
+/**
+ * Mobile Sidebar
+ */
+.text-sizes {
+  display:none;
+}
+
+
+/**
+ * Utility classes, similar to Bootstrap/Foundation.
+ * TODO: Replace with Bootstrap or other framework.
+ */
+
+.visible-small {
+  display:block;
+}
+.hidden-small,
+ul.links.hidden-small {
+  display:none;
+}
+/* Remove panel-separator border for hidden-small elements */
+.visible-small + .panel-separator {
+  display:block;
+}
+.hidden-small + .panel-separator {
+  display:none;
+}
+#zone-content .hide-separator-after + .panel-separator {
+  background:none;
+  margin:5px 0;
+}
+#zone-content .pane-elife-article-doi + .panel-separator {
+  background-color:#FFF;
+  margin:5px 0;
+}
+
+#region-responsive-header {
+    display: none;
+}
+
+.node-type-elife-news img {
+    max-width: 100%;
+    height: auto;
+}

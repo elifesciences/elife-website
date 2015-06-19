@@ -1,0 +1,38 @@
+/* This file will hold styles for the mobile version of your website (mobile first). */
+/* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
+
+#page {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#section-content {
+    float: left;
+}
+
+#section-footer {
+    float: left;
+}
+
+ol.inline,
+ol.links.inline {
+  display: inline;
+  padding-left: 0;
+}
+ol.inline li {
+  display: inline;
+  list-style-type: none;
+  padding: 0 0.5em;
+}
+
+/* Author callout styles */
+.author-callout-style1 {
+  background: transparent;
+  color: #f00;
+}
+
+.author-callout-style2 {
+  background: transparent;
+  color: #00f;
+}
+

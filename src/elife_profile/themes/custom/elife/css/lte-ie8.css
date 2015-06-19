@@ -1,0 +1,17 @@
+/**
+ * Less than or equal to IE 8 (lte IE8)
+ */
+.pane-page-breadcrumb .crumb.first a .logo {
+    background: url('../i/elifebar_logo.png') no-repeat 0 -19px;
+    display: inline-block;
+    height: 21px;
+    left: -10px;
+    position: absolute;
+    top: 0;
+    width: 21px;
+}
+
+.pane-page-breadcrumb .crumb .wrapper {
+  background-image: url('../i/breadcrumb-divider.png');
+  padding-right:15px;
+}

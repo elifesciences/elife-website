@@ -1,0 +1,75 @@
+/* This file holds all CSS3 PIE selectors & behaviors */
+
+/* @TODO: replace body -pie-background with bg image bc PIE doesn't support background-size */
+/* @TODO: cluetip box-shadow doesn't work in IE8 right now. Revisit this. */
+
+/* Gradient backgrounds */
+body {    
+  -pie-background: linear-gradient(#dfdddd 20%,#f1f1f1 100%);
+  behavior: url(/sites/default/themes/elife/css/PIE/pie.php);
+}
+
+/* RGBa backgrounds */
+/* featured-item-index also has border-radius */
+.elife-home-featured-items .elife-home-featured-item .border-top,
+.elife-home-featured-item .elife-home-featured-item-index {
+	-pie-background: rgba(255,255,255,0.5);
+  behavior: url(/sites/default/themes/elife/css/PIE/pie.php);	
+}
+
+.elife-home-featured-item.active .elife-home-featured-item-index {
+	-pie-background: rgba(255,255,255,1);
+  behavior: url(/sites/default/themes/elife/css/PIE/pie.php);	
+}
+
+/* CSS3 border radius */
+.pager li a,
+.pager li.pager-current,
+.pager li.first, .pager li.first a, .pager li.first a:hover,
+.pager li.last, .pager li.last a, .pager li.last a:hover,
+.pager li.pager-first a,
+.pager li.pager-first a:hover,
+.pager li.pager-previous a,
+.pager li.pager-previous a:hover,
+.pager li.pager-next a,
+.pager li.pager-next a:hover,
+.pager li.pager-last a,
+.pager li.pager-last a:hover,
+ul.primary li a,
+.elife-searchlist-pagerbar-rows a.selected,
+textarea, select,
+input[type="date"], 
+input[type="datetime"],
+input[type="datetime-local"], 
+input[type="email"],
+input[type="month"], 
+input[type="number"],
+input[type="password"], 
+input[type="search"],
+input[type="tel"], 
+input[type="text"],
+input[type="time"], 
+input[type="url"], 
+input[type="week"],
+button, 
+input[type="reset"], 
+input[type="submit"], 
+input[type="button"],
+.elife-reflink-indicators-left .elife-reflink-indicator-number span,
+.article-metrics-chart-switcher .chart-switcher,
+ul.elife-article-categories li a,
+.download-citations .icon,
+.article-share .icon {
+  behavior: url(/sites/default/themes/elife/css/PIE/pie.php);	
+}
+
+/* CSS3 Box shadow -- DOES NOT WORK WITH RGBa */
+.cluetip-default .cluetip-outer,
+.no-panels-page #zone-content .region,
+.panels-page #zone-content .panel-display .panel-panel {          
+	behavior: url(/sites/default/themes/elife/css/PIE/pie.php);
+}
+
+ul.panels-ajax-tab li {
+	behavior: url(/sites/default/themes/elife/css/PIE/pie.php);
+}

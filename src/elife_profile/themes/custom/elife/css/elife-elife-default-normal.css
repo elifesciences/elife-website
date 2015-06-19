@@ -1,0 +1,63 @@
+/* This file will hold styles that are loaded using the same media query as the normal grid. */
+
+/* Debug grid */
+.alpha-grid-debug .container-32 {
+	background: url('grid/elife_default/normal/elife-default-normal-32.png') repeat transparent;
+}
+
+
+/* Home Page adjustments */
+/* Vertical position of submit work text */
+.pane-elife-home-submit a span {
+	margin-top: 15px;
+}
+
+/* extra padding for panels ajax tabs */
+ul.panels-ajax-tab li a {
+	padding-left: 1.5em;
+	padding-right: 1.5em;
+}
+
+/* max-width for image w/o carousel */
+.fig-inline-img-set .fig-inline-img img {
+	max-width: 487px;
+}
+
+.boxed-text .fig-inline-img-set .fig-inline-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* max-width for image set w/ carousel fig-expansion img */
+.fig-inline-img-set-carousel .fig-inline-img img {
+	max-width: 397px;
+}
+
+/* metrics graph adjustments */
+.elfie-article-metrics .elife-article-metrics-table {
+	width: 40%;
+}
+
+#elife-article-metrics-summary .elife-article-metrics-summary-date .date-string {
+	display: inline;
+}
+
+/* Homepage */
+.elife-home-layout .home-section-high {
+    float: right;
+}
+
+.elife-home-layout .home-section-medium {
+    float: left;
+}
+.elife-home-layout .home-ed-choice {
+    display: block;
+}
+
+.elife-home-layout .home-section-low {
+    float: right;
+}
+
+.elife-home-layout .home-section-medium .home-article-listing-wrapper {
+    padding-top: 0;
+}
