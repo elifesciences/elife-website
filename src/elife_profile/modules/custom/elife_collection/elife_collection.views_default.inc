@@ -72,6 +72,7 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['table'] = 'field_data_field_elife_a_full_title';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['field'] = 'field_elife_a_full_title_value';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['relationship'] = 'field_elife_a_keyword_target_id';
+  $handler->display->display_options['arguments']['field_elife_a_full_title_value']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['default_argument_type'] = 'fixed';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_elife_a_full_title_value']['summary']['format'] = 'default_summary';
