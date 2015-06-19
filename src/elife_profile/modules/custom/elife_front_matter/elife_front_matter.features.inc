@@ -5,6 +5,15 @@
  */
 
 /**
+ * Implements hook_entityqueue_api().
+ */
+function elife_front_matter_entityqueue_api($module = NULL, $api = NULL) {
+  if ($module == "entityqueue" && $api == "entityqueue_default") {
+    return array("version" => "1");
+  }
+}
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function elife_front_matter_ctools_plugin_api($module = NULL, $api = NULL) {
