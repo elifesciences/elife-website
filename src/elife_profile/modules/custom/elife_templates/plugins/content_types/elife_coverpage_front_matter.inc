@@ -36,10 +36,10 @@ function elife_coverpage_front_matter_render($subtype, $conf, $args, $context) {
   $variables['display'] = ($conf['front_matter_type']) ? $conf['front_matter_type'] : 'regular';
 
   // If this is a headline item and there is an image prepare the image.
-  if (!empty($conf['front_matter_type']) && $conf['front_matter_type'] == 'headline' && !empty($ewrapper->field_elife_images)) {
+  if (!empty($conf['front_matter_type']) && $conf['front_matter_type'] == 'headline' && $ewrapper->field_elife_image) {
     $image_properties = $ewrapper->field_elife_image->value();
     $front_image = array(
-      'style_name' => 'elife_coverpage_front_matter',
+      'style_name' => 'elife_front_matter',
       'path' => $image_properties['uri'],
       'width' => '',
       'height' => '',
