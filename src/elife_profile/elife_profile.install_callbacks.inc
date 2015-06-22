@@ -10,9 +10,11 @@
  *
  * @see elife_profile_install_additional_modules()
  */
-function _elife_profile_enable_theme($theme, &$context) {
+function _elife_profile_enable_theme($theme, $default = FALSE, &$context) {
   theme_enable(array($theme));
-  variable_set('theme_default', $theme);
+  if ($default) {
+    variable_set('theme_default', $theme);
+  }
 
   $context['message'] = st('Installed the default theme.');
 }
