@@ -1030,4 +1030,92 @@ class ElifeArticleVersion {
 
     return $results;
   }
+
+  /**
+   * Get the section for the supplied article id.
+   *
+   * @param string $reference
+   *   Article Id or url.
+   * @param string $type
+   *   Article or url.
+   *
+   * @return array
+   *   Array of section name and code.
+   */
+  public static function getSection(&$reference, $type = 'url') {
+    $available_sections = self::availableSections();
+    $section_code = NULL;
+    $section_name = NULL;
+    $reference_path = NULL;
+    if ($type == 'url') {
+      if ($path = drupal_lookup_path('source', $reference)) {
+        $node = menu_get_object('node', 1, $path);
+        if (array_key_exists($node->type, $available_sections)) {
+          $section_code = $node->type;
+        }
+      }
+      if (!$section_code) {
+        $section_code = 'other';
+      }
+      $reference_path = url($reference);
+    }
+    else {
+      if ($article = self::getArticle($reference)) {
+        /* @var EntityDrupalWrapper $art_wrapper */
+        $art_wrapper = entity_metadata_wrapper('node', $article);
+        /* @var EntityDrupalWrapper $article_version */
+        $article_version = $art_wrapper->field_elife_a_versions[0];
+        $categories = self::getCategories($article_version->field_elife_a_article_version_id->value());
+        if (!empty($categories) && !empty($categories['display-channel'])) {
+          $section_title = $categories['display-channel'][0];
+          if ($key = array_search(strtolower($section_title), array_map('strtolower', $available_sections))) {
+            $section_code = $key;
+          }
+          $reference_path = url('node/' . $article_version->nid->value());
+        }
+      }
+    }
+    if ($reference_path) {
+      $reference = $reference_path;
+    }
+    if ($section_code) {
+      $code = preg_replace('/^elife_/', '', $section_code);
+      $section = array(
+        'code' => $code,
+        'name' => $available_sections[$section_code],
+      );
+      return $section;
+    }
+  }
+
+  /**
+   * Get the list of approved section codes and names.
+   *
+   * @return array
+   *   Array of available sections.
+   */
+  public static function availableSections() {
+    $cache = &drupal_static(__FUNCTION__, FALSE);
+
+    if ($cache === FALSE) {
+      $default = array(
+        'feature' => 'Feature Article',
+        'insight' => 'Insight',
+        'editorial' => 'Editorial',
+        'research' => 'Research Article',
+        'advance' => 'Research Advance',
+        'replication-study' => 'Replication Study',
+        'registered-report' => 'Registered Report',
+        'tools' => 'Tools and resources',
+        'short' => 'Short Report',
+        'elife_news' => 'eLife News',
+        'elife_podcast' => 'Podcast',
+        'other' => 'Supplementary',
+      );
+
+      $cache = variable_get('elife_article_sections_available', $default);
+    }
+
+    return $cache;
+  }
 }
