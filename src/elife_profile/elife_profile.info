@@ -83,6 +83,7 @@ dependencies[] = omega_tools
 dependencies[] = entityqueue
 dependencies[] = imagecache_actions
 dependencies[] = imagecache_coloractions
+dependencies[] = page_theme
 
 ; Install Features
 dependencies[] = features
