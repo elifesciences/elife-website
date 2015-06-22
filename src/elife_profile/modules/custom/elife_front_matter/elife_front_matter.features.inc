@@ -17,9 +17,19 @@ function elife_front_matter_entityqueue_api($module = NULL, $api = NULL) {
  * Implements hook_ctools_plugin_api().
  */
 function elife_front_matter_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "page_manager" && $api == "pages_default") {
+    return array("version" => "1");
+  }
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
+}
+
+/**
+ * Implements hook_views_api().
+ */
+function elife_front_matter_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
 }
 
 /**

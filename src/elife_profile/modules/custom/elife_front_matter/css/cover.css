@@ -1,0 +1,873 @@
+/* Global element styles */
+html {
+  font-size: 62.5%;
+}
+
+blockquote {
+  margin: 0;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+/* Generic definitions for sup and sub, matching those in elife-text.css */
+/* '.page' here is to make the styles more specific than those in alpha-reset.css */
+.page sup,
+.page sub,
+.page .nlm-sup,
+.page .nlm-sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.5em;
+  font-size: 0.79em;
+}
+.page sub,
+.page .nlm-sub {
+  top: 0.5em;
+}
+
+/* Specific definitions for the article impact statement. Uses generic sup/sub. */
+/* Avenir italic styles -- em & nlm-italic */
+/* Light weight */
+.author-impact-statement em,
+.author-impact-statement .nlm-italic {
+  font-family: 'AvenirLTW01-35LightObli', 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  font-style: normal;
+}
+
+/* Specific definitions for the article title */
+.highwire-article-citation .highwire-cite-title em,
+.highwire-article-citation .highwire-cite-title .nlm-italic {
+  font-family: 'AvenirLTW01-45BookObliq', 'Avenir LT W01 45 Book', Helvetica, Arial, Verdana, sans-serif;
+  font-style: normal;
+}
+
+body {
+  position: relative;
+  font-size: 1.6em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #e6e6e6;
+}
+
+.page_header[role="banner"] {
+  margin-bottom: 0;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-content {
+  float: left;
+}
+
+.section-footer {
+  float: left;
+}
+
+/* Utility styles */
+.off-screen {
+  /* Conceal, but don't remove from DOM */
+  position: absolute;
+  top: -9999px;
+  overflow:hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: -webkit-calc(8px + 1.2rem + 1.375em + 1.2rem + 1px);
+  top: calc(1.2rem + 1.375em + 1.2rem + 1px);
+  z-index: 5;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* @group pattern: articles-jump-link */
+.articles-jump-link {
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  display: block;
+  color: #fff;
+  background-color: #273b81;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 2em;
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+}
+
+.articles-jump-link:hover,
+.articles-jump-link:focus,
+.articles-jump-link:active {
+  text-decoration: none;
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media only all and (min-width: 55em) {
+  .articles-jump-link {
+    display: none;
+  }
+}
+
+/* @end pattern: articles-jump-link */
+.home-listings-wrapper {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.home-listings {
+  display: inline-block;
+  text-align: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 84%;
+  border-top: 8px solid #0961ab;
+  -webkit-box-shadow: 1px 1px 1px #bdbdbd, -1px 3px 1px #bdbdbd;
+  -moz-box-shadow: 1px 1px 1px #bdbdbd, -1px 3px 1px #bdbdbd;
+  box-shadow: 1px 1px 1px #bdbdbd, -1px 3px 1px #bdbdbd;
+  margin: 0 auto;
+  background-color: #fff;
+  position: relative;
+}
+
+.home-listings__heading {
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+  font-size: 1.357em;
+  padding: 0.75rem 1.2rem 1.2rem;
+  color: #6d6e70;
+}
+
+.home-listings__toggle {
+  float: right;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transition: transform 50ms ease-in-out;
+  -moz-transition: transform 50ms ease-in-out;
+  -o-transition: transform 50ms ease-in-out;
+  transition: transform 50ms ease-in-out;
+}
+
+.home-listings__toggle.open {
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.home-listings__list {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  /* centred */
+  left: -webkit-calc(50% - 151px);
+  /* centred */
+  left: calc(50% - 151px);
+}
+
+/* was home-archive__list, renamed to match source */
+.home-archive-listing {
+  display: table-header-group;
+}
+
+.home-archive-listing__list_item:first-child {
+  padding-top: 1em;
+}
+
+/* hide middle 2 (of 4) archive list items */
+.home-archive-listing__list_item:nth-child(6n+2),
+.home-archive-listing__list_item:nth-child(6n+3) {
+  display: none;
+}
+
+.home-subject-listing {
+  display: table-footer-group;
+}
+
+.home-archive-listing__list_item {
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  padding-bottom: 1.357em;
+  color: #fff;
+}
+
+.home-archive-listing__link {
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+  text-decoration: none;
+}
+
+.home-archive-listing__link:link,
+.home-archive-listing__link:visited {
+  color: #fff;
+}
+
+.home-archive-listing__link:hover,
+.home-archive-listing__link:focus,
+.home-archive-listing__link:active {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+}
+
+.home-subject-listing,
+.home-archive__list {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  -webkit-transition: background-color 50ms ease-in-out;
+  -moz-transition: background-color 50ms ease-in-out;
+  -o-transition: background-color 50ms ease-in-out;
+  transition: background-color 50ms ease-in-out;
+  color: #fff;
+}
+
+.home-listings__list .home-subject-listing,
+.home-listings__list .home-archive__list,
+.home-listings__list.overlay .home-subject-listing,
+.home-listings__list.overlay .home-archive__list {
+  background-color: #273b81;
+  background-color: rgba(4, 96, 171, 0.95);
+}
+
+.home-listings__list.off-screen .home-subject-listing,
+.home-listings__list.off-screen .home-archive__list {
+  background-color: #fff;
+  background-color: rgba(4, 96, 171, 0);
+}
+
+.home-subject-listing__list,
+.home-archive-listing__list_item {
+  padding: 0 1em 1em;
+}
+
+.home-subject-listing__list_item:first-child {
+  border-top: 1px solid #fff;
+}
+
+.home-subject-listing__link {
+  color: inherit;
+}
+
+.home-subject-listing__heading {
+  display: none;
+}
+
+.home-subject-listing__list_item {
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+  font-size: 1em;
+  display: block;
+  padding-bottom: 1.357em;
+  color: #fff;
+}
+
+.home-subject-listing__list_item:first-child {
+  padding-top: 1.357em;
+}
+
+.home-subject-listing__link:link,
+.home-subject-listing__link:hover,
+.home-subject-listing__link:focus,
+.home-subject-listing__link:active,
+.home-subject-listing__link:visited {
+  text-decoration: none;
+}
+
+.home-subject-listing__link:hover,
+.home-subject-listing__link:focus,
+.home-subject-listing__link:active {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.home-article-listing-wrapper {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1em 0;
+}
+
+.home-article-listing {
+  border-top: 1px solid #eee;
+  width: 100%;
+}
+
+.home-article-listing__more_articles {
+  display: inline-block;
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  background-color: #273b81;
+  color: #fff;
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+  padding: 1em;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  margin: -1em 0 0 1em;
+}
+
+.home-article-listing__more_articles:hover,
+.home-article-listing__more_articles:active,
+.home-article-listing__more_articles:focus {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+}
+
+@media only all and (min-width: 31em) {
+  .home-listings {
+    position: relative;
+    clear: left;
+  }
+
+  .js .home-article-listing {
+    float: left;
+  }
+
+  .js .home-article-listing__list-item__text_wrapper {
+    padding-left: -webkit-calc(106px + 1em);
+    padding-left: calc(106px + 1em);
+    display: table-cell;
+    padding-left: 0;
+  }
+
+  .js .home-article-listing__list-item__image-placeholder {
+    display: block;
+    position: relative;
+    z-index: -1;
+  }
+}
+
+@media only all and (min-width: 55em) {
+  .home-listings {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    max-width: 84%;
+    padding-left: 1em;
+    margin-top: -3.75em;
+    position: relative;
+  }
+
+  .home-listings-inner {
+    position: relative;
+  }
+
+  .home-listings__heading {
+    float: left;
+    padding-left: 0;
+  }
+
+  .home-listings__toggle {
+    display: none;
+  }
+
+  .home-archive__list {
+    color: #273b81;
+    background-color: #fff;
+  }
+
+  .home-article-listing__more_articles {
+    margin-left: 0;
+  }
+
+  /* Used to target the bottom archive list. */
+  .home-article-listing__more_articles + .home-archive__list {
+    float: right;
+    padding-top: 0;
+    margin-bottom: 2em;
+  }
+
+  .home-listings__list.off-screen .home-subject-listing,
+  .home-listings__list.off-screen .home-archive__list,
+  .home-listings__list.overlay .home-subject-listing,
+  .home-listings__list.overlay .home-archive__list,
+  .home-listings__list .home-subject-listing,
+  .home-listings__list .home-archive__list {
+    background-color: #fff;
+  }
+
+  .home-archive__list,
+  .home-subject-listing {
+    padding-top: 1.2rem;
+  }
+
+  .home-archive-listing__link:link,
+  .home-archive-listing__link:visited {
+    color: #273b81;
+  }
+
+  .home-archive-listing__link:hover,
+  .home-archive-listing__link:focus,
+  .home-archive-listing__link:active {
+    color: #6d6e70;
+  }
+
+  .home-listings__list {
+    display: block;
+    position: static;
+  }
+
+  .home-subject-list {
+    float: left;
+  }
+
+  .home-archive-listing__list_item {
+    text-transform: uppercase;
+    font-size: 0.70em;
+    display: inline;
+    padding-right: 0;
+  }
+
+  .home-archive-listing__list_item:first-child {
+    padding-right: 3em;
+  }
+
+  .home-archive-listing__list_item:nth-child(6n+2),
+  .home-archive-listing__list_item:nth-child(6n+3) {
+    display: inline;
+  }
+
+  .home-archive-listing__list_item:nth-child(6n+3)::before,
+  .home-archive-listing__list_item:nth-child(6n+4)::before {
+    content: '|';
+    color: #273b81;
+    padding: 0 1em;
+  }
+
+  .home-archive-listing__list_item:last-child {
+    padding: 0;
+  }
+
+  .home-archive-listing__list_item:last-child::after {
+    content: '\00a0';
+    padding-left: 1em;
+  }
+
+  .home-article-listing-wrapper {
+    width: 78.9%; /* Caution, magic number */
+    clear: left;
+    float: left;
+    border-right: 1px solid #eee;
+    padding-top: 0;
+  }
+
+  .home-article-listing {
+    width: 98%;
+    padding-top: 1em;
+    margin-right: 1em;
+  }
+
+  .home-subject-listing {
+    color: #273b81;
+    background-color: #fff;
+    width: 21%;
+    float: right;
+    border-left: 1px solid #eee;
+    /* pull left to ensure this border overlays border of .home-article-listing-wrapper */
+    position: relative;
+    left: -3px;
+  }
+
+  .home-subject-listing__heading {
+    display: block;
+    color: #383838;
+    font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.125em;
+    /* 18/16px */
+    font-size: 1em;
+    margin: 0 1em 1em;
+  }
+
+  .home-subject-listing__list_item {
+    background: url(../images/arrow-blue-sml.png) no-repeat left center #fff;
+    padding: 0.6785em 0 0.6785em 2em;
+    color: #0560ab;
+    font-size: 0.8em;
+  }
+
+  /* needed in  addition to basic .home-subject-listing__list_item seletor
+      to override .home-subject-listing__list_item:first-child selector set
+      earlier, outside this media query. */
+  .home-subject-listing__list_item:first-child {
+    padding-top: 0.6785em;
+  }
+
+  .home-subject-listing__link:hover,
+  .home-subject-listing__link:focus,
+  .home-subject-listing__link:active {
+    text-decoration: none;
+    color: #6d6e70;
+  }
+}
+
+/* @group pattern: home-article-listing__list-item */
+.home-article-listing__list-item {
+  padding: 0 1em 2em;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 2em;
+  clear: both;
+}
+
+.home-article-listing__list-item__image-placeholder {
+  padding-right: 1em;
+}
+
+.home-article-listing__list-item__image-placeholder img {
+  float: left;
+  width: 106px;
+  height: 145px;
+  padding: 1px;
+  margin-right: 1em;
+  /* accounts for lineheight of .home-article-listing__list-item__subjects, allowing the top
+      edges of that at this image to align */
+  margin-top: 0.618em;
+}
+
+.home-article-listing__list-item a img {
+  float: left;
+  width: 106px;
+  height: 145px;
+  border: 1px solid #eee;
+  -webkit-box-shadow: 1px 1px 2px #999999, -1px -1px 2px #999999;
+  -moz-box-shadow: 1px 1px 2px #999999, -1px -1px 2px #999999;
+  box-shadow: 1px 1px 2px #999999, -1px -1px 2px #999999;
+  margin-right: 1em;
+  /* accounts for lineheight of .home-article-listing__list-item__subjects, allowing the top
+      edges of that at this image to align */
+  margin-top: 0.618em;
+}
+
+.home-article-listing__list-item__image-wrapper {
+  float: left;
+  clear: left;
+  padding-right: 1em;
+}
+
+/* replaced by home-article-listing__list-item__image-wrapper if js && wide enough (see 31em mq)  */
+.home-article-listing__list-item__image-placeholder {
+  display: none;
+  float: left;
+}
+
+.home-article-listing__list-item__subjects {
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+  text-transform: uppercase;
+  font-size: 0.875em;
+  line-height: 2.4em;
+}
+
+.home-article-listing__list-item__subjects li:first-child {
+  padding-left: 0;
+}
+
+.home-article-listing__list-item__subjects li:nth-child(n+2)::before {
+  content: ' |\00a0\00a0\00a0';
+}
+
+.home-article-listing__list-item__subject:link,
+.home-article-listing__list-item__subject:visited {
+  color: #273b81;
+}
+
+.home-article-listing__list-item__subject:hover,
+.home-article-listing__list-item__subject:focus,
+.home-article-listing__list-item__subject:active {
+  text-decoration: none;
+  color: #6d6e70;
+}
+
+a.home-article-listing__list-item__display-channel {
+  display: inline-block;
+  float: left;
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  font-size: 0.75em;
+  margin: 0 0.5em 0.5em 0;
+  padding: 0.3em 0.5em;
+  vertical-align: top;
+  -webkit-border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -ms-border-radius: 0.5em;
+  -o-border-radius: 0.5em;
+  border-radius: 0.5em;
+  background-color: #273b81;
+  color: #fff;
+}
+
+/* a.home-article-listing__list-item__title not easily injected into markup so targeting link using existing markup. */
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title {
+  display: block;
+  margin-bottom: 0.6em;
+  padding: 0.1em 0 0.2em 0;
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+  color: #273b81;
+  font-size: 1.375em;
+  line-height: 1.25em;
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+}
+
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title:link,
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title:visited {
+  color: #273b81;
+}
+
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title:hover,
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title:focus,
+.home-article-listing__list-item__text_wrapper .highwire-cite-linked-title:active {
+  text-decoration: none;
+  color: #6d6e70;
+}
+
+.home-article-listing__list-item__about {
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  color: #383838;
+  line-height: 1.25em;
+}
+
+.home-article-listing__list-item__authors {
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  padding: 0.875em 0;
+  font-size: 0.875em;
+  line-height: 1.25em;
+  color: #787878;
+}
+
+.home-article-listing__list-item__pubdate {
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  font-style: italic;
+  font-size: 0.875em;
+  color: #aaa;
+  display: inline-block;
+  margin-top: 0.3em;
+}
+
+@media only all and (min-width: 55em) {
+  .home-article-listing__list-item {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* @end pattern: home-article-listing__list-item */
+/* @group pattern: home-calls-to-action */
+.home-cta {
+  width: 100%;
+  font-family: "Avenir LT W01 35 Light", 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  max-width: 1200px;
+  position: relative;
+  margin-top: 2em;
+}
+
+.home-cta::after {
+  font-size: 0.875em;
+  display: block;
+  color: #fff;
+  text-shadow: 1px 1px 1px #333333;
+  content: 'Randy Schekman \A Editor-in-chief \A Nobel prize winner 2013';
+  white-space: pre;
+  position: absolute;
+  left: 5px;
+  top: 195px;
+}
+
+.home-cta__link {
+  color: #fff;
+  background: url(../images/arrow-white-right.png) no-repeat right center #009ade;
+  display: inline-block;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: none;
+  padding: 1em 2em 1em 1em;
+}
+
+.home-cta__link:link,
+.home-cta__link:hover,
+.home-cta__link:focus,
+.home-cta__link:active,
+.home-cta__link:visited {
+  text-decoration: none;
+}
+
+.home-cta__link:hover,
+.home-cta__link:focus,
+.home-cta__link:active {
+  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+}
+
+.home-cta__publish_image {
+  float: left;
+  padding: 0 0.5em 1em 0;
+  position: relative;
+}
+
+.home-cta__heading--publish {
+  font-size: 1.375em;
+  padding-bottom: 1em;
+}
+
+.home-cta__heading--sign-up {
+  font-size: 1.375em;
+  padding-bottom: 0.5em;
+}
+
+.home-cta__sign_up {
+  background-color: #bf1148;
+  color: #fff;
+  padding: 1.375em;
+  clear: both;
+  margin-top: 2em;
+}
+
+.home-cta__text--publish {
+  line-height: 1.2;
+  margin-bottom: 1.375em;
+}
+
+.home-cta__text--sign-up {
+  line-height: 1.1;
+  padding: 0.5em 0 1em 0;
+}
+
+.home-cta__sign_up_form_label {
+  display: block;
+}
+
+.home-cta__sign_up_form_button {
+  clear: left;
+  float: none;
+  display: block;
+  padding-right: 3.641em;
+}
+
+.home-cta__sign_up_form_field {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 5px;
+  font-size: 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin: 0.5em 1em 0.5em 0;
+  width: 100%;
+}
+
+@media only all and (min-width: 55em) {
+  .home-cta {
+    background: url(../images/randy-lhs-landscape.png) no-repeat top left #aaa;
+    color: #fff;
+    margin-top: 6em;
+    height: 339px;
+    position: relative;
+    clear: both;
+    float: none;
+  }
+
+  .home-cta::after {
+    left: 20px;
+    top: 270px;
+  }
+
+  .home-cta__text {
+    font-size: 0.86em;
+    line-height: 1.4;
+    margin: 1em 0;
+  }
+
+  .home-cta__text--sign-up {
+    line-height: 1.2;
+    margin-top: 0.5em;
+  }
+
+  .home-cta__publish {
+    width: 32%;
+    margin-left: 32%;
+    float: left;
+  }
+
+  .home-cta__publish_image {
+    position: absolute;
+    top: -9999px;
+    overflow: hidden;
+  }
+
+  .home-cta__heading--publish {
+    font-family: 'Avenir LT W01 85 Heavy', 'Avenir LT 95 Black', Helvetica, Arial, Verdana, sans-serif;
+    font-size: 2.5em;
+    margin-top: 3.9rem;
+    padding-bottom: 0;
+  }
+
+  .home-cta__sign_up {
+    -moz-border-radius-topleft: 10px;
+    -webkit-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    -webkit-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 25.7%;
+    height: 70%;
+    margin-top: 3.6em;
+    margin-right: 1em;
+    float: right;
+    position: absolute;
+    right: 1em;
+  }
+
+  .home-cta__sign_up_form {
+    padding-top: 1em;
+  }
+
+  .home-cta__sign_up_form_field {
+    border: none;
+    margin-top: 0.618em;
+    margin-bottom: 1em;
+    width: 95%;
+  }
+
+  .home-cta__heading--sign-up {
+    font-family: 'Avenir LT W01 85 Heavy', 'Avenir 85 Heavy', Helvetica, Arial, Verdana, sans-serif;
+    font-size: 1.375em;
+  }
+}
+
+/* @end pattern: home-calls-to-action */

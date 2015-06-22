@@ -69,6 +69,36 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_article_repro_details',
         'path' => $template_path,
       ),
+      'elife_cover' => array(
+        'variables' => array(
+          'title' => NULL,
+          'additional_classes' => NULL,
+          'read_more' => NULL,
+          'caption' => NULL,
+        ),
+        'template' => 'elife_cover',
+        'path' => $path . '/templates',
+      ),
+      'elife_front_matter' => array(
+        'variables' => array(
+          'title' => NULL,
+          'display' => NULL,
+          'image' => NULL,
+          'section' => NULL,
+          'section_name' => NULL,
+        ),
+        'template' => 'elife_front_matter',
+        'path' => $path . '/templates',
+      ),
+      'elife_front_matter_wrapper' => array(
+        'variables' => array(
+          'cover' => NULL,
+          'front_matter_col_1' => NULL,
+          'front_matter_col_2' => NULL,
+        ),
+        'template' => 'elife_front_matter_wrapper',
+        'path' => $path . '/templates',
+      ),
     );
     return $templates;
   }

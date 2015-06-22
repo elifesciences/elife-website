@@ -5,3 +5,151 @@
  */
 
 include_once 'elife_front_matter.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function elife_front_matter_menu() {
+  $items = array();
+  $items['front-matter/cover-big.jpg'] = array(
+    'title' => 'Return the large cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_big',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['front-matter/cover-sml.jpg'] = array(
+    'title' => 'Return the small cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_sml',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['front-matter/cover-mcr.jpg'] = array(
+    'title' => 'Return the micro cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_mcr',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+/**
+ * Output large cover image.
+ */
+function elife_front_matter_cover_big() {
+  elife_front_matter_cover_image('elife_cover');
+}
+
+/**
+ * Output small cover image.
+ */
+function elife_front_matter_cover_sml() {
+  elife_front_matter_cover_image('elife_cover_sml');
+}
+
+/**
+ * Output micro cover image.
+ */
+function elife_front_matter_cover_mcr() {
+  elife_front_matter_cover_image('elife_cover_mcr');
+}
+
+/**
+ * Return cover image with a specific image style preset.
+ *
+ * @param string $image_style
+ *   Image style.
+ *
+ * @return \stdClass|NULL
+ *   An image object or NULL
+ */
+function elife_front_matter_cover_image($image_style) {
+  $image = NULL;
+  $view = views_get_view('elife_cover');
+  $view->execute_display('cover_article');
+  if ($view->result) {
+    $result = reset($view->result);
+    $cover = node_load($result->nid);
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $cover);
+    $image_properties = $ewrapper->field_elife_image->value();
+    $image_uri = $image_properties['uri'];
+
+    if ($image_style = image_style_load($image_style)) {
+      $image_style_path = image_style_path($image_style['name'], $image_uri);
+      $success = file_exists($image_style_path) || image_style_create_derivative($image_style, $image_uri, $image_style_path);
+      if ($success) {
+        $image = image_load($image_style_path);
+        file_transfer($image->source, array(
+          'Content-Type' => $image->info['mime_type'],
+          'Content-Length' => $image->info['file_size'],
+        ));
+      }
+    }
+  }
+
+  return $image;
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Include on the coverpage the css files needed by this module.
+ *
+ * TODO: redo using hook_page_alter.
+ */
+function elife_front_matter_init() {
+  if (drupal_is_front_page()) {
+    $path = drupal_get_path('module', 'elife_front_matter');
+    drupal_add_css($path . '/css/cover.css');
+    drupal_add_css($path . '/css/front-matter.css');
+    $img_query_str = '';
+    $img_query_arr = array();
+    // Add update parameter to create unique path to images.
+    if ($update = variable_get('elife_front_matter_update')) {
+      $img_query_arr[] = 'update=' . $update;
+    }
+    if (!empty($img_query_arr)) {
+      $img_query_str = '?' . implode('&', $img_query_arr);
+    }
+    drupal_add_css(".headline-first--has-image {background-image:url('/front-matter/cover-mcr.jpg" . $img_query_str . "');} @media only all and (min-width: 26em) {.headline-first--has-image {background-image:url('/front-matter/cover-sml.jpg" . $img_query_str . "');}} @media only all and (min-width: 55em) {.headline-first--has-image {background-image:url('/front-matter/cover-big.jpg" . $img_query_str . "');}}", array('type' => 'inline'));
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function elife_front_matter_block_info() {
+  $blocks['elife_front_matter'] = array(
+    'info' => t('eLife: Front Matter'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function elife_front_matter_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_front_matter':
+      return array(
+        'subject' => NULL,
+        'content' => elife_front_matter_load(),
+      );
+  }
+}
+
+/**
+ * Load the front matter content.
+ */
+function elife_front_matter_load() {
+  $variables = array();
+  $variables['cover'] = views_embed_view('elife_cover', 'cover_article');
+  $variables['front_matter_col_1'] = views_embed_view('elife_front_matter', 'front_matter_col_1');
+  $variables['front_matter_col_2'] = views_embed_view('elife_front_matter', 'front_matter_col_2');
+  return theme('elife_front_matter_wrapper', $variables);
+}
