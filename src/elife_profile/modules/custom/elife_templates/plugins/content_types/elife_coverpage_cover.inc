@@ -45,10 +45,9 @@ function elife_cover_render($subtype, $conf, $args, $context) {
   $variables['additional_classes'] = array('headline-first--' . $text_appearance . '-text');
 
   // If there is an image the introduce the caption and add an additional class.
-  if (!empty($ewrapper->field_elife_image)) {
-    $caption = $ewrapper->field_elife_image->title->value();
-    if (!empty($caption)) {
-      $variables['caption'] = $caption;
+  if ($ewrapper->field_elife_image->value()) {
+    if ($ewrapper->field_elife_image->title) {
+      $variables['caption'] = $ewrapper->field_elife_image->title->value();
     }
     $variables['additional_classes'][] = 'headline-first--has-image';
   }
