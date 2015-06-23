@@ -285,8 +285,8 @@
         };
 
       // Run this javascript on the first load of the page.
-      $('body').once('elife-coverpage-preview', function () {
-        var $frontmatter = $('.pane-elife-coverpage-elife-coverpage-front-matter'),
+      $('body').once('elife-front-matter-preview', function () {
+        var $frontmatter = $('.pane-elife-front-matter-elife-front-matter'),
           $cover = $('.view-display-id-cover_article'),
           $col1 = $('.view-display-id-front_matter_col_1'),
           $col2 = $('.view-display-id-front_matter_col_2'),

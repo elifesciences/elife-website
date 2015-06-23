@@ -126,8 +126,8 @@ function elife_templates_preprocess_semanticviews_view_unformatted(&$variables) 
   $view = $variables['view'];
   foreach ($view->result as $delta => $item) {
     if (isset($item->nid)) {
-      $variables['classes'][$delta][] = 'contextual-links-region';
-      $variables['classes_array'][$delta] = implode(' ', $variables['classes'][$delta]);
+      $variables['row_element'] = 'div';
+      $variables['row_attributes'][$delta]['class'][] = 'contextual-links-region';
       $element = element_info('contextual_links');
       $element['#contextual_links'] = array(
         'node' => array(

@@ -48,7 +48,49 @@ function elife_front_matter_menu() {
     'page arguments' => array(3, 4),
     'access arguments' => array('front matter preview'),
   );
+  $items['admin/front-matter-preview'] = array(
+    'title' => 'Homepage preview',
+    'page callback' => 'elife_front_matter_preview_goto',
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_cover_preview'] = array(
+    'title' => 'Entityqueue cover',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_front_matter_preview_col_1'] = array(
+    'title' => 'Entityqueue column 1',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_front_matter_preview_col_2'] = array(
+    'title' => 'Entityqueue column 2',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
   return $items;
+}
+
+/**
+ * Access front matter preview.
+ */
+function elife_front_matter_preview_goto() {
+  drupal_goto('<front>', array('query' => array('preview' => 1)));
+}
+
+/**
+ * Access front matter preview entityqueues.
+ *
+ * @param string $entityqueue_name
+ *   Name of entityqueue.
+ */
+function elife_front_matter_preview_entityqueue($entityqueue_name) {
+  $queue = entityqueue_queue_load($entityqueue_name);
+  $subqueue = entityqueue_subqueue_load($queue->name);
+  drupal_goto("admin/structure/entityqueue/list/$queue->name/subqueues/$subqueue->subqueue_id/edit");
 }
 
 /**
