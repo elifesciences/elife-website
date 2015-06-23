@@ -3,11 +3,11 @@ default:
     default:
       contexts:
         - FeatureContext
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - Behat\WebApiExtension\Context\WebApiContext
+        - Behat\Drupal\Propeople\PropeopleContext: ~
+        - Drupal\DrupalExtension\Context\MinkContext: ~
+        - Drupal\DrupalExtension\Context\MessageContext: ~
+        - Drupal\DrupalExtension\Context\DrupalContext: ~
+        - Behat\WebApiExtension\Context\WebApiContext: ~
   extensions:
     Behat\WebApiExtension:
       base_url: 'http://127.0.0.1:80'
