@@ -24,6 +24,9 @@ default:
       region_map:
         footer: '#section-footer'
         front_matter: 'ol.frontmatter'
+        front_matter_cover: 'ol.frontmatter .view-display-id-cover_article'
+        front_matter_col_1: 'ol.frontmatter .view-display-id-front_matter_col_1'
+        front_matter_col_2: 'ol.frontmatter .view-display-id-front_matter_col_2'
         sidebar: '.sidebar-wrapper'
         searchsortby: '.elife-searchlist-sortby'
         searchpager: '.elife-searchlist-pagerbar-pager'
