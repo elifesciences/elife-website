@@ -1,0 +1,49 @@
+.pane-elife-coverpage-elife-coverpage-front-matter {
+  z-index: 100;
+  position: relative;
+}
+
+.frontmatter-preview-hide {
+  z-index: 0;
+}
+
+.frontmatter-preview-hide .frontmatter-widgets-wrapper {
+  display: none;
+}
+
+.frontmatter-widgets-wrapper {
+  padding: 1em;
+  font-size: 1.2em;
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  color: #000;
+  line-height: 2em;
+  background-color: #fff;
+  margin-bottom: 1em;
+}
+
+.headlines-secondary-wrapper .frontmatter-widgets-wrapper {
+  margin-top: 1em;
+}
+
+.frontmatter-widgets-wrapper button {
+  text-align: left;
+  width: 100%;
+  border: 1px solid #fff;
+}
+
+.frontmatter-widgets-wrapper .js-messages {
+  font-size: 0.8em;
+  line-height: 1.5em;
+}
+
+.frontmatter-widgets-ajax-processing {
+  background-color: #fffce5;
+}
+
+.frontmatter-widgets-ajax-processed {
+  background-color: #f8fff0;
+}
+
+.frontmatter-widgets-ajax-processed-error {
+  background-color: #fef5f1;
+}
