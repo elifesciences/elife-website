@@ -363,7 +363,8 @@ function elife_front_matter_load() {
  */
 function elife_front_matter_views_query_alter(&$view, &$query) {
   // If URL parameter preview=1 for 'elife_front_matter' view.
-  if ($view->name == 'elife_front_matter'
+  if (user_access('front matter preview')
+    && $view->name == 'elife_front_matter'
     && !empty($_GET['preview'])
     && $_GET['preview'] == 1) {
     elife_front_matter_preview_setup();
@@ -384,7 +385,8 @@ function elife_front_matter_views_query_alter(&$view, &$query) {
   }
 
   // If URL parameter preview=1 for 'elife_cover' view.
-  if ($view->name == 'elife_cover'
+  if (user_access('front matter preview')
+    && $view->name == 'elife_cover'
     && !empty($_GET['preview'])
     && $_GET['preview'] == 1) {
     elife_front_matter_preview_setup();
