@@ -1071,8 +1071,8 @@ class ElifeArticleVersion {
           if ($key = array_search(strtolower($section_title), array_map('strtolower', $available_sections))) {
             $section_code = $key;
           }
-          $reference_path = url('node/' . $article_version->nid->value());
         }
+        $reference_path = url('node/' . $article_version->nid->value());
       }
     }
     if ($reference_path) {
