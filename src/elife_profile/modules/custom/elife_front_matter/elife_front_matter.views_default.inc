@@ -51,12 +51,12 @@ function elife_front_matter_views_default_views() {
     'elife_front_matter_preview_col_2' => 0,
   );
   /* Field: Panel Pane - Node: eLife Cover article */
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['id'] = 'ctools_field_elife_coverpage_cover';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['table'] = 'node';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['field'] = 'ctools_field_elife_coverpage_cover';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['label'] = '';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_cover']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['id'] = 'ctools_field_elife_cover';
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['table'] = 'node';
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['field'] = 'ctools_field_elife_cover';
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['label'] = '';
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_cover']['element_default_classes'] = FALSE;
   /* Sort criterion: Entityqueue: Node Queue Position */
   $handler->display->display_options['sorts']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['sorts']['entityqueue_relationship']['table'] = 'node';
@@ -121,13 +121,13 @@ function elife_front_matter_views_default_views() {
     'elife_front_matter_preview_col_2' => 0,
   );
   /* Field: Panel Pane - Node: eLife Front Matter */
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['id'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['table'] = 'node';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['field'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['label'] = '';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['views_ctools_field'] = array(
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['label'] = '';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['views_ctools_field'] = array(
     'front_matter_type' => 'regular',
   );
   /* Sort criterion: Entityqueue: Node Queue Position */
@@ -167,13 +167,13 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Panel Pane - Node: eLife Front Matter */
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['id'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['table'] = 'node';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['field'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['label'] = '';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['views_ctools_field'] = array(
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['label'] = '';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['views_ctools_field'] = array(
     'front_matter_type' => 'headline',
   );
 
@@ -225,13 +225,13 @@ function elife_front_matter_views_default_views() {
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Panel Pane - Node: eLife Front Matter */
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['id'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['table'] = 'node';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['field'] = 'ctools_field_elife_coverpage_front_matter';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['label'] = '';
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['ctools_field_elife_coverpage_front_matter']['views_ctools_field'] = array(
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['label'] = '';
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_front_matter']['views_ctools_field'] = array(
     'front_matter_type' => 'headline',
   );
   $export['elife_front_matter'] = $view;
