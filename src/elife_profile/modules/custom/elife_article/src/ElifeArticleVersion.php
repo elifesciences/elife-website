@@ -313,6 +313,28 @@ class ElifeArticleVersion {
   }
 
   /**
+   * Return the pluralised term for category.
+   *
+   * @param string $category
+   *   Category you wish to pluralise.
+   * @param bool $force
+   *   Force the return of the singular term if plural not available.
+   *
+   * @return string|bool
+   *   Return plural string or FALSE.
+   */
+  public static function getCategoryPlural($category, $force = TRUE) {
+    $plural = ($force) ? $category : FALSE;
+    if ($plural_terms = variable_get('elife_article_category_plural', FALSE)) {
+      if (isset($plural_terms['category'])) {
+        $plural = $plural_terms['category'];
+      }
+    }
+
+    return $plural;
+  }
+
+  /**
    * Get keywords for supplied article version id.
    *
    * @param string $article_version_id
@@ -1108,6 +1130,7 @@ class ElifeArticleVersion {
         'registered-report' => 'Registered Report',
         'tools' => 'Tools and resources',
         'short' => 'Short Report',
+        'correction' => 'Correction',
         'elife_news' => 'eLife News',
         'elife_podcast' => 'Podcast',
         'other' => 'Supplementary',
@@ -1117,5 +1140,27 @@ class ElifeArticleVersion {
     }
 
     return $cache;
+  }
+
+  /**
+   * Get acceptable identifier for section.
+   *
+   * @param string $section
+   *   Section name.
+   *
+   * @return bool|string
+   *   Identifier for use in markup.
+   */
+  public static function getSectionId($section) {
+    $sections = self::availableSections();
+    if (array_key_exists($section, $sections)) {
+      return $section;
+    }
+    elseif ($key = array_search(strtolower($section), array_map('strtolower', $sections))) {
+      return $key;
+    }
+    else {
+      return FALSE;
+    }
   }
 }
