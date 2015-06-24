@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * @file
+ * Code for the eLife: Content Alerts module.
+ */
+
+/**
+ * Sign up form.
+ */
+function elife_content_alerts_sign_up_form($form, &$form_state, $custom_6 = NULL, $gid = NULL) {
+  if (empty($custom_6)) {
+    $custom_6 = elife_content_alerts_sign_up_id();
+  }
+  if (empty($gid)) {
+    $gid = elife_content_alerts_sign_up_gid();
+  }
+
+  $form['#attributes'] = array('class' => 'elife-sign-up-form');
+  $form['#action'] = 'http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid;
+
+  $form['#method'] = 'post';
+  $form['reset'] = array(
+    '#type' => 'hidden',
+    '#value' => 1,
+  );
+  $form['gid'] = array(
+    '#type' => 'hidden',
+    '#value' => $gid,
+  );
+
+  $form['custom_6'] = array(
+    '#type' => 'hidden',
+    '#value' => $custom_6,
+  );
+  $form['_qf_Edit_next'] = array(
+    '#type' => 'hidden',
+    '#value' => 'Save',
+  );
+  $form['email-3'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array(
+      'placeholder' => t('type your email address...'),
+    ),
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('SIGN UP'),
+  );
+  return $form;
+}
+
+/**
+ * Return sign up id.
+ *
+ * @param bool $override_default
+ *   Set to TRUE to allow default to be overridden.
+ *
+ * @return string
+ *   Sign up form id.
+ */
+function elife_content_alerts_sign_up_id($override_default = TRUE) {
+  // @todo - elife - nlisgo - add admin screen to maintain custom settings
+  $custom_ids = variable_get('elife_content_alerts_sign_up_ids', array());
+  $current_path = drupal_get_path_alias();
+  if ($override_default && is_array($custom_ids) && isset($custom_ids[$current_path])) {
+    $id = $custom_ids[$current_path];
+  }
+  else {
+    $id = variable_get('elife_content_alerts_sign_up_default_id', 'article_rev140402');
+  }
+  return $id;
+}
+
+/**
+ * Return gid for sign up form.
+ *
+ * @param bool $override_default
+ *   Set to TRUE to allow default to be overridden.
+ *
+ * @return string
+ *   Sign up gid.
+ */
+function elife_content_alerts_sign_up_gid($override_default = TRUE) {
+  // @todo - elife - nlisgo - add admin screen to maintain custom settings
+  $custom_gids = variable_get('elife_content_alerts_sign_up_gids', array());
+  $current_path = drupal_get_path_alias();
+  if ($override_default && is_array($custom_gids) && isset($custom_gids[$current_path])) {
+    $gid = $custom_gids[$current_path];
+  }
+  else {
+    $gid = variable_get('elife_content_alerts_sign_up_gid', '18');
+  }
+  return $gid;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function elife_content_alerts_block_info() {
+  $blocks['elife_content_alerts_sign_up'] = array(
+    'info' => t('eLife: Content alerts signup'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function elife_content_alerts_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_content_alerts_sign_up':
+      $sign_up_form = drupal_get_form('elife_content_alerts_sign_up_form');
+      return array(
+        'subject' => NULL,
+        'content' => drupal_render($sign_up_form),
+      );
+  }
+}
