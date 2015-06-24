@@ -1,0 +1,530 @@
+.headlines-secondary-wrapper {
+  position: relative;
+  z-index: 2;
+  margin-top: -1em;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media only all and (min-width: 31em) {
+  .headlines-secondary-wrapper {
+    z-index: 0;
+    width: 84%;
+  }
+}
+
+/* calculate how to place headlines-secondary at the bottom
+    of the hero image (part of headline-first).
+    This needs:
+    - a fixed height for .headlines-secondary, set to the height of the hero
+        image, minus the offset of the main headline from the top of that image.
+    - the top offset of .headlines-secondary set to the offset of the main headline.
+*/
+@media only all and (min-width: 55em) {
+  .frontmatter {
+    position: relative;
+  }
+
+  .headlines-secondary-wrapper {
+    position: absolute;
+    top: 4.5em;
+    right: 1em;
+    margin-top: -1em;
+    width: 30.8em;
+  }
+}
+
+.headline-first,
+.headline-first * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Fallback background in case hero image doesn't load  */
+.headline-first-wrapper {
+  background-color: #aaa;
+}
+
+/* Mobile-first micro image (swapped for larger one in media query)  */
+.headline-first--has-image {
+  background-repeat: no-repeat;
+  background-position: top left;
+}
+
+.headline-first {
+  width: 100%;
+}
+
+.headline-first__text_wrapper {
+  padding: 2em 0;
+  /*width: 72%;*/
+  margin-left: 1.2em;
+}
+
+/* These are only shown when the viewport is wide enough (see media queries) */
+.headline-first__read_more {
+  display: none;
+}
+
+.headline-first__title_link {
+  display: block;
+  letter-spacing: -0.5px;
+  padding: 0.55em 0.3em 0.3em 0.3em;
+}
+
+.headline-first__pic_credit {
+  color: #383838;
+  margin-left: 1.1em;
+  margin-top: 2em;
+}
+
+/* TEXT AND TYPOGRAPHY */
+.headline-first__title_link {
+  font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+  font-size: 1.8em;
+  line-height: 1.1;
+}
+
+.headline-first__title_link:link,
+.headline-first__title_link:hover,
+.headline-first__title_link:focus,
+.headline-first__title_link:active,
+.headline-first__title_link:visited {
+  text-decoration: none;
+}
+
+/* COLOUR / COLOR  */
+/* ensure no default link colours apply */
+.headline-first a {
+  color: inherit;
+}
+
+/* Each instance of headline-first is one of two possible variants:
+        .headline-first--light-text
+    or
+        .headline-first--dark-text
+
+    Various colours of text and text-shadow are keyed off these variant names.
+    The variant used should be appropriate for the contrast its text colour would give with
+    the image loaded in the html element img.headline-first__image.
+*/
+.headline-first--light-text .headline-first__title_link {
+  color: white;
+}
+
+.headline-first--dark-text .headline-first__title_link {
+  color: #383838;
+}
+
+/* Set the colours of the title link and text shadow, depending on the variant */
+.headline-first--dark-text .headline-first__title_link:link,
+.headline-first--dark-text .headline-first__title_link:hover,
+.headline-first--dark-text .headline-first__title_link:focus,
+.headline-first--dark-text .headline-first__title_link:active,
+.headline-first--dark-text .headline-first__title_link:visited {
+  color: #383838;
+}
+
+.headline-first--light-text .headline-first__title_link:link,
+.headline-first--light-text .headline-first__title_link:hover,
+.headline-first--light-text .headline-first__title_link:focus,
+.headline-first--light-text .headline-first__title_link:active,
+.headline-first--light-text .headline-first__title_link:visited {
+  color: white;
+}
+
+/* MEDIA QUERIES */
+@media only all and (min-width: 55em) {
+  .headline-first {
+    height: 600px;
+    overflow: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* constrain the line length of the text */
+  .headline-first__text_wrapper {
+    width: 25%;
+    padding: 2em 0 2em 2em;
+    margin: 0;
+  }
+
+  .headline-first__title_link {
+    font-size: 3em;
+    text-align: left;
+  }
+
+  .headline-first__read_more {
+    margin-left: 1.1em;
+    display: inline-block;
+    margin-top: 2em;
+    padding: 1em 2em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: bold;
+    font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+    background-color: #273b81;
+  }
+
+  /* display a 'read more' link, styled like a button (but it's not a button: it is not associated with any form). */
+  .headline-first__read_more:link,
+  .headline-first__read_more:hover,
+  .headline-first__read_more:focus,
+  .headline-first__read_more:active,
+  .headline-first__read_more:visited {
+    color: white;
+  }
+
+  .headline-first__read_more:hover,
+  .headline-first__read_more:focus,
+  .headline-first__read_more:active {
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #383838;
+  }
+
+  /* Each variant of .headline-first__read_more is associated with the article type it links to. */
+  .headline-first__read_more--feature {
+    background-color: #cf0c4e;
+  }
+
+  .headline-first__read_more--insight {
+    background-color: #629f43;
+  }
+
+  .headline-first__read_more--editorial {
+    background-color: #0961ab;
+  }
+
+  .headline-first__read_more--news {
+    background-color: #0a9dd9;
+  }
+
+  .headline-first__read_more--podcast {
+    background-color: #732060;
+  }
+
+  .headline-first__read_more--research {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--short {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--advance {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--registered-report {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--replication-study {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--tools {
+    background-color: #273b81;
+  }
+
+  .headline-first__read_more--other {
+    background-color: #0a9dd9;
+  }
+}
+
+@media only all and (min-width: 55em) {
+  /* relax the line length of the text on wider viewports */
+  .headline-first__text_wrapper {
+    width: 42%;
+  }
+
+  .headline-first__title_link {
+    font-size: 3em;
+    text-align: left;
+  }
+}
+
+@media only all and (min-width: 65em) {
+  /* relax the line length of the text on wider viewports */
+  .headline-first__text_wrapper {
+    width: 52%;
+  }
+
+  .headline-first__title_link {
+    font-size: 4em;
+    text-align: left;
+  }
+}
+
+@media only all and (min-width: 70em) {
+  /* relax the line length of the text on wider viewports */
+  .headline-first__text_wrapper {
+    width: 56%;
+  }
+
+  .headline-first__title_link {
+    font-size: 4em;
+    text-align: left;
+  }
+}
+
+/* @end: pattern: headline-first  */
+/* @group pattern: headlines-secondary */
+.headlines-secondary {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.8);
+  font-size: 1em;
+  line-height: 1.3;
+  width: 20em;
+  width: 84%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding-bottom: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.headlines-secondary__item {
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  /*  margin: 0 1em; */
+  padding: 0 1em;
+}
+
+/* The first item has an associated image, so the space is
+    calculated differently. */
+.view-header .headlines-secondary__item:first-child {
+  padding-bottom: 1em;
+}
+
+.headlines-secondary__item:first-child .headlines-secondary__item_type {
+  padding-top: 1em;
+}
+
+/* This is not ideal, but as these images are high up on the home page, ajaxing in the images would
+    delay their availability when they are needed. As these images are small, the load hit should
+    be small. Can revisit this if it causes a problem. */
+.headlines-secondary__top_image {
+  display: none;
+}
+
+.headlines-secondary__item_title:link,
+.headlines-secondary__item_title:visited {
+  color: white;
+}
+
+.headlines-secondary__item_title:hover,
+.headlines-secondary__item_title:focus,
+.headlines-secondary__item_title:active {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.headlines-secondary__item_title {
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+}
+
+.headlines-secondary__item_type {
+  text-transform: uppercase;
+  font-size: 0.75em;
+  padding-bottom: 0.5em;
+}
+
+/* first of these pairs targets the top column key line colour, second targets the section text */
+.headlines-secondary__item_type--news .headlines-secondary__item_type {
+  color: #07cfd9;
+}
+
+.headlines-secondary__item_type--editorial .headlines-secondary__item_type {
+  color: #0771d6;
+}
+
+.headlines-secondary__item_type--other .headlines-secondary__item_type {
+  color: #07cfd9;
+}
+
+.headlines-secondary__item_type--podcast .headlines-secondary__item_type {
+  color: #ba34a6;
+}
+
+.headlines-secondary__item_type--insight .headlines-secondary__item_type {
+  color: #629f43;
+}
+
+.headlines-secondary__item_type--feature .headlines-secondary__item_type {
+  color: #fb0c57;
+}
+
+.headlines-secondary__item_type--research .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+.headlines-secondary__item_type--advance .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+.headlines-secondary__item_type--registered-report .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+.headlines-secondary__item_type--replication-study .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+.headlines-secondary__item_type--tools .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+.headlines-secondary__item_type--short .headlines-secondary__item_type {
+  color: #0972c8;
+}
+
+/* separate the 1st and 2nd instances of this pattern (only for single col,
+    overridden in media query) */
+.headlines-secondary:nth-child(2n+2) {
+  border-top: 2px solid #fff;
+}
+
+.headlines-secondary__item--headline {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.headlines-secondary__item--headline a {
+  font-size: 1.5em;
+}
+
+@media only all and (min-width: 31em) {
+  .headlines-secondary {
+    margin: 0;
+    width: 49%;
+  }
+
+  /* this to ensure the two columns are same height */
+  .view-display-id-front_matter_col_1 {
+    display: table-cell;
+    float: none;
+    border-collapse: separate;
+    border-right: 8px solid #e6e6e6;
+  }
+
+  .view-display-id-front_matter_col_2 {
+    display: table-cell;
+    float: none;
+  }
+
+  .headlines-secondary,
+  .headlines-secondary:nth-child(2n+2) {
+    border-top: none;
+  }
+
+  .headlines-secondary__item:first-child {
+    font-size: 1.2em;
+  }
+
+  .headlines-secondary:nth-child(2n+1) {
+    margin-right: 0.5em;
+  }
+}
+
+@media only all and (min-width: 55em) {
+
+  .home-archive-listing {
+    float: right;
+  }
+
+  .headlines-secondary {
+    width: 20em;
+    height: -webkit-calc(600px + 4px - 5em);
+    height: calc(600px + 4px - 5em);
+  }
+
+  /* this to ensure the two columns are same height */
+  .view-display-id-front_matter_col_1 {
+    display: block;
+    float: left;
+    border-collapse: collapse;
+    border-right-width: 0;
+  }
+
+  .view-display-id-front_matter_col_2 {
+    display: block;
+    float: right;
+  }
+
+  .headlines-secondary_wrapper .view-header {
+    border-top: 8px solid #0961ab;
+  }
+
+  /* need nth-child selector to override same selector outside this media query */
+  .headlines-secondary,
+  .headlines-secondary:nth-child(2n+2) {
+    font-size: 0.75em;
+  }
+
+  .headlines-secondary__top_image {
+    display: block;
+    margin: 0 0 0 -1em;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--news {
+    border-top: 8px solid #07cfd9;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--editorial {
+    border-top: 8px solid #0771d6;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--other {
+    border-top: 8px solid #07cfd9;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--podcast {
+    border-top: 8px solid #ba34a6;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--insight {
+    border-top: 8px solid #629f43;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--feature {
+    border-top: 8px solid #fb0c57;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--research {
+    border-top: 8px solid #0972C8;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--advance {
+    border-top: 8px solid #0972C8;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--registered-report {
+    border-top: 8px solid #0972C8;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--replication-study {
+    border-top: 8px solid #0972C8;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--tools {
+    border-top: 8px solid #0972C8;
+  }
+
+  .headlines-secondary__item--headline.headlines-secondary__item_type--short {
+    border-top: 8px solid #0972C8;
+  }
+}
+
+/* @end pattern: headlines-secondary */

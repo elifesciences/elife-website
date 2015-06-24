@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Install and update steps for the eLife: Front matter feature.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function elife_front_matter_install() {
+  variable_set('site_frontpage', 'cover');
+}

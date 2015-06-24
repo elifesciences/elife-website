@@ -13,6 +13,13 @@ use PHPUnit_Framework_Assert as Assertions;
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Keep track of subqueues so they can be cleaned up.
+   *
+   * @var array
+   */
+  protected $subqueues = array();
+
+  /**
    * Keep track of article-version-id's so they can be cleaned up.
    *
    * @var array
@@ -114,5 +121,49 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @When /^I add "([^"]+)" with title "([^"]+)" to entityqueue "([^"]+)"$/
+   */
+  public function iAddToEntityqueue($type, $title, $queue)
+  {
+    Assertions::assertTrue(module_exists('entityqueue'), 'Entityqueue module is enabled');
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->propertyCondition('type', $type);
+    $query->propertyCondition('title', $title);
+    $query->propertyCondition('status', 1);
+    $query->range(0, 1);
+    $entities = $query->execute();
+    Assertions::assertNotEmpty($entities['node'], 'node with type and title found');
+    $nodes = array_keys($entities['node']);
+    $node = node_load(array_shift($nodes));
+    $subqueue = entityqueue_subqueue_load($queue);
+    Assertions::assertNotNull($subqueue, 'Entityqueue with supplied title not found');
+    if (!isset($this->subqueues[$queue])) {
+      $this->subqueues[$queue] = $subqueue->eq_node;
+    }
+    $eq_node = array(array('target_id' => $node->nid));
+    if (!empty($subqueue->eq_node)) {
+      $eq_node = array_merge($eq_node, $subqueue->eq_node[LANGUAGE_NONE]);
+    }
+    $subqueue->eq_node[LANGUAGE_NONE] = $eq_node;
+    entityqueue_subqueue_save($subqueue);
+  }
+
+  /**
+   * Cleanup subqueues.
+   *
+   * @AfterScenario
+   */
+  public function cleanSubqueues() {
+    if (!empty($this->subqueues)) {
+      foreach ($this->subqueues as $queue => $eq_node) {
+        $subqueue = entityqueue_subqueue_load($queue);
+        $subqueue->eq_node = $eq_node;
+        entityqueue_subqueue_save($subqueue);
+      }
+    }
   }
 }

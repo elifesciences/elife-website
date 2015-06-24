@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file
+ * Install and update steps for the eLife: Configuration feature.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @throws \Exception
+ */
+function elife_config_install() {
+  // Only do db_insert if the row doesn't exist already.
+  if ((db_query("SELECT ptid FROM {page_theme} WHERE theme = 'elife_newlook' AND status = '1'")->fetchField()) == 0) {
+    $field = array();
+    $field['theme'] = 'elife_newlook';
+    $field['pages'] = "<front>\nabout\ncareers\ncollections/*\nlabs";
+    $field['status'] = 1;
+    $field['weight'] = 0;
+    db_insert('page_theme')
+      ->fields($field)
+      ->execute();
+  }
+}

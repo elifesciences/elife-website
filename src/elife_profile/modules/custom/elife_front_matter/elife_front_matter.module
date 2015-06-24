@@ -1,0 +1,479 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Front matter feature.
+ */
+
+include_once 'elife_front_matter.features.inc';
+
+define('ELIFE_FRONT_MATTER_PREVIEW_ITEMS', 4);
+
+/**
+ * Implements hook_menu().
+ */
+function elife_front_matter_menu() {
+  $items = array();
+  $items['front-matter/cover-big.jpg'] = array(
+    'title' => 'Return the large cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_big',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['front-matter/cover-sml.jpg'] = array(
+    'title' => 'Return the small cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_sml',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['front-matter/cover-mcr.jpg'] = array(
+    'title' => 'Return the micro cover image',
+    'description' => 'Return the image for the most recent published and promoted cover item',
+    'page callback' => 'elife_front_matter_cover_mcr',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['front-matter/preview2live/%/%/%'] = array(
+    'title' => 'Front matter preview to live',
+    'description' => 'Transfer nodequeue nodes from preview to live',
+    'page callback' => 'elife_front_matter_preview2live_json',
+    'page arguments' => array(2, 3, 4),
+    'access arguments' => array('manipulate queues'),
+  );
+  $items['front-matter/previewitems/%/%/%'] = array(
+    'title' => 'Front matter preview item count',
+    'description' => 'Set number of items to appear in each preview column for coverpage',
+    'page callback' => 'elife_front_matter_previewitems_json',
+    'page arguments' => array(3, 4),
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview'] = array(
+    'title' => 'Homepage preview',
+    'page callback' => 'elife_front_matter_preview_goto',
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_cover_preview'] = array(
+    'title' => 'Entityqueue cover',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_front_matter_preview_col_1'] = array(
+    'title' => 'Entityqueue column 1',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
+  $items['admin/front-matter-preview/elife_front_matter_preview_col_2'] = array(
+    'title' => 'Entityqueue column 2',
+    'page callback' => 'elife_front_matter_preview_entityqueue',
+    'page arguments' => array(2),
+    'access arguments' => array('front matter preview'),
+  );
+  return $items;
+}
+
+/**
+ * Access front matter preview.
+ */
+function elife_front_matter_preview_goto() {
+  drupal_goto('<front>', array('query' => array('preview' => 1)));
+}
+
+/**
+ * Access front matter preview entityqueues.
+ *
+ * @param string $entityqueue_name
+ *   Name of entityqueue.
+ */
+function elife_front_matter_preview_entityqueue($entityqueue_name) {
+  $queue = entityqueue_queue_load($entityqueue_name);
+  $subqueue = entityqueue_subqueue_load($queue->name);
+  drupal_goto("admin/structure/entityqueue/list/$queue->name/subqueues/$subqueue->subqueue_id/edit");
+}
+
+/**
+ * Output large cover image.
+ */
+function elife_front_matter_cover_big() {
+  elife_front_matter_cover_image('elife_cover');
+}
+
+/**
+ * Output small cover image.
+ */
+function elife_front_matter_cover_sml() {
+  elife_front_matter_cover_image('elife_cover_sml');
+}
+
+/**
+ * Output micro cover image.
+ */
+function elife_front_matter_cover_mcr() {
+  elife_front_matter_cover_image('elife_cover_mcr');
+}
+
+/**
+ * Return cover image with a specific image style preset.
+ *
+ * @param string $image_style
+ *   Image style.
+ *
+ * @return \stdClass|NULL
+ *   An image object or NULL
+ */
+function elife_front_matter_cover_image($image_style) {
+  $image = NULL;
+  $view = views_get_view('elife_cover');
+  $view->execute_display('cover_article');
+  if ($view->result) {
+    $result = reset($view->result);
+    $cover = node_load($result->nid);
+
+    /* @var EntityDrupalWrapper $ewrapper */
+    $ewrapper = entity_metadata_wrapper('node', $cover);
+    $image_properties = $ewrapper->field_elife_image->value();
+    $image_uri = $image_properties['uri'];
+
+    if ($image_style = image_style_load($image_style)) {
+      $image_style_path = image_style_path($image_style['name'], $image_uri);
+      $success = file_exists($image_style_path) || image_style_create_derivative($image_style, $image_uri, $image_style_path);
+      if ($success) {
+        $image = image_load($image_style_path);
+        file_transfer($image->source, array(
+          'Content-Type' => $image->info['mime_type'],
+          'Content-Length' => $image->info['file_size'],
+        ));
+      }
+    }
+  }
+
+  return $image;
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Include on the coverpage the css files needed by this module.
+ *
+ * TODO: redo using hook_page_alter.
+ */
+function elife_front_matter_init() {
+  if (drupal_is_front_page()) {
+    $path = drupal_get_path('module', 'elife_front_matter');
+    drupal_add_css($path . '/css/cover.css');
+    drupal_add_css($path . '/css/front-matter.css');
+    $img_query_str = '';
+    $img_query_arr = array();
+    // Add update parameter to create unique path to images.
+    if ($update = variable_get('elife_front_matter_update')) {
+      $img_query_arr[] = 'update=' . $update;
+    }
+    // Add preview parameter to call of cover images so view can be altered.
+    if (!empty($_GET['preview']) && $_GET['preview'] == 1) {
+      $img_query_arr[] = 'preview=1';
+    }
+    if (!empty($img_query_arr)) {
+      $img_query_str = '?' . implode('&', $img_query_arr);
+    }
+    drupal_add_css(".headline-first--has-image {background-image:url('/front-matter/cover-mcr.jpg" . $img_query_str . "');} @media only all and (min-width: 26em) {.headline-first--has-image {background-image:url('/front-matter/cover-sml.jpg" . $img_query_str . "');}} @media only all and (min-width: 55em) {.headline-first--has-image {background-image:url('/front-matter/cover-big.jpg" . $img_query_str . "');}}", array('type' => 'inline'));
+  }
+}
+
+/**
+ * Transfer nodes from preview nodequeues to live - json.
+ *
+ * @param int $cover_items
+ *   Number of nodes to transfer from cover item.
+ * @param int $col_1_items
+ *   Number of nodes to transfer from column 1.
+ * @param int $col_2_items
+ *   Number of nodes to transfer from column 2.
+ */
+function elife_front_matter_preview2live_json($cover_items, $col_1_items, $col_2_items) {
+  $messages = elife_front_matter_preview_to_live($cover_items, $col_1_items, $col_2_items);
+  $output = array(
+    'messages' => $messages,
+  );
+  drupal_json_output($output);
+}
+
+/**
+ * Set preview items for front matter nodequeues - json.
+ *
+ * @param int $col_1_items
+ *   Number of nodes to preview from column 1.
+ * @param int $col_2_items
+ *   Number of nodes to preview from column 2.
+ */
+function elife_front_matter_previewitems_json($col_1_items, $col_2_items) {
+  $messages = array();
+  if (!empty($col_1_items)) {
+    variable_set('elife_front_matter_preview_1_items', $col_1_items);
+  }
+  if (!empty($col_2_items)) {
+    variable_set('elife_front_matter_preview_2_items', $col_2_items);
+  }
+  $col1 = variable_get('elife_front_matter_preview_1_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+  $col2 = variable_get('elife_front_matter_preview_2_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+
+  $messages[] = t('Number of preview items adjusted.');
+
+  $output = array(
+    'messages' => $messages,
+    'transferLinks' => array(
+      'cover' => url('front-matter/preview2live/1/0/0'),
+      'col1' => url('front-matter/preview2live/0/' . $col1 . '/0'),
+      'col2' => url('front-matter/preview2live/0/0/' . $col2),
+      'all' => url('front-matter/preview2live/1/' . $col1 . '/' . $col2),
+    ),
+  );
+
+  drupal_json_output($output);
+}
+
+/**
+ * Display messages.
+ *
+ * @param array $messages
+ *   Messages to be displayed.
+ */
+function elife_coverpage_display_messages($messages) {
+  foreach ($messages as $message) {
+    drupal_set_message($message);
+  }
+}
+
+/**
+ * Push preview state of front matter to live.
+ *
+ * @param int $items_cover
+ *   Number of nodes to transfer from cover item.
+ * @param int $items_col_1
+ *   Number of items to transfer.
+ * @param int $items_col_2
+ *   Number of items to transfer.
+ * @param bool $store_limits
+ *   Flag: if set will store transfer limits.
+ *
+ * @return array
+ *   Messages.
+ */
+function elife_front_matter_preview_to_live($items_cover = NULL, $items_col_1 = NULL, $items_col_2 = NULL, $store_limits = TRUE) {
+  $messages = array();
+
+  if (!empty($items_cover)) {
+    $preview_cover = entityqueue_queue_load('elife_cover_preview');
+    $live_cover = entityqueue_queue_load('elife_cover');
+    elife_front_matter_copy_paste_eq_items($preview_cover, $live_cover, $items_cover);
+    $args = array('@items' => $items_cover);
+    $messages[] = t('@items item(s) transferred to cover from preview.', $args);
+    variable_set('elife_front_matter_update', REQUEST_TIME);
+  }
+
+  if ($items_col_1 === NULL) {
+    $items_col_1 = variable_get('elife_front_matter_preview_1_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+  }
+  elseif ($store_limits && !empty($items_col_1)) {
+    variable_set('elife_front_matter_preview_1_items', (int) $items_col_1);
+  }
+
+  if (!empty($items_col_1)) {
+    $preview_col_1 = entityqueue_queue_load('elife_front_matter_preview_col_1');
+    $live_col_1 = entityqueue_queue_load('elife_front_matter_col_1');
+    $before_items_col_1 = $items_col_1;
+    elife_front_matter_copy_paste_eq_items($preview_col_1, $live_col_1, $items_col_1);
+    $args = array('@items' => $items_col_1, '@col' => 1);
+    $messages[] = t('@items item(s) transferred to front matter column @col from preview.', $args);
+    if ($before_items_col_1 > $items_col_1) {
+      $args = array(
+        '@attempt' => $before_items_col_1,
+        '@items' => $items_col_1,
+        '@col' => 1,
+      );
+      $messages[] = t('Attempted to transfer @attempt item(s) but only @items item(s) were available for front matter column @col from preview.', $args);
+    }
+  }
+
+  if ($items_col_2 === NULL) {
+    $items_col_2 = variable_get('elife_front_matter_preview_2_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+  }
+  elseif ($store_limits && !empty($items_col_2)) {
+    variable_set('elife_front_matter_preview_2_items', (int) $items_col_2);
+  }
+
+  if (!empty($items_col_2)) {
+    $preview_col_2 = entityqueue_queue_load('elife_front_matter_preview_col_2');
+    $live_col_2 = entityqueue_queue_load('elife_front_matter_col_2');
+    $before_items_col_2 = $items_col_2;
+    elife_front_matter_copy_paste_eq_items($preview_col_2, $live_col_2, $items_col_2);
+    $args = array('@items' => $items_col_2, '@col' => 2);
+    $messages[] = t('@items item(s) transferred to front matter column @col from preview.', $args);
+    if ($before_items_col_2 > $items_col_2) {
+      $args = array(
+        '@attempt' => $before_items_col_2,
+        '@items' => $items_col_2,
+        '@col' => 2,
+      );
+      $messages[] = t('Attempted to transfer @attempt item(s) but only @items item(s) were available for front matter column @col from preview.', $args);
+    }
+  }
+
+  return $messages;
+}
+
+/**
+ * Copy items from one entityqueue to another.
+ *
+ * @param object $from
+ *   Entityqueue to copy items from.
+ * @param object $to
+ *   Entityqueue to paste items.
+ * @param int $items
+ *   Number of items to copy. 0 indicates all.
+ */
+function elife_front_matter_copy_paste_eq_items($from, $to, &$items = 0) {
+  $from_subq = entityqueue_subqueue_load($from->name);
+  $to_subq = entityqueue_subqueue_load($to->name);
+
+  if (!empty($from_subq->eq_node) && ($items == 0 || $items > count($from_subq->eq_node[LANGUAGE_NONE]))) {
+    $items = count($from_subq->eq_node[LANGUAGE_NONE]);
+  }
+
+  if ($to->settings['max_size'] > 0 && $items > $to->settings['max_size']) {
+    $items = $to->settings['max_size'];
+  }
+
+  $transfer = array();
+  if (!empty($from_subq->eq_node) && $items > 0) {
+    for ($i = 0; $i < $items; $i++) {
+      $transfer[] = $from_subq->eq_node[LANGUAGE_NONE][$i];
+    }
+  }
+  else {
+    $items = 0;
+  }
+
+  if (!empty($transfer)) {
+    $to_subq->eq_node[LANGUAGE_NONE] = $transfer;
+  }
+  else {
+    $to_subq->eq_node = array();
+  }
+
+  entityqueue_subqueue_save($to_subq);
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function elife_front_matter_block_info() {
+  $blocks['elife_front_matter'] = array(
+    'info' => t('eLife: Front Matter'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function elife_front_matter_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_front_matter':
+      return array(
+        'subject' => NULL,
+        'content' => elife_front_matter_load(),
+      );
+  }
+}
+
+/**
+ * Load the front matter content.
+ */
+function elife_front_matter_load() {
+  $variables = array();
+  $variables['cover'] = views_embed_view('elife_cover', 'cover_article');
+  $variables['front_matter_col_1'] = views_embed_view('elife_front_matter', 'front_matter_col_1');
+  $variables['front_matter_col_2'] = views_embed_view('elife_front_matter', 'front_matter_col_2');
+  return theme('elife_front_matter_wrapper', $variables);
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function elife_front_matter_views_query_alter(&$view, &$query) {
+  // If URL parameter preview=1 for 'elife_front_matter' view.
+  if (user_access('front matter preview')
+    && $view->name == 'elife_front_matter'
+    && !empty($_GET['preview'])
+    && $_GET['preview'] == 1) {
+    elife_front_matter_preview_setup();
+
+    // Retrieve entityqueue relationship for view.
+    $queue_name = $query->table_queue['eq_node_node']['join']->extra[0]['value'][0];
+    $queue = entityqueue_queue_load($queue_name);
+    // Switch entityqueue to appropriate preview and set $preview_items.
+    if ($queue->name == 'elife_front_matter_col_2') {
+      $preview_queue = entityqueue_queue_load('elife_front_matter_preview_col_2');
+    }
+    else {
+      $preview_queue = entityqueue_queue_load('elife_front_matter_preview_col_1');
+    }
+    // Set preview entityqueue.
+    $query->table_queue['eq_node_node']['join']->extra[0]['value'][0] = $preview_queue->name;
+    $query->table_queue['field_data_eq_node']['join']->extra[0]['value'][0] = $preview_queue->name;
+  }
+
+  // If URL parameter preview=1 for 'elife_cover' view.
+  if (user_access('front matter preview')
+    && $view->name == 'elife_cover'
+    && !empty($_GET['preview'])
+    && $_GET['preview'] == 1) {
+    elife_front_matter_preview_setup();
+
+    // Set preview entityqueue.
+    $query->table_queue['eq_node_node']['join']->extra[0]['value'][0] = 'elife_cover_preview';
+    $query->table_queue['field_data_eq_node']['join']->extra[0]['value'][0] = 'elife_cover_preview';
+  }
+}
+
+/**
+ * Setup for front matter preview.
+ */
+function elife_front_matter_preview_setup() {
+  $setup = &drupal_static(__FUNCTION__, FALSE);
+
+  if (!$setup) {
+    $module_path = drupal_get_path('module', 'elife_front_matter');
+    drupal_add_js($module_path . '/js/front-matter-preview.js', array('scope' => 'footer'));
+    drupal_add_css($module_path . '/css/front-matter-preview.css');
+    $preview_1_items = variable_get('elife_fm_preview_1_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+    $preview_2_items = variable_get('elife_fm_preview_2_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+    $js_settings = array(
+      'moduleFolder' => $module_path,
+      'colItems1' => $preview_1_items,
+      'colItems2' => $preview_2_items,
+      'colItemsLimit' => ELIFE_FRONT_MATTER_PREVIEW_ITEMS,
+      'allowContentEditable' => user_access('locally edit front matter titles') ? 1 : 0,
+    );
+    drupal_add_js(array('elifeCoverPagePreview' => $js_settings), 'setting');
+  }
+}
+
+/**
+ * Implements hook_permission().
+ */
+function elife_front_matter_permission() {
+  return array(
+    'locally edit front matter titles' => array(
+      'title' => t('Edit the front matter titles in-browser (not-savable)'),
+      'description' => t('Allows the user to make temporary changes to the front matter article titles.'),
+    ),
+    'front matter preview' => array(
+      'title' => t('Front matter preview'),
+      'description' => t("Access front matter in it's preview state."),
+    ),
+  );
+}

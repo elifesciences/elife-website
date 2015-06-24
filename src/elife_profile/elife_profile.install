@@ -139,12 +139,22 @@ function elife_profile_install_additional_modules() {
   arsort($modules_sorted);
 
   $operations = array();
-  // Enable and set as default the correct theme.
-  $theme = 'elife';
-  $operations[] = array('_elife_profile_enable_theme', array($theme));
+
+  // Enable themes and set as default the correct theme.
+  $operations[] = array('_elife_profile_enable_theme', array(
+      'elife_newlook',
+      FALSE,
+    ));
+  $operations[] = array('_elife_profile_enable_theme', array('elife', TRUE));
   // Enable the selected modules.
   foreach ($modules_sorted as $module => $weight) {
-    $operations[] = array('_elife_profile_enable_module', array($module, $files[$module]->info['name']));
+    $operations[] = array(
+      '_elife_profile_enable_module',
+      array(
+        $module,
+        $files[$module]->info['name'],
+      ),
+    );
   }
   $operations[] = array('_elife_profile_flush_caches', array(t('Flushed caches.')));
 

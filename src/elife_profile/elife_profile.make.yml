@@ -22,6 +22,8 @@ projects:
     version: '1.5'
   entity:
     version: '1.6'
+  entityqueue:
+    version: '1.0'
   entityreference:
     version: '1.1'
     patch:
@@ -36,6 +38,8 @@ projects:
     version: '1.5'
   google_analytics:
     version: '2.1'
+  imagecache_actions:
+    version: '1.5'
   imce:
     version: '1.9'
   jquery_update:
@@ -67,10 +71,14 @@ projects:
     version: '3.1'
   omega_tools:
     version: '3.0-rc4'
+  page_theme:
+    version: '1.1'
   panels:
     version: '3.5'
   pathauto:
     version: '1.2'
+  rabbit_hole:
+    version: '2.23'
   redirect:
     version: '1.0-rc1'
     patch:
