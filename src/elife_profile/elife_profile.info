@@ -86,12 +86,14 @@ dependencies[] = imagecache_coloractions
 dependencies[] = page_theme
 dependencies[] = rabbit_hole
 dependencies[] = rh_node
+dependencies[] = imagecache_external
 
 ; Install Features
 dependencies[] = features
 
 ; Distribution modules.
 dependencies[] = elife_article
+dependencies[] = elife_article_assets
 dependencies[] = elife_article_pages
 dependencies[] = elife_collection
 dependencies[] = elife_config
@@ -102,6 +104,8 @@ dependencies[] = elife_podcast
 dependencies[] = elife_services
 dependencies[] = elife_services_config
 dependencies[] = elife_templates
+
+; dependencies[] = elife_deploy
 
 ; System Requirements.
 php_memory_limit = 256M

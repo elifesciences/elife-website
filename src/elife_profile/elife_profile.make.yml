@@ -40,6 +40,8 @@ projects:
     version: '2.1'
   imagecache_actions:
     version: '1.5'
+  imagecache_external:
+    version: '2.1'
   imce:
     version: '1.9'
   jquery_update:

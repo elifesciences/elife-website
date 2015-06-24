@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file
+ * Install and update steps for the eLife: Deploy.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function elife_deploy_install() {
+  $category_plurals = array(
+    'Research article' => 'Research articles',
+    'Insight' => 'Insights',
+    'Editorial' => 'Editorials',
+    'Feature article' => 'Feature articles',
+    'Correction' => 'Corrections',
+    'Short report' => 'Short reports',
+    'Research advance' => 'Research advances',
+    'Registered report' => 'Registered reports',
+  );
+  variable_set('elife_article_category_plural', $category_plurals);
+}
