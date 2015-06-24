@@ -84,6 +84,8 @@ dependencies[] = entityqueue
 dependencies[] = imagecache_actions
 dependencies[] = imagecache_coloractions
 dependencies[] = page_theme
+dependencies[] = rabbit_hole
+dependencies[] = rh_node
 
 ; Install Features
 dependencies[] = features

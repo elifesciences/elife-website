@@ -77,6 +77,8 @@ projects:
     version: '3.5'
   pathauto:
     version: '1.2'
+  rabbit_hole:
+    version: '2.23'
   redirect:
     version: '1.0-rc1'
     patch:
