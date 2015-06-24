@@ -239,7 +239,7 @@ function elife_front_matter_previewitems_json($col_1_items, $col_2_items) {
  * @param array $messages
  *   Messages to be displayed.
  */
-function elife_coverpage_display_messages($messages) {
+function elife_front_matter_display_messages($messages) {
   foreach ($messages as $message) {
     drupal_set_message($message);
   }
