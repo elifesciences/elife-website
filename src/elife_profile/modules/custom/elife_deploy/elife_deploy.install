@@ -8,6 +8,40 @@
  * Implements hook_install().
  */
 function elife_deploy_install() {
+  $signup_ids = array(
+    '' => 'homepage_rev140402',
+    'elife-news' => 'elife-news_rev140402',
+    'elife/search' => 'search_rev140703',
+    'browse' => 'browse_rev140703',
+    'content/early/recent' => 'poa_rev141013',
+    'category/research-article' => 'research_rev141014',
+    'category/immunology' => 'immunol_rev141014',
+    'category/microbiology-and-infectious-disease' => 'microbiol_rev141014',
+    'category/genomics-and-evolutionary-biology' => 'genomics_rev141014',
+    'category/plant-biology' => 'plantbio_rev141014',
+    'category/genes-and-chromosomes' => 'genes_rev141014',
+    'category/neuroscience' => 'neurosci_rev141014',
+    'category/human-biology-and-medicine' => 'humanbio_rev141014',
+    'category/insight' => 'feature_rev141014',
+    'category/editorial' => 'feature_rev141014',
+    'category/feature-article' => 'feature_rev141014',
+    'category/developmental-biology-and-stem-cells' => 'devbio_rev141014',
+    'category/ecology' => 'ecology_rev141014',
+    'category/epidemiology-and-global-health' => 'epidem_rev141014',
+    'category/short-report' => 'research_rev141014',
+    'category/research-advance' => 'research_rev141014',
+    'category/antibacterial-response' => 'article_rev140402',
+    'category/dna-methylation' => 'article_rev140402',
+    'category/tools-and-resources' => 'research_rev141014',
+  );
+  variable_set('elife_content_alerts_sign_up_ids', $signup_ids);
+
+  $signup_gids = array(
+    'content/early/recent' => '24',
+  );
+  variable_set('elife_content_alerts_sign_up_gids', $signup_gids);
+
+  // @todo - elife - nlisgo - make sure these values are being used.
   $category_plurals = array(
     'Research article' => 'Research articles',
     'Insight' => 'Insights',
@@ -18,5 +52,18 @@ function elife_deploy_install() {
     'Research advance' => 'Research advances',
     'Registered report' => 'Registered reports',
   );
-  variable_set('elife_article_category_plural', $category_plurals);
+  variable_set('elife_category_assets_plural', $category_plurals);
+
+  $category_weights = array(
+    'Editorial',
+    'Feature article',
+    'Insight',
+    'Research article',
+    'Short report',
+    'Tools and resources',
+    'Research advance',
+    'Registered report',
+    'Correction',
+  );
+  variable_set('elife_category_assets_weight', $category_weights);
 }
