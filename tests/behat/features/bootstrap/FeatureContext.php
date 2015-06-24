@@ -20,16 +20,79 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   protected $subqueues = array();
 
   /**
-   * Keep track of article-version-id's so they can be cleaned up.
+   * Keep track of variables so they can be cleaned up.
    *
    * @var array
    */
-  protected $article_version_ids = array();
+  protected $variables = array();
+
+  /**
+   * Keep track of max entity ids so they can be cleaned up.
+   *
+   * @var array
+   */
+  protected $entity_max = array();
 
   /**
    * Initializes context.
    */
   public function __construct() {
+  }
+
+  /**
+   * Store max nid and tid for later cleanup.
+   *
+   * @BeforeScenario
+   */
+  public function storeEntityMaxBeforeScenario() {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->propertyOrderBy('nid', 'DESC');
+    $query->range(0, 1);
+    $entities = $query->execute();
+    $this->entity_max['node'] = 0;
+    if (!empty($entities['node'])) {
+      $nodes = array_keys($entities['node']);
+      $this->entity_max['node'] = $nodes[0];
+    }
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'taxonomy_term');
+    $query->propertyOrderBy('tid', 'DESC');
+    $query->range(0, 1);
+    $entities = $query->execute();
+    $this->entity_max['taxonomy_term'] = 0;
+    if (!empty($entities['taxonomy_term'])) {
+      $taxonomy_terms = array_keys($entities['taxonomy_term']);
+      $this->entity_max['taxonomy_term'] = $taxonomy_terms[0];
+    }
+  }
+
+  /**
+   * Cleanup nodes and terms that didn't exist before the scenario.
+   *
+   * @AfterScenario
+   */
+  public function clearEntityMaxBeforeScenario() {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node');
+    $query->propertyOrderBy('nid', 'DESC');
+    $query->propertyCondition('nid', $this->entity_max['node'], '>');
+    $entities = $query->execute();
+    if (!empty($entities['node'])) {
+      $nids = array_keys($entities['node']);
+      node_delete_multiple($nids);
+    }
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'taxonomy_term');
+    $query->propertyOrderBy('tid', 'DESC');
+    $query->propertyCondition('tid', $this->entity_max['taxonomy_term'], '>');
+    $entities = $query->execute();
+    if (!empty($entities['taxonomy_term'])) {
+      $tids = array_keys($entities['taxonomy_term']);
+      foreach ($tids as $tid) {
+        taxonomy_term_delete($tid);
+      }
+    }
   }
 
   /**
@@ -49,20 +112,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         if (!empty($json->{'article-version-id'})) {
           $this->article_version_ids[] = $json->{'article-version-id'};
         }
-      }
-    }
-  }
-
-  /**
-   * Delete articles for the stored article version ids.
-   *
-   * @AfterScenario
-   */
-  public function cleanArticleVersionIds() {
-    if (!empty($this->article_version_ids)) {
-      module_load_include('inc', 'elife_services', 'resources/article');
-      foreach ($this->article_version_ids as $article_version_id) {
-        _elife_services_article_delete($article_version_id, FALSE);
       }
     }
   }
@@ -164,6 +213,73 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         $subqueue->eq_node = $eq_node;
         entityqueue_subqueue_save($subqueue);
       }
+    }
+  }
+
+  /**
+   * @Given /^I set variable "([^"]+)" to (array|string) '([^\']+)'$/
+   */
+  public function iSetVariableToArray($name, $type, $value)
+  {
+    if (!isset($this->variables[$name])) {
+      $this->variables[$name] = variable_get($name, NULL);
+    }
+    if ($type == 'array') {
+      $value = json_decode($value, TRUE);
+    }
+    variable_set($name, $value);
+  }
+
+  /**
+   * Cleanup variables.
+   *
+   * @AfterScenario
+   */
+  public function cleanVariables() {
+    if (!empty($this->variables)) {
+      foreach ($this->variables as $name => $value) {
+        if (is_null($value)) {
+          variable_del($name);
+        }
+        else {
+          variable_set($name, $value);
+        }
+      }
+    }
+  }
+
+  /**
+   * @Then /^display channels should be arranged "([^"]+)"$/
+   */
+  public function displayChannelsShouldBeArranged($expected)
+  {
+    $expected = explode(', ', $expected);
+    $actual = array();
+    $categories_vocabulary = taxonomy_vocabulary_machine_name_load('elife_categories');
+    $efq = new EntityFieldQuery();
+    $result = $efq->entityCondition('entity_type', 'taxonomy_term')
+      ->propertyCondition('vid', $categories_vocabulary->vid)
+      ->fieldCondition('field_elife_category_type', 'value', 'display-channel', '=')
+      ->propertyOrderBy('weight')
+      ->execute();
+    if (!empty($result['taxonomy_term'])) {
+      $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+      foreach ($terms as $term) {
+        $actual[] = $term->name;
+      }
+    }
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Given /^the "([^"]*)" hidden field should contain "([^"]*)"$/
+   */
+  public function theHiddenFieldShouldContain($field, $value) {
+    $element = $this->getSession()->getPage()
+      ->find("css", 'input[name=' . $field . ']');
+    $value_current = $element->getAttribute('value');
+    if ($value !== $value_current) {
+      throw new Exception('Expected value ' . $value . ' but found ' . $value_current);
     }
   }
 }
