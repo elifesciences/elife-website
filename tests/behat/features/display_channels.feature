@@ -3,9 +3,6 @@ Feature: Display channel types
   I want to maintain the display channel types
   So I can present content of interest to the user
 
-  Background:
-    Given I set variable "pathauto_taxonomy_term_elife_categories_pattern" to string "new-category/[term:name]"
-
   @api
   Scenario: Determine order of display channels
     Given I set variable "elife_category_assets_weight" to array '["Correction", "Research article"]'
@@ -26,8 +23,19 @@ Feature: Display channel types
     Given "elife_category_assets" content:
       | title | field_elife_ca_category | body |
       | Research article | Research article | Description of research article |
-    When "elife_categories" terms:
-      | name | field_elife_category_type |
-      | Research article | display-channel |
-    And I am on "new-category/research-article"
+    When I am viewing an "elife_categories" term with the name "Research article"
     Then I should see "Description of research article"
+
+  @api
+  Scenario Outline: Add a display channel plural
+    Given I am viewing an "elife_categories" term with the name "<singular>"
+    And I should see "<singular>" in the "h1" element
+    And I set variable "elife_article_category_plural" to array '{"<singular>": "<plural>"}'
+    When I am viewing an "elife_categories" term with the name "<singular>"
+    Then I should see "<plural>" in the "h1" element
+
+    Examples:
+      | singular | plural    |
+      | Donut    | Donuts    |
+      | Sheep    | Sheep     |
+      | Triangle | Triangles |
