@@ -20,7 +20,6 @@ features[variable][] = menu_parent_elife_collection
 features[variable][] = node_options_elife_collection
 features[variable][] = node_preview_elife_collection
 features[variable][] = node_submitted_elife_collection
-features[variable][] = page_manager_node_view_disabled
 features[views_view][] = elife_collection_articles
 features_exclude[dependencies][page_manager] = page_manager
 features_exclude[dependencies][views] = views
