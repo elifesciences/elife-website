@@ -27,6 +27,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   protected $variables = array();
 
   /**
+   * Entity types to store and cleanup.
+   *
+   * @var array
+   */
+  protected $entity_types = array(
+    'node' => 'nid',
+    'taxonomy_term' => 'tid',
+  );
+
+  /**
    * Keep track of max entity ids so they can be cleaned up.
    *
    * @var array
@@ -40,57 +50,40 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Store max nid and tid for later cleanup.
+   * Store max entity ids for later cleanup.
    *
    * @BeforeScenario
    */
   public function storeEntityMaxBeforeScenario() {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node');
-    $query->propertyOrderBy('nid', 'DESC');
-    $query->range(0, 1);
-    $entities = $query->execute();
-    $this->entity_max['node'] = 0;
-    if (!empty($entities['node'])) {
-      $nodes = array_keys($entities['node']);
-      $this->entity_max['node'] = $nodes[0];
-    }
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term');
-    $query->propertyOrderBy('tid', 'DESC');
-    $query->range(0, 1);
-    $entities = $query->execute();
-    $this->entity_max['taxonomy_term'] = 0;
-    if (!empty($entities['taxonomy_term'])) {
-      $taxonomy_terms = array_keys($entities['taxonomy_term']);
-      $this->entity_max['taxonomy_term'] = $taxonomy_terms[0];
+    foreach ($this->entity_types as $type => $id) {
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', $type);
+      $query->propertyOrderBy($id, 'DESC');
+      $query->range(0, 1);
+      $entities = $query->execute();
+      $this->entity_max[$type] = 0;
+      if (!empty($entities[$type])) {
+        $ids = array_keys($entities[$type]);
+        $this->entity_max[$type] = $ids[0];
+      }
     }
   }
 
   /**
-   * Cleanup nodes and terms that didn't exist before the scenario.
+   * Cleanup entities that didn't exist before the scenario.
    *
    * @AfterScenario
    */
   public function clearEntityMaxBeforeScenario() {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node');
-    $query->propertyOrderBy('nid', 'DESC');
-    $query->propertyCondition('nid', $this->entity_max['node'], '>');
-    $entities = $query->execute();
-    if (!empty($entities['node'])) {
-      $nids = array_keys($entities['node']);
-      node_delete_multiple($nids);
-    }
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term');
-    $query->propertyOrderBy('tid', 'DESC');
-    $query->propertyCondition('tid', $this->entity_max['taxonomy_term'], '>');
-    $entities = $query->execute();
-    if (!empty($entities['taxonomy_term'])) {
-      $tids = array_keys($entities['taxonomy_term']);
-      foreach ($tids as $tid) {
-        taxonomy_term_delete($tid);
+    foreach ($this->entity_types as $type => $id) {
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', $type);
+      $query->propertyOrderBy($id, 'DESC');
+      $query->propertyCondition($id, $this->entity_max[$type], '>');
+      $entities = $query->execute();
+      if (!empty($entities[$type])) {
+        $ids = array_keys($entities[$type]);
+        entity_delete_multiple($type, $ids);
       }
     }
   }
