@@ -230,6 +230,7 @@ features[variable][] = node_submitted_elife_article_ver
 features[variable][] = node_submitted_elife_citation
 features[variable][] = node_submitted_elife_contributor
 features[variable][] = node_submitted_elife_fragment
+features[variable][] = pathauto_taxonomy_term_elife_categories_pattern
 features[variable][] = rh_module_elife_article
 features[variable][] = rh_node_action_elife_article
 features[views_view][] = elife_contributor_ref_filter
