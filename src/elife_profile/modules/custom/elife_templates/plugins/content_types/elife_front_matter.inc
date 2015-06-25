@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * plugins/content_types/elife_coverpage_front_matter.inc
+ * plugins/content_types/elife_front_matter.inc
  *
  * Prepare a ctools plugin to provide a display for the front matter items for
  * the front matter section
@@ -15,15 +15,15 @@ $plugin = array(
   'title' => t('eLife Front Matter'),
   'description' => t('Show rendered front matter article.'),
   'category' => t('eLife'),
-  'edit form' => 'elife_coverpage_front_matter_edit',
-  'render callback' => 'elife_coverpage_front_matter_render',
+  'edit form' => 'elife_front_matter_plugin_edit',
+  'render callback' => 'elife_front_matter_plugin_render',
   'required context' => new ctools_context_required(t('Article Node'), 'node'),
 );
 
 /**
  * Return the front matter items in the elife_front_matter template.
  */
-function elife_coverpage_front_matter_render($subtype, $conf, $args, $context) {
+function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
   $block->title = t('Front Matter');
 
@@ -77,7 +77,7 @@ function elife_coverpage_front_matter_render($subtype, $conf, $args, $context) {
 /**
  * Edit form callback for the content type.
  */
-function elife_coverpage_front_matter_edit($form, &$form_state) {
+function elife_front_matter_plugin_edit($form, &$form_state) {
   $conf = $form_state['conf'];
 
   // Allow front matter type to be set in views display: regular or headline.
@@ -99,7 +99,7 @@ function elife_coverpage_front_matter_edit($form, &$form_state) {
 /**
  * Edit form callback for the content type.
  */
-function elife_coverpage_front_matter_edit_submit(&$form, &$form_state) {
+function elife_front_matter_plugin_edit_submit(&$form, &$form_state) {
   foreach (element_children($form) as $key) {
     $form_state['conf'][$key] = $form_state['values'][$key];
   }

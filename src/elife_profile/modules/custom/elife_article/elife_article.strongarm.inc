@@ -367,6 +367,13 @@ function elife_article_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_elife_categories_pattern';
+  $strongarm->value = 'category/[term:name]';
+  $export['pathauto_taxonomy_term_elife_categories_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'rh_module_elife_article';
   $strongarm->value = 'rh_node';
   $export['rh_module_elife_article'] = $strongarm;

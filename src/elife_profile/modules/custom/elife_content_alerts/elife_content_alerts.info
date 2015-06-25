@@ -1,0 +1,5 @@
+name = eLife: Content Alerts
+description = Provides a content alert sign up form and generation of content alert markup.
+core = 7.x
+package = eLife
+version = 7.x-1.0

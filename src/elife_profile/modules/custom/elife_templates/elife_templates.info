@@ -2,3 +2,6 @@ name = eLife: Templates
 description = A home for custom templates
 package = eLife
 core = 7.x
+dependencies[] = elife_content_alerts
+dependencies[] = elife_front_matter
+dependencies[] = elife_article

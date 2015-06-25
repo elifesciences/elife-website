@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * plugins/content_types/elife_coverpage_cover.inc
+ * plugins/content_types/elife_cover.inc
  *
  * Prepare a ctools plugin to provide a display for the cover items for the
  * front matter section
@@ -15,15 +15,15 @@ $plugin = array(
   'title' => t('eLife Cover article'),
   'description' => t('Show rendered cover article.'),
   'category' => t('eLife'),
-  'edit form' => 'elife_cover_edit',
-  'render callback' => 'elife_cover_render',
+  'edit form' => 'elife_cover_plugin_edit',
+  'render callback' => 'elife_cover_plugin_render',
   'required context' => new ctools_context_required(t('Article Node'), 'node'),
 );
 
 /**
  * Return the cover article in the elife_cover template.
  */
-function elife_cover_render($subtype, $conf, $args, $context) {
+function elife_cover_plugin_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
   $block->title = t('Cover article');
 
@@ -76,6 +76,6 @@ function elife_cover_render($subtype, $conf, $args, $context) {
 /**
  * Edit form callback for the content type.
  */
-function elife_cover_edit($form, &$form_state) {
+function elife_cover_plugin_edit($form, &$form_state) {
   return $form;
 }

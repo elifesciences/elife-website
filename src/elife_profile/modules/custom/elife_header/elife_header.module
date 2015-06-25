@@ -65,6 +65,7 @@ function elife_header_header_load() {
   );
 
   $is_coverpage = FALSE;
+  // @todo - elife - nlisgo - verify that this is working!!
   if ($panel_page = page_manager_get_current_page()) {
     $is_coverpage = ($panel_page['name'] == 'page-elife_coverpage') && drupal_is_front_page();
   }

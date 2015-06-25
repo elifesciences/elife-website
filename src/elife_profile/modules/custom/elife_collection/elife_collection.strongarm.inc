@@ -73,12 +73,5 @@ function elife_collection_strongarm() {
   $strongarm->value = 0;
   $export['node_submitted_elife_collection'] = $strongarm;
 
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'page_manager_node_view_disabled';
-  $strongarm->value = FALSE;
-  $export['page_manager_node_view_disabled'] = $strongarm;
-
   return $export;
 }
