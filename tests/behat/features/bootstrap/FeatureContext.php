@@ -210,7 +210,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Given /^I set variable "([^"]+)" to (array|string) '([^\']+)'$/
+   * @Given I set variable :name to :type :value
    */
   public function iSetVariableToArray($name, $type, $value)
   {
