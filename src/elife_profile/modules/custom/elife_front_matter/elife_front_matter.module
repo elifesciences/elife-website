@@ -36,7 +36,7 @@ function elife_front_matter_menu() {
   );
   $items['front-matter/preview2live/%/%/%'] = array(
     'title' => 'Front matter preview to live',
-    'description' => 'Transfer nodequeue nodes from preview to live',
+    'description' => 'Transfer entityqueue nodes from preview to live',
     'page callback' => 'elife_front_matter_preview2live_json',
     'page arguments' => array(2, 3, 4),
     'access arguments' => array('manipulate queues'),
@@ -182,7 +182,7 @@ function elife_front_matter_init() {
 }
 
 /**
- * Transfer nodes from preview nodequeues to live - json.
+ * Transfer nodes from preview entityqueues to live - json.
  *
  * @param int $cover_items
  *   Number of nodes to transfer from cover item.
@@ -200,7 +200,7 @@ function elife_front_matter_preview2live_json($cover_items, $col_1_items, $col_2
 }
 
 /**
- * Set preview items for front matter nodequeues - json.
+ * Set preview items for front matter entityqueues - json.
  *
  * @param int $col_1_items
  *   Number of nodes to preview from column 1.

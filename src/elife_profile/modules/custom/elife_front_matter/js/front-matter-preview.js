@@ -47,7 +47,7 @@
 
           return output;
         },
-        // Prepare a button to transfer nodes from preview to live nodequeues.
+        // Prepare a button to transfer nodes from preview to live entityqueues.
         prepareTransferButton = function (colPos) {
           var activeOpt,
             output = '',
@@ -175,7 +175,7 @@
           $('.front-matter-transfer-live-2').attr('action', transferLinks.col2);
           $('.front-matter-transfer-live-all').attr('action', transferLinks.all);
         },
-        // Transfer the appropriate number of nodes to the live nodequeue.
+        // Transfer the appropriate number of nodes to the live entityqueue.
         transferToLive = function ($formEl, $messageEl, $wrapperEl) {
           $wrapperEl = prepareWrapperEl($wrapperEl);
           $formEl.submit(function () {
