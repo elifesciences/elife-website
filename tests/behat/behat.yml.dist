@@ -3,7 +3,6 @@ default:
     default:
       contexts:
         - FeatureContext: ~
-        - Behat\Drupal\Propeople\PropeopleContext: ~
         - Drupal\DrupalExtension\Context\MinkContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - Drupal\DrupalExtension\Context\DrupalContext: ~
