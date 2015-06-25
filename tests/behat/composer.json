@@ -1,7 +1,7 @@
 {
   "require": {
     "behat/drupal-propeople-context": "~1.2",
-    "emuse/behat-html-formatter": "dev-master"
+    "emuse/behat-html-formatter": "~0.1"
   },
   "require-dev": {
     "behat/web-api-extension": "~1.0@dev"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e5bd1d75bf0342d2b7046bfa69a2947d",
+    "hash": "e1310181bcef8bf3c11e44bc3922746d",
     "packages": [
         {
             "name": "behat/behat",
@@ -621,16 +621,16 @@
         },
         {
             "name": "emuse/behat-html-formatter",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dutchiexl/BehatHtmlFormatterPlugin.git",
-                "reference": "681528b4b3ccb45e4b9c34e5f5fb89d66a6640de"
+                "reference": "c7a51a1013c0ee6fdc4a00e93842d5f9c8bc98ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dutchiexl/BehatHtmlFormatterPlugin/zipball/681528b4b3ccb45e4b9c34e5f5fb89d66a6640de",
-                "reference": "681528b4b3ccb45e4b9c34e5f5fb89d66a6640de",
+                "url": "https://api.github.com/repos/dutchiexl/BehatHtmlFormatterPlugin/zipball/c7a51a1013c0ee6fdc4a00e93842d5f9c8bc98ec",
+                "reference": "c7a51a1013c0ee6fdc4a00e93842d5f9c8bc98ec",
                 "shasum": ""
             },
             "require": {
@@ -652,7 +652,7 @@
                 }
             ],
             "description": "This will create a html formatter for Behat.",
-            "time": "2015-06-16 11:38:17"
+            "time": "2015-05-27 15:09:34"
         },
         {
             "name": "fabpot/goutte",
@@ -2632,7 +2632,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "emuse/behat-html-formatter": 20,
         "behat/web-api-extension": 20
     },
     "prefer-stable": false,
