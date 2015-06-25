@@ -47,8 +47,4 @@ install:
   - ./create.sh
 
 script:
-  # Run behat tests
-  - basedir=$PWD
-  - cd ./tests/behat
-  - ./bin/behat --config behat.travis.yml --tags='~@develop'
-  - cd $basedir
+  - ./run-tests.sh
