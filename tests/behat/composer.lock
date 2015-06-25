@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dbf0fd2f01e24abfdc0d233ea4e27cdf",
+    "hash": "6d4cde2589cc9a534e6093e8a7399504",
     "packages": [
         {
             "name": "behat/behat",
@@ -86,6 +86,53 @@
                 "testing"
             ],
             "time": "2015-02-22 14:10:33"
+        },
+        {
+            "name": "behat/drupal-propeople-context",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BR0kEN-/behat-drupal-propeople-context.git",
+                "reference": "9bf431ab75646ec95ff8e4614dcabbc9f04ba562"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BR0kEN-/behat-drupal-propeople-context/zipball/9bf431ab75646ec95ff8e4614dcabbc9f04ba562",
+                "reference": "9bf431ab75646ec95ff8e4614dcabbc9f04ba562",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/drupal-extension": "~3.0",
+                "php": ">=5.4"
+            },
+            "bin": [
+                "scripts/bdpc"
+            ],
+            "type": "behat-extension",
+            "autoload": {
+                "psr-0": {
+                    "Behat\\Drupal": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Sergey Bondarenko",
+                    "email": "broken@propeople.com.ua"
+                }
+            ],
+            "description": "Drupal context by Propeople for Behat",
+            "keywords": [
+                "Behat",
+                "drupal",
+                "test",
+                "testing",
+                "web"
+            ],
+            "time": "2015-04-09 09:51:29"
         },
         {
             "name": "behat/gherkin",
