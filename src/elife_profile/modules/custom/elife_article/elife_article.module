@@ -6,6 +6,8 @@
 
 include_once 'elife_article.features.inc';
 
+use Drupal\elife_article\ElifeArticleVersion;
+
 /**
  * Implements hook_preprocess_node().
  */
@@ -116,4 +118,38 @@ function elife_article_node_update($node) {
       $node->status = $ewrapper->field_elife_a_parent->status->value();
     }
   }
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function elife_article_token_info() {
+  $info['tokens']['term']['plural'] = array(
+    'name' => t('Plural name'),
+    'description' => t('Plural name, if available.'),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function elife_article_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+  $sanitize = !empty($options['sanitize']);
+
+  if ($type == 'term' && !empty($data['term'])) {
+    $term = $data['term'];
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'plural':
+          $plural = ElifeArticleVersion::getCategoryPlural($term->name);
+          $replacements[$original] = $sanitize ? check_plain($plural) : $plural;
+          break;
+      }
+    }
+  }
+
+  return $replacements;
 }

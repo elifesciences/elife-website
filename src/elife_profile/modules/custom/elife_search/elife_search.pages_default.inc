@@ -48,7 +48,7 @@ function elife_search_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '%term:name';
+  $display->title = '%term:plural';
   $display->uuid = 'c1d3070e-d3f0-40f6-bc1c-c33aef5816aa';
   $display->content = array();
   $display->panels = array();

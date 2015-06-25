@@ -326,8 +326,8 @@ class ElifeArticleVersion {
   public static function getCategoryPlural($category, $force = TRUE) {
     $plural = ($force) ? $category : FALSE;
     if ($plural_terms = variable_get('elife_article_category_plural', FALSE)) {
-      if (isset($plural_terms['category'])) {
-        $plural = $plural_terms['category'];
+      if (isset($plural_terms[$category])) {
+        $plural = $plural_terms[$category];
       }
     }
 
