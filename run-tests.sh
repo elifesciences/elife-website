@@ -1,12 +1,10 @@
-#!/bin/bash
-cd /srv/ingestor/
-basedir=$PWD
+#!/usr/bin/env bash
 
-export BEHAT_PARAMS="{\"extensions\": {\"Drupal\\\\DrupalExtension\": {\"drupal\": {\"drupal_root\": \"$basedir/web\"}}}}"
+basedir=$( cd $(dirname $0) ; pwd -P )
 
 # Run behat tests
 cd $basedir/tests/behat
-./bin/behat --config behat.ci.yml --tags='~@develop'
+./bin/behat --format progress --tags='~@develop'
 
 # Run simpletest
 # - drush en simpletest --yes
