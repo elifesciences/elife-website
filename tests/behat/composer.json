@@ -10,6 +10,6 @@
     "bin-dir": "bin/"
   },
   "scripts": {
-    "post-install-cmd": "mv bin/bdpc bin/behat"
+    "post-install-cmd": "php -r \"if(file_exists('bin/bdpc')) rename('bin/bdpc', 'bin/behat');\""
   }
 }
