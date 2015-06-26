@@ -14,11 +14,10 @@ Feature: Content alerts signup
       | name | field_elife_category_type |
       | <category> | <type> |
     When I am on "new-category/<category-path>"
-    And I should see a "#elife-content-alerts-sign-up-form" element
-    And the "custom_6" hidden field should contain "<id>"
-    When I press the "<button_text>" button
+    And I should see a sign up form with id "<id>" and gid "<gid>"
+    And I press the "<button_text>" button
     Then I should be on "http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=<gid>"
-    And the "custom_6" hidden field should contain "<id>"
+    And the CiviCRM form should have the id "<id>"
 
     Examples:
       | category-path | category | type | button_text | gid | id |

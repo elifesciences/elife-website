@@ -3,12 +3,14 @@ default:
     default:
       contexts:
         - FeatureContext: ~
+        - ContentAlertsContext: ~
         - Behat\Drupal\Propeople\PropeopleContext: ~
         - Drupal\DrupalExtension\Context\MinkContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - Drupal\DrupalExtension\Context\DrupalContext: ~
         - Behat\WebApiExtension\Context\WebApiContext: ~
   extensions:
+    SensioLabs\Behat\PageObjectExtension:
     Behat\WebApiExtension:
       base_url: 'http://127.0.0.1:80'
     Behat\MinkExtension:

@@ -1,10 +1,8 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Drupal\elife_article\ElifeArticleVersion;
-use Behat\Behat\Hook\Scope\BeforeStepScope;
 use PHPUnit_Framework_Assert as Assertions;
 
 /**
@@ -84,27 +82,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       if (!empty($entities[$type])) {
         $ids = array_keys($entities[$type]);
         entity_delete_multiple($type, $ids);
-      }
-    }
-  }
-
-  /**
-   * Store article version ids used to POST new content so we can cleanup later.
-   *
-   * @BeforeStep
-   *
-   * @param BeforeStepScope $scope
-   */
-  public function beforeStepStoreArticleVersionIds(BeforeStepScope $scope) {
-    $text = $scope->getStep()->getText();
-    if (preg_match('/send a POST request to "[^\"]+" with body\:$/i', $text)) {
-      $strings = $scope->getStep()->getArguments();
-      /* @var $string \Behat\Gherkin\Node\PyStringNode */
-      foreach ($strings as $string) {
-        $json = json_decode($string->getRaw());
-        if (!empty($json->{'article-version-id'})) {
-          $this->article_version_ids[] = $json->{'article-version-id'};
-        }
       }
     }
   }
