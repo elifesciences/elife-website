@@ -391,6 +391,11 @@ function _elife_services_article_delete($article_version_id, $trigger_error = TR
 function _elife_services_article_update_values($article_version, $data, $new = FALSE) {
   $required = array();
 
+  // @todo - elife - nlisgo - consider storing citations as serialised data.
+  if (isset($data['citations'])) {
+    unset($data['citations']);
+  }
+
   if ($new) {
     $required = array(
       'title',
