@@ -1,0 +1,11 @@
+name = eLife: Archive
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_archive
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = views_ctools_field
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = elife_archive_by_month

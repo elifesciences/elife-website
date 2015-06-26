@@ -92,6 +92,7 @@ dependencies[] = imagecache_external
 dependencies[] = features
 
 ; Distribution modules.
+dependencies[] = elife_archive
 dependencies[] = elife_article
 dependencies[] = elife_article_assets
 dependencies[] = elife_article_pages
