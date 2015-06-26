@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d4cde2589cc9a534e6093e8a7399504",
+    "hash": "bbbb9e83e98e069da8639bcbb91a9e56",
     "packages": [
         {
             "name": "behat/behat",
@@ -624,16 +624,16 @@
         },
         {
             "name": "drupal/drupal-driver",
-            "version": "v1.0.15",
+            "version": "v1.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/DrupalDriver.git",
-                "reference": "9729a726835d1f3285dba03b7adbd7430d621fa4"
+                "reference": "4faa3c2b031779798214782d7977c1d738947761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/DrupalDriver/zipball/9729a726835d1f3285dba03b7adbd7430d621fa4",
-                "reference": "9729a726835d1f3285dba03b7adbd7430d621fa4",
+                "url": "https://api.github.com/repos/jhedstrom/DrupalDriver/zipball/4faa3c2b031779798214782d7977c1d738947761",
+                "reference": "4faa3c2b031779798214782d7977c1d738947761",
                 "shasum": ""
             },
             "require": {
@@ -670,7 +670,7 @@
                 "test",
                 "web"
             ],
-            "time": "2015-06-01 18:16:33"
+            "time": "2015-06-25 16:13:52"
         },
         {
             "name": "drupal/drupal-extension",
@@ -1888,6 +1888,70 @@
             "time": "2015-06-21 13:59:46"
         },
         {
+            "name": "sensiolabs/behat-page-object-extension",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/BehatPageObjectExtension.git",
+                "reference": "90c24f483b7eaba7bd92c2b40d046289de795d26"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/90c24f483b7eaba7bd92c2b40d046289de795d26",
+                "reference": "90c24f483b7eaba7bd92c2b40d046289de795d26",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0",
+                "behat/mink-extension": "~2.0@dev",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "behat/mink-goutte-driver": "~1.0",
+                "bossa/phpspec2-expect": "~1.0",
+                "ocramius/proxy-manager": "~0.5",
+                "phpspec/phpspec": "~2.0",
+                "symfony/filesystem": "~2.3",
+                "symfony/process": "~2.3"
+            },
+            "suggest": {
+                "bossa/phpspec2-expect": "Allows to use PHPSpec2 matchers in Behat context files"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SensioLabs\\Behat\\PageObjectExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcello Duarte",
+                    "email": "mduarte@inviqa.com"
+                },
+                {
+                    "name": "Jakub Zalas",
+                    "email": "jzalas@sensiolabs.co.uk"
+                }
+            ],
+            "description": "Page object extension for Behat",
+            "homepage": "https://github.com/sensiolabs/BehatPageObjectExtension",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "page"
+            ],
+            "time": "2014-09-22 08:52:04"
+        },
+        {
             "name": "symfony/browser-kit",
             "version": "v2.7.1",
             "source": {
@@ -2536,6 +2600,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "sensiolabs/behat-page-object-extension": 20,
         "behat/web-api-extension": 20
     },
     "prefer-stable": false,
