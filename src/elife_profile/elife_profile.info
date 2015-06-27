@@ -87,6 +87,7 @@ dependencies[] = page_theme
 dependencies[] = rabbit_hole
 dependencies[] = rh_node
 dependencies[] = imagecache_external
+dependencies[] = views_date_format_sql
 
 ; Install Features
 dependencies[] = features
