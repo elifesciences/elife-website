@@ -30,16 +30,19 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_plugin'] = 'semanticviews_default';
   $handler->display->display_options['style_options']['grouping'] = array(
     0 => array(
       'field' => 'name',
-      'rendered' => 1,
+      'rendered' => 0,
       'rendered_strip' => 0,
     ),
   );
-  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
-  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_options']['group']['class'] = '';
+  $handler->display->display_options['style_options']['row']['element_type'] = '';
+  $handler->display->display_options['style_options']['row']['first_class'] = '';
+  $handler->display->display_options['style_options']['row']['last_class'] = '';
+  $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_elife_a_versions_target_id']['id'] = 'field_elife_a_versions_target_id';
@@ -193,9 +196,13 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['defaults']['group_by'] = FALSE;
   $handler->display->display_options['group_by'] = TRUE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
-  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'semanticviews_default';
+  $handler->display->display_options['style_options']['group']['element_type'] = '';
+  $handler->display->display_options['style_options']['group']['class'] = '';
+  $handler->display->display_options['style_options']['row']['element_type'] = '';
+  $handler->display->display_options['style_options']['row']['first_class'] = '';
+  $handler->display->display_options['style_options']['row']['last_class'] = '';
+  $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -247,6 +254,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['id'] = 'field_elife_a_fpubdate_2';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['ui_name'] = 'Link to monthly archive';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['alter_text'] = TRUE;
@@ -262,11 +270,29 @@ function elife_archive_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  /* Field: YYYYMM */
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['id'] = 'field_elife_a_fpubdate_3';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['table'] = 'field_data_field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['ui_name'] = 'YYYYMM';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['label'] = '';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['settings'] = array(
+    'format_type' => 'yyyymm',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['format_date_sql'] = 1;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['field'] = 'field_elife_a_fpubdate_value';
+  $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['group_type'] = 'min';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: First Publication Date (field_elife_a_fpubdate) */
@@ -288,9 +314,13 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '2';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'default';
-  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
-  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'semanticviews_default';
+  $handler->display->display_options['style_options']['group']['element_type'] = '';
+  $handler->display->display_options['style_options']['group']['class'] = '';
+  $handler->display->display_options['style_options']['row']['element_type'] = '';
+  $handler->display->display_options['style_options']['row']['first_class'] = '';
+  $handler->display->display_options['style_options']['row']['last_class'] = '';
+  $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
@@ -342,6 +372,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['id'] = 'field_elife_a_fpubdate_2';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['ui_name'] = 'Link to monthly archive';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['alter_text'] = TRUE;
@@ -357,11 +388,29 @@ function elife_archive_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  /* Field: YYYYMM */
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['id'] = 'field_elife_a_fpubdate_3';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['table'] = 'field_data_field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['ui_name'] = 'YYYYMM';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['label'] = '';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['settings'] = array(
+    'format_type' => 'yyyymm',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['format_date_sql'] = 1;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['field'] = 'field_elife_a_fpubdate_value';
+  $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['group_type'] = 'min';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: First Publication Date (field_elife_a_fpubdate) */

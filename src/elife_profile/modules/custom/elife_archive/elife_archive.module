@@ -169,7 +169,7 @@ function _elife_archive_month_options($year = NULL, $format = NULL) {
   $months = array();
 
   foreach ($results as $res) {
-    $month = strtotime($res->node_created_month . '01');
+    $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value'] . '01');
 
     switch ($format) {
       case 'links':
