@@ -392,7 +392,7 @@ function _elife_services_article_update_values($article_version, $data, $new = F
   $required = array();
 
   // @todo - elife - nlisgo - consider storing citations as serialised data.
-  if (isset($data['citations'])) {
+  if (!variable_get('elife_article_ingest_citations') && isset($data['citations'])) {
     unset($data['citations']);
   }
 
