@@ -20,6 +20,13 @@ function elife_archive_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'date_format_m';
+  $strongarm->value = 'M';
+  $export['date_format_m'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'date_format_mm';
   $strongarm->value = 'm';
   $export['date_format_mm'] = $strongarm;

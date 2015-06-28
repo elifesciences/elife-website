@@ -375,19 +375,18 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['ui_name'] = 'Link to monthly archive';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['label'] = '';
-  $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['alter_text'] = TRUE;
-  $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['text'] = '[field_elife_a_fpubdate_2] ([nid])';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['path'] = 'archive/[field_elife_a_fpubdate]/[field_elife_a_fpubdate_1]';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['alter']['alt'] = '[field_elife_a_fpubdate_2]';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['settings'] = array(
-    'format_type' => 'f_y',
+    'format_type' => 'm',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_2']['format_date_sql'] = 0;
   /* Field: YYYYMM */
   $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['id'] = 'field_elife_a_fpubdate_3';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_3']['table'] = 'field_data_field_elife_a_fpubdate';

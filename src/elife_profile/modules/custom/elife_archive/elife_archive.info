@@ -12,6 +12,7 @@ features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[variable][] = date_format_f_y
+features[variable][] = date_format_m
 features[variable][] = date_format_mm
 features[variable][] = date_format_yyyy
 features[variable][] = date_format_yyyymm
