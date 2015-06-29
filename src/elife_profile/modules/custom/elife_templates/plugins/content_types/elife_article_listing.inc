@@ -129,7 +129,7 @@ function _elife_article_listing_detail($node, &$variables, $conf) {
     $detail['author'] = '';
   }
 
-  if (in_array('impact', $display_options)) {
+  if (in_array('impact', $display_options) && $ewrapper->field_elife_a_author_imp->value()) {
     $detail['summary'] = $ewrapper->field_elife_a_author_imp->value->value();
   }
 

@@ -145,7 +145,12 @@ function elife_archive_goto_form($form, &$form_state, $default_date = NULL, $js 
  * Redirect the user to the archive page for a specific month.
  */
 function elife_archive_goto_form_submit($form, &$form_state) {
-  drupal_goto(preg_replace('/^\//', '', $form_state['values']['elife_archive_month']));
+  $path = preg_replace('/^\//', '', $form_state['values']['elife_archive_month']);
+  $http_response_code = 302;
+  $url = url($path, array('absolute' => TRUE));
+  header('Location: ' . $url, TRUE, $http_response_code);
+
+  drupal_exit($url);
 }
 
 /**
@@ -163,13 +168,13 @@ function _elife_archive_month_options($year = NULL, $format = NULL) {
   $results = _elife_archive_month_options_get($year);
 
   if (empty($results)) {
-    return FALSE;
+    return array();
   }
 
   $months = array();
 
   foreach ($results as $res) {
-    $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value'] . '01');
+    $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value']);
 
     switch ($format) {
       case 'links':
