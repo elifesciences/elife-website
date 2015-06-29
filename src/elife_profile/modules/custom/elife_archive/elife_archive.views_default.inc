@@ -70,6 +70,20 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['ctools_field_elife_article_listing']['label'] = '';
   $handler->display->display_options['fields']['ctools_field_elife_article_listing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['ctools_field_elife_article_listing']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['ctools_field_elife_article_listing']['views_ctools_field'] = array(
+    'display_options' => array(
+      'title-as-link' => 'title-as-link',
+      'impact' => 'impact',
+      'doi' => 'doi',
+      'display-channel' => 0,
+      'heading' => 0,
+      'authors' => 0,
+    ),
+    'image_style' => 'elife_striking_image',
+    'css_styles' => array(
+      'elife-article.css' => 0,
+    ),
+  );
   /* Sort criterion: Taxonomy term: Weight */
   $handler->display->display_options['sorts']['weight']['id'] = 'weight';
   $handler->display->display_options['sorts']['weight']['table'] = 'taxonomy_term_data';

@@ -40,6 +40,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
       'elife_article_detail' => array(
         'variables' => array(
           'identifier' => 'elife-article',
+          'image' => NULL,
           'summary' => NULL,
           'author' => NULL,
           'doi' => NULL,

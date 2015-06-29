@@ -247,7 +247,7 @@ function _elife_archive_short_options_get($li_classes = array(), $a_classes = ar
 
   if ($results = $view->result) {
     foreach ($results as $res) {
-      $month = strtotime($res->node_created_month . '01');
+      $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value'] . '01');
       $months[] = array(
         'data' => l(date('M', $month), 'archive/' . date('Y/m', $month), array('attributes' => $a_classes)),
         'class' => $li_classes,

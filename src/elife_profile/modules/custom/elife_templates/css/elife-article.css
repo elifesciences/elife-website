@@ -1,0 +1,133 @@
+/* Pattern: elife-article */
+.elife-article {
+  font-family: "Avenir LT W01 45 Book", sans-serif;
+  border: 0 solid #929497;
+  border-bottom-width: 1px;
+  padding: 1.5rem 0;
+  box-sizing: border-box;
+}
+.elife-article * {
+  max-width: 50rem;
+}
+.elife-article:first-of-type {
+  border-top-width: 1px;
+}
+.elife-article:last-of-type {
+  border-bottom-width: 0;
+}
+.elife-article a {
+  text-decoration: none;
+}
+.elife-article::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.elife-article a {
+  color: #0a9dd9;
+}
+.elife-article a:hover {
+  color: #6d6e70;
+}
+.elife-article__subjects::after {
+  content: '';
+  display: block;
+  float: none;
+  clear: both;
+}
+.elife-article__subject {
+  font-size: 0.7rem;
+  padding-bottom: 1.3rem;
+  text-transform: uppercase;
+  display: block;
+  float: left;
+}
+.elife-article__subject::after {
+  content: '\00a0\00a0\00a0|\00a0\00a0\00a0';
+}
+.elife-article__subject:last-of-type::after {
+  content: '';
+}
+.elife-article--feature .elife-article__subject a {
+  color: #cf0c4e;
+}
+.elife-article--editorial .elife-article__subject a {
+  color: #0961ab;
+}
+.elife-article--insight .elife-article__subject a {
+  color: #629f43;
+}
+.elife-article--research-article .elife-article__subject a {
+  color: #273b81;
+}
+.elife-article--registered-report .elife-article__subject a {
+  color: #273b81;
+}
+.elife-article--replication-study .elife-article__subject a {
+  color: #273b81;
+}
+.elife-article--research-advance .elife-article__subject a {
+  color: #273b81;
+}
+.elife-article--short-report .elife-article__subject a {
+  color: #273b81;
+}
+.elife-article--news .elife-article__subject a {
+  color: #0a9dd9;
+}
+.elife-article__heading {
+  font-family: "Avenir LT W01 85 Heavy", sans-serif;
+  font-weight: normal;
+  font-size: 1.5rem;
+  margin-bottom: 0.5em;
+  color: #383838;
+}
+.elife-article__summary {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  padding-bottom: 0.75rem;
+  max-width: 43em;
+}
+.elife-article__date {
+  font-size: 0.8rem;
+  line-height: 1.2;
+  font-style: oblique;
+  color: #929497;
+  padding-bottom: 1.2rem;
+}
+.elife-article__bib_details__author_list {
+  padding-bottom: 1.2rem;
+}
+.elife-article__bib_details__author_list::after {
+  content: '';
+  display: block;
+  clear: both;
+  float: none;
+}
+.elife-article__bib_details__author {
+  font-size: 0.8rem;
+  color: #929497;
+  display: block;
+  float: left;
+}
+.elife-article__bib_details__author::after {
+  content: ',\00a0';
+}
+.elife-article__bib_details__author:last-of-type::after {
+  content: '';
+}
+/* don't use a trailing comma before 'et al' */
+.elife-article__bib_details__author_list--truncated .elife-article__bib_details__author:nth-last-child(2)::after {
+  content: '\00a0';
+}
+.elife-article__doi {
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+@media only all and (min-width: 47.5rem) {
+  .elife-article__subject {
+    padding-bottom: 0.4rem;
+  }
+}
+/* End: elife-article */
