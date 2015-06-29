@@ -236,6 +236,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['ui_name'] = 'YYYY';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['exclude'] = TRUE;
@@ -252,6 +253,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['id'] = 'field_elife_a_fpubdate_1';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['ui_name'] = 'MM';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['exclude'] = TRUE;
@@ -354,6 +356,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['ui_name'] = 'YYYY';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['exclude'] = TRUE;
@@ -370,6 +373,7 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['id'] = 'field_elife_a_fpubdate_1';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['group_type'] = 'min';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['ui_name'] = 'MM';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['exclude'] = TRUE;

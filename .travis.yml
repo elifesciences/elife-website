@@ -46,5 +46,15 @@ install:
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
   - ./create.sh
 
+  # Setup display for selenium
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - sleep 5
+
+  # Get Selenium
+  - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
+  - java -jar selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
+  - sleep 5
+
 script:
   - ./run-tests.sh

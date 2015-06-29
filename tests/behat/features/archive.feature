@@ -450,3 +450,189 @@ Feature: Archive
       | 2013-09-01 | 2013/9 | 2013/09 |
       | 2013-01-01 | 2013/1 | 2013/01 |
       | 2012-10-01 | 2012/10 | 2012/10 |
+
+  Scenario Outline: Correct set of article types in the archive listing
+    Given I set variable "elife_category_assets_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
+    And I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-01",
+          "version": "1",
+          "doi": "10.7554/eLife.00001",
+          "volume": "1",
+          "article-id": "00001",
+          "article-version-id": "00001.1",
+          "pub-date": "2015-03-01",
+          "path": "content/1/00001",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Tools and resources"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-02",
+          "version": "1",
+          "doi": "10.7554/eLife.00002",
+          "volume": "1",
+          "article-id": "00002",
+          "article-version-id": "00002.1",
+          "pub-date": "2015-03-02",
+          "path": "content/1/00002",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Registered report"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-03",
+          "version": "1",
+          "doi": "10.7554/eLife.00003",
+          "volume": "1",
+          "article-id": "00003",
+          "article-version-id": "00003.1",
+          "pub-date": "2015-03-03",
+          "path": "content/1/00003",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Research advance"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-04",
+          "version": "1",
+          "doi": "10.7554/eLife.00004",
+          "volume": "1",
+          "article-id": "00004",
+          "article-version-id": "00004.1",
+          "pub-date": "2015-03-04",
+          "path": "content/1/00004",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Insight"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-05",
+          "version": "1",
+          "doi": "10.7554/eLife.00005",
+          "volume": "1",
+          "article-id": "00005",
+          "article-version-id": "00005.1",
+          "pub-date": "2015-03-05",
+          "path": "content/1/00005",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Research article"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-06",
+          "version": "1",
+          "doi": "10.7554/eLife.00006",
+          "volume": "1",
+          "article-id": "00006",
+          "article-version-id": "00006.1",
+          "pub-date": "2015-03-06",
+          "path": "content/1/00006",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Feature article"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-07",
+          "version": "1",
+          "doi": "10.7554/eLife.00007",
+          "volume": "1",
+          "article-id": "00007",
+          "article-version-id": "00007.1",
+          "pub-date": "2015-03-07",
+          "path": "content/1/00007",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Short report"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "Article 2015-03-08",
+          "version": "1",
+          "doi": "10.7554/eLife.00008",
+          "volume": "1",
+          "article-id": "00008",
+          "article-version-id": "00008.1",
+          "pub-date": "2015-03-08",
+          "path": "content/1/00008",
+          "article-type": "research-article",
+          "status": "VOR",
+          "categories": {
+            "display-channel": [
+              "Editorial"
+            ]
+          }
+        }
+      """
+    And the response code should be 200
+    When I am on "/archive/2015/03"
+    Then I should see "<articletype>" in the ".view-elife-archive-by-month h3:nth-of-type(<num>)" element
+    And the response status code should be 200
+
+    Examples:
+      | num | articletype         |
+      | 1   | Editorial           |
+      | 2   | Feature article     |
+      | 3   | Insight             |
+      | 4   | Research article    |
+      | 5   | Short report        |
+      | 6   | Tools and resources |
+      | 7   | Research advance    |
+      | 8   | Registered report   |
