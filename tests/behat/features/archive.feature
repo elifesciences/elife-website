@@ -635,4 +635,4 @@ Feature: Archive
       | 5   | Short report        |
       | 6   | Tools and resources |
       | 7   | Research advance    |
-      | 8   | Registered report   |
+      | 8   | Registered resort   |
