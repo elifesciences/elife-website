@@ -35,7 +35,7 @@ Feature: Article Resource - GetPostPutDelete requests (API)
           "status": "VOR"
         }
       """
-    And the response code should be 406
+    And the response code should be 400
     And I send a PUT request to "api/article/05227.1.json" with body:
     """
         {

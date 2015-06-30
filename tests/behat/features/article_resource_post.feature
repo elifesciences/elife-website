@@ -41,7 +41,7 @@ Feature: Article Resource - POST (API)
           "status": "VOR"
         }
       """
-    Then response code should be 406
+    Then response code should be 400
     And response should contain "Invalid value provided: doi."
 
     Examples:
@@ -73,7 +73,7 @@ Feature: Article Resource - POST (API)
           "status": "VOR"
         }
       """
-    Then response code should be 406
+    Then response code should be 400
     And response should contain "Invalid value provided: Article version id (must be unique)."
 
   Scenario Outline: Attempt to post an article without all required fields
@@ -84,7 +84,7 @@ Feature: Article Resource - POST (API)
           <required_data>
         }
       """
-    Then response code should be 406
+    Then response code should be 400
     And response should contain "No value provided for required: <field_errors>."
 
     Examples:

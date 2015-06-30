@@ -36,4 +36,4 @@ Feature: Article Resource - GetPost requests (API)
           "status": "VOR"
         }
       """
-    And the response code should be 406
+    And the response code should be 400
