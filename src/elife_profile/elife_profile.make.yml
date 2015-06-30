@@ -110,6 +110,10 @@ projects:
       type: 'git'
       url: 'http://git.drupal.org/project/views_ctools_field.git'
       revision: 'e0df94393ad00009cd02c61b9511aba03ef4b691'
+  views_date_format_sql:
+    version: '3.1'
+    patch:
+      - 'https://www.drupal.org/files/issues/views_date_format_sql-date_field_support-1830436-42-tag_7.x-3.1_0.patch'
   views_field_view:
     version: '1.1'
   webform:

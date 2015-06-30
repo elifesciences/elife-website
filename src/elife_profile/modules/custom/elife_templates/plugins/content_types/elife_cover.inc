@@ -17,7 +17,7 @@ $plugin = array(
   'category' => t('eLife'),
   'edit form' => 'elife_cover_plugin_edit',
   'render callback' => 'elife_cover_plugin_render',
-  'required context' => new ctools_context_required(t('Article Node'), 'node'),
+  'required context' => new ctools_context_required(t('Cover Node'), 'node'),
 );
 
 /**

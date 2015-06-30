@@ -2,9 +2,13 @@
 
 /**
  * @file
- * elife_entities/templates/elife_article_detail.tpl.php
+ * elife_templates/templates/elife_article_detail.tpl.php
  */
 ?>
+<?php if ($image): ?>
+  <?php print $image; ?>
+<?php endif; ?>
+
 <?php if ($summary): ?>
 <div class="<?php print $identifier; ?>__summary"><?php print $summary; ?></div>
 <?php endif; ?>

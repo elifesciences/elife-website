@@ -47,6 +47,9 @@ function elife_article_assets_striking_image_path($article_id, $image_style = 'e
         }
       }
     }
+    if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
+      $article_id = $matches['id'];
+    }
     if (empty($figure)) {
       $figure = '1';
     }

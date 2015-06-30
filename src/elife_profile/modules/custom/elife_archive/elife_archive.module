@@ -1,0 +1,347 @@
+<?php
+/**
+ * @file
+ * Code for the eLife Home Page feature.
+ */
+
+include_once 'elife_archive.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function elife_archive_menu() {
+  $items = array();
+
+  $items['archive'] = array(
+    'page callback' => '_elife_archive_listing',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Return appropriate listing of months or articles in a month.
+ *
+ * or return page not found
+ */
+function _elife_archive_listing() {
+  $args = func_get_args();
+
+  $months = _elife_archive_month_options(NULL, 'raw');
+
+  $output = '';
+
+  $year = FALSE;
+  $month = FALSE;
+
+  if (isset($args[0]) && !empty($months[$args[0]])) {
+    $year = $args[0];
+
+    if (isset($args[1]) && in_array($args[1], $months[$year])) {
+      $month = $args[1];
+
+      // If month does not have a leading zero then redirect.
+      if (strlen($month) == 1) {
+        drupal_goto('archive/' . $year . '/' . str_pad($month, 2, "0", STR_PAD_LEFT));
+      }
+    }
+  }
+
+  if ($year && !isset($args[1])) {
+    // Display available months of the year block.
+    drupal_set_title(t('Article archive, @date', array('@date' => $year)));
+
+    $view = views_get_view('elife_archive_by_month');
+    $view->set_arguments(array($year));
+    $view->set_display('archive_year');
+    $view->pre_execute();
+
+    $output .= $view->render();
+
+  }
+  elseif ($month) {
+    drupal_set_title(t('Article archive, @date', array('@date' => date('F Y', strtotime($year . $month . '01')))));
+
+    $view = views_get_view('elife_archive_by_month');
+    $view->set_arguments(array($year . $month));
+    $view->set_display('archive_month');
+    $view->pre_execute();
+
+    $output .= $view->render();
+  }
+  elseif (empty($args)) {
+    drupal_set_title(t('Article archive'));
+    $view = views_get_view('elife_archive_by_month');
+    $view->set_display('archive_year');
+    $view->pre_execute();
+
+    $output .= $view->render();
+  }
+
+  if (!empty($output)) {
+    return $output;
+  }
+
+  return drupal_not_found();
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function elife_archive_preprocess_page(&$variables) {
+  if (in_array('page__archive', $variables['theme_hook_suggestions'])) {
+    $path = current_path();
+    $args = explode('/', $path);
+
+    $date_from_args = NULL;
+
+    if (count($args) > 2) {
+      $year = $args[1];
+      $month = $args[2];
+
+      $date_from_args = strtotime($year . $month . '01');
+    }
+
+    $options_form = drupal_get_form('elife_archive_goto_form', $date_from_args);
+
+    $variables['title_suffix'] = '<div class="elife-archive-jumpto">';
+    $variables['title_suffix'] .= render($options_form);
+    $variables['title_suffix'] .= '</div>';
+    $variables['title_suffix'] .= '<div class="panel-separator"></div>';
+  }
+}
+
+/**
+ * Monthly archive jump to form.
+ */
+function elife_archive_goto_form($form, &$form_state, $default_date = NULL, $js = TRUE) {
+  if ($js) {
+    // Add js to footer region.
+    drupal_add_js(drupal_get_path('module', 'elife_archive') . '/js/elife.javascript.archive_goto.js', array('scope' => 'footer'));
+  }
+
+  $default_value = NULL;
+
+  if (!empty($default_date)) {
+    $default_value = url('archive/' . date('Y/m', $default_date));
+  }
+
+  $form['elife_archive_month'] = array(
+    '#type' => 'select',
+    '#options' => _elife_archive_month_options(),
+    '#title' => t('Select month'),
+    '#default_value' => $default_value,
+  );
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Go'),
+  );
+
+  return $form;
+}
+
+/**
+ * Redirect the user to the archive page for a specific month.
+ */
+function elife_archive_goto_form_submit($form, &$form_state) {
+  $path = preg_replace('/^\//', '', $form_state['values']['elife_archive_month']);
+  $http_response_code = 302;
+  $url = url($path, array('absolute' => TRUE));
+  header('Location: ' . $url, TRUE, $http_response_code);
+
+  drupal_exit($url);
+}
+
+/**
+ * Return an array of months and the links to the archive for that month.
+ *
+ * @param int $year
+ *   provide year to act as a filter for results
+ * @param string $format
+ *   links|raw|null
+ *
+ * @return array
+ *   results returned
+ */
+function _elife_archive_month_options($year = NULL, $format = NULL) {
+  $results = _elife_archive_month_options_get($year);
+
+  if (empty($results)) {
+    return array();
+  }
+
+  $months = array();
+
+  foreach ($results as $res) {
+    $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value']);
+
+    switch ($format) {
+      case 'links':
+        $months[] = l(date('F Y', $month), 'archive/' . date('Y/m', $month));
+        break;
+
+      case 'raw':
+        $months[date('Y', $month)][] = date('m', $month);
+        break;
+
+      default:
+        $months[url('archive/' . date('Y/m', $month))] = date('F Y', $month);
+    }
+  }
+
+  return $months;
+}
+
+/**
+ * Return the archive View.
+ *
+ * by month, for the year and return the resulting list.
+ * 
+ * The output is cached within this request.
+ *
+ * @param int|string $year
+ *   year to act as filter for results
+ *
+ * @return array
+ *   a list of months
+ */
+function _elife_archive_month_options_get($year = 'all') {
+  $cache = &drupal_static(__FUNCTION__, array());
+
+  if (empty($year)) {
+    $year = 'all';
+  }
+
+  if (!isset($cache[$year])) {
+    $view = views_get_view('elife_archive_by_month');
+    $view->execute_display('archive_year');
+
+    if ($year != 'all') {
+      $view->set_arguments(array($year));
+    }
+
+    $cache[$year] = $view->result;
+  }
+
+  return $cache[$year];
+}
+
+/**
+ * Return the archive View.
+ *
+ * as a renderable array of months linked to the archive listing page for that
+ * month. The view determines which month views are included, but only the
+ * month name is included in the result.
+ *
+ * CSS classes are applied to the view appropriate for the coverpage.
+ * The output is cached within this request.
+ *
+ * @param array $li_classes
+ *   array of CSS class names to add to list items
+ * @param array $a_classes
+ *   array of CSS class names to add to the list item link
+ *
+ * @return array
+ *   A list of months tagged as a list.
+ */
+function _elife_archive_short_options_get($li_classes = array(), $a_classes = array()) {
+  $view = views_get_view('elife_archive_by_month');
+  $view->execute_display('archive_short');
+  $months = array();
+
+  if ($results = $view->result) {
+    foreach ($results as $res) {
+      $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value'] . '01');
+      $months[] = array(
+        'data' => l(date('M', $month), 'archive/' . date('Y/m', $month), array('attributes' => $a_classes)),
+        'class' => $li_classes,
+      );
+    }
+
+    $months = array_reverse($months);
+  }
+
+  return $months;
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ * Declare Blocks for the 'jump to month' form and for the short
+ * archive listing on the homepage. 
+ */
+function elife_archive_block_info() {
+  $blocks['elife_archive_jumpto'] = array(
+    'info' => t('eLife Archive: Jump to'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  $blocks['elife_archive_short'] = array(
+    'info' => t('eLife Archive: Short'),
+    'cache' => DRUPAL_CACHE_GLOBAL,
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * Provide Blocks for the 'jump to month' form and for the short
+ * archive listing on the homepage. The latter is * not currently
+ * used however because _elife_archive_short() is called directly
+ * from the elife_coverpage nav plugin.
+ */
+function elife_archive_block_view($delta = '') {
+  switch ($delta) {
+    case 'elife_archive_jumpto':
+      $content = drupal_get_form('elife_archive_goto_form');
+      return array('subject' => NULL, 'content' => $content);
+
+    case 'elife_archive_short':
+      return array('subject' => NULL, 'content' => _elife_archive_short());
+
+  }
+}
+
+/**
+ * Create a renderable array containing a list of archive months.
+ *
+ * suitable for the coverpage, that is, prepended with 'UPCOMING' and
+ * appended with an 'all' archives link.
+ *
+ * CSS classes are applied to the view appropriate for the coverpage.
+ * 
+ * @return array
+ *   renderable array of block
+ */
+function _elife_archive_short() {
+
+  $upcoming_url = 'upcoming';
+  $archive_url = 'archive';
+
+  $ol_classes = array('class' => array('home-archive__list'));
+  $li_classes = array('home-archive-listing__list_item');
+  $a_classes = array('class' => array('home-archive-listing__link'));
+
+  $links[] = array(
+    'data' => l(t('Upcoming'), $upcoming_url, array('attributes' => $a_classes)),
+    'class' => $li_classes,
+  );
+
+  $archive = _elife_archive_short_options_get($li_classes, $a_classes);
+  $links = array_merge($links, $archive);
+  $links[] = array(
+    'data' => l(t('Archive'), $archive_url, array('attributes' => $a_classes)),
+    'class' => $li_classes,
+  );
+
+  $render = array(
+    'list' => array(
+      '#theme' => 'item_list',
+      '#type' => 'ol',
+      '#items' => $links,
+      '#attributes' => $ol_classes,
+    ),
+  );
+  return $render;
+}
