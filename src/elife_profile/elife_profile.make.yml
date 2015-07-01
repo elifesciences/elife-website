@@ -141,5 +141,5 @@ libraries:
   elife-eif-schema:
     download:
       type: 'git'
-      url: 'https://github.com/elifesciences/elife-eif-schema'
+      url: 'ssh://git@github.com/elifesciences/elife-eif-schema.git'
       revision: '6788edf3e38783e3f60062be6515465c6eb48657'
