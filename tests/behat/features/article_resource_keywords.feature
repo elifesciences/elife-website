@@ -1,4 +1,4 @@
-Feature: Article Resource - Categories (API)
+Feature: Article Resource - Keywords (API)
   In order to maintain article content
   As a production system
   I need to be able to assign the content to keywords via the resource api
@@ -18,6 +18,7 @@ Feature: Article Resource - Categories (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             <keywords>
           }

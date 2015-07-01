@@ -18,6 +18,7 @@ Feature: Article Resource - Contributor references (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "referenced": {
             "equal-contrib": {
               "equal-contrib": "These authors contributed equally to this work",
@@ -118,7 +119,7 @@ Feature: Article Resource - Contributor references (API)
     And the response code should be 200
     When I send a GET request to "api/article/05224.json"
     Then the response should contain json:
-    """
+      """
         {
           "title": "VOR 05224",
           "version": "1",

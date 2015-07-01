@@ -17,7 +17,8 @@ Feature: Article Resource - POST (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -38,7 +39,8 @@ Feature: Article Resource - POST (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     Then response code should be 400
@@ -70,11 +72,11 @@ Feature: Article Resource - POST (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
-    Then response code should be 400
-    And response should contain "Invalid value provided: Article version id (must be unique)."
+    Then response code should be 200
 
   Scenario Outline: Attempt to post an article without all required fields
     Given I set header "Content-Type" with value "application/json"
@@ -107,7 +109,8 @@ Feature: Article Resource - POST (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -123,7 +126,8 @@ Feature: Article Resource - POST (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200

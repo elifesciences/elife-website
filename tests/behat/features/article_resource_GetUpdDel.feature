@@ -32,7 +32,8 @@ Feature: Article Resource - GetUpdateDelete requests (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
