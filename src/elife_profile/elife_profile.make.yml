@@ -85,6 +85,8 @@ projects:
     version: '3.5'
   panels_ajax_tab:
     version: '1.1'
+    patch:
+     - 'https://www.drupal.org/files/issues/warning-1867774-10.patch'
   panels_style_collapsible:
     version: '1.1'
   pathauto:
