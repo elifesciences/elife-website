@@ -40,7 +40,7 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
 
   $categories = ElifeArticleVersion::getCategories($ewrapper->field_elife_a_article_version_id->value());
   if (!empty($categories['sub-display-channel'])) {
-    $title_prefix .= explode(': ', $categories['sub-display-channel']) . ': ';
+    $title_prefix .= implode(': ', $categories['sub-display-channel']) . ': ';
   }
 
   // Now append the actual title (this version of it can contain HTML).
