@@ -22,6 +22,8 @@ projects:
     version: '3.0-beta11'
   devel:
     version: '1.5'
+  efq_extra_field:
+    version: '1.0-alpha1'
   entity:
     version: '1.6'
   entityqueue:

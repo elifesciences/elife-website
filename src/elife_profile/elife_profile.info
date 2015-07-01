@@ -89,6 +89,7 @@ dependencies[] = rabbit_hole
 dependencies[] = rh_node
 dependencies[] = imagecache_external
 dependencies[] = views_date_format_sql
+dependencies[] = efq_extra_field
 
 ; Install Features
 dependencies[] = features
