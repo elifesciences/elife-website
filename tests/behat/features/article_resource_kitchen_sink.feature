@@ -21,7 +21,6 @@ Feature: Article Resource - Kitchen sink (API)
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
-          "force": "1",
           "categories": {
             "display-channel": [
               "Research article"

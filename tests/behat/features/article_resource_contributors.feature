@@ -959,7 +959,6 @@ Feature: Article Resource - Contributors (API)
     And I send a POST request to "api/article.json" with body:
       """
         {
-          "force": "1",
           "title": "VOR 05224",
           "version": "1",
           "doi": "10.7554/eLife.05224",
