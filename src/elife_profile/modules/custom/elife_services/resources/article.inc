@@ -163,9 +163,9 @@ function _elife_services_article_create($data) {
     node_delete($existing->nid);
   }
 
-  $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
-
   $entity = elife_article_version_from_dto($article_version, _elife_services_user_uid());
+
+  $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
 
   $dto = elife_article_version_to_dto($entity);
 
