@@ -10,6 +10,8 @@ projects:
     version: '3.0-rc5'
   ckeditor:
     version: '1.16'
+  composer_manager:
+    version: '1.7'
   context:
     version: '3.6'
   ctools:
@@ -136,3 +138,8 @@ libraries:
       type: 'git'
       url: 'https://github.com/mustangostang/spyc/'
       tag: '0.5.1'
+  elife-eif-schema:
+    download:
+      type: 'git'
+      url: 'https://github.com/elifesciences/elife-eif-schema'
+      revision: '6788edf3e38783e3f60062be6515465c6eb48657'

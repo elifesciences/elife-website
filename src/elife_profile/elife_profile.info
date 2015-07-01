@@ -36,6 +36,7 @@ dependencies[] = migrate_extras
 dependencies[] = date_migrate
 
 ; Install contribs.
+dependencies[] = composer_manager
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = date_api
