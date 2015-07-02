@@ -79,6 +79,13 @@ final class ArticleVersion {
   private $pub_date;
 
   /**
+   * @var string|null
+   *
+   * @Serializer\Type("string")
+   */
+  private $update;
+
+  /**
    * @var string
    *
    * @Serializer\Type("string")
@@ -160,6 +167,7 @@ final class ArticleVersion {
    * @param string $article_id
    * @param string $article_version_id
    * @param DateTimeImmutable $pub_date
+   * @param DateTimeImmutable|null $update
    * @param string $path
    * @param string $article_type
    * @param string $status
@@ -181,6 +189,7 @@ final class ArticleVersion {
     $article_id,
     $article_version_id,
     DateTimeImmutable $pub_date,
+    DateTimeImmutable $update = NULL,
     $path,
     $article_type,
     $status,
@@ -201,6 +210,9 @@ final class ArticleVersion {
     $this->article_id = (string) $article_id;
     $this->article_version_id = (string) $article_version_id;
     $this->pub_date = $pub_date->format('Y-m-d');
+    if ($update) {
+      $this->update = $update->format('Y-m-d');
+    }
     $this->path = (string) $path;
     $this->article_type = (string) $article_type;
     $this->status = (string) $status;
@@ -247,6 +259,14 @@ final class ArticleVersion {
 
   public function getPubDate() {
     return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->pub_date . ' 00:00:00');
+  }
+
+  public function getUpdate() {
+    if (NULL === $this->update) {
+      return NULL;
+    }
+
+    return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->update . ' 00:00:00');
   }
 
   public function getPath() {
