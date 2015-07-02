@@ -3,7 +3,7 @@ Feature: Front Matter
   I want to maintain the cover page front matter section
   So I can draw attention to the latest content
 
-  @api @debug
+  @api
   Scenario: Load cover item to homepage referencing an article
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

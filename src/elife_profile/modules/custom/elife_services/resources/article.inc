@@ -114,6 +114,9 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
   $dto = elife_article_version_to_dto($article_version);
 
   $json = elife_article_serializer()->serialize($dto);
+  // @todo - elife - nlisgo - possibly move this to the serializer.
+  // Remove empty elements from array.
+  // $json = array_filter($json, 'removeEmptyElements');
 
   try {
     elife_article_validator()->validate($json);
@@ -124,6 +127,35 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
   }
 
   return json_decode($json, TRUE); // TODO seems pointless
+}
+
+/**
+ * Remove empty elements from array.
+ *
+ * @see http://stackoverflow.com/questions/3654295/remove-empty-array-elements#answer-24651595
+ *
+ * @param array $element
+ *   Array to process.
+ *
+ * @return array|bool
+ *   Cleaned array.
+ */
+function removeEmptyElements(&$element)
+{
+  if (is_array($element)) {
+    if ($key = key($element)) {
+      $element[$key] = array_filter($element);
+    }
+
+    if (count($element) != count($element, COUNT_RECURSIVE)) {
+      $element = array_filter(current($element), __FUNCTION__);
+    }
+
+    return $element;
+  }
+  else {
+    return empty($element) ? FALSE : $element;
+  }
 }
 
 /**

@@ -701,10 +701,12 @@ Feature: Article Resource - Kitchen sink (API)
                   "surname": "Roderick",
                   "given-names": "Sian",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 }
               ]
             },
