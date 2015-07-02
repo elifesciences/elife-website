@@ -440,10 +440,13 @@ function elife_article_version_to_dto(stdClass $entity) {
 }
 
 function elife_article_from_dto(ArticleVersion $article_version, $uid) {
-  $entity = entity_create('node', [
-    'type' => 'elife_article',
-    'uid' => $uid,
-  ]);
+  $entity = ElifeArticleVersion::getArticle($article_version->getArticleId());
+  if (!$entity) {
+    $entity = entity_create('node', [
+      'type' => 'elife_article',
+      'uid' => $uid,
+    ]);
+  }
 
   /** @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);

@@ -148,7 +148,8 @@ class ElifeArticleVersion {
     $id_query->fieldCondition($id_field, 'value', $article_id, '=');
     $id_query->fieldOrderBy('field_elife_a_status', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
-    $id_query->fieldOrderBy('field_elife_a_update', 'value', 'DESC');
+    // @todo - elife - nlisgo - add this back in when we can ingest and set the updated date.
+    // $id_query->fieldOrderBy('field_elife_a_update', 'value', 'DESC');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
