@@ -21,10 +21,15 @@ use eLife\EIF\ArticleVersion\Referenced\RelatedObject;
 use eLife\EIF\ArticleVersion\RelatedArticle;
 use eLife\EIF\JMSJsonSerializer;
 use eLife\EIF\JMSJsonSerializer\ContributorHandler;
+use eLife\EIF\JMSJsonSerializer\DefaultValueExclusionStrategy;
+use eLife\EIF\JMSJsonSerializer\RemoveDefaultValuesOnSerializationSubscriber;
 use eLife\EIF\JsonSerializer;
 use eLife\EIF\JsonValidator;
 use eLife\EIF\NodeJsonValidator;
+use JMS\Serializer\DeserializationContext;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\SerializationContext;
 
 /**
  * Implements hook_preprocess_node().
@@ -190,7 +195,12 @@ function elife_article_serializer() {
       })
       ->build();
 
-    $serializer = new JMSJsonSerializer($jmsSerializer);
+    $serializationContext = SerializationContext::create()
+      ->addExclusionStrategy(new DefaultValueExclusionStrategy());
+
+    $deserializationContext = DeserializationContext::create();
+
+    $serializer = new JMSJsonSerializer($jmsSerializer, $serializationContext, $deserializationContext);
   }
 
   return $serializer;
