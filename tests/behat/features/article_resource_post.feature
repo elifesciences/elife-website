@@ -44,7 +44,7 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 400
-    And response should contain "Invalid value provided: doi."
+    And the response should contain the error message "referenced schema does not match" for the fields "data.doi"
 
     Examples:
       | invalid_doi |
@@ -87,13 +87,12 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 400
-    And response should contain "No value provided for required: <field_errors>."
+    And the response should contain the error message "is required" for the fields "<field_errors>"
 
     Examples:
       | required_data | field_errors |
       |  | title, article-type, doi, volume, pub-date, version, path, article-id, article-version-id, status |
-      | "title":"Title" | article-type, doi, volume, pub-date, version, path, article-id, article-version-id, status |
-      | "title":"Title","doi":"DOI","path":"content/4/e05224", "status": "VOR" | article-type, volume, pub-date, version, article-id, article-version-id |
+      | {"data.title":"foo","data.doi":"foo","data.path":"foo", "data.status":"foo"} | "data.article-type", "data.volume", "data.pub-date", "data.version", "data.article-id", "data.article-version-id" |
 
   Scenario: Use POST protocol to update an article
     Given I set header "Content-Type" with value "application/json"
