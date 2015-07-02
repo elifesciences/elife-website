@@ -21,7 +21,7 @@ Feature: Article Resource - Kitchen sink (API)
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
-          "force": "1",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -701,10 +701,12 @@ Feature: Article Resource - Kitchen sink (API)
                   "surname": "Roderick",
                   "given-names": "Sian",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 }
               ]
             },

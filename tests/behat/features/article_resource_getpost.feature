@@ -16,7 +16,7 @@ Feature: Article Resource - GetPost requests (API)
     And I send a GET request to "api/article/05227.1.json"
     Then the response code should be 200
     And the response should contain json:
-    """
+      """
         {
           "title": "VOR 05227"
         }
@@ -33,7 +33,8 @@ Feature: Article Resource - GetPost requests (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
-    And the response code should be 400
+    And the response code should be 200

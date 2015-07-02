@@ -227,7 +227,7 @@ function elife_article_version_to_dto(stdClass $entity) {
   foreach ($entity->field_elife_a_keyword->value() as $entity_keyword) {
     /** @var EntityDrupalWrapper $entity_keyword */
     $entity_keyword = entity_metadata_wrapper('taxonomy_term', $entity_keyword);
-    $keywords[$entity_keyword->field_elife_a_kwd_type->value()][] = $entity_keyword->label();
+    $keywords[$entity_keyword->field_elife_a_kwd_type->value()][] = $entity_keyword->field_elife_a_full_title->value();
   }
 
   $related_articles = [];
@@ -440,10 +440,13 @@ function elife_article_version_to_dto(stdClass $entity) {
 }
 
 function elife_article_from_dto(ArticleVersion $article_version, $uid) {
-  $entity = entity_create('node', [
-    'type' => 'elife_article',
-    'uid' => $uid,
-  ]);
+  $entity = ElifeArticleVersion::getArticle($article_version->getArticleId());
+  if (!$entity) {
+    $entity = entity_create('node', [
+      'type' => 'elife_article',
+      'uid' => $uid,
+    ]);
+  }
 
   /** @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
@@ -453,6 +456,24 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_article_id->set($article_version->getArticleId());
   $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
     ->getTimestamp());
+
+  $versions = [];
+  $query = new EntityFieldQueryExtraFields();
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'elife_article_ver');
+  $query->fieldCondition('field_elife_a_article_id', 'value', $article_version->getArticleId());
+  $query->addExtraField('field_elife_a_version', 'value', 'version');
+  if ($result = $query->execute()) {
+    if (isset($result['node']) && !empty($result['node'])) {
+      foreach ($result['node'] as $nid => $version) {
+        if (!empty($version->extraFields->field_elife_a_version_version)) {
+          $versions[$version->extraFields->field_elife_a_version_version] = $nid;
+        }
+      }
+    }
+  }
+  krsort($versions);
+  $entity->field_elife_a_versions->set(array_values($versions));
 
   $entity->save();
   foreach ($article_version->getRelatedArticles() as $related_article) {
@@ -479,6 +500,9 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     'type' => 'elife_article_ver',
     'uid' => $uid,
   ]);
+
+  // This ensures that paths will not be automatically generated.
+  $entity->path['pathauto'] = FALSE;
 
   /** @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
@@ -529,6 +553,13 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_keyword->set($entity_keywords);
 
   $entity->save();
+
+  // Add or amend the content alias.
+  $source = 'node/' . $entity->nid->value();
+  // Check to see that path is unique.
+  if (!$path = path_load(array('alias' => $article_version->getPath()))) {
+    _elife_article_create_path($article_version->getPath(), $source);
+  }
 
   $referenced = $article_version->getReferenced();
   $entity_references = [
@@ -690,6 +721,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $handle_fragments = function ($parent_id, array $fragments) use ($uid, &$handle_fragments) {
     $entity_fragments = [];
 
+    /* @var Fragment $fragment */
     foreach ($fragments as $fragment) {
       $values = [
         'type' => 'elife_fragment',
@@ -697,6 +729,9 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       ];
 
       $entity_fragment = entity_create('node', $values);
+
+      // This ensures that paths will not be automatically generated.
+      $entity_fragment->path['pathauto'] = FALSE;
 
       /* @var EntityDrupalWrapper $entity_fragment */
       $entity_fragment = entity_metadata_wrapper('node', $entity_fragment);
@@ -711,6 +746,13 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       // TODO path
       // TODO contributors
       $entity_fragment->save();
+
+      // Add or amend the content alias.
+      $source = 'node/' . $entity_fragment->nid->value();
+      // Check to see that path is unique.
+      if (!$path = path_load(array('alias' => $fragment->getPath()))) {
+        _elife_article_create_path($fragment->getPath(), $source);
+      }
 
       $entity_fragment->field_elife_a_fragments->set($handle_fragments($entity_fragment->getIdentifier(), $fragment->getFragments()));
 
@@ -773,4 +815,27 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity->save();
 
   return $entity->raw();
+}
+
+/**
+ * Create a path alias.
+ *
+ * @param string $path
+ *   Path alias.
+ * @param string $source
+ *   Source value (e.g. node/1234).
+ */
+function _elife_article_create_path($path, $source) {
+  $content_path = array(
+    'alias' => $path,
+    'source' => $source,
+  );
+
+  $existing = path_load(array('source' => $source));
+
+  if ($existing) {
+    $content_path += $existing;
+  }
+
+  path_save($content_path);
 }

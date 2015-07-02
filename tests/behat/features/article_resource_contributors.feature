@@ -17,6 +17,8 @@ Feature: Article Resource - Contributors (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
           "contributors": [
             {
               "type": "author",
@@ -31,8 +33,7 @@ Feature: Article Resource - Contributors (API)
               "surname": "Surname",
               "given-names": "First B"
             }
-          ],
-          "status": "VOR"
+          ]
         }
       """
     Then there should be 2 contributors for "05224"
@@ -52,6 +53,7 @@ Feature: Article Resource - Contributors (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "contributors": [
             {
               "type": "author",
@@ -852,6 +854,7 @@ Feature: Article Resource - Contributors (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "referenced": {
             "equal-contrib": {
               "equal-contrib": "These authors contributed equally to this work",
@@ -959,7 +962,6 @@ Feature: Article Resource - Contributors (API)
     And I send a POST request to "api/article.json" with body:
       """
         {
-          "force": "1",
           "title": "VOR 05224",
           "version": "1",
           "doi": "10.7554/eLife.05224",
@@ -970,6 +972,7 @@ Feature: Article Resource - Contributors (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "contributors": [
             {
               "type": "author",

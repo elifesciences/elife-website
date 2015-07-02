@@ -19,6 +19,7 @@ Feature: Collections
           "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus"
@@ -40,6 +41,7 @@ Feature: Collections
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus"
@@ -61,6 +63,7 @@ Feature: Collections
           "path": "content/4/e05225v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus",
@@ -83,6 +86,7 @@ Feature: Collections
           "path": "content/4/e05226v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "bacterial sulfonolipid"
@@ -93,7 +97,7 @@ Feature: Collections
     And the response code should be 200
     When I am viewing an "elife_collection" content:
       | field_elife_c_keyword | Algoriphagus |
-    Then I should see text matching "VOR 05224 v2"
+    Then I should see text matching "VOR 05224 v1"
+    And I should see text matching "VOR 05224 v2"
     And I should see text matching "VOR 05225 v1"
-    And I should not see text matching "VOR 05224 v1"
     And I should not see text matching "VOR 05226 v1"
