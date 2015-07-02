@@ -44,12 +44,21 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 400
-    And the response should contain the error message "referenced schema does not match" for the fields "data.doi"
+    And the response should contain json:
+      """
+        [
+          {
+            "field": "data.doi",
+            "message": "referenced schema does not match",
+            "value": "<invalid_doi>"
+          }
+        ]
+      """
 
     Examples:
       | invalid_doi |
       | invalid doi |
-      | 10.7554/eLife.0522 |
+      | 10.7554 /eLife.05224 |
 
   @api
   Scenario: Post an article with an id that isn't unique
@@ -87,12 +96,18 @@ Feature: Article Resource - POST (API)
         }
       """
     Then response code should be 400
-    And the response should contain the error message "is required" for the fields "<field_errors>"
+    And the response should contain json:
+      """
+        [
+          <field_errors>
+        ]
+      """
 
     Examples:
       | required_data | field_errors |
-      |  | title, article-type, doi, volume, pub-date, version, path, article-id, article-version-id, status |
-      | {"data.title":"foo","data.doi":"foo","data.path":"foo", "data.status":"foo"} | "data.article-type", "data.volume", "data.pub-date", "data.version", "data.article-id", "data.article-version-id" |
+      |  | {"field":"data","message":"is the wrong type","value": []} |
+      | "title":"Title" | {"field":"data.version","message":"is required","value":{"title":"Title"}},{"field":"data.doi","message":"is required","value":{"title":"Title"}},{"field":"data.volume","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title"}},{"field":"data.path","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title"}},{"field":"data.status","message":"is required","value":{"title":"Title"}} |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224", "status": "VOR" | {"field":"data.version","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data.volume","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}} |
 
   Scenario: Use POST protocol to update an article
     Given I set header "Content-Type" with value "application/json"
