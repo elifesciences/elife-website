@@ -16,6 +16,10 @@ final class DefaultValueExclusionStrategy implements ExclusionStrategy {
 
     $default_properties = $class->reflection->getDefaultProperties();
 
+    if (!count($default_properties)) {
+      return FALSE;
+    }
+
     $properties = [];
     foreach ($class->reflection->getProperties() as $property) {
       $property->setAccessible(TRUE);
