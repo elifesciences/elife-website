@@ -424,6 +424,13 @@ function elife_article_version_to_dto(stdClass $entity) {
     );
   }
 
+  if ($entity->field_elife_a_author_imp->value()) {
+    $impact_statement = $entity->field_elife_a_author_imp->value()['value'];
+  }
+  else {
+    $impact_statement = NULL;
+  }
+
   if ($entity->field_elife_a_update->value()) {
     $update = DateTimeImmutable::createFromFormat('U', $entity->field_elife_a_update->value());
   }
@@ -433,7 +440,7 @@ function elife_article_version_to_dto(stdClass $entity) {
 
   $article_version = new ArticleVersion(
     $entity->field_elife_a_full_title->value()['value'],
-    $entity->field_elife_a_author_imp->value(),
+    $impact_statement,
     $entity->field_elife_a_version->value(),
     $entity->field_elife_a_doi->value(),
     $entity->status->value(),
@@ -532,7 +539,12 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     'value' => $article_version->getTitle(),
     'format' => 'full_html',
   ]);
-  $entity->field_elife_a_author_imp->set($article_version->getImpactStatement());
+  if ($article_version->getImpactStatement()) {
+    $entity->field_elife_a_author_imp->set([
+      'value' => $article_version->getImpactStatement(),
+      'format' => 'full_html',
+    ]);
+  }
   $entity->field_elife_a_version->set($article_version->getVersion());
   $entity->field_elife_a_doi->set($article_version->getDoi());
   $entity->status->set((int) $article_version->getPublish());
