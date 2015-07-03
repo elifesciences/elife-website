@@ -12,6 +12,8 @@ projects:
     version: '1.16'
   composer_manager:
     version: '1.7'
+    patch:
+      - 'https://www.drupal.org/files/issues/new-line-eof-2521702-1.patch'
   context:
     version: '3.6'
   ctools:
