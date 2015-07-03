@@ -150,7 +150,7 @@ function _elife_services_article_create($data) {
       ];
     }
 
-    throw new ServicesException(NULL, 400, $errors);
+    throw new ServicesException(NULL, 400, json_encode($errors));
   } catch (InvalidJson $e) {
     throw new ServicesException(NULL, 400, print_r($e, TRUE));
   }
