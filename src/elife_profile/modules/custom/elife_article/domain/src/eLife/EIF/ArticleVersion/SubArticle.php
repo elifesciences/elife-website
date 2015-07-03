@@ -4,33 +4,33 @@ namespace eLife\EIF\ArticleVersion;
 
 use JMS\Serializer\Annotation as Serializer;
 
-final class Fragment extends BaseFragment {
+final class SubArticle extends BaseFragment {
   /**
-   * @var string
+   * @var Contributor[]
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Contributor>")
    */
-  private $type;
+  private $contributors = [];
 
   /**
-   * @param string $type
    * @param string|null $title
    * @param string $doi
    * @param string $path
    * @param BaseFragment[] $fragments
+   * @param Contributor[] $contributors
    */
   public function __construct(
-    $type,
     $title,
     $doi,
     $path,
-    array $fragments
+    array $fragments,
+    array $contributors
   ) {
-    $this->type = $type;
     parent::__construct($title, $doi, $path, $fragments);
+    $this->contributors = $contributors;
   }
 
-  public function getType() {
-    return $this->type;
+  public function getContributors() {
+    return $this->contributors;
   }
 }

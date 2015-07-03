@@ -3,9 +3,9 @@
 namespace eLife\EIF;
 
 use DateTimeImmutable;
+use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\Citation;
 use eLife\EIF\ArticleVersion\Contributor;
-use eLife\EIF\ArticleVersion\Fragment;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
 use JMS\Serializer\Annotation as Serializer;
@@ -144,9 +144,9 @@ final class ArticleVersion {
   private $referenced;
 
   /**
-   * @var Fragment[]
+   * @var BaseFragment[]
    *
-   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Fragment>")
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\BaseFragment>")
    */
   private $fragments = [];
 
@@ -176,7 +176,7 @@ final class ArticleVersion {
    * @param RelatedArticle[] $related_articles
    * @param Contributor[] $contributors
    * @param Referenced $referenced
-   * @param Fragment[] $fragments
+   * @param BaseFragment[] $fragments
    * @param Citation[] $citations
    */
   public function __construct(
