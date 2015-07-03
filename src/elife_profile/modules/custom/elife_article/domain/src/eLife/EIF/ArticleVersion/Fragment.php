@@ -76,6 +76,10 @@ final class Fragment {
   }
 
   public function getTitle() {
+    if (empty($this->title) && 'abstract' === $this->getType()) {
+      return 'Abstract';
+    }
+
     return $this->title;
   }
 
