@@ -1,4 +1,3 @@
-@broken
 Feature: Article Resource - Fragments (API)
   In order to maintain article content
   As a production system
