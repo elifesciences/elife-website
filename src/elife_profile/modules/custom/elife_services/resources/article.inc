@@ -104,8 +104,8 @@ function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver'
  * @param string $bundle
  *   Bundle/content type.
  *
- * @return mixed
- *   Return article node.
+ * @return string
+ *   Return JSON.
  *
  * @throws ServicesException
  */
@@ -123,21 +123,19 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
     throw new ServicesException(NULL, 500, print_r($e, TRUE));
   }
 
-  return json_decode($json, TRUE); // TODO seems pointless
+  return $json;
 }
 
 /**
  * Callback function for elife_article_ver create.
  *
- * @param array $data
- *   Article data submitted in the request.
+ * @param string $data
+ *   Article JSON submitted in the request.
  *
- * @return mixed
- *   Return array to be output as json.
+ * @return string
+ *   Return JSON.
  */
 function _elife_services_article_create($data) {
-  $data = json_encode($data); // TODO seems pointless
-
   try {
     elife_article_validator()->validate($data);
   } catch (JsonSchemaErrors $e) {
@@ -179,7 +177,7 @@ function _elife_services_article_create($data) {
     throw new ServicesException('Doh', 500);
   }
 
-  return json_decode($json, TRUE); // TODO seems pointless
+  return $json;
 }
 
 /**

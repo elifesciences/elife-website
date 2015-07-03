@@ -8,6 +8,22 @@
  */
 
 /**
+ * Implements hook_rest_server_request_parsers_alter().
+ */
+function elife_services_rest_server_request_parsers_alter(&$parsers) {
+  // We just want raw JSON.
+  $parsers['application/json'] = 'eLifeServicesStringParser';
+}
+
+/**
+ * Implements hook_rest_server_response_formatters_alter().
+ */
+function elife_services_rest_server_response_formatters_alter(&$formatters) {
+  // We already have JSON.
+  $formatters['json']['formatter class'] = 'eLifeServicesStringFormatter';
+}
+
+/**
  * Implements hook_services_resources().
  */
 function elife_services_services_resources() {
@@ -43,7 +59,7 @@ function elife_services_services_resources() {
           'args' => array(
             array(
               'name' => 'data',
-              'type' => 'array',
+              'type' => 'string',
               'description' => 'The article data to set on create.',
               'optional' => FALSE,
               'source' => 'data',
@@ -68,7 +84,7 @@ function elife_services_services_resources() {
             ),
             array(
               'name' => 'data',
-              'type' => 'array',
+              'type' => 'string',
               'description' => 'The article data to update.',
               'optional' => FALSE,
               'source' => 'data',

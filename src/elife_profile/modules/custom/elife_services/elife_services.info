@@ -5,3 +5,4 @@ dependencies[] = elife_article
 dependencies[] = xautoload
 package = eLife
 core = 7.x
+files[] = includes/services.inc
