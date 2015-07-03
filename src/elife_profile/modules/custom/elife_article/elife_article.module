@@ -510,6 +510,8 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
 
   $entity->save();
 
+  ElifeArticleVersion::processUnverifiedRelatedArticles();
+
   return $entity->raw();
 }
 
