@@ -37,6 +37,22 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_article',
         'path' => $template_path,
       ),
+      'elife_article_author_tooltip' => array(
+        'variables' => array(
+          'tooltip_name' => '',
+          'affiliation' => NULL,
+          'present_addy' => NULL,
+          'contrib' => NULL,
+          'tooltip_authors_listed' => NULL,
+          'email' => NULL,
+          'orcid' => NULL,
+          'conflict' => NULL,
+          'equal_contrib_group' => NULL,
+          'deceased' => NULL,
+        ),
+        'template' => 'elife_article_author_tooltip',
+        'path' => $template_path,
+      ),
       'elife_article_detail' => array(
         'variables' => array(
           'identifier' => 'elife-article',

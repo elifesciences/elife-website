@@ -90,6 +90,10 @@ dependencies[] = rh_node
 dependencies[] = imagecache_external
 dependencies[] = views_date_format_sql
 dependencies[] = efq_extra_field
+dependencies[] = panels_ajax_tab
+dependencies[] = panels_mini
+dependencies[] = panels_style_collapsible
+dependencies[] = cluetip
 
 ; Install Features
 dependencies[] = features
