@@ -1,0 +1,15 @@
+{
+    "require": {
+        "php": ">=5.5",
+        "jms/serializer": "~1.0",
+        "symfony/process": "~2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "eLife\\": [
+                "domain/src/eLife/",
+                "infrastructure/src/eLife/"
+            ]
+        }
+    }
+}

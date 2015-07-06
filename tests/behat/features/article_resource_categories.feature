@@ -18,6 +18,7 @@ Feature: Article Resource - Categories (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "<display_channel>"
@@ -67,6 +68,7 @@ Feature: Article Resource - Categories (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "sub-display-channel": [
               "<sub_display_channel>"
@@ -123,6 +125,7 @@ Feature: Article Resource - Categories (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"

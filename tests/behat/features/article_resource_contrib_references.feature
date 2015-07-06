@@ -18,6 +18,7 @@ Feature: Article Resource - Contributor references (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "referenced": {
             "equal-contrib": {
               "equal-contrib": "These authors contributed equally to this work",
@@ -118,7 +119,7 @@ Feature: Article Resource - Contributor references (API)
     And the response code should be 200
     When I send a GET request to "api/article/05224.json"
     Then the response should contain json:
-    """
+      """
         {
           "title": "VOR 05224",
           "version": "1",
@@ -144,40 +145,47 @@ Feature: Article Resource - Contributor references (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute"
+                "institution": "Howard Hughes Medical Institute",
+                "institution-type": "university"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation"
+                "institution": "Laura and John Arnold Foundation",
+                "institution-type": "university"
               }
             },
             "competing-interest": {

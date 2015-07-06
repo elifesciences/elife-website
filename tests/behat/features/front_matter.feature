@@ -18,7 +18,8 @@ Feature: Front Matter
           "pub-date": "1979-08-17",
           "path": "content/4/e05224v1",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -47,7 +48,8 @@ Feature: Front Matter
           "pub-date": "1979-08-17",
           "path": "content/4/e05224",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -63,7 +65,8 @@ Feature: Front Matter
           "pub-date": "1979-08-17",
           "path": "content/4/e05225",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -79,7 +82,8 @@ Feature: Front Matter
           "pub-date": "1979-08-17",
           "path": "content/4/e05226",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -95,7 +99,8 @@ Feature: Front Matter
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200

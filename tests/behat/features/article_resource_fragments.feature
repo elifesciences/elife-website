@@ -18,6 +18,7 @@ Feature: Article Resource - Fragments (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "fragments": [
             {
               "type": "abstract",
@@ -626,6 +627,7 @@ Feature: Article Resource - Fragments (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "fragments": [
             {
               "type": "abstract",
@@ -642,9 +644,20 @@ Feature: Article Resource - Fragments (API)
           ]
         }
       """
-    And I send a PUT request to "api/article/05224.json" with body:
+    And I send a POST request to "api/article.json" with body:
       """
         {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
           "fragments": [
             {
               "type": "abstract",

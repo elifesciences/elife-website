@@ -19,6 +19,7 @@ Feature: Collections
           "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus"
@@ -40,6 +41,7 @@ Feature: Collections
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus"
@@ -61,6 +63,7 @@ Feature: Collections
           "path": "content/4/e05225v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "Algoriphagus",
@@ -83,6 +86,7 @@ Feature: Collections
           "path": "content/4/e05226v1",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "keywords": {
             "author-keywords": [
               "bacterial sulfonolipid"

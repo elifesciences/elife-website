@@ -8,7 +8,6 @@ Feature: Archive
     Then the response status code should be 200
     And I should see "Article archive" in the "h1" element
 
-  @api
   Scenario Outline: Access a yearly overview
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -24,6 +23,7 @@ Feature: Archive
           "path": "content/1/<id>",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "<display_channel>"
@@ -45,7 +45,6 @@ Feature: Archive
       | 00001 | Correction | 2011-01-01 | 2011 | 404 |
       | 00001 | Research article | 2012-01-01 | 2032 | 404 |
 
-  @api
   Scenario: Click on month from yearly archive
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -61,6 +60,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -76,7 +76,6 @@ Feature: Archive
     And I should see text matching "Article archive, October 2012"
     And I should see text matching "Article 01/10/2012"
 
-  @api
   Scenario Outline: Appropriate heading set for archive listing
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -92,6 +91,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -109,7 +109,6 @@ Feature: Archive
       | 2012-10-01 | 2012/10 | October 2012 |
       | 2013-05-01 | 2013/05 | May 2013 |
 
-  @api
   Scenario Outline: Use the archive jump to dropdown
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -125,6 +124,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -143,7 +143,7 @@ Feature: Archive
       | 2013-02-01 | February 2013 | 2012 | 2013/02 |
       | 2012-11-01 | November 2012 | 2013 | 2012/11 |
 
-  @api @javascript
+  @javascript
   Scenario Outline: Use the archive jump to dropdown (javascript)
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -159,6 +159,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -176,7 +177,6 @@ Feature: Archive
       | 2013-02-01 | February 2013 | 2012 | 2013/02 |
       | 2012-11-01 | November 2012 | 2013 | 2012/11 |
 
-  @api
   Scenario Outline: Correct number of articles for month
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -192,6 +192,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -213,6 +214,7 @@ Feature: Archive
           "path": "content/1/00002",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -234,6 +236,7 @@ Feature: Archive
           "path": "content/1/00003",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -255,6 +258,7 @@ Feature: Archive
           "path": "content/1/00004",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -276,6 +280,7 @@ Feature: Archive
           "path": "content/1/00005",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -297,6 +302,7 @@ Feature: Archive
           "path": "content/1/00011",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -318,6 +324,7 @@ Feature: Archive
           "path": "content/1/00012",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -339,6 +346,7 @@ Feature: Archive
           "path": "content/1/00013",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -360,6 +368,7 @@ Feature: Archive
           "path": "content/1/00014",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -381,6 +390,7 @@ Feature: Archive
           "path": "content/1/00015",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -402,6 +412,7 @@ Feature: Archive
           "path": "content/1/00016",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -418,7 +429,6 @@ Feature: Archive
       | 2013/02 | 5 |
       | 2013/01 | 6 |
 
-  @api
   Scenario Outline: Redirect if month does not have leading zero in url
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -434,6 +444,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -467,6 +478,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Tools and resources"
@@ -488,6 +500,7 @@ Feature: Archive
           "path": "content/1/00002",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Registered report"
@@ -509,6 +522,7 @@ Feature: Archive
           "path": "content/1/00003",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research advance"
@@ -530,6 +544,7 @@ Feature: Archive
           "path": "content/1/00004",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Insight"
@@ -551,6 +566,7 @@ Feature: Archive
           "path": "content/1/00005",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -572,6 +588,7 @@ Feature: Archive
           "path": "content/1/00006",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Feature article"
@@ -593,6 +610,7 @@ Feature: Archive
           "path": "content/1/00007",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Short report"
@@ -614,6 +632,7 @@ Feature: Archive
           "path": "content/1/00008",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Editorial"

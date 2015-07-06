@@ -18,6 +18,7 @@ Feature: Article Resource - Citations (API)
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
+          "publish": "1",
           "citations": {
             "bib1": {
               "authors": [

@@ -36,6 +36,7 @@ dependencies[] = migrate_extras
 dependencies[] = date_migrate
 
 ; Install contribs.
+dependencies[] = composer_manager
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = date_api
@@ -88,6 +89,7 @@ dependencies[] = rabbit_hole
 dependencies[] = rh_node
 dependencies[] = imagecache_external
 dependencies[] = views_date_format_sql
+dependencies[] = efq_extra_field
 
 ; Install Features
 dependencies[] = features

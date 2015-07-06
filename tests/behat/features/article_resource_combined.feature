@@ -17,7 +17,8 @@ Feature: Article Resource - Combined requests (API)
           "pub-date": "1979-08-17",
           "path": "content/4/e05227",
           "article-type": "research-article",
-          "status": "VOR"
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200
@@ -29,10 +30,20 @@ Feature: Article Resource - Combined requests (API)
           "title": "VOR 05227"
         }
       """
-    And I send a PUT request to "api/article/05227.json" with body:
+    And I send a POST request to "api/article.json" with body:
       """
         {
-          "title": "Updated VOR 05227"
+          "title": "Updated VOR 05227",
+          "version": "1",
+          "doi": "10.7554/eLife.05227",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05227",
+          "article-version-id": "05227",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1"
         }
       """
     And the response code should be 200

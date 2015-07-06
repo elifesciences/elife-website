@@ -21,7 +21,7 @@ Feature: Article Resource - Kitchen sink (API)
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
-          "force": "1",
+          "publish": "1",
           "categories": {
             "display-channel": [
               "Research article"
@@ -701,10 +701,12 @@ Feature: Article Resource - Kitchen sink (API)
                   "surname": "Roderick",
                   "given-names": "Sian",
                   "role": "Reviewer",
-                  "affiliation": {
-                    "institution": "Pediatric Dengue Vaccine Initiative",
-                    "country": "United States"
-                  }
+                  "affiliations": [
+                    {
+                      "institution": "Pediatric Dengue Vaccine Initiative",
+                      "country": "United States"
+                    }
+                  ]
                 }
               ]
             },
@@ -4326,40 +4328,47 @@ Feature: Article Resource - Kitchen sink (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute"
+                "institution": "Howard Hughes Medical Institute",
+                "institution-type": "university"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
+                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation"
+                "institution": "Laura and John Arnold Foundation",
+                "institution-type": "university"
               }
             },
             "competing-interest": {

@@ -72,7 +72,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @AfterScenario
    */
-  public function clearEntityMaxBeforeScenario() {
+  public function clearEntityMaxAfterScenario() {
     foreach ($this->entity_types as $type => $id) {
       $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', $type);
