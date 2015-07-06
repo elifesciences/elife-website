@@ -10,6 +10,12 @@ projects:
     version: '3.0-rc5'
   ckeditor:
     version: '1.16'
+  cluetip:
+    version: '1.x-dev'
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/cluetip.git'
+      revision: '6fe2bf6058a7899cfbc34050a7db56dff77a2a34'
   composer_manager:
     version: '1.7'
     patch:
@@ -153,3 +159,9 @@ libraries:
       type: 'git'
       url: 'ssh://git@github.com/elifesciences/elife-eif-schema.git'
       revision: '5c204f43b8c513d2192bcb6506c480dac5014170'
+  cluetip:
+    download:
+      type: 'git'
+      url: 'https://github.com/kswedberg/jquery-cluetip'
+      revision: '1dcb5eecb9a3906f1020da0a6393f473f776a088'
+      directory_name: cluetip

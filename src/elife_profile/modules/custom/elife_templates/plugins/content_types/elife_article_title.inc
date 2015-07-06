@@ -5,8 +5,6 @@
  * elife_article_title.inc
  */
 
-use Drupal\elife_article\ElifeArticleVersion;
-
 $plugin = array(
   'title' => t('Article - Title'),
   'single' => TRUE,
@@ -22,15 +20,14 @@ $plugin = array(
  * See ctools_plugin_examples for more advanced info.
  */
 function elife_article_title_render($subtype, $conf, $args, $context) {
-  $node = $context->data;
-  /* @var EntityDrupalWrapper $ewrapper */
-  $ewrapper = entity_metadata_wrapper('node', $node);
+  $article_version = $context->data;
+  $dto = elife_article_version_to_dto($article_version);
 
   $block = new stdClass();
   $block->content  = '<div class="elife-article-indicators clearfix">';
 
   $block->content .= '</div>';
-  if ($ewrapper->field_elife_a_status->value() == 'POA') {
+  if ($dto->getStatus() == 'POA') {
     $block->content .= '<h3>' . t('ACCEPTED MANUSCRIPT') . '</h3>';
   }
 
@@ -38,16 +35,13 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
   // Identify the proper prefix to appear in the title:
   $title_prefix = '';
 
-  $categories = ElifeArticleVersion::getCategories($ewrapper->field_elife_a_article_version_id->value());
+  $categories = $dto->getCategories();
   if (!empty($categories['sub-display-channel'])) {
     $title_prefix .= implode(': ', $categories['sub-display-channel']) . ': ';
   }
 
   // Now append the actual title (this version of it can contain HTML).
-  $full_title = field_view_field('node', $node, 'field_elife_a_full_title', array('label' => 'hidden'));
-  unset($full_title['#theme']);
-  $title_text = drupal_render($full_title);
-  $title_text = preg_replace('!^<p>(.*?)</p>$!i', '$1', $title_text);
+  $title_text = $dto->getTitle();
 
   $block->content .= '<h1 class="page-title">' . $title_prefix . $title_text . '</h1>';
   return $block;

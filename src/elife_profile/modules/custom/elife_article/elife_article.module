@@ -976,7 +976,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
         _elife_article_create_path($fragment->getPath(), $source);
       }
 
-      $entity_fragment->field_elife_a_fragments->set($handle_fragments($entity_fragment->getIdentifier(), $fragment->getFragments(), $sub_article));
+      $entity_fragment->field_elife_a_fragments->set($handle_fragments($parent_id, $fragment->getFragments(), $sub_article));
 
       $entity_fragment->save();
 
