@@ -219,7 +219,7 @@ function elife_article_validator() {
   $validator = &drupal_static(__FUNCTION__);
 
   if (!isset($validator)) {
-    $validator = new NodeJsonValidator('nodejs ' . DRUPAL_ROOT . '/' . libraries_get_path('elife-eif-schema') . '/validator.js');
+    $validator = new NodeJsonValidator(variable_get('elife_node_binary', 'node') . ' ' . DRUPAL_ROOT . '/' . libraries_get_path('elife-eif-schema') . '/validator.js');
   }
 
   return $validator;

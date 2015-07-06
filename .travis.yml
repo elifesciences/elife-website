@@ -21,6 +21,9 @@ install:
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
 
+  # Make node binary globally accessible.
+  - node_bin=$(which node);sudo ln -s $node_bin /usr/local/bin
+
   # Set up Apache
   - sudo apt-get install apache2 libapache2-mod-fastcgi
   - sudo a2enmod rewrite actions fastcgi alias
