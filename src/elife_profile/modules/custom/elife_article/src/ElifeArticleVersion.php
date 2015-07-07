@@ -835,53 +835,8 @@ class ElifeArticleVersion {
 
     /* @var EntityDrupalWrapper $ewrapper */
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      $field_citations = 'field_elife_a_citations';
-      $field_cit_prefix = 'field_elife_a_cit';
-      $mappings = array(
-        'id' => $field_cit_prefix . '_id',
-        'year' => $field_cit_prefix . '_year',
-        'title' => $field_cit_prefix . '_title',
-        'source' => $field_cit_prefix . '_source',
-        'comment' => $field_cit_prefix . '_comment',
-        'doi' => $field_cit_prefix . '_doi',
-      );
-      /* @var EntityDrupalWrapper $cit_wrapper */
-      foreach ($ewrapper->{$field_citations} as $cit_wrapper) {
-        $citation = array();
-        foreach ($mappings as $k => $field) {
-          if ($value = $cit_wrapper->{$field}->value()) {
-            $citation[$k] = $value;
-          }
-        }
-        if (isset($citation['title']) && isset($citation['id']) && $citation['title'] == $citation['id']) {
-          unset($citation['title']);
-        }
-
-        $author_mappings = array(
-          'group-type' => $field_cit_prefix . '_author_group',
-          'collab' => $field_cit_prefix . '_author_collab',
-          'surname' => $field_cit_prefix . '_author_surname',
-          'given-names' => $field_cit_prefix . '_author_fnames',
-          'suffix' => $field_cit_prefix . '_author_suffix',
-        );
-
-        /* @var EntityDrupalWrapper $fc_wrapper */
-        foreach ($cit_wrapper->{$field_cit_prefix . '_authors'} as $fc_wrapper) {
-          $author = array();
-          foreach ($author_mappings as $k => $field) {
-            if ($value = $fc_wrapper->{$field}->value()) {
-              $author[$k] = $value;
-            }
-          }
-          if (!empty($author)) {
-            $citation['authors'][] = $author;
-          }
-        }
-        if (!empty($citation['id'])) {
-          $id = $citation['id'];
-          unset($citation['id']);
-          $citations[$id] = $citation;
-        }
+      if ($citations_json = $ewrapper->field_elife_a_citations_json->value()) {
+        $citations = json_decode($citations_json, TRUE);
       }
     }
 

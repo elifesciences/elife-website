@@ -11,7 +11,7 @@ Feature: Archive
   Scenario Outline: Access a yearly overview
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
-    """
+      """
         {
           "title": "<display_channel> <pubdate>",
           "version": "1",
