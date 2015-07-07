@@ -69,6 +69,9 @@ function elife_article_strongarm() {
         'redirect' => array(
           'weight' => '17',
         ),
+        'rabbit_hole' => array(
+          'weight' => '0',
+        ),
       ),
       'display' => array(),
     ),
@@ -311,13 +314,6 @@ function elife_article_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_elife_citation';
-  $strongarm->value = '1';
-  $export['node_preview_elife_citation'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_elife_contributor';
   $strongarm->value = '0';
   $export['node_preview_elife_contributor'] = $strongarm;
@@ -342,13 +338,6 @@ function elife_article_strongarm() {
   $strongarm->name = 'node_submitted_elife_article_ver';
   $strongarm->value = 1;
   $export['node_submitted_elife_article_ver'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_elife_citation';
-  $strongarm->value = 0;
-  $export['node_submitted_elife_citation'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

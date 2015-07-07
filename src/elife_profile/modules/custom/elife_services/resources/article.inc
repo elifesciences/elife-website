@@ -165,6 +165,16 @@ function _elife_services_article_create($data) {
 
   $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
 
+  // Set citations as json.
+  $json = json_decode($data, TRUE);
+  if (!empty($json['citations'])) {
+    /* @var EntityDrupalWrapper $wrapper */
+    $wrapper = entity_metadata_wrapper('node', $entity);
+    $wrapper->field_elife_a_citations_json->set(json_encode($json['citations']));
+    $wrapper->save();
+    $entity = $wrapper->raw();
+  }
+
   $dto = elife_article_version_to_dto($entity);
 
   $json = elife_article_serializer()->serialize($dto);

@@ -44,14 +44,6 @@ function elife_article_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
-    'elife_citation' => array(
-      'name' => t('eLife Citation'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
     'elife_contributor' => array(
       'name' => t('eLife Contributor'),
       'base' => 'node_content',

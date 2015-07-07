@@ -88,9 +88,6 @@ function elife_article_node_delete($node) {
       if ($contributors = $ewrapper->field_elife_a_contributors->raw()) {
         $delete += $contributors;
       }
-      if ($citations = $ewrapper->field_elife_a_citations->raw()) {
-        $delete += $citations;
-      }
       if (!empty($delete)) {
         node_delete_multiple($delete);
       }
@@ -184,9 +181,9 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
  * @return JsonSerializer
  */
 function elife_article_serializer() {
-  $serializer = &drupal_static(__FUNCTION__);
+  $jmsSerializer = &drupal_static(__FUNCTION__);
 
-  if (!isset($serializer)) {
+  if (!isset($jmsSerializer)) {
     AnnotationRegistry::registerAutoloadNamespace(
       'JMS\Serializer\Annotation',
       composer_manager_vendor_dir() . '/jms/serializer/src'
@@ -201,16 +198,14 @@ function elife_article_serializer() {
         $dispatcher->addSubscriber(new SubArticleSubscriber());
       })
       ->build();
-
-    $serializationContext = SerializationContext::create()
-      ->addExclusionStrategy(new DefaultValueExclusionStrategy());
-
-    $deserializationContext = DeserializationContext::create();
-
-    $serializer = new JMSJsonSerializer($jmsSerializer, $serializationContext, $deserializationContext);
   }
 
-  return $serializer;
+  $serializationContext = SerializationContext::create()
+    ->addExclusionStrategy(new DefaultValueExclusionStrategy());
+
+  $deserializationContext = DeserializationContext::create();
+
+  return new JMSJsonSerializer($jmsSerializer, $serializationContext, $deserializationContext);
 }
 
 /**
@@ -491,29 +486,9 @@ function elife_article_version_to_dto(stdClass $entity) {
   $fragments = $get_fragments($entity);
 
   $citations = [];
-  foreach ($entity->field_elife_a_citations as $fc_wrapper) {
-    $authors = [];
-    foreach ($fc_wrapper->field_elife_a_cit_authors->value() as $fc_author_wrapper) {
-      /* @var EntityDrupalWrapper $fc_author_wrapper */
-      $fc_author_wrapper = entity_metadata_wrapper('field_collection_item', $fc_author_wrapper);
-
-      $authors[] = new Author(
-        $fc_author_wrapper->field_elife_a_cit_author_group->value(),
-        $fc_author_wrapper->field_elife_a_cit_author_surname->value(),
-        $fc_author_wrapper->field_elife_a_cit_author_fnames->value(),
-        $fc_author_wrapper->field_elife_a_cit_author_suffix->value(),
-        $fc_author_wrapper->field_elife_a_cit_author_collab->value()
-      );
-    }
-
-    $citations[$fc_wrapper->field_elife_a_cit_id->value()] = new Citation(
-      $authors,
-      $fc_wrapper->field_elife_a_cit_year->value(),
-      $fc_wrapper->field_elife_a_cit_title->value(),
-      $fc_wrapper->field_elife_a_cit_source->value(),
-      $fc_wrapper->field_elife_a_cit_doi->value(),
-      $fc_wrapper->field_elife_a_cit_comment->value()
-    );
+  if ($citations_json = $entity->field_elife_a_citations_json->value()) {
+    $citations = elife_article_serializer()->deserialize('{"citations":' . $citations_json . '}');
+    $citations = $citations->getCitations();
   }
 
   if ($entity->field_elife_a_author_imp->value()) {
@@ -992,52 +967,6 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   };
 
   $entity->field_elife_a_fragments->set($handle_fragments($entity->getIdentifier(), $article_version->getFragments()));
-
-  $entity_citations = [];
-  foreach ($article_version->getCitations() as $id => $citation) {
-    $values = [
-      'type' => 'elife_citation',
-      'uid' => $uid,
-    ];
-
-    $entity_citation = entity_create('node', $values);
-
-    /* @var EntityDrupalWrapper $entity_citation */
-    $entity_citation = entity_metadata_wrapper('node', $entity_citation);
-
-    $entity_citation->field_elife_a_cit_id->set($id);
-    $entity_citation->field_elife_a_parent->set($entity->getIdentifier());
-
-    $entity_citation->save();
-    foreach ($citation->getAuthors() as $author) {
-      /* @var FieldCollectionItemEntity $fc_item */
-      $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_cit_authors'));
-      $fc_item->setHostEntity('node', $entity_citation->raw());
-
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-
-      $fc_wrapper->field_elife_a_cit_author_group->set($author->getGroupType());
-      $fc_wrapper->field_elife_a_cit_author_surname->set($author->getSurname());
-      $fc_wrapper->field_elife_a_cit_author_fnames->set($author->getGivenNames());
-      $fc_wrapper->field_elife_a_cit_author_suffix->set($author->getSuffix());
-      $fc_wrapper->field_elife_a_cit_author_collab->set($author->getCollab());
-
-      $fc_wrapper->save();
-    }
-
-    $entity_citation->field_elife_a_cit_year->set($citation->getYear());
-    $entity_citation->field_elife_a_cit_title->set($citation->getTitle());
-    $entity_citation->field_elife_a_cit_source->set($citation->getSource());
-    $entity_citation->field_elife_a_cit_doi->set($citation->getDoi());
-    $entity_citation->field_elife_a_cit_comment->set($citation->getComment());
-
-    $entity_citation->save();
-
-    $entity_citations[] = $entity_citation->getIdentifier();
-  }
-
-  $entity->field_elife_a_citations->set($entity_citations);
 
   $entity->save();
 
