@@ -1047,3 +1047,41 @@ function _elife_article_create_path($path, $source) {
 
   path_save($content_path);
 }
+
+/**
+ * Implements hook_libraries_info().
+ */
+function elife_article_libraries_info() {
+  $libraries['BetterDOMDocument'] = array(
+    'name' => 'BetterDOMDocument',
+    'version' => '1',
+    'vendor url' => 'https://github.com/highwire/opensource-php-BetterDOMDocument',
+    'download url' => 'https://raw.githubusercontent.com/highwire/opensource-php-BetterDOMDocument/master/BetterDOMDocument.php',
+    'files' => array(
+      'php' => array('BetterDOMDocument.php'),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Convert string which may contain xml to html.
+ *
+ * @param string $strings
+ *   String to convert.
+ *
+ * @return string
+ *   String with xml converted to html.
+ */
+function _elife_article_xmltohtml($string) {
+  if (($library = libraries_load('BetterDOMDocument')) && !empty($library['loaded'])) {
+    $string = '<xmltohtml>' . $string . '</xmltohtml>';
+    $dom = new BetterDOMDocument($string);
+    $html = preg_replace('#^<span class="xmltohtml">(.*?)</span>$#is', '$1', $dom->asHTML());
+    return $html;
+  }
+  else {
+    return $string;
+  }
+}

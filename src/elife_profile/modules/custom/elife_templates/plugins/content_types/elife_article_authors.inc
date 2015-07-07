@@ -131,7 +131,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
               }
             }
             if (!empty($conflict)) {
-              $variables['conflict'] = implode(' ', $conflict);
+              $variables['conflict'] = _elife_article_xmltohtml(implode(' ', $conflict));
             }
           }
         }
