@@ -123,10 +123,21 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then /^there should be (\d+) verified related articles?$/
    */
-  public function thereShouldBeVerifiedRelatedArticle($expected)
+  public function thereShouldBeVerifiedRelatedArticles($expected)
   {
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles();
+    $actual = count($results);
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then /^there should be (\d+) unique verified related articles?$/
+   */
+  public function thereShouldBeUniqueVerifiedRelatedArticles($expected)
+  {
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, NULL, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -140,6 +151,84 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then there should be :expected verified related articles for :article_id
+   */
+  public function thereShouldBeVerifiedRelatedArticleFor($expected, $article_id)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid);
+    $actual = count($results);
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then there should be :expected unique verified related articles for :article_id
+   */
+  public function thereShouldBeUniqueVerifiedRelatedArticleFor($expected, $article_id)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid, TRUE);
+    $actual = count($results);
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then there should be :expected unverified related articles for :article_id
+   */
+  public function thereShouldBeUnverifiedRelatedArticlesFor($expected, $article_id)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $expected = intval($expected);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE, $article->nid);
+    $actual = count($results);
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * @Then article :article_id should be related to :related_to
+   */
+  public function articleShouldBeRelatedTo($article_id, $related_to)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $related_to = explode(', ', $related_to);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid, TRUE);
+    $actual = [];
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $actual[] = $result->related_to;
+      }
+    }
+    $diff = array_diff($actual, $related_to);
+    Assertions::assertEmpty($diff);
+  }
+
+  /**
+   * @Then article :article_id should have unverified related articles of :related_to
+   */
+  public function articleShouldHaveUnverifiedRelatedArticles($article_id, $related_to)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $related_to = explode(', ', $related_to);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE, $article->nid);
+    $actual = [];
+    if (!empty($results)) {
+      if ($fc_items = entity_load('field_collection_item', array_keys($results))) {
+        foreach ($fc_items as $fc_item) {
+          /* @var EntityDrupalWrapper $fc_wrapper */
+          $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+          if ($doi = $fc_wrapper->field_elife_a_doi->value()) {
+            $actual[] = $doi;
+          }
+        }
+      }
+    }
+    $diff = array_diff($actual, $related_to);
+    Assertions::assertEmpty($diff);
   }
 
   /**
