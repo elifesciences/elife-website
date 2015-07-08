@@ -25,7 +25,7 @@
           }
         }, function() {
           $('.elife-institution').removeClass('institution-highlight');
-        })
+        });
       });
     }
   };

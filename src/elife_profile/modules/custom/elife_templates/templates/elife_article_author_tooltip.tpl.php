@@ -29,7 +29,7 @@
   <?php if ($conflict): ?>
     <div class="author-tooltip-conflict"><span class="author-tooltip-label"><?php print t('Competing Interests'); ?>: </span><span class="author-tooltip-text"><?php print $conflict; ?></span></div>
   <?php else: ?>
-    <span class="author-tooltip-text"><i><?php print t('No competing interests declared'); ?></i></span>
+    <div class="author-tooltip-conflict"><span class="author-tooltip-text"><i><?php print t('No competing interests declared'); ?></i></span></div>
   <?php endif; ?>
   <?php if ($equal_contrib_group): ?>
     <div class="author-tooltip-equal-contrib"><span class="author-tooltip-label"><?php print t('Contributed equally with'); ?>: </span><span class="author-tooltip-text"><?php print $equal_contrib_group; ?></span></div>

@@ -540,21 +540,22 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     ]);
   }
 
-  /** @var EntityDrupalWrapper $entity */
+  /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
 
-  $entity->title->set($article_version->getTitle());
-  $entity->field_elife_a_volume->set($article_version->getVolume());
-  $entity->field_elife_a_article_id->set($article_version->getArticleId());
-  $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
-    ->getTimestamp());
-
+  // Amending the versions of an article can happen each time a new version is
+  // processed.
+  // @todo - elife - nlisgo - verify that published versions are listed first.
   $versions = [];
   $query = new EntityFieldQueryExtraFields();
   $query->entityCondition('entity_type', 'node');
   $query->entityCondition('bundle', 'elife_article_ver');
   $query->fieldCondition('field_elife_a_article_id', 'value', $article_version->getArticleId());
   $query->addExtraField('field_elife_a_version', 'value', 'version');
+  $query->propertyOrderBy('status', 'DESC');
+  $query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
+
+  // @todo - elife - nlisgo - this may not be necessary as sorted in query?
   if ($result = $query->execute()) {
     if (isset($result['node']) && !empty($result['node'])) {
       foreach ($result['node'] as $nid => $version) {
@@ -565,25 +566,50 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     }
   }
   krsort($versions);
+
   $entity->field_elife_a_versions->set(array_values($versions));
 
-  $entity->save();
-  foreach ($article_version->getRelatedArticles() as $related_article) {
-    /* @var FieldCollectionItemEntity $fc_item */
-    $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_related_articles'));
-    $fc_item->setHostEntity('node', $entity->raw());
+  // Only update title and related articles if this version is latest.
+  $versions = ElifeArticleVersion::fromId($article_version->getArticleId(), FALSE);
+  $latest_status = '';
+  $latest_version = 0;
+  if (!empty($versions)) {
+    $latest = reset($versions);
+    $latest_status = $latest->extraFields->field_elife_a_status_status;
+    $latest_version = $latest->extraFields->field_elife_a_version_version;
+  }
+  if ($latest_version === 0
+    // Check to see if incoming status is VOR and we only have POA stored.
+    || strcasecmp($article_version->getStatus(), $latest_status) > 0
+    || $article_version->getVersion() >= $latest_version) {
 
-    /* @var EntityDrupalWrapper $fc_wrapper */
-    $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+    $entity->title->set($article_version->getTitle());
+    $entity->field_elife_a_volume->set($article_version->getVolume());
+    $entity->field_elife_a_article_id->set($article_version->getArticleId());
+    $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
+      ->getTimestamp());
 
-    $fc_wrapper->field_elife_a_rel_article_type->set($related_article->getType());
-    $fc_wrapper->field_elife_a_doi->set($related_article->getHref());
+    $entity->save();
+    foreach ($article_version->getRelatedArticles() as $related_article) {
+      /* @var FieldCollectionItemEntity $fc_item */
+      $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_related_articles'));
+      $fc_item->setHostEntity('node', $entity->raw());
 
-    $fc_wrapper->save();
+      /* @var EntityDrupalWrapper $fc_wrapper */
+      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+
+      $fc_wrapper->field_elife_a_rel_article_type->set($related_article->getType());
+      $fc_wrapper->field_elife_a_doi->set($related_article->getHref());
+
+      $fc_wrapper->save();
+    }
+
   }
 
   $entity->save();
 
+  // Processing unverified related articles should happen each time a version is
+  // added.
   ElifeArticleVersion::processUnverifiedRelatedArticles();
 
   return $entity->raw();
@@ -1046,4 +1072,42 @@ function _elife_article_create_path($path, $source) {
   }
 
   path_save($content_path);
+}
+
+/**
+ * Implements hook_libraries_info().
+ */
+function elife_article_libraries_info() {
+  $libraries['BetterDOMDocument'] = array(
+    'name' => 'BetterDOMDocument',
+    'version' => '1',
+    'vendor url' => 'https://github.com/highwire/opensource-php-BetterDOMDocument',
+    'download url' => 'https://raw.githubusercontent.com/highwire/opensource-php-BetterDOMDocument/master/BetterDOMDocument.php',
+    'files' => array(
+      'php' => array('BetterDOMDocument.php'),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Convert string which may contain xml to html.
+ *
+ * @param string $strings
+ *   String to convert.
+ *
+ * @return string
+ *   String with xml converted to html.
+ */
+function _elife_article_xmltohtml($string) {
+  if (($library = libraries_load('BetterDOMDocument')) && !empty($library['loaded'])) {
+    $string = '<xmltohtml>' . $string . '</xmltohtml>';
+    $dom = new BetterDOMDocument($string);
+    $html = preg_replace('#^<span class="xmltohtml">(.*?)</span>$#is', '$1', $dom->asHTML());
+    return $html;
+  }
+  else {
+    return $string;
+  }
 }

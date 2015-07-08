@@ -9,6 +9,7 @@ namespace Drupal\elife_article;
 
 use EntityFieldQuery;
 use EntityDrupalWrapper;
+use EntityFieldQueryExtraFields;
 use EntityListWrapper;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
@@ -142,13 +143,15 @@ class ElifeArticleVersion {
    *   Details of the articles that match criteria.
    */
   public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article_ver', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
-    $id_query = new EntityFieldQuery();
+    $id_query = new EntityFieldQueryExtraFields();
     $id_query->entityCondition('entity_type', 'node');
     $id_query->entityCondition('bundle', $bundle);
     $id_query->fieldCondition($id_field, 'value', $article_id, '=');
     $id_query->fieldOrderBy('field_elife_a_status', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_update', 'value', 'DESC');
+    $id_query->addExtraField('field_elife_a_status', 'value', 'status');
+    $id_query->addExtraField('field_elife_a_version', 'value', 'version');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
@@ -181,10 +184,8 @@ class ElifeArticleVersion {
       return FALSE;
     }
     else {
-      $nids = array_keys($ids['node']);
-
       if ($load) {
-        $nodes = node_load_multiple($nids);
+        $nodes = node_load_multiple(array_keys($ids['node']));
         if ($limit === 1) {
           return array_shift($nodes);
         }
@@ -193,10 +194,10 @@ class ElifeArticleVersion {
         }
       }
       elseif ($limit === 1) {
-        return array_shift($nids);
+        return array_shift($ids['node']);
       }
       else {
-        return $nids;
+        return $ids['node'];
       }
     }
   }
@@ -946,20 +947,23 @@ class ElifeArticleVersion {
   /**
    * Process all unverified related articles.
    *
+   * @param int|NULL $entity_id
+   *   Entity id of Article Version.
+   *
    * @return array
    *   Results of query
    *
    * @throws \EntityMetadataWrapperException
    */
-  public static function processUnverifiedRelatedArticles() {
-    $results = self::retrieveRelatedArticles(FALSE);
+  public static function processUnverifiedRelatedArticles($entity_id = NULL) {
+    $results = self::retrieveRelatedArticles(FALSE, $entity_id);
 
     if (!empty($results)) {
       foreach ($results as $item_id => $result) {
         if ($fc_item = field_collection_item_load($item_id)) {
           /* @var EntityDrupalWrapper $fc_wrapper */
           $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-          $fc_wrapper->field_elife_a_rel_article_ref->set($result->entity_id);
+          $fc_wrapper->field_elife_a_rel_article_ref->set($result->endpoint_2);
           $fc_wrapper->save();
         }
       }
@@ -973,36 +977,97 @@ class ElifeArticleVersion {
    *
    * @param bool $verified
    *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
+   * @param int|NULL $entity_id
+   *   Entity id of Article Version.
+   * @param bool $unique
+   *   If TRUE only return unique relations.
    *
    * @return array
    *   Results of query
    *
    * @throws \EntityMetadataWrapperException
    */
-  public static function retrieveRelatedArticles($verified = TRUE) {
+  public static function retrieveRelatedArticles($verified = TRUE, $entity_id = NULL, $unique = FALSE) {
     $results = array();
 
     $query = db_select('field_collection_item', 'fc');
     $query->condition('fc.field_name', 'field_elife_a_related_articles');
-    $query->fields('fc', array('item_id'));
-    $query->fields('ver', array('entity_id'));
+    $query->addField('fc', 'item_id', 'fc_id');
+    $query->addField('rel', 'entity_id', 'endpoint_1');
+    $query->addField('vers', 'entity_id', 'endpoint_2');
+    $query->addField('typ', 'field_elife_a_rel_article_type_value', 'article_type');
+    $query->addField('ver', 'field_elife_a_version_value', 'article_version');
+    $query->addField('sta', 'field_elife_a_status_value', 'article_status');
+    $query->addField('aid_1', 'field_elife_a_article_id_value', 'endpoint_1_article_id');
+    $query->addField('aid_2', 'field_elife_a_article_id_value', 'endpoint_2_article_id');
     $query->leftJoin('field_data_field_elife_a_doi', 'doi', "doi.entity_type = 'field_collection_item' AND doi.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_rel_article_ref', 'ref', "ref.entity_type = 'field_collection_item' AND ref.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_doi', 'doi_dest', "doi_dest.entity_type = 'node' AND doi_dest.field_elife_a_doi_value = doi.field_elife_a_doi_value");
-    $query->leftJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_versions', 'vers', 'vers.field_elife_a_versions_target_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_related_articles', 'rel', 'rel.field_elife_a_related_articles_value = fc.item_id');
+    $query->leftJoin('field_data_field_elife_a_rel_article_type', 'typ', 'typ.entity_id = fc.item_id');
+    $query->leftJoin('field_data_field_elife_a_version', 'ver', 'ver.entity_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_status', 'sta', 'sta.entity_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_article_id', 'aid_1', 'aid_1.entity_id = rel.entity_id');
+    $query->leftJoin('field_data_field_elife_a_article_id', 'aid_2', 'aid_2.entity_id = doi_dest.entity_id');
+    $query->orderBy('rel.delta');
 
     if ($verified) {
-      $query->where('ref.field_elife_a_rel_article_ref_target_id = ver.entity_id');
+      $query->where('ref.field_elife_a_rel_article_ref_target_id = vers.entity_id');
     }
     else {
       $db_or = db_or();
-      $db_or->where('ref.field_elife_a_rel_article_ref_target_id != ver.entity_id');
+      $db_or->where('ref.field_elife_a_rel_article_ref_target_id != vers.entity_id');
       $db_or->isNull('ref.field_elife_a_rel_article_ref_target_id');
       $query->condition($db_or);
     }
 
-    if ($query_results = $query->execute()->fetchAllAssoc('item_id')) {
+    if ($entity_id) {
+      $db_or = db_or();
+      $db_or->condition('rel.entity_id', $entity_id, '=');
+      $db_or->condition('vers.entity_id', $entity_id, '=');
+      $query->condition($db_or);
+      $query->addExpression("CASE WHEN rel.entity_id = " . $entity_id . " THEN 'endpoint_2' ELSE 'endpoint_1' END", 'related_to_endpoint');
+    }
+
+    if ($unique) {
+      $query->addExpression("CONCAT(GREATEST(rel.entity_id, vers.entity_id), '.', LEAST(rel.entity_id, vers.entity_id))", 'group_endpoints_ordered');
+      if ($entity_id) {
+        $query->addExpression("CASE WHEN rel.entity_id = " . $entity_id . " THEN 1 ELSE 0 END", 'endpoints_flag');
+      }
+      else {
+        $query->addExpression('0', 'endpoints_flag');
+      }
+      $query->orderBy('endpoints_flag', 'DESC');
+    }
+
+    $query->groupBy('endpoint_1');
+
+    if ($verified) {
+      $query->groupBy('endpoint_2');
+    }
+    else {
+      $query->groupBy('doi.field_elife_a_doi_value');
+    }
+
+    if ($query_results = $query->execute()->fetchAllAssoc('fc_id')) {
       $results = $query_results;
+
+      if ($unique) {
+        $accept = [];
+        foreach ($results as $nid => $result) {
+          if (!isset($accept[$result->group_endpoints_ordered]) || $result->endpoints_flag == 1) {
+            $accept[$result->group_endpoints_ordered] = $nid;
+          }
+        }
+        $results = array_intersect_key($results, array_flip(array_values($accept)));
+      }
+
+      if ($entity_id) {
+        foreach ($results as $nid => $result) {
+          $results[$nid]->related_to = $results[$nid]->{$results[$nid]->related_to_endpoint . '_article_id'};
+        }
+      }
     }
 
     return $results;
