@@ -9,12 +9,7 @@ use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
 use JMS\Serializer\Annotation as Serializer;
-use JMS\Serializer\Annotation\ExclusionPolicy;
-use JMS\Serializer\Annotation\Exclude;
 
-/**
- * @ExclusionPolicy("none")
- */
 final class ArticleVersion {
   /**
    * @var string
@@ -156,13 +151,6 @@ final class ArticleVersion {
   private $fragments = [];
 
   /**
-   * @var BaseFragment[]
-   *
-   * @Exclude
-   */
-  private $fragment_dois = [];
-
-  /**
    * @var Citation[]
    *
    * @Serializer\Type("array<string,eLife\EIF\ArticleVersion\Citation>")
@@ -235,18 +223,24 @@ final class ArticleVersion {
     $this->referenced = $referenced;
     $this->fragments = $fragments;
     $this->citations = $citations;
-
-    $this->setFragmentDOIs($fragments);
   }
 
-  /**
-   * @param BaseFragment[] $fragments
-   */
-  private function setFragmentDOIs(array $fragments) {
-    foreach ($fragments as $fragment) {
-      $this->fragment_dois[$fragment->getDoi()] = $fragment;
-      $this->setFragmentDOIs($fragment->getFragments());
+  private function getFragmentDOIs() {
+    static $dois = [];
+
+    // We only need to gather the dois once.
+    if (empty($dois)) {
+      /* @param BaseFragment[] $fragments */
+      $closure = function(array $fragments) use (&$dois, &$closure) {
+        foreach ($fragments as $fragment) {
+          $dois[$fragment->getDoi()] = $fragment;
+          $closure($fragment->getFragments());
+        }
+      };
+      $closure($this->fragments);
     }
+
+    return $dois;
   }
 
   /**
@@ -254,7 +248,8 @@ final class ArticleVersion {
    * @return BaseFragment|null
    */
   public function getFragment($doi) {
-    return isset($this->fragment_dois[$doi]) ? $this->fragment_dois[$doi] : NULL;
+    $dois = $this->getFragmentDOIs();
+    return isset($dois[$doi]) ? $dois[$doi] : NULL;
   }
 
   public function getTitle() {
@@ -269,8 +264,12 @@ final class ArticleVersion {
     return $this->version;
   }
 
-  public function getDoi() {
-    return $this->doi;
+  /**
+   * @param bool $url
+   * @return string
+   */
+  public function getDoi($url = FALSE) {
+    return ($url) ? 'http://dx.doi.org/' . $this->doi : $this->doi;
   }
 
   public function getPublish() {
