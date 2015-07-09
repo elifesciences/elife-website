@@ -233,12 +233,9 @@ final class ArticleVersion {
   }
 
   /**
-   * @param BaseFragment[]|null $fragments
+   * @param BaseFragment[] $fragments
    */
-  private function setFragmentDOIs($fragments = NULL) {
-    if (!is_array($fragments)) {
-      $fragments = $this->getFragments();
-    }
+  private function setFragmentDOIs($fragments) {
     foreach ($fragments as $fragment) {
       $this->fragment_dois[$fragment->getDoi()] = $fragment;
       $this->setFragmentDOIs($fragment->getFragments());
