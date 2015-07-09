@@ -95,6 +95,12 @@ dependencies[] = panels_mini
 dependencies[] = panels_style_collapsible
 dependencies[] = cluetip
 dependencies[] = mathjax
+dependencies[] = facetapi
+dependencies[] = date_facets
+dependencies[] = search_api
+dependencies[] = search_api_facetapi
+dependencies[] = search_api_solr
+dependencies[] = search_api_views
 
 ; Install Features
 dependencies[] = features
