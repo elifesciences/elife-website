@@ -9,7 +9,12 @@ use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
 use JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Exclude;
 
+/**
+ * @ExclusionPolicy("none")
+ */
 final class ArticleVersion {
   /**
    * @var string
@@ -152,6 +157,8 @@ final class ArticleVersion {
 
   /**
    * @var BaseFragment[]
+   *
+   * @Exclude
    */
   private $fragment_dois = [];
 
