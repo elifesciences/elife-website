@@ -117,6 +117,21 @@ function elife_search_views_default_views() {
   $handler = $view->new_display('panel_pane', 'Taxonomy', 'elife_search_taxonomy');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Category';
+  $handler->display->display_options['defaults']['header'] = FALSE;
+  /* Header: Global: View (Views field view) */
+  $handler->display->display_options['header']['view_field']['id'] = 'view_field';
+  $handler->display->display_options['header']['view_field']['table'] = 'views';
+  $handler->display->display_options['header']['view_field']['field'] = 'view_field';
+  $handler->display->display_options['header']['view_field']['label'] = '';
+  $handler->display->display_options['header']['view_field']['element_type'] = '0';
+  $handler->display->display_options['header']['view_field']['element_label_type'] = '0';
+  $handler->display->display_options['header']['view_field']['element_label_colon'] = FALSE;
+  $handler->display->display_options['header']['view_field']['element_wrapper_type'] = '0';
+  $handler->display->display_options['header']['view_field']['element_default_classes'] = FALSE;
+  $handler->display->display_options['header']['view_field']['hide_empty'] = TRUE;
+  $handler->display->display_options['header']['view_field']['view'] = 'elife_term_description';
+  $handler->display->display_options['header']['view_field']['display'] = 'elife_term_description';
+  $handler->display->display_options['header']['view_field']['arguments'] = '%1';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Indexed Node: First Publication Date */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
