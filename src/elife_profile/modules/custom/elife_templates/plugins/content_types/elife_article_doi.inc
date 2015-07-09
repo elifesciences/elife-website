@@ -1,5 +1,6 @@
 <?php
 
+use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\SubArticle;
 use eLife\EIF\ArticleVersion\Fragment;
 
@@ -21,8 +22,9 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
   /* @var EntityDrupalWrapper $ewrapper */
   if ($ewrapper = entity_metadata_wrapper('node', $node)) {
-    // @todo - elife - nlisgo - output correction links
     $output = '';
+
+    // @todo - elife - nlisgo - output correction links
 
     if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
       if ($ewrapper->field_elife_a_parent->raw()) {
@@ -34,28 +36,23 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
         $fragment = FALSE;
       }
 
-      if ($fragment) {
+      $doi_links = [];
+      if ($fragment instanceof BaseFragment) {
         $label = t('@type DOI', array('@type' => t('Article')));
-        $doi = 'http://dx.doi.org/' . $fragment->getDoi();
+        $doi = $article_version->getDoi(TRUE);
         $doi_link = l($doi, $doi);
-        $output .= '<div class="pane-elife-doi">';
-        $output .= '<span class="elife-doi-doi"><span class="elife-doi-pre-label label">' . $label . ': </span><span class="elife-doi-doi">' . $doi_link . '</span></span>';
-        $output .= '</div>';
+        $doi_links[$label] = $doi_link;
       }
 
       $label = t('DOI');
       // Now print DOI and other misc info.
-      if ($fragment && $fragment instanceof SubArticle) {
+      if ($fragment instanceof SubArticle) {
         $label = t('@type DOI', array('@type' => $fragment->getTitle()));
       }
-      elseif ($fragment && $fragment instanceof Fragment) {
+      elseif ($fragment instanceof Fragment) {
         $map = array(
-          'table-wrap' => 'Table',
-          'fig' => 'Figure',
-          'abstract' => array(
-            'Abstract' => 'Abstract',
-            'eLife digest' => 'eLife digest',
-          ),
+          'table-wrap' => t('Table'),
+          'fig' => t('Figure'),
           'media' => 'Media',
           'chem' => 'Chemical',
           'supplementary-material' => 'Source data',
@@ -63,32 +60,22 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
         $frag_type = $fragment->getType();
 
-        if (array_key_exists($frag_type, $map)) {
-          $label_type = $map[$frag_type];
-          if (is_array($label_type)) {
-            $label_type = $label_type[$fragment->getTitle()];
-          }
-          $label = t('@type DOI', array('@type' => $label_type));
-        }
+        $label_type = array_key_exists($frag_type, $map) ? $map[$frag_type] : $fragment->getTitle();
+
+        $label = t('@type DOI', array('@type' => $label_type));
       }
 
-      if ($fragment) {
-        $doi = $fragment->getDoi();
-      }
-      else {
-        $doi = $article_version->getDoi();
-      }
-
-      $output .= '<div class="pane-elife-doi">';
-
-      $doi = 'http://dx.doi.org/' . $doi;
+      $doi = ($fragment instanceof BaseFragment) ? $fragment->getDoi(TRUE) : $article_version->getDoi(TRUE);
       $doi_link = l($doi, $doi);
+      $doi_links[$label] = $doi_link;
 
-      $output .= '<span class="elife-doi-doi"><span class="elife-doi-pre-label label">' . $label . ': </span><span class="elife-doi-doi">' . $doi_link . '</span></span>';
+      foreach ($doi_links as $label => $doi_link) {
+        $output .= '<div class="pane-elife-doi">';
+        $output .= '<span class="elife-doi-doi"><span class="elife-doi-pre-label label">' . $label . ': </span><span class="elife-doi-doi">' . $doi_link . '</span></span>';
+        $output .= '</div>';
+      }
 
       // @todo - elife - nlisgo - introduce cite as value if main article page
-
-      $output .= '</div>';
 
       $block = new stdClass();
       $block->content = $output;
