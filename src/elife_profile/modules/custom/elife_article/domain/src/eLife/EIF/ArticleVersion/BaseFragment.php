@@ -55,12 +55,12 @@ abstract class BaseFragment {
     return $this->title;
   }
 
-  /**
-   * @param bool $url
-   * @return string
-   */
-  final public function getDoi($url = FALSE) {
-    return ($url) ? 'http://dx.doi.org/' . $this->doi : $this->doi;
+  final public function getDoi() {
+    return $this->doi;
+  }
+
+  final public function getDoiUrl() {
+    return 'http://dx.doi.org/' . $this->doi;
   }
 
   final public function getPath() {

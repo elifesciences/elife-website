@@ -39,23 +39,23 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
       $doi_links = [];
       if ($fragment instanceof BaseFragment) {
         $label = t('@type DOI', array('@type' => t('Article')));
-        $doi = $article_version->getDoi(TRUE);
+        $doi = $article_version->getDoiUrl();
         $doi_link = l($doi, $doi);
         $doi_links[$label] = $doi_link;
       }
 
-      $label = t('DOI');
-      // Now print DOI and other misc info.
+      // Now prepare DOI label for page that is being viewed.
       if ($fragment instanceof SubArticle) {
         $label = t('@type DOI', array('@type' => $fragment->getTitle()));
       }
       elseif ($fragment instanceof Fragment) {
         $map = array(
           'table-wrap' => t('Table'),
+          'boxed-text' => t('Box'),
           'fig' => t('Figure'),
-          'media' => 'Media',
-          'chem' => 'Chemical',
-          'supplementary-material' => 'Source data',
+          'media' => t('Media'),
+          'chem' => t('Chemical'),
+          'supplementary-material' => t('Source data'),
         );
 
         $frag_type = $fragment->getType();
@@ -64,14 +64,20 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
         $label = t('@type DOI', array('@type' => $label_type));
       }
+      else {
+        $label = t('DOI');
+      }
 
-      $doi = ($fragment instanceof BaseFragment) ? $fragment->getDoi(TRUE) : $article_version->getDoi(TRUE);
+      $doi = ($fragment instanceof BaseFragment) ? $fragment->getDoiUrl() : $article_version->getDoiUrl();
       $doi_link = l($doi, $doi);
       $doi_links[$label] = $doi_link;
 
       foreach ($doi_links as $label => $doi_link) {
         $output .= '<div class="pane-elife-doi">';
-        $output .= '<span class="elife-doi-doi"><span class="elife-doi-pre-label label">' . $label . ': </span><span class="elife-doi-doi">' . $doi_link . '</span></span>';
+        $output .= '<span class="elife-doi-doi">';
+        $output .= '<span class="elife-doi-pre-label label">' . $label . ': </span>';
+        $output .= '<span class="elife-doi-doi">' . $doi_link . '</span>';
+        $output .= '</span>';
         $output .= '</div>';
       }
 
