@@ -196,7 +196,7 @@ function elife_link($vars) {
 function elife_preprocess_page(&$variables) {
   if(isset($variables['node'])) {
     $node = $variables['node'];
-    if ($node->type == 'highwire_article' && $node->field_highwire_a_subcomponent[X][0]['value'] == 1) {
+    if ($node->type == 'elife_article_ver' && $node->field_elife_a_subarticle[LANGUAGE_NONE][0]['value'] == 1) {
       $element = array(
         '#type' => 'html_tag',
         '#tag' => 'meta', 

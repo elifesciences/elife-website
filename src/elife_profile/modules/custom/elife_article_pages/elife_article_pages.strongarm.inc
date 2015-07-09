@@ -22,6 +22,9 @@ function elife_article_pages_strongarm() {
         'elife_article' => '',
         'elife_article_author' => 'article-info',
       ),
+      'elife-article-tabs' => array(
+        'elife_article' => '',
+      ),
     ),
   );
   $export['panels_ajax_tab'] = $strongarm;
