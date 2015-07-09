@@ -1,18 +1,18 @@
 <?php
 /**
  * @file
- * elife_category_assets.features.field_instance.inc
+ * elife_term_assets.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function elife_category_assets_field_default_field_instances() {
+function elife_term_assets_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_category_assets-body'
-  $field_instances['node-elife_category_assets-body'] = array(
-    'bundle' => 'elife_category_assets',
+  // Exported field_instance: 'node-elife_term_assets-body'
+  $field_instances['node-elife_term_assets-body'] = array(
+    'bundle' => 'elife_term_assets',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -55,9 +55,9 @@ function elife_category_assets_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_category_assets-field_elife_ca_category'
-  $field_instances['node-elife_category_assets-field_elife_ca_category'] = array(
-    'bundle' => 'elife_category_assets',
+  // 'node-elife_term_assets-field_elife_ta_term'
+  $field_instances['node-elife_term_assets-field_elife_ta_term'] = array(
+    'bundle' => 'elife_term_assets',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -77,8 +77,8 @@ function elife_category_assets_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_ca_category',
-    'label' => 'Category',
+    'field_name' => 'field_elife_ta_term',
+    'label' => 'Term',
     'required' => 1,
     'settings' => array(
       'text_processing' => 0,
@@ -98,7 +98,7 @@ function elife_category_assets_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
-  t('Category');
+  t('Term');
 
   return $field_instances;
 }

@@ -56,12 +56,12 @@ function elife_search_default_page_manager_handlers() {
     $pane->pid = 'new-668225f4-c643-4d6c-b2c3-8cf156155240';
     $pane->panel = 'main';
     $pane->type = 'views_panes';
-    $pane->subtype = 'elife_category-elife_category_description';
+    $pane->subtype = 'elife_term_description-elife_term_description';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(
       'arguments' => array(
-        'field_elife_ca_category_value' => '%term:name',
+        'field_elife_ta_term_value' => '%term:name',
       ),
     );
     $pane->cache = array();
