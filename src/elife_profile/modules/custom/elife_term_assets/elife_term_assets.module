@@ -1,21 +1,21 @@
 <?php
 /**
  * @file
- * Code for the eLife: Category Assets feature.
+ * Code for the eLife: Term Assets feature.
  */
 
-include_once 'elife_category_assets.features.inc';
+include_once 'elife_term_assets.features.inc';
 
 /**
  * Implements hook_taxonomy_term_insert().
  */
-function elife_category_assets_taxonomy_term_insert($term) {
+function elife_term_assets_taxonomy_term_insert($term) {
   $categories_vocabulary = taxonomy_vocabulary_machine_name_load('elife_categories');
   if ($term->vid == $categories_vocabulary->vid) {
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('taxonomy_term', $term);
     if ($ewrapper->field_elife_category_type->value() == 'display-channel') {
-      elife_category_assets_display_channel_weights();
+      elife_term_assets_display_channel_weights();
     }
   }
 }
@@ -23,9 +23,9 @@ function elife_category_assets_taxonomy_term_insert($term) {
 /**
  * Allocate predefined weight to display channel taxonomy terms.
  */
-function elife_category_assets_display_channel_weights() {
+function elife_term_assets_display_channel_weights() {
   if ($categories_vocabulary = taxonomy_vocabulary_machine_name_load('elife_categories')) {
-    $stored_weights = elife_category_assets_display_channel_stored_weights();
+    $stored_weights = elife_term_assets_display_channel_stored_weights();
     if (!empty($stored_weights)) {
       $efq = new EntityFieldQuery();
       $result = $efq->entityCondition('entity_type', 'taxonomy_term')
@@ -47,7 +47,7 @@ function elife_category_assets_display_channel_weights() {
 /**
  * Stored weights for category terms.
  */
-function elife_category_assets_display_channel_stored_weights() {
+function elife_term_assets_display_channel_stored_weights() {
   $stored_weights = array();
   $term_weights = variable_get('elife_category_assets_weight', array());
   if (!empty($term_weights)) {

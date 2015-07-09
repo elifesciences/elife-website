@@ -103,7 +103,6 @@ dependencies[] = elife_archive
 dependencies[] = elife_article
 dependencies[] = elife_article_assets
 dependencies[] = elife_article_pages
-dependencies[] = elife_category_assets
 dependencies[] = elife_collection
 dependencies[] = elife_config
 dependencies[] = elife_content_alerts
@@ -115,6 +114,7 @@ dependencies[] = elife_search
 dependencies[] = elife_services
 dependencies[] = elife_services_config
 dependencies[] = elife_templates
+dependencies[] = elife_term_assets
 
 ; dependencies[] = elife_deploy
 

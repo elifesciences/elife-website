@@ -1,21 +1,21 @@
 <?php
 /**
  * @file
- * elife_category_assets.views_default.inc
+ * elife_term_assets.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function elife_category_assets_views_default_views() {
+function elife_term_assets_views_default_views() {
   $export = array();
 
   $view = new view();
-  $view->name = 'elife_category';
+  $view->name = 'elife_term_description';
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'eLife Category';
+  $view->human_name = 'eLife Term Description';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -48,16 +48,16 @@ function elife_category_assets_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Content: Category (field_elife_ca_category) */
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['id'] = 'field_elife_ca_category_value';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['table'] = 'field_data_field_elife_ca_category';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['field'] = 'field_elife_ca_category_value';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_elife_ca_category_value']['limit'] = '0';
+  /* Contextual filter: Content: Term (field_elife_ta_term) */
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['id'] = 'field_elife_ta_term_value';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['table'] = 'field_data_field_elife_ta_term';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['field'] = 'field_elife_ta_term_value';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_elife_ta_term_value']['limit'] = '0';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -70,22 +70,22 @@ function elife_category_assets_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'elife_category_assets' => 'elife_category_assets',
+    'elife_term_assets' => 'elife_term_assets',
   );
 
-  /* Display: Category description */
-  $handler = $view->new_display('panel_pane', 'Category description', 'elife_category_description');
+  /* Display: Term description */
+  $handler = $view->new_display('panel_pane', 'Term description', 'elife_term_description');
   $handler->display->display_options['argument_input'] = array(
-    'field_elife_ca_category_value' => array(
+    'field_elife_ta_term_value' => array(
       'type' => 'user',
       'context' => 'entity:field_collection_item.archived',
       'context_optional' => 0,
       'panel' => '0',
       'fixed' => '',
-      'label' => 'Content: Category (field_elife_ca_category)',
+      'label' => 'Content: Term (field_elife_ta_term)',
     ),
   );
-  $export['elife_category'] = $view;
+  $export['elife_term_description'] = $view;
 
   return $export;
 }
