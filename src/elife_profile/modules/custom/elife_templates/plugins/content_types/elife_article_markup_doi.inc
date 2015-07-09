@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\elife_article\ElifeMarkupService;
+use Drupal\elife_article\ExeterMarkupService;
 
 $plugin = array(
   'title' => t('Article Markup for DOI'),
@@ -28,8 +28,8 @@ function elife_article_markup_doi_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      $markup = new ElifeMarkupService();
-      $markup->addQuery($article_id, "//*[@data-doi='" . $doi . "']");
+      $markup = new ExeterMarkupService();
+      $markup->addDoiQuery($article_id, $doi);
       $markup->submitQuery();
       $html = $markup->output();
 

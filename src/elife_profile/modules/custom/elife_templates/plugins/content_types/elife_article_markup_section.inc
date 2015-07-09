@@ -1,6 +1,6 @@
 <?php
 
-use Drupal\elife_article\ElifeMarkupService;
+use Drupal\elife_article\ExeterMarkupService;
 
 $plugin = array(
   'title' => t('Article Markup for Section'),
@@ -27,7 +27,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
 
       if (!$markup_section) {
-        $markup_sections = array_keys(_elife_article_markup_section_options());
+        $markup_sections = array_keys(ExeterMarkupService::getSectionLabels());
         $markup_section = reset($markup_sections);
       }
 
@@ -36,8 +36,8 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      $markup = new ElifeMarkupService();
-      $markup->addQuery($article_id, $markup_section);
+      $markup = new ExeterMarkupService();
+      $markup->addSectionQuery($article_id, $markup_section);
       $markup->submitQuery();
       $html = $markup->output();
 
@@ -61,30 +61,12 @@ function elife_article_markup_section_edit($form, &$form_state) {
     '#type' => 'select',
     '#title' => t('Section'),
     '#size' => 1,
-    '#options' => _elife_article_markup_section_options(),
+    '#options' => ExeterMarkupService::getSectionLabels(),
     '#multiple' => FALSE,
     '#default_value' => ($conf['markup_section']) ? $conf['markup_section'] : NULL,
   );
 
   return $form;
-}
-
-/**
- * Markup sections.
- *
- * @return array
- *   Array of section labels with xpath queries as keys.
- */
-function _elife_article_markup_section_options() {
-  return [
-    "//*[contains(concat(' ', @class, ' '), ' section ')]" => t('Main text'),
-    "//*[@id='abstract']" => t('Abstract'),
-    "//*[@id='elife-digest']" => t('Digest'),
-    "//*[@id='references']" => t('References'),
-    "//*[@id='ack-1']" => t('Acknowledgements'),
-    "//*[@id='decision-letter']" => t('Decision letter'),
-    "//*[@id='author-response']" => t('Author response'),
-  ];
 }
 
 /**
@@ -101,7 +83,7 @@ function elife_article_markup_section_edit_submit(&$form, &$form_state) {
  */
 function elife_article_markup_section_admin_info($subtype, $conf, $context) {
   $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
-  $markup_section_options = _elife_article_markup_section_options();
+  $markup_section_options = ExeterMarkupService::getSectionLabels();
 
   if (!$markup_section) {
     $markup_sections = array_keys($markup_section_options);
