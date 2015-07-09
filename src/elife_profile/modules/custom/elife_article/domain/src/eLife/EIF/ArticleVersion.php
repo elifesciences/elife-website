@@ -151,6 +151,11 @@ final class ArticleVersion {
   private $fragments = [];
 
   /**
+   * @var BaseFragment[]
+   */
+  private $fragment_dois = [];
+
+  /**
    * @var Citation[]
    *
    * @Serializer\Type("array<string,eLife\EIF\ArticleVersion\Citation>")
@@ -223,6 +228,29 @@ final class ArticleVersion {
     $this->referenced = $referenced;
     $this->fragments = $fragments;
     $this->citations = $citations;
+
+    $this->setFragmentDOIs($fragments);
+  }
+
+  /**
+   * @param BaseFragment[]|null $fragments
+   */
+  private function setFragmentDOIs($fragments = NULL) {
+    if (!is_array($fragments)) {
+      $fragments = $this->getFragments();
+    }
+    foreach ($fragments as $fragment) {
+      $this->fragment_dois[$fragment->getDoi()] = $fragment;
+      $this->setFragmentDOIs($fragment->getFragments());
+    }
+  }
+
+  /**
+   * @param string $doi
+   * @return BaseFragment|null
+   */
+  public function getFragment($doi) {
+    return isset($this->fragment_dois[$doi]) ? $this->fragment_dois[$doi] : NULL;
   }
 
   public function getTitle() {
