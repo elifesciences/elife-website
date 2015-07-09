@@ -17,6 +17,14 @@ function elife_article_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'elife_headings' => array(
+      'name' => 'Headings',
+      'machine_name' => 'elife_headings',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'elife_keywords' => array(
       'name' => 'Keywords',
       'machine_name' => 'elife_keywords',

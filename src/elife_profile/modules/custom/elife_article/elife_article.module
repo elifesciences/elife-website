@@ -235,6 +235,12 @@ function elife_article_version_to_dto(stdClass $entity) {
     $categories[$entity_category->field_elife_category_type->value()][] = $entity_category->label();
   }
 
+  foreach ($entity->field_elife_a_heading->value() as $entity_heading) {
+    /** @var EntityDrupalWrapper $entity_heading */
+    $entity_heading = entity_metadata_wrapper('taxonomy_term', $entity_heading);
+    $categories['heading'][] = $entity_heading->label();
+  }
+
   $keywords = [];
   foreach ($entity->field_elife_a_keyword->value() as $entity_keyword) {
     /** @var EntityDrupalWrapper $entity_keyword */
@@ -654,17 +660,28 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_status->set($article_version->getStatus());
 
   $entity_categories = [];
+  $entity_headings = [];
   foreach ($article_version->getCategories() as $group => $categories) {
-    foreach ($categories as $category) {
-      $category_fields = [
-        'field_elife_category_type' => $group,
-      ];
-      if ($term = _elife_services_article_prepare_term('elife_categories', $category, [], $category_fields)) {
-        $entity_categories[] = $term->tid;
+    if ('heading' === $group) {
+      foreach ($categories as $category) {
+        if ($term = _elife_services_article_prepare_term('elife_headings', $category)) {
+          $entity_headings[] = $term->tid;
+        }
+      }
+    }
+    else {
+      foreach ($categories as $category) {
+        $category_fields = [
+          'field_elife_category_type' => $group,
+        ];
+        if ($term = _elife_services_article_prepare_term('elife_categories', $category, [], $category_fields)) {
+          $entity_categories[] = $term->tid;
+        }
       }
     }
   }
   $entity->field_elife_a_category->set($entity_categories);
+  $entity->field_elife_a_heading->set($entity_headings);
 
   $entity_keywords = [];
   foreach ($article_version->getKeywords() as $group => $keywords) {
