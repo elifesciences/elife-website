@@ -60,6 +60,8 @@ projects:
     version: '3.0-alpha2'
   libraries:
     version: '2.2'
+  mathjax:
+    version: '2.4'
   menu_attributes:
     version: '1.0-rc3'
   menu_token:
