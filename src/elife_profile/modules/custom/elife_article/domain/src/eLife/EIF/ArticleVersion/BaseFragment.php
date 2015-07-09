@@ -59,6 +59,10 @@ abstract class BaseFragment {
     return $this->doi;
   }
 
+  final public function getDoiUrl() {
+    return 'http://dx.doi.org/' . $this->doi;
+  }
+
   final public function getPath() {
     return $this->path;
   }

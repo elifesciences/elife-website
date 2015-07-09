@@ -225,6 +225,33 @@ final class ArticleVersion {
     $this->citations = $citations;
   }
 
+  private function getFragmentDois() {
+    static $dois = [];
+
+    // We only need to gather the dois once.
+    if (empty($dois)) {
+      /* @param BaseFragment[] $fragments */
+      $closure = function(array $fragments) use (&$dois, &$closure) {
+        foreach ($fragments as $fragment) {
+          $dois[$fragment->getDoi()] = $fragment;
+          $closure($fragment->getFragments());
+        }
+      };
+      $closure($this->fragments);
+    }
+
+    return $dois;
+  }
+
+  /**
+   * @param string $doi
+   * @return BaseFragment|null
+   */
+  public function getFragment($doi) {
+    $dois = $this->getFragmentDois();
+    return isset($dois[$doi]) ? $dois[$doi] : NULL;
+  }
+
   public function getTitle() {
     return $this->title;
   }
@@ -239,6 +266,10 @@ final class ArticleVersion {
 
   public function getDoi() {
     return $this->doi;
+  }
+
+  public function getDoiUrl() {
+    return 'http://dx.doi.org/' . $this->doi;
   }
 
   public function getPublish() {
