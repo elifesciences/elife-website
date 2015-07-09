@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\elife_article\ElifeMarkupService;
+
 $plugin = array(
   'title' => t('Article Markup for Section'),
   'single' => TRUE,
@@ -34,7 +36,12 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      if ($html = _elife_article_markup_service_get_html_single($article_id, $markup_section)) {
+      $markup = new ElifeMarkupService();
+      $markup->addQuery($article_id, $markup_section);
+      $markup->submitQuery();
+      $html = $markup->output();
+
+      if ($html) {
         $block = new stdClass();
         $block->content = $html;
 

@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\elife_article\ElifeMarkupService;
+
 $plugin = array(
   'title' => t('Article Markup for DOI'),
   'single' => TRUE,
@@ -26,7 +28,12 @@ function elife_article_markup_doi_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      if ($html = _elife_article_markup_service_get_html_single($article_id, "//*[@data-doi='" . $doi . "']")) {
+      $markup = new ElifeMarkupService();
+      $markup->addQuery($article_id, "//*[@data-doi='" . $doi . "']");
+      $markup->submitQuery();
+      $html = $markup->output();
+
+      if ($html) {
         $block = new stdClass();
         $block->content = $html;
 
