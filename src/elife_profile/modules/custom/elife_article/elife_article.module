@@ -1111,3 +1111,91 @@ function _elife_article_xmltohtml($string) {
     return $string;
   }
 }
+
+/**
+ * Build the query string for the markup service.
+ *
+ * @param array $queries
+ *   Array of queries
+ *   (e.g. [ARTICLEID1 => [XPATH1, XPATH2], ARTICLEID2 => [XPATH3]])
+ *
+ * @return string
+ *   XML string for query.
+ */
+function _elife_article_markup_service_build_query(array $queries) {
+  $content = '';
+  foreach ($queries as $article_id => $article_queries) {
+    $content .= '<article id="' . $article_id . '">';
+    foreach ($article_queries as $article_query) {
+      $content .= '<query xpath="' . $article_query . '" ></query>';
+    }
+    $content .= '</article>';
+  }
+
+  if (!empty($content)) {
+    return '<xmltohtml>' . $content . '</xmltohtml>';
+  }
+}
+
+function _elife_article_markup_service_process_query(array $queries) {
+  if ($content = _elife_article_markup_service_build_query($queries)) {
+    // @todo - elife - nlisgo - introduce caching.
+    // @todo - elife - nlisgo - we will want to mock this service for testing.
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'http://api.exetercs.com/job.api/xmltohtml?apiKey=6c8e740baa82f222c5e63b39ffac2613&accountKey=1',
+      CURLOPT_RETURNTRANSFER => TRUE,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_HTTPHEADER => array(
+        'content: ' . $content,
+      ),
+    ));
+
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if (!$err) {
+      if (($library = libraries_load('BetterDOMDocument')) && !empty($library['loaded'])) {
+        $dom = new BetterDOMDocument($response);
+
+        $results = [];
+        foreach ($dom->query('//article') as $article) {
+          $article_id = $article->getAttribute('id');
+          foreach ($dom->query('/query', $article) as $query) {
+            $xpath = $query->getAttribute('xpath');
+            $results[$article_id][$xpath] = [];
+            foreach ($dom->query('/data/*', $query) as $data) {
+              $results[$article_id][$xpath][] = $dom->out($data);
+            }
+          }
+        }
+        return $results;
+      }
+    }
+  }
+}
+
+function _elife_article_markup_service_get_html(array $queries) {
+  $results = _elife_article_markup_service_process_query($queries);
+  $html = '';
+  foreach ($results as $article_queries) {
+    foreach ($article_queries as $data) {
+      $html .= implode("\n", $data);
+    }
+  }
+
+  return $html;
+}
+
+function _elife_article_markup_service_get_html_single($article_id, $query) {
+  $queries = [$article_id => [$query]];
+  return _elife_article_markup_service_get_html($queries);
+}
