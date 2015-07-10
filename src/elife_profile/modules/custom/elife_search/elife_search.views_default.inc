@@ -35,13 +35,24 @@ function elife_search_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['pager']['options']['id'] = '0';
   $handler->display->display_options['pager']['options']['quantity'] = '4';
-  $handler->display->display_options['pager']['options']['expose']['items_per_page'] = TRUE;
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options'] = '10, 25, 50, 75, 100';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
   $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
+  /* Header: Global: Result summary with an additional token to change the items/page */
+  $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
+  $handler->display->display_options['header']['webform_result']['table'] = 'views';
+  $handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
+  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links<br/>
+Showing results @start&ndash;@end of @total';
+  /* Footer: Global: Result summary with an additional token to change the items/page */
+  $handler->display->display_options['footer']['webform_result']['id'] = 'webform_result';
+  $handler->display->display_options['footer']['webform_result']['table'] = 'views';
+  $handler->display->display_options['footer']['webform_result']['field'] = 'webform_result';
+  $handler->display->display_options['footer']['webform_result']['content'] = '@items_per_page_links<br/>
+Showing results @start&ndash;@end of @total';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -132,6 +143,12 @@ function elife_search_views_default_views() {
   $handler->display->display_options['header']['view_field']['view'] = 'elife_term_description';
   $handler->display->display_options['header']['view_field']['display'] = 'elife_term_description';
   $handler->display->display_options['header']['view_field']['arguments'] = '%1';
+  /* Header: Global: Result summary with an additional token to change the items/page */
+  $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
+  $handler->display->display_options['header']['webform_result']['table'] = 'views';
+  $handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
+  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links<br/>
+Showing results @start&ndash;@end of @total';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Indexed Node: First Publication Date */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
