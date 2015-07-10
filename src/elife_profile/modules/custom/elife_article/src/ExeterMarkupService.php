@@ -144,10 +144,6 @@ final class ExeterMarkupService extends ElifeMarkupService {
       foreach ($xpath->query('./query', $article) as $query) {
         $html = [];
         foreach ($xpath->query('./data/*', $query) as $data) {
-          // @todo - elife - nlisgo - should this be being stripped in markup service
-          if ($front = $data->getElementsByTagName('front')->item(0)) {
-            $front->parentNode->removeChild($front);
-          }
           $html[] = $xml->saveXML($data, LIBXML_NOEMPTYTAG);
         }
         $query_id = explode('::', array_search($query->getAttribute('xpath'), $this->queries));
