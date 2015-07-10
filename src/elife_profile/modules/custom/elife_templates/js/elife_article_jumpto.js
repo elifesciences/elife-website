@@ -92,7 +92,7 @@
           var topOffset = 15;
         }
         $(window).scroll(function() {
-          var scroll_pos_test = $('.js-jumpblock-trigger').offset().top;
+          var scroll_pos_test = $jumpLinks.next().offset().top;
           var y_scroll_pos = window.pageYOffset;
           var currentLayout = Drupal.omega.getCurrentLayout();
 
