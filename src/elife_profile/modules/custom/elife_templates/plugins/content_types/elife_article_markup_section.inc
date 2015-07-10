@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\elife_article\ElifeMarkupService;
 use Drupal\elife_article\ExeterMarkupService;
 
 $plugin = array(
@@ -27,7 +28,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
 
       if (!$markup_section) {
-        $markup_sections = array_keys(ExeterMarkupService::getSectionLabels());
+        $markup_sections = array_keys(ElifeMarkupService::getSectionLabels());
         $markup_section = reset($markup_sections);
       }
 
@@ -61,7 +62,7 @@ function elife_article_markup_section_edit($form, &$form_state) {
     '#type' => 'select',
     '#title' => t('Section'),
     '#size' => 1,
-    '#options' => ExeterMarkupService::getSectionLabels(),
+    '#options' => ElifeMarkupService::getSectionLabels(),
     '#multiple' => FALSE,
     '#default_value' => ($conf['markup_section']) ? $conf['markup_section'] : NULL,
   );
@@ -83,7 +84,7 @@ function elife_article_markup_section_edit_submit(&$form, &$form_state) {
  */
 function elife_article_markup_section_admin_info($subtype, $conf, $context) {
   $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
-  $markup_section_options = ExeterMarkupService::getSectionLabels();
+  $markup_section_options = ElifeMarkupService::getSectionLabels();
 
   if (!$markup_section) {
     $markup_sections = array_keys($markup_section_options);

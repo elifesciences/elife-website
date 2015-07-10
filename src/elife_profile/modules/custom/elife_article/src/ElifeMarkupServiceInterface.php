@@ -19,13 +19,26 @@ interface ElifeMarkupServiceInterface {
    */
   public function addDoiQuery($article_id, $doi);
 
+  public function getQuery();
 
   public function submitQuery();
 
+  public function processResponse();
+
+  public function getResponse();
+
+  public function getError();
+
   /**
-   * @param string $response
+   * @return array
    */
-  public function processResponse($response);
+  public function getResults();
+
+  /**
+   * @param string $article_id
+   * @return array
+   */
+  public function getResult($article_id);
 
   /**
    * @return string
