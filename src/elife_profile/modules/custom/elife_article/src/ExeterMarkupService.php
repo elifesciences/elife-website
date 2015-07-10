@@ -18,7 +18,7 @@ final class ExeterMarkupService extends ElifeMarkupService {
   private $results = [];
   private $xpaths = [
     'doi' => "//*[@data-doi='%s']",
-    'main-text' => "//front/following-sibling::div | //front/following-sibling::p",
+    'main-text' => "//*[@id='main-text']",
     'abstract' => "//*[@id='abstract']",
     'digest' => "//*[@id='elife-digest']",
     'references' => "//*[@id='references']",
@@ -144,6 +144,10 @@ final class ExeterMarkupService extends ElifeMarkupService {
       foreach ($xpath->query('./query', $article) as $query) {
         $html = [];
         foreach ($xpath->query('./data/*', $query) as $data) {
+          // @todo - elife - nlisgo - should this be being stripped in markup service
+          if ($front = $data->getElementsByTagName('front')->item(0)) {
+            $front->parentNode->removeChild($front);
+          }
           $html[] = $xml->saveXML($data, LIBXML_NOEMPTYTAG);
         }
         $query_id = explode('::', array_search($query->getAttribute('xpath'), $this->queries));
