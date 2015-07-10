@@ -316,6 +316,18 @@ final class ArticleVersion {
     return $this->categories;
   }
 
+  public function getCategoriesOfType($type) {
+    return (isset($this->categories[$type])) ? $this->categories[$type] : [];
+  }
+
+  public function getDisplayChannels() {
+    return $this->getCategoriesOfType('display-channel');
+  }
+
+  public function getHeadings() {
+    return $this->getCategoriesOfType('heading');
+  }
+
   public function getKeywords() {
     return $this->keywords;
   }
