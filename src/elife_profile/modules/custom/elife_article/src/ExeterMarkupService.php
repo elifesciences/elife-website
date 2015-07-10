@@ -18,7 +18,7 @@ final class ExeterMarkupService extends ElifeMarkupService {
   private $results = [];
   private $xpaths = [
     'doi' => "//*[@data-doi='%s']",
-    'main-text' => "//*[contains(concat(' ', @class, ' '), ' section ')]",
+    'main-text' => "//front/following-sibling::div | //front/following-sibling::p",
     'abstract' => "//*[@id='abstract']",
     'digest' => "//*[@id='elife-digest']",
     'references' => "//*[@id='references']",
