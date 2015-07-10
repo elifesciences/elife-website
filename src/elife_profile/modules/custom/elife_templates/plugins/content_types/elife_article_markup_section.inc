@@ -1,6 +1,7 @@
 <?php
 
-use Drupal\elife_article\ExeterMarkupService;
+use eLife\MarkupService\QueryBuilder;
+use eLife\MarkupService\SectionLabels;
 
 $plugin = array(
   'title' => t('Article Markup for Section'),
@@ -27,7 +28,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
 
       if (!$markup_section) {
-        $markup_sections = array_keys(ExeterMarkupService::getSectionLabels());
+        $markup_sections = SectionLabels::getSections();
         $markup_section = reset($markup_sections);
       }
 
@@ -36,10 +37,13 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      $markup = new ExeterMarkupService();
-      $markup->addSectionQuery($article_id, $markup_section);
-      $markup->submitQuery();
-      $html = $markup->output();
+      $markup = elife_article_markup_service();
+
+      $query = QueryBuilder::create()
+        ->addSectionQuery($article_id, $markup_section)
+        ->build();
+
+      $html = $markup->query($query);
 
       if ($html) {
         $block = new stdClass();
@@ -61,7 +65,7 @@ function elife_article_markup_section_edit($form, &$form_state) {
     '#type' => 'select',
     '#title' => t('Section'),
     '#size' => 1,
-    '#options' => ExeterMarkupService::getSectionLabels(),
+    '#options' => SectionLabels::getSectionLabels(),
     '#multiple' => FALSE,
     '#default_value' => ($conf['markup_section']) ? $conf['markup_section'] : NULL,
   );
@@ -83,7 +87,7 @@ function elife_article_markup_section_edit_submit(&$form, &$form_state) {
  */
 function elife_article_markup_section_admin_info($subtype, $conf, $context) {
   $markup_section = ($conf['markup_section']) ? $conf['markup_section'] : NULL;
-  $markup_section_options = ExeterMarkupService::getSectionLabels();
+  $markup_section_options = SectionLabels::getSectionLabels();
 
   if (!$markup_section) {
     $markup_sections = array_keys($markup_section_options);

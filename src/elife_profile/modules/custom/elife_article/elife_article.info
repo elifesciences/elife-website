@@ -6,6 +6,7 @@ project = elife_article
 dependencies[] = composer_manager
 dependencies[] = ctools
 dependencies[] = date
+dependencies[] = elife_http_client
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
