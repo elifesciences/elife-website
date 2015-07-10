@@ -11,7 +11,7 @@
 <?php foreach ($rows as $id => $row): ?>
   <div<?php print ($classes_array[$id]) ? ' class="' . $classes_array[$id] .'"' : ''; ?>>
     <?php print $row; ?>
-    <?php if ($contextual_node): ?>
+    <?php if (!empty($contextual_node)): ?>
       <?php print $contextual_node[$id]; ?>
     <?php endif; ?>
   </div>
