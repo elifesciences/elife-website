@@ -29,6 +29,8 @@ use eLife\EIF\JMSJsonSerializer\SubArticleSubscriber;
 use eLife\EIF\JsonSerializer;
 use eLife\EIF\JsonValidator;
 use eLife\EIF\NodeJsonValidator;
+use eLife\MarkupService\ExeterMarkupService;
+use eLife\MarkupService\MarkupService;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
@@ -219,6 +221,38 @@ function elife_article_validator() {
   }
 
   return $validator;
+}
+
+/**
+ * @return MarkupService
+ */
+function elife_article_markup_service() {
+  $markup_service = &drupal_static(__FUNCTION__);
+
+  if (!isset($markup_service)) {
+    /* @var string $factory */
+    $factory = variable_get('elife_article_markup_service_factory', '_elife_article_exeter_markup_service');
+
+    $markup_service = $factory();
+  }
+
+  return clone $markup_service;
+}
+
+/**
+ * @return ExeterMarkupService
+ */
+function _elife_article_exeter_markup_service() {
+  $markup_service = &drupal_static(__FUNCTION__);
+
+  if (!isset($markup_service)) {
+    $markup_service = new ExeterMarkupService(
+      elife_http_client_get_client(),
+      'http://api.exetercs.com/job.api/xmltohtml?apiKey=6c8e740baa82f222c5e63b39ffac2613&accountKey=1'
+    );
+  }
+
+  return $markup_service;
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
@@ -587,7 +621,8 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   if ($latest_version === 0
     // Check to see if incoming status is VOR and we only have POA stored.
     || strcasecmp($article_version->getStatus(), $latest_status) > 0
-    || $article_version->getVersion() >= $latest_version) {
+    || $article_version->getVersion() >= $latest_version
+  ) {
 
     $entity->title->set($article_version->getTitle());
     $entity->field_elife_a_volume->set($article_version->getVolume());
@@ -988,7 +1023,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       $entity_fragment->field_elife_a_parent->set($parent_id);
       $entity_fragment->field_elife_a_full_title->set([
         'value' => $fragment->getTitle(),
-        'format' => 'full_html'
+        'format' => 'full_html',
       ]);
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 

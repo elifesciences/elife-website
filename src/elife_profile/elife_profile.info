@@ -110,6 +110,7 @@ dependencies[] = elife_content_alerts
 dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header
+dependencies[] = elife_http_client
 dependencies[] = elife_podcast
 dependencies[] = elife_search
 dependencies[] = elife_services

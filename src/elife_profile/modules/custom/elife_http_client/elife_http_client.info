@@ -1,0 +1,7 @@
+name = eLife HTTP Client
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_http_client
+dependencies[] = composer_manager
+files[] = elife_http_client.module

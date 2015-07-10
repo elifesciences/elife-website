@@ -1,8 +1,11 @@
 {
     "require": {
         "php": ">=5.5",
+        "guzzlehttp/psr7": "1.1",
         "jms/serializer": "~1.0",
-        "symfony/process": "~2.7"
+        "symfony/process": "~2.7",
+        "guzzlehttp/guzzle": "~5.3",
+        "psr/http-message": "~1.0"
     },
     "config": {
         "autoloader-suffix": "ComposerManager"
@@ -11,7 +14,8 @@
         "psr-4": {
             "eLife\\": [
                 "../web/profiles/elife_profile/modules/custom/elife_article/domain/src/eLife/",
-                "../web/profiles/elife_profile/modules/custom/elife_article/infrastructure/src/eLife/"
+                "../web/profiles/elife_profile/modules/custom/elife_article/infrastructure/src/eLife/",
+                "../web/profiles/elife_profile/modules/custom/elife_http_client/src/eLife/"
             ]
         }
     }

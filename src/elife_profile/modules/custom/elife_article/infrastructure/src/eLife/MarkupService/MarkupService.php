@@ -1,12 +1,8 @@
 <?php
-/**
- * @file
- * Contains \Drupal\elife_article\ElifeMarkupServiceInterface.
- */
 
-namespace Drupal\elife_article;
+namespace eLife\MarkupService;
 
-interface ElifeMarkupServiceInterface {
+interface MarkupService {
   /**
    * @param string $article_id
    * @param string $section

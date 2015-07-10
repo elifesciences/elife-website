@@ -1,15 +1,13 @@
 <?php
-/**
- * @file
- * Contains \Drupal\elife_article\ExeterMarkupService.
- */
 
-namespace Drupal\elife_article;
+namespace eLife\MarkupService;
 
 use DOMDocument;
 use DOMXPath;
+use eLife\HttpClient\HttpClient;
+use GuzzleHttp\Psr7\Request;
 
-final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarkupServiceInterface {
+final class ExeterMarkupService implements MarkupService {
   private $queries = [];
   private $results = [];
   private $xpaths = [
@@ -22,6 +20,25 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
     'decision-letter' => "//*[@id='decision-letter']",
     'author-response' => "//*[@id='author-response']",
   ];
+
+  /**
+   * @var HttpClient
+   */
+  private $httpClient;
+
+  /**
+   * @var string
+   */
+  private $uri;
+
+  /**
+   * @param HttpClient $httpClient
+   * @param string $uri
+   */
+  public function __construct(HttpClient $httpClient, $uri) {
+    $this->httpClient = $httpClient;
+    $this->uri = $uri;
+  }
 
   /**
    * @param string $article_id
@@ -71,29 +88,16 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
 
   public function submitQuery() {
     if (!empty($this->queries)) {
-      $curl = curl_init();
+      $request = new Request(
+        'POST',
+        $this->uri,
+        [
+          'content' => $this->prepareQuery(),
+        ]
+      );
 
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://api.exetercs.com/job.api/xmltohtml?apiKey=6c8e740baa82f222c5e63b39ffac2613&accountKey=1',
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_HTTPHEADER => array(
-          'content: ' . $this->prepareQuery(),
-        ),
-      ));
-
-      $response = curl_exec($curl);
-      $err = curl_error($curl);
-
-      curl_close($curl);
-
-      if (!$err) {
-        $this->processResponse($response);
-      }
+      $response = $this->httpClient->request($request);
+      $this->processResponse((string) $response->getBody());
     }
   }
 

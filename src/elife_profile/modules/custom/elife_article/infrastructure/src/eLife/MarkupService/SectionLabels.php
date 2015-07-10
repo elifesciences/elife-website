@@ -1,13 +1,12 @@
 <?php
-/**
- * @file
- * Contains \Drupal\elife_article\ElifeMarkupService.
- */
 
-namespace Drupal\elife_article;
+namespace eLife\MarkupService;
 
-abstract class ElifeMarkupService {
-  protected $sections = [
+final class SectionLabels {
+  /**
+   * @var array
+   */
+  private static $sectionLabels = [
     'main-text' => 'Main text',
     'abstract' => 'Abstract',
     'digest' => 'Digest',
@@ -17,12 +16,22 @@ abstract class ElifeMarkupService {
     'author-response' => 'Author response',
   ];
 
+  private function __construct() {
+  }
+
   /**
    * @return array
    *   Array of available section labels.
    */
   public static function getSectionLabels() {
-    return self::$sections;
+    return self::$sectionLabels;
+  }
+
+  /**
+   * @return array
+   *   Array of available sections.
+   */
+  public static function getSections() {
+    return array_keys(self::$sectionLabels);
   }
 }
-
