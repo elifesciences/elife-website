@@ -111,7 +111,7 @@ function elife_article_pages_default_panels_mini() {
       'style' => 'collapsible',
     );
     $pane->css = array(
-      'css_id' => 'elife-digest',
+      'css_id' => 'digest',
       'css_class' => '',
     );
     $pane->extras = array();

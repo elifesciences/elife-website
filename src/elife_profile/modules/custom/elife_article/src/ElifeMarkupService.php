@@ -6,11 +6,11 @@
 
 namespace Drupal\elife_article;
 
-abstract class ElifeMarkupService {
-  protected $sections = [
-    'main-text' => 'Main text',
+abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
+  public static $sections = [
     'abstract' => 'Abstract',
-    'digest' => 'Digest',
+    'digest' => 'eLife digest',
+    'main-text' => 'Main text',
     'references' => 'References',
     'acknowledgements' => 'Acknowledgements',
     'decision-letter' => 'Decision letter',

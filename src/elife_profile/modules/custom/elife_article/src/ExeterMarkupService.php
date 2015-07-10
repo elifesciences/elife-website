@@ -8,9 +8,13 @@ namespace Drupal\elife_article;
 
 use DOMDocument;
 use DOMXPath;
+use Exception;
 
-final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarkupServiceInterface {
+final class ExeterMarkupService extends ElifeMarkupService {
   private $queries = [];
+  private $arrange_queries = [];
+  private $response;
+  private $error;
   private $results = [];
   private $xpaths = [
     'doi' => "//*[@data-doi='%s']",
@@ -29,21 +33,42 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
    * @param string $value
    */
   private function addQuery($article_id, $section, $value = NULL) {
+    $query_id = [$article_id, $section];
     $xpath = $this->xpaths[$section];
+
     if ($value) {
       $xpath = sprintf($xpath, $value);
+      $query_id[] = $value;
     }
-    if (!isset($this->queries[$article_id]) || !in_array($xpath, $this->queries[$article_id])) {
-      $this->queries[$article_id][] = $xpath;
+    $this->queries[implode('::', $query_id)] = $xpath;
+  }
+
+  private function arrangeQuery() {
+    $this->arrange_queries = [];
+    foreach ($this->queries as $query_id => $query) {
+      list($article_id) = explode('::', $query_id);
+      $this->arrange_queries[$article_id][$query_id] = $query;
     }
   }
 
   /**
+   * @return array
+   *   Array of arranged queries.
+   */
+  public function getQuery() {
+    $this->arrangeQuery();
+    return $this->arrange_queries;
+  }
+
+  /**
    * @param string $article_id
-   * @param string $section
+   * @param string|array $section
    */
   public function addSectionQuery($article_id, $section) {
-    $this->addQuery($article_id, $section);
+    $sections = (!is_array($section)) ? [$section] : $section;
+    foreach ($sections as $section) {
+      $this->addQuery($article_id, $section);
+    }
   }
 
   /**
@@ -56,7 +81,8 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
 
   private function prepareQuery() {
     $content = '';
-    foreach ($this->queries as $article_id => $article_queries) {
+    $queries = $this->getQuery();
+    foreach ($queries as $article_id => $article_queries) {
       $content .= '<article id="' . $article_id . '">';
       foreach ($article_queries as $article_query) {
         $content .= '<query xpath="' . $article_query . '" ></query>';
@@ -71,33 +97,42 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
 
   public function submitQuery() {
     if (!empty($this->queries)) {
-      $curl = curl_init();
+      try {
+        $curl = curl_init();
 
-      curl_setopt_array($curl, array(
-        CURLOPT_URL => 'http://api.exetercs.com/job.api/xmltohtml?apiKey=6c8e740baa82f222c5e63b39ffac2613&accountKey=1',
-        CURLOPT_RETURNTRANSFER => TRUE,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_HTTPHEADER => array(
-          'content: ' . $this->prepareQuery(),
-        ),
-      ));
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'http://api.exetercs.com/job.api/xmltohtml?apiKey=6c8e740baa82f222c5e63b39ffac2613&accountKey=1',
+          CURLOPT_RETURNTRANSFER => TRUE,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_HTTPHEADER => array(
+            'content: ' . $this->prepareQuery(),
+          ),
+        ));
 
-      $response = curl_exec($curl);
-      $err = curl_error($curl);
+        $this->response = curl_exec($curl);
+        $this->error = curl_error($curl);
 
-      curl_close($curl);
-
-      if (!$err) {
-        $this->processResponse($response);
+        curl_close($curl);
       }
+      catch (Exception $e) {
+        throw $e;
+      }
+    }
+    else {
+      throw new Exception('No queries have been added yet.');
     }
   }
 
-  public function processResponse($response) {
+  public function processResponse() {
+    if (empty($this->response)) {
+      throw new Exception('The query needs to be submitted first.');
+    }
+
+    $response = $this->response;
     $xml = new DOMDocument();
     $xml->preserveWhiteSpace = FALSE;
     $xml->loadXML($response);
@@ -107,11 +142,13 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
     foreach ($xpath->query('//article') as $article) {
       $article_id = $article->getAttribute('id');
       foreach ($xpath->query('./query', $article) as $query) {
-        $xpath_value = $query->getAttribute('xpath');
-        $results[$article_id][$xpath_value] = [];
+        $html = [];
         foreach ($xpath->query('./data/*', $query) as $data) {
-          $results[$article_id][$xpath_value][] = $xml->saveXML($data, LIBXML_NOEMPTYTAG);
+          $html[] = $xml->saveXML($data, LIBXML_NOEMPTYTAG);
         }
+        $query_id = explode('::', array_search($query->getAttribute('xpath'), $this->queries));
+        array_shift($query_id);
+        $results[$article_id][implode('::', $query_id)] = $html;
       }
     }
     $this->results = $results;
@@ -119,11 +156,70 @@ final class ExeterMarkupService extends ElifeMarkupService implements ElifeMarku
 
   /**
    * @return string
+   *   Return response string.
+   */
+  public function getResponse() {
+    if (empty($this->response)) {
+      throw new Exception('The query needs to be submitted first.');
+    }
+
+    return $this->response;
+  }
+
+  /**
+   * @return string
+   *   Return error string.
+   */
+  public function getError() {
+    if (empty($this->response)) {
+      throw new Exception('The query needs to be submitted first.');
+    }
+
+    return $this->error;
+  }
+
+  /**
+   * @return array
+   *   Return error string.
+   */
+  public function getResults() {
+    if (empty($this->results)) {
+      $this->processResponse();
+    }
+
+    return $this->results;
+  }
+
+  /**
+   * @return array
+   *   Return error string.
+   */
+
+  /**
+   * @param string $article_id
+   *   Article id.
+   *
+   * @return array
+   *   Array of results.
+   * @throws \Exception
+   */
+  public function getResult($article_id) {
+    if (empty($this->results)) {
+      $this->processResponse();
+    }
+    $results = (isset($this->results[$article_id])) ? $this->results[$article_id] : [];
+
+    return $results;
+  }
+
+  /**
+   * @return string
    *   HTML output from markup query.
    */
   public function output() {
+    $results = $this->getResults();
     $output = '';
-    foreach ($this->results as $article_queries) {
+    foreach ($results as $article_queries) {
       foreach ($article_queries as $data) {
         $output .= implode("\n", $data);
       }

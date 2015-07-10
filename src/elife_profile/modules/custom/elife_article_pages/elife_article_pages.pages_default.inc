@@ -1203,6 +1203,34 @@ function elife_article_pages_default_page_manager_handlers() {
     $display->content['new-071a4bce-8075-4788-ae20-d74f32bba2e7'] = $pane;
     $display->panels['main'][6] = 'new-071a4bce-8075-4788-ae20-d74f32bba2e7';
     $pane = new stdClass();
+    $pane->pid = 'new-860c6450-ad7b-476e-ba3a-19ba6556582a';
+    $pane->panel = 'side_bottom';
+    $pane->type = 'custom';
+    $pane->subtype = 'custom';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'admin_title' => 'Jump-links floater container',
+      'title' => '',
+      'body' => 'placeholder-text',
+      'format' => 'plain_text',
+      'substitute' => 0,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array(
+      'css_id' => 'jump-links-anchor-container',
+      'css_class' => 'hidden-small',
+    );
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '860c6450-ad7b-476e-ba3a-19ba6556582a';
+    $display->content['new-860c6450-ad7b-476e-ba3a-19ba6556582a'] = $pane;
+    $display->panels['side_bottom'][0] = 'new-860c6450-ad7b-476e-ba3a-19ba6556582a';
+    $pane = new stdClass();
     $pane->pid = 'new-75f75966-fa5e-4410-b4c1-1f9dd987d2a1';
     $pane->panel = 'side_lens';
     $pane->type = 'elife_lens_icon';
@@ -1254,6 +1282,33 @@ function elife_article_pages_default_page_manager_handlers() {
     $display->content['new-bb8bd804-2eec-4904-aba9-d0d3c3d037c4'] = $pane;
     $display->panels['side_top'][0] = 'new-bb8bd804-2eec-4904-aba9-d0d3c3d037c4';
     $pane = new stdClass();
+    $pane->pid = 'new-69de4c64-59af-4e4c-82e7-b7730ad02c18';
+    $pane->panel = 'side_top';
+    $pane->type = 'elife_article_jumpto';
+    $pane->subtype = 'elife_article_jumpto';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => 'Jump to:',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'hidden-small',
+    );
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '69de4c64-59af-4e4c-82e7-b7730ad02c18';
+    $display->content['new-69de4c64-59af-4e4c-82e7-b7730ad02c18'] = $pane;
+    $display->panels['side_top'][1] = 'new-69de4c64-59af-4e4c-82e7-b7730ad02c18';
+    $pane = new stdClass();
     $pane->pid = 'new-b38d43dc-36d8-4afb-a1cc-335f8d79d401';
     $pane->panel = 'side_top';
     $pane->type = 'elife_content_alerts_sign_up';
@@ -1280,11 +1335,11 @@ function elife_article_pages_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = array();
     $pane->uuid = 'b38d43dc-36d8-4afb-a1cc-335f8d79d401';
     $display->content['new-b38d43dc-36d8-4afb-a1cc-335f8d79d401'] = $pane;
-    $display->panels['side_top'][1] = 'new-b38d43dc-36d8-4afb-a1cc-335f8d79d401';
+    $display->panels['side_top'][2] = 'new-b38d43dc-36d8-4afb-a1cc-335f8d79d401';
     $pane = new stdClass();
     $pane->pid = 'new-9e65e0e4-4734-4e80-b701-8822cb20c66a';
     $pane->panel = 'top';
@@ -1631,6 +1686,34 @@ function elife_article_pages_default_page_manager_handlers() {
     $display->content['new-f9fe78d3-3e34-45f8-9af5-d587bdaf4bd2'] = $pane;
     $display->panels['main'][6] = 'new-f9fe78d3-3e34-45f8-9af5-d587bdaf4bd2';
     $pane = new stdClass();
+    $pane->pid = 'new-4f77048a-f8f1-4f37-87e0-3ceb9b627d2b';
+    $pane->panel = 'side_bottom';
+    $pane->type = 'custom';
+    $pane->subtype = 'custom';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'admin_title' => 'Jump-links floater container',
+      'title' => '',
+      'body' => 'placeholder-text',
+      'format' => 'plain_text',
+      'substitute' => 0,
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array(
+      'css_id' => 'jump-links-anchor-container',
+      'css_class' => 'hidden-small',
+    );
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '4f77048a-f8f1-4f37-87e0-3ceb9b627d2b';
+    $display->content['new-4f77048a-f8f1-4f37-87e0-3ceb9b627d2b'] = $pane;
+    $display->panels['side_bottom'][0] = 'new-4f77048a-f8f1-4f37-87e0-3ceb9b627d2b';
+    $pane = new stdClass();
     $pane->pid = 'new-5aa44b1d-408e-444f-ac50-98ecec1fc3bd';
     $pane->panel = 'side_lens';
     $pane->type = 'elife_lens_icon';
@@ -1682,6 +1765,33 @@ function elife_article_pages_default_page_manager_handlers() {
     $display->content['new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab'] = $pane;
     $display->panels['side_top'][0] = 'new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab';
     $pane = new stdClass();
+    $pane->pid = 'new-d9065221-a6d3-4ec2-b330-459713b5baed';
+    $pane->panel = 'side_top';
+    $pane->type = 'elife_article_jumpto';
+    $pane->subtype = 'elife_article_jumpto';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => 'Jump to:',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array(
+      'css_id' => '',
+      'css_class' => 'hidden-small',
+    );
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'd9065221-a6d3-4ec2-b330-459713b5baed';
+    $display->content['new-d9065221-a6d3-4ec2-b330-459713b5baed'] = $pane;
+    $display->panels['side_top'][1] = 'new-d9065221-a6d3-4ec2-b330-459713b5baed';
+    $pane = new stdClass();
     $pane->pid = 'new-be3653ce-d915-40bd-80e9-7b31a479c687';
     $pane->panel = 'side_top';
     $pane->type = 'elife_content_alerts_sign_up';
@@ -1708,11 +1818,11 @@ function elife_article_pages_default_page_manager_handlers() {
     );
     $pane->css = array();
     $pane->extras = array();
-    $pane->position = 1;
+    $pane->position = 2;
     $pane->locks = array();
     $pane->uuid = 'be3653ce-d915-40bd-80e9-7b31a479c687';
     $display->content['new-be3653ce-d915-40bd-80e9-7b31a479c687'] = $pane;
-    $display->panels['side_top'][1] = 'new-be3653ce-d915-40bd-80e9-7b31a479c687';
+    $display->panels['side_top'][2] = 'new-be3653ce-d915-40bd-80e9-7b31a479c687';
     $pane = new stdClass();
     $pane->pid = 'new-2f7bfe63-2c67-4846-bee6-ab62caab867d';
     $pane->panel = 'top';
