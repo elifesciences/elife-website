@@ -129,7 +129,7 @@ final class ExeterMarkupService extends ElifeMarkupService {
 
   public function processResponse() {
     if (empty($this->response)) {
-      throw new Exception('The query needs to be submitted first.');
+      // throw new Exception('The query needs to be submitted first.');
     }
 
     $response = $this->response;

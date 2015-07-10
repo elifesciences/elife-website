@@ -21,7 +21,69 @@ function elife_article_categories_render($subtype, $conf, $args, $context) {
     if ($ewrapper->getBundle() == 'elife_article_ver' && !$ewrapper->field_elife_a_subarticle->value()) {
       $dto = elife_article_version_to_dto($article_version);
 
-      // @todo - elife - nlisgo - output categories and tags
+      $display_channels = $dto->getDisplayChannels();
+      $headings = $dto->getHeadings();
+      $keyword_groups = $dto->getKeywords();
+      $keywords = [];
+      $exclude_keywords = ['Other', 'None'];
+      foreach ($keyword_groups as $group => $keyword) {
+        if (!in_array($keyword, $exclude_keywords)) {
+          $keywords[] = $keyword;
+        }
+      }
+
+      $items = [];
+      if (!empty($display_channels)) {
+        $query = new EntityFieldQueryExtraFields();
+        $query->entityCondition('entity_type', 'taxonomy_term');
+        $query->entityCondition('bundle', 'elife_categories');
+        $query->fieldCondition('field_elife_category_type', 'value', 'display-channel');
+        $query->propertyCondition('name', $display_channels, 'IN');
+        $query->addExtraField('', 'name', 'name', 'taxonomy_term_data');
+        if ($result = $query->execute()) {
+          if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
+            foreach ($result['taxonomy_term'] as $tid => $term) {
+              $items[] = l($term->extraFields->name, 'taxonomy/term/' . $tid, array('attributes' => array('class' => array('category-display-channel'))));
+            }
+          }
+        }
+      }
+      if (!empty($headings)) {
+        $query = new EntityFieldQueryExtraFields();
+        $query->entityCondition('entity_type', 'taxonomy_term');
+        $query->entityCondition('bundle', 'elife_headings');
+        $query->propertyCondition('name', $headings, 'IN');
+        $query->addExtraField('', 'name', 'name', 'taxonomy_term_data');
+        if ($result = $query->execute()) {
+          if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
+            foreach ($result['taxonomy_term'] as $tid => $term) {
+              $items[] = l($term->extraFields->name, 'taxonomy/term/' . $tid, array('attributes' => array('class' => array('category-heading'))));
+            }
+          }
+        }
+      }
+      if (!empty($keywords)) {
+        $query = new EntityFieldQueryExtraFields();
+        $query->entityCondition('entity_type', 'taxonomy_term');
+        $query->entityCondition('bundle', 'elife_keywords');
+        $query->propertyCondition('name', $keywords, 'IN');
+        $query->fieldCondition('field_elife_a_full_title', 'value', $keywords, 'IN');
+        $query->addExtraField('field_elife_a_full_title', 'value', 'value');
+        if ($result = $query->execute()) {
+          if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
+            foreach ($result['taxonomy_term'] as $tid => $term) {
+              $items[] = l($term->extraFields->field_elife_a_full_title_value, 'taxonomy/term/' . $tid, array('attributes' => array('class' => array('keyword'))));
+            }
+          }
+        }
+      }
+
+      if (!empty($items)) {
+        $block = new stdClass();
+        $block->content = theme('item_list', array('items' => $items, 'attributes' => array('class' => 'elife-article-categories')));
+
+        return $block;
+      }
     }
   }
 }
