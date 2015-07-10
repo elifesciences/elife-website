@@ -130,7 +130,7 @@ function elife_search_default_search_api_server() {
       "site_hash" : true,
       "scheme" : "http",
       "host" : "localhost",
-      "port" : "8984",
+      "port" : "8983",
       "path" : "\\/solr\\/drupal",
       "http_user" : "",
       "http_pass" : "",
