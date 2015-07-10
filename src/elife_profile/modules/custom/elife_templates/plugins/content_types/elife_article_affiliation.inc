@@ -29,14 +29,8 @@ function elife_article_affiliation_render($subtype, $conf, $args, $context) {
   $referenced = $dto->getReferenced();
   foreach ($referenced->getAffiliation() as $key => $affiliation) {
     $name = [];
-    if ($dept = $affiliation->getDept()) {
-      $name['dept'] = $dept;
-    }
     if ($institution = $affiliation->getInstitution()) {
       $name['institution'] = $institution;
-    }
-    if ($city = $affiliation->getCity()) {
-      $name['city'] = $city;
     }
     if ($country = $affiliation->getCountry()) {
       $name['country'] = $country;
