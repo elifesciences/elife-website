@@ -8,19 +8,6 @@ use eLife\HttpClient\HttpClient;
 use GuzzleHttp\Psr7\Request;
 
 final class ExeterMarkupService implements MarkupService {
-  private $queries = [];
-  private $results = [];
-  private $xpaths = [
-    'doi' => "//*[@data-doi='%s']",
-    'main-text' => "//*[contains(concat(' ', @class, ' '), ' section ')]",
-    'abstract' => "//*[@id='abstract']",
-    'digest' => "//*[@id='elife-digest']",
-    'references' => "//*[@id='references']",
-    'acknowledgements' => "//*[@id='ack-1']",
-    'decision-letter' => "//*[@id='decision-letter']",
-    'author-response' => "//*[@id='author-response']",
-  ];
-
   /**
    * @var HttpClient
    */
@@ -40,68 +27,25 @@ final class ExeterMarkupService implements MarkupService {
     $this->uri = $uri;
   }
 
-  /**
-   * @param string $article_id
-   * @param string $section
-   * @param string $value
-   */
-  private function addQuery($article_id, $section, $value = NULL) {
-    $xpath = $this->xpaths[$section];
-    if ($value) {
-      $xpath = sprintf($xpath, $value);
-    }
-    if (!isset($this->queries[$article_id]) || !in_array($xpath, $this->queries[$article_id])) {
-      $this->queries[$article_id][] = $xpath;
-    }
-  }
-
-  /**
-   * @param string $article_id
-   * @param string $section
-   */
-  public function addSectionQuery($article_id, $section) {
-    $this->addQuery($article_id, $section);
-  }
-
-  /**
-   * @param string $article_id
-   * @param string $doi
-   */
-  public function addDoiQuery($article_id, $doi) {
-    $this->addQuery($article_id, 'doi', $doi);
-  }
-
-  private function prepareQuery() {
-    $content = '';
-    foreach ($this->queries as $article_id => $article_queries) {
-      $content .= '<article id="' . $article_id . '">';
-      foreach ($article_queries as $article_query) {
-        $content .= '<query xpath="' . $article_query . '" ></query>';
-      }
-      $content .= '</article>';
+  public function query(Query $query) {
+    if (empty($query)) {
+      return '';
     }
 
-    if (!empty($content)) {
-      return '<xmltohtml>' . $content . '</xmltohtml>';
-    }
+    $request = new Request(
+      'POST',
+      $this->uri,
+      [
+        'content' => $query->getValue(),
+      ]
+    );
+
+    $response = $this->httpClient->request($request);
+    $processed = $this->processResponse((string) $response->getBody());
+    return $this->output($processed);
   }
 
-  public function submitQuery() {
-    if (!empty($this->queries)) {
-      $request = new Request(
-        'POST',
-        $this->uri,
-        [
-          'content' => $this->prepareQuery(),
-        ]
-      );
-
-      $response = $this->httpClient->request($request);
-      $this->processResponse((string) $response->getBody());
-    }
-  }
-
-  public function processResponse($response) {
+  private function processResponse($response) {
     $xml = new DOMDocument();
     $xml->preserveWhiteSpace = FALSE;
     $xml->loadXML($response);
@@ -118,16 +62,18 @@ final class ExeterMarkupService implements MarkupService {
         }
       }
     }
-    $this->results = $results;
+    return $results;
   }
 
   /**
-   * @return string
-   *   HTML output from markup query.
+   * @param array $results
+   *
+   * @return string HTML output from markup query.
+   * HTML output from markup query.
    */
-  public function output() {
+  private function output(array $results) {
     $output = '';
-    foreach ($this->results as $article_queries) {
+    foreach ($results as $article_queries) {
       foreach ($article_queries as $data) {
         $output .= implode("\n", $data);
       }
@@ -136,4 +82,3 @@ final class ExeterMarkupService implements MarkupService {
     return $output;
   }
 }
-

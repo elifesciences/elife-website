@@ -1,5 +1,6 @@
 <?php
 
+use eLife\MarkupService\QueryBuilder;
 use eLife\MarkupService\SectionLabels;
 
 $plugin = array(
@@ -37,9 +38,12 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       }
 
       $markup = elife_article_markup_service();
-      $markup->addSectionQuery($article_id, $markup_section);
-      $markup->submitQuery();
-      $html = $markup->output();
+
+      $query = QueryBuilder::create()
+        ->addSectionQuery($article_id, $markup_section)
+        ->build();
+
+      $html = $markup->query($query);
 
       if ($html) {
         $block = new stdClass();

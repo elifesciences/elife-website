@@ -236,7 +236,7 @@ function elife_article_markup_service() {
     $markup_service = $factory();
   }
 
-  return clone $markup_service;
+  return $markup_service;
 }
 
 /**
