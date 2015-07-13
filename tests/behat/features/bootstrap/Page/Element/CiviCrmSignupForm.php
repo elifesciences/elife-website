@@ -18,6 +18,9 @@ class CiviCrmSignupForm extends Element {
   public function hasId($id)
   {
     $element = $this->find("css", 'input[name=custom_6]');
+    if(!$element) {
+      throw $this->elementNotFound('input', 'css', 'input[name=custom_6]');
+    }
     $id_current = $element->getAttribute('value');
     if ($id !== $id_current) {
       throw new Exception('Expected value ' . $id . ' but found ' . $id_current);
