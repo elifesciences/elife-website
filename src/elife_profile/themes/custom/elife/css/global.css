@@ -3587,7 +3587,7 @@ a.back-to-top:hover {
 /**
  * Article Category Color Coding
  */
-.pane-node-field-highwire-article-category .pane-content a {
+.pane-node-field-elife-a-category .pane-content a {
   color: #FFF;
   background-color:rgb(5, 96, 171); /* default */
   padding: 2px 5px 0px;

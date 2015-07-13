@@ -43,7 +43,7 @@ projects:
     patch:
       - 'https://www.drupal.org/files/issues/entityreference-2010898-80-Use-tokens.patch'
   features:
-    version: '2.5'
+    version: '2.6'
   field_collection:
     version: '1.0-beta8'
   field_group:
@@ -69,9 +69,9 @@ projects:
   menu_token:
     version: '1.0-beta5'
   metatag:
-    version: '1.5'
+    version: '1.6'
   migrate:
-    version: '2.7'
+    version: '2.8'
   migrate_extras:
     version: '2.5'
   module_builder:
@@ -104,9 +104,8 @@ projects:
   rabbit_hole:
     version: '2.23'
   redirect:
-    version: '1.0-rc1'
+    version: '1.0-rc3'
     patch:
-      - 'https://drupal.org/files/issues/redirect.circular-loops.1796596-119.patch'
       - 'https://drupal.org/files/redirect-migrate-support-1116408-69.patch'
   relation:
     version: '1.0-rc7'
