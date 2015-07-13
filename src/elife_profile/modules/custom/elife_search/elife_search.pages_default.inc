@@ -36,7 +36,6 @@ function elife_search_default_page_manager_handlers() {
           'settings' => array(
             'machine_name' => array(
               'elife_categories' => 'elife_categories',
-              'elife_headings' => 'elife_headings',
             ),
           ),
           'context' => 'argument_term_1',
@@ -170,11 +169,167 @@ function elife_search_default_page_manager_handlers() {
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
+  $handler->name = 'term_view__elife_heading';
+  $handler->task = 'term_view';
+  $handler->subtask = '';
+  $handler->handler = 'panel_context';
+  $handler->weight = -29;
+  $handler->conf = array(
+    'title' => 'Heading',
+    'no_blocks' => 0,
+    'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(),
+    'name' => 'elife_heading',
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'term_vocabulary',
+          'settings' => array(
+            'machine_name' => array(
+              'elife_headings' => 'elife_headings',
+            ),
+          ),
+          'context' => 'argument_term_1',
+          'not' => FALSE,
+        ),
+      ),
+      'logic' => 'and',
+    ),
+  );
+  $display = new panels_display();
+  $display->layout = 'elife_article';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'top' => NULL,
+      'main' => NULL,
+      'side_lens' => NULL,
+      'side_link' => NULL,
+      'side_top' => NULL,
+      'side_bottom' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '%term:plural';
+  $display->uuid = '01aab8f0-b714-4224-aed8-7d1ea27f1d7c';
+  $display->content = array();
+  $display->panels = array();
+    $pane = new stdClass();
+    $pane->pid = 'new-dc205b54-fefd-4b87-8a33-389a3632062f';
+    $pane->panel = 'main';
+    $pane->type = 'views_panes';
+    $pane->subtype = 'elife_search-elife_search_taxonomy';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array();
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'dc205b54-fefd-4b87-8a33-389a3632062f';
+    $display->content['new-dc205b54-fefd-4b87-8a33-389a3632062f'] = $pane;
+    $display->panels['main'][0] = 'new-dc205b54-fefd-4b87-8a33-389a3632062f';
+    $pane = new stdClass();
+    $pane->pid = 'new-f9878799-0ede-4cf2-bab0-dee6c4d71114';
+    $pane->panel = 'side_top';
+    $pane->type = 'block';
+    $pane->subtype = 'facetapi-DoHpccq2WwkIMaNTmv1LgBFKntfeazMS';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 1,
+      'override_title_text' => 'Filter by content type',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'f9878799-0ede-4cf2-bab0-dee6c4d71114';
+    $display->content['new-f9878799-0ede-4cf2-bab0-dee6c4d71114'] = $pane;
+    $display->panels['side_top'][0] = 'new-f9878799-0ede-4cf2-bab0-dee6c4d71114';
+    $pane = new stdClass();
+    $pane->pid = 'new-b51554eb-74cf-40a3-86f6-6509ca470e1a';
+    $pane->panel = 'side_top';
+    $pane->type = 'block';
+    $pane->subtype = 'facetapi-AVGMbjNIxhJvJepgV6biSs8slb14KUbc';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'override_title' => 1,
+      'override_title_text' => 'Filter by publication date',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = 'b51554eb-74cf-40a3-86f6-6509ca470e1a';
+    $display->content['new-b51554eb-74cf-40a3-86f6-6509ca470e1a'] = $pane;
+    $display->panels['side_top'][1] = 'new-b51554eb-74cf-40a3-86f6-6509ca470e1a';
+    $pane = new stdClass();
+    $pane->pid = 'new-ed0d1a3f-56d8-4fe0-bdef-ba86fcd6477d';
+    $pane->panel = 'side_top';
+    $pane->type = 'elife_content_alerts_sign_up';
+    $pane->subtype = 'elife_content_alerts_sign_up';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'buttons' => NULL,
+      'aligner_start' => NULL,
+      'override_title' => 1,
+      'override_title_text' => 'Sign up for <em>eLife</em> alerts',
+      'override_title_heading' => 'h2',
+      'aligner_stop' => NULL,
+      'override_title_markup' => NULL,
+      'gid' => '',
+      'custom_6' => '',
+      'form_build_id' => 'form-tnGG6TEiB8wq7K79-TlaBUZQP3lcgi4KQSHp4ByUjFE',
+      'form_token' => 'QGGnosR9MdSAxNJacENX-UwmP0nchuJBwUQ4zo7JE0E',
+      'form_id' => 'elife_content_alerts_sign_up_edit',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = 'ed0d1a3f-56d8-4fe0-bdef-ba86fcd6477d';
+    $display->content['new-ed0d1a3f-56d8-4fe0-bdef-ba86fcd6477d'] = $pane;
+    $display->panels['side_top'][2] = 'new-ed0d1a3f-56d8-4fe0-bdef-ba86fcd6477d';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $handler->conf['display'] = $display;
+  $export['term_view__elife_heading'] = $handler;
+
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
   $handler->name = 'term_view__elife_keyword';
   $handler->task = 'term_view';
   $handler->subtask = '';
   $handler->handler = 'http_response';
-  $handler->weight = -29;
+  $handler->weight = -28;
   $handler->conf = array(
     'title' => 'Keyword',
     'contexts' => array(),
@@ -207,7 +362,7 @@ function elife_search_default_page_manager_handlers() {
   $handler->task = 'term_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -28;
+  $handler->weight = -27;
   $handler->conf = array(
     'title' => 'Panel',
     'no_blocks' => 0,
