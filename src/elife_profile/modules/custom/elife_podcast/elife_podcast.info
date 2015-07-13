@@ -24,5 +24,6 @@ features[variable][] = menu_parent_elife_podcast
 features[variable][] = node_options_elife_podcast
 features[variable][] = node_preview_elife_podcast
 features[variable][] = node_submitted_elife_podcast
+features[variable][] = pathauto_node_elife_podcast_pattern
 features[views_view][] = elife_article_podcast
 project path = profiles/elife_profile/modules/custom

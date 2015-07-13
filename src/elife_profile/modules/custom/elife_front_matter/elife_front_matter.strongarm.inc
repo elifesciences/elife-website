@@ -139,6 +139,20 @@ function elife_front_matter_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_elife_cover_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_elife_cover_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_node_elife_front_matter_pattern';
+  $strongarm->value = '';
+  $export['pathauto_node_elife_front_matter_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'rh_module_elife_cover';
   $strongarm->value = 'rh_node';
   $export['rh_module_elife_cover'] = $strongarm;
