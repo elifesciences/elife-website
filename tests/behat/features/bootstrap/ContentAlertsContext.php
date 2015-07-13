@@ -25,11 +25,4 @@ class ContentAlertsContext extends PageObjectContext {
     $this->getElement('Content Alerts Signup Form')->hasId($id);
     $this->getElement('Content Alerts Signup Form')->hasGid($gid);
   }
-
-  /**
-   * @Given the CiviCRM form should have the id :id
-   */
-  public function civiCrmFormShouldHaveId($id) {
-    $this->getElement('Civi Crm Signup Form')->hasId($id);
-  }
 }
