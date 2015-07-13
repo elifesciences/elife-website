@@ -1,5 +1,7 @@
 <?php
 
+use Behat\Mink\Driver\GoutteDriver;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Drupal\elife_article\ElifeArticleVersion;
@@ -48,6 +50,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @BeforeScenario
+   */
+  public function resetFollowingRedirects() {
+    try {
+      $this->canIntercept();
+      $this->getSession()->getDriver()->getClient()->followRedirects(true);
+    } catch(UnsupportedDriverActionException $e) {
+      // Do nothing.
+    }
+  }
+
+  /**
    * Store max entity ids for later cleanup.
    *
    * @BeforeScenario
@@ -84,6 +98,14 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         entity_delete_multiple($type, $ids);
       }
     }
+  }
+
+  /**
+   * @Given redirects are not followed
+   */
+  public function redirectsAreNotFollowed() {
+    $this->canIntercept();
+    $this->getSession()->getDriver()->getClient()->followRedirects(false);
   }
 
   /**
@@ -339,6 +361,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $value_current = $element->getAttribute('value');
     if ($value !== $value_current) {
       throw new Exception('Expected value ' . $value . ' but found ' . $value_current);
+    }
+  }
+
+  /**
+   * @throws UnsupportedDriverActionException
+   */
+  private function canIntercept() {
+    $driver = $this->getSession()->getDriver();
+    if (!$driver instanceof GoutteDriver) {
+      throw new UnsupportedDriverActionException(
+        'Intercepting the redirections is not supported by %s', $driver
+      );
     }
   }
 }
