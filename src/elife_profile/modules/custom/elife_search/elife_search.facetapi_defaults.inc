@@ -19,7 +19,7 @@ function elife_search_facetapi_default_facet_settings() {
   $facet->facet = 'field_elife_a_fpubdate';
   $facet->enabled = FALSE;
   $facet->settings = array(
-    'operator' => 'and',
+    'operator' => 'or',
     'hard_limit' => '50',
     'dependencies' => array(
       'bundle' => 'none',
@@ -32,7 +32,7 @@ function elife_search_facetapi_default_facet_settings() {
     'individual_parent' => 0,
     'query_type' => 'date_range',
     'limit_active_items' => 1,
-    'default_true' => '1',
+    'default_true' => TRUE,
     'facet_search_ids' => array(),
     'date_granularity' => 'DAY',
     'facetapi_alias' => 'published',
@@ -48,7 +48,7 @@ function elife_search_facetapi_default_facet_settings() {
   $facet->facet = 'field_elife_a_versions:field_elife_a_article_type';
   $facet->enabled = FALSE;
   $facet->settings = array(
-    'operator' => 'and',
+    'operator' => 'or',
     'hard_limit' => '50',
     'dependencies' => array(
       'bundle' => 'none',
@@ -61,7 +61,7 @@ function elife_search_facetapi_default_facet_settings() {
     'individual_parent' => 0,
     'query_type' => 'term',
     'limit_active_items' => 1,
-    'default_true' => '1',
+    'default_true' => TRUE,
     'facet_search_ids' => array(),
     'exclude' => 0,
     'facetapi_alias' => 'type',
