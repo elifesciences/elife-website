@@ -57,6 +57,7 @@ dependencies[] = pathauto
 dependencies[] = entityreference
 dependencies[] = menu_attributes
 dependencies[] = imce
+dependencies[] = transliteration
 dependencies[] = metatag
 dependencies[] = menu_token
 dependencies[] = clone
