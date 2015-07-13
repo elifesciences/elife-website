@@ -94,11 +94,6 @@ Showing results @start&ndash;@end of @total';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['order'] = 'DESC';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['expose']['label'] = 'Date';
-
-  /* Display: Keyword search */
-  $handler = $view->new_display('panel_pane', 'Keyword search', 'elife_search_keyword');
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Search: Fulltext search */
   $handler->display->display_options['filters']['search_api_views_fulltext']['id'] = 'search_api_views_fulltext';
   $handler->display->display_options['filters']['search_api_views_fulltext']['table'] = 'search_api_index_elife_articles_index';
@@ -113,6 +108,9 @@ Showing results @start&ndash;@end of @total';
     1 => 0,
     3 => 0,
   );
+
+  /* Display: Keyword search */
+  $handler = $view->new_display('panel_pane', 'Keyword search', 'elife_search_keyword');
   $handler->display->display_options['allow']['use_pager'] = 0;
   $handler->display->display_options['allow']['items_per_page'] = 0;
   $handler->display->display_options['allow']['offset'] = 0;
@@ -175,8 +173,7 @@ Showing results @start&ndash;@end of @total';
   );
   $handler->display->display_options['arguments']['search_api_views_taxonomy_term']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['search_api_views_taxonomy_term']['not'] = 0;
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
+  $handler->display->display_options['inherit_panels_path'] = '1';
   $export['elife_search'] = $view;
 
   return $export;
