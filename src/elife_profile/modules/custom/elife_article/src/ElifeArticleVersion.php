@@ -493,8 +493,8 @@ class ElifeArticleVersion {
             if ($sub_wrapper->field_elife_a_fragments->value()) {
               $subarticle['fragments'] = self::getChildFragments($sub_wrapper->field_elife_a_fragments);
             }
-            if ($sub_wrapper->field_elife_a_contributors->value()) {
-              $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors);
+            if ($sub_wrapper->field_elife_a_contributors_pri->value()) {
+              $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors_pri);
             }
             if (!empty($subarticle)) {
               $subarticle['type'] = 'sub-article';
@@ -565,8 +565,8 @@ class ElifeArticleVersion {
 
     /* @var EntityDrupalWrapper $ewrapper */
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      if ($ewrapper->field_elife_a_contributors->value()) {
-        $contributors = self::getChildContributors($ewrapper->field_elife_a_contributors);
+      if ($contributors_json = $ewrapper->field_elife_a_contributors_json->value()) {
+        $contributors = json_decode($contributors_json, TRUE);
       }
     }
 

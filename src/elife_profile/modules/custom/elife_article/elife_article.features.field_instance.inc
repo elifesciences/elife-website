@@ -955,48 +955,7 @@ function elife_article_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'node-elife_article_ver-field_elfie_a_citations_json'
-  $field_instances['node-elife_article_ver-field_elfie_a_citations_json'] = array(
-    'bundle' => 'elife_article_ver',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 29,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elfie_a_citations_json',
-    'label' => 'Citations Json',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 30,
+      'weight' => 4,
     ),
   );
 
@@ -1120,7 +1079,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -1201,7 +1160,7 @@ function elife_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 13,
     ),
   );
 
@@ -1292,7 +1251,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 21,
+      'weight' => 20,
     ),
   );
 
@@ -1333,13 +1292,13 @@ function elife_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 30,
+      'weight' => 29,
     ),
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_contributors'
-  $field_instances['node-elife_article_ver-field_elife_a_contributors'] = array(
+  // 'node-elife_article_ver-field_elife_a_contributors_pri'
+  $field_instances['node-elife_article_ver-field_elife_a_contributors_pri'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1362,8 +1321,8 @@ function elife_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_a_contributors',
-    'label' => 'Contributors',
+    'field_name' => 'field_elife_a_contributors_pri',
+    'label' => 'Primary Contributors',
     'required' => 0,
     'settings' => array(
       'behaviors' => array(
@@ -1382,6 +1341,47 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
+      'weight' => 23,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-elife_article_ver-field_elife_a_contributors_json'
+  $field_instances['node-elife_article_ver-field_elife_a_contributors_json'] = array(
+    'bundle' => 'elife_article_ver',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 30,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_contributors_json',
+    'label' => 'Contributors Json',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
       'weight' => 24,
     ),
   );
@@ -1422,7 +1422,7 @@ function elife_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 15,
+      'weight' => 14,
     ),
   );
 
@@ -1545,7 +1545,7 @@ function elife_article_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -1636,7 +1636,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 22,
+      'weight' => 21,
     ),
   );
 
@@ -1684,7 +1684,7 @@ function elife_article_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 22,
     ),
   );
 
@@ -1854,7 +1854,7 @@ function elife_article_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 20,
+      'weight' => 19,
     ),
   );
 
@@ -1907,7 +1907,7 @@ function elife_article_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 13,
+      'weight' => 12,
     ),
   );
 
@@ -1993,7 +1993,7 @@ function elife_article_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 16,
+      'weight' => 15,
     ),
   );
 
@@ -3322,7 +3322,7 @@ function elife_article_field_default_field_instances() {
   t('Citations Json');
   t('City');
   t('Collab');
-  t('Contributors');
+  t('Contributors Json');
   t('Copyright Permissions');
   t('Corresponding author');
   t('Country');
@@ -3345,6 +3345,7 @@ function elife_article_field_default_field_instances() {
   t('Label');
   t('Orcid Id');
   t('Parent');
+  t('Primary Contributors');
   t('Reference');
   t('Related articles');
   t('Related object references');

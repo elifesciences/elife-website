@@ -31,25 +31,6 @@ function elife_article_field_default_field_bases() {
     'type' => 'text_with_summary',
   );
 
-  // Exported field_base: 'field_elfie_a_citations_json'
-  $field_bases['field_elfie_a_citations_json'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_elfie_a_citations_json',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(),
-    'translatable' => 0,
-    'type' => 'text_long',
-  );
-
   // Exported field_base: 'field_elife_a_aff_city'
   $field_bases['field_elife_a_aff_city'] = array(
     'active' => 1,
@@ -643,13 +624,13 @@ function elife_article_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_a_contributors'
-  $field_bases['field_elife_a_contributors'] = array(
+  // Exported field_base: 'field_elife_a_contributors_pri'
+  $field_bases['field_elife_a_contributors_pri'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_elife_a_contributors',
+    'field_name' => 'field_elife_a_contributors_pri',
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -661,6 +642,9 @@ function elife_article_field_default_field_bases() {
       'handler' => 'base',
       'handler_settings' => array(
         'behaviors' => array(
+          'entityqueue' => array(
+            'status' => 0,
+          ),
           'views-select-list' => array(
             'status' => 0,
           ),
@@ -676,6 +660,25 @@ function elife_article_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_elife_a_contributors_json'
+  $field_bases['field_elife_a_contributors_json'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_contributors_json',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_elife_a_copyright'

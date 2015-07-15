@@ -138,7 +138,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $article = ElifeArticleVersion::fromIdentifier($article_version_id);
     /* @var EntityDrupalWrapper $ewrapper */
     $ewrapper = entity_metadata_wrapper('node', $article);
-    $actual = $ewrapper->field_elife_a_contributors->count();
+    $actual = $ewrapper->field_elife_a_contributors_pri->count();
     Assertions::assertSame($expected, $actual);
   }
 

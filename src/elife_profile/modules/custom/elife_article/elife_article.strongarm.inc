@@ -58,19 +58,19 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '19',
+          'weight' => '18',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '18',
-        ),
-        'redirect' => array(
           'weight' => '17',
         ),
+        'redirect' => array(
+          'weight' => '16',
+        ),
         'rabbit_hole' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
       ),
       'display' => array(),
