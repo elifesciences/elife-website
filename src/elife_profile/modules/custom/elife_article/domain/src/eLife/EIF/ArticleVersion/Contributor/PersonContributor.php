@@ -12,7 +12,7 @@ abstract class PersonContributor extends Contributor {
    *
    * @Serializer\Type("string")
    */
-  private $surname;
+  protected $surname;
 
   /**
    * @var string
@@ -20,14 +20,14 @@ abstract class PersonContributor extends Contributor {
    * @Serializer\Type("string")
    * @Serializer\SerializedName("given-names")
    */
-  private $given_names;
+  protected $given_names;
 
   /**
    * @var string|null
    *
    * @Serializer\Type("string")
    */
-  private $suffix;
+  protected $suffix;
 
   /**
    * @param string $type
