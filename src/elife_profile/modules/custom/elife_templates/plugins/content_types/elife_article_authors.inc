@@ -37,6 +37,9 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
       $variables = [];
       $name = [];
       if ($contributor instanceof BylineContributor) {
+        if ($contributor->getType() != 'author') {
+          continue;
+        }
         if ($given_names = $contributor->getGivenNames()) {
           $name['given-names'] = $given_names;
         }
