@@ -3,6 +3,66 @@ Feature: Article Resource - Contributor references (API)
   As a production system
   I need to be able to assign contributor references to the article via the resource api
 
+  Scenario: Set contributor foot note references
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "referenced": {
+            "foot-note": {
+              "fn1": {
+                "type": "deceased",
+                "value": "Deceased"
+              },
+              "fn2": {
+                "type": "other",
+                "value": "These authors are listed in alphabetical order"
+              }
+            }
+          }
+        }
+      """
+    And the response code should be 200
+    When I send a GET request to "api/article/05224.json"
+    Then the response should contain json:
+      """
+        {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "referenced": {
+            "foot-note": {
+              "fn1": {
+                "type": "deceased",
+                "value": "Deceased"
+              },
+              "fn2": {
+                "type": "other",
+                "value": "These authors are listed in alphabetical order"
+              }
+            }
+          }
+        }
+      """
+
   Scenario: Set contributor references
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

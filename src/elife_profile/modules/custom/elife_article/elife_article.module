@@ -19,6 +19,7 @@ use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\NonBylineContributor;
 use eLife\EIF\ArticleVersion\Fragment;
 use eLife\EIF\ArticleVersion\Referenced;
+use eLife\EIF\ArticleVersion\Referenced\FootNote;
 use eLife\EIF\ArticleVersion\Referenced\Funding;
 use eLife\EIF\ArticleVersion\Referenced\RelatedObject;
 use eLife\EIF\ArticleVersion\RelatedArticle;
@@ -264,6 +265,7 @@ function elife_article_version_to_dto(stdClass $entity) {
     'present-address' => [],
     'affiliation' => [],
     'related-object' => [],
+    'foot-note' => [],
   ];
 
   foreach ($entity->field_elife_a_basic_ref->value() as $entity_basic_ref) {
@@ -305,6 +307,16 @@ function elife_article_version_to_dto(stdClass $entity) {
     $referenced['related-object'][$entity_rel_ref->field_elife_a_ref_key->value()] = new RelatedObject();
   }
 
+  foreach ($entity->field_elife_a_fn_ref->value() as $entity_fn_ref) {
+    /* @var EntityDrupalWrapper $entity_fn_ref */
+    $entity_fn_ref = entity_metadata_wrapper('field_collection_item', $entity_fn_ref);
+
+    $referenced['foot-note'][$entity_fn_ref->field_elife_a_ref_key->value()] = new FootNote(
+      $entity_fn_ref->field_elife_a_fn_ref_type->value(),
+      $entity_fn_ref->field_elife_a_fn_ref_value->value()
+    );
+  }
+
   $referenced = new Referenced(
     $referenced['equal-contrib'],
     $referenced['email'],
@@ -313,7 +325,8 @@ function elife_article_version_to_dto(stdClass $entity) {
     $referenced['contribution'],
     $referenced['present-address'],
     $referenced['affiliation'],
-    $referenced['related-object']
+    $referenced['related-object'],
+    $referenced['foot-note']
   );
 
   $contributors = [];
@@ -343,6 +356,7 @@ function elife_article_version_to_dto(stdClass $entity) {
             'present-address' => 'field_elife_a_basic_ref_links',
             'affiliation' => 'field_elife_a_aff_ref_links',
             'related-object' => 'field_elife_a_rel_ref_links',
+            'foot-note' => 'field_elife_a_fn_ref_links',
           ];
 
           foreach ($references_map as $type => $field) {
@@ -653,6 +667,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     'present-address' => [],
     'affiliation' => [],
     'related-object' => [],
+    'foot-note' => [],
   ];
   foreach (
     [
@@ -736,6 +751,23 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     $entity_references['related-object'][$key] = $fc_wrapper->getIdentifier();
   }
 
+  foreach ($referenced->getFootNote() as $key => $foot_note) {
+    /* @var FieldCollectionItemEntity $fc_item */
+    $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_fn_ref'));
+    $fc_item->setHostEntity('node', $entity->raw());
+
+    /* @var EntityDrupalWrapper $fc_wrapper */
+    $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
+
+    $fc_wrapper->field_elife_a_ref_key->set($key);
+    $fc_wrapper->field_elife_a_fn_ref_type->set($foot_note->getType());
+    $fc_wrapper->field_elife_a_fn_ref_value->set($foot_note->getValue());
+
+    $fc_wrapper->save();
+
+    $entity_references['foot-note'][$key] = $fc_wrapper->getIdentifier();
+  }
+
   $entity_contributors = [];
   foreach ($article_version->getContributors() as $contributor) {
     if (!($contributor instanceof NonBylineContributor)) {
@@ -764,6 +796,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
         'present-address' => 'field_elife_a_basic_ref_links',
         'affiliation' => 'field_elife_a_aff_ref_links',
         'related-object' => 'field_elife_a_rel_ref_links',
+        'foot-note' => 'field_elife_a_fn_ref_links',
       ];
 
       foreach ($contributor->getReferences() as $type => $keys) {
@@ -853,6 +886,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
             'present-address' => 'field_elife_a_basic_ref_links',
             'affiliation' => 'field_elife_a_aff_ref_links',
             'related-object' => 'field_elife_a_rel_ref_links',
+            'foot-note' => 'field_elife_a_fn_ref_links',
           ];
 
           foreach ($contributor->getReferences() as $type => $keys) {

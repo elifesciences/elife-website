@@ -342,7 +342,7 @@ final class ArticleVersion {
 
   public function getReferenced() {
     if (NULL === $this->referenced) {
-      return new Referenced([], [], [], [], [], [], [], []);
+      return new Referenced([], [], [], [], [], [], [], [], []);
     }
 
     return $this->referenced;
