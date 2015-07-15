@@ -959,47 +959,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'node-elife_article_ver-field_elfie_a_citations_json'
-  $field_instances['node-elife_article_ver-field_elfie_a_citations_json'] = array(
-    'bundle' => 'elife_article_ver',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 29,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elfie_a_citations_json',
-    'label' => 'Citations Json',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 30,
-    ),
-  );
-
   // Exported field_instance: 'node-elife_article_ver-field_elife_a_aff_ref'
   $field_instances['node-elife_article_ver-field_elife_a_aff_ref'] = array(
     'bundle' => 'elife_article_ver',
