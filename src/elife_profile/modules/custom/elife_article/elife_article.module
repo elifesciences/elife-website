@@ -87,7 +87,7 @@ function elife_article_node_delete($node) {
       if ($children = $ewrapper->field_elife_a_fragments->raw()) {
         $delete += $children;
       }
-      if ($contributors = $ewrapper->field_elife_a_contributors->raw()) {
+      if ($contributors = $ewrapper->field_elife_a_contributors_pri->raw()) {
         $delete += $contributors;
       }
       if (!empty($delete)) {
@@ -328,7 +328,7 @@ function elife_article_version_to_dto(stdClass $entity) {
     foreach ($entity->field_elife_a_fragments as $entity_fragment) {
       if ('elife_article_ver' === $entity_fragment->getBundle()) {
         $contributors = [];
-        foreach ($entity_fragment->field_elife_a_contributors->value() as $entity_contributor) {
+        foreach ($entity_fragment->field_elife_a_contributors_pri->value() as $entity_contributor) {
           /* @var EntityDrupalWrapper $entity_contributor */
           $entity_contributor = entity_metadata_wrapper('node', $entity_contributor);
 
@@ -802,7 +802,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     }
   }
 
-  $entity->field_elife_a_contributors->set($entity_contributors);
+  $entity->field_elife_a_contributors_pri->set($entity_contributors);
 
   $handle_fragments = function ($parent_id, array $fragments, $sub_article = FALSE) use ($uid, &$handle_fragments) {
     $entity_fragments = [];
@@ -890,7 +890,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
           $entity_contributors[] = $entity_contributor->getIdentifier();
         }
 
-        $entity_fragment->field_elife_a_contributors->set($entity_contributors);
+        $entity_fragment->field_elife_a_contributors_pri->set($entity_contributors);
       }
       else {
         /* @var Fragment $fragment */

@@ -493,8 +493,8 @@ class ElifeArticleVersion {
             if ($sub_wrapper->field_elife_a_fragments->value()) {
               $subarticle['fragments'] = self::getChildFragments($sub_wrapper->field_elife_a_fragments);
             }
-            if ($sub_wrapper->field_elife_a_contributors->value()) {
-              $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors);
+            if ($sub_wrapper->field_elife_a_contributors_pri->value()) {
+              $subarticle['contributors'] = self::getChildContributors($sub_wrapper->field_elife_a_contributors_pri);
             }
             if (!empty($subarticle)) {
               $subarticle['type'] = 'sub-article';

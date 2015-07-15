@@ -356,7 +356,7 @@ function elife_article_pages_default_panels_mini() {
     $pane->pid = 'new-d5a20046-a0c5-4e16-a854-0543b9862123';
     $pane->panel = 'middle';
     $pane->type = 'entity_field';
-    $pane->subtype = 'node:field_elife_a_contributors';
+    $pane->subtype = 'node:field_elife_a_contributors_pri';
     $pane->shown = TRUE;
     $pane->access = array();
     $pane->configuration = array(

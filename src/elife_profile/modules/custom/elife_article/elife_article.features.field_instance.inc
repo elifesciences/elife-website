@@ -1297,8 +1297,8 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_contributors'
-  $field_instances['node-elife_article_ver-field_elife_a_contributors'] = array(
+  // 'node-elife_article_ver-field_elife_a_contributors_pri'
+  $field_instances['node-elife_article_ver-field_elife_a_contributors_pri'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
     'deleted' => 0,
@@ -1321,7 +1321,7 @@ function elife_article_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_elife_a_contributors',
+    'field_name' => 'field_elife_a_contributors_pri',
     'label' => 'Primary Contributors',
     'required' => 0,
     'settings' => array(
