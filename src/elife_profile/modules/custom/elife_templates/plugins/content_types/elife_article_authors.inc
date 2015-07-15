@@ -6,8 +6,8 @@
  */
 
 use eLife\EIF\ArticleVersion;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
-use eLife\EIF\ArticleVersion\Contributor\PersonContributor;
 
 $plugin = array(
   'title' => t('Article Authors'),
@@ -36,10 +36,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
     foreach ($contributors as $contributor) {
       $variables = [];
       $name = [];
-      if ($contributor instanceof PersonContributor) {
-        if ($contributor->getType() != 'author') {
-          continue;
-        }
+      if ($contributor instanceof BylineContributor) {
         if ($given_names = $contributor->getGivenNames()) {
           $name['given-names'] = $given_names;
         }

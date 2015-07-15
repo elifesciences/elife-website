@@ -13,8 +13,10 @@ use eLife\EIF\ArticleVersion\Affiliation;
 use eLife\EIF\ArticleVersion\Citation;
 use eLife\EIF\ArticleVersion\Citation\Author;
 use eLife\EIF\ArticleVersion\Contributor;
-use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
+use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor\NonBylineContributor;
 use eLife\EIF\ArticleVersion\Fragment;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\Referenced\Funding;
@@ -222,28 +224,28 @@ function elife_article_validator() {
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
-  /** @var EntityDrupalWrapper $entity */
+  /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
   $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE);
-  /** @var EntityDrupalWrapper $entity_article */
+  /* @var EntityDrupalWrapper $entity_article */
   $entity_article = entity_metadata_wrapper('node', $entity_article);
 
   $categories = [];
   foreach ($entity->field_elife_a_category->value() as $entity_category) {
-    /** @var EntityDrupalWrapper $entity_category */
+    /* @var EntityDrupalWrapper $entity_category */
     $entity_category = entity_metadata_wrapper('taxonomy_term', $entity_category);
     $categories[$entity_category->field_elife_category_type->value()][] = $entity_category->label();
   }
 
   foreach ($entity->field_elife_a_heading->value() as $entity_heading) {
-    /** @var EntityDrupalWrapper $entity_heading */
+    /* @var EntityDrupalWrapper $entity_heading */
     $entity_heading = entity_metadata_wrapper('taxonomy_term', $entity_heading);
     $categories['heading'][] = $entity_heading->label();
   }
 
   $keywords = [];
   foreach ($entity->field_elife_a_keyword->value() as $entity_keyword) {
-    /** @var EntityDrupalWrapper $entity_keyword */
+    /* @var EntityDrupalWrapper $entity_keyword */
     $entity_keyword = entity_metadata_wrapper('taxonomy_term', $entity_keyword);
     $keywords[$entity_keyword->field_elife_a_kwd_type->value()][] = $entity_keyword->field_elife_a_full_title->value();
   }
@@ -265,14 +267,14 @@ function elife_article_version_to_dto(stdClass $entity) {
   ];
 
   foreach ($entity->field_elife_a_basic_ref->value() as $entity_basic_ref) {
-    /** @var EntityDrupalWrapper $entity_basic_ref */
+    /* @var EntityDrupalWrapper $entity_basic_ref */
     $entity_basic_ref = entity_metadata_wrapper('field_collection_item', $entity_basic_ref);
 
     $referenced[$entity_basic_ref->field_elife_a_basic_ref_type->value()][$entity_basic_ref->field_elife_a_ref_key->value()] = $entity_basic_ref->field_elife_a_basic_ref_value->value();
   }
 
   foreach ($entity->field_elife_a_fund_ref->value() as $entity_fund_ref) {
-    /** @var EntityDrupalWrapper $entity_fund_ref */
+    /* @var EntityDrupalWrapper $entity_fund_ref */
     $entity_fund_ref = entity_metadata_wrapper('field_collection_item', $entity_fund_ref);
 
     $referenced['funding'][$entity_fund_ref->field_elife_a_ref_key->value()] = new Funding(
@@ -285,7 +287,7 @@ function elife_article_version_to_dto(stdClass $entity) {
   }
 
   foreach ($entity->field_elife_a_aff_ref->value() as $entity_aff_ref) {
-    /** @var EntityDrupalWrapper $entity_aff_ref */
+    /* @var EntityDrupalWrapper $entity_aff_ref */
     $entity_aff_ref = entity_metadata_wrapper('field_collection_item', $entity_aff_ref);
 
     $referenced['affiliation'][$entity_aff_ref->field_elife_a_ref_key->value()] = new Affiliation(
@@ -297,7 +299,7 @@ function elife_article_version_to_dto(stdClass $entity) {
   }
 
   foreach ($entity->field_elife_a_rel_ref->value() as $entity_rel_ref) {
-    /** @var EntityDrupalWrapper $entity_rel_ref */
+    /* @var EntityDrupalWrapper $entity_rel_ref */
     $entity_rel_ref = entity_metadata_wrapper('field_collection_item', $entity_rel_ref);
 
     $referenced['related-object'][$entity_rel_ref->field_elife_a_ref_key->value()] = new RelatedObject();
@@ -315,87 +317,19 @@ function elife_article_version_to_dto(stdClass $entity) {
   );
 
   $contributors = [];
-  foreach ($entity->field_elife_a_contributors->value() as $entity_contributor) {
-    /** @var EntityDrupalWrapper $entity_contributor */
-    $entity_contributor = entity_metadata_wrapper('node', $entity_contributor);
-
-    $references = [];
-
-    $references_map = [
-      'equal-contrib' => 'field_elife_a_basic_ref_links',
-      'email' => 'field_elife_a_basic_ref_links',
-      'funding' => 'field_elife_a_fund_ref_links',
-      'competing-interest' => 'field_elife_a_basic_ref_links',
-      'contribution' => 'field_elife_a_basic_ref_links',
-      'present-address' => 'field_elife_a_basic_ref_links',
-      'affiliation' => 'field_elife_a_aff_ref_links',
-      'related-object' => 'field_elife_a_rel_ref_links',
-    ];
-
-    foreach ($references_map as $type => $field) {
-      foreach ($entity_contributor->$field->value() as $entity_contributor_reference) {
-        /** @var EntityDrupalWrapper $entity_contributor_reference */
-        $entity_contributor_reference = entity_metadata_wrapper('field_collection_item', $entity_contributor_reference);
-        if ('field_elife_a_basic_ref_links' === $field) {
-          if ($type !== $entity_contributor_reference->field_elife_a_basic_ref_type->value()) {
-            continue;
-          }
-        }
-        $references[$type][] = $entity_contributor_reference->field_elife_a_ref_key->value();
-      }
-    }
-
-    if ($entity_contributor->field_elife_a_collab->value()) {
-      $contributors[] = new CollabContributor(
-        $entity_contributor->field_elife_a_contrib_type->value(),
-        $entity_contributor->field_elife_a_corresp->value(),
-        $entity_contributor->field_elife_a_author_id->value(),
-        $entity_contributor->field_elife_a_group_author_key->value(),
-        $references,
-        $entity_contributor->field_elife_a_collab->value()
-      );
-    }
-    else {
-      $affiliations = [];
-      if (
-        $entity_contributor->field_elife_a_aff_dept->value() ||
-        $entity_contributor->field_elife_a_aff_inst->value() ||
-        $entity_contributor->field_elife_a_aff_city->value() ||
-        $entity_contributor->field_elife_a_aff_country->value()
-      ) {
-        $affiliations[] = new Affiliation(
-          $entity_contributor->field_elife_a_aff_dept->value(),
-          $entity_contributor->field_elife_a_aff_inst->value(),
-          $entity_contributor->field_elife_a_aff_city->value(),
-          $entity_contributor->field_elife_a_aff_country->value()
-        );
-      }
-
-      $contributors[] = new PersonContributor(
-        $entity_contributor->field_elife_a_contrib_type->value(),
-        $entity_contributor->field_elife_a_corresp->value(),
-        $entity_contributor->field_elife_a_author_id->value(),
-        $entity_contributor->field_elife_a_group_author_key->value(),
-        $references,
-        $entity_contributor->field_elife_a_equal_contrib->value(),
-        $entity_contributor->field_elife_a_deceased->value(),
-        $entity_contributor->field_elife_a_surname->value(),
-        $entity_contributor->field_elife_a_fnames->value(),
-        $entity_contributor->field_elife_a_author_suffix->value(),
-        $entity_contributor->field_elife_a_orcid_id->value(),
-        $entity_contributor->field_elife_a_author_role->value(),
-        $affiliations
-      );
-    }
+  if ($contributors_json = $entity->field_elife_a_contributors_json->value()) {
+    $contributors = elife_article_serializer()->deserialize('{"contributors":' . $contributors_json . '}');
+    $contributors = $contributors->getContributors();
   }
 
   $get_fragments = function ($entity) use (&$get_fragments) {
     $fragments = [];
+    /* @var EntityDrupalWrapper $entity_fragment */
     foreach ($entity->field_elife_a_fragments as $entity_fragment) {
       if ('elife_article_ver' === $entity_fragment->getBundle()) {
         $contributors = [];
         foreach ($entity_fragment->field_elife_a_contributors->value() as $entity_contributor) {
-          /** @var EntityDrupalWrapper $entity_contributor */
+          /* @var EntityDrupalWrapper $entity_contributor */
           $entity_contributor = entity_metadata_wrapper('node', $entity_contributor);
 
           $references = [];
@@ -413,7 +347,7 @@ function elife_article_version_to_dto(stdClass $entity) {
 
           foreach ($references_map as $type => $field) {
             foreach ($entity_contributor->$field->value() as $entity_contributor_reference) {
-              /** @var EntityDrupalWrapper $entity_contributor_reference */
+              /* @var EntityDrupalWrapper $entity_contributor_reference */
               $entity_contributor_reference = entity_metadata_wrapper('field_collection_item', $entity_contributor_reference);
               if ('field_elife_a_basic_ref_links' === $field) {
                 if ($type !== $entity_contributor_reference->field_elife_a_basic_ref_type->value()) {
@@ -450,7 +384,7 @@ function elife_article_version_to_dto(stdClass $entity) {
               );
             }
 
-            $contributors[] = new PersonContributor(
+            $contributors[] = new BylineContributor(
               $entity_contributor->field_elife_a_contrib_type->value(),
               $entity_contributor->field_elife_a_corresp->value(),
               $entity_contributor->field_elife_a_author_id->value(),
@@ -630,7 +564,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   // This ensures that paths will not be automatically generated.
   $entity->path['pathauto'] = FALSE;
 
-  /** @var EntityDrupalWrapper $entity */
+  /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
 
   $entity->title->set($article_version->getTitle());
@@ -804,66 +738,68 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
 
   $entity_contributors = [];
   foreach ($article_version->getContributors() as $contributor) {
-    $values = [
-      'type' => 'elife_contributor',
-      'uid' => $uid,
-    ];
+    if (!($contributor instanceof NonBylineContributor)) {
+      $values = [
+        'type' => 'elife_contributor',
+        'uid' => $uid,
+      ];
 
-    $entity_contributor = entity_create('node', $values);
+      $entity_contributor = entity_create('node', $values);
 
-    /* @var EntityDrupalWrapper $entity_contributor */
-    $entity_contributor = entity_metadata_wrapper('node', $entity_contributor);
+      /* @var EntityDrupalWrapper $entity_contributor */
+      $entity_contributor = entity_metadata_wrapper('node', $entity_contributor);
 
-    $entity_contributor->field_elife_a_parent->set($entity->getIdentifier());
-    $entity_contributor->field_elife_a_contrib_type->set($contributor->getType());
-    $entity_contributor->field_elife_a_corresp->set($contributor->isCorresp());
-    $entity_contributor->field_elife_a_author_id->set($contributor->getId());
-    $entity_contributor->field_elife_a_group_author_key->set($contributor->getGroupAuthorKey());
+      $entity_contributor->field_elife_a_parent->set($entity->getIdentifier());
+      $entity_contributor->field_elife_a_contrib_type->set($contributor->getType());
+      $entity_contributor->field_elife_a_corresp->set($contributor->isCorresp());
+      $entity_contributor->field_elife_a_author_id->set($contributor->getId());
+      $entity_contributor->field_elife_a_group_author_key->set($contributor->getGroupAuthorKey());
 
-    $references_map = [
-      'equal-contrib' => 'field_elife_a_basic_ref_links',
-      'email' => 'field_elife_a_basic_ref_links',
-      'funding' => 'field_elife_a_fund_ref_links',
-      'competing-interest' => 'field_elife_a_basic_ref_links',
-      'contribution' => 'field_elife_a_basic_ref_links',
-      'present-address' => 'field_elife_a_basic_ref_links',
-      'affiliation' => 'field_elife_a_aff_ref_links',
-      'related-object' => 'field_elife_a_rel_ref_links',
-    ];
+      $references_map = [
+        'equal-contrib' => 'field_elife_a_basic_ref_links',
+        'email' => 'field_elife_a_basic_ref_links',
+        'funding' => 'field_elife_a_fund_ref_links',
+        'competing-interest' => 'field_elife_a_basic_ref_links',
+        'contribution' => 'field_elife_a_basic_ref_links',
+        'present-address' => 'field_elife_a_basic_ref_links',
+        'affiliation' => 'field_elife_a_aff_ref_links',
+        'related-object' => 'field_elife_a_rel_ref_links',
+      ];
 
-    foreach ($contributor->getReferences() as $type => $keys) {
-      foreach ($keys as $key) {
-        if (isset($entity_references[$type][$key])) {
-          $entity_contributor->{$references_map[$type]}[] = $entity_references[$type][$key];
+      foreach ($contributor->getReferences() as $type => $keys) {
+        foreach ($keys as $key) {
+          if (isset($entity_references[$type][$key])) {
+            $entity_contributor->{$references_map[$type]}[] = $entity_references[$type][$key];
+          }
         }
       }
-    }
 
-    if ($contributor instanceof PersonContributor) {
-      $entity_contributor->field_elife_a_equal_contrib->set($contributor->isEqualContrib());
-      $entity_contributor->field_elife_a_deceased->set($contributor->isDeceased());
-      $entity_contributor->field_elife_a_surname->set($contributor->getSurname());
-      $entity_contributor->field_elife_a_fnames->set($contributor->getGivenNames());
-      $entity_contributor->field_elife_a_author_suffix->set($contributor->getSuffix());
-      $entity_contributor->field_elife_a_orcid_id->set($contributor->getOrcId());
-      $entity_contributor->field_elife_a_author_role->set($contributor->getRole());
-      // TODO only one affiliation stored?
-      if (count($contributor->getAffiliations())) {
-        $entity_contributor->field_elife_a_aff_dept->set($contributor->getAffiliations()[0]->getDept());
-        $entity_contributor->field_elife_a_aff_inst->set($contributor->getAffiliations()[0]->getInstitution());
-        $entity_contributor->field_elife_a_aff_city->set($contributor->getAffiliations()[0]->getCity());
-        $entity_contributor->field_elife_a_aff_country->set($contributor->getAffiliations()[0]->getCountry());
+      if ($contributor instanceof BylineContributor) {
+        $entity_contributor->field_elife_a_equal_contrib->set($contributor->isEqualContrib());
+        $entity_contributor->field_elife_a_deceased->set($contributor->isDeceased());
+        $entity_contributor->field_elife_a_surname->set($contributor->getSurname());
+        $entity_contributor->field_elife_a_fnames->set($contributor->getGivenNames());
+        $entity_contributor->field_elife_a_author_suffix->set($contributor->getSuffix());
+        $entity_contributor->field_elife_a_orcid_id->set($contributor->getOrcId());
+        $entity_contributor->field_elife_a_author_role->set($contributor->getRole());
+        // TODO only one affiliation stored?
+        if (count($contributor->getAffiliations())) {
+          $entity_contributor->field_elife_a_aff_dept->set($contributor->getAffiliations()[0]->getDept());
+          $entity_contributor->field_elife_a_aff_inst->set($contributor->getAffiliations()[0]->getInstitution());
+          $entity_contributor->field_elife_a_aff_city->set($contributor->getAffiliations()[0]->getCity());
+          $entity_contributor->field_elife_a_aff_country->set($contributor->getAffiliations()[0]->getCountry());
+        }
       }
+      elseif ($contributor instanceof CollabContributor) {
+        $entity_contributor->field_elife_a_collab->set($contributor->getCollab());
+      }
+
+      $entity_contributor->title->set(_elife_article_contributor_title($contributor));
+
+      $entity_contributor->save();
+
+      $entity_contributors[] = $entity_contributor->getIdentifier();
     }
-    elseif ($contributor instanceof CollabContributor) {
-      $entity_contributor->field_elife_a_collab->set($contributor->getCollab());
-    }
-
-    $entity_contributor->title->set(_elife_article_contributor_title($contributor));
-
-    $entity_contributor->save();
-
-    $entity_contributors[] = $entity_contributor->getIdentifier();
   }
 
   $entity->field_elife_a_contributors->set($entity_contributors);
@@ -881,7 +817,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
         // This ensures that paths will not be automatically generated.
         $entity_fragment->path['pathauto'] = FALSE;
 
-        /** @var EntityDrupalWrapper $entity_fragment */
+        /* @var EntityDrupalWrapper $entity_fragment */
         $entity_fragment = entity_metadata_wrapper('node', $entity_fragment);
 
         $entity_fragment->field_elife_a_subarticle->set(TRUE);
@@ -927,7 +863,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
             }
           }
 
-          if ($contributor instanceof PersonContributor) {
+          if ($contributor instanceof BylineContributor) {
             $entity_contributor->field_elife_a_equal_contrib->set($contributor->isEqualContrib());
             $entity_contributor->field_elife_a_deceased->set($contributor->isDeceased());
             $entity_contributor->field_elife_a_surname->set($contributor->getSurname());
@@ -1111,7 +1047,7 @@ function elife_article_libraries_info() {
 /**
  * Convert string which may contain xml to html.
  *
- * @param string $strings
+ * @param string $string
  *   String to convert.
  *
  * @return string

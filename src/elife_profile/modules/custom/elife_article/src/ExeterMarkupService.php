@@ -135,6 +135,9 @@ final class ExeterMarkupService extends ElifeMarkupService {
     $response = $this->response;
     $xml = new DOMDocument();
     $xml->preserveWhiteSpace = FALSE;
+    if (empty($response)) {
+      dpm($this->queries);
+    }
     $xml->loadXML($response);
     $xpath = new DOMXPath($xml);
 
