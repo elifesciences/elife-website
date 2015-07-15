@@ -2,6 +2,7 @@
 
 namespace eLife\EIF\ArticleVersion\Contributor;
 
+use eLife\EIF\ArticleVersion\Affiliation;
 use eLife\EIF\ArticleVersion\Contributor;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -30,6 +31,13 @@ abstract class PersonContributor extends Contributor {
   protected $suffix;
 
   /**
+   * @var Affiliation[]
+   *
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Affiliation>")
+   */
+  private $affiliations = array();
+
+  /**
    * @param string $type
    * @param boolean $corresp
    * @param string|null $id
@@ -38,6 +46,7 @@ abstract class PersonContributor extends Contributor {
    * @param string $surname
    * @param string $given_names
    * @param string|null $suffix
+   * @param Affiliation[] $affiliations
    */
   public function __construct(
     $type,
@@ -47,13 +56,15 @@ abstract class PersonContributor extends Contributor {
     array $references,
     $surname,
     $given_names,
-    $suffix
+    $suffix,
+    array $affiliations
   ) {
     parent::__construct($type, $corresp, $id, $group_author_key,
       $references);
     $this->surname = (string) $surname;
     $this->given_names = (string) $given_names;
     $this->suffix = $suffix;
+    $this->affiliations = $affiliations;
   }
 
   public function getSurname() {
@@ -66,5 +77,9 @@ abstract class PersonContributor extends Contributor {
 
   public function getSuffix() {
     return $this->suffix;
+  }
+
+  public function getAffiliations() {
+    return $this->affiliations;
   }
 }

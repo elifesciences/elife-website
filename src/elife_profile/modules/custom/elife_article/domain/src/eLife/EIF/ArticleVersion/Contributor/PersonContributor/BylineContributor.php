@@ -38,13 +38,6 @@ final class BylineContributor extends PersonContributor {
   private $role;
 
   /**
-   * @var Affiliation[]
-   *
-   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Affiliation>")
-   */
-  private $affiliations = array();
-
-  /**
    * @param string $type
    * @param boolean $corresp
    * @param string|null $id
@@ -75,12 +68,12 @@ final class BylineContributor extends PersonContributor {
     array $affiliations
   ) {
     parent::__construct($type, $corresp, $id, $group_author_key,
-      $references, (string) $surname, (string) $given_names, $suffix);
+      $references, (string) $surname, (string) $given_names, $suffix,
+      $affiliations);
     $this->equal_contrib = ($equal_contrib ? 'yes' : 'no');
     $this->deceased = ($deceased ? 'yes' : 'no');
     $this->orcid = $orcid;
     $this->role = $role;
-    $this->affiliations = $affiliations;
   }
 
   public function isEqualContrib() {
@@ -97,9 +90,5 @@ final class BylineContributor extends PersonContributor {
 
   public function getRole() {
     return $this->role;
-  }
-
-  public function getAffiliations() {
-    return $this->affiliations;
   }
 }
