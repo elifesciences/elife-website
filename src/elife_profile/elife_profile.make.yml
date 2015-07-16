@@ -115,8 +115,6 @@ projects:
     version: '1.0-rc3'
     patch:
       - 'https://drupal.org/files/redirect-migrate-support-1116408-69.patch'
-  relation:
-    version: '1.0-rc7'
   rules:
     version: '2.9'
   scheduler:

@@ -27,7 +27,6 @@ dependencies[] = devel
 dependencies[] = context_ui
 dependencies[] = delta_ui
 dependencies[] = module_builder
-dependencies[] = relation_ui
 dependencies[] = admin_devel
 
 ; Install Migrate
@@ -75,8 +74,6 @@ dependencies[] = strongarm
 dependencies[] = services
 dependencies[] = rest_server
 dependencies[] = xautoload
-dependencies[] = relation_endpoint
-dependencies[] = relation
 dependencies[] = field_collection
 dependencies[] = panels
 dependencies[] = semanticviews
