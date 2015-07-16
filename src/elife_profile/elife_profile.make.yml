@@ -135,6 +135,8 @@ projects:
     version: '2.0'
   token:
     version: '1.6'
+  transliteration:
+    version: '3.2'
   views:
     version: '3.11'
   views_ctools_field:
