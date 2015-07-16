@@ -575,9 +575,6 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
     'uid' => $uid,
   ]);
 
-  // This ensures that paths will not be automatically generated.
-  $entity->path['pathauto'] = FALSE;
-
   /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
 
@@ -847,9 +844,6 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
           'uid' => $uid,
         ]);
 
-        // This ensures that paths will not be automatically generated.
-        $entity_fragment->path['pathauto'] = FALSE;
-
         /* @var EntityDrupalWrapper $entity_fragment */
         $entity_fragment = entity_metadata_wrapper('node', $entity_fragment);
 
@@ -934,9 +928,6 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
         ];
 
         $entity_fragment = entity_create('node', $values);
-
-        // This ensures that paths will not be automatically generated.
-        $entity_fragment->path['pathauto'] = FALSE;
 
         /* @var EntityDrupalWrapper $entity_fragment */
         $entity_fragment = entity_metadata_wrapper('node', $entity_fragment);
