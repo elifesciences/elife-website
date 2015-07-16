@@ -2,6 +2,7 @@
 
 namespace eLife\EIF\ArticleVersion;
 
+use eLife\EIF\ArticleVersion\Referenced\FootNote;
 use eLife\EIF\ArticleVersion\Referenced\Funding;
 use eLife\EIF\ArticleVersion\Referenced\RelatedObject;
 use JMS\Serializer\Annotation as Serializer;
@@ -68,6 +69,14 @@ final class Referenced {
   private $related_object = []; // TODO
 
   /**
+   * @var FootNote[]
+   *
+   * @Serializer\Type("array<string,eLife\EIF\ArticleVersion\Referenced\FootNote>")
+   * @Serializer\SerializedName("foot-note")
+   */
+  private $foot_note = [];
+
+  /**
    * @param string[] $equal_contrib
    * @param string[] $email
    * @param Funding[] $funding
@@ -76,6 +85,7 @@ final class Referenced {
    * @param string[] $present_address
    * @param Affiliation[] $affiliation
    * @param RelatedObject[] $related_object
+   * @param FootNote[] $foot_note
    */
   public function __construct(
     array $equal_contrib,
@@ -85,7 +95,8 @@ final class Referenced {
     array $contribution,
     array $present_address,
     array $affiliation,
-    array $related_object
+    array $related_object,
+    array $foot_note
   ) {
     $this->equal_contrib = $equal_contrib;
     $this->email = $email;
@@ -95,6 +106,7 @@ final class Referenced {
     $this->present_address = $present_address;
     $this->affiliation = $affiliation;
     $this->related_object = $related_object;
+    $this->foot_note = $foot_note;
   }
 
   public function getEqualContrib() {
@@ -127,5 +139,9 @@ final class Referenced {
 
   public function getRelatedObject() {
     return $this->related_object;
+  }
+
+  public function getFootNote() {
+    return $this->foot_note;
   }
 }

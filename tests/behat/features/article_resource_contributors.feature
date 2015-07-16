@@ -86,6 +86,10 @@ Feature: Article Resource - Contributors (API)
                 "related-object": [
                   "dataro1",
                   "dataro2"
+                ],
+                "foot-note": [
+                  "fn1",
+                  "fn2"
                 ]
               }
             },
@@ -115,6 +119,9 @@ Feature: Article Resource - Contributors (API)
                 ],
                 "present-address": [
                   "pa2"
+                ],
+                "foot-note": [
+                  "fn2"
                 ]
               }
             },
@@ -443,6 +450,16 @@ Feature: Article Resource - Contributors (API)
             "related-object": {
               "dataro1": {},
               "dataro2": {}
+            },
+            "foot-note": {
+              "fn1": {
+                "type": "deceased",
+                "value": "Deceased"
+              },
+              "fn2": {
+                "type": "other",
+                "value": "These authors are listed in alphabetical order"
+              }
             }
           }
         }
@@ -484,6 +501,10 @@ Feature: Article Resource - Contributors (API)
                 "related-object": [
                   "dataro1",
                   "dataro2"
+                ],
+                "foot-note": [
+                  "fn1",
+                  "fn2"
                 ]
               }
             },
@@ -513,6 +534,9 @@ Feature: Article Resource - Contributors (API)
                 ],
                 "present-address": [
                   "pa2"
+                ],
+                "foot-note": [
+                  "fn2"
                 ]
               }
             },
@@ -841,6 +865,16 @@ Feature: Article Resource - Contributors (API)
             "related-object": {
               "dataro1": {},
               "dataro2": {}
+            },
+            "foot-note": {
+              "fn1": {
+                "type": "deceased",
+                "value": "Deceased"
+              },
+              "fn2": {
+                "type": "other",
+                "value": "These authors are listed in alphabetical order"
+              }
             }
           }
         }

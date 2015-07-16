@@ -126,16 +126,19 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '24',
+          'weight' => '26',
         ),
         'title' => array(
-          'weight' => '0',
+          'weight' => '1',
         ),
         'path' => array(
-          'weight' => '23',
+          'weight' => '25',
         ),
         'redirect' => array(
-          'weight' => '22',
+          'weight' => '24',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '0',
         ),
       ),
       'display' => array(),
