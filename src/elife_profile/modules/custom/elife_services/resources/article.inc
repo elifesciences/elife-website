@@ -79,6 +79,8 @@ function _elife_services_article_delete_access($article_version_id) {
  *   Bundle/content type.
  * @param string $id_field
  *   Id field in database.
+ * @param bool $access_opt_out
+ *   Set if we want to bypass content access controls.
  * @param bool $trigger_error
  *   Triggers services_error if set and appropriate.
  *
@@ -87,8 +89,8 @@ function _elife_services_article_delete_access($article_version_id) {
  *
  * @throws ServicesException
  */
-function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver', $id_field = 'field_elife_a_article_version_id', $trigger_error = TRUE) {
-  $article_version = ElifeArticleVersion::fromIdentifier($id, TRUE, $bundle, 1, $id_field);
+function _elife_services_article_retrieve_raw($id, $bundle = 'elife_article_ver', $id_field = 'field_elife_a_article_version_id', $access_opt_out = FALSE, $trigger_error = TRUE) {
+  $article_version = ElifeArticleVersion::fromIdentifier($id, TRUE, $bundle, 1, $id_field, $access_opt_out);
   if ($trigger_error && empty($article_version->nid)) {
     return services_error(t('Article version id @id not found', array('@id' => $id)), 404);
   }
@@ -155,10 +157,10 @@ function _elife_services_article_create($data) {
 
   $article_version = elife_article_serializer()->deserialize($data);
 
-  $existing = ElifeArticleVersion::fromIdentifier($article_version->getArticleVersionId());
+  $existing = ElifeArticleVersion::fromIdentifier($article_version->getArticleVersionId(), FALSE, 'elife_article_ver', 0, 'field_elife_a_article_version_id', TRUE);
 
-  if ($existing) {
-    node_delete($existing->nid);
+  if (!empty($existing)) {
+    node_delete_multiple($existing);
   }
 
   $entity = elife_article_version_from_dto($article_version, _elife_services_user_uid());
@@ -224,7 +226,7 @@ function _elife_services_article_update($article_version_id, $data) {
  * @throws Exception
  */
 function _elife_services_article_delete($article_version_id, $trigger_error = TRUE) {
-  $article_version = _elife_services_article_retrieve_raw($article_version_id, 'elife_article_ver', 'field_elife_a_article_version_id', $trigger_error);
+  $article_version = _elife_services_article_retrieve_raw($article_version_id, 'elife_article_ver', 'field_elife_a_article_version_id', TRUE, $trigger_error);
 
   if ($article_version) {
     /* @var EntityDrupalWrapper $ewrapper */
