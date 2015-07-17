@@ -147,11 +147,13 @@ class ElifeArticleVersion {
     $id_query->entityCondition('entity_type', 'node');
     $id_query->entityCondition('bundle', $bundle);
     $id_query->fieldCondition($id_field, 'value', $article_id, '=');
+    $id_query->propertyOrderBy('status', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_status', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
     $id_query->fieldOrderBy('field_elife_a_update', 'value', 'DESC');
     $id_query->addExtraField('field_elife_a_status', 'value', 'status');
     $id_query->addExtraField('field_elife_a_version', 'value', 'version');
+    $id_query->addExtraField('field_elife_a_article_version_id', 'value', 'value');
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
