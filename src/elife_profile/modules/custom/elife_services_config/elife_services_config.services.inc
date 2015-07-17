@@ -53,6 +53,13 @@ function elife_services_config_default_services_endpoint() {
         ),
       ),
     ),
+    'publish' => array(
+      'operations' => array(
+        'update' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
   );
   $endpoint->debug = 1;
   $export['elife_article'] = $endpoint;
