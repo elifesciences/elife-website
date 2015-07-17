@@ -32,11 +32,15 @@ function elife_services_services_resources() {
       '#api_version' => 3002,
       'operations' => array(
 
-        // Define the retrieve callback for a GET to /article/%article-version-id.
+        // Define the retrieve callback for a GET to /article/%article-version-id.json.
         'retrieve' => array(
           'help' => 'Returns a single article specified by the article version id.',
           'callback' => '_elife_services_article_retrieve',
-          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'file' => array(
+            'type' => 'inc',
+            'module' => 'elife_services',
+            'name' => 'resources/article',
+          ),
           'access callback' => '_elife_services_article_retrieve_access',
           'access arguments append' => TRUE,
           'args' => array(
@@ -54,7 +58,10 @@ function elife_services_services_resources() {
         'create' => array(
           'help' => 'Creates a new article for the current API user.',
           'callback' => '_elife_services_article_create',
-          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'file' => array('type' => 'inc',
+            'module' => 'elife_services',
+            'name' => 'resources/article',
+          ),
           'access callback' => '_elife_services_article_create_access',
           'args' => array(
             array(
@@ -67,11 +74,14 @@ function elife_services_services_resources() {
           ),
         ),
 
-        // Define the update callback for a PUT to /article/%article-version-id.
+        // Define the update callback for a PUT to /article/%article-version-id.json.
         'update' => array(
           'help' => 'Updates a single article specified by the article version id.',
           'callback' => '_elife_services_article_update',
-          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'file' => array('type' => 'inc',
+            'module' => 'elife_services',
+            'name' => 'resources/article',
+          ),
           'access callback' => '_elife_services_article_update_access',
           'access arguments append' => TRUE,
           'args' => array(
@@ -92,11 +102,14 @@ function elife_services_services_resources() {
           ),
         ),
 
-        // Define the update callback for a DELETE to /article/%article-version-id.
+        // Define the update callback for a DELETE to /article/%article-version-id.json.
         'delete' => array(
           'help' => 'Delete a single article specified by the article version id.',
           'callback' => '_elife_services_article_delete',
-          'file' => array('type' => 'inc', 'module' => 'elife_services', 'name' => 'resources/article'),
+          'file' => array('type' => 'inc',
+            'module' => 'elife_services',
+            'name' => 'resources/article',
+          ),
           'access callback' => '_elife_services_article_delete_access',
           'access arguments append' => TRUE,
           'args' => array(
@@ -106,6 +119,39 @@ function elife_services_services_resources() {
               'description' => 'The article version id of the article to delete.',
               'optional' => FALSE,
               'source' => array('path' => 0),
+            ),
+          ),
+        ),
+      ),
+    ),
+    'publish' => array(
+      '#api_version' => 3002,
+      'operations' => array(
+
+        // Define the update callback for a PUT to /publish/%article-version-id.json.
+        'update' => array(
+          'help' => 'Publish a single article specified by the article version id.',
+          'callback' => '_elife_services_publish',
+          'file' => array('type' => 'inc',
+            'module' => 'elife_services',
+            'name' => 'resources/publish',
+          ),
+          'access callback' => '_elife_services_publish_access',
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'article_version_id',
+              'type' => 'string',
+              'description' => 'The article version id of the article to publish.',
+              'optional' => FALSE,
+              'source' => array('path' => 0),
+            ),
+            array(
+              'name' => 'data',
+              'type' => 'string',
+              'description' => 'The publish data to process.',
+              'optional' => FALSE,
+              'source' => 'data',
             ),
           ),
         ),
