@@ -752,6 +752,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
 
         $entity_fragment->field_elife_a_subarticle->set(TRUE);
 
+        $entity_fragment->field_elife_a_parent->set($parent_id);
         $entity_fragment->save();
         $sub_article = $entity_fragment->getIdentifier();
 
@@ -841,6 +842,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
           $entity_fragment->field_elife_a_parent_sub->set($sub_article);
         }
 
+        $entity_fragment->field_elife_a_parent->set($parent_id);
         $entity_fragment->save();
       }
 
@@ -852,7 +854,6 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
 
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 
-      $entity_fragment->field_elife_a_parent->set($parent_id);
       $entity_fragment->field_elife_a_full_title->set([
         'value' => $fragment->getTitle(),
         'format' => 'full_html'
