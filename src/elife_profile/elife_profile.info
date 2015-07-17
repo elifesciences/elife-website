@@ -102,6 +102,7 @@ dependencies[] = search_api_views
 dependencies[] = views_bulk_operations
 dependencies[] = reference_delete
 dependencies[] = m4032404
+dependencies[] = view_unpublished
 
 ; Install Features
 dependencies[] = features
