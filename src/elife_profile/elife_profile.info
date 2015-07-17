@@ -99,6 +99,9 @@ dependencies[] = search_api
 dependencies[] = search_api_facetapi
 dependencies[] = search_api_solr
 dependencies[] = search_api_views
+dependencies[] = views_bulk_operations
+dependencies[] = reference_delete
+dependencies[] = m4032404
 
 ; Install Features
 dependencies[] = features

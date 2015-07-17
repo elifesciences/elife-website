@@ -38,8 +38,13 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
       $doi_links = [];
       if ($fragment instanceof BaseFragment) {
+        if ($fragment instanceof Fragment && $ewrapper->field_elife_a_parent_sub->raw()) {
+          $doi = 'http://dx.doi.org/' . $ewrapper->field_elife_a_parent_sub->field_elife_a_doi->value();
+        }
+        else {
+          $doi = $article_version->getDoiUrl();
+        }
         $label = t('@type DOI', array('@type' => t('Article')));
-        $doi = $article_version->getDoiUrl();
         $doi_link = l($doi, $doi);
         $doi_links[$label] = $doi_link;
       }

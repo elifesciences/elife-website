@@ -179,6 +179,9 @@ function elife_article_strongarm() {
         'redirect' => array(
           'weight' => '5',
         ),
+        'rabbit_hole' => array(
+          'weight' => '0',
+        ),
       ),
       'display' => array(),
     ),
