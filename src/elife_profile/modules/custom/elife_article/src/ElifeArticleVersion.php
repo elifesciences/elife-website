@@ -157,6 +157,7 @@ class ElifeArticleVersion {
       foreach ($conditions as $field => $value) {
         $column = 'value';
         $operator = '=';
+        $type = 'fieldCondition';
         if (is_array($value)) {
           $assert = $value[0];
 
@@ -166,11 +167,24 @@ class ElifeArticleVersion {
           if (!empty($value[2])) {
             $operator = $value[2];
           }
+          if (!empty($value[3])) {
+            $type = $value[3];
+          }
         }
         else {
           $assert = $value;
+          if (is_numeric($field)) {
+            $id_query->addTag($assert);
+            continue;
+          }
         }
-        $id_query->fieldCondition($field, $column, $assert, $operator);
+
+        if ($type == 'fieldCondition') {
+          $id_query->fieldCondition($field, $column, $assert, $operator);
+        }
+        elseif ($type == 'propertyCondition') {
+          $id_query->propertyCondition($column, $assert, $operator);
+        }
       }
     }
 
@@ -217,12 +231,20 @@ class ElifeArticleVersion {
    *   Limit the number of articles returned.
    * @param string $id_field
    *   Field of the identifier.
+   * @param bool $access_opt_out
+   *   Set if we want to bypass content access controls.
    *
    * @return bool|mixed
    *   Details of the articles that match criteria.
    */
-  public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article_ver', $limit = 1, $id_field = 'field_elife_a_article_version_id') {
+  public static function fromIdentifier($id, $load = TRUE, $bundle = 'elife_article_ver', $limit = 1, $id_field = 'field_elife_a_article_version_id', $access_opt_out = FALSE) {
     $id_query = new EntityFieldQuery();
+
+    // Need to retrieve unpublished content.
+    if ($access_opt_out) {
+      $id_query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+    }
+
     $id_query->entityCondition('entity_type', 'node');
     $id_query->fieldCondition($id_field, 'value', $id, '=');
 
