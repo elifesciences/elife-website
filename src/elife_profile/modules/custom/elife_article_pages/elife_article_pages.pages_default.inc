@@ -17,7 +17,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 6;
+  $handler->weight = -23;
   $handler->conf = array(
     'title' => 'eLife Fragment',
     'no_blocks' => 0,
@@ -74,7 +74,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $display->content = array();
   $display->panels = array();
     $pane = new stdClass();
-    $pane->pid = 'new-38367f86-bd51-47f1-89eb-8eedeb92e1bf';
+    $pane->pid = 'new-c98db7fa-33ca-4ea6-844e-d4da2a7ae53d';
     $pane->panel = 'main';
     $pane->type = 'elife_article_title';
     $pane->subtype = 'elife_article_title';
@@ -94,9 +94,9 @@ function elife_article_pages_default_page_manager_handlers() {
     $pane->extras = array();
     $pane->position = 0;
     $pane->locks = array();
-    $pane->uuid = '38367f86-bd51-47f1-89eb-8eedeb92e1bf';
-    $display->content['new-38367f86-bd51-47f1-89eb-8eedeb92e1bf'] = $pane;
-    $display->panels['main'][0] = 'new-38367f86-bd51-47f1-89eb-8eedeb92e1bf';
+    $pane->uuid = 'c98db7fa-33ca-4ea6-844e-d4da2a7ae53d';
+    $display->content['new-c98db7fa-33ca-4ea6-844e-d4da2a7ae53d'] = $pane;
+    $display->panels['main'][0] = 'new-c98db7fa-33ca-4ea6-844e-d4da2a7ae53d';
     $pane = new stdClass();
     $pane->pid = 'new-c226b6ec-9c88-4a4e-bd65-64351caca849';
     $pane->panel = 'main';
@@ -297,7 +297,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 4;
+  $handler->weight = -26;
   $handler->conf = array(
     'title' => 'eLife Fragment - Abstract',
     'no_blocks' => 0,
@@ -607,7 +607,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 5;
+  $handler->weight = -25;
   $handler->conf = array(
     'title' => 'eLife Fragment - Digest',
     'no_blocks' => 0,
@@ -913,11 +913,346 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
+  $handler->name = 'node_view__elife_fragment_sub_article_';
+  $handler->task = 'node_view';
+  $handler->subtask = '';
+  $handler->handler = 'panel_context';
+  $handler->weight = -24;
+  $handler->conf = array(
+    'title' => 'eLife Fragment (Sub Article)',
+    'no_blocks' => 0,
+    'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => '',
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(
+      0 => array(
+        'identifier' => 'Parent Article',
+        'keyword' => 'parent',
+        'name' => 'entity_from_field:field_elife_a_parent-node-node',
+        'delta' => 0,
+        'context' => 'argument_entity_id:node_1',
+        'id' => 1,
+      ),
+      1 => array(
+        'identifier' => 'Parent Sub Article',
+        'keyword' => 'parent_sub',
+        'name' => 'entity_from_field:field_elife_a_parent_sub-node-node',
+        'delta' => 0,
+        'context' => 'argument_entity_id:node_1',
+        'id' => 1,
+      ),
+    ),
+    'name' => 'elife_fragment_sub_article_',
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'node_type',
+          'settings' => array(
+            'type' => array(
+              'elife_fragment' => 'elife_fragment',
+            ),
+          ),
+          'context' => 'argument_entity_id:node_1',
+          'not' => FALSE,
+        ),
+        1 => array(
+          'name' => 'entity_field_value:node:elife_fragment:field_elife_a_parent_sub',
+          'settings' => array(
+            'field_elife_a_parent_sub' => array(
+              'und' => array(),
+            ),
+            'field_elife_a_parent_sub_target_id' => array(),
+          ),
+          'context' => 'argument_entity_id:node_1',
+          'not' => TRUE,
+        ),
+      ),
+      'logic' => 'and',
+    ),
+  );
+  $display = new panels_display();
+  $display->layout = 'elife_article';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'top' => NULL,
+      'main' => NULL,
+      'side_lens' => NULL,
+      'side_link' => NULL,
+      'side_top' => NULL,
+      'side_bottom' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '%node:title | %parent_sub:title | %parent:title';
+  $display->uuid = '67972629-3f09-426e-b176-cfbbb30be54e';
+  $display->content = array();
+  $display->panels = array();
+    $pane = new stdClass();
+    $pane->pid = 'new-b12bc591-4707-4927-96b9-d67edb9350e3';
+    $pane->panel = 'main';
+    $pane->type = 'node_title';
+    $pane->subtype = 'node_title';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'link' => 0,
+      'markup' => 'h1',
+      'id' => '',
+      'class' => 'page-title',
+      'context' => 'relationship_entity_from_field:field_elife_a_parent_sub-node-node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = 'b12bc591-4707-4927-96b9-d67edb9350e3';
+    $display->content['new-b12bc591-4707-4927-96b9-d67edb9350e3'] = $pane;
+    $display->panels['main'][0] = 'new-b12bc591-4707-4927-96b9-d67edb9350e3';
+    $pane = new stdClass();
+    $pane->pid = 'new-5b00b4bc-69b2-49bc-ab98-5196de38060c';
+    $pane->panel = 'main';
+    $pane->type = 'node_title';
+    $pane->subtype = 'node_title';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'link' => 0,
+      'markup' => 'h2',
+      'id' => '',
+      'class' => '',
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 1;
+    $pane->locks = array();
+    $pane->uuid = '5b00b4bc-69b2-49bc-ab98-5196de38060c';
+    $display->content['new-5b00b4bc-69b2-49bc-ab98-5196de38060c'] = $pane;
+    $display->panels['main'][1] = 'new-5b00b4bc-69b2-49bc-ab98-5196de38060c';
+    $pane = new stdClass();
+    $pane->pid = 'new-2a14d1f2-6a56-47b9-9604-49242c132bab';
+    $pane->panel = 'main';
+    $pane->type = 'elife_article_authors';
+    $pane->subtype = 'elife_article_authors';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'relationship_entity_from_field:field_elife_a_parent-node-node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 2;
+    $pane->locks = array();
+    $pane->uuid = '2a14d1f2-6a56-47b9-9604-49242c132bab';
+    $display->content['new-2a14d1f2-6a56-47b9-9604-49242c132bab'] = $pane;
+    $display->panels['main'][2] = 'new-2a14d1f2-6a56-47b9-9604-49242c132bab';
+    $pane = new stdClass();
+    $pane->pid = 'new-8afee69e-23bf-46d0-bbde-d30fde7fc20b';
+    $pane->panel = 'main';
+    $pane->type = 'elife_article_affiliation';
+    $pane->subtype = 'elife_article_affiliation';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'relationship_entity_from_field:field_elife_a_parent-node-node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 3;
+    $pane->locks = array();
+    $pane->uuid = '8afee69e-23bf-46d0-bbde-d30fde7fc20b';
+    $display->content['new-8afee69e-23bf-46d0-bbde-d30fde7fc20b'] = $pane;
+    $display->panels['main'][3] = 'new-8afee69e-23bf-46d0-bbde-d30fde7fc20b';
+    $pane = new stdClass();
+    $pane->pid = 'new-195f33d7-ad56-4785-ba74-c07ab90e852c';
+    $pane->panel = 'main';
+    $pane->type = 'elife_article_doi';
+    $pane->subtype = 'elife_article_doi';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 4;
+    $pane->locks = array();
+    $pane->uuid = '195f33d7-ad56-4785-ba74-c07ab90e852c';
+    $display->content['new-195f33d7-ad56-4785-ba74-c07ab90e852c'] = $pane;
+    $display->panels['main'][4] = 'new-195f33d7-ad56-4785-ba74-c07ab90e852c';
+    $pane = new stdClass();
+    $pane->pid = 'new-45c46cfd-e14d-40e0-aea3-198346a55c41';
+    $pane->panel = 'main';
+    $pane->type = 'elife_article_markup_doi';
+    $pane->subtype = 'elife_article_markup_doi';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 5;
+    $pane->locks = array();
+    $pane->uuid = '45c46cfd-e14d-40e0-aea3-198346a55c41';
+    $display->content['new-45c46cfd-e14d-40e0-aea3-198346a55c41'] = $pane;
+    $display->panels['main'][5] = 'new-45c46cfd-e14d-40e0-aea3-198346a55c41';
+    $pane = new stdClass();
+    $pane->pid = 'new-ddb4b42b-8888-414a-a1f5-7d24dcc26be3';
+    $pane->panel = 'main';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_elife_a_parent';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'entityreference_label',
+      'delta_limit' => 0,
+      'delta_offset' => '0',
+      'delta_reversed' => FALSE,
+      'formatter_settings' => array(
+        'link' => 1,
+      ),
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 6;
+    $pane->locks = array();
+    $pane->uuid = 'ddb4b42b-8888-414a-a1f5-7d24dcc26be3';
+    $display->content['new-ddb4b42b-8888-414a-a1f5-7d24dcc26be3'] = $pane;
+    $display->panels['main'][6] = 'new-ddb4b42b-8888-414a-a1f5-7d24dcc26be3';
+    $pane = new stdClass();
+    $pane->pid = 'new-bbefc02e-3e8a-4dd2-8d80-8cfc549f8bf2';
+    $pane->panel = 'main';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_elife_a_parent_sub';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'entityreference_label',
+      'delta_limit' => 0,
+      'delta_offset' => '0',
+      'delta_reversed' => FALSE,
+      'formatter_settings' => array(
+        'link' => 1,
+      ),
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 7;
+    $pane->locks = array();
+    $pane->uuid = 'bbefc02e-3e8a-4dd2-8d80-8cfc549f8bf2';
+    $display->content['new-bbefc02e-3e8a-4dd2-8d80-8cfc549f8bf2'] = $pane;
+    $display->panels['main'][7] = 'new-bbefc02e-3e8a-4dd2-8d80-8cfc549f8bf2';
+    $pane = new stdClass();
+    $pane->pid = 'new-942df10f-4cfa-4f02-8c0a-a518f5d5fdd6';
+    $pane->panel = 'main';
+    $pane->type = 'entity_field';
+    $pane->subtype = 'node:field_elife_a_fragments';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'label' => 'title',
+      'formatter' => 'entityreference_label',
+      'delta_limit' => '0',
+      'delta_offset' => '0',
+      'delta_reversed' => 0,
+      'formatter_settings' => array(
+        'link' => 1,
+      ),
+      'context' => 'argument_entity_id:node_1',
+      'override_title' => 0,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 8;
+    $pane->locks = array();
+    $pane->uuid = '942df10f-4cfa-4f02-8c0a-a518f5d5fdd6';
+    $display->content['new-942df10f-4cfa-4f02-8c0a-a518f5d5fdd6'] = $pane;
+    $display->panels['main'][8] = 'new-942df10f-4cfa-4f02-8c0a-a518f5d5fdd6';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
+  $handler->conf['display'] = $display;
+  $export['node_view__elife_fragment_sub_article_'] = $handler;
+
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
   $handler->name = 'node_view__elife_non_research_article';
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 2;
+  $handler->weight = -28;
   $handler->conf = array(
     'title' => 'eLife Non-Research Article',
     'no_blocks' => 0,
@@ -1459,7 +1794,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 1;
+  $handler->weight = -29;
   $handler->conf = array(
     'title' => 'eLife Research Article',
     'no_blocks' => 0,
@@ -2004,7 +2339,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 3;
+  $handler->weight = -27;
   $handler->conf = array(
     'title' => 'eLife Sub Article',
     'no_blocks' => 0,

@@ -89,6 +89,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function clearEntityMaxAfterScenario() {
     foreach ($this->entity_types as $type => $id) {
       $query = new EntityFieldQuery();
+      // Bypass access controls.
+      $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
       $query->entityCondition('entity_type', $type);
       $query->propertyOrderBy($id, 'DESC');
       $query->propertyCondition($id, $this->entity_max[$type], '>');
@@ -105,7 +107,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function redirectsAreNotFollowed() {
     $this->canIntercept();
-    $this->getSession()->getDriver()->getClient()->followRedirects(false);
+    $this->getSession()->getDriver()->getClient()->followRedirects(FALSE);
   }
 
   /**
@@ -119,8 +121,40 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function thereShouldBeVersionsOfArticle($expected, $article_id)
   {
     $expected = intval($expected);
-    $versions = ElifeArticleVersion::fromId($article_id, FALSE);
-    $actual = count($versions);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT']);
+    $actual = !empty($versions) ? count($versions) : 0;
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * Checks that we have the expected published versions of an article.
+   *
+   * @param int $expected number of published versions of article
+   * @param string $article_id id of article
+   *
+   * @Then /^there should be (\d+) published versions of article "([^"]+)"$/
+   */
+  public function thereShouldBePublishedVersionsOfArticle($expected, $article_id)
+  {
+    $expected = intval($expected);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT', ['1', 'status', '=', 'propertyCondition']]);
+    $actual = !empty($versions) ? count($versions) : 0;
+    Assertions::assertSame($expected, $actual);
+  }
+
+  /**
+   * Checks that we have the expected unpublished versions of an article.
+   *
+   * @param int $expected number of unpublished versions of article
+   * @param string $article_id id of article
+   *
+   * @Then /^there should be (\d+) unpublished versions of article "([^"]+)"$/
+   */
+  public function thereShouldBeUnpublishedVersionsOfArticle($expected, $article_id)
+  {
+    $expected = intval($expected);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT', ['0', 'status', '=', 'propertyCondition']]);
+    $actual = !empty($versions) ? count($versions) : 0;
     Assertions::assertSame($expected, $actual);
   }
 
