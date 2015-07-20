@@ -1121,7 +1121,7 @@ class ElifeArticleVersion {
       if (!$section_code) {
         $section_code = 'other';
       }
-      $reference_path = url($reference);
+      $reference_path = url($reference, ['absolute' => TRUE]);
     }
     else {
       if ($article = self::getArticle($reference)) {
@@ -1136,7 +1136,7 @@ class ElifeArticleVersion {
             $section_code = $key;
           }
         }
-        $reference_path = url('node/' . $article_version->nid->value());
+        $reference_path = drupal_get_path_alias('node/' . $article_version->nid->value());
       }
     }
     if ($reference_path) {

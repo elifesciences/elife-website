@@ -34,6 +34,17 @@ Feature: Front Matter
     And I should see "VOR 05224 v1" in the "h1" element
 
   @api
+  Scenario: Load cover item to homepage referencing a URL
+    Given "elife_cover" content:
+      | title | field_elife_fm_reference | field_elife_fm_reference_type |
+      | Podcast 1 | podcast/1 | Url |
+    And I add "elife_cover" with title "Podcast 1" to entityqueue "elife_cover"
+    When I am on the homepage
+    Then I should see the text "Podcast 1" in the "front_matter_cover" region
+    And I follow "Podcast 1" in the "front_matter_cover" region
+    And I should be on "podcast/1"
+
+  @api
   Scenario: Load front matter items to homepage
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
