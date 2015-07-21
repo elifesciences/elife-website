@@ -16,6 +16,7 @@ mysql:
 
 before_install:
   - sudo apt-get update
+  - composer self-update
 
 install:
   # Create MySQL Database
