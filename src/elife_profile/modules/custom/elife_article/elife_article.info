@@ -3,7 +3,6 @@ core = 7.x
 package = eLife
 version = 7.x-1.0
 project = elife_article
-dependencies[] = composer_manager
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = entity

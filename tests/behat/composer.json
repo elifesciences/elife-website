@@ -1,13 +1,7 @@
 {
-  "require": {
+  "require-dev": {
     "sensiolabs/behat-page-object-extension": "~2.0@dev",
     "behat/drupal-propeople-context": "~1.2",
     "behat/web-api-extension": "~1.0@dev"
-  },
-  "config": {
-    "bin-dir": "bin/"
-  },
-  "scripts": {
-    "post-install-cmd": "php -r \"if(file_exists('bin/bdpc')) rename('bin/bdpc', 'bin/behat');\""
   }
 }

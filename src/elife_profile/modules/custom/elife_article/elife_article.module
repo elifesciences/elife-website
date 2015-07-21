@@ -92,7 +92,7 @@ function elife_article_serializer() {
   if (!isset($jmsSerializer)) {
     AnnotationRegistry::registerAutoloadNamespace(
       'JMS\Serializer\Annotation',
-      composer_manager_vendor_dir() . '/jms/serializer/src'
+      variable_get('elife_composer_vendor_path') . '/jms/serializer/src'
     );
 
     $jmsSerializer = JMS\Serializer\SerializerBuilder::create()

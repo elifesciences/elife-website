@@ -1,0 +1,19 @@
+{
+    "name": "elife/elife",
+    "description": "The open-access eLife journal.",
+    "license": "proprietary",
+    "require": {
+        "wikimedia/composer-merge-plugin": "~1.2"
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": [
+                "./src/elife_profile/modules/*/*/composer.json",
+                "./tests/*/composer.json"
+            ]
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
