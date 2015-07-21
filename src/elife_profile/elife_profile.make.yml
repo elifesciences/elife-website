@@ -16,10 +16,6 @@ projects:
       type: 'git'
       url: 'http://git.drupal.org/project/cluetip.git'
       revision: '6fe2bf6058a7899cfbc34050a7db56dff77a2a34'
-  composer_manager:
-    version: '1.7'
-    patch:
-      - 'https://www.drupal.org/files/issues/new-line-eof-2521702-1.patch'
   context:
     version: '3.6'
   ctools:
