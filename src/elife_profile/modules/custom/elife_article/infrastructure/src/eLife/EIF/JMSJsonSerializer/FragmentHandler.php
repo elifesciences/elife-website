@@ -34,8 +34,16 @@ final class FragmentHandler implements SubscribingHandler {
     }
     else {
       $type['name'] = Fragment::class;
-      if (empty($data['title']) && 'abstract' === $data['type']) {
-        $data['title'] = 'Abstract';
+      if (empty($data['title'])) {
+        switch ($data['type']) {
+          case 'abstract':
+            $data['title'] = 'Abstract';
+            break;
+
+          case 'fig':
+            $data['title'] = 'Figure';
+            break;
+        }
       }
     }
 
