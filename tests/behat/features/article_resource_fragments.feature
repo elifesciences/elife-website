@@ -694,3 +694,70 @@ Feature: Article Resource - Fragments (API)
           ]
         }
       """
+
+  Scenario: Load an article with fragments with no title
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224",
+          "pub-date": "1979-08-17",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "fragments": [
+            {
+              "type": "abstract",
+              "title": "Abstract",
+              "doi": "10.7554/eLife.00013.001",
+              "path": "content/3/e00013/abstract-1"
+            },
+            {
+              "type": "abstract",
+              "title": "eLife digest",
+              "doi": "10.7554/eLife.00013.002",
+              "path": "content/3/e00013/abstract-2"
+            },
+            {
+              "type": "fig",
+              "doi": "10.7554/eLife.00013.003",
+              "path": "content/3/e00013/F1",
+            }
+          ]
+        }
+      """
+    And the response code should be 200
+    When I send a GET request to "api/article/05224.json"
+    Then the response should contain json:
+      """
+        {
+          "title": "VOR 05224",
+          "fragments": [
+            {
+              "type": "abstract",
+              "title": "Abstract",
+              "doi": "10.7554/eLife.00013.001",
+              "path": "content/3/e00013/abstract-1"
+            },
+            {
+              "type": "abstract",
+              "title": "eLife digest",
+              "doi": "10.7554/eLife.00013.002",
+              "path": "content/3/e00013/abstract-2"
+            },
+            {
+              "type": "fig",
+              "title": "Figure",
+              "doi": "10.7554/eLife.00013.003",
+              "path": "content/3/e00013/F1",
+            }
+          ]
+        }
+      """
+
