@@ -155,10 +155,6 @@ projects:
     version: '1.2'
   webform:
     version: '4.9'
-  xautoload:
-    version: '5.1'
-    patch:
-      - 'https://www.drupal.org/files/issues/xautoload-base_table_or_view_not-2393205-16.patch'
   xmlsitemap:
     version: '2.2'
 

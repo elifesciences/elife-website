@@ -9,7 +9,8 @@
             "eLife\\": [
                 "domain/src/eLife/",
                 "infrastructure/src/eLife/"
-            ]
+            ],
+            "Drupal\\elife_article\\": "src/"
         }
     }
 }
