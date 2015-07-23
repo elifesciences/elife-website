@@ -86,6 +86,15 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_article_repro_details',
         'path' => $template_path,
       ),
+      'elife_article_related' => array(
+        'variables' => array(
+          'title' => NULL,
+          'authors' => NULL,
+          'cats_and_heads' => NULL,
+        ),
+        'template' => 'elife_article_related',
+        'path' => $path . '/templates',
+      ),
       'elife_cover' => array(
         'variables' => array(
           'title' => NULL,

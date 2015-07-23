@@ -24,9 +24,6 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
   /* @var EntityDrupalWrapper $ewrapper */
   if ($ewrapper = entity_metadata_wrapper('node', $node)) {
     $output = '';
-
-    // @todo - elife - nlisgo - output correction links
-
     if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
       if ($ewrapper->field_elife_a_parent->raw()) {
         $article_version = elife_article_version_to_dto($ewrapper->field_elife_a_parent->value());
