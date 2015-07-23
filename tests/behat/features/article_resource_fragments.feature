@@ -727,7 +727,7 @@ Feature: Article Resource - Fragments (API)
             {
               "type": "fig",
               "doi": "10.7554/eLife.00013.003",
-              "path": "content/3/e00013/F1",
+              "path": "content/3/e00013/F1"
             }
           ]
         }
@@ -755,9 +755,8 @@ Feature: Article Resource - Fragments (API)
               "type": "fig",
               "title": "Figure",
               "doi": "10.7554/eLife.00013.003",
-              "path": "content/3/e00013/F1",
+              "path": "content/3/e00013/F1"
             }
           ]
         }
       """
-
