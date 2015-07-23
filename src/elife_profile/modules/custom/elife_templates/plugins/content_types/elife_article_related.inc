@@ -31,6 +31,7 @@ function elife_article_related_content_render($subtype, $conf, $args, &$context)
       if (!$ewrapper->field_elife_a_parent->raw()) {
         $dto = elife_article_version_to_dto($node);
         $article = ElifeArticleVersion::getArticle($dto->getArticleId());
+        // @todo - elife - nlisgo - make it easier to filter out critical relations
         $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1);
         $items = [];
         foreach ($related_articles as $related_article) {
