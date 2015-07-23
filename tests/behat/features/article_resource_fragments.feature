@@ -695,9 +695,9 @@ Feature: Article Resource - Fragments (API)
         }
       """
 
-  Scenario: Load an article with fragments with no title
+  Scenario: Attempt to load an article with fragments with no title
     Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    When I send a POST request to "api/article.json" with body:
       """
         {
           "title": "VOR 05224",
@@ -714,7 +714,6 @@ Feature: Article Resource - Fragments (API)
           "fragments": [
             {
               "type": "abstract",
-              "title": "Abstract",
               "doi": "10.7554/eLife.00013.001",
               "path": "content/3/e00013/abstract-1"
             },
@@ -732,31 +731,18 @@ Feature: Article Resource - Fragments (API)
           ]
         }
       """
-    And the response code should be 200
-    When I send a GET request to "api/article/05224.json"
-    Then the response should contain json:
+    Then response code should be 400
+    And the response should contain json:
       """
-        {
-          "title": "VOR 05224",
-          "fragments": [
-            {
-              "type": "abstract",
-              "title": "Abstract",
-              "doi": "10.7554/eLife.00013.001",
-              "path": "content/3/e00013/abstract-1"
-            },
-            {
-              "type": "abstract",
-              "title": "eLife digest",
-              "doi": "10.7554/eLife.00013.002",
-              "path": "content/3/e00013/abstract-2"
-            },
-            {
+        [
+          {
+            "field": "data.fragments.2",
+            "message": "referenced schema does not match",
+            "value": {
               "type": "fig",
-              "title": "Figure",
               "doi": "10.7554/eLife.00013.003",
               "path": "content/3/e00013/F1"
             }
-          ]
-        }
+          }
+        ]
       """
