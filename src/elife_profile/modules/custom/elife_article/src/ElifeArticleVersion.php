@@ -980,7 +980,7 @@ class ElifeArticleVersion {
    * @throws \EntityMetadataWrapperException
    */
   public static function processUnverifiedRelatedArticles($entity_id = NULL) {
-    $results = self::retrieveRelatedArticles(FALSE, $entity_id);
+    $results = self::retrieveRelatedArticles($entity_id, FALSE);
 
     if (!empty($results)) {
       foreach ($results as $item_id => $result) {
@@ -999,11 +999,13 @@ class ElifeArticleVersion {
   /**
    * Retrieve related articles.
    *
-   * @param bool $verified
-   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
    * @param int|NULL $entity_id
    *   Entity id of Article Version.
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
    * @param bool $unique
+   *   If TRUE only return unique relations.
+   * @param int|NULL $unique
    *   If TRUE only return unique relations.
    *
    * @return array
@@ -1011,7 +1013,7 @@ class ElifeArticleVersion {
    *
    * @throws \EntityMetadataWrapperException
    */
-  public static function retrieveRelatedArticles($verified = TRUE, $entity_id = NULL, $unique = FALSE) {
+  public static function retrieveRelatedArticles($entity_id = NULL, $verified = TRUE, $unique = FALSE, $status = NULL) {
     $results = array();
 
     $query = db_select('field_collection_item', 'fc');
@@ -1024,6 +1026,10 @@ class ElifeArticleVersion {
     $query->addField('sta', 'field_elife_a_status_value', 'article_status');
     $query->addField('aid_1', 'field_elife_a_article_id_value', 'endpoint_1_article_id');
     $query->addField('aid_2', 'field_elife_a_article_id_value', 'endpoint_2_article_id');
+    $query->addField('node_1', 'nid', 'endpoint_1_article_ver_nid');
+    $query->addField('node_2', 'nid', 'endpoint_2_article_ver_nid');
+    $query->addField('node_1', 'status', 'endpoint_1_article_ver_status');
+    $query->addField('node_2', 'status', 'endpoint_2_article_ver_status');
     $query->leftJoin('field_data_field_elife_a_doi', 'doi', "doi.entity_type = 'field_collection_item' AND doi.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_rel_article_ref', 'ref', "ref.entity_type = 'field_collection_item' AND ref.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_doi', 'doi_dest', "doi_dest.entity_type = 'node' AND doi_dest.field_elife_a_doi_value = doi.field_elife_a_doi_value");
@@ -1034,6 +1040,10 @@ class ElifeArticleVersion {
     $query->leftJoin('field_data_field_elife_a_status', 'sta', 'sta.entity_id = doi_dest.entity_id');
     $query->leftJoin('field_data_field_elife_a_article_id', 'aid_1', 'aid_1.entity_id = rel.entity_id');
     $query->leftJoin('field_data_field_elife_a_article_id', 'aid_2', 'aid_2.entity_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_versions', 'vers_1', 'vers_1.entity_id = rel.entity_id AND vers_1.delta = 0');
+    $query->leftJoin('field_data_field_elife_a_versions', 'vers_2', 'vers_2.entity_id = vers.entity_id AND vers_2.delta = 0');
+    $query->leftJoin('node', 'node_1', 'node_1.nid = vers_1.field_elife_a_versions_target_id');
+    $query->leftJoin('node', 'node_2', 'node_2.nid = vers_2.field_elife_a_versions_target_id');
     $query->orderBy('rel.delta');
 
     if ($verified) {
@@ -1063,6 +1073,17 @@ class ElifeArticleVersion {
         $query->addExpression('0', 'endpoints_flag');
       }
       $query->orderBy('endpoints_flag', 'DESC');
+    }
+
+    if ($status === 1) {
+      $query->condition('node_1.status', $status, '=');
+      $query->condition('node_2.status', $status, '=');
+    }
+    elseif ($status === 0) {
+      $db_or = db_or();
+      $db_or->condition('node_1.status', $status, '=');
+      $db_or->condition('node_2.status', $status, '=');
+      $query->condition($db_or);
     }
 
     $query->groupBy('endpoint_1');

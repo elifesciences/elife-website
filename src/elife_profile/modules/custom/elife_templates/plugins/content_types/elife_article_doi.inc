@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\elife_article\ElifeArticleVersion;
 use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\SubArticle;
 use eLife\EIF\ArticleVersion\Fragment;
@@ -77,6 +78,25 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
       $doi_link = l($doi, $doi);
       $doi_links[$label] = $doi_link;
 
+      if (!$fragment) {
+        $article = ElifeArticleVersion::getArticle($article_version->getArticleId());
+        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1);
+        // @todo - elife - nlisgo - what about addendum and retraction?!
+        foreach ($related_articles as $related_article) {
+          if ($related_article->article_type == 'corrected-article') {
+            if ($related_article->endpoints_flag == '1') {
+              $label = t('View the corrected article');
+            }
+            else {
+              $label = t('This article has been corrected');
+            }
+            $output .= '<span class="elife-article-correction">';
+            $output .= l($label, 'node/' . $related_article->{$related_article->related_to_endpoint . '_article_ver_nid'});
+            $output .= '</span>';
+          }
+        }
+      }
+
       foreach ($doi_links as $label => $doi_link) {
         $output .= '<div class="pane-elife-doi">';
         $output .= '<span class="elife-doi-doi">';
@@ -86,7 +106,15 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
         $output .= '</div>';
       }
 
-      // @todo - elife - nlisgo - introduce cite as value if main article page
+      if (!$fragment) {
+        $output .= '<span class="elife-doi-epubdate">';
+        $output .= '<span class="elife-doi-epubdate-label label">' . t('Published') . '</span> ';
+        $output .= '<span class="elife-doi-epubdate-data">' . $article_version->getPubDate()->format('F j, Y') . '</span>';
+        $output .= '</span>';
+
+        // @todo - elife - nlisgo - introduce cite as value if main article page
+      }
+
 
       $block = new stdClass();
       $block->content = $output;
