@@ -95,6 +95,30 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_article_related',
         'path' => $path . '/templates',
       ),
+      'elife_article_criticalrelation_block' => array(
+        'variables' => array(
+          'identifier' => 'critical-relations',
+          'list_class' => array('critical-relation-list'),
+          'reln_type' => NULL,
+          'reln_type_id' => NULL,
+          'reln_title' => NULL,
+          'criticalrelations' => NULL,
+        ),
+        'template' => 'elife_article_criticalrelation_block',
+        'path' => $path . '/templates',
+      ),
+      'elife_article_criticalrelation' => array(
+        'variables' => array(
+          'identifier' => 'critical-relation',
+          'other_title' => NULL,
+          'other_authors' => NULL,
+          'other_impact_statement' => NULL,
+          'other_citeas' => NULL,
+          'other_doi_link' => NULL,
+        ),
+        'template' => 'elife_article_criticalrelation',
+        'path' => $path . '/templates',
+      ),
       'elife_cover' => array(
         'variables' => array(
           'title' => NULL,
