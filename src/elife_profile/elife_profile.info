@@ -72,7 +72,6 @@ dependencies[] = xmlsitemap
 dependencies[] = strongarm
 dependencies[] = services
 dependencies[] = rest_server
-dependencies[] = xautoload
 dependencies[] = field_collection
 dependencies[] = panels
 dependencies[] = semanticviews
