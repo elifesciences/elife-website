@@ -1006,7 +1006,7 @@ class ElifeArticleVersion {
    * @param bool $unique
    *   If TRUE only return unique relations.
    * @param int|NULL $status
-   *   0 for unpublished, 1 for published and NULL for either.
+   *   0 for unpublished, 1 for published and NULL for permission specific.
    * @param int|NULL $critical
    *   0 for non-critical, 1 for critical and NULL for either.
    *
@@ -1078,6 +1078,9 @@ class ElifeArticleVersion {
     }
 
     if ($verified) {
+      if (is_null($status)) {
+        $status = (user_access('view any unpublished elife_article_ver content') || user_access('view any unpublished content')) ? NULL : 1;
+      }
       if ($status === 1) {
         $query->condition('node_1.status', $status, '=');
         $query->condition('node_2.status', $status, '=');
@@ -1098,6 +1101,8 @@ class ElifeArticleVersion {
         $query->leftJoin('field_data_field_elife_category_type', 'cat_type_2', 'cat_type_2.entity_id = td_2.tid');
         $query->condition('cat_type_1.field_elife_category_type_value', 'display-channel', '=');
         $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
+        $query->addField('td_1', 'name', 'endpoint_1_display_channel');
+        $query->addField('td_2', 'name', 'endpoint_2_display_channel');
         $query->addExpression("CONCAT(td_1.name, '.', td_2.name)", 'type_to_type');
         $query->addExpression("CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))", 'type_to_type_ordered');
         $criticals = [
@@ -1108,7 +1113,6 @@ class ElifeArticleVersion {
           $ands = [];
           foreach ($criticals as $cri) {
             $ands[] = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name)) != '" . $cri . "'";
-            // $query->condition("CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))", $cri, '!=');
           }
           $query->where(implode(' AND ', $ands));
         }
@@ -1116,7 +1120,6 @@ class ElifeArticleVersion {
           $ors = [];
           foreach ($criticals as $cri) {
             $ors[] = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name)) = '" . $cri . "'";
-            // $db_or->condition("CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))", $cri, '=');
           }
           $query->where(implode(' OR ', $ors));
         }
@@ -1149,6 +1152,20 @@ class ElifeArticleVersion {
         foreach ($results as $nid => $result) {
           $results[$nid]->related_to = $results[$nid]->{$results[$nid]->related_to_endpoint . '_article_id'};
         }
+      }
+
+      foreach ($results as $nid => $result) {
+        $endpoints = [];
+        foreach (get_object_vars($result) as $key => $value) {
+          if (preg_match('/^(?<endpoint>endpoint_[1-2])_?(?<type>.*)$/', $key, $matches)) {
+            $type = !empty($matches['type']) ? $matches['type'] : 'nid';
+            $endpoints[$matches['endpoint']][$type] = $value;
+          }
+        }
+        if (!empty($endpoints[$result->related_to_endpoint])) {
+          $endpoints['related_to'] = $endpoints[$result->related_to_endpoint];
+        }
+        $results[$nid]->endpoints = json_decode(json_encode($endpoints));
       }
     }
 

@@ -32,10 +32,10 @@ function elife_article_related_content_render($subtype, $conf, $args, &$context)
         $dto = elife_article_version_to_dto($node);
         $article = ElifeArticleVersion::getArticle($dto->getArticleId());
         // Get non-critical related articles.
-        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1, 0);
+        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, NULL, 0);
         $items = [];
         foreach ($related_articles as $related_article) {
-          $related = node_load($related_article->{$related_article->related_to_endpoint . '_article_ver_nid'});
+          $related = node_load($related_article->endpoints->related_to->article_ver_nid);
           $related_dto = elife_article_version_to_dto($related);
           $variables = [
             'title' => l($related_dto->getTitle(), 'node/' . $related->nid, ['attributes' => ['class' => ['elife-cite-linked-title']]]),
