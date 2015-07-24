@@ -110,6 +110,29 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->getSession()->getDriver()->getClient()->followRedirects(FALSE);
   }
 
+  // the versions should be ordered "05224,05224.early.v1,05224.early.v2"
+
+  /**
+   * Checks that we have the expected versions of an article in order.
+   *
+   * @param int $expected versions of article
+   * @param string $article_id id of article
+   *
+   * @Then /^the versions should be ordered "([^"]+)" for "([^"]+)"$/
+   */
+  public function theVersionsShouldBeOrderedFor($expected, $article_id)
+  {
+    $expected = explode(',', $expected);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT']);
+    $actual = [];
+    if (!empty($versions)) {
+      foreach ($versions as $version) {
+        $actual[] = $version->extraFields->field_elife_a_article_version_id_value;
+      }
+    }
+    Assertions::assertSame($expected, $actual);
+  }
+
   /**
    * Checks that we have the expected versions of an article.
    *

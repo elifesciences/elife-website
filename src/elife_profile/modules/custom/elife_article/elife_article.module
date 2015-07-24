@@ -405,6 +405,7 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   // @todo - elife - nlisgo - verify that published versions are listed first.
   $versions = [];
   $query = new EntityFieldQueryExtraFields();
+  $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
   $query->entityCondition('entity_type', 'node');
   $query->entityCondition('bundle', 'elife_article_ver');
   $query->fieldCondition('field_elife_a_article_id', 'value', $article_version->getArticleId());
@@ -422,7 +423,6 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
       }
     }
   }
-  krsort($versions);
 
   $entity->field_elife_a_versions->set(array_values($versions));
 
