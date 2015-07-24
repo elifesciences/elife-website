@@ -1078,6 +1078,7 @@ class ElifeArticleVersion {
     }
 
     if ($verified) {
+      // If status is NULL then check permissions of user.
       if (is_null($status)) {
         $status = (user_access('view any unpublished elife_article_ver content') || user_access('view any unpublished content')) ? NULL : 1;
       }
@@ -1103,24 +1104,27 @@ class ElifeArticleVersion {
         $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
         $query->addField('td_1', 'name', 'endpoint_1_display_channel');
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
-        $query->addExpression("CONCAT(td_1.name, '.', td_2.name)", 'type_to_type');
-        $query->addExpression("CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))", 'type_to_type_ordered');
+        $criticalrelation = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))";
+        $query->addExpression($criticalrelation, 'criticalrelation');
         $criticals = [
-          'Research advance.Research Article',
-          'Registered report.Replication study',
+          'builds' => 'Research advance.Research article',
+          'replicates' => 'Registered report.Replication study',
         ];
         if ($critical === 0) {
           $ands = [];
-          foreach ($criticals as $cri) {
-            $ands[] = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name)) != '" . $cri . "'";
+          foreach (array_values($criticals) as $cri) {
+            $ands[] = $criticalrelation . " != '" . $cri . "'";
           }
           $query->where(implode(' AND ', $ands));
         }
         elseif ($critical === 1) {
           $ors = [];
-          foreach ($criticals as $cri) {
-            $ors[] = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name)) = '" . $cri . "'";
+          $cases = [];
+          foreach ($criticals as $type => $cri) {
+            $cases[] = "WHEN '" . $cri . "' THEN '" . $type . "'";
+            $ors[] = $criticalrelation . " = '" . $cri . "'";
           }
+          $query->addExpression('CASE ' . $criticalrelation . ' ' . implode(' ', $cases) . ' ELSE NULL END', 'criticalrelation_type');
           $query->where(implode(' OR ', $ors));
         }
       }
@@ -1162,7 +1166,7 @@ class ElifeArticleVersion {
             $endpoints[$matches['endpoint']][$type] = $value;
           }
         }
-        if (!empty($endpoints[$result->related_to_endpoint])) {
+        if (isset($result->related_to_endpoint) && !empty($endpoints[$result->related_to_endpoint])) {
           $endpoints['related_to'] = $endpoints[$result->related_to_endpoint];
         }
         $results[$nid]->endpoints = json_decode(json_encode($endpoints));

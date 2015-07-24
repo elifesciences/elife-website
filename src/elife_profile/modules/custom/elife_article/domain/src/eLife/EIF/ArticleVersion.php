@@ -6,6 +6,8 @@ use DateTimeImmutable;
 use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\Citation;
 use eLife\EIF\ArticleVersion\Contributor;
+use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
 use JMS\Serializer\Annotation as Serializer;
@@ -369,5 +371,48 @@ final class ArticleVersion {
 
   public function getCitations() {
     return $this->citations;
+  }
+
+  public function getCiteAs() {
+    $cite_as = $this->getPubDate()->format('Y');
+    if ($this->getStatus() == 'POA') {
+      $cite_as .= ';' . $this->getDoi();
+    }
+    else {
+      $cite_as .= ';' . $this->getVolume() . ':' . $this->getElocationId();
+    }
+
+    return $cite_as;
+  }
+
+  public function getSimpleAuthorList() {
+    $authors = [];
+    foreach ($this->getContributors() as $contributor) {
+      $name = [];
+      if ($contributor instanceof BylineContributor) {
+        if ($contributor->getType() != 'author') {
+          continue;
+        }
+        if ($given_names = $contributor->getGivenNames()) {
+          $name['given-names'] = $given_names;
+        }
+        if ($surname = $contributor->getSurname()) {
+          $name['surname'] = $surname;
+        }
+        if ($suffix = $contributor->getSuffix()) {
+          $name['suffix'] = $suffix;
+        }
+      }
+      elseif ($contributor instanceof CollabContributor) {
+        if ($collab = $contributor->getCollab()) {
+          $name['collab'] = $collab;
+        }
+      }
+      if (!empty($name)) {
+        $authors[] = implode(' ', $name);
+      }
+    }
+
+    return $authors;
   }
 }
