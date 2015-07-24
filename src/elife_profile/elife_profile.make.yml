@@ -173,7 +173,7 @@ libraries:
     download:
       type: 'git'
       url: 'ssh://git@github.com/elifesciences/elife-eif-schema.git'
-      revision: 'f2d79a8f80d1b06d320601000e93d5c7829526a1'
+      revision: 'f39b045c38cacefc68948945419f669f8ea9e6c7'
   cluetip:
     download:
       type: 'git'

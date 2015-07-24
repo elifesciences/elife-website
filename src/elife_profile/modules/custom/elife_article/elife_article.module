@@ -369,6 +369,7 @@ function elife_article_version_to_dto(stdClass $entity) {
     $entity->field_elife_a_doi->value(),
     $entity->status->value(),
     $entity_article->field_elife_a_volume->value(),
+    $entity->field_elife_a_elocation_id->value(),
     $entity->field_elife_a_article_id->value(),
     $entity->field_elife_a_article_version_id->value(),
     DateTimeImmutable::createFromFormat('U', $entity_article->field_elife_a_fpubdate->value()),
@@ -496,6 +497,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_doi->set($article_version->getDoi());
   $entity->status->set((int) $article_version->getPublish());
   $entity->field_elife_a_article_id->set($article_version->getArticleId());
+  $entity->field_elife_a_elocation_id->set($article_version->getElocationId());
   $entity->field_elife_a_article_version_id->set($article_version->getArticleVersionId());
   if ($article_version->getUpdate()) {
     $entity->field_elife_a_update->set($article_version->getUpdate()

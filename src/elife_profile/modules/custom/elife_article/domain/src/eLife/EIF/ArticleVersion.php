@@ -58,6 +58,14 @@ final class ArticleVersion {
    * @var string
    *
    * @Serializer\Type("string")
+   * @Serializer\SerializedName("elocation-id")
+   */
+  private $elocation_id;
+
+  /**
+   * @var string
+   *
+   * @Serializer\Type("string")
    * @Serializer\SerializedName("article-id")
    */
   private $article_id;
@@ -164,6 +172,7 @@ final class ArticleVersion {
    * @param string $doi
    * @param boolean $publish
    * @param integer $volume
+   * @param string $elocation_id
    * @param string $article_id
    * @param string $article_version_id
    * @param DateTimeImmutable $pub_date
@@ -186,6 +195,7 @@ final class ArticleVersion {
     $doi,
     $publish,
     $volume,
+    $elocation_id,
     $article_id,
     $article_version_id,
     DateTimeImmutable $pub_date,
@@ -207,6 +217,7 @@ final class ArticleVersion {
     $this->doi = (string) $doi;
     $this->publish = (string) $publish;
     $this->volume = (string) $volume;
+    $this->elocation_id = (string) $elocation_id;
     $this->article_id = (string) $article_id;
     $this->article_version_id = (string) $article_version_id;
     $this->pub_date = $pub_date->format('Y-m-d');
@@ -278,6 +289,10 @@ final class ArticleVersion {
 
   public function getVolume() {
     return (int) $this->volume;
+  }
+
+  public function getElocationId() {
+    return $this->elocation_id;
   }
 
   public function getArticleId() {
