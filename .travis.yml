@@ -45,11 +45,6 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - composer global require --no-interaction drush/drush:7.*
 
-  # Build Behat dependencies
-  - cd ./tests/behat
-  - composer install  --prefer-source --no-interaction
-  - cd ../..
-
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
