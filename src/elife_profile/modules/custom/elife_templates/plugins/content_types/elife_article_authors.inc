@@ -33,7 +33,41 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
   $authors = [];
   $contributors = $dto->getContributors();
   if (!empty($contributors)) {
-    foreach ($contributors as $contributor) {
+    $contribs = $dto->getReferenced()->getContribution();
+    foreach ($contribs as $key => $value) {
+      $contribs[$key] = preg_replace('#^[^\:\,]+(\:|\,) (.*)$#is', '$2', $value);
+    }
+
+    $footnotes = [];
+    foreach ($dto->getReferenced()->getFootNote() as $fn => $footnote) {
+      $footnotes[$footnote->getType()][$fn] = $footnote->getValue();
+    }
+
+    // Prepare equal_contrib name lists so that we can easily strip a name out.
+    $equal_contribs = [];
+    foreach ($contributors as $co => $contributor) {
+      if ($references = $contributor->getReferences()) {
+        if (!empty($references['equal-contrib'])) {
+          if ($contributor instanceof BylineContributor) {
+            $name = [];
+            if ($given_names = $contributor->getGivenNames()) {
+              $name['given-names'] = $given_names;
+            }
+            if ($surname = $contributor->getSurname()) {
+              $name['surname'] = $surname;
+            }
+            if ($suffix = $contributor->getSuffix()) {
+              $name['suffix'] = $suffix;
+            }
+            foreach ($references['equal-contrib'] as $ec) {
+              $equal_contribs[$ec][$co] = implode(' ', $name);
+            }
+          }
+        }
+      }
+    }
+
+    foreach ($contributors as $co => $contributor) {
       $variables = [];
       $name = [];
       if ($contributor instanceof BylineContributor) {
@@ -71,9 +105,6 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         if ($role = $contributor->getRole()) {
           $variables['tooltip_name'] = '<span class="role">' . $role . '</span>';
         }
-        if ($deceased = $contributor->isDeceased()) {
-          $variables['deceased'] = '<p>' . t('Deceased') . '</p>';
-        }
       }
       elseif ($contributor instanceof CollabContributor) {
         if ($collab = $contributor->getCollab()) {
@@ -92,7 +123,6 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         );
 
         $variables['tooltip_name'] = (!empty($variables['tooltip_name'])) ? implode(' ', $author) . ', ' . $variables['tooltip_name'] : implode(' ', $author);
-        // @todo - elife - nlisgo - handle alphabetical listing.
         $variables['tooltip_authors_listed'] = NULL;
         $variables['equal_contrib_group'] = NULL;
 
@@ -113,13 +143,20 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
             $variables['email'] = $email;
           }
           if (!empty($references['contribution'])) {
-            // @todo - elife - nlisgo - how ot display contrib??
-            $contribs = $dto->getReferenced()->getContribution();
-            // $variables['contrib'] = implode(', ', array_intersect_key($contribs, array_flip($references['contribution'])));
+            $variables['contrib'] = implode('; ', array_intersect_key($contribs, array_flip($references['contribution'])));
           }
           if (!empty($references['equal-contrib'])) {
-            $equal_contribs = $dto->getReferenced()->getEqualContrib();
-            // @todo - elife - nlisgo - display equal contrib without current author.
+            $ecgs = [];
+            foreach ($references['equal-contrib'] as $eq) {
+              // Only display the other authors in the equal-contrib list.
+              if (isset($equal_contribs[$eq][$co])) {
+                $ecg = array_diff_key($equal_contribs[$eq], array_flip([$co]));
+                if (!empty($ecg)) {
+                  $ecgs[] = implode(', ', $ecg);
+                }
+              }
+            }
+            $variables['equal_contrib_group'] = implode('; ', $ecgs);
           }
           if (!empty($references['competing-interest'])) {
             $competing_interests = $dto->getReferenced()->getCompetingInterest();
@@ -133,6 +170,12 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
             if (!empty($conflict)) {
               $variables['conflict'] = _elife_article_xmltohtml(implode(' ', $conflict));
             }
+          }
+          if (!empty($references['foot-note']) && !empty($footnotes['deceased'])) {
+            $variables['deceased_footnote'] = implode('; ', array_intersect_key($footnotes['deceased'], array_flip($references['foot-note'])));
+          }
+          if (!empty($references['foot-note']) && !empty($footnotes['other'])) {
+            $variables['other_footnotes'] = array_intersect_key($footnotes['other'], array_flip($references['foot-note']));
           }
         }
 

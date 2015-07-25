@@ -12,6 +12,7 @@ Feature: Article Resource - POST (API)
           "version": "1",
           "doi": "10.7554/eLife.05227",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
           "pub-date": "1979-08-17",
@@ -34,6 +35,7 @@ Feature: Article Resource - POST (API)
           "version": "1",
           "doi": "<invalid_doi>",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
           "pub-date": "1979-08-17",
@@ -76,6 +78,7 @@ Feature: Article Resource - POST (API)
           "version": "1",
           "doi": "10.7554/eLife.05227",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227.1",
           "pub-date": "1979-08-17",
@@ -106,8 +109,8 @@ Feature: Article Resource - POST (API)
     Examples:
       | required_data | field_errors |
       |  | {"field":"data.title","message":"is required","value": []} |
-      | "title":"Title" | {"field":"data.version","message":"is required","value":{"title":"Title"}},{"field":"data.doi","message":"is required","value":{"title":"Title"}},{"field":"data.volume","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title"}},{"field":"data.path","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title"}},{"field":"data.status","message":"is required","value":{"title":"Title"}} |
-      | "title":"Title","doi":"DOI","path":"content/4/e05224", "status": "VOR" | {"field":"data.version","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data.volume","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content/4/e05224","status":"VOR"}} |
+      | "title":"Title" | {"field":"data.version","message":"is required","value":{"title":"Title"}},{"field":"data.doi","message":"is required","value":{"title":"Title"}},{"field":"data.volume","message":"is required","value":{"title":"Title"}},{"field":"data[\"elocation-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title"}},{"field":"data.path","message":"is required","value":{"title":"Title"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title"}},{"field":"data.status","message":"is required","value":{"title":"Title"}} |
+      | "title":"Title","doi":"DOI","path":"content/4/e05224", "status": "VOR" | {"field":"data.version","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data.volume","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data[\"elocation-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data[\"article-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data[\"article-version-id\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data[\"pub-date\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}},{"field":"data[\"article-type\"]","message":"is required","value":{"title":"Title","doi":"DOI","path":"content\/4\/e05224","status":"VOR"}} |
 
   Scenario: Use POST protocol to update an article
     Given I set header "Content-Type" with value "application/json"
@@ -118,6 +121,7 @@ Feature: Article Resource - POST (API)
           "version": "1",
           "doi": "10.7554/eLife.05227",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
           "pub-date": "1979-08-17",
@@ -135,6 +139,7 @@ Feature: Article Resource - POST (API)
           "version": "1",
           "doi": "10.7554/eLife.05227",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
           "pub-date": "1979-08-17",

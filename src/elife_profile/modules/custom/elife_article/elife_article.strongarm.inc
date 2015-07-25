@@ -58,16 +58,16 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '18',
+          'weight' => '19',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '17',
+          'weight' => '18',
         ),
         'redirect' => array(
-          'weight' => '16',
+          'weight' => '17',
         ),
         'rabbit_hole' => array(
           'weight' => '1',

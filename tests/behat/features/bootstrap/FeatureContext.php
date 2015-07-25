@@ -216,7 +216,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function thereShouldBeUniqueVerifiedRelatedArticles($expected)
   {
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, NULL, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(NULL, TRUE, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -227,7 +227,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function thereShouldBeUnverifiedRelatedArticles($expected)
   {
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles(NULL, FALSE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -239,7 +239,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -251,7 +251,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -263,7 +263,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE, $article->nid);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
@@ -275,7 +275,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $article = ElifeArticleVersion::getArticle($article_id);
     $related_to = explode(', ', $related_to);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(TRUE, $article->nid, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
     $actual = [];
     if (!empty($results)) {
       foreach ($results as $result) {
@@ -293,7 +293,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $article = ElifeArticleVersion::getArticle($article_id);
     $related_to = explode(', ', $related_to);
-    $results = ElifeArticleVersion::retrieveRelatedArticles(FALSE, $article->nid);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
     $actual = [];
     if (!empty($results)) {
       if ($fc_items = entity_load('field_collection_item', array_keys($results))) {

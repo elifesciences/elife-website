@@ -980,7 +980,7 @@ class ElifeArticleVersion {
    * @throws \EntityMetadataWrapperException
    */
   public static function processUnverifiedRelatedArticles($entity_id = NULL) {
-    $results = self::retrieveRelatedArticles(FALSE, $entity_id);
+    $results = self::retrieveRelatedArticles($entity_id, FALSE);
 
     if (!empty($results)) {
       foreach ($results as $item_id => $result) {
@@ -999,19 +999,23 @@ class ElifeArticleVersion {
   /**
    * Retrieve related articles.
    *
-   * @param bool $verified
-   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
    * @param int|NULL $entity_id
    *   Entity id of Article Version.
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
    * @param bool $unique
    *   If TRUE only return unique relations.
+   * @param int|NULL $status
+   *   0 for unpublished, 1 for published and NULL for permission specific.
+   * @param int|NULL $critical
+   *   0 for non-critical, 1 for critical and NULL for either.
    *
    * @return array
    *   Results of query
    *
    * @throws \EntityMetadataWrapperException
    */
-  public static function retrieveRelatedArticles($verified = TRUE, $entity_id = NULL, $unique = FALSE) {
+  public static function retrieveRelatedArticles($entity_id = NULL, $verified = TRUE, $unique = FALSE, $status = NULL, $critical = NULL) {
     $results = array();
 
     $query = db_select('field_collection_item', 'fc');
@@ -1024,6 +1028,10 @@ class ElifeArticleVersion {
     $query->addField('sta', 'field_elife_a_status_value', 'article_status');
     $query->addField('aid_1', 'field_elife_a_article_id_value', 'endpoint_1_article_id');
     $query->addField('aid_2', 'field_elife_a_article_id_value', 'endpoint_2_article_id');
+    $query->addField('node_1', 'nid', 'endpoint_1_article_ver_nid');
+    $query->addField('node_2', 'nid', 'endpoint_2_article_ver_nid');
+    $query->addField('node_1', 'status', 'endpoint_1_article_ver_status');
+    $query->addField('node_2', 'status', 'endpoint_2_article_ver_status');
     $query->leftJoin('field_data_field_elife_a_doi', 'doi', "doi.entity_type = 'field_collection_item' AND doi.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_rel_article_ref', 'ref', "ref.entity_type = 'field_collection_item' AND ref.entity_id = fc.item_id");
     $query->leftJoin('field_data_field_elife_a_doi', 'doi_dest', "doi_dest.entity_type = 'node' AND doi_dest.field_elife_a_doi_value = doi.field_elife_a_doi_value");
@@ -1034,6 +1042,10 @@ class ElifeArticleVersion {
     $query->leftJoin('field_data_field_elife_a_status', 'sta', 'sta.entity_id = doi_dest.entity_id');
     $query->leftJoin('field_data_field_elife_a_article_id', 'aid_1', 'aid_1.entity_id = rel.entity_id');
     $query->leftJoin('field_data_field_elife_a_article_id', 'aid_2', 'aid_2.entity_id = doi_dest.entity_id');
+    $query->leftJoin('field_data_field_elife_a_versions', 'vers_1', 'vers_1.entity_id = rel.entity_id AND vers_1.delta = 0');
+    $query->leftJoin('field_data_field_elife_a_versions', 'vers_2', 'vers_2.entity_id = vers.entity_id AND vers_2.delta = 0');
+    $query->leftJoin('node', 'node_1', 'node_1.nid = vers_1.field_elife_a_versions_target_id');
+    $query->leftJoin('node', 'node_2', 'node_2.nid = vers_2.field_elife_a_versions_target_id');
     $query->orderBy('rel.delta');
 
     if ($verified) {
@@ -1065,6 +1077,59 @@ class ElifeArticleVersion {
       $query->orderBy('endpoints_flag', 'DESC');
     }
 
+    if ($verified) {
+      // If status is NULL then check permissions of user.
+      if (is_null($status)) {
+        $status = (user_access('view any unpublished elife_article_ver content') || user_access('view any unpublished content')) ? NULL : 1;
+      }
+      if ($status === 1) {
+        $query->condition('node_1.status', $status, '=');
+        $query->condition('node_2.status', $status, '=');
+      }
+      elseif ($status === 0) {
+        $db_or = db_or();
+        $db_or->condition('node_1.status', $status, '=');
+        $db_or->condition('node_2.status', $status, '=');
+        $query->condition($db_or);
+      }
+
+      if ($critical === 0 || $critical === 1) {
+        $query->leftJoin('field_data_field_elife_a_category', 'cat_1', 'cat_1.entity_id = node_1.nid');
+        $query->leftJoin('field_data_field_elife_a_category', 'cat_2', 'cat_2.entity_id = node_2.nid');
+        $query->leftJoin('taxonomy_term_data', 'td_1', 'td_1.tid = cat_1.field_elife_a_category_target_id');
+        $query->leftJoin('taxonomy_term_data', 'td_2', 'td_2.tid = cat_2.field_elife_a_category_target_id');
+        $query->leftJoin('field_data_field_elife_category_type', 'cat_type_1', 'cat_type_1.entity_id = td_1.tid');
+        $query->leftJoin('field_data_field_elife_category_type', 'cat_type_2', 'cat_type_2.entity_id = td_2.tid');
+        $query->condition('cat_type_1.field_elife_category_type_value', 'display-channel', '=');
+        $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
+        $query->addField('td_1', 'name', 'endpoint_1_display_channel');
+        $query->addField('td_2', 'name', 'endpoint_2_display_channel');
+        $criticalrelation = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))";
+        $query->addExpression($criticalrelation, 'criticalrelation');
+        $criticals = [
+          'builds' => 'Research advance.Research article',
+          'replicates' => 'Registered report.Replication study',
+        ];
+        if ($critical === 0) {
+          $ands = [];
+          foreach (array_values($criticals) as $cri) {
+            $ands[] = $criticalrelation . " != '" . $cri . "'";
+          }
+          $query->where(implode(' AND ', $ands));
+        }
+        elseif ($critical === 1) {
+          $ors = [];
+          $cases = [];
+          foreach ($criticals as $type => $cri) {
+            $cases[] = "WHEN '" . $cri . "' THEN '" . $type . "'";
+            $ors[] = $criticalrelation . " = '" . $cri . "'";
+          }
+          $query->addExpression('CASE ' . $criticalrelation . ' ' . implode(' ', $cases) . ' ELSE NULL END', 'criticalrelation_type');
+          $query->where(implode(' OR ', $ors));
+        }
+      }
+    }
+
     $query->groupBy('endpoint_1');
 
     if ($verified) {
@@ -1091,6 +1156,20 @@ class ElifeArticleVersion {
         foreach ($results as $nid => $result) {
           $results[$nid]->related_to = $results[$nid]->{$results[$nid]->related_to_endpoint . '_article_id'};
         }
+      }
+
+      foreach ($results as $nid => $result) {
+        $endpoints = [];
+        foreach (get_object_vars($result) as $key => $value) {
+          if (preg_match('/^(?<endpoint>endpoint_[1-2])_?(?<type>.*)$/', $key, $matches)) {
+            $type = !empty($matches['type']) ? $matches['type'] : 'nid';
+            $endpoints[$matches['endpoint']][$type] = $value;
+          }
+        }
+        if (isset($result->related_to_endpoint) && !empty($endpoints[$result->related_to_endpoint])) {
+          $endpoints['related_to'] = $endpoints[$result->related_to_endpoint];
+        }
+        $results[$nid]->endpoints = json_decode(json_encode($endpoints));
       }
     }
 

@@ -16,9 +16,10 @@
   <?php if ($contrib): ?>
     <div class="author-tooltip-contrib"><span class="author-tooltip-label"><?php print t('Contribution'); ?>: </span><span class="author-tooltip-text"><?php print $contrib; ?></span></div>
   <?php endif; ?>
-  <?php if ($tooltip_authors_listed): ?>
-    <span class="author-tooltip-label"><?php print t('Listed in alphabetical order with'); ?>:</span>
-    <p><?php print $tooltip_authors_listed; ?></p>
+  <?php if ($other_footnotes): ?>
+    <?php foreach ($other_footnotes as $other_footnote): ?>
+    <p><?php print $other_footnote; ?></p>
+    <?php endforeach; ?>
   <?php endif; ?>
   <?php if ($email): ?>
     <div class="author-tooltip-corresp"><span class="author-tooltip-label"><?php print t('For correspondence'); ?>: </span><span class="author-tooltip-text"><?php print l($email, 'mailto:' . $email, array('absolute' => TRUE)); ?></span></div>
@@ -34,7 +35,7 @@
   <?php if ($equal_contrib_group): ?>
     <div class="author-tooltip-equal-contrib"><span class="author-tooltip-label"><?php print t('Contributed equally with'); ?>: </span><span class="author-tooltip-text"><?php print $equal_contrib_group; ?></span></div>
   <?php endif; ?>
-  <?php if ($deceased): ?>
-    <?php print $deceased; ?>
+  <?php if ($deceased_footnote): ?>
+    <p><?php print $deceased_footnote; ?></p>
   <?php endif; ?>
 </div>

@@ -12,6 +12,7 @@ Feature: Article Resource - GET (API)
           "version": "1",
           "doi": "10.7554/eLife.05224",
           "volume": "4",
+          "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
           "pub-date": "1979-08-17",

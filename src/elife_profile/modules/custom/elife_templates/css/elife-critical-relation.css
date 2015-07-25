@@ -1,0 +1,115 @@
+/* Component: critical-relation */
+.critical-relations {
+  box-sizing: border-box;
+}
+.critical-relation-list {
+  padding-left: 0;
+  list-style: none;
+}
+.critical-relations .critical-relation {
+  /* icon is 53px wide */
+  background-size: 53px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  padding-left: 67px;
+  padding-left: -webkit-calc(53px + 1em);
+  padding-left: calc(53px + 1em);
+  /* 50px when base font @14px */
+  padding-bottom: 3.5714em;
+}
+.critical-relations li.critical-relation:last-of-type {
+  padding-bottom: 0;
+}
+
+@media only all and (-webkit-device-pixel-ratio: 1), /* Webkit */
+(max-resolution: 1.999dppx) {
+  /* Everything else */
+  .critical-relations--original-article .critical-relation {
+    background-image: url(../images/icon-original-article-53x74.png);
+  }
+  .critical-relations--replication-study .critical-relation {
+    background-image: url(../images/icon-replication-study-53x74.png);
+  }
+  .critical-relations--registered-report .critical-relation {
+    background-image: url(../images/icon-registered-report-53x74.png);
+  }
+  .critical-relations--research-article .critical-relation {
+    background-image: url(../images/icon-research-article-53x74.png);
+  }
+  .critical-relations--research-advance .critical-relation {
+    background-image: url(../images/icon-research-advance-53x74.png);
+  }
+}
+@media only all and (-webkit-device-pixel-ratio: 2), /* Webkit */
+(min-resolution: 2dppx) { /* Everything else */
+  .critical-relations--original-article .critical-relation {
+    background-image: url(../images/icon-original-article-53x74-2x.png);
+  }
+  .critical-relations--replication-study .critical-relation {
+    background-image: url(../images/icon-replication-study-53x74-2x.png);
+  }
+  .critical-relations--registered-report .critical-relation {
+    background-image: url(../images/icon-registered-report-53x74-2x.png);
+  }
+  .critical-relations--research-article .critical-relation {
+    background-image: url(../images/icon-research-article-53x74-2x.png);
+  }
+  .critical-relations--research-advance .critical-relation {
+    background-image: url(../images/icon-research-advance-53x74-2x.png);
+  }
+}
+.critical-relation__title {
+  font-family: "Avenir LT W01 85 Heavy", sans-serif;
+  font-weight: normal;
+  color: #0a9dd9;
+  font-size: 1.0rem;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+.critical-relation__bib_details {
+  line-height: 1.2;
+}
+.critical-relation__bib_details__author_list {
+  padding: 0.5rem 0 0;
+  margin: 0;
+}
+.critical-relation__bib_details__author_list::after {
+  content: '';
+  display: block;
+  clear: both;
+  float: none;
+}
+.critical-relation__bib_details__author {
+  font-size: 0.8rem;
+  color: #929497;
+  display: block;
+  float: left;
+}
+.critical-relation__bib_details__author::after {
+  content: ',\00a0';
+}
+.critical-relation__bib_details__author:last-of-type::after {
+  content: '';
+}
+/* don't use a trailing comma before 'et al' */
+.critical-relation__bib_details__author_list--truncated .critical-relation__bib_details__author:nth-last-child(2)::after {
+  content: '\00a0';
+}
+.critical-relation__bib_details__impact_statement {
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
+}
+.critical-relation__bib_details__source {
+  font-size: 0.8rem;
+  padding-top: 2.4rem;
+}
+.critical-relation__bib_details__doi {
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding-top: 0.4em;
+}
+.critical-relation__bib_details__doi a {
+  font-weight: normal;
+}
+
+/* End: critical-relation */

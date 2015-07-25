@@ -13,6 +13,7 @@ Feature: Article Resource - GetDelete requests (API)
           "version": "1",
           "doi": "10.7554/eLife.05227",
           "volume": "4",
+          "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227.1",
           "pub-date": "1979-08-17",
