@@ -444,8 +444,13 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     $entity->title->set($article_version->getTitle());
     $entity->field_elife_a_volume->set($article_version->getVolume());
     $entity->field_elife_a_article_id->set($article_version->getArticleId());
-    $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
-      ->getTimestamp());
+    if ($article_version->getPubDate()) {
+      $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
+        ->getTimestamp());
+    }
+    else {
+      $entity->field_elife_a_fpubdate->set(NULL);
+    }
 
     $entity->save();
     foreach ($article_version->getRelatedArticles() as $related_article) {
