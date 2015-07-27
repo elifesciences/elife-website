@@ -271,3 +271,154 @@ Feature: Article Publish Resource (API)
     And I am an anonymous user
     And I am on "content/4/e05224"
     Then I should get a 200 HTTP response
+
+  Scenario: Make article available without publication date
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.1",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224"
+    Then I should get a 200 HTTP response
+    And I send a GET request to "api/article/05224.1.json"
+    Then the response code should be 200
+    And response should contain "pub-date"
+    And response should contain "update"
+
+  Scenario: Make article available for preview without publication date
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.1",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "0"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224"
+    Then I should get a 404 HTTP response
+    And I send a GET request to "api/article/05224.1.json"
+    And the response code should be 200
+    And response should not contain "pub-date"
+    And response should not contain "update"
+
+    Given I set header "Content-Type" with value "application/json"
+    And I send a PUT request to "api/publish/05224.1.json" with body:
+      """
+        {
+          "publish": "1"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224"
+    And I should get a 200 HTTP response
+    And I send a GET request to "api/article/05224.1.json"
+    Then the response code should be 200
+    And response should contain "pub-date"
+    And response should contain "update"
+
+  Scenario: Preview and publish second version of article after first is published
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224v1",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.1",
+          "path": "content/4/e05224v1",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "pub-date": "2015-07-26"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224v1"
+    And I should get a 200 HTTP response
+    And I send a GET request to "api/article/05224.1.json"
+    Then the response code should be 200
+    And response should contain "update"
+    And the response should contain json:
+      """
+        {
+          "pub-date": "2015-07-26"
+        }
+      """
+
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224v2",
+          "version": "2",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.2",
+          "path": "content/4/e05224v2",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "0"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224v2"
+    And I should get a 404 HTTP response
+    And I send a GET request to "api/article/05224.2.json"
+    Then the response code should be 200
+    And response should not contain "update"
+    And the response should contain json:
+      """
+        {
+          "pub-date": "2015-07-26",
+          "publish": "0"
+        }
+      """
+
+    Given I set header "Content-Type" with value "application/json"
+    And I send a PUT request to "api/publish/05224.2.json" with body:
+      """
+        {
+          "publish": "1"
+        }
+      """
+    And the response code should be 200
+    When I go to "content/4/e05224v2"
+    And I should get a 200 HTTP response
+    And I send a GET request to "api/article/05224.2.json"
+    Then the response code should be 200
+    And response should contain "update"
+    And the response should contain json:
+      """
+        {
+          "pub-date": "2015-07-26",
+          "publish": "1"
+        }
+      """

@@ -308,7 +308,7 @@ final class ArticleVersion {
   }
 
   public function getPubDate() {
-    if (NULL === $this->update) {
+    if (NULL === $this->pub_date) {
       return NULL;
     }
     return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->pub_date . ' 00:00:00');
@@ -379,7 +379,7 @@ final class ArticleVersion {
   }
 
   public function getCiteAs() {
-    $cite_as = $this->getPubDate()->format('Y');
+    $cite_as = ($this->getPubDate()) ? $this->getPubDate()->format('Y') : date('Y');
     if ($this->getStatus() == 'POA') {
       $cite_as .= ';' . $this->getDoi();
     }

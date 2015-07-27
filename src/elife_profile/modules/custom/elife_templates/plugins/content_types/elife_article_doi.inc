@@ -106,10 +106,12 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
       if (!$fragment) {
         $output .= '<span class="elife-doi-epubdate">';
         $output .= '<span class="elife-doi-epubdate-label label">' . t('Published') . '</span> ';
-        $output .= '<span class="elife-doi-epubdate-data">' . $article_version->getPubDate()->format('F j, Y') . '</span>';
+        $output .= '<span class="elife-doi-epubdate-data">' . ($article_version->getPubDate() ? $article_version->getPubDate()->format('F j, Y') : t('N/A')) . '</span>';
         $output .= '</span>';
-
-        // @todo - elife - nlisgo - introduce cite as value if main article page
+        $output .= '<span class="elife-doi-cite-as">';
+        $output .= '<span class="elife-doi-cite-as-label label">' . t('Cite as') . '</span> ';
+        $output .= '<span class="elife-doi-cite-as-data">' . $article_version->getCiteAs() . '</span>';
+        $output .= '</span>';
       }
 
 
