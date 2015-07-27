@@ -34,6 +34,8 @@ projects:
     version: '1.5'
     patch:
       - 'https://www.drupal.org/files/issues/1858318-devel-efq-debug-30.patch'
+  diff:
+    version: '3.2'
   efq_extra_field:
     version: '1.0-alpha1'
   entity:
