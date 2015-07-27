@@ -101,6 +101,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = reference_delete
 dependencies[] = m4032404
 dependencies[] = view_unpublished
+dependencies[] = diff
 
 ; Install Features
 dependencies[] = features
