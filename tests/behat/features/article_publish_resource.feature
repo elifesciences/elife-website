@@ -410,6 +410,13 @@ Feature: Article Publish Resource (API)
         }
       """
     And the response code should be 200
+    And the response should contain json:
+      """
+        {
+          "pub-date": "2015-07-26"
+        }
+      """
+    And response should not contain "update"
     When I go to "content/4/e05224v2"
     And I should get a 200 HTTP response
     And I send a GET request to "api/article/05224.2.json"
@@ -420,5 +427,61 @@ Feature: Article Publish Resource (API)
         {
           "pub-date": "2015-07-26",
           "publish": "1"
+        }
+      """
+
+  Scenario: Expect the pub-date and update date to be returned in publish request
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224v1",
+          "version": "1",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.1",
+          "path": "content/4/e05224v1",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "pub-date": "2015-07-26",
+          "update": "2015-07-26"
+        }
+      """
+    And the response code should be 200
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05224v2",
+          "version": "2",
+          "doi": "10.7554/eLife.05224",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "10.7554/eLife.05224",
+          "article-version-id": "05224.2",
+          "path": "content/4/e05224v2",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "0",
+          "pub-date": "2015-07-26",
+          "update": "2015-07-27"
+        }
+      """
+    And the response code should be 200
+    When I send a PUT request to "api/publish/05224.2.json" with body:
+      """
+        {
+          "publish": "1"
+        }
+      """
+    And the response code should be 200
+    Then the response should contain json:
+      """
+        {
+          "publish": "1",
+          "pub-date": "2015-07-26",
+          "update": "2015-07-27"
         }
       """
