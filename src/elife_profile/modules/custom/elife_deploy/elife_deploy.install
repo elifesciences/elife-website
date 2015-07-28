@@ -8,7 +8,7 @@
  * Implements hook_install().
  */
 function elife_deploy_install() {
-  $signup_ids = array(
+  $signup_ids = [
     '' => 'homepage_rev140402',
     'elife-news' => 'elife-news_rev140402',
     'elife/search' => 'search_rev140703',
@@ -33,7 +33,7 @@ function elife_deploy_install() {
     'category/antibacterial-response' => 'article_rev140402',
     'category/dna-methylation' => 'article_rev140402',
     'category/tools-and-resources' => 'research_rev141014',
-  );
+  ];
   variable_set('elife_content_alerts_sign_up_ids', $signup_ids);
 
   $signup_gids = array(
@@ -41,20 +41,20 @@ function elife_deploy_install() {
   );
   variable_set('elife_content_alerts_sign_up_gids', $signup_gids);
 
-  // @todo - elife - nlisgo - make sure these values are being used.
-  $category_plurals = array(
+  $category_plurals = [
     'Research article' => 'Research articles',
     'Insight' => 'Insights',
     'Editorial' => 'Editorials',
     'Feature article' => 'Feature articles',
     'Correction' => 'Corrections',
+    'Retraction' => 'Retractions',
     'Short report' => 'Short reports',
     'Research advance' => 'Research advances',
     'Registered report' => 'Registered reports',
-  );
+  ];
   variable_set('elife_category_assets_plural', $category_plurals);
 
-  $category_weights = array(
+  $category_weights = [
     'Editorial',
     'Feature article',
     'Insight',
@@ -64,6 +64,7 @@ function elife_deploy_install() {
     'Research advance',
     'Registered report',
     'Correction',
-  );
+    'Retraction',
+  ];
   variable_set('elife_category_assets_weight', $category_weights);
 }

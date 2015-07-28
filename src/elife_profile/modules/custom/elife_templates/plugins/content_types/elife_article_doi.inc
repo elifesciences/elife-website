@@ -77,16 +77,27 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
       if (!$fragment) {
         $article = ElifeArticleVersion::getArticle($article_version->getArticleId());
-        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1);
-        // @todo - elife - nlisgo - what about addendum and retraction?!
+        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1, 0);
         foreach ($related_articles as $related_article) {
           if ($related_article->article_type == 'corrected-article') {
-            if ($related_article->endpoints_flag == '1') {
-              $label = t('View the corrected article');
+            // Check if one endpoint has a display channel of Retraction.
+            if (in_array('Retraction', $related_article->endpoint_types)) {
+              if ($related_article->endpoints_flag == '1') {
+                $label = t('View the retracted article');
+              }
+              else {
+                $label = t('This article has been retracted');
+              }
             }
             else {
-              $label = t('This article has been corrected');
+              if ($related_article->endpoints_flag == '1') {
+                $label = t('View the corrected article');
+              }
+              else {
+                $label = t('This article has been corrected');
+              }
             }
+
             $output .= '<span class="elife-article-correction">';
             $output .= l($label, 'node/' . $related_article->{$related_article->related_to_endpoint . '_article_ver_nid'});
             $output .= '</span>';

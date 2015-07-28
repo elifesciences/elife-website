@@ -1104,8 +1104,8 @@ class ElifeArticleVersion {
         $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
         $query->addField('td_1', 'name', 'endpoint_1_display_channel');
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
-        $criticalrelation = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))";
-        $query->addExpression($criticalrelation, 'criticalrelation');
+        $relation_ordered = "CONCAT(LEAST(td_1.name, td_2.name), '.', GREATEST(td_1.name, td_2.name))";
+        $query->addExpression($relation_ordered, 'relation_ordered');
         $criticals = [
           'builds' => 'Research advance.Research article',
           'replicates' => 'Registered report.Replication study',
@@ -1113,7 +1113,7 @@ class ElifeArticleVersion {
         if ($critical === 0) {
           $ands = [];
           foreach (array_values($criticals) as $cri) {
-            $ands[] = $criticalrelation . " != '" . $cri . "'";
+            $ands[] = $relation_ordered . " != '" . $cri . "'";
           }
           $query->where(implode(' AND ', $ands));
         }
@@ -1122,9 +1122,9 @@ class ElifeArticleVersion {
           $cases = [];
           foreach ($criticals as $type => $cri) {
             $cases[] = "WHEN '" . $cri . "' THEN '" . $type . "'";
-            $ors[] = $criticalrelation . " = '" . $cri . "'";
+            $ors[] = $relation_ordered . " = '" . $cri . "'";
           }
-          $query->addExpression('CASE ' . $criticalrelation . ' ' . implode(' ', $cases) . ' ELSE NULL END', 'criticalrelation_type');
+          $query->addExpression('CASE ' . $relation_ordered . ' ' . implode(' ', $cases) . ' ELSE NULL END', 'criticalrelation_type');
           $query->where(implode(' OR ', $ors));
         }
       }
@@ -1170,6 +1170,9 @@ class ElifeArticleVersion {
           $endpoints['related_to'] = $endpoints[$result->related_to_endpoint];
         }
         $results[$nid]->endpoints = json_decode(json_encode($endpoints));
+        if (isset($result->relation_ordered)) {
+          $results[$nid]->endpoint_types = explode('.', $result->relation_ordered);
+        }
       }
     }
 
@@ -1254,6 +1257,7 @@ class ElifeArticleVersion {
         'tools' => 'Tools and resources',
         'short' => 'Short Report',
         'correction' => 'Correction',
+        'retraction' => 'Retraction',
         'elife_news' => 'eLife News',
         'elife_podcast' => 'Podcast',
         'other' => 'Supplementary',
