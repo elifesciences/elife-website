@@ -81,7 +81,7 @@ final class ArticleVersion {
   private $article_version_id;
 
   /**
-   * @var string
+   * @var string|null
    *
    * @Serializer\Type("string")
    * @Serializer\SerializedName("pub-date")
@@ -177,7 +177,7 @@ final class ArticleVersion {
    * @param string $elocation_id
    * @param string $article_id
    * @param string $article_version_id
-   * @param DateTimeImmutable $pub_date
+   * @param DateTimeImmutable|null $pub_date
    * @param DateTimeImmutable|null $update
    * @param string $path
    * @param string $article_type
@@ -200,7 +200,7 @@ final class ArticleVersion {
     $elocation_id,
     $article_id,
     $article_version_id,
-    DateTimeImmutable $pub_date,
+    DateTimeImmutable $pub_date = NULL,
     DateTimeImmutable $update = NULL,
     $path,
     $article_type,
@@ -222,7 +222,9 @@ final class ArticleVersion {
     $this->elocation_id = (string) $elocation_id;
     $this->article_id = (string) $article_id;
     $this->article_version_id = (string) $article_version_id;
-    $this->pub_date = $pub_date->format('Y-m-d');
+    if ($pub_date) {
+      $this->pub_date = $pub_date->format('Y-m-d');
+    }
     if ($update) {
       $this->update = $update->format('Y-m-d');
     }
@@ -306,6 +308,9 @@ final class ArticleVersion {
   }
 
   public function getPubDate() {
+    if (NULL === $this->pub_date) {
+      return NULL;
+    }
     return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->pub_date . ' 00:00:00');
   }
 
@@ -374,7 +379,7 @@ final class ArticleVersion {
   }
 
   public function getCiteAs() {
-    $cite_as = $this->getPubDate()->format('Y');
+    $cite_as = ($this->getPubDate()) ? $this->getPubDate()->format('Y') : date('Y');
     if ($this->getStatus() == 'POA') {
       $cite_as .= ';' . $this->getDoi();
     }

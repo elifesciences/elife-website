@@ -355,6 +355,13 @@ function elife_article_version_to_dto(stdClass $entity) {
     $impact_statement = NULL;
   }
 
+  if ($entity_article->field_elife_a_fpubdate->value()) {
+    $pub_date = DateTimeImmutable::createFromFormat('U', $entity_article->field_elife_a_fpubdate->value());
+  }
+  else {
+    $pub_date = NULL;
+  }
+
   if ($entity->field_elife_a_update->value()) {
     $update = DateTimeImmutable::createFromFormat('U', $entity->field_elife_a_update->value());
   }
@@ -372,7 +379,7 @@ function elife_article_version_to_dto(stdClass $entity) {
     $entity->field_elife_a_elocation_id->value(),
     $entity->field_elife_a_article_id->value(),
     $entity->field_elife_a_article_version_id->value(),
-    DateTimeImmutable::createFromFormat('U', $entity_article->field_elife_a_fpubdate->value()),
+    $pub_date,
     $update,
     drupal_get_path_alias('node/' . $entity->getIdentifier()),
     $entity->field_elife_a_article_type->value(),
@@ -444,8 +451,17 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     $entity->title->set($article_version->getTitle());
     $entity->field_elife_a_volume->set($article_version->getVolume());
     $entity->field_elife_a_article_id->set($article_version->getArticleId());
-    $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
-      ->getTimestamp());
+    if ($article_version->getPubDate()) {
+      $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
+        ->getTimestamp());
+    }
+    elseif ($article_version->getPublish() && !$entity->field_elife_a_fpubdate->value()) {
+      // @todo - elife - nlisgo - I would prefer to do this as a rule.
+      $entity->field_elife_a_fpubdate->set(time());
+    }
+    elseif (!$entity->field_elife_a_fpubdate->value()) {
+      $entity->field_elife_a_fpubdate->set(NULL);
+    }
 
     $entity->save();
     foreach ($article_version->getRelatedArticles() as $related_article) {
