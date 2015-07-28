@@ -1,5 +1,5 @@
 Feature: Footnote
-  In Order to be able to contact and author who allows correspondence
+  In Order to be able to contact a corresponding author
   As a reader
   I should be able to see the email id in the author rollover
 
@@ -9,26 +9,26 @@ Feature: Footnote
     And I send a POST request to "api/article.json" with body:
     """
         {
-          "title": "VOR 05227",
+          "title": "VOR 07091",
           "version": "1",
-          "doi": "10.7554/eLife.05227",
+          "doi": "10.7554/eLife.07091",
           "volume": "4",
-          "article-id": "10.7554/eLife.05227",
-          "article-version-id": "05227",
-          "pub-date": "1979-08-17",
-          "path": "content/4/e05227",
+          "article-id": "10.7554/eLife.07091",
+          "article-version-id": "07091",
+          "pub-date": "2015-06-30",
+          "path": "content/4/e07091",
           "article-type": "research-article",
           "status": "VOR"
         }
       """
     And the response code should be 200
-    And I go to "content/4/e05227"
-    And I hover over the author "<author>" in the ".elife-article-author-item" element
-    Then I should see the "author-info" tooltip
-    And I should not see "<author_email>"
+    And I go to "content/4/e07091"
+    Then I should see "<author>" in the ".author-tooltip-name" element
+    And I should not see "<author_email>" in the ".author-tooltip-text a"
+    And I should not see "For Correspondence" in the ".author-tooltip-label" element
 
   Examples:
-    | author                  |
+    | author                  |  author-email   |
     | Boris Lamotte d'Incamps |
     | Rebecca D Imhoff-Manuel |
 
