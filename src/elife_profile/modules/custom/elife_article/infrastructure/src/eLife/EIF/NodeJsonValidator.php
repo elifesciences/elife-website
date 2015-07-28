@@ -16,7 +16,7 @@ final class NodeJsonValidator implements JsonValidator {
     $json = (string) $json;
 
     $process = new Process($this->path, NULL, NULL, $json);
-    $process->setTimeout(3600);
+    $process->setTimeout(2);
     $process->run();
 
     if (!$process->isSuccessful()) {
