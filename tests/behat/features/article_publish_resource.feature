@@ -413,10 +413,11 @@ Feature: Article Publish Resource (API)
     And the response should contain json:
       """
         {
-          "pub-date": "2015-07-26"
+          "pub-date": "2015-07-26",
+          "publish": "1"
         }
       """
-    And response should not contain "update"
+    And response should contain "update"
     When I go to "content/4/e05224v2"
     And I should get a 200 HTTP response
     And I send a GET request to "api/article/05224.2.json"
