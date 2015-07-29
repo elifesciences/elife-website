@@ -23,6 +23,7 @@ default:
       drush:
         alias: 'local'
       region_map:
+        article_doi: '.pane-elife-article-doi'
         footer: '#section-footer'
         front_matter: 'ol.frontmatter'
         front_matter_cover: 'ol.frontmatter .view-display-id-cover_article'
