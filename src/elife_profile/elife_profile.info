@@ -102,6 +102,7 @@ dependencies[] = reference_delete
 dependencies[] = m4032404
 dependencies[] = view_unpublished
 dependencies[] = diff
+dependencies[] = pathologic
 
 ; Install Features
 dependencies[] = features
