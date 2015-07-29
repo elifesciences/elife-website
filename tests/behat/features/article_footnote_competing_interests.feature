@@ -28,7 +28,7 @@ Feature: Competing Interests in Footnotes
 
 
   @javascript @hover
-  Scenario Outline: Author has declared competing interests
+  Scenario: Author has declared competing interests
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
     """

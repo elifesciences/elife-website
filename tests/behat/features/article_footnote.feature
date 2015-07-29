@@ -1,11 +1,10 @@
-@new
 Feature: Footnote
   In order to be able to get related information on contributors of an article
   As a reader
   I should see contributor info as footnote in author rollover
 
   @hover
-  Scenario Outline: Footnote in author rollover
+  Scenario: Footnote in author rollover
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
     """

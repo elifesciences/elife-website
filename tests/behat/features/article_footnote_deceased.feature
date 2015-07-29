@@ -9,10 +9,10 @@ Feature: Deceased
     And I send a POST request to "api/article.json" with body:
     """
         {
-          "title": "VOR 05227",
+          "title": "VOR 01861",
           "version": "1",
           "doi": "10.7554/eLife.01861",
-          "volume": "4",
+          "volume": "3",
           "article-id": "10.7554/eLife.01861",
           "article-version-id": "01861",
           "pub-date": "2014-04-15",
@@ -32,10 +32,10 @@ Feature: Deceased
     And I send a POST request to "api/article.json" with body:
     """
         {
-          "title": "VOR 05227",
+          "title": "VOR 01861",
           "version": "1",
           "doi": "10.7554/eLife.01861",
-          "volume": "4",
+          "volume": "3",
           "article-id": "10.7554/eLife.01861",
           "article-version-id": "01861",
           "pub-date": "2014-04-15",

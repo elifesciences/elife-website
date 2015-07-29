@@ -1,3 +1,4 @@
+@debug
 Feature: Article Resource - POST (API)
   In order to maintain article content
   As a production system

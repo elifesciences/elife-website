@@ -3,7 +3,7 @@ In order to ensure that my contribution to the paper is not tied to my position 
 As an author
 I should be listed in alphabetical order with other authors
 
-  Scenario: View alphabetical listing of authors when there is more than one contributor
+  Scenario Outline: View alphabetical listing of authors when there is more than one contributor
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
