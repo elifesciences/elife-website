@@ -274,7 +274,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function articleShouldBeRelatedTo($article_id, $related_to)
   {
     $article = ElifeArticleVersion::getArticle($article_id);
-    $related_to = explode(', ', $related_to);
+    $related_to = explode(',', $related_to);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
     $actual = [];
     if (!empty($results)) {
@@ -284,6 +284,24 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
     $diff = array_diff($actual, $related_to);
     Assertions::assertEmpty($diff);
+  }
+
+  /**
+   * @Then article :article_id should not be related to :related_to
+   */
+  public function articleShouldNotBeRelatedTo($article_id, $not_related_to)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $not_related_to = explode(',', $not_related_to);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+    $actual = [];
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $actual[] = $result->related_to;
+      }
+    }
+    $intersect = array_intersect($actual, $not_related_to);
+    Assertions::assertEmpty($intersect);
   }
 
   /**

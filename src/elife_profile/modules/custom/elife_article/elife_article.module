@@ -398,11 +398,42 @@ function elife_article_version_to_dto(stdClass $entity) {
 
 function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $entity = ElifeArticleVersion::getArticle($article_version->getArticleId());
+
+  // Only update title and related articles if this version is latest.
+  $versions = ElifeArticleVersion::fromId($article_version->getArticleId(), FALSE);
+  $latest_status = '';
+  $latest_version = 0;
+  if (!empty($versions)) {
+    $latest = reset($versions);
+    $latest_status = $latest->extraFields->field_elife_a_status_status;
+    $latest_version = $latest->extraFields->field_elife_a_version_version;
+  }
+
+  // @todo - elife - nlisgo - we may wish to only overwrite these values only when a version is the latest and published.
+  // We would need to store all of these values against the version in that
+  // refactor.
+
+  // It this is the latest version of an article then delete the entity so we
+  // can cleanly load in the latest values.
+  if ($entity && (
+      $latest_version === 0
+      // Check to see if incoming status is VOR and we only have POA stored.
+      || strcasecmp($article_version->getStatus(), $latest_status) > 0
+      || $article_version->getVersion() >= $latest_version)
+  ) {
+    entity_delete('node', $entity->nid);
+    $entity = NULL;
+  }
+
   if (!$entity) {
     $entity = entity_create('node', [
       'type' => 'elife_article',
       'uid' => $uid,
     ]);
+    $new = TRUE;
+  }
+  else {
+    $new = FALSE;
   }
 
   /* @var EntityDrupalWrapper $entity */
@@ -410,7 +441,6 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
 
   // Amending the versions of an article can happen each time a new version is
   // processed.
-  // @todo - elife - nlisgo - verify that published versions are listed first.
   $versions = [];
   $query = new EntityFieldQueryExtraFields();
   $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
@@ -421,7 +451,6 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $query->propertyOrderBy('status', 'DESC');
   $query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
 
-  // @todo - elife - nlisgo - this may not be necessary as sorted in query?
   if ($result = $query->execute()) {
     if (isset($result['node']) && !empty($result['node'])) {
       foreach ($result['node'] as $nid => $version) {
@@ -434,20 +463,7 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
 
   $entity->field_elife_a_versions->set(array_values($versions));
 
-  // Only update title and related articles if this version is latest.
-  $versions = ElifeArticleVersion::fromId($article_version->getArticleId(), FALSE);
-  $latest_status = '';
-  $latest_version = 0;
-  if (!empty($versions)) {
-    $latest = reset($versions);
-    $latest_status = $latest->extraFields->field_elife_a_status_status;
-    $latest_version = $latest->extraFields->field_elife_a_version_version;
-  }
-  if ($latest_version === 0
-    // Check to see if incoming status is VOR and we only have POA stored.
-    || strcasecmp($article_version->getStatus(), $latest_status) > 0
-    || $article_version->getVersion() >= $latest_version) {
-
+  if ($new) {
     $entity->title->set($article_version->getTitle());
     $entity->field_elife_a_volume->set($article_version->getVolume());
     $entity->field_elife_a_article_id->set($article_version->getArticleId());

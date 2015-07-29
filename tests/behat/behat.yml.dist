@@ -24,11 +24,13 @@ default:
         alias: 'local'
       region_map:
         article_doi: '.pane-elife-article-doi'
+        article_critical_relation: '.pane-elife-article-criticalrelation'
         footer: '#section-footer'
         front_matter: 'ol.frontmatter'
         front_matter_cover: 'ol.frontmatter .view-display-id-cover_article'
         front_matter_col_1: 'ol.frontmatter .view-display-id-front_matter_col_1'
         front_matter_col_2: 'ol.frontmatter .view-display-id-front_matter_col_2'
+        related_content: '.sidebar-wrapper .elife-related-articles-list'
         sidebar: '.sidebar-wrapper'
         searchsortby: '.elife-searchlist-sortby'
         searchpager: '.elife-searchlist-pagerbar-pager'
