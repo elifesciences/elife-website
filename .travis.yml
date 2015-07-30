@@ -48,9 +48,12 @@ install:
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
-  # Build site
+  # Set up site
+  - ./setup.sh
+
+  # Install site
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
-  - ./create.sh
+  - ./install.sh
 
   # Setup display for selenium
   - export DISPLAY=:99.0
