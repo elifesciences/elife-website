@@ -191,9 +191,8 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         }
 
         $tooltip_content = theme('elife_article_author_tooltip', $variables);
-        $tooltip_content = '|' . str_replace("'", '&#39;', htmlspecialchars($tooltip_content));
 
-        $authors[] = '<span class="' . implode(' ', $class) . '" data-tooltip-content="' . $tooltip_content . '">' . implode(' ', $author) . '</span>';
+        $authors[] = '<span class="' . implode(' ', $class) . '">' . implode(' ', $author) . trim($tooltip_content) . '</span>';
       }
     }
     // @todo - elife - nlisgo - we need to display 'on-behalf-of'.
