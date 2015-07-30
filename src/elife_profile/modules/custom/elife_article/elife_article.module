@@ -413,6 +413,8 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   // We would need to store all of these values against the version in that
   // refactor.
 
+  $pub_date = $article_version->getPubDate();
+
   // It this is the latest version of an article then delete the entity so we
   // can cleanly load in the latest values.
   if ($entity && (
@@ -421,6 +423,19 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
       || strcasecmp($article_version->getStatus(), $latest_status) > 0
       || $article_version->getVersion() >= $latest_version)
   ) {
+    // Preserve pub-date in case it is not supplied with more recent version.
+    if (!$pub_date) {
+      /* @var EntityDrupalWrapper $ewrapper */
+      $ewrapper = entity_metadata_wrapper('node', $entity);
+
+      if ($ewrapper->field_elife_a_fpubdate->value()) {
+        $pub_date = DateTimeImmutable::createFromFormat('U', $ewrapper->field_elife_a_fpubdate->value());
+      }
+      else {
+        $pub_date = NULL;
+      }
+      unset($ewrapper);
+    }
     entity_delete('node', $entity->nid);
     $entity = NULL;
   }
@@ -467,8 +482,8 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     $entity->title->set($article_version->getTitle());
     $entity->field_elife_a_volume->set($article_version->getVolume());
     $entity->field_elife_a_article_id->set($article_version->getArticleId());
-    if ($article_version->getPubDate()) {
-      $entity->field_elife_a_fpubdate->set($article_version->getPubDate()
+    if ($pub_date instanceof DateTimeImmutable) {
+      $entity->field_elife_a_fpubdate->set($pub_date
         ->getTimestamp());
     }
     elseif ($article_version->getPublish() && !$entity->field_elife_a_fpubdate->value()) {
