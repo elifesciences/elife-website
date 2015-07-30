@@ -24,13 +24,39 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
 
   if ($dto->getFragments()) {
     $item_lists = [];
+    $article_id = $dto->getArticleId();
+    if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
+      $article_id = $matches['id'];
+    }
+    $markup = new ExeterMarkupService();
     foreach ($dto->getFragments() as $fragment) {
       if ($fragment instanceof Fragment) {
-        if (in_array($fragment->getType(), ['fig', 'table-wrap', 'media']) && $markup = _elife_article_fig_data_markup($dto->getArticleId(), $fragment)) {
-          $item_lists[$fragment->getType()]['items'][] = $markup;
+        if (in_array($fragment->getType(), ['fig', 'table-wrap', 'media'])) {
+          $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
+          $markup->addDoiQuery($article_id, $fragment->getDoi());
         }
       }
     }
+    $markup->submitQuery();
+    $results = $markup->getResults();
+
+    if (!empty($results[$article_id])) {
+      foreach ($item_lists as $type => $item_list) {
+        $items = [];
+        foreach ($item_list['items'] as $k => $doi) {
+          if (!empty($results[$article_id]['doi::' . $doi])) {
+            $items[] = implode("\n", $results[$article_id]['doi::' . $doi]);
+          }
+        }
+        if (!empty($items)) {
+          $item_lists[$type]['items'] = $items;
+        }
+        else {
+          unset($item_lists[$type]);
+        }
+      }
+    }
+
     foreach ($item_lists as $type => $item_list) {
       $item_list['attributes'] = [
         'class' => 'fig-data-list clearfix',
@@ -49,17 +75,6 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     $block->content = $output;
     return $block;
   }
-}
-
-function _elife_article_fig_data_markup($article_id, Fragment $fragment) {
-  if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-    $article_id = $matches['id'];
-  }
-
-  $markup = new ExeterMarkupService();
-  $markup->addDoiQuery($article_id, $fragment->getDoi());
-  $markup->submitQuery();
-  return $markup->output();
 }
 
 function _elife_article_fig_data_title($type) {
