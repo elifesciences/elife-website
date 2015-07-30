@@ -51,6 +51,14 @@ install:
   # Set up site
   - ./setup.sh
 
+  # Get Solr
+  - wget -qO- https://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz | tar xz
+  - solr-5.2.1/bin/solr start
+  - mkdir -p solr-5.2.1/server/solr/drupal
+  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/5.x solr-5.2.1/server/solr/drupal
+  - mv solr-5.2.1/server/solr/drupal/5.x solr-5.2.1/server/solr/drupal/conf
+  - solr-5.2.1/bin/solr create -c drupal -d solr-5.2.1/server/solr/drupal
+
   # Install site
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
   - ./install.sh
