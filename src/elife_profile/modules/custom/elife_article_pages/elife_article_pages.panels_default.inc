@@ -417,5 +417,66 @@ function elife_article_pages_default_panels_mini() {
   $mini->display = $display;
   $export['elife_article_author'] = $mini;
 
+  $mini = new stdClass();
+  $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
+  $mini->api_version = 1;
+  $mini->name = 'elife_article_figdata';
+  $mini->category = '';
+  $mini->admin_title = 'Figures & data';
+  $mini->admin_description = '';
+  $mini->requiredcontexts = array(
+    0 => array(
+      'identifier' => 'Article Version',
+      'keyword' => 'node',
+      'name' => 'entity:node',
+      'entity_id' => '',
+      'id' => 1,
+    ),
+  );
+  $mini->contexts = array();
+  $mini->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'onecol';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'middle' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = '5714f6a4-a5e8-4f6b-8f1a-a4b52e084dd4';
+  $display->content = array();
+  $display->panels = array();
+    $pane = new stdClass();
+    $pane->pid = 'new-3cfe9c73-1b69-4b1f-b30d-2f39c703c800';
+    $pane->panel = 'middle';
+    $pane->type = 'elife_article_fig_data';
+    $pane->subtype = 'elife_article_fig_data';
+    $pane->shown = TRUE;
+    $pane->access = array();
+    $pane->configuration = array(
+      'context' => 'requiredcontext_entity:node_1',
+      'override_title' => 1,
+      'override_title_text' => '',
+      'override_title_heading' => 'h2',
+    );
+    $pane->cache = array();
+    $pane->style = array(
+      'settings' => NULL,
+    );
+    $pane->css = array();
+    $pane->extras = array();
+    $pane->position = 0;
+    $pane->locks = array();
+    $pane->uuid = '3cfe9c73-1b69-4b1f-b30d-2f39c703c800';
+    $display->content['new-3cfe9c73-1b69-4b1f-b30d-2f39c703c800'] = $pane;
+    $display->panels['middle'][0] = 'new-3cfe9c73-1b69-4b1f-b30d-2f39c703c800';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = 'new-3cfe9c73-1b69-4b1f-b30d-2f39c703c800';
+  $mini->display = $display;
+  $export['elife_article_figdata'] = $mini;
+
   return $export;
 }

@@ -18,12 +18,13 @@ function elife_article_pages_strongarm() {
     'clean_url' => 1,
     'clean_url_delim' => '/',
     'panes' => array(
-      'elife-research-article-tabs' => array(
-        'elife_article' => '',
-        'elife_article_author' => 'article-info',
-      ),
       'elife-article-tabs' => array(
         'elife_article' => '',
+      ),
+      'elife-research-article-tabs' => array(
+        'elife_article' => '',
+        'elife_article_figdata' => 'article-data',
+        'elife_article_author' => 'article-info',
       ),
     ),
   );

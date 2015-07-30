@@ -1,7 +1,6 @@
 <?php
 
 use Drupal\elife_article\ExeterMarkupService;
-use eLife\EIF\ArticleVersion\Fragment;
 
 $plugin = array(
   'title' => t('Article Figure & Data'),
@@ -22,38 +21,55 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
 
   $output = '';
 
-  if ($dto->getFragments()) {
-    $item_lists = [];
-    $article_id = $dto->getArticleId();
-    if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-      $article_id = $matches['id'];
-    }
-    $markup = new ExeterMarkupService();
-    foreach ($dto->getFragments() as $fragment) {
-      if ($fragment instanceof Fragment) {
-        if (in_array($fragment->getType(), ['fig', 'table-wrap', 'media'])) {
-          $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
-          $markup->addDoiQuery($article_id, $fragment->getDoi());
-        }
-      }
-    }
-    $markup->submitQuery();
-    $results = $markup->getResults();
+  $item_lists = [
+    'fig' => [],
+    'table-wrap' => [],
+    'media' => [],
+  ];
+  $article_id = $dto->getArticleId();
+  if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
+    $article_id = $matches['id'];
+  }
+  $markup = new ExeterMarkupService();
+  foreach ($dto->getFragmentsOfType(array_keys($item_lists)) as $fragment) {
+    $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
+    $markup->addDoiQuery($article_id, $fragment->getDoi());
+  }
 
-    if (!empty($results[$article_id])) {
-      foreach ($item_lists as $type => $item_list) {
-        $items = [];
-        foreach ($item_list['items'] as $k => $doi) {
-          if (!empty($results[$article_id]['doi::' . $doi])) {
-            $items[] = implode("\n", $results[$article_id]['doi::' . $doi]);
+  $item_lists['datasets']['items'][] = 'datasets';
+  $markup->addSectionQuery($article_id, 'datasets');
+
+  foreach ($dto->getFragmentsOfType('supplementary-material', 0) as $fragment) {
+    $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
+    $markup->addDoiQuery($article_id, $fragment->getDoi());
+  }
+
+  $markup->submitQuery();
+  $results = $markup->getResults();
+
+  if (!empty($results[$article_id])) {
+    foreach ($item_lists as $type => $item_list) {
+      $items = [];
+      if (!empty($item_list['items'])) {
+        foreach ($item_list['items'] as $k => $identifier) {
+
+          if (!empty($results[$article_id][$identifier])) {
+            $items[] = implode("\n", $results[$article_id][$identifier]);
+          }
+          elseif (!empty($results[$article_id]['doi::' . $identifier])) {
+            $items[] = implode("\n", $results[$article_id]['doi::' . $identifier]);
+          }
+          // @todo - elife - nlisgo - when the markup service is reliable consider not outputting this value.
+          else {
+            $items[] = 'No result for: ' . $identifier;
           }
         }
-        if (!empty($items)) {
-          $item_lists[$type]['items'] = $items;
-        }
-        else {
-          unset($item_lists[$type]);
-        }
+      }
+      if (!empty($items)) {
+        $item_lists[$type]['items'] = $items;
+      }
+      else {
+        unset($item_lists[$type]);
       }
     }
 
@@ -72,18 +88,20 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
   if (!empty($output)) {
     $block = new stdClass();
     $block->title = t('Article Figures & Data');
-    $block->content = $output;
+    $block->content = '<div class="elements-frag-data highwire-markup" id="fig-data">';
+    $block->content .= $output;
+    $block->content .= '</div>';
     return $block;
   }
 }
 
 function _elife_article_fig_data_title($type) {
   $links = array(
-    'fig' => 'Figures',
-    'table-wrap' => 'Tables',
-    'media' => 'Movies',
-    'datasets' => 'Major datasets',
-    'additional-files' => 'Additional files',
+    'fig' => t('Figures'),
+    'table-wrap' => t('Tables'),
+    'media' => t('Movies'),
+    'datasets' => t('Major datasets'),
+    'supplementary-material' => t('Additional files'),
   );
 
   $output = '<div class="elife-fig-data-title-jump">';

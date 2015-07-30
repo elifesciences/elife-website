@@ -2345,11 +2345,17 @@ function elife_article_pages_default_page_manager_handlers() {
           'url_id' => '',
           'weight' => '-10',
         ),
+        'elife_article_figdata' => array(
+          'selected' => 1,
+          'tab_title' => '',
+          'url_id' => 'article-data',
+          'weight' => '-9',
+        ),
         'elife_article_author' => array(
           'selected' => 1,
           'tab_title' => '',
           'url_id' => 'article-info',
-          'weight' => '-9',
+          'weight' => '-8',
         ),
       ),
       'container_id' => 'elife-research-article-tabs',

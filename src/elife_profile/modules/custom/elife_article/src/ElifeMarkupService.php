@@ -15,6 +15,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'acknowledgements' => 'Acknowledgements',
     'decision-letter' => 'Decision letter',
     'author-response' => 'Author response',
+    'datasets' => 'Major datasets',
   ];
 
   /**

@@ -2195,23 +2195,23 @@ img.elife-embed-fragment-image {
 		vertical-align: bottom;
 	}
 		/* bg image positions */
-		#fig-data .group.frag-figure h2 {
+		#fig-data .group.frag-fig h2 {
 			background-position: 0 -3px;
 		}
 
-		#fig-data .group.frag-table h2 {
+		#fig-data .group.frag-table-wrap h2 {
 			background-position: 0 -33px;
 		}
 
-		#fig-data .group.major-datasets h2 {
+		#fig-data .group.frag-datasets h2 {
 			background-position: 0 -63px;
 		}
 
-		#fig-data .group.additional-files h2 {
+		#fig-data .group.frag-supplementary-material h2 {
 			background-position: 0 -93px;
 		}
 
-		#fig-data .group.frag-video h2 {
+		#fig-data .group.frag-media h2 {
 			background-position: 0 -123px;
 		}
 
