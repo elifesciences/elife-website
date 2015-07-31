@@ -87,6 +87,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @AfterScenario
    */
   public function clearEntityMaxAfterScenario() {
+    $cleanup_rules_config = rules_config_load('rules_elife_cleanup_of_orphaned_article_nodes');
+    $cleanup_rules_config_active = FALSE;
+    if ($cleanup_rules_config) {
+      $cleanup_rules_config_active = $cleanup_rules_config->active;
+      $cleanup_rules_config->active = FALSE;
+      $cleanup_rules_config->save();
+    }
     foreach ($this->entity_types as $type => $id) {
       $query = new EntityFieldQuery();
       // Bypass access controls.
@@ -99,6 +106,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         $ids = array_keys($entities[$type]);
         entity_delete_multiple($type, $ids);
       }
+    }
+    if ($cleanup_rules_config) {
+      $cleanup_rules_config->active = $cleanup_rules_config_active;
+      $cleanup_rules_config->save();
     }
   }
 
@@ -274,7 +285,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function articleShouldBeRelatedTo($article_id, $related_to)
   {
     $article = ElifeArticleVersion::getArticle($article_id);
-    $related_to = explode(', ', $related_to);
+    $related_to = explode(',', $related_to);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
     $actual = [];
     if (!empty($results)) {
@@ -284,6 +295,24 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
     $diff = array_diff($actual, $related_to);
     Assertions::assertEmpty($diff);
+  }
+
+  /**
+   * @Then article :article_id should not be related to :related_to
+   */
+  public function articleShouldNotBeRelatedTo($article_id, $not_related_to)
+  {
+    $article = ElifeArticleVersion::getArticle($article_id);
+    $not_related_to = explode(',', $not_related_to);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+    $actual = [];
+    if (!empty($results)) {
+      foreach ($results as $result) {
+        $actual[] = $result->related_to;
+      }
+    }
+    $intersect = array_intersect($actual, $not_related_to);
+    Assertions::assertEmpty($intersect);
   }
 
   /**
