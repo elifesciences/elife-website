@@ -156,3 +156,21 @@ Feature: Article Resource - POST (API)
           "title": "Updated VOR 05227"
         }
       """
+
+  Scenario: Post an article with invalid JSON
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        foo
+      """
+    And the response code should be 400
+    And the response should contain json:
+      """
+        [
+          {
+            "field": "data",
+            "message": "invalid JSON",
+            "value": "foo"
+          }
+        ]
+      """
