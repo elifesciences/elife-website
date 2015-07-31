@@ -31,6 +31,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
 
   $authors = [];
+  $authors_full = [];
   $contributors = $dto->getContributors();
   if (!empty($contributors)) {
     $contribs = $dto->getReferenced()->getContribution();
@@ -193,7 +194,9 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         $tooltip_content = theme('elife_article_author_tooltip', $variables);
 
         // @todo - elife - nlisgo - this should use theme_item_list
-        $authors[] = '<li class="' . implode(' ', $class) . '">' . implode(' ', $author) . trim($tooltip_content) . '</li>';
+
+        $authors_full[] = '<li class="item-' . $co . '">' . trim($tooltip_content) . '</li>';
+        $authors[] = '<li class="' . implode(' ', $class) . '" data-affiliation="item-' . $co . '">' . implode(' ', $author) . '</li>';
       }
     }
     // @todo - elife - nlisgo - we need to display 'on-behalf-of'.
@@ -201,7 +204,8 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
 
   if (!empty($authors)) {
     $block->title = t('Article Authors');
-    $block->content = '<div class="author-list"><ul>' . implode(', ', $authors) . '</ul></div>';
+    $block->content = '<div class="author-list"><ul>' . implode("\n", $authors) . '</ul></div>';
+    $block->content .= '<div class="author-list-full"><ul>' . implode("\n", $authors_full) . '</ul></div>';
   }
 
   return $block;
