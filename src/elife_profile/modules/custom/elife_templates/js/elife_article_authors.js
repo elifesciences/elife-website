@@ -2,9 +2,9 @@
   Drupal.behaviors.elifeArticleAuthors = {
     attach: function (context, settings) {
       $('body').once('elife-article-authors', function () {
+        $('.author-list-full').addClass('visible-small');
         $('.elife-article-author-item', context).each(function() {
-          $('.author-tooltip', this).addClass('visible-small');
-          $(this).attr('data-tooltip-content', '|' + $('.author-tooltip', this).clone().removeClass('visible-small').wrap('<div/>').parent().html());
+          $(this).attr('data-tooltip-content', '|' + $('.author-list-full .' + $(this).data('affiliation')).html());
         });
 
         $('.elife-article-author-item', context).each(function() {

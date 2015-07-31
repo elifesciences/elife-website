@@ -232,7 +232,7 @@ h1, h2 {
 /* ------------------------------------*/
 /* ---------->>> LIBRARY <<<-----------*/
 /* ------------------------------------*/
-.elife-article-author-item { cursor:pointer; }
+.js .elife-article-author-item { cursor:pointer; }
 .nlm-bold {
   font-weight: bold;
 }
@@ -1560,6 +1560,16 @@ a.logo-wt {
   margin-bottom: 15px;
   padding: 0;
 }
+.author-list .elife-article-author-item {
+  display: inline;
+}
+.author-list .elife-article-author-item:after {
+  content: ',';
+}
+
+.author-list .elife-article-author-item:last-child:after {
+  content: '';
+}
 
 .author-list .elife-article-author-item,
 .elife-institutions-list .elife-institution {
@@ -1569,7 +1579,7 @@ a.logo-wt {
           transition: color 0.3s ease-in-out;
 }
 
-.author-list .elife-article-author-item:hover,
+.js .author-list .elife-article-author-item:hover,
 .elife-institutions-list .institution-highlight {
   color: #22A0D8;
 }
