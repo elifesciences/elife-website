@@ -7,6 +7,9 @@ $conf['elife_composer_vendor_path'] = __DIR__ . '/../vendor';
 // Don't allow modules to be added/updated through the UI.
 $conf['allow_authorize_operations'] = FALSE;
 
+// Don't use poormanscron.
+$conf['cron_safe_threshold'] = 0;
+
 // Set path for 403.
 $conf['site_403'] = 'm4032404';
 
