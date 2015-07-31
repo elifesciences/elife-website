@@ -7,6 +7,7 @@
 
 use Drupal\elife_article\ElifeArticleVersion;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 
 $plugin = array(
@@ -64,6 +65,11 @@ function elife_article_related_content_render($subtype, $conf, $args, &$context)
             elseif ($contributor instanceof CollabContributor) {
               if ($collab = $contributor->getCollab()) {
                 $name['collab'] = $collab;
+              }
+            }
+            elseif ($contributor instanceof OnBehalfOfContributor) {
+              if ($on_behalf_of = $contributor->getOnBehalfOf()) {
+                $name['on-behalf-of'] = $on_behalf_of;
               }
             }
             if (!empty($name)) {

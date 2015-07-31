@@ -3,10 +3,12 @@
 namespace eLife\EIF;
 
 use DateTimeImmutable;
+use eLife\EIF\ArticleVersion\BaseContributor;
 use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\Citation;
 use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
@@ -140,9 +142,9 @@ final class ArticleVersion {
   private $related_articles = [];
 
   /**
-   * @var Contributor[]
+   * @var BaseContributor[]
    *
-   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Contributor>")
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\BaseContributor>")
    */
   private $contributors = [];
 
@@ -185,7 +187,7 @@ final class ArticleVersion {
    * @param array $categories
    * @param array $keywords
    * @param RelatedArticle[] $related_articles
-   * @param Contributor[] $contributors
+   * @param BaseContributor[] $contributors
    * @param Referenced $referenced
    * @param BaseFragment[] $fragments
    * @param Citation[] $citations
@@ -411,6 +413,11 @@ final class ArticleVersion {
       elseif ($contributor instanceof CollabContributor) {
         if ($collab = $contributor->getCollab()) {
           $name['collab'] = $collab;
+        }
+      }
+      elseif ($contributor instanceof OnBehalfOfContributor) {
+        if ($on_behalf_of = $contributor->getOnBehalfOf()) {
+          $name['on_behalf_of'] = $on_behalf_of;
         }
       }
       if (!empty($name)) {

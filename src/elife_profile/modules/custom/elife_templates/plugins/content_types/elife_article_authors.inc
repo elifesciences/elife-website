@@ -6,6 +6,7 @@
  */
 
 use eLife\EIF\ArticleVersion;
+use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
 
@@ -110,6 +111,11 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
       elseif ($contributor instanceof CollabContributor) {
         if ($collab = $contributor->getCollab()) {
           $name['collab'] = $collab;
+        }
+      }
+      elseif ($contributor instanceof OnBehalfOfContributor) {
+        if ($on_behalf_of = $contributor->getOnBehalfOf()) {
+          $name['on-behalf-of'] = $on_behalf_of;
         }
       }
 
