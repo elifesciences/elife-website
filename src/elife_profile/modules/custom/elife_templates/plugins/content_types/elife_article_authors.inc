@@ -192,7 +192,8 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
 
         $tooltip_content = theme('elife_article_author_tooltip', $variables);
 
-        $authors[] = '<span class="' . implode(' ', $class) . '">' . implode(' ', $author) . trim($tooltip_content) . '</span>';
+        // @todo - elife - nlisgo - this should use theme_item_list
+        $authors[] = '<li class="' . implode(' ', $class) . '">' . implode(' ', $author) . trim($tooltip_content) . '</li>';
       }
     }
     // @todo - elife - nlisgo - we need to display 'on-behalf-of'.
