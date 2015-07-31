@@ -461,6 +461,98 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       );
     }
   }
+    /**
+     * @Given /^(?:|I )hover over the author "(?P<author>[^"]*)" in the "(?P<selector>[^"]*)" element$/
+     *
+     * @param $author
+     *   The name of the author to look for
+     * @param $selector
+     *   The css selector for the items enclosing each author
+     *
+     * @throws Exception
+     */
+    public function iHoverOverTheAuthorInElement($author, $selector) {
+        $session = $this->getSession();
+        if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
+            throw new Exception('Cannot run hover tests for "' . $author . '" without using Selenium.');
+        }
+        $auth = $this->findAuthorNode($selector, $author);
+        if (empty($auth)) {
+            throw new Exception('Cannot find the author "' . $author . '" in the element "' . $selector . '"');
+        }
+        $html = $auth->getAttribute('data-tooltip-content');
+        // Delete initial | in string and add in a wrapper to emulate cluetip.
+        $html =
+            '<div id="cluetip" style="position: absolute; background-color: papayawhip;">' .
+            '<div class="cluetip-outer" style="position: relative; z-index: 97; overflow: visible; height: auto;">' .
+            '<h3 class="cluetip-title ui-widget-header ui-cluetip-header" style="display: none;"></h3>' .
+            '<div class="cluetip-inner ui-widget-content ui-cluetip-content">' .
+            '<div class="cluetip-close"><a href="#">Close</a></div>' .
+            substr($html, 1) .
+            '</div>' .
+            '</div>' .
+            '</div>' .
+            '</div>';
+
+        $js = <<<'JS'
+    (function(selector, newcontent) {
+        jQuery(selector).prepend(newcontent);
+    })('#section-content', '{{NEWCONTENT}}');
+JS;
+        $html = str_replace("'", "\\'", $html);
+        $js = str_replace('{{NEWCONTENT}}', $html, $js);
+        $session->executeScript($js);
+        $this->sendJSMouseEnter($auth);
+        sleep(4);
+    }
+
+    /**
+     * @Then /^(?:|I )should see the "(?P<name>[^"]*)" tooltip$/
+     *
+     * TODO: elife - this implementation is tightly-bound to the cluetip jquery plugin.
+     * @throws Exception
+     */
+    public function iShouldSeeTheCluetip($name) {
+        $session = $this->getSession();
+        if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
+            throw new Exception('Cannot run hover tests for "' . $name . '" without using Selenium.');
+        }
+        sleep(2);
+        $element = $session->getPage()->find('css', '#cluetip');
+        if (empty($element)) {
+            throw new Exception('Cannot find the id=cluetip element.');
+        }
+        if (!$element->isVisible()) {
+            throw new Exception('The "' . $name . '" tooltip is not visible.');
+        }
+        $this->last_author_element = $element;
+    }
+
+    /**
+     * Return the element containing an article author given the author-class.
+     *
+     * The supplied class/selector must be a selector that returns all authors,
+     * for example .elife-article-author-item
+     *
+     * @param $css
+     *   The selector which returns all authors.
+     * @param $author
+     *   The text (no html) of the author's name.
+     *
+     * @return mixed
+     *   The behat element object or null if not found
+     */
+    function findAuthorNode($css, $author) {
+        $elements = $this->getSession()->getPage()->findAll('css', $css);
+        foreach ($elements as $auth) {
+            if ($auth->getText() == $author) {
+                $this->last_author_element = $auth;
+                return $auth;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Check for a specific image filename in an img tag.
