@@ -87,6 +87,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @AfterScenario
    */
   public function clearEntityMaxAfterScenario() {
+    $cleanup_rules_config = rules_config_load('rules_elife_cleanup_of_orphaned_article_nodes');
+    $cleanup_rules_config_active = FALSE;
+    if ($cleanup_rules_config) {
+      $cleanup_rules_config_active = $cleanup_rules_config->active;
+      $cleanup_rules_config->active = FALSE;
+      $cleanup_rules_config->save();
+    }
     foreach ($this->entity_types as $type => $id) {
       $query = new EntityFieldQuery();
       // Bypass access controls.
@@ -99,6 +106,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         $ids = array_keys($entities[$type]);
         entity_delete_multiple($type, $ids);
       }
+    }
+    if ($cleanup_rules_config) {
+      $cleanup_rules_config->active = $cleanup_rules_config_active;
+      $cleanup_rules_config->save();
     }
   }
 
