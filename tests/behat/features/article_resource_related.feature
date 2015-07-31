@@ -65,7 +65,7 @@ Feature: Article Resource - Related articles (API)
     And there should be 2 unverified related articles
     And I am on "content/4/e05224"
     And I should see 1 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05224" in the "related_content" region
+    And I should see "VOR 05224" in the ".sidebar-wrapper .elife-related-articles-list" element
 
   Scenario: Check correct number of articles related
     Given I set header "Content-Type" with value "application/json"
@@ -153,11 +153,11 @@ Feature: Article Resource - Related articles (API)
     And article "05224" should have unverified related articles of "10.7554/eLife.05225, 10.7554/eLife.05226"
     And I am on "content/4/e05224"
     And I should see 2 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05224" in the "related_content" region
-    And I should see the link "VOR 05227" in the "related_content" region
+    And I should see "VOR 05224" in the ".sidebar-wrapper .elife-related-articles-list" element
+    And I should see "VOR 05227" in the ".sidebar-wrapper .elife-related-articles-list" element
     And I am on "content/4/e05227"
     And I should see 1 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05224" in the "related_content" region
+    And I should see "VOR 05224" in the ".sidebar-wrapper .elife-related-articles-list" element
 
   Scenario: Check correct number of articles related when multiple versions of the article available with the same DOIs
     Given I set header "Content-Type" with value "application/json"
@@ -307,16 +307,16 @@ Feature: Article Resource - Related articles (API)
     And article "05224" should have unverified related articles of "10.7554/eLife.05225"
     And I am on "content/4/e05224v1"
     And I should see 2 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05227v2" in the "related_content" region
+    And I should see "VOR 05227v2" in the ".sidebar-wrapper .elife-related-articles-list" element
     And I am on "content/4/e05224v2"
     And I should see 2 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05227v2" in the "related_content" region
+    And I should see "VOR 05227v2" in the ".sidebar-wrapper .elife-related-articles-list" element
     And I am on "content/4/e05227v1"
     And I should see 1 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05224v2" in the "related_content" region
+    And I should see "VOR 05224v2" in the ".sidebar-wrapper .elife-related-articles-list" element
     And I am on "content/4/e05227v2"
     And I should see 1 ".elife-related-articles-list > li" elements
-    And I should see the link "VOR 05224v2" in the "related_content" region
+    And I should see "VOR 05224v2" in the ".sidebar-wrapper .elife-related-articles-list" element
 
   Scenario: Related articles of previous versions are purged
     Given I set header "Content-Type" with value "application/json"
@@ -599,9 +599,9 @@ Feature: Article Resource - Related articles (API)
       """
     And the response code should be 200
     When I am on "content/4/e05224"
-    And I follow "<correction_link>" in the "article_doi" region
+    And I follow "<correction_link>"
     And I should be on "content/4/e05226"
-    And I follow "<corrected_link>" in the "article_doi" region
+    And I follow "<corrected_link>"
     Then I should be on "content/4/e05224"
 
     Examples:
@@ -664,11 +664,11 @@ Feature: Article Resource - Related articles (API)
       """
     And the response code should be 200
     When I am on "content/4/e05224"
-    And I should see "<critical_relation_title1>" in the "article_critical_relation" region
-    And I follow "VOR 05226" in the "article_critical_relation" region
+    And I should see "<critical_relation_title1>" in the ".pane-elife-article-criticalrelation" element
+    And I follow "VOR 05226"
     And I should be on "content/4/e05226"
-    And I should see "<critical_relation_title2>" in the "article_critical_relation" region
-    And I follow "VOR 05224" in the "article_critical_relation" region
+    And I should see "<critical_relation_title2>" in the ".pane-elife-article-criticalrelation" element
+    And I follow "VOR 05224"
     Then I should be on "content/4/e05224"
 
     Examples:
@@ -789,10 +789,10 @@ Feature: Article Resource - Related articles (API)
       """
     And the response code should be 200
     When I am on "content/4/e05224"
-    Then I should see "Replication study" in the "article_critical_relation" region
+    Then I should see "Replication study" in the ".pane-elife-article-criticalrelation" element
     And I should see 1 "#replicationStudy h3" elements
     And I should see "VOR 05225" in the "#replicationStudy" element
-    And I should see "Built upon by" in the "article_critical_relation" region
+    And I should see "Built upon by" in the ".pane-elife-article-criticalrelation" element
     And I should see 2 "#researchAdvance h3" elements
     And I should see "VOR 05226" in the "#researchAdvance" element
     And I should see "VOR 05227" in the "#researchAdvance" element
