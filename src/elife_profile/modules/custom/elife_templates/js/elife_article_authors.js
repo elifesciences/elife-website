@@ -4,10 +4,13 @@
       $('body').once('elife-article-authors', function () {
         $('.author-list-full').addClass('visible-small');
         $('.elife-article-author-item', context).each(function() {
-          $(this).attr('data-tooltip-content', '|' + $('.author-list-full .' + $(this).data('affiliation')).html());
+          if ($('.author-list-full .' + $(this).data('affiliation')).length > 0) {
+            $(this).attr('data-tooltip-content', '|' + $('.author-list-full .' + $(this).data('affiliation')).html());
+            $(this).addClass('elife-article-author-item-has-aff');
+          }
         });
 
-        $('.elife-article-author-item', context).each(function() {
+        $('.elife-article-author-item-has-aff', context).each(function() {
           $(this).cluetip({
             onActivate: function(event) {var currentLayout = Drupal.omega.getCurrentLayout(); return currentLayout == 'mobile' ? false : true;},
             arrows: true,

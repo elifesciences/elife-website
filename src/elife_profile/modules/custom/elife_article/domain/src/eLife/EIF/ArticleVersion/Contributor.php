@@ -49,6 +49,7 @@ abstract class Contributor extends BaseContributor {
     $group_author_key,
     array $references
   ) {
+    parent::__construct($type);
     $this->corresp = ($corresp ? 'yes' : 'no');
     $this->id = $id;
     $this->group_author_key = $group_author_key;

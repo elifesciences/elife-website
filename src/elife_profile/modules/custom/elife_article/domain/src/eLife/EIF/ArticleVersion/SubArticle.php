@@ -6,9 +6,9 @@ use JMS\Serializer\Annotation as Serializer;
 
 final class SubArticle extends BaseFragment {
   /**
-   * @var Contributor[]
+   * @var BaseContributor[]
    *
-   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Contributor>")
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\BaseContributor>")
    */
   private $contributors = [];
 
@@ -17,7 +17,7 @@ final class SubArticle extends BaseFragment {
    * @param string $doi
    * @param string $path
    * @param BaseFragment[] $fragments
-   * @param Contributor[] $contributors
+   * @param BaseContributor[] $contributors
    */
   public function __construct(
     $title,
