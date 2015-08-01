@@ -250,6 +250,10 @@ Feature: Article Resource - Kitchen sink (API)
               }
             },
             {
+              "type": "on-behalf-of",
+              "on-behalf-of": "for the HIV Genome-to-Genome Study and the Swiss HIV Cohort Study"
+            },
+            {
               "type": "author",
               "corresp": "yes",
               "group-author-key": "group-author-id1",
@@ -4224,6 +4228,10 @@ Feature: Article Resource - Kitchen sink (API)
                   "conf2"
                 ]
               }
+            },
+            {
+              "type": "on-behalf-of",
+              "on-behalf-of": "for the HIV Genome-to-Genome Study and the Swiss HIV Cohort Study"
             },
             {
               "type": "author",

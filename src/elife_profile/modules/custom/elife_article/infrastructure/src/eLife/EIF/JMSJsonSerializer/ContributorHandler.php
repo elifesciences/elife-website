@@ -2,9 +2,11 @@
 
 namespace eLife\EIF\JMSJsonSerializer;
 
+use eLife\EIF\ArticleVersion\BaseContributor;
 use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\NonBylineContributor;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\Handler\SubscribingHandlerInterface as SubscribingHandler;
@@ -19,7 +21,7 @@ final class ContributorHandler implements SubscribingHandler {
       [
         'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
         'format' => 'json',
-        'type' => Contributor::class,
+        'type' => BaseContributor::class,
         'method' => 'deserializeContributorFromJson',
       ],
     ];
@@ -33,6 +35,9 @@ final class ContributorHandler implements SubscribingHandler {
   ) {
     if (isset($data['collab'])) {
       $type['name'] = CollabContributor::class;
+    }
+    elseif (isset($data['on-behalf-of'])) {
+      $type['name'] = OnBehalfOfContributor::class;
     }
     elseif (isset($data['type']) && preg_match('/\s+non\-byline\s+/', ' ' . $data['type'] . ' ')) {
       $type['name'] = NonBylineContributor::class;

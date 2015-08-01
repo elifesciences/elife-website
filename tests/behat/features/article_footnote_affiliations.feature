@@ -1,4 +1,3 @@
-@debug
 Feature: Footnote
   In Order to be able to see the Institutions the author is associated with
   As a reader

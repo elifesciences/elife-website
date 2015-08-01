@@ -232,7 +232,7 @@ h1, h2 {
 /* ------------------------------------*/
 /* ---------->>> LIBRARY <<<-----------*/
 /* ------------------------------------*/
-.js .elife-article-author-item { cursor:pointer; }
+.js .elife-article-author-item-has-aff { cursor:pointer; }
 .nlm-bold {
   font-weight: bold;
 }
@@ -1579,7 +1579,7 @@ a.logo-wt {
           transition: color 0.3s ease-in-out;
 }
 
-.js .author-list .elife-article-author-item:hover,
+.js .author-list .elife-article-author-item-has-aff:hover,
 .elife-institutions-list .institution-highlight {
   color: #22A0D8;
 }

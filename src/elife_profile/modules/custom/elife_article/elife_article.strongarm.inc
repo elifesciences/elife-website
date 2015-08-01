@@ -122,20 +122,23 @@ function elife_article_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '26',
+          'weight' => '27',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '25',
+          'weight' => '26',
         ),
         'redirect' => array(
-          'weight' => '24',
+          'weight' => '25',
         ),
         'rabbit_hole' => array(
           'weight' => '0',

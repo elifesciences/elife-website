@@ -4,13 +4,7 @@ namespace eLife\EIF\ArticleVersion;
 
 use JMS\Serializer\Annotation as Serializer;
 
-abstract class Contributor {
-  /**
-   * @var string
-   *
-   * @Serializer\Type("string")
-   */
-  private $type;
+abstract class Contributor extends BaseContributor {
 
   /**
    * @var string
@@ -55,15 +49,11 @@ abstract class Contributor {
     $group_author_key,
     array $references
   ) {
-    $this->type = (string) $type;
+    parent::__construct($type);
     $this->corresp = ($corresp ? 'yes' : 'no');
     $this->id = $id;
     $this->group_author_key = $group_author_key;
     $this->references = $references;
-  }
-
-  final public function getType() {
-    return $this->type;
   }
 
   final public function isCorresp() {
