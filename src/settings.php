@@ -4,6 +4,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 $conf['elife_composer_vendor_path'] = __DIR__ . '/../vendor';
 
+// Define the environment.
+$conf['elife_production'] = FALSE;
+
 // Don't allow modules to be added/updated through the UI.
 $conf['allow_authorize_operations'] = FALSE;
 
@@ -22,6 +25,9 @@ $conf['pathologic_local_paths'] = [
   'https://www.elifesciences.org',
   '/',
 ];
+
+// File cache directory.
+$conf['elife_cache_dir'] = __DIR__ . '/../cache';
 
 // Include the local settings, this MUST contain the $databases variable (and
 // any other sensitive credentials in the future), as well as any custom
