@@ -1,0 +1,6 @@
+name = eLife - about
+description = About section of the journal site
+core = 7.x
+package = eLife
+php = 5.2.4
+files[] = elife_about.module

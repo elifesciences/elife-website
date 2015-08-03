@@ -1,0 +1,98 @@
+<?php
+/**
+ * @file
+ * Code for the eLife - about.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function elife_about_menu() {
+  $items = array();
+  $items['about'] = array(
+    'description' => 'Preview the about content.',
+    'page callback' => 'elife_about_page_load',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_about_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $templates = array(
+      'elife_about' => array(
+        'variables' => array(
+          'profiles' => NULL,
+        ),
+        'template' => 'elife_about',
+        'path' => drupal_get_path('module', 'elife_about') . '/templates',
+      ),
+      'elife_about_nav' => array(
+        'variables' => array('profiles' => NULL),
+        'template' => 'elife_about_nav',
+        'path' => drupal_get_path('module', 'elife_about') . '/templates',
+      ),
+    );
+    return $templates;
+  }
+}
+
+/**
+ * Return the content for the about page in the elife_about template.
+ *
+ * @return string
+ *   about page output
+ */
+function elife_about_page_load() {
+  $path = drupal_get_path('module', 'elife_about');
+  drupal_add_js($path . '/js/elife_about.js', array('scope' => 'footer'));
+  drupal_add_js(array('elifeAbout' => array('moduleFolder' => drupal_get_path('module', 'elife_about'))), 'setting');
+  drupal_add_css($path . '/css/about.css');
+  $variables = array();
+  // $variables['profiles'] = elife_about_profiles_load();
+  return theme('elife_about', $variables);
+}
+
+/**
+ * Prepare the about for the about nav.
+ */
+function elife_about_nav_load() {
+  $variables = array();
+
+  return theme('elife_about_nav', $variables);
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function elife_about_page_alter(&$page) {
+  if (current_path() === 'about') {
+    $page['page_top']['elife_about_nav'] = array(
+      '#markup' => elife_about_nav_load(),
+    );
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function elife_about_preprocess_html(&$vars) {
+  if (current_path() === 'about') {
+    // @todo - elife - revisit this code using metatag
+
+    // There is an issue with the HTML title not being set correctly.
+    // This has been experienced on the about page.
+    // This has been introduced since metatag module enabled.
+    $title_vars = array(
+      t('Communicating the latest advances in life science and biomedicine'),
+      variable_get('site_name'),
+    );
+
+    $vars['head_title'] = implode(' | ', $title_vars);
+    $vars['head_title_array']['name'] = $title_vars[1];
+    $vars['head_title_array']['slogan'] = $title_vars[0];
+  }
+}
