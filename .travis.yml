@@ -28,6 +28,10 @@ addons:
       - apache2
       - libapache2-mod-fastcgi
 
+env:
+  global:
+    - DISPLAY=:99.0
+
 before_install:
   - composer self-update
 
@@ -69,20 +73,17 @@ install:
   - mv $HOME/solr-5.2.1/server/solr/drupal/5.x $HOME/solr-5.2.1/server/solr/drupal/conf
   - $HOME/solr-5.2.1/bin/solr create -c drupal -d $HOME/solr-5.2.1/server/solr/drupal
 
-  # Install site
-  - cp ./tests/build/travis.local.settings.php ./local.settings.php
-  - sed -i -e "s?%NODE_BIN%?$(which node)?g" ./local.settings.php
-  - ./install.sh
-
   # Setup display for selenium
-  - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sleep 5
 
   # Get Selenium
   - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.44.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar; fi;
   - java -jar $HOME/custom/selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
-  - sleep 5
+
+  # Install site
+  - cp ./tests/build/travis.local.settings.php ./local.settings.php
+  - sed -i -e "s?%NODE_BIN%?$(which node)?g" ./local.settings.php
+  - ./install.sh
 
 script:
   - ./run-tests.sh
