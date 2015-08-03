@@ -15,3 +15,5 @@ $databases = [
         ],
     ],
 ];
+
+$conf['elife_node_binary'] = '%NODE_BIN%';

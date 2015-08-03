@@ -35,9 +35,6 @@ install:
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
 
-  # Make node binary globally accessible.
-  - node_bin=$(which node);sudo ln -s $node_bin /usr/local/bin
-
   # Set up Apache
   - sudo a2enmod rewrite actions fastcgi alias
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
@@ -74,6 +71,7 @@ install:
 
   # Install site
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
+  - sed -i -e "s?%NODE_BIN%?$(which node)?g" ./local.settings.php
   - ./install.sh
 
   # Setup display for selenium
