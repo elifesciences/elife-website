@@ -105,6 +105,8 @@ function elife_article_serializer() {
       ->configureListeners(function (EventDispatcher $dispatcher) {
         $dispatcher->addSubscriber(new SubArticleSubscriber());
       })
+      ->setCacheDir(variable_get('elife_cache_dir', sys_get_temp_dir()) . '/jms_serializer')
+      ->setDebug(!variable_get('elife_production', FALSE))
       ->build();
   }
 
