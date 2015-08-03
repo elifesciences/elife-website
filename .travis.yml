@@ -14,8 +14,21 @@ mysql:
   username: root
   encoding: utf8
 
+cache:
+  apt: true
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.drush/cache
+    - $HOME/.npm
+    - $HOME/custom
+
+addons:
+  apt:
+    packages:
+      - apache2
+      - libapache2-mod-fastcgi
+
 before_install:
-  - sudo apt-get update
   - composer self-update
 
 install:
@@ -26,7 +39,6 @@ install:
   - node_bin=$(which node);sudo ln -s $node_bin /usr/local/bin
 
   # Set up Apache
-  - sudo apt-get install apache2 libapache2-mod-fastcgi
   - sudo a2enmod rewrite actions fastcgi alias
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - if [[ -f ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ]] ; then sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf ; fi
@@ -43,7 +55,7 @@ install:
 
   # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --no-interaction drush/drush:7.*
+  - composer global require --prefer-dist --no-interaction drush/drush:7.*
 
   # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
@@ -52,12 +64,13 @@ install:
   - ./setup.sh
 
   # Get Solr
-  - wget -qO- https://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz | tar xz
-  - solr-5.2.1/bin/solr start
-  - mkdir -p solr-5.2.1/server/solr/drupal
-  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/5.x solr-5.2.1/server/solr/drupal
-  - mv solr-5.2.1/server/solr/drupal/5.x solr-5.2.1/server/solr/drupal/conf
-  - solr-5.2.1/bin/solr create -c drupal -d solr-5.2.1/server/solr/drupal
+  - if [[ ! -d "$HOME/custom/solr-5.2.1" ]]; then mkdir -p $HOME/custom; wget -qO- https://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz | tar xz --directory $HOME/custom; fi;
+  - cp -r $HOME/custom/solr-5.2.1 $HOME # We don't want to cache the changes we make, so use a copy.
+  - $HOME/solr-5.2.1/bin/solr start
+  - mkdir -p $HOME/solr-5.2.1/server/solr/drupal
+  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/5.x $HOME/solr-5.2.1/server/solr/drupal
+  - mv $HOME/solr-5.2.1/server/solr/drupal/5.x $HOME/solr-5.2.1/server/solr/drupal/conf
+  - $HOME/solr-5.2.1/bin/solr create -c drupal -d $HOME/solr-5.2.1/server/solr/drupal
 
   # Install site
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
@@ -69,8 +82,8 @@ install:
   - sleep 5
 
   # Get Selenium
-  - wget http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar
-  - java -jar selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
+  - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.44.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar; fi;
+  - java -jar $HOME/custom/selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
   - sleep 5
 
 script:
