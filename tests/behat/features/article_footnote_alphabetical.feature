@@ -38,7 +38,10 @@ I should be listed in alphabetical order with other authors
         ],
         "contribution": [
           "con1"
-        ]
+        ],
+        "foot-note": [
+                                "fn1"
+                              ]
       }
     },
     {
@@ -56,7 +59,10 @@ I should be listed in alphabetical order with other authors
         ],
         "contribution": [
           "con2"
-        ]
+        ],
+        "foot-note": [
+                                "fn1"
+                              ]
       }
     },
     {
@@ -73,7 +79,10 @@ I should be listed in alphabetical order with other authors
         ],
         "contribution": [
           "con3"
-        ]
+        ],
+        "foot-note": [
+                                "fn1"
+                              ]
       }
     },
     {
@@ -90,7 +99,10 @@ I should be listed in alphabetical order with other authors
         ],
         "contribution": [
           "con3"
-        ]
+        ],
+        "foot-note": [
+                                "fn1"
+                              ]
       }
     }
   ],
@@ -120,22 +132,30 @@ I should be listed in alphabetical order with other authors
         "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
         "con2": "RAA, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
         "con3": "RAA, Conception and design, Drafting or revising the article"
-      }
+      },
+            "foot-note": {
+                        "fn1": {
+                            "type": "other",
+                              "value": "Listed in Alphabetical order with: Sophien Kamoun, Johannes Krause, Marco Thines, Detlef Weigel"
+                            }
+    }
     }
     }
 
       """
 And the response code should be 200
 And I go to "content/2/e00731"
-Then I should see "<author>" in the ".author-tooltip-name" element
-And I should see "Listed in alphabetical order with:"
-And I should see "<author_list>" in the ".author-tooltip-label" element
-And I should not see "<bad_author_list>" in the ".author-tooltip-label" element
+Then I should see "<author>" in the ".author-list span.elife-article-author-item:nth-of-type(<n>)" element
+And I should see "Listed in alphabetical order with: Sophien Kamoun, Johannes Krause, Marco Thines, Detlef Weigel"
+
 
 
 Examples:
-| author         | author_list                                  | bad_author_list                                              |
-| Sophien Kamoun | Johannes Krause, Marco Thines, Detlef Weigel]] | Sophien Kamoun, Johannes Krause, Marco Thines, Detlef Weigel |
+  | author          | n |
+  | Sophien Kamoun  | 1 |
+  | Johannes Krause | 2 |
+  | Marco Thines    | 3 |
+
 
   Scenario: No alphabetical listing of authors when there are no equal co-contributors
     Given I set header "Content-Type" with value "application/json"
@@ -146,6 +166,7 @@ Examples:
         "version": "1",
         "doi": "10.7554/eLife.00731",
         "volume": "2",
+        "elocation-id": "e00731",
         "article-id": "10.7554/eLife.00731",
         "article-version-id": "00731",
         "pub-date": "2013-05-28",
@@ -178,16 +199,19 @@ Examples:
                 "institution": "inst1",
                 "city": "city1",
                 "country": "Country1"
+              }
               },
               "contribution": {
                 "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
                 "con2": "RAA, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
                 "con3": "RAA, Conception and design, Drafting or revising the article"
               }
+
     }
   }
 
       """
+    And print response
     And the response code should be 200
     And I go to "content/2/e00731"
     Then I should see "Frank N Martin" in the ".author-tooltip-name" element
