@@ -25,6 +25,7 @@ final class ExeterMarkupService extends ElifeMarkupService {
     'acknowledgements' => "//*[@id='ack-1']",
     'decision-letter' => "//*[@id='decision-letter']",
     'author-response' => "//*[@id='author-response']",
+    'datasets' => "//*[contains(concat(' ', @class, ' '), ' datasets ')]",
   ];
 
   /**

@@ -10,8 +10,10 @@ use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
 use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
+use eLife\EIF\ArticleVersion\Fragment;
 use eLife\EIF\ArticleVersion\Referenced;
 use eLife\EIF\ArticleVersion\RelatedArticle;
+use eLife\EIF\ArticleVersion\SubArticle;
 use JMS\Serializer\Annotation as Serializer;
 
 final class ArticleVersion {
@@ -374,6 +376,42 @@ final class ArticleVersion {
 
   public function getFragments() {
     return $this->fragments;
+  }
+
+  /**
+   * @param array|string $types
+   * @param int $level
+   *   set as 0 for all levels
+   * @return array|Fragment[]
+   */
+  public function getFragmentsOfType($types, $level = 1) {
+    if (!is_array($types)) {
+      $types = [$types];
+    }
+
+    /* @param BaseFragment[] $fragments */
+    $closure = function(array $fragments, $current_level = 1) use ($types, $level, &$closure) {
+      $fragments_of_type = [];
+      $next_level = $current_level + 1;
+      foreach ($fragments as $fragment) {
+        if ($fragment instanceof Fragment) {
+          if (in_array($fragment->getType(), $types)) {
+            $fragments_of_type[] = $fragment;
+          }
+        }
+
+        if ($level === 0 || $next_level < $level) {
+          $children_of_type = $closure($fragment->getFragments(), $next_level);
+          if (!empty($children_of_type)) {
+            $fragments_of_type = array_merge($fragments_of_type, $children_of_type);
+          }
+        }
+      }
+
+      return $fragments_of_type;
+    };
+
+    return $closure($this->fragments);
   }
 
   public function getCitations() {
