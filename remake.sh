@@ -10,6 +10,6 @@ drush make --no-core --concurrency=3 --no-recursion --contrib-destination=. ./sr
 npm install --prefix ./src/elife_profile/libraries/elife-eif-schema/
 # See https://github.com/wikimedia/composer-merge-plugin/issues/34#issuecomment-126305530 re the below
 cp composer.lock composer.lock.orig
-composer install --no-interaction
+composer install --prefer-dist --no-interaction
 mv composer.lock.orig composer.lock
-composer install --no-interaction
+composer install --prefer-dist --no-interaction
