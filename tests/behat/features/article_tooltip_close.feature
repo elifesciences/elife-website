@@ -1,10 +1,11 @@
+@develop
 Feature: Footnote
-  In order to be able to close rollover
+  In order to be able to close tooltip
   As a reader
-  I should be able to see the "CLOSE" button in the author rollover
+  I should be able to see the "CLOSE" button in the author tooltip
 
-  @debug @javascript
-  Scenario: Closing author rollover by close button
+  @javascript
+  Scenario: Closing author tooltip by close button
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
     """
