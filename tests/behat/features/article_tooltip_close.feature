@@ -25,5 +25,4 @@ Feature: Footnote
       """
     And the response code should be 200
     And I go to "content/4/e05003"
-    And I should see "Close" in the ".cluetip-close" element
-    And I should see "Close" in the ".cluetip-close a" element
+    Then I should see "Close" in the "#cluetip .cluetip-outer .cluetip-inner .cluetip-close a" element

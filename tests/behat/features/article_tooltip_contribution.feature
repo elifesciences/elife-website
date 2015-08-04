@@ -1,10 +1,10 @@
-@debug1
+@debug
 Feature: Contribution
   In order to be able to get credit for my work
   As an author
   I should see my name as contributor to the paper listed
 
-  @javascript @hover
+  @hover
   Scenario Outline: Contribution listed in author rollover
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -127,13 +127,13 @@ Feature: Contribution
       """
     And the response code should be 200
     And I go to "content/3/e03895"
-    Then I should see "<author>" in the ".author-tooltip" element
-    Then I should see "Equally Contributed with:" in the ".author-tooltip-contrib .author-tooltip-label" element
+    Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
+    Then I should see "Equally Contributed with:" in the ".author-tooltip-label" element
 
 
   Examples:
-    | author               |
-    | Sophien Kamoun Jnr   |
-    | Johannes Krause      |
-    | Marco Thines         |
-    | Detlef Weigel        |
+    | author               | n |
+    | Sophien Kamoun Jnr   | 1 |
+    | Johannes Krause      | 2 |
+    | Marco Thines         | 3 |
+    | Detlef Weigel        | 4 |

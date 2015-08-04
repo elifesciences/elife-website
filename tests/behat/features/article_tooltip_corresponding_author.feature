@@ -1,3 +1,5 @@
+
+@debug1
 Feature: Footnote
   In Order to be able to contact a corresponding author
   As a reader
@@ -13,6 +15,7 @@ Feature: Footnote
           "version": "1",
           "doi": "10.7554/eLife.07091",
           "volume": "4",
+          "elocation-id": "e07091",
           "article-id": "10.7554/eLife.07091",
           "article-version-id": "07091",
           "pub-date": "2015-06-30",
@@ -25,13 +28,16 @@ Feature: Footnote
               "type": "author",
               "equal-contrib": "yes",
               "id": "author-23",
-              "surname": "Kamoun",
-              "given-names": "Sophien",
-              "suffix": "Jnr",
+              "corresp": "yes",
+              "surname": "Garcia-Marcos",
+              "given-names": "Mikel",
               "references": {
                 "affiliation": [
                   "aff1"
                 ],
+                "email": [
+                        "cor1"
+                        ],
                 "equal-contrib": [
                   "equal-contrib"
                 ],
@@ -44,12 +50,16 @@ Feature: Footnote
             "type": "author",
             "equal-contrib": "yes",
             "id": "author-17",
-            "surname": "Krause",
-            "given-names": "Johannes",
+            "corresp": "yes",
+            "surname": "Ghosh",
+            "given-names": "Pradipta",
             "references": {
               "affiliation": [
                 "aff2"
               ],
+              "email": [
+                        "cor2"
+                      ],
               "equal-contrib": [
                 "equal-contrib"
               ],
@@ -119,23 +129,28 @@ Feature: Footnote
             "con1": "RAA, Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
             "con2": "RAA, Conception and design, Analysis and interpretation of data, Drafting or revising the article",
             "con3": "RAA, Conception and design, Drafting or revising the article"
-          }
+          },
+          "email": {
+                "cor1": "mgm1@bu.edu",
+                "cor2": "prghosh@ucsd.edu"
+                }
         }
         }
       """
     And the response code should be 200
     And I go to "content/4/e07091"
-    Then I should see "<author>" in the ".author-tooltip-name" element
-    And I should see "<author_email>" in the ".author-tooltip-text a"
-    And I should see "For Correspondence" in the ".author-tooltip-label" element
+    Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
+    Then I should see the url "<author_email>" in the "href" attribute of the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-corresp .author-tooltip-text a" element
+    Then I should see "<email>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-corresp .author-tooltip-text" element
+    Then I should see "For Correspondence:" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-corresp .author-tooltip-label" element
 
   Examples:
-    | author                  |  author_email   |
-    | Mikel Garcia-Marcos     | mgm1@bu.edu     |
-    | Pradipta Ghosh          | prghosh@ucsd.edu|
+    | author                  |  author_email          | n |    email        |
+    | Mikel Garcia-Marcos     | mailto:mgm1@bu.edu     | 1 |  mgm1@bu.edu    |
+    | Pradipta Ghosh          | mailto:prghosh@ucsd.edu| 2 | prghosh@ucsd.edu|
 
 
-  Scenario: Author has not provided email id
+  Scenario Outline: Author has not provided email id
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
     """
@@ -144,6 +159,7 @@ Feature: Footnote
           "version": "1",
           "doi": "10.7554/eLife.07091",
           "volume": "4",
+          "elocation-id": "e07091",
           "article-id": "10.7554/eLife.07091",
           "article-version-id": "07091",
           "pub-date": "2015-06-30",
@@ -155,9 +171,9 @@ Feature: Footnote
             {
               "equal-contrib": "yes",
               "type": "author",
-              "id": "<id>",
-              "surname": "Alegado",
-              "given-names": "<author>",
+              "id": "author-14",
+              "surname": "Abal",
+              "given-names": "Miguel",
               "references": {
                 "affiliation": [
                   "aff1"
@@ -179,6 +195,10 @@ Feature: Footnote
       """
     And the response code should be 200
     And I go to "content/4/e07091"
-    Then I should see "Miguel Abal" in the ".author-tooltip-name" element
-    And I should not see "For Correspondence" in the ".author-tooltip-label" element
+    Then I should see "Miguel Abal" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
+    And I should not see "For Correspondence" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip" element
+
+    Examples:
+    | n |
+    | 1 |
 

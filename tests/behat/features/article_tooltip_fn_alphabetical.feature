@@ -1,4 +1,4 @@
-@debug1
+@debug
 Feature: Alphabetical
 In order to ensure that my contribution to the paper is not tied to my position in the author list
 As an author
@@ -145,7 +145,7 @@ I should be listed in alphabetical order with other authors
       """
 And the response code should be 200
 And I go to "content/2/e00731"
-Then I should see "<author>" in the ".author-list span.elife-article-author-item:nth-of-type(<n>)" element
+Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
 And I should see "Listed in alphabetical order with: Sophien Kamoun, Johannes Krause, Marco Thines, Detlef Weigel"
 
 
