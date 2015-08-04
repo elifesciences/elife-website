@@ -553,6 +553,46 @@ JS;
         return null;
     }
 
+    /**
+     * Check the URL value of a specific attribute of a tag.
+     *
+     * @Then /^(?:|I )should see the url "(?P<url>(?:[^"]|\\")*)" in the "(?P<attr>(?:[^"]|\\")*)" attribute of the "(?P<elem>(?:[^"]|\\")*)" element$/
+     */
+    public function iShouldSeeURLInTheAttributeOfTheElement($elem, $attr, $url) {
+        $current_url = $this->returnValueOfAttribute($elem, $attr, TRUE);
+        $url = $this->locatePath($url);
+        if ($url !== $current_url) {
+            throw new Exception('Expected url "' . $url . '" but found "' . $current_url. '"');
+        }
+    }
+
+    /**
+     * Return value of attribute in element.
+     *
+     * @param string $elem
+     *   Element that we wish to inspect.
+     * @param string $attr
+     *   Attribute of the element that we wish to inspect.
+     * @param bool $url_flag
+     *   Set TRUE if value is a url. FALSE is default.
+     *
+     * @return mixed|null|string
+     *   Return value of attribute in element or throw exception.
+     * @throws Exception
+     */
+    private function returnValueOfAttribute($elem, $attr, $url_flag = FALSE) {
+        $element = $this->getSession()->getPage()->find("css", $elem);
+        if (!$element) {
+            throw new Exception('Expected element ' . $elem . ' not found on page.');
+        }
+        $current_value = $element->getAttribute($attr);
+
+        if ($url_flag) {
+            $current_value = $this->locatePath($current_value);
+        }
+
+        return $current_value;
+    }
 
     /**
      * Check for a specific image filename in an img tag.
