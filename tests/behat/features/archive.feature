@@ -8,45 +8,7 @@ Feature: Archive
     Then the response status code should be 200
     And I should see "Article archive" in the "h1" element
 
-  Scenario Outline: Access a yearly overview
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
-      """
-        {
-          "title": "<display_channel> <pubdate>",
-          "version": "1",
-          "doi": "10.7554/eLife.<id>",
-          "volume": "1",
-          "elocation-id": "e<id>",
-          "article-id": "<id>",
-          "article-version-id": "<id>.1",
-          "pub-date": "<pubdate>",
-          "path": "content/1/<id>",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": "1",
-          "categories": {
-            "display-channel": [
-              "<display_channel>"
-            ]
-          }
-        }
-      """
-    And the response code should be 200
-    When I am on "/archive/<year>"
-    Then the response status code should be <status_code>
-
-    Examples:
-      | id | display_channel | pubdate | year | status_code |
-      | 00001 | Research article | 2012-01-01 | 2012 | 200 |
-      | 00002 | Insight | 2013-02-01 | 2013 | 200 |
-      | 00003 | Editorial | 2014-04-01 | 2014 | 200 |
-      | 00004 | Feature article | 2015-09-01 | 2015 | 200 |
-      | 00001 | Registered report | 2012-01-01 | 1979 | 404 |
-      | 00001 | Correction | 2011-01-01 | 2011 | 404 |
-      | 00001 | Research article | 2012-01-01 | 2032 | 404 |
-
-  Scenario: Click on month from yearly archive
+  Scenario: No yearly overview
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
@@ -71,12 +33,10 @@ Feature: Archive
         }
       """
     And the response code should be 200
-    And I am on "/archive/2012"
-    When I follow "October 2012"
-    Then the response status code should be 200
-    And the url should match "/archive/2012/10"
-    And I should see text matching "Article archive, October 2012"
-    And I should see text matching "Article 01/10/2012"
+    When I am on "/archive/2012"
+    Then the response status code should be 404
+    When I am on "/archive/2013"
+    Then the response status code should be 404
 
   Scenario Outline: Appropriate heading set for archive listing
     Given I set header "Content-Type" with value "application/json"
@@ -108,7 +68,6 @@ Feature: Archive
 
     Examples:
       | pubdate | url | date |
-      | 2012-10-01 | 2012 | 2012 |
       | 2012-10-01 | 2012/10 | October 2012 |
       | 2013-05-01 | 2013/05 | May 2013 |
 
@@ -137,15 +96,15 @@ Feature: Archive
         }
       """
     And the response code should be 200
-    And I am on "/archive/<start_url>"
-    When I select "<option>" from "elife_archive_month"
+    And I am on "/archive"
+    When I select "<option>" from "jump"
     And I press "Go"
     Then the url should match "/archive/<dest_url>"
 
     Examples:
-      | pubdate | option | start_url | dest_url |
-      | 2013-02-01 | February 2013 | 2012 | 2013/02 |
-      | 2012-11-01 | November 2012 | 2013 | 2012/11 |
+      | pubdate | option | dest_url |
+      | 2013-02-01 | February 2013 | 2013/02 |
+      | 2012-11-01 | November 2012 | 2012/11 |
 
   @javascript
   Scenario Outline: Use the archive jump to dropdown (javascript)
@@ -173,14 +132,14 @@ Feature: Archive
         }
       """
     And the response code should be 200
-    And I am on "/archive/<start_url>"
-    When I select "<option>" from "elife_archive_month"
+    And I am on "/archive"
+    When I select "<option>" from "jump"
     Then the url should match "/archive/<dest_url>"
 
     Examples:
-      | pubdate | option | start_url | dest_url |
-      | 2013-02-01 | February 2013 | 2012 | 2013/02 |
-      | 2012-11-01 | November 2012 | 2013 | 2012/11 |
+      | pubdate | option | dest_url |
+      | 2013-02-01 | February 2013 | 2013/02 |
+      | 2012-11-01 | November 2012 | 2012/11 |
 
   Scenario Outline: Correct number of articles for month
     Given I set header "Content-Type" with value "application/json"
@@ -479,7 +438,7 @@ Feature: Archive
       | 2013-01-01 | 2013/1 | 2013/01 |
       | 2012-10-01 | 2012/10 | 2012/10 |
 
-  Scenario Outline: Correct set of article types in the archive listing
+  Scenario: Correct set of article types in the archive listing
     Given I set variable "elife_category_assets_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -667,16 +626,12 @@ Feature: Archive
       """
     And the response code should be 200
     When I am on "/archive/2015/03"
-    Then I should see "<articletype>" in the ".view-elife-archive-by-month h3:nth-of-type(<num>)" element
+    Then I should see "Editorial" in the ".view-elife-archive-by-month h3:nth-of-type(1)" element
+    Then I should see "Feature article" in the ".view-elife-archive-by-month h3:nth-of-type(2)" element
+    Then I should see "Insight" in the ".view-elife-archive-by-month h3:nth-of-type(3)" element
+    Then I should see "Research article" in the ".view-elife-archive-by-month h3:nth-of-type(4)" element
+    Then I should see "Short report" in the ".view-elife-archive-by-month h3:nth-of-type(5)" element
+    Then I should see "Tools and resources" in the ".view-elife-archive-by-month h3:nth-of-type(6)" element
+    Then I should see "Research advance" in the ".view-elife-archive-by-month h3:nth-of-type(7)" element
+    Then I should see "Registered report" in the ".view-elife-archive-by-month h3:nth-of-type(8)" element
     And the response status code should be 200
-
-    Examples:
-      | num | articletype         |
-      | 1   | Editorial           |
-      | 2   | Feature article     |
-      | 3   | Insight             |
-      | 4   | Research article    |
-      | 5   | Short report        |
-      | 6   | Tools and resources |
-      | 7   | Research advance    |
-      | 8   | Registered report   |
