@@ -26,57 +26,36 @@ function elife_archive_menu() {
  * or return page not found
  */
 function _elife_archive_listing() {
-  $args = func_get_args();
-
-  $months = _elife_archive_month_options(NULL, 'raw');
-
   $output = '';
 
-  $year = FALSE;
-  $month = FALSE;
+  list($year, $month) = _elife_archive_get_month_year_from_args();
 
-  if (isset($args[0]) && !empty($months[$args[0]])) {
-    $year = $args[0];
+  $expected_path = _elife_archive_get_expected_path($year, $month);
 
-    if (isset($args[1]) && in_array($args[1], $months[$year])) {
-      $month = $args[1];
-
-      // If month does not have a leading zero then redirect.
-      if (strlen($month) == 1) {
-        drupal_goto('archive/' . $year . '/' . str_pad($month, 2, "0", STR_PAD_LEFT));
-      }
+  if (current_path() !== $expected_path) {
+    if (!empty($month)) {
+      // If the month is missing a '0' (e.g. '9' rather than '09'), redirect.
+      return drupal_goto($expected_path);
     }
+
+    return drupal_not_found();
   }
 
-  if ($year && !isset($args[1])) {
-    // Display available months of the year block.
-    drupal_set_title(t('Article archive, @date', array('@date' => $year)));
+  $view_arguments = [];
 
-    $view = views_get_view('elife_archive_by_month');
-    $view->set_arguments(array($year));
-    $view->set_display('archive_year');
-    $view->pre_execute();
-
-    $output .= $view->render();
-
+  if (!empty($year) && !empty($month)) {
+    $view_arguments = [sprintf('%s-%s', $year, $month)];
   }
-  elseif ($month) {
-    drupal_set_title(t('Article archive, @date', array('@date' => date('F Y', strtotime($year . $month . '01')))));
 
-    $view = views_get_view('elife_archive_by_month');
-    $view->set_arguments(array($year . $month));
-    $view->set_display('archive_month');
-    $view->pre_execute();
+  $view = views_get_view('elife_archive_by_month');
+  $view->execute_display('block_1', $view_arguments);
 
+  if (!empty($view->result) || (empty($year) && empty($month))) {
     $output .= $view->render();
-  }
-  elseif (empty($args)) {
-    drupal_set_title(t('Article archive'));
-    $view = views_get_view('elife_archive_by_month');
-    $view->set_display('archive_year');
-    $view->pre_execute();
 
-    $output .= $view->render();
+    if ($title = $view->get_title()) {
+      drupal_set_title($title);
+    }
   }
 
   if (!empty($output)) {
@@ -91,22 +70,10 @@ function _elife_archive_listing() {
  */
 function elife_archive_preprocess_page(&$variables) {
   if (in_array('page__archive', $variables['theme_hook_suggestions'])) {
-    $path = current_path();
-    $args = explode('/', $path);
-
-    $date_from_args = NULL;
-
-    if (count($args) > 2) {
-      $year = $args[1];
-      $month = $args[2];
-
-      $date_from_args = strtotime($year . $month . '01');
-    }
-
-    $options_form = drupal_get_form('elife_archive_goto_form', $date_from_args);
+    $form = drupal_get_form('elife_archive_goto_form');
 
     $variables['title_suffix'] = '<div class="elife-archive-jumpto">';
-    $variables['title_suffix'] .= render($options_form);
+    $variables['title_suffix'] .= render($form);
     $variables['title_suffix'] .= '</div>';
     $variables['title_suffix'] .= '<div class="panel-separator"></div>';
   }
@@ -116,115 +83,43 @@ function elife_archive_preprocess_page(&$variables) {
  * Monthly archive jump to form.
  */
 function elife_archive_goto_form($form, &$form_state, $default_date = NULL, $js = TRUE) {
-  if ($js) {
-    // Add js to footer region.
-    drupal_add_js(drupal_get_path('module', 'elife_archive') . '/js/elife.javascript.archive_goto.js', array('scope' => 'footer'));
+  ctools_include('jump-menu');
+
+  $view = views_get_view('elife_archive_by_month');
+  $view->execute_display('block_1');
+
+  $select = [];
+  $options = [
+    'choose' => 'Select month',
+  ];
+
+  if (empty($view->result)) {
+    return NULL;
   }
 
-  $default_value = NULL;
+  foreach ($view->result as $result) {
+    $date = strtotime($result->field_elife_a_fpubdate_value_summary . '-01');
 
-  if (!empty($default_date)) {
-    $default_value = url('archive/' . date('Y/m', $default_date));
+    $path = '/' . _elife_archive_get_expected_path(date('Y', $date), date('m', $date));
+    $text = date('F Y', $date);
+
+    $select[$path] = t('!month (!records)', [
+      '!month' => $text,
+      '!records' => $result->num_records,
+    ]);
   }
 
-  $form['elife_archive_month'] = array(
-    '#type' => 'select',
-    '#options' => _elife_archive_month_options(),
-    '#title' => t('Select month'),
-    '#default_value' => $default_value,
-  );
-  $form['submit_button'] = array(
-    '#type' => 'submit',
-    '#value' => t('Go'),
-  );
+  $current_page = _elife_archive_get_month_year_from_args();
 
-  return $form;
-}
+  if (NULL !== $current_page) {
+    list($year, $month) = $current_page;
 
-/**
- * Redirect the user to the archive page for a specific month.
- */
-function elife_archive_goto_form_submit($form, &$form_state) {
-  $path = preg_replace('/^\//', '', $form_state['values']['elife_archive_month']);
-  $http_response_code = 302;
-  $url = url($path, array('absolute' => TRUE));
-  header('Location: ' . $url, TRUE, $http_response_code);
-
-  drupal_exit($url);
-}
-
-/**
- * Return an array of months and the links to the archive for that month.
- *
- * @param int $year
- *   provide year to act as a filter for results
- * @param string $format
- *   links|raw|null
- *
- * @return array
- *   results returned
- */
-function _elife_archive_month_options($year = NULL, $format = NULL) {
-  $results = _elife_archive_month_options_get($year);
-
-  if (empty($results)) {
-    return array();
-  }
-
-  $months = array();
-
-  foreach ($results as $res) {
-    $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value']);
-
-    switch ($format) {
-      case 'links':
-        $months[] = l(date('F Y', $month), 'archive/' . date('Y/m', $month));
-        break;
-
-      case 'raw':
-        $months[date('Y', $month)][] = date('m', $month);
-        break;
-
-      default:
-        $months[url('archive/' . date('Y/m', $month))] = date('F Y', $month);
+    if (!empty($month)) {
+      $options['default_value'] = '/' . _elife_archive_get_expected_path($year, $month);
     }
   }
 
-  return $months;
-}
-
-/**
- * Return the archive View.
- *
- * by month, for the year and return the resulting list.
- * 
- * The output is cached within this request.
- *
- * @param int|string $year
- *   year to act as filter for results
- *
- * @return array
- *   a list of months
- */
-function _elife_archive_month_options_get($year = 'all') {
-  $cache = &drupal_static(__FUNCTION__, array());
-
-  if (empty($year)) {
-    $year = 'all';
-  }
-
-  if (!isset($cache[$year])) {
-    $view = views_get_view('elife_archive_by_month');
-    $view->execute_display('archive_year');
-
-    if ($year != 'all') {
-      $view->set_arguments(array($year));
-    }
-
-    $cache[$year] = $view->result;
-  }
-
-  return $cache[$year];
+  return ctools_jump_menu($form, $form_state, $select, $options);
 }
 
 /**
@@ -247,12 +142,12 @@ function _elife_archive_month_options_get($year = 'all') {
  */
 function _elife_archive_short_options_get($li_classes = array(), $a_classes = array()) {
   $view = views_get_view('elife_archive_by_month');
-  $view->execute_display('archive_short');
+  $view->execute_display('block_1');
   $months = array();
 
   if ($results = $view->result) {
-    foreach ($results as $res) {
-      $month = strtotime($res->field_field_elife_a_fpubdate[0]['raw']['value'] . '01');
+    foreach (array_slice($results, 0, 2) as $res) {
+      $month = strtotime($res->field_elife_a_fpubdate_value_summary . '-01');
       $months[] = array(
         'data' => l(date('M', $month), 'archive/' . date('Y/m', $month), array('attributes' => $a_classes)),
         'class' => $li_classes,
@@ -266,10 +161,74 @@ function _elife_archive_short_options_get($li_classes = array(), $a_classes = ar
 }
 
 /**
+ * Implements hook_url_outbound_alter().
+ */
+function elife_archive_url_outbound_alter(&$path, &$options, $original_path) {
+  if (preg_match('|^archive/([0-9]*)-([0-9]*)?|', $path, $matches)) {
+    // Views produces links such as 'archive/2013-09', this crudely converts it
+    // to our preferred 'archive/2013/09'.
+    $path = sprintf('archive/%s/%s', $matches[1], $matches[2]);
+  }
+}
+
+/**
+ * Get the year and month from the current page.
+ *
+ * @return array|NULL
+ *    An array of two items, containing the year and month as integers, or NULL
+ *    values. If the page is not an archive page, NULL is returned.
+ */
+function _elife_archive_get_month_year_from_args() {
+  $menu_item = menu_get_item();
+  $args = $menu_item['page_arguments'];
+
+  if ('archive' !== $menu_item['path']) {
+    return NULL;
+  }
+
+  $parts = [NULL, NULL];
+
+  if (!empty($args[0])) {
+    $parts[0] = (int) $args[0];
+
+    if (!empty($args[1])) {
+      $parts[1] = (int) $args[1];
+    }
+  }
+
+  if ($parts[1] < 1 || $parts[1] > 12) {
+    $parts[1] = NULL;
+  }
+
+  return $parts;
+}
+
+/**
+ * Get the expected path for an archive page.
+ *
+ * @param int|null $year
+ *    Year.
+ * @param int|null $month
+ *    Month.
+ *
+ * @return string
+ *    Expected path.
+ */
+function _elife_archive_get_expected_path($year = NULL, $month = NULL) {
+  $path = 'archive';
+
+  if (!empty($year) && !empty($month)) {
+    $path .= '/' . $year . '/' . str_pad($month, 2, '0', STR_PAD_LEFT);
+  }
+
+  return $path;
+}
+
+/**
  * Implements hook_block_info().
  *
  * Declare Blocks for the 'jump to month' form and for the short
- * archive listing on the homepage. 
+ * archive listing on the homepage.
  */
 function elife_archive_block_info() {
   $blocks['elife_archive_jumpto'] = array(
@@ -310,7 +269,7 @@ function elife_archive_block_view($delta = '') {
  * appended with an 'all' archives link.
  *
  * CSS classes are applied to the view appropriate for the coverpage.
- * 
+ *
  * @return array
  *   renderable array of block
  */
