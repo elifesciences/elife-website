@@ -103,6 +103,7 @@ dependencies[] = m4032404
 dependencies[] = view_unpublished
 dependencies[] = diff
 dependencies[] = pathologic
+dependencies[] = sharethis
 
 ; Install Features
 dependencies[] = features
@@ -119,6 +120,7 @@ dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header
 dependencies[] = elife_podcast
+dependencies[] = elife_resources
 dependencies[] = elife_search
 dependencies[] = elife_services
 dependencies[] = elife_services_config

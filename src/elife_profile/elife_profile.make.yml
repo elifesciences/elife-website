@@ -131,6 +131,8 @@ projects:
     version: '1.0-rc2'
   services:
     version: '3.12'
+  sharethis:
+    version: '2.12'
   special_menu_items:
     version: '2.0'
   strongarm:

@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * eLife Resources
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function elife_resources_menu() {
+  $items = array();
+  $items['admin/config/services/elife_resources'] = array(
+    'title' => 'eLife Resources API',
+    'description' => 'Configuration options for eLife Resources API.',
+    'access arguments' => array('administer elife_resources'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_resources_admin_settings_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_resources.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function elife_resources_permission() {
+  return array(
+    'administer elife_resources' => array(
+      'title' => t('Administer eLife Resources API'),
+      'description' => t('Perform administrative actions for access to the eLife Resources API.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_flush_caches().
+ */
+function elife_resources_flush_caches() {
+  return array('cache_elife_resources');
+}
