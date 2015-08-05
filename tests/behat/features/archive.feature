@@ -438,7 +438,7 @@ Feature: Archive
       | 2013-01-01 | 2013/1 | 2013/01 |
       | 2012-10-01 | 2012/10 | 2012/10 |
 
-  Scenario Outline: Correct set of article types in the archive listing
+  Scenario: Correct set of article types in the archive listing
     Given I set variable "elife_category_assets_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -626,16 +626,12 @@ Feature: Archive
       """
     And the response code should be 200
     When I am on "/archive/2015/03"
-    Then I should see "<articletype>" in the ".view-elife-archive-by-month h3:nth-of-type(<num>)" element
+    Then I should see "Editorial" in the ".view-elife-archive-by-month h3:nth-of-type(1)" element
+    Then I should see "Feature article" in the ".view-elife-archive-by-month h3:nth-of-type(2)" element
+    Then I should see "Insight" in the ".view-elife-archive-by-month h3:nth-of-type(3)" element
+    Then I should see "Research article" in the ".view-elife-archive-by-month h3:nth-of-type(4)" element
+    Then I should see "Short report" in the ".view-elife-archive-by-month h3:nth-of-type(5)" element
+    Then I should see "Tools and resources" in the ".view-elife-archive-by-month h3:nth-of-type(6)" element
+    Then I should see "Research advance" in the ".view-elife-archive-by-month h3:nth-of-type(7)" element
+    Then I should see "Registered report" in the ".view-elife-archive-by-month h3:nth-of-type(8)" element
     And the response status code should be 200
-
-    Examples:
-      | num | articletype         |
-      | 1   | Editorial           |
-      | 2   | Feature article     |
-      | 3   | Insight             |
-      | 4   | Research article    |
-      | 5   | Short report        |
-      | 6   | Tools and resources |
-      | 7   | Research advance    |
-      | 8   | Registered report   |
