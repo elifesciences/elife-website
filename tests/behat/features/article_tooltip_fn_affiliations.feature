@@ -8,43 +8,43 @@ Feature: Footnote
     And I send a POST request to "api/article.json" with body:
       """
         {
-   "title":"VOR 04046",
-   "version":"1",
-   "doi":"10.7554/eLife.04046",
-   "volume":"3",
-   "elocation-id":"e04046",
-   "article-id":"10.7554/eLife.04046",
-   "article-version-id":"04046",
-   "pub-date":"2014-10-14",
-   "path":"content/3/e04046",
-   "article-type":"research-article",
-   "status":"VOR",
-   "publish":"1",
-   "contributors":[
-      {
-         "equal-contrib":"yes",
-         "type":"author",
-         "id":"<id>",
-         "surname":"Alegado",
-         "given-names":"<author>",
-         "references":{
-            "affiliation":[
-               "aff1"
-            ]
-         }
-      }
-   ],
-   "referenced":{
-      "affiliation":{
-         "aff1":{
-            "dept":"<dept>",
-            "institution":"<institution>",
-            "city":"<city>",
-            "country":"<country>"
-         }
-      }
-   }
-}
+          "title": "VOR 04046",
+          "version": "1",
+          "doi": "10.7554/eLife.04046",
+          "volume": "3",
+          "elocation-id": "e04046",
+          "article-id": "10.7554/eLife.04046",
+          "article-version-id": "04046",
+          "pub-date": "2014-10-14",
+          "path": "content/3/e04046",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "contributors": [
+            {
+              "equal-contrib": "yes",
+              "type": "author",
+              "id": "<id>",
+              "surname": "Alegado",
+              "given-names": "<author>",
+              "references": {
+                "affiliation": [
+                  "aff1"
+                ]
+              }
+            }
+          ],
+          "referenced": {
+            "affiliation": {
+              "aff1": {
+                "dept": "<dept>",
+                "institution": "<institution>",
+                "city": "<city>",
+                "country": "<country>"
+              }
+            }
+          }
+        }
       """
     And the response code should be 200
     And I go to "content/3/e04046"
@@ -58,4 +58,3 @@ Feature: Footnote
       | id        | author  | dept                                                | institution                | city  | country |
       | author-23 | Boris   | Laboratory of Neurophysics and Physiology, UMR 8119 | Paris Descartes University | Paris | France  |
       | author-24 | Rebecca | Laboratory of Neurophysics and Physiology, UMR 8119 | Paris Descartes University | Paris | France  |
-

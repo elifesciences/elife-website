@@ -8,7 +8,7 @@ Feature: Footnote
   Scenario: Closing author tooltip by close button
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
-    """
+      """
         {
           "title": "VOR 05003",
           "version": "1",
