@@ -7,6 +7,7 @@
 
 namespace Drupal\elife_article;
 
+use Database;
 use EntityFieldQuery;
 use EntityDrupalWrapper;
 use EntityFieldQueryExtraFields;
@@ -1016,6 +1017,15 @@ class ElifeArticleVersion {
    * @throws \EntityMetadataWrapperException
    */
   public static function retrieveRelatedArticles($entity_id = NULL, $verified = TRUE, $unique = FALSE, $status = NULL, $critical = NULL) {
+    if ('sqlite' === Database::getConnection()->databaseType()) {
+      $greatest = 'MAX';
+      $least = 'MIN';
+    }
+    else {
+      $greatest = 'GREATEST';
+      $least = 'LEAST';
+    }
+
     $results = array();
 
     $query = db_select('field_collection_item', 'fc');
@@ -1067,7 +1077,7 @@ class ElifeArticleVersion {
     }
 
     if ($unique) {
-      $query->addExpression("CONCAT(GREATEST(rel.entity_id, vers.entity_id), '.', LEAST(rel.entity_id, vers.entity_id))", 'group_endpoints_ordered');
+      $query->addExpression("CONCAT($greatest(rel.entity_id, vers.entity_id), '.', $least(rel.entity_id, vers.entity_id))", 'group_endpoints_ordered');
       if ($entity_id) {
         $query->addExpression("CASE WHEN rel.entity_id = " . $entity_id . " THEN 1 ELSE 0 END", 'endpoints_flag');
       }
@@ -1104,7 +1114,7 @@ class ElifeArticleVersion {
         $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
         $query->addField('td_1', 'name', 'endpoint_1_display_channel');
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
-        $relation_ordered = "CONCAT(LEAST(td_1.name, td_2.name), '|', GREATEST(td_1.name, td_2.name))";
+        $relation_ordered = "CONCAT($least(td_1.name, td_2.name), '|', $greatest(td_1.name, td_2.name))";
         $query->addExpression($relation_ordered, 'relation_ordered');
         $relation_ordered = "CONCAT('|', " . $relation_ordered . ", '|')";
         $criticals = [
