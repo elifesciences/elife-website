@@ -168,6 +168,5 @@ Feature: Footnote
     |Laura W Brown     | 2 |
     |Shugeng Cao       | 3 |
     |Renee Kathryn Dermenjian | 4 |
-    |Christopher Sneden       | 5 |
 
 

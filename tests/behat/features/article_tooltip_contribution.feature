@@ -126,7 +126,7 @@ Feature: Contribution
     And the response code should be 200
     And I go to "content/3/e03895"
     Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
-    Then I should see "Equally Contributed with:" in the ".author-tooltip-label" element
+    Then I should see "Contributed equally with:" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip-equal-contrib .author-tooltip-label" element
   Examples:
     | author               | n |
     | Sophien Kamoun Jnr   | 1 |
