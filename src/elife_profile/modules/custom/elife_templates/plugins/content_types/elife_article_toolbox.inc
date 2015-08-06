@@ -4,14 +4,14 @@
  * Ctools render code for the article sidebar block.
  */
 
-$plugin = array(
+$plugin = [
   'title' => t('Article Toolbox'),
   'single' => TRUE,
-  'category' => array('eLife'),
+  'category' => ['eLife'],
   'edit form' => 'elife_article_toolbox_edit',
   'render callback' => 'elife_article_toolbox_render',
   'required context' => new ctools_context_required('Article Node', 'node'),
-);
+];
 
 /**
  * Run-time rendering of the body of the block (content type).
@@ -76,7 +76,7 @@ function theme_elife_article_toolbox($variables) {
         $options['attributes']['download'] = NULL;
         $options['attributes']['class'][] = 'article-tools__link--pdf-' . $type;
         $options['attributes']['data-download-type'] = 'pdf-' . $type;
-        $options['attributes']['title'] = t('@type PDF', array('@type' => drupal_ucfirst($type)));
+        $options['attributes']['title'] = t('@type PDF', ['@type' => drupal_ucfirst($type)]);
         foreach ($pdfs as $pdf) {
           $link_title = t('@type', ['@type' => drupal_ucfirst($type)]);
           $article_tools_links[] = [
@@ -124,7 +124,7 @@ function theme_elife_article_toolbox($variables) {
     $icon_image = drupal_html_class($name);
     $link_wrapper = '<span class="icon-citation-download icon-citation-' . $icon_image . '"></span>';
     $link_wrapper .= '<span class="name">' . $name . '</span>';
-    $item_link = l($link_wrapper, $link_path, array('html' => TRUE));
+    $item_link = l($link_wrapper, $link_path, ['html' => TRUE]);
     $citations_item = $item_link;
     $citations_items[] = $citations_item;
   }
@@ -195,11 +195,11 @@ function theme_elife_article_toolbox($variables) {
   $open = '<div id="open_options" class="article-toolbox-wrapper">';
   $open .= '<h5 class="citation-tooltip-head">' . t('Open Citations In...') . '</h5>';
   $open .= '<div class="citation-col">';
-  $open .= theme('links', array(
+  $open .= theme('links', [
     'links' => $col1,
     'attributes' =>
-      array('class' => 'citations-list'),
-  ));
+      ['class' => 'citations-list'],
+  ]);
   $open .= '</div>';
   $open .= '<div class="citation-col">';
   $open .= theme('links', [
