@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Ctools render code for the article sidebar block.
@@ -26,10 +27,10 @@ function elife_article_toolbox_render($subtype, $conf, $args, $context) {
 }
 
 /**
- * Theme render function for the elife article 'toolbox' in the sidebar.
+ * Theme render function for the eLife article 'toolbox' in the sidebar.
  *
- * Links to download alternate versions of the artice, to change text size,
- * hooks for ShareThis, and the API entrypoint.
+ * Links to download alternate versions of the article, to change text size,
+ * hooks for ShareThis, and the API entry point.
  *
  * @param array $variables
  *   Theme variables, containing 'node', the article node id.
@@ -66,7 +67,7 @@ function theme_elife_article_toolbox($variables) {
     'article-tools__list_item',
   ];
   if (module_exists('elife_resources')) {
-    // @todo - elife - nlisgo - introduce main article pdf.
+    // @todo - elife - nlisgo - may need to introduce the pdf in different way.
     $resources = new elifeResources();
     $resources->getArticle($dto->getDoi());
     $pdf_urls = $resources->getUrls();
@@ -148,18 +149,13 @@ function theme_elife_article_toolbox($variables) {
   $download .= '</div>';
   $download .= '</div>';
 
-
   // Open Links.
   $open_links = [
     [
-      // @todo - elife - nlisgo - this one is going to need some work.
       'title' => t('Mendeley'),
-      'href' => 'lookup/external-ref',
+      'href' => 'http://www.mendeley.com/import',
       'attributes' => ['class' => ['mendeley']],
       'query' => [
-        'tag_url' => url('node/' . $article_version->nid, ['absolute' => TRUE]),
-        'title' => $dto->getTitle(),
-        'link_type' => 'MENDELEY',
         'doi' => $dto->getDoi(),
       ],
     ],
@@ -210,7 +206,6 @@ function theme_elife_article_toolbox($variables) {
   $open .= '</div>';
   $open .= '</div>';
 
-
   $citation_links = [
     [
       'data' => l(t('Download'), '', [
@@ -241,7 +236,6 @@ function theme_elife_article_toolbox($variables) {
       ],
     ],
   ]);
-
 
   return $output;
 }
