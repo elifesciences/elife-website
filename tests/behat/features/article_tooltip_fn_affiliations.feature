@@ -1,10 +1,9 @@
 Feature: Footnote
   In Order to be able to see the Institutions the author is associated with
   As a reader
-  I should be able to see the list of institutions in the author rollover
+  I should be able to see the list of institutions in the author tooltip
 
-  Scenario Outline: List of institutions author is associated with is shown in the rollover
-
+  Scenario Outline: List of institutions author is associated with is shown in the tooltip
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """
@@ -59,4 +58,3 @@ Feature: Footnote
       | id        | author  | dept                                                | institution                | city  | country |
       | author-23 | Boris   | Laboratory of Neurophysics and Physiology, UMR 8119 | Paris Descartes University | Paris | France  |
       | author-24 | Rebecca | Laboratory of Neurophysics and Physiology, UMR 8119 | Paris Descartes University | Paris | France  |
-
