@@ -108,6 +108,7 @@ dependencies[] = pathologic
 dependencies[] = features
 
 ; Distribution modules.
+dependencies[] = elife_about
 dependencies[] = elife_archive
 dependencies[] = elife_article
 dependencies[] = elife_article_assets
