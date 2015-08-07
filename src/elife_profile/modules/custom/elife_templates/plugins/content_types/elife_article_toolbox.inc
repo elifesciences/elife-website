@@ -111,6 +111,7 @@ function theme_elife_article_toolbox($variables) {
   $output .= '<div class="panel-separator"></div>';
   $output .= '<h2 class="pane-title">' . t('Reference tools:') . '</h2>';
 
+  // @todo - elife - nlisgo - these are just placeholder links.
   // Download.
   $citations_options = [
     'RIS' => 'ris',
