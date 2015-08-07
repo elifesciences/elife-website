@@ -1,7 +1,6 @@
 <?php
 
 use Drupal\elife_article\ElifeMarkupService;
-use Drupal\elife_article\ExeterMarkupService;
 
 $plugin = array(
   'title' => t('Jump To'),
@@ -29,7 +28,7 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
       }
       $sections = ElifeMarkupService::getSectionLabels();
 
-      $markup = new ExeterMarkupService();
+      $markup = elife_article_markup_service();
       $markup->addSectionQuery($article_id, array_keys($sections));
       $markup->submitQuery();
       $results = $markup->getResult($article_id);

@@ -8,6 +8,9 @@ include_once 'elife_article.features.inc';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Drupal\elife_article\ElifeArticleVersion;
+use Drupal\elife_article\ElifeMarkupService;
+use Drupal\elife_article\ExeterMarkupService;
+use Drupal\elife_article\MockMarkupService;
 use eLife\EIF\ArticleVersion;
 use eLife\EIF\ArticleVersion\Affiliation;
 use eLife\EIF\ArticleVersion\BaseContributor;
@@ -129,6 +132,32 @@ function elife_article_validator() {
   }
 
   return $validator;
+}
+
+/**
+ * @return ElifeMarkupService
+ */
+function elife_article_markup_service() {
+  /* @var string $factory */
+  $factory = variable_get('elife_article_markup_service_factory', '_elife_article_exeter_markup_service');
+  $markup_service = $factory();
+  return $markup_service;
+}
+
+/**
+ * @return ExeterMarkupService
+ */
+function _elife_article_exeter_markup_service() {
+  $markup_service = new ExeterMarkupService();
+  return $markup_service;
+}
+
+/**
+ * @return MockMarkupService
+ */
+function _elife_article_mock_markup_service() {
+  $markup_service = new MockMarkupService();
+  return $markup_service;
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
