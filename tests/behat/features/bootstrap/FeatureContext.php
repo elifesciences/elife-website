@@ -461,4 +461,27 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       );
     }
   }
+
+    /**
+     * Check for a specific image filename in an img tag.
+     *
+     * @Then /^(?:|I )should see the image "(?P<text>(?:[^"]|\\")*)" in the "(?P<elem>(?:[^"]|\\")*)" element$/
+     *
+     * @param string $elem
+     *   The element's CSS selector.
+     * @param string $text
+     *   The expected filename in the src attribute.
+     *
+     * @throws Exception
+     */
+    public function iShouldSeeTheImageInTheElement($elem, $text) {
+        $element = $this->getSession()->getPage()->find("css", $elem);
+        if (!$element) {
+            throw new Exception('Expected element ' . $elem . ' not found on page.');
+        }
+        $value_current = $element->getAttribute("src");
+        if ($text !== $value_current && $text !== basename($value_current)) {
+            throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
+        }
+    }
 }
