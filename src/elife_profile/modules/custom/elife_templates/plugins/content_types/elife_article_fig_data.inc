@@ -1,7 +1,5 @@
 <?php
 
-use Drupal\elife_article\ExeterMarkupService;
-
 $plugin = array(
   'title' => t('Article Figure & Data'),
   'single' => TRUE,
@@ -30,7 +28,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
   if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
     $article_id = $matches['id'];
   }
-  $markup = new ExeterMarkupService();
+  $markup = elife_article_markup_service();
   foreach ($dto->getFragmentsOfType(array_keys($item_lists)) as $fragment) {
     $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
     $markup->addDoiQuery($article_id, $fragment->getDoi());

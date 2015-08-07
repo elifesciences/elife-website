@@ -1,7 +1,6 @@
 <?php
 
 use Drupal\elife_article\ElifeMarkupService;
-use Drupal\elife_article\ExeterMarkupService;
 
 $plugin = array(
   'title' => t('Article Markup for Section'),
@@ -37,7 +36,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
         $article_id = $matches['id'];
       }
 
-      $markup = new ExeterMarkupService();
+      $markup = elife_article_markup_service();
       $markup->addSectionQuery($article_id, $markup_section);
       $markup->submitQuery();
       $html = $markup->output();
