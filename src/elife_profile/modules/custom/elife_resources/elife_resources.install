@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * eLife Resources install
+ */
+
+/**
+ * Implementation of hook_schema()
+ */
+function elife_resources_schema() {
+  $schema['cache_elife_resources'] = drupal_get_schema_unprocessed('system', 'cache');
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function elife_resources_uninstall() {
+  db_delete('variable')->condition('name', 'elife_resources_%', 'LIKE')->execute();
+}

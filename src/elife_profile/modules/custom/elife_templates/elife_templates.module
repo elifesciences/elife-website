@@ -95,6 +95,9 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_article_related',
         'path' => $path . '/templates',
       ),
+      'elife_article_toolbox' => array(
+        'variables' => array('node' => NULL),
+      ),
       'elife_article_criticalrelation_block' => array(
         'variables' => array(
           'identifier' => 'critical-relations',
