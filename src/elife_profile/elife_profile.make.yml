@@ -16,6 +16,8 @@ projects:
       type: 'git'
       url: 'http://git.drupal.org/project/cluetip.git'
       revision: '6fe2bf6058a7899cfbc34050a7db56dff77a2a34'
+    patch:
+      - 'https://www.drupal.org/files/issues/cluetip-not-found-2248861-5.patch'
   context:
     version: '3.6'
   ctools:
