@@ -103,6 +103,8 @@ projects:
     version: '1.1'
   panels:
     version: '3.5'
+    patch:
+      - 'https://www.drupal.org/files/issues/panels-export-indentation-2448825-1.patch'
   panels_ajax_tab:
     version: '1.1'
     patch:
