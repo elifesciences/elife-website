@@ -60,29 +60,29 @@ function elife_collection_default_page_manager_handlers() {
   $display->uuid = '62901465-8e54-4a60-a7f6-30122f6df2f2';
   $display->content = array();
   $display->panels = array();
-    $pane = new stdClass();
-    $pane->pid = 'new-9db98164-d8c7-41dc-b070-9d58891ab8b4';
-    $pane->panel = 'content';
-    $pane->type = 'views_panes';
-    $pane->subtype = 'elife_collection_articles-elife_collection_articles';
-    $pane->shown = TRUE;
-    $pane->access = array();
-    $pane->configuration = array(
-      'arguments' => array(
-        'field_elife_a_full_title_value' => '%node:field-elife-c-keyword',
-      ),
-    );
-    $pane->cache = array();
-    $pane->style = array(
-      'settings' => NULL,
-    );
-    $pane->css = array();
-    $pane->extras = array();
-    $pane->position = 0;
-    $pane->locks = array();
-    $pane->uuid = '9db98164-d8c7-41dc-b070-9d58891ab8b4';
-    $display->content['new-9db98164-d8c7-41dc-b070-9d58891ab8b4'] = $pane;
-    $display->panels['content'][0] = 'new-9db98164-d8c7-41dc-b070-9d58891ab8b4';
+  $pane = new stdClass();
+  $pane->pid = 'new-9db98164-d8c7-41dc-b070-9d58891ab8b4';
+  $pane->panel = 'content';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'elife_collection_articles-elife_collection_articles';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'arguments' => array(
+      'field_elife_a_full_title_value' => '%node:field-elife-c-keyword',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '9db98164-d8c7-41dc-b070-9d58891ab8b4';
+  $display->content['new-9db98164-d8c7-41dc-b070-9d58891ab8b4'] = $pane;
+  $display->panels['content'][0] = 'new-9db98164-d8c7-41dc-b070-9d58891ab8b4';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $handler->conf['display'] = $display;
