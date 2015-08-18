@@ -1207,6 +1207,57 @@
             "time": "2015-06-01 17:42:31"
         },
         {
+            "name": "elife/isolated-drupal-behat-extension",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elifesciences/isolated-drupal-behat-extension.git",
+                "reference": "77ec452867db77744be1f4d77e066c007dba9ded"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elifesciences/isolated-drupal-behat-extension/zipball/77ec452867db77744be1f4d77e066c007dba9ded",
+                "reference": "77ec452867db77744be1f4d77e066c007dba9ded",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "^3.0.6",
+                "behat/mink-extension": "~2.0",
+                "drupal/drupal-extension": "~3.0",
+                "php": ">=5.4",
+                "symfony/dependency-injection": "~2.5",
+                "symfony/event-dispatcher": "~2.3",
+                "symfony/filesystem": "~2.3",
+                "symfony/process": "~2.3"
+            },
+            "require-dev": {
+                "behat/mink-goutte-driver": "~1.0",
+                "drush/drush": "~7.0",
+                "mikey179/vfsstream": "~1.2",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "eLife\\IsolatedDrupalBehatExtension\\": [
+                        "./src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Extension for Behat that tests Drupal sites in isolation",
+            "homepage": "https://github.com/elifesciences/isolated-drupal-behat-extension",
+            "time": "2015-08-14 15:50:27"
+        },
+        {
             "name": "fabpot/goutte",
             "version": "v2.0.4",
             "source": {
@@ -3031,7 +3082,8 @@
         "symfony/process": 0,
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
-        "behat/web-api-extension": 20
+        "behat/web-api-extension": 20,
+        "elife/isolated-drupal-behat-extension": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

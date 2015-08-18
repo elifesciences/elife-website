@@ -2,6 +2,7 @@
   "require-dev": {
     "sensiolabs/behat-page-object-extension": "~2.0@dev",
     "behat/drupal-propeople-context": "~1.2",
-    "behat/web-api-extension": "~1.0@dev"
+    "behat/web-api-extension": "~1.0@dev",
+    "elife/isolated-drupal-behat-extension": "~0.1"
   }
 }

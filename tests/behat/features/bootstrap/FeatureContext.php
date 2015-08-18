@@ -11,42 +11,20 @@ use PHPUnit_Framework_Assert as Assertions;
  * Defines application features from the specific context.
  */
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+  public function cleanNodes() {
+    $this->nodes = [];
+  }
 
-  /**
-   * Keep track of subqueues so they can be cleaned up.
-   *
-   * @var array
-   */
-  protected $subqueues = array();
+  public function cleanUsers() {
+    $this->users = [];
+  }
 
-  /**
-   * Keep track of variables so they can be cleaned up.
-   *
-   * @var array
-   */
-  protected $variables = array();
+  public function cleanTerms() {
+    $this->terms = [];
+  }
 
-  /**
-   * Entity types to store and cleanup.
-   *
-   * @var array
-   */
-  protected $entity_types = array(
-    'node' => 'nid',
-    'taxonomy_term' => 'tid',
-  );
-
-  /**
-   * Keep track of max entity ids so they can be cleaned up.
-   *
-   * @var array
-   */
-  protected $entity_max = array();
-
-  /**
-   * Initializes context.
-   */
-  public function __construct() {
+  public function cleanRoles() {
+    $this->roles = [];
   }
 
   /**
@@ -58,58 +36,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $this->getSession()->getDriver()->getClient()->followRedirects(true);
     } catch(UnsupportedDriverActionException $e) {
       // Do nothing.
-    }
-  }
-
-  /**
-   * Store max entity ids for later cleanup.
-   *
-   * @BeforeScenario
-   */
-  public function storeEntityMaxBeforeScenario() {
-    foreach ($this->entity_types as $type => $id) {
-      $query = new EntityFieldQuery();
-      $query->entityCondition('entity_type', $type);
-      $query->propertyOrderBy($id, 'DESC');
-      $query->range(0, 1);
-      $entities = $query->execute();
-      $this->entity_max[$type] = 0;
-      if (!empty($entities[$type])) {
-        $ids = array_keys($entities[$type]);
-        $this->entity_max[$type] = $ids[0];
-      }
-    }
-  }
-
-  /**
-   * Cleanup entities that didn't exist before the scenario.
-   *
-   * @AfterScenario
-   */
-  public function clearEntityMaxAfterScenario() {
-    $cleanup_rules_config = rules_config_load('rules_elife_cleanup_of_orphaned_article_nodes');
-    $cleanup_rules_config_active = FALSE;
-    if ($cleanup_rules_config) {
-      $cleanup_rules_config_active = $cleanup_rules_config->active;
-      $cleanup_rules_config->active = FALSE;
-      $cleanup_rules_config->save();
-    }
-    foreach ($this->entity_types as $type => $id) {
-      $query = new EntityFieldQuery();
-      // Bypass access controls.
-      $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
-      $query->entityCondition('entity_type', $type);
-      $query->propertyOrderBy($id, 'DESC');
-      $query->propertyCondition($id, $this->entity_max[$type], '>');
-      $entities = $query->execute();
-      if (!empty($entities[$type])) {
-        $ids = array_keys($entities[$type]);
-        entity_delete_multiple($type, $ids);
-      }
-    }
-    if ($cleanup_rules_config) {
-      $cleanup_rules_config->active = $cleanup_rules_config_active;
-      $cleanup_rules_config->save();
     }
   }
 
@@ -357,9 +283,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $node = node_load(array_shift($nodes));
     $subqueue = entityqueue_subqueue_load($queue);
     Assertions::assertNotNull($subqueue, 'Entityqueue with supplied title not found');
-    if (!isset($this->subqueues[$queue])) {
-      $this->subqueues[$queue] = $subqueue->eq_node;
-    }
     $eq_node = array(array('target_id' => $node->nid));
     if (!empty($subqueue->eq_node)) {
       $eq_node = array_merge($eq_node, $subqueue->eq_node[LANGUAGE_NONE]);
@@ -369,50 +292,14 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Cleanup subqueues.
-   *
-   * @AfterScenario
-   */
-  public function cleanSubqueues() {
-    if (!empty($this->subqueues)) {
-      foreach ($this->subqueues as $queue => $eq_node) {
-        $subqueue = entityqueue_subqueue_load($queue);
-        $subqueue->eq_node = $eq_node;
-        entityqueue_subqueue_save($subqueue);
-      }
-    }
-  }
-
-  /**
    * @Given I set variable :name to :type :value
    */
   public function iSetVariableToArray($name, $type, $value)
   {
-    if (!isset($this->variables[$name])) {
-      $this->variables[$name] = variable_get($name, NULL);
-    }
     if ($type == 'array') {
       $value = json_decode($value, TRUE);
     }
     variable_set($name, $value);
-  }
-
-  /**
-   * Cleanup variables.
-   *
-   * @AfterScenario
-   */
-  public function cleanVariables() {
-    if (!empty($this->variables)) {
-      foreach ($this->variables as $name => $value) {
-        if (is_null($value)) {
-          variable_del($name);
-        }
-        else {
-          variable_set($name, $value);
-        }
-      }
-    }
   }
 
   /**
