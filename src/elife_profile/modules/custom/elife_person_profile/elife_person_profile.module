@@ -1,0 +1,177 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Person Profile feature.
+ */
+
+include_once 'elife_person_profile.features.inc';
+
+/**
+ * Implements hook_token_info().
+ */
+function elife_person_profile_token_info() {
+  $info['tokens']['node']['elife-p-name'] = array(
+    'name' => t('Person name'),
+    'description' => t('Person name.'),
+  );
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function elife_person_profile_tokens($type, $tokens, array $data = [], array $options = []) {
+  $replacements = [];
+
+  if ('node' === $type) {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'elife-p-name':
+          $parts = [
+            $data['node']->field_elife_p_first_name[LANGUAGE_NONE][0]['value'],
+            $data['node']->field_elife_p_last_name[LANGUAGE_NONE][0]['value'],
+          ];
+
+          $replacements[$original] = implode(' ', $parts);
+          break;
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+/**
+ * Implements ds_views_row_adv_VIEWSNAME() for elife_person_profiles.
+ */
+function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comments) {
+  if ('reviewing-editor' === $entity->field_elife_p_type[LANGUAGE_NONE][0]['value']) {
+    $view_mode = 'elife_teaser_compact';
+  }
+
+  $content = node_view($entity, $view_mode);
+
+  return drupal_render($content);
+}
+
+/**
+ * Implements template_preprocess_node().
+ */
+function elife_person_profile_preprocess_node(&$variables) {
+  if ('elife_person_profile' === $variables['type']) {
+    drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile.css');
+    drupal_add_js(drupal_get_path('module', 'elife_person_profile') . '/js/person-profile.js', ['scope' => 'footer']);
+    drupal_add_js(['elifePersonProfile' => ['moduleFolder' => drupal_get_path('module', 'elife_person_profile')]], 'setting');
+  }
+}
+
+/**
+ * Return the results of the profiles view given the profile type and expertise.
+ *
+ * @param string|string[] $type
+ *   type of profile
+ * @param bool $past
+ *   optional expertise filter
+ * @param int $expertise
+ *
+ * @return array|bool
+ *   output for profiles view
+ */
+function elife_person_profile_get_view($type = NULL, $past = FALSE, $expertise = NULL) {
+  if (is_array($type)) {
+    $type = implode('+', $type);
+  }
+
+  return elife_person_profile_views_embed_view('elife_person_profiles', 'default', $type, $past, $expertise);
+}
+
+/**
+ * Return the views output acknowledging the supplied arguments.
+ *
+ * @param string $name
+ *   View name.
+ * @param string $display_id
+ *   Display name.
+ *
+ * @return array|bool
+ *   Views output.
+ */
+function elife_person_profile_views_embed_view($name, $display_id = 'default') {
+  $args = func_get_args();
+  // Remove $name.
+  array_shift($args);
+  if (count($args)) {
+    // Remove $display_id.
+    array_shift($args);
+  }
+
+  $return = [];
+
+  $view = views_get_view($name);
+  if (is_object($view)) {
+    if (is_array($args)) {
+      $view->set_arguments($args);
+    }
+    if (is_string($display_id)) {
+      $view->set_display($display_id);
+    }
+    else {
+      $view->init_display();
+    }
+    $view->pre_execute();
+    $view->execute();
+    if ($view->result) {
+      $return = $view->preview($display_id, $args);
+    }
+  }
+
+  return $return;
+}
+
+/**
+ * Count the number of profiles by type.
+ *
+ * @param string|string[] $types
+ *   Profile type(s).
+ * @param bool $past
+ *   Past profiles or not.
+ *
+ * @return int
+ *   Number of profiles.
+ */
+function elife_person_profile_count_by_type($types, $past = FALSE) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_person_profile')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_elife_p_type', 'value', (array) $types, 'IN')
+    ->fieldCondition('field_elife_p_past', 'value', (int) $past)
+    ->count();
+
+  return (int) $query->execute();
+}
+
+/**
+ * Implements hook_preprocess_image().
+ */
+function elife_person_profile_preprocess_image(&$variables) {
+  if (isset($variables['style_name']) && 'elife_person_profile' === $variables['style_name']) {
+    $variables['attributes']['class'][] = 'person-profile__biog-image';
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function elife_person_profile_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  $taxonomy_bundles = [
+    'elife_p_research_focus',
+    'elife_p_experimental_organism',
+    'elife_p_research_focus',
+  ];
+
+  if ('taxonomy_term' === $entity_form['#entity_type'] && in_array($entity_form['#bundle'], $taxonomy_bundles)) {
+    // We don't need/want the description field.
+    $entity_form['description']['#access'] = FALSE;
+  }
+}

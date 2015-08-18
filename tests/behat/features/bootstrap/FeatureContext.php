@@ -416,6 +416,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * Clicks element with specified id|title|alt|text.
+   *
+   * @When /^(?:|I )click the "(?P<element>[^"]*)" element$/
+   */
+  public function iClickOn($element) {
+    $this->assertSession()->elementExists('css', $element)->click();
+  }
+
+  /**
    * @Then /^display channels should be arranged "([^"]+)"$/
    */
   public function displayChannelsShouldBeArranged($expected)
@@ -616,4 +625,16 @@ JS;
             throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
         }
     }
+
+  /**
+   * Returns fixed step argument (with \\" replaced back to ").
+   *
+   * @param string $argument
+   *
+   * @return string
+   */
+  protected function fixStepArgument($argument)
+  {
+    return str_replace('\\"', '"', $argument);
+  }
 }

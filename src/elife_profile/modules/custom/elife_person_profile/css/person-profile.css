@@ -1,0 +1,411 @@
+
+.person-profile--extended:last-of-type {
+    padding-bottom: 1.391em;
+}
+
+.person-profile--extended {
+    font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+    float: left;
+}
+
+.person-profile--extended .person-profile__figure-caption-name {
+    font-weight: normal; /* no bold names when using colour */
+}
+
+.person-profile--extended .person-profile__link {
+    text-decoration: none;
+    -webkit-transition: color 75ms linear;
+    -moz-transition: color 75ms linear;
+    -o-transition: color 75ms linear;
+    transition: color 75ms linear;
+}
+
+.person-profile:first-child {
+    padding-top: 1.391em;
+}
+
+.person-profile {
+    font-family: 'Avenir LT W01 45 Book', 'Avenir LT45 Book', Helvetica, Arial, Verdana, sans-serif;
+    padding: 0.3em 1em 1.391em 1em;
+}
+
+.person-profile--extended:first-child {
+    padding-top: 1em;
+}
+
+.person-profile--extended {
+    padding: 0.3em 1em 0 1em;
+}
+
+.person-profile,
+.person-profile--extended {
+    background-color: #fff;
+    display: block;
+    width: 100%;
+}
+
+.person-profile__biog,
+.person-profile__list-item,
+.person-profile__competing {
+    font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
+}
+
+.person-profile__figure-caption-name {
+    color: #0a9dd9;
+    line-height: 1.25em;
+}
+
+.person-profile__figure-caption-suppl {
+    font-size: 0.8em;
+    line-height: 1.25em;
+    color: #616161;
+}
+
+.person-profile__list-item {
+    padding-top: 0;
+    line-height: 1.25em;
+    font-size: 0.8em;
+}
+
+.person-profile__list-title {
+    font-size: 0.8em;
+    line-height: 1.25em;
+    padding-top: 0.6em;
+}
+
+.person-profile--extended .person-profile__link:hover,
+.person-profile--extended .person-profile__link:focus,
+.person-profile--extended .person-profile__link:active {
+    color: #6D6E70;
+    cursor: pointer;
+}
+
+.person-profile__suppl {
+    color: #616161;
+    font-size: 0.86em;
+    padding-top: 0.2em;
+    line-height: 1.2;
+}
+
+.person-profile__biog {
+    background-color: #383838;
+    font-size: 0.86em;
+    line-height: 1.25em;
+}
+
+.person-profile__competing {
+    background-color: #2e2e2e;
+    font-size: 0.8em;
+    line-height: 1.4em;
+}
+
+.person-profile__biog,
+.person-profile__competing {
+    padding: 1.618em;
+}
+
+.person-profile__biog-image {
+    width: 84px;
+    height: auto;
+    display: block;
+    float: left;
+    position: relative;
+    padding-left: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.js .person-profile__biog-image {
+    width: auto;
+    height: 3.3333em;
+    top: -0.2em;
+    float: left;
+    padding-left: 0;
+    padding-right: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+.person-profile__biog-outer,
+.person-profile__biog-outer--no-coi {
+    color: #fff;
+    clear: both;
+    margin-bottom: 1em;
+    width: 100%;
+}
+
+.person-profile__biog-wrapper {
+    position: relative;
+}
+
+.person-profile__biog-close {
+    /* display: none; */
+    display: block;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
+
+.person-profile__biog_image--in-flow {
+    float: right;
+}
+
+.js .person-profile__biog_image--in-flow {
+    display: none;
+    float: none;
+}
+
+.person-profile__biog-title {
+    font-size: 2rem;
+    /* using rems to make calculation of negative image margin easier */
+    font-family: 'Avenir LT W01 85 Heavy', 'Avenir LT 95 Black', Helvetica, Arial, Verdana, sans-serif;
+}
+
+.person-profile__biog-title {
+    font-size: 1rem;
+    /* using rems to make calculation of negative image margin easier */
+    font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+}
+
+/* What it should be if _details were filled */
+.person-profile__biog-details p {
+    line-height: 1.2;
+}
+
+/* ... and this is needed for now. */
+.person-profile__biog p {
+    line-height: 1.5;
+}
+
+.person-profile__name {
+    padding-top: 0.618em;
+}
+
+@media only all and (min-width: 46.9375em) {
+    .person-profile--extended .person-profile__link-js-hook {
+        display: none;
+    }
+
+    .js .person-profile--extended .person-profile__link-js-hook {
+        display: block;
+    }
+
+    .js .person-profile--extended .person-profile__link {
+        height: 163px;
+        height: -webkit-calc(107px + 3.5em);
+        height: -calc(107px+3.5em);
+    }
+
+    .js .person-profile__biog-close {
+        display: inline;
+    }
+
+    .js .person-profile--extended {
+        width: auto;
+    }
+
+    .person-profile__biog_image {
+        width: 168px;
+        top: 0;
+        float: none;
+        padding-left: 0;
+        padding-right: 0.5rem;
+        padding-bottom: 0.25rem;
+    }
+
+    .js .person-profile__biog-image {
+        width: 168px;
+        height: auto;
+    }
+
+    .person-profile:first-child,
+    .person-profile {
+        float: left;
+        max-width: 33%;
+        padding: 1em;
+        width: 33%;
+    }
+
+    .person-profile__biog {
+        background-color: transparent;
+    }
+
+    .person-profile__competing {
+        background-color: transparent;
+    }
+
+    .person-profile__biog,
+    .person-profile__competing {
+        padding: 0;
+    }
+
+    .person-profile__biog-image--in-flow,
+    .js .person-profile__biog-image--in-flow {
+        display: block;
+        float: right;
+        padding: 0 0 0.5rem 0.5rem;
+    }
+
+    .js .person-profile__biog-image--in-flow {
+        padding-right: 0.25em;
+    }
+
+    .js .person-profile__biog-close {
+        display: inline;
+    }
+
+    .person-profile:nth-child(3n + 4) {
+        clear: left;
+    }
+
+    /* Editor's lists of info */
+    .js .person-profile__list,
+    .js .person-profile__list-item {
+        display: inline;
+    }
+
+    .js .person-profile__name {
+        font-weight: bold;
+    }
+
+    .js .person-profile--extended .person-profile__name {
+        font-weight: normal;
+    }
+
+    .js .person-profile__list-title {
+        display: block;
+        clear: left;
+    }
+
+    .js .person-profile__list-title::after {
+        content: ':\00a0';
+    }
+
+    .js .person-profile__list-item {
+        display: inline-block;
+        clear: left;
+    }
+
+    .js .person-profile__list-item::after {
+        content: ';\00a0';
+    }
+
+    .js .person-profile__list-item:last-of-type::after {
+        content: '';
+    }
+
+    .person-profile--extended:first-child,
+    .person-profile--extended {
+        padding: 1.618em 1.391em 0 0;
+        background-color: white;
+        position: relative;
+    }
+
+    .js .person-profile--extended {
+        clear: none;
+    }
+
+    /* Up arrow on the top of the biog box
+        (Can't use pseudoelement as must be js-addressable)
+    */
+    .js .person-profile__biog-arrow {
+        display: block;
+        clear: both;
+        position: absolute;
+        margin-top: -10px;
+        left: -100px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #383838;
+    }
+
+    .person-profile__biog-outer,
+    .person-profile__biog-outer--no-coi {
+        color: #000;
+    }
+
+    .js .person-profile__biog-outer {
+        display: table;
+        position: absolute;
+        z-index: 5;
+        width: 400%;
+        margin-bottom: -2em;
+    }
+
+    .js .person-profile__biog-close {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        color: #fff;
+    }
+
+    /* variant of the biography with no conflict of interest block */
+    .js .person-profile__biog-outer--no-coi {
+        display: block;
+        float: left;
+        position: absolute;
+        z-index: 5;
+        width: 68.35%;
+        margin-bottom: -2em;
+    }
+
+    .js .person-profile__biog-outer--no-coi .person-profile__biog-wrapper,
+    .js .person-profile__biog-outer--no-coi .person-profile__biog {
+        display: block;
+        min-height: 150px;
+    }
+
+    .js .person-profile__biog-outer--no-coi .person-profile__biog-close {
+        left: -webkit-calc(68.35% - 1.5em);
+        left: calc(68.35% - 1.5em);
+    }
+
+    /* Using table to make both columns the same height, regardless
+        of the amount of text they contain. */
+    .js .person-profile__biog-outer .person-profile__biog-wrapper {
+        display: table-row;
+        width: 400%;
+        position: relative;
+        z-index: 5;
+    }
+
+    .js .person-profile__biog,
+    .js .person-profile__competing {
+        color: #fff;
+        display: table-cell;
+        padding: 1.618em;
+        line-height: 1.5;
+        -webkit-box-shadow: 1px 1px 1px #333333, -1px -1px 1px #333333;
+        -moz-box-shadow: 1px 1px 1px #333333, -1px -1px 1px #333333;
+        box-shadow: 1px 1px 1px #333333, -1px -1px 1px #333333;
+    }
+
+    .js .person-profile__biog {
+        background-color: #383838;
+        font-size: 0.86em;
+    }
+
+    .js .person-profile__competing {
+        background-color: #2e2e2e;
+        width: 30%;
+        font-size: 0.7em;
+    }
+
+    .js .person-profile__competing-title {
+        padding-bottom: 1.618em;
+    }
+
+    .js .person-profile__figure-caption {
+        max-width: 168px;
+    }
+}
+
+/* throw off screen but keep in the dom */
+.js .person-profile__biog-wrapper.off {
+    width: 10px;
+    position: absolute;
+    /*left: -99999px;*/
+    top: -99999px;
+    z-index: -1;
+}
