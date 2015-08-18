@@ -35,6 +35,26 @@ function elife_about_theme($existing, $type, $theme, $path) {
         'template' => 'elife_about_nav',
         'path' => drupal_get_path('module', 'elife_about') . '/templates',
       ),
+      'elife_profile_sheet' => array(
+        'variables' => array(
+          'id' => NULL,
+          'title' => NULL,
+          'sections' => array(),
+        ),
+        'template' => 'elife_profile_sheet',
+        'path' => drupal_get_path('module', 'elife_about') . '/templates',
+      ),
+      'elife_profile_wrapper' => array(
+        'variables' => array(
+          'menu' => NULL,
+          'leadership' => NULL,
+          'regular' => NULL,
+          'senior_editors_count' => NULL,
+          'bre_count' => NULL,
+        ),
+        'template' => 'elife_profile_wrapper',
+        'path' => drupal_get_path('module', 'elife_about') . '/templates',
+      ),
     );
     return $templates;
   }
@@ -49,10 +69,11 @@ function elife_about_theme($existing, $type, $theme, $path) {
 function elife_about_page_load() {
   $path = drupal_get_path('module', 'elife_about');
   drupal_add_js($path . '/js/elife_about.js', array('scope' => 'footer'));
-  drupal_add_js(array('elifeAbout' => array('moduleFolder' => drupal_get_path('module', 'elife_about'))), 'setting');
   drupal_add_css($path . '/css/about.css');
-  $variables = array();
-  // $variables['profiles'] = elife_about_profiles_load();
+  $variables = [
+    'profiles' => elife_about_profiles_load(),
+  ];
+
   return theme('elife_about', $variables);
 }
 
@@ -76,6 +97,205 @@ function elife_about_page_alter(&$page) {
   }
 }
 
+function elife_about_profiles_load() {
+  $menu = [];
+
+  $menu_li_class = ['aims-scope__subject_list_item'];
+  $menu_a_class = ['aims-scope__subject_list_link'];
+  $menu_a_id = 'menu-';
+
+  $profiles['regular'] = '';
+  $profiles['senior_editors_count'] = elife_person_profile_count_by_type('senior-editor');
+  $profiles['bre_count'] = elife_person_profile_count_by_type('reviewing-editor');
+
+  $leadership = elife_person_profile_get_view([
+    'editor-in-chief',
+    'deputy-editor',
+  ]);
+  $senior_editors = elife_person_profile_get_view('senior-editor');
+
+  if (!empty($leadership) && !empty($senior_editors)) {
+    $regular = [
+      'sheet_id' => 'leadership',
+      'sheet_title' => 'Leadership team',
+      'sections' => [
+        [
+          'profiles' => $leadership,
+        ],
+        [
+          'title' => t('Senior editors'),
+          'title_id' => 'senior',
+          'profiles' => $senior_editors,
+        ],
+      ],
+    ];
+    $profiles['regular'] .= theme('elife_profile_sheet', $regular);
+
+    $menu[] = [
+      'data' => l(t('Leadership team'), '', [
+        'external' => TRUE,
+        'fragment' => 'leadership',
+        'attributes' => [
+          'class' => $menu_a_class,
+          'id' => $menu_a_id . 'leadership',
+        ],
+      ]),
+      'class' => $menu_li_class,
+    ];
+  }
+
+  if ($profiles['bre_count'] > 0) {
+    $all_reviewing_editors = elife_person_profile_get_view('reviewing-editor');
+
+    $label = 'All reviewing editors';
+    $key = _elife_about_text_to_html_id($label);
+
+    $regular = [
+      'sheet_id' => $key,
+      'sheet_title' => t($label),
+      'sections' => [
+        [
+          'profiles' => $all_reviewing_editors,
+        ],
+      ],
+    ];
+    $profiles['regular'] .= theme('elife_profile_sheet', $regular);
+
+    $menu[] = [
+      'data' => l(t($label), '', [
+        'external' => TRUE,
+        'fragment' => $key,
+        'attributes' => [
+          'class' => $menu_a_class,
+          'id' => $menu_a_id . $key,
+        ],
+      ]),
+      'class' => $menu_li_class,
+    ];
+  }
+
+  $expertises = taxonomy_vocabulary_machine_name_load('elife_p_expertise');
+  $expertises = taxonomy_get_tree($expertises->vid);
+
+  foreach ($expertises as $expertise) {
+    $senior_editors = elife_person_profile_get_view('senior-editor', FALSE, $expertise->tid);
+    $reviewing_editors = elife_person_profile_get_view('reviewing-editor', FALSE, $expertise->tid);
+
+    if (empty($senior_editors) && empty($reviewing_editors)) {
+      continue;
+    }
+
+    $key = _elife_about_text_to_html_id($expertise->name);
+
+    $regular = [
+      'sheet_id' => $key,
+      'sheet_title' => $expertise->name,
+      'sections' => [
+        [
+          'title' => t('Senior editors'),
+          'title_id' => 'senior',
+          'profiles' => $senior_editors,
+        ],
+        [
+          'title' => t('Reviewing editors'),
+          'title_id' => 'reviewing',
+          'profiles' => $reviewing_editors,
+        ],
+      ],
+    ];
+    $profiles['regular'] .= theme('elife_profile_sheet', $regular);
+
+    $menu[] = [
+      'data' => l($expertise->name, '', [
+        'external' => TRUE,
+        'fragment' => $key,
+        'attributes' => [
+          'class' => $menu_a_class,
+          'id' => $menu_a_id . $key,
+        ],
+      ]),
+      'class' => $menu_li_class,
+    ];
+  }
+
+  $past_senior_editors = elife_person_profile_get_view('senior-editor', TRUE);
+  $past_reviewing_editors = elife_person_profile_get_view('reviewing-editor', TRUE);
+
+  if (!empty($past_senior_editors) || !empty($past_reviewing_editors)) {
+    $label = 'Past editors';
+    $key = _elife_about_text_to_html_id($label);
+
+    $regular = [
+      'sheet_id' => $key,
+      'sheet_title' => t($label),
+      'sections' => [
+        [
+          'title' => t('Senior editors'),
+          'title_id' => 'senior',
+          'profiles' => $past_senior_editors,
+        ],
+        [
+          'title' => t('Reviewing editors'),
+          'title_id' => 'reviewing',
+          'profiles' => $past_reviewing_editors,
+        ],
+      ],
+    ];
+    $profiles['regular'] .= theme('elife_profile_sheet', $regular);
+
+    $menu[] = [
+      'data' => l(t($label), '', [
+        'external' => TRUE,
+        'fragment' => $key,
+        'attributes' => [
+          'class' => $menu_a_class,
+          'id' => $menu_a_id . $key,
+        ],
+      ]),
+      'class' => $menu_li_class,
+    ];
+  }
+
+  foreach (
+    [
+      'directors' => 'Board of Directors',
+      'staff' => 'Executive staff',
+    ]
+    as $key => $label
+  ) {
+    $regular = [
+      'sheet_id' => $key,
+      'sheet_title' => $label,
+      'sections' => [
+        [
+          'profiles' => elife_person_profile_get_view($key),
+        ],
+      ],
+    ];
+    if (!count($regular['sections'][0]['profiles'])) {
+      continue;
+    }
+
+    $profiles['regular'] .= theme('elife_profile_sheet', $regular);
+
+    $menu[] = [
+      'data' => l($label, '', [
+        'external' => TRUE,
+        'fragment' => $key,
+        'attributes' => [
+          'class' => $menu_a_class,
+          'id' => $menu_a_id . $key,
+        ],
+      ]),
+      'class' => $menu_li_class,
+    ];
+  }
+
+  $profiles['menu'] = theme('item_list', ['items' => $menu]);
+
+  return theme('elife_profile_wrapper', $profiles);
+}
+
 /**
  * Implements hook_preprocess_html().
  */
@@ -95,4 +315,18 @@ function elife_about_preprocess_html(&$vars) {
     $vars['head_title_array']['name'] = $title_vars[1];
     $vars['head_title_array']['slogan'] = $title_vars[0];
   }
+}
+
+function _elife_about_text_to_html_id($text) {
+  $ids = &drupal_static(__FUNCTION__);
+
+  if (!isset($ids)) {
+    $ids = [];
+  }
+
+  if (!isset($ids[$text])) {
+    $ids[$text] = str_replace('_', '-', strtolower(transliteration_clean_filename($text)));
+  }
+
+  return $ids[$text];
 }
