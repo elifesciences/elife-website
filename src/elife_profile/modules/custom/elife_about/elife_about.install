@@ -3,15 +3,3 @@
  * @file
  * Install, update and uninstall functions for the elife_about module.
  */
-
-/**
- * Implements hook_enable().
- */
-function elife_about_enable() {
-  // Weight elife_about greater than default 0.
-  db_update('system')
-    ->fields(array('weight' => 5))
-    ->condition('name', 'elife_about')
-    ->condition('type', 'module')
-    ->execute();
-}
