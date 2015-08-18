@@ -80,10 +80,12 @@ install:
   - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.44.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar; fi;
   - java -jar $HOME/custom/selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
 
-  # Install site
+  # Populate the local settings file
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
   - sed -i -e "s?%NODE_BIN%?$(which node)?g" ./local.settings.php
-  - ./install.sh
+
+  # Configure Behat
+  - cp ./tests/build/travis.behat.yml ./tests/behat/behat.yml
 
 script:
   - ./run-tests.sh

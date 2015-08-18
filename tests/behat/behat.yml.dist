@@ -4,12 +4,15 @@ default:
       contexts:
         - FeatureContext: ~
         - ContentAlertsContext: ~
-        - Behat\Drupal\Propeople\PropeopleContext: ~
+        - IsolatedDrupalContext: ~
+        - IsolatedPropeopleContext: ~
         - Drupal\DrupalExtension\Context\MinkContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
-        - Drupal\DrupalExtension\Context\DrupalContext: ~
         - Behat\WebApiExtension\Context\WebApiContext: ~
   extensions:
+    eLife\IsolatedDrupalBehatExtension:
+      profile: 'elife_profile'
+      settings_file: '%paths.base%/../../src/settings.php'
     SensioLabs\Behat\PageObjectExtension:
     Behat\WebApiExtension:
       base_url: 'http://127.0.0.1:80'
@@ -21,7 +24,7 @@ default:
       blackbox: ~
       api_driver: 'drupal'
       drush:
-        alias: 'local'
+        root: '%paths.base%/../../web'
       region_map:
         footer: '#section-footer'
         front_matter: 'ol.frontmatter'

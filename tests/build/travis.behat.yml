@@ -1,0 +1,7 @@
+imports:
+  - behat.yml.dist
+
+default:
+  extensions:
+    eLife\IsolatedDrupalBehatExtension:
+      db_url: 'mysql://root:@localhost/elife_profile'
