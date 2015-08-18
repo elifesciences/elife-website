@@ -122,6 +122,7 @@ dependencies[] = elife_article_pages
 dependencies[] = elife_collection
 dependencies[] = elife_config
 dependencies[] = elife_content_alerts
+dependencies[] = elife_early_careers
 dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header

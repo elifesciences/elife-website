@@ -1,0 +1,178 @@
+<?php
+/**
+ * @file
+ * Code for the eLife - Early careers.
+ */
+
+include_once 'elife_early_careers.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_early_careers_ctools_plugin_directory($module, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function elife_early_careers_menu() {
+  return [
+    'careers' => [
+      'description' => 'Preview the early careers content.',
+      'page callback' => 'elife_early_careers_page_load',
+      'access callback' => TRUE,
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_early_careers_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $path = drupal_get_path('module', 'elife_early_careers') . '/templates';
+    $templates = [
+      'elife_early_careers' => [
+        'variables' => [
+          'spotlight' => NULL,
+          'profiles' => NULL,
+          'presentation_links_title' => NULL,
+          'presentation_links' => NULL,
+        ],
+        'template' => 'elife_early_careers',
+        'path' => $path,
+      ],
+      'elife_early_careers_nav' => [
+        'variables' => [],
+        'template' => 'elife_early_careers_nav',
+        'path' => $path,
+      ],
+      'elife_early_careers_profile' => [
+        'variables' => [
+          'profile_attributes' => NULL,
+          'title' => NULL,
+          'image_extra' => NULL,
+          'profile_title' => NULL,
+          'affiliation' => NULL,
+          'coi' => NULL,
+        ],
+        'template' => 'elife_early_careers_profile',
+        'path' => $path,
+      ],
+      'elife_early_careers_profile_wrapper' => [
+        'variables' => [
+          'profiles' => NULL,
+        ],
+        'template' => 'elife_early_careers_profile_wrapper',
+        'path' => $path,
+      ],
+      'elife_early_careers_profile_extra' => [
+        'variables' => [
+          'title' => NULL,
+          'image_extra' => NULL,
+          'details' => NULL,
+          'additional' => NULL,
+          'additional_label' => NULL,
+        ],
+        'template' => 'elife_early_careers_profile_extra',
+        'path' => $path,
+      ],
+    ];
+    return $templates;
+  }
+}
+
+/**
+ * Return the content for the early careers page.
+ *
+ * @return string
+ *   early careers page output
+ */
+function elife_early_careers_page_load() {
+  $path = drupal_get_path('module', 'elife_early_careers');
+  drupal_add_js($path . '/js/elife_early_careers.js', ['scope' => 'footer']);
+  drupal_add_js(['elifeEarlyCareers' => ['moduleFolder' => drupal_get_path('module', 'elife_early_careers')]], 'setting');
+  drupal_add_css($path . '/css/early_careers.css');
+  $variables = [];
+  // TODO $variables['spotlight'] = elife_early_careers_spotlight();
+  $variables['profiles'] = elife_early_careers_profiles_load();
+
+  $presentation_menu_name = 'menu-elife-career-pres-links';
+  $presentation_menu_links = menu_load_links($presentation_menu_name);
+  if (!empty($presentation_menu_links)) {
+    $presentation_menu = menu_load($presentation_menu_name);
+    $variables['presentation_links_title'] = $presentation_menu['description'];
+
+    foreach ($presentation_menu_links as $k => $link) {
+      $presentation_menu_links[$k] = [
+        'data' => l($link['link_title'], $link['link_path'], ['external' => !empty($link['external']) ? TRUE : FALSE]),
+        'class' => ['ec-section--presentations__list_item'],
+      ];
+    }
+    $variables['presentation_links'] = theme('item_list', array(
+      'type' => 'ul',
+      'items' => $presentation_menu_links,
+      'attributes' => ['class' => ['ec-section--presentations__list']],
+      'div_class' => 'no',
+    ));
+  }
+
+  return theme('elife_early_careers', $variables);
+}
+
+/**
+ * Return the profiles sections content.
+ *
+ * @return string
+ *   profiles output
+ */
+function elife_early_careers_profiles_load() {
+  $variables = [];
+  $profiles = elife_person_profile_get_view('early-careers');
+
+  if (!empty($profiles)) {
+    $variables['profiles'] = $profiles;
+  }
+
+  return theme('elife_early_careers_profile_wrapper', $variables);
+}
+
+/**
+ * Prepare the early careers nav.
+ */
+function elife_early_careers_nav_load() {
+  $variables = [];
+
+  return theme('elife_early_careers_nav', $variables);
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function elife_early_careers_page_alter(&$page) {
+  if (current_path() === 'careers') {
+    $page['page_top']['elife_early_careers_nav'] = [
+      '#markup' => elife_early_careers_nav_load(),
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function elife_early_careers_preprocess_html(&$vars) {
+  if (current_path() === 'careers') {
+    // @todo - elife - revisit this code using metatag
+
+    // There is an issue with the HTML title not being set correctly.
+    // This has been experienced on the about page.
+    // This has been introduced since metatag module enabled.
+    $title_vars = [
+      t('Early careers: eLife showcases junior investigators and their work'),
+      variable_get('site_name'),
+    ];
+
+    $vars['head_title'] = implode(' | ', $title_vars);
+  }
+}

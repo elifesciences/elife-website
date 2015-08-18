@@ -1,0 +1,13 @@
+name = eLife: Early careers
+description = Early careers section of the journal site
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_early_careers
+dependencies[] = ctools
+dependencies[] = elife_person_profile
+dependencies[] = features
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+files[] = elife_early_careers.module
+project path = profiles/elife_profile/modules/custom
