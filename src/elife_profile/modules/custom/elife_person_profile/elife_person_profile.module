@@ -46,7 +46,7 @@ function elife_person_profile_tokens($type, $tokens, array $data = [], array $op
  */
 function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comments) {
   if ('reviewing-editor' === $entity->field_elife_p_type[LANGUAGE_NONE][0]['value']) {
-    $view_mode = 'elife_teaser_compact';
+    $view_mode = 'elife_teaser_alternative';
   }
 
   $content = node_view($entity, $view_mode);
@@ -59,9 +59,14 @@ function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comme
  */
 function elife_person_profile_preprocess_node(&$variables) {
   if ('elife_person_profile' === $variables['type']) {
-    drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile.css');
-    drupal_add_js(drupal_get_path('module', 'elife_person_profile') . '/js/person-profile.js', ['scope' => 'footer']);
-    drupal_add_js(['elifePersonProfile' => ['moduleFolder' => drupal_get_path('module', 'elife_person_profile')]], 'setting');
+    if ('elife_teaser_compact' === $variables['view_mode']) {
+      drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile-compact.css');
+    }
+    else {
+      drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile.css');
+      drupal_add_js(drupal_get_path('module', 'elife_person_profile') . '/js/person-profile.js', ['scope' => 'footer']);
+      drupal_add_js(['elifePersonProfile' => ['moduleFolder' => drupal_get_path('module', 'elife_person_profile')]], 'setting');
+    }
   }
 }
 
@@ -157,6 +162,9 @@ function elife_person_profile_count_by_type($types, $past = FALSE) {
 function elife_person_profile_preprocess_image(&$variables) {
   if (isset($variables['style_name']) && 'elife_person_profile' === $variables['style_name']) {
     $variables['attributes']['class'][] = 'person-profile__biog-image';
+  }
+  elseif (isset($variables['style_name']) && 'elife_person_square' === $variables['style_name']) {
+    $variables['attributes']['class'][] = 'person-profile-compact__image';
   }
 }
 

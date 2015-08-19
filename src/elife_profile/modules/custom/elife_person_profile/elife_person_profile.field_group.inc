@@ -226,11 +226,11 @@ function elife_person_profile_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_compact';
+  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_alternative';
   $field_group->group_name = 'group_elife_p_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
-  $field_group->mode = 'elife_teaser_compact';
+  $field_group->mode = 'elife_teaser_alternative';
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Name',
@@ -247,6 +247,36 @@ function elife_person_profile_field_group_info() {
         'element' => 'h5',
         'show_label' => '0',
         'label_element' => '',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_elife_p_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_p_name';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'elife_person_profile';
+  $field_group->mode = 'elife_teaser_compact';
+  $field_group->parent_name = 'group_elife_p_text';
+  $field_group->data = array(
+    'label' => 'Name',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_elife_p_first_name',
+      1 => 'field_elife_p_last_name',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Name',
+      'instance_settings' => array(
+        'classes' => 'person-profile-compact__name fn',
+        'element' => 'span',
+        'show_label' => '0',
+        'label_element' => 'span',
         'attributes' => '',
       ),
     ),
@@ -370,6 +400,66 @@ function elife_person_profile_field_group_info() {
     ),
   );
   $export['group_elife_p_research|node|elife_person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_elife_p_text_wrapper|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_p_text_wrapper';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'elife_person_profile';
+  $field_group->mode = 'elife_teaser_compact';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Text wrapper',
+    'weight' => '1',
+    'children' => array(
+      0 => 'group_elife_p_text',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Text wrapper',
+      'instance_settings' => array(
+        'classes' => 'person-profile-compact__text-wrapper',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => '',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_elife_p_text_wrapper|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_elife_p_text|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_p_text';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'elife_person_profile';
+  $field_group->mode = 'elife_teaser_compact';
+  $field_group->parent_name = 'group_elife_p_text_wrapper';
+  $field_group->data = array(
+    'label' => 'Text',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_elife_p_affiliation',
+      1 => 'field_elife_p_title',
+      2 => 'group_elife_p_name',
+    ),
+    'format_type' => 'html-element',
+    'format_settings' => array(
+      'label' => 'Text',
+      'instance_settings' => array(
+        'classes' => 'person-profile-compact__text',
+        'element' => 'div',
+        'show_label' => '0',
+        'label_element' => '',
+        'attributes' => '',
+      ),
+    ),
+  );
+  $export['group_elife_p_text|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   return $export;
 }

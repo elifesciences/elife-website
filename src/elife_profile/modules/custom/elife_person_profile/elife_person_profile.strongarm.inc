@@ -58,6 +58,9 @@ function elife_person_profile_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'elife_teaser_alternative' => array(
+        'custom_settings' => TRUE,
+      ),
       'elife_teaser_compact' => array(
         'custom_settings' => TRUE,
       ),
@@ -94,8 +97,12 @@ function elife_person_profile_strongarm() {
             'weight' => '10',
             'visible' => TRUE,
           ),
-          'elife_teaser_compact' => array(
+          'elife_teaser_alternative' => array(
             'weight' => '14',
+            'visible' => FALSE,
+          ),
+          'elife_teaser_compact' => array(
+            'weight' => '12',
             'visible' => FALSE,
           ),
         ),
