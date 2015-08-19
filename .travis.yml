@@ -52,7 +52,6 @@ install:
   # restart the server
   - sudo service apache2 restart
   - cat /etc/apache2/sites-available/default
-  - sleep 5s
 
   # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
