@@ -62,6 +62,7 @@ dependencies[] = facetapi
 dependencies[] = features
 dependencies[] = field_collection
 dependencies[] = field_group
+dependencies[] = focal_point
 dependencies[] = globalredirect
 dependencies[] = googleanalytics
 dependencies[] = imagecache_actions

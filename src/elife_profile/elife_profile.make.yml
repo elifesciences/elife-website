@@ -62,6 +62,8 @@ projects:
     version: '1.0-beta8'
   field_group:
     version: '1.4'
+  focal_point:
+    version: '1.0-beta4'
   globalredirect:
     version: '1.5'
   google_analytics:

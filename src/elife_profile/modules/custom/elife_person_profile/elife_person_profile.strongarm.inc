@@ -61,6 +61,9 @@ function elife_person_profile_strongarm() {
       'elife_teaser_alternative' => array(
         'custom_settings' => TRUE,
       ),
+      'elife_teaser_compact' => array(
+        'custom_settings' => TRUE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -96,6 +99,10 @@ function elife_person_profile_strongarm() {
           ),
           'elife_teaser_alternative' => array(
             'weight' => '14',
+            'visible' => FALSE,
+          ),
+          'elife_teaser_compact' => array(
+            'weight' => '12',
             'visible' => FALSE,
           ),
         ),

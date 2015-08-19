@@ -23,6 +23,7 @@ function elife_config_strongarm() {
   $strongarm->name = 'ds_classes_regions';
   $strongarm->value = 'person-profile
 person-profile--extended
+person-profile-compact
 vcard';
   $export['ds_classes_regions'] = $strongarm;
 

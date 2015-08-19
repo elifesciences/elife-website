@@ -47,6 +47,25 @@ function elife_person_profile_image_default_styles() {
     ),
   );
 
+  // Exported image style: elife_person_square.
+  $styles['elife_person_square'] = array(
+    'label' => 'eLife person square',
+    'effects' => array(
+      1 => array(
+        'name' => 'focal_point_scale_and_crop',
+        'data' => array(
+          'width' => 75,
+          'height' => 75,
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   return $styles;
 }
 

@@ -90,8 +90,88 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
+    'field_elife_p_title' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'div',
+          'fi-cl' => 'person-profile__suppl role',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
   );
   $export['node|elife_person_profile|elife_teaser_alternative'] = $ds_fieldsetting;
+
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|elife_person_profile|elife_teaser_compact';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'elife_person_profile';
+  $ds_fieldsetting->view_mode = 'elife_teaser_compact';
+  $ds_fieldsetting->settings = array(
+    'field_elife_p_affiliation' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'span',
+          'fi-cl' => 'person-profile-compact__title org',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
+    'field_elife_p_first_name' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'suffix' => ' ',
+        ),
+      ),
+    ),
+    'field_elife_p_last_name' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_elife_p_photo' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'ow' => TRUE,
+          'ow-el' => 'div',
+          'ow-cl' => 'person-profile-compact__image-wrapper',
+          'ow-def-cl' => FALSE,
+          'ow-at' => '',
+          'ow-def-at' => FALSE,
+        ),
+      ),
+    ),
+    'field_elife_p_title' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'span',
+          'fi-cl' => 'person-profile-compact__title role',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
+        ),
+      ),
+    ),
+  );
+  $export['node|elife_person_profile|elife_teaser_compact'] = $ds_fieldsetting;
 
   $ds_fieldsetting = new stdClass();
   $ds_fieldsetting->api_version = 1;
@@ -239,18 +319,20 @@ function elife_person_profile_ds_layout_settings_info() {
       'ds_content' => array(
         0 => 'group_elife_p_name',
         1 => 'field_elife_p_first_name',
-        2 => 'field_elife_p_affiliation',
-        3 => 'field_elife_p_research_focus',
-        4 => 'field_elife_p_last_name',
-        5 => 'field_elife_p_organism',
+        2 => 'field_elife_p_title',
+        3 => 'field_elife_p_last_name',
+        4 => 'field_elife_p_affiliation',
+        5 => 'field_elife_p_research_focus',
+        6 => 'field_elife_p_organism',
       ),
     ),
     'fields' => array(
       'group_elife_p_name' => 'ds_content',
       'field_elife_p_first_name' => 'ds_content',
+      'field_elife_p_title' => 'ds_content',
+      'field_elife_p_last_name' => 'ds_content',
       'field_elife_p_affiliation' => 'ds_content',
       'field_elife_p_research_focus' => 'ds_content',
-      'field_elife_p_last_name' => 'ds_content',
       'field_elife_p_organism' => 'ds_content',
     ),
     'classes' => array(
@@ -269,6 +351,53 @@ function elife_person_profile_ds_layout_settings_info() {
     'layout_link_custom' => '',
   );
   $export['node|elife_person_profile|elife_teaser_alternative'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|elife_person_profile|elife_teaser_compact';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'elife_person_profile';
+  $ds_layout->view_mode = 'elife_teaser_compact';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_elife_p_photo',
+        1 => 'group_elife_p_text_wrapper',
+        2 => 'field_elife_p_first_name',
+        3 => 'field_elife_p_last_name',
+        4 => 'group_elife_p_text',
+        5 => 'group_elife_p_name',
+        6 => 'field_elife_p_title',
+        7 => 'field_elife_p_affiliation',
+      ),
+    ),
+    'fields' => array(
+      'field_elife_p_photo' => 'ds_content',
+      'group_elife_p_text_wrapper' => 'ds_content',
+      'field_elife_p_first_name' => 'ds_content',
+      'field_elife_p_last_name' => 'ds_content',
+      'group_elife_p_text' => 'ds_content',
+      'group_elife_p_name' => 'ds_content',
+      'field_elife_p_title' => 'ds_content',
+      'field_elife_p_affiliation' => 'ds_content',
+    ),
+    'classes' => array(
+      'layout_class' => array(
+        'person-profile-compact' => 'person-profile-compact',
+        'vcard' => 'vcard',
+      ),
+    ),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|elife_person_profile|elife_teaser_compact'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;

@@ -1,0 +1,93 @@
+.person-profile-compact {
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT45 Book', Helvetica, Arial, Verdana, sans-serif;
+  position: relative;
+  margin: 1em 0;
+}
+
+div.panel-pane div.node.person-profile-compact {
+  margin: 1em 0;
+}
+
+.person-profile-compact__image-wrapper {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  float: left;
+}
+
+@media only all and (min-width: 1220px) {
+  .person-profile-compact__image-wrapper {
+    height: 75px;
+    width: 75px;
+  }
+}
+
+.person-profile-compact__image {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.person-profile-compact__text-wrapper {
+  height: 50px;
+  width: calc(100% - 50px - 1em);
+  margin-left: 1em;
+  position: relative;
+  float: left;
+}
+
+@media only all and (min-width: 1220px) {
+  .person-profile-compact__text-wrapper {
+    height: 75px;
+    width: calc(100% - 75px - 1em);
+  }
+}
+
+.person-profile-compact__text {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  font-size: 1em;
+  line-height: 1.1;
+}
+
+@media only all and (min-width: 768px) {
+  .person-profile-compact__text {
+    font-size: 0.8em;
+  }
+}
+
+@media only all and (min-width: 1220px) {
+  .person-profile-compact__text {
+    font-size: 1em;
+  }
+}
+
+.person-profile-compact__name {
+  font-weight: bold;
+  display: block;
+}
+
+.person-profile-compact__title {
+  display: block;
+  color: #888888;
+  font-size: 0.8em;
+}
+
+@media only all and (min-width: 768px) {
+  .person-profile-compact__title {
+    font-size: 0.9em;
+  }
+}
+
+@media only all and (min-width: 1220px) {
+  .person-profile-compact__title {
+    font-size: 0.8em;
+  }
+}
