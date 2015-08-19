@@ -5,8 +5,7 @@ Feature: Footnote
 
   @hover
   Scenario Outline: Author has provided email id
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 07091",
@@ -134,7 +133,6 @@ Feature: Footnote
           }
         }
       """
-    And the response code should be 200
     And I go to "content/4/e07091"
     Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
     Then I should see the url "<author_email>" in the "href" attribute of the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-corresp .author-tooltip-text a" element
@@ -147,8 +145,7 @@ Feature: Footnote
       | Pradipta Ghosh      | mailto:prghosh@ucsd.edu | 2 | prghosh@ucsd.edu |
 
   Scenario Outline: Author has not provided email id
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 07091",
@@ -189,7 +186,6 @@ Feature: Footnote
           }
         }
       """
-    And the response code should be 200
     And I go to "content/4/e07091"
     Then I should see "Miguel Abal" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
     And I should not see "For Correspondence" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip" element

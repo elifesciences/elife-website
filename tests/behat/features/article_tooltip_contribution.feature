@@ -5,8 +5,7 @@ Feature: Contribution
 
   @hover
   Scenario Outline: Contribution listed in author tooltip
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 03895",
@@ -123,7 +122,6 @@ Feature: Contribution
           }
         }
       """
-    And the response code should be 200
     And I go to "content/3/e03895"
     Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
     Then I should see "Contributed equally with:" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip-equal-contrib .author-tooltip-label" element

@@ -6,8 +6,7 @@ Feature: Footnote
 
   @javascript
   Scenario: Closing author tooltip by close button
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 05003",
@@ -24,6 +23,5 @@ Feature: Footnote
           "publish": "1"
         }
       """
-    And the response code should be 200
     And I go to "content/4/e05003"
     Then I should see "Close" in the "#cluetip .cluetip-outer .cluetip-inner .cluetip-close a" element

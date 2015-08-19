@@ -1,5 +1,6 @@
 <?php
 
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Mink\Driver\GoutteDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
@@ -45,6 +46,42 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function redirectsAreNotFollowed() {
     $this->canIntercept();
     $this->getSession()->getDriver()->getClient()->followRedirects(FALSE);
+  }
+
+  /**
+   * Set up an article.
+   *
+   * @param PyStringNode $string
+   *   JSON article.
+   *
+   * @Given /^there is an article:$/
+   */
+  public function thereIsAnArticle(PyStringNode $string) {
+    module_load_include('inc', 'elife_services', 'resources/article');
+
+    _elife_services_article_create($string->getRaw());
+  }
+
+  /**
+   * Sets up a number of articles.
+   *
+   * @param PyStringNode $string
+   *   JSON array of articles.
+   *
+   * @Given /^there are articles:$/
+   */
+  public function thereAreArticles(PyStringNode $string) {
+    module_load_include('inc', 'elife_services', 'resources/article');
+
+    $json = @json_decode($string, TRUE);
+
+    if (FALSE === is_array($json)) {
+      throw new LogicException('Invalid JSON');
+    }
+
+    foreach ($json as $article_json) {
+      _elife_services_article_create(json_encode($article_json));
+    }
   }
 
   // the versions should be ordered "05224,05224.early.v1,05224.early.v2"

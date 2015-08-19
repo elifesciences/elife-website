@@ -5,8 +5,7 @@ Feature: Deceased
 
   @hover
   Scenario: Author is deceased
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 01861",
@@ -57,14 +56,12 @@ Feature: Deceased
           }
         }
       """
-    And the response code should be 200
     And I go to "content/3/e01861"
     Then I should see "Jonathan Widom" in the ".elife-article-author-item" element
     And I should see "Deceased" in the ".author-tooltip" element
 
   Scenario: Author is not deceased
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 01861",
@@ -111,7 +108,6 @@ Feature: Deceased
           }
         }
       """
-    And the response code should be 200
     And I go to "content/3/e01861"
     Then I should see "Jonathan Widom" in the ".elife-article-author-item" element
     And I should not see "Deceased" in the ".author-tooltip" element
