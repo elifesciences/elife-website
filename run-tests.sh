@@ -50,8 +50,8 @@ done
 # Run behat tests
 result=0
 cd $behatdir
-echo "$behatdir: $bdpcdir --format '$FORMAT' --tags '$TAGS'"
-$bdpcdir --format "$FORMAT" --tags "$TAGS"
+echo "$behatdir: $bdpcdir --format '$FORMAT' --tags '$TAGS' --strict"
+$bdpcdir --format "$FORMAT" --tags "$TAGS" --strict
 rc=$?
 if [ $rc != 0 ] ; then
     result=$rc
