@@ -46,7 +46,7 @@ function elife_person_profile_tokens($type, $tokens, array $data = [], array $op
  */
 function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comments) {
   if ('reviewing-editor' === $entity->field_elife_p_type[LANGUAGE_NONE][0]['value']) {
-    $view_mode = 'elife_teaser_compact';
+    $view_mode = 'elife_teaser_alternative';
   }
 
   $content = node_view($entity, $view_mode);

@@ -27,7 +27,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 11,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'hidden',
         'module' => 'entityreference',
         'settings' => array(
@@ -103,7 +103,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 6,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -160,7 +160,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 12,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -221,7 +221,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
@@ -277,7 +277,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 1,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
@@ -334,7 +334,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 14,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -410,7 +410,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 16,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -462,7 +462,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'image',
         'weight' => 4,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -530,7 +530,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 5,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -587,7 +587,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 13,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
@@ -659,7 +659,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 17,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -713,7 +713,7 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'list_default',
         'weight' => 15,
       ),
-      'elife_teaser_compact' => array(
+      'elife_teaser_alternative' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',

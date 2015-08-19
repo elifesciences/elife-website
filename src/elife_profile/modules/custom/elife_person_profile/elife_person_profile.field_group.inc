@@ -226,11 +226,11 @@ function elife_person_profile_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_compact';
+  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_alternative';
   $field_group->group_name = 'group_elife_p_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
-  $field_group->mode = 'elife_teaser_compact';
+  $field_group->mode = 'elife_teaser_alternative';
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Name',
@@ -251,7 +251,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_name|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $export['group_elife_p_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
