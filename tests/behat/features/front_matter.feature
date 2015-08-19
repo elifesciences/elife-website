@@ -5,8 +5,7 @@ Feature: Front Matter
 
   @api
   Scenario: Load cover item to homepage referencing an article
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 05224 v1",
@@ -23,7 +22,6 @@ Feature: Front Matter
           "publish": "1"
         }
       """
-    And the response code should be 200
     And "elife_cover" content:
       | title | field_elife_fm_reference | field_elife_fm_reference_type |
       | Check out 05224 | 05224 | Article |
@@ -47,79 +45,67 @@ Feature: Front Matter
 
   @api
   Scenario: Load front matter items to homepage
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there are articles:
       """
-        {
-          "title": "VOR 05224",
-          "version": "1",
-          "doi": "10.7554/eLife.05224.1",
-          "volume": "4",
-          "elocation-id": "e05224",
-          "article-id": "05224",
-          "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
-          "path": "content/4/e05224",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": "1"
-        }
+        [
+          {
+            "title": "VOR 05224",
+            "version": "1",
+            "doi": "10.7554/eLife.05224.1",
+            "volume": "4",
+            "elocation-id": "e05224",
+            "article-id": "05224",
+            "article-version-id": "05224.1",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05224",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1"
+          },
+          {
+            "title": "VOR 05225",
+            "version": "1",
+            "doi": "10.7554/eLife.05225.1",
+            "volume": "4",
+            "elocation-id": "e05225",
+            "article-id": "05225",
+            "article-version-id": "05225.1",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05225",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1"
+          },
+          {
+            "title": "VOR 05226",
+            "version": "1",
+            "doi": "10.7554/eLife.05226.1",
+            "volume": "4",
+            "elocation-id": "e05226",
+            "article-id": "05226",
+            "article-version-id": "05226.1",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05226",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1"
+          },
+          {
+            "title": "VOR 05227",
+            "version": "1",
+            "doi": "10.7554/eLife.05227.1",
+            "volume": "4",
+            "elocation-id": "e05227",
+            "article-id": "05227",
+            "article-version-id": "05227.1",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05227",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1"
+          }
+        ]
       """
-    And the response code should be 200
-    And I send a POST request to "api/article.json" with body:
-      """
-        {
-          "title": "VOR 05225",
-          "version": "1",
-          "doi": "10.7554/eLife.05225.1",
-          "volume": "4",
-          "elocation-id": "e05225",
-          "article-id": "05225",
-          "article-version-id": "05225.1",
-          "pub-date": "1979-08-17",
-          "path": "content/4/e05225",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": "1"
-        }
-      """
-    And the response code should be 200
-    And I send a POST request to "api/article.json" with body:
-      """
-        {
-          "title": "VOR 05226",
-          "version": "1",
-          "doi": "10.7554/eLife.05226.1",
-          "volume": "4",
-          "elocation-id": "e05226",
-          "article-id": "05226",
-          "article-version-id": "05226.1",
-          "pub-date": "1979-08-17",
-          "path": "content/4/e05226",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": "1"
-        }
-      """
-    And the response code should be 200
-    And I send a POST request to "api/article.json" with body:
-      """
-        {
-          "title": "VOR 05227",
-          "version": "1",
-          "doi": "10.7554/eLife.05227.1",
-          "volume": "4",
-          "elocation-id": "e05227",
-          "article-id": "05227",
-          "article-version-id": "05227.1",
-          "pub-date": "1979-08-17",
-          "path": "content/4/e05227",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": "1"
-        }
-      """
-    And the response code should be 200
     And "elife_front_matter" content:
       | title | field_elife_fm_reference | field_elife_fm_reference_type |
       | Check out 05224 | 05224 | Article |

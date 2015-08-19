@@ -4,8 +4,7 @@ Feature: Alphabetical
   I should be listed in alphabetical order with other authors
 
   Scenario Outline: View alphabetical listing of authors when there is more than one contributor
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 00731",
@@ -140,7 +139,6 @@ Feature: Alphabetical
           }
         }
       """
-    And the response code should be 200
     And I go to "content/2/e00731"
     Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
     And I should see "Listed in alphabetical order with: Sophien Kamoun, Johannes Krause, Marco Thines, Detlef Weigel"
@@ -152,8 +150,7 @@ Feature: Alphabetical
       | Marco Thines    | 3 |
 
   Scenario: No alphabetical listing of authors when there are no equal co-contributors
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 00731",
@@ -203,7 +200,6 @@ Feature: Alphabetical
           }
         }
       """
-    And the response code should be 200
     And I go to "content/2/e00731"
     Then I should see "Frank N Martin" in the ".author-tooltip-name" element
     And I should not see "Listed in alphabetical order with:" in the ".author-tooltip-label" element

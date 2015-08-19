@@ -4,8 +4,7 @@ Feature: Footnote
   I should be able to see the list of institutions in the author tooltip
 
   Scenario Outline: List of institutions author is associated with is shown in the tooltip
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 04046",
@@ -46,7 +45,6 @@ Feature: Footnote
           }
         }
       """
-    And the response code should be 200
     And I go to "content/3/e04046"
     Then I should see "<author>" in the ".author-tooltip-name" element
     And I should see "<dept>" in the ".dept" element
