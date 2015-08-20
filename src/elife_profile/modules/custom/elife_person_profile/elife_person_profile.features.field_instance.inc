@@ -45,15 +45,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 4,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 11,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'entityreference',
@@ -124,13 +115,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 11,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 6,
-      ),
       'teaser' => array(
         'label' => 'above',
         'module' => 'text',
@@ -186,15 +170,6 @@ function elife_person_profile_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 13,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -256,13 +231,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_plain',
         'weight' => 1,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -318,13 +286,6 @@ function elife_person_profile_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_plain',
         'weight' => 2,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -383,15 +344,6 @@ function elife_person_profile_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 15,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -463,13 +415,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 17,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 16,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -526,17 +471,6 @@ function elife_person_profile_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 0,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'class' => '',
-          'image_link' => '',
-          'image_style' => 'large',
-        ),
-        'type' => 'image',
-        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -603,13 +537,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 10,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -668,15 +595,6 @@ function elife_person_profile_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 14,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -746,13 +664,6 @@ function elife_person_profile_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 3,
       ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 17,
-      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -805,13 +716,6 @@ function elife_person_profile_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 16,
-      ),
-      'elife_teaser_reviewing_editor' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
