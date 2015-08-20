@@ -37,4 +37,12 @@ final class CollabContributor extends Contributor {
   public function getCollab() {
     return $this->collab;
   }
+
+  public function getName() {
+    return $this->getCollab();
+  }
+
+  public function getShortName() {
+    return $this->getName();
+  }
 }

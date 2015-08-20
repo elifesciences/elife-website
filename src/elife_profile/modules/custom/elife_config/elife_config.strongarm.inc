@@ -21,7 +21,9 @@ function elife_config_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ds_classes_regions';
-  $strongarm->value = 'person-profile
+  $strongarm->value = 'article-teaser
+article-teaser--compact
+person-profile
 person-profile--extended
 person-profile-compact
 vcard';

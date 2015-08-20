@@ -1,0 +1,150 @@
+.author-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.node ul.author-list {
+  padding: 0;
+  margin: 0;
+}
+
+.item-list ul.author-list li {
+  margin: 0;
+}
+
+.author-list__item {
+  display: inline;
+}
+
+.author-list__item:after {
+  content: ',';
+}
+
+.author-list__item:last-child:after {
+  content: '';
+}
+
+.article-teaser {
+  margin: 2em 0;
+}
+
+.article-teaser--compact {
+  font-size: 0.9em;
+  margin: 1em 0;
+}
+
+div.panel-pane div.node.article-teaser {
+  margin: 2em 0;
+}
+
+div.panel-pane div.node.article-teaser--compact {
+  margin: 1em 0;
+}
+
+.article-teaser__title {
+  font-size: 1.5em;
+  line-height: 1.25;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.article-teaser--compact .article-teaser__title {
+  font-size: 1.25em;
+}
+
+.article-teaser__impact-statement {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.article-teaser__author-list {
+  margin-bottom: 0.5em;
+}
+
+.item-list ul.article-teaser__author-list {
+  margin-bottom: 0.5em;
+}
+
+.article-teaser__doi {
+  display: block;
+  font-style: italic;
+  margin-bottom: 0.5em;
+  font-size: 0.9em;
+}
+
+.article-teaser__meta {
+  color: rgb(170, 170, 170);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.article-teaser__heading:link, .article-teaser__heading:visited, .article-teaser__heading:hover, .article-teaser__heading:active {
+  color: rgb(170, 170, 170);
+}
+
+.article-teaser__category {
+  background-color: rgb(0, 0, 0);
+  padding: 0.3em 0.5em;
+  color: rgb(255, 255, 255);
+  display: inline-block;
+  border-radius: 0.5em;
+  font-style: normal;
+  line-height: 1;
+}
+
+.article-teaser__category:link, .article-teaser__category:visited, .article-teaser__category:hover, .article-teaser__category:active {
+  color: rgb(255, 255, 255);
+}
+
+.article-teaser__category--insight {
+  background-color: rgb(251, 12, 87);
+}
+
+.article-teaser__category--news {
+  background-color: rgb(7, 207, 217);
+}
+
+.article-teaser__category--editorial {
+  background-color: rgb(7, 113, 214);
+}
+
+.article-teaser__category--other {
+  background-color: rgb(7, 207, 217);
+}
+
+.article-teaser__category--podcast {
+  background-color: rgb(186, 52, 166);
+}
+
+.article-teaser__category--insight {
+  background-color: rgb(98, 159, 67);
+}
+
+.article-teaser__category--feature-article {
+  background-color: rgb(251, 12, 87);
+}
+
+.article-teaser__category--research-article {
+  background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__category--advance {
+  background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__category--registered-report {
+  background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__category--replication-study {
+  background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__category--tools {
+  background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__category--short {
+  background-color: rgb(9, 114, 200);
+}

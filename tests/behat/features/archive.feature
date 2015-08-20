@@ -349,7 +349,7 @@ Feature: Archive
         ]
       """
     When I am on "/archive/<url>"
-    Then I should see <num> "article" elements
+    Then I should see <num> ".article-teaser" elements
 
     Examples:
       | url | num |

@@ -54,6 +54,18 @@ function elife_article_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'elife_teaser_compact' => array(
+        'custom_settings' => TRUE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'elife_teaser_alternative' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -73,7 +85,22 @@ function elife_article_strongarm() {
           'weight' => '1',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'sharethis' => array(
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+          'elife_teaser_compact' => array(
+            'weight' => '24',
+            'visible' => FALSE,
+          ),
+          'teaser' => array(
+            'weight' => '16',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__elife_article_ver'] = $strongarm;
