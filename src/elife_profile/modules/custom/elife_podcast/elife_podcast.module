@@ -5,3 +5,12 @@
  */
 
 include_once 'elife_podcast.features.inc';
+
+/**
+ * Implements template_preprocess_node().
+ */
+function elife_podcast_preprocess_node(&$variables) {
+  if ('elife_podcast' === $variables['type'] && 'elife_teaser_compact' === $variables['view_mode']) {
+    drupal_add_css(drupal_get_path('module', 'elife_podcast') . '/css/podcast-compact.css');
+  }
+}

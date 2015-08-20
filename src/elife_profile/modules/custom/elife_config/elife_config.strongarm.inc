@@ -26,6 +26,7 @@ article-teaser--compact
 person-profile
 person-profile--extended
 person-profile-compact
+podcast-compact
 vcard';
   $export['ds_classes_regions'] = $strongarm;
 

@@ -1,0 +1,21 @@
+.podcast-compact {
+  background: url(../images/compact-icon.png) no-repeat left center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1em 0;
+  min-height: 30px;
+  padding-left: 35px;
+  vertical-align: middle;
+}
+
+div.panel-pane div.node.podcast-compact {
+  margin: 1em 0;
+  padding-left: 35px;
+}
+
+.podcast-compact__text {
+  font-weight: bold;
+  display: block;
+  line-height: 20px;
+}
