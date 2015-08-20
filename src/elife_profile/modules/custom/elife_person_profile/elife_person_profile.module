@@ -157,18 +157,6 @@ function elife_person_profile_count_by_type($types, $past = FALSE) {
 }
 
 /**
- * Implements hook_preprocess_image().
- */
-function elife_person_profile_preprocess_image(&$variables) {
-  if (isset($variables['style_name']) && 'elife_person_profile' === $variables['style_name']) {
-    $variables['attributes']['class'][] = 'person-profile__biog-image';
-  }
-  elseif (isset($variables['style_name']) && 'elife_person_square' === $variables['style_name']) {
-    $variables['attributes']['class'][] = 'person-profile-compact__image';
-  }
-}
-
-/**
  * Implements hook_inline_entity_form_entity_form_alter().
  */
 function elife_person_profile_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {

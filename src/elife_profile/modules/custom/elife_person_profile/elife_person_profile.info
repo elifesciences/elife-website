@@ -13,6 +13,7 @@ dependencies[] = features
 dependencies[] = field_group
 dependencies[] = focal_point
 dependencies[] = image
+dependencies[] = image_class
 dependencies[] = inline_entity_form
 dependencies[] = list
 dependencies[] = options
