@@ -60,6 +60,8 @@ projects:
     version: '2.6'
   field_collection:
     version: '1.0-beta8'
+  field_formatter_settings:
+    version: '1.1'
   field_group:
     version: '1.4'
   focal_point:
@@ -68,6 +70,12 @@ projects:
     version: '1.5'
   google_analytics:
     version: '2.1'
+  image_class:
+    version: '1.x-dev'
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/image_class.git'
+      revision: 'a4baf33f3acd6b63c7cb81eb393cf61f4b7962ea'
   imagecache_actions:
     version: '1.5'
   imagecache_external:

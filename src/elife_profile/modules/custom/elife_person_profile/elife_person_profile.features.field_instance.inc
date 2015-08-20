@@ -503,6 +503,7 @@ function elife_person_profile_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'class' => '',
           'image_link' => '',
           'image_style' => 'large',
         ),
@@ -519,6 +520,7 @@ function elife_person_profile_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
+          'class' => 'person-profile-compact__image photo',
           'image_link' => '',
           'image_style' => 'elife_person_square',
         ),
@@ -529,6 +531,7 @@ function elife_person_profile_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'class' => '',
           'image_link' => '',
           'image_style' => 'large',
         ),
@@ -539,6 +542,7 @@ function elife_person_profile_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'image',
         'settings' => array(
+          'class' => 'person-profile__biog-image photo',
           'image_link' => '',
           'image_style' => 'elife_person_profile',
         ),
