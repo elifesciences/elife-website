@@ -24,6 +24,12 @@ function elife_podcast_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
+      ),
       'teaser' => array(
         'label' => 'hidden',
         'module' => 'text',
@@ -67,6 +73,12 @@ function elife_podcast_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 1,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
