@@ -24,4 +24,8 @@ abstract class BaseContributor {
   final public function getType() {
     return $this->type;
   }
+
+  abstract function getName();
+
+  abstract function getShortName();
 }

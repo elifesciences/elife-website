@@ -43,9 +43,168 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializationContext;
 
 /**
- * Implements hook_preprocess_node().
+ * Implements hook_node_view_alter().
+ */
+function elife_article_node_view_alter(&$build) {
+  // We don't want to see elife_article anywhere, so replace it with the first
+  // elife_article_ver.
+  if ('elife_article' === $build['#bundle'] && !empty($build['#node']->field_elife_a_versions)) {
+    $version = node_load($build['#node']->field_elife_a_versions[LANGUAGE_NONE][0]['target_id']);
+
+    if ($version) {
+      $build = node_view($version, $build['#view_mode'], $build['#language']);
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_node().
  */
 function elife_article_preprocess_node(&$variables) {
+  if ('elife_article_ver' === $variables['type'] && in_array($variables['view_mode'], [
+      'teaser',
+      'elife_teaser_compact',
+    ])
+  ) {
+    $variables['date'] = format_date($variables['node']->created, 'custom', 'j F Y');
+    drupal_add_css(drupal_get_path('module', 'elife_article') . '/css/article-teaser.css');
+
+    $variables['elife_a_full_title_link'] = '<h2 class="article-teaser__title">' . l($variables['field_elife_a_full_title'][LANGUAGE_NONE][0]['value'], 'node/' . $variables['nid']) . '</h2>';
+
+    $dto = elife_article_version_to_dto($variables['node']);
+
+    $contributors = $dto->getContributors();
+    $contributor_items = [];
+    if (!empty($contributors)) {
+      foreach ($contributors as $co => $contributor) {
+
+        if ($contributor instanceof BylineContributor) {
+          if ('author' !== $contributor->getType()) {
+            continue;
+          }
+          // Ok.
+        }
+        elseif ($contributor instanceof CollabContributor) {
+          // Ok.
+        }
+        elseif ($contributor instanceof OnBehalfOfContributor) {
+          // Ok.
+        }
+        else {
+          continue;
+        }
+
+        $contributor_items[] = $contributor;
+      }
+    }
+
+    if (!empty($contributor_items)) {
+      $full_items = [];
+      $short_items = [];
+
+      foreach ($contributor_items as $contributor_item) {
+        if (!empty($contributor_item->getName())) {
+          $full_items[] = [
+            'data' => $contributor_item->getName(),
+            'class' => ['author-list__item'],
+          ];
+        }
+        if (!empty($contributor_item->getShortName())) {
+          $short_items[] = [
+            'data' => $contributor_item->getShortName(),
+            'class' => ['author-list__item'],
+          ];
+        }
+      }
+
+      if (!empty($full_items)) {
+        $variables['elife_a_contributors'] = theme('item_list', [
+          'items' => $full_items,
+          'type' => 'ul',
+          'title' => '',
+          'attributes' => [
+            'class' => [
+              'article-teaser__author-list',
+              'author-list',
+            ],
+          ],
+        ]);
+      }
+
+      if (!empty($short_items)) {
+        $variables['elife_a_contributors_short'] = theme('item_list', [
+          'items' => $short_items,
+          'type' => 'ul',
+          'title' => '',
+          'attributes' => [
+            'class' => [
+              'article-teaser__author-list',
+              'author-list',
+            ],
+          ],
+        ]);
+      }
+    }
+
+    $meta_parts = [];
+
+    $display_channel = NULL;
+
+    if (!empty($variables['field_elife_a_category'][LANGUAGE_NONE])) {
+      foreach ($variables['field_elife_a_category'][LANGUAGE_NONE] as $i => $term) {
+        $term_entity = taxonomy_term_load($term['target_id']);
+
+        if ('display-channel' === $term_entity->field_elife_category_type[LANGUAGE_NONE][0]['value']) {
+          $display_channel = $term_entity;
+          break;
+        }
+      }
+    }
+
+    if (!empty($display_channel)) {
+      $meta_parts[] = l($display_channel->name, 'taxonomy/term/' . $display_channel->tid, [
+        'attributes' => [
+          'class' => [
+            'article-teaser__category',
+            'article-teaser__category--' . preg_replace('/[^a-z]+/', '-', strtolower($display_channel->name)),
+          ],
+        ],
+      ]);
+    }
+
+    if (!empty($variables['field_elife_a_heading'][LANGUAGE_NONE])) {
+      foreach ($variables['field_elife_a_heading'][LANGUAGE_NONE] as $i => $term) {
+        $term_entity = taxonomy_term_load($term['target_id']);
+
+        $meta_parts[] = l($term_entity->name, 'taxonomy/term/' . $term_entity->tid, [
+          'attributes' => [
+            'class' => [
+              'article-teaser__heading',
+            ],
+          ],
+        ]);
+      }
+    }
+
+    if (!empty($meta_parts)) {
+      $variables['elife_a_meta_compact'] = '<div class="article-teaser__meta">' . implode(' &mdash; ', $meta_parts) . '</div>';
+    }
+
+    if (!empty($dto->getPubDate())) {
+      $meta_parts[] = 'Published on ' .
+        $dto->getPubDate()->format('F j, Y');
+    }
+
+    if (!empty($dto->getUpdate())) {
+      $meta_parts[] = 'Updated on ' .
+        $dto->getUpdate()->format('F j, Y');
+    }
+
+    if (!empty($meta_parts)) {
+      $variables['elife_a_meta'] = '<div class="article-teaser__meta">' . implode(' &mdash; ', $meta_parts) . '</div>';
+    }
+  }
+
   $node = $variables['node'];
 
   $variables['submitted'] = t('Created !created-date and last modified on !changed-date', array(

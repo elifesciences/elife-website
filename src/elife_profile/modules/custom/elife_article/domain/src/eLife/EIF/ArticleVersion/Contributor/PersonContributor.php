@@ -82,4 +82,34 @@ abstract class PersonContributor extends Contributor {
   public function getAffiliations() {
     return $this->affiliations;
   }
+
+  final public function getName() {
+    return implode(' ', $this->getNameParts());
+  }
+
+  final public function getShortName() {
+    $parts = $this->getNameParts();
+
+    if (!empty($parts['given-names'])) {
+      preg_match_all("/[A-Z]/", ucwords(strtolower($parts['given-names'])), $parts['given-names']);
+      $parts['given-names'] = implode('', $parts['given-names'][0]);
+    }
+
+    return implode(' ', $parts);
+  }
+
+  final public function getNameParts() {
+    $parts = [];
+    if ($given_names = $this->getGivenNames()) {
+      $parts['given-names'] = $given_names;
+    }
+    if ($surname = $this->getSurname()) {
+      $parts['surname'] = $surname;
+    }
+    if ($suffix = $this->getSuffix()) {
+      $parts['suffix'] = $suffix;
+    }
+
+    return $parts;
+  }
 }

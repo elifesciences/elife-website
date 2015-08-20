@@ -29,4 +29,12 @@ final class OnBehalfOfContributor extends BaseContributor {
   public function getOnBehalfOf() {
     return $this->on_behalf_of;
   }
+
+  public function getName() {
+    return $this->getOnBehalfOf();
+  }
+
+  public function getShortName() {
+    return $this->getName();
+  }
 }

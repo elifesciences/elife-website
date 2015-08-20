@@ -79,15 +79,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         if ($contributor->getType() != 'author') {
           continue;
         }
-        if ($given_names = $contributor->getGivenNames()) {
-          $name['given-names'] = $given_names;
-        }
-        if ($surname = $contributor->getSurname()) {
-          $name['surname'] = $surname;
-        }
-        if ($suffix = $contributor->getSuffix()) {
-          $name['suffix'] = $suffix;
-        }
+        $name = $contributor->getNameParts();
         if ($orcid = $contributor->getOrcId()) {
           $orcid_options = array(
             'external' => TRUE,
@@ -112,12 +104,12 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
         }
       }
       elseif ($contributor instanceof CollabContributor) {
-        if ($collab = $contributor->getCollab()) {
+        if ($collab = $contributor->getName()) {
           $name['collab'] = $collab;
         }
       }
       elseif ($contributor instanceof OnBehalfOfContributor) {
-        if ($on_behalf_of = $contributor->getOnBehalfOf()) {
+        if ($on_behalf_of = $contributor->getName()) {
           $name['on-behalf-of'] = $on_behalf_of;
         }
       }
