@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39ead3a969045bbcc72e2fe76233ca12",
+    "hash": "4a29d64b20d16f7c113c59efdccc7a56",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -603,16 +603,16 @@
         },
         {
             "name": "wikimedia/composer-merge-plugin",
-            "version": "v1.2.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikimedia/composer-merge-plugin.git",
-                "reference": "c455fb5ca09da6b970355b19185e27415bc15756"
+                "reference": "462909b23a0ded00481990395c5d8bf8d5d7a8a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/c455fb5ca09da6b970355b19185e27415bc15756",
-                "reference": "c455fb5ca09da6b970355b19185e27415bc15756",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/462909b23a0ded00481990395c5d8bf8d5d7a8a9",
+                "reference": "462909b23a0ded00481990395c5d8bf8d5d7a8a9",
                 "shasum": ""
             },
             "require": {
@@ -628,6 +628,9 @@
             },
             "type": "composer-plugin",
             "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                },
                 "class": "Wikimedia\\Composer\\MergePlugin"
             },
             "autoload": {
@@ -646,7 +649,7 @@
                 }
             ],
             "description": "Composer plugin to merge multiple composer.json files",
-            "time": "2015-07-03 03:24:58"
+            "time": "2015-09-03 23:41:58"
         }
     ],
     "packages-dev": [
@@ -3191,10 +3194,11 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "monolog/monolog": 0,
+        "wikimedia/composer-merge-plugin": 20,
         "php": 0,
         "jms/serializer": 0,
         "symfony/process": 0,
+        "monolog/monolog": 0,
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
         "behat/web-api-extension": 20,
