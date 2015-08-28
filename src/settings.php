@@ -1,5 +1,7 @@
 <?php
 
+use Monolog\Handler\ErrorLogHandler;
+
 // Set up Composer.
 require_once __DIR__ . '/../vendor/autoload.php';
 $conf['elife_composer_vendor_path'] = __DIR__ . '/../vendor';
@@ -37,4 +39,9 @@ require __DIR__ . '/../local.settings.php';
 // Turn Pathologic setting into the expected string.
 if (isset($conf['pathologic_local_paths'])) {
   $conf['pathologic_local_paths'] = implode("\n", $conf['pathologic_local_paths']);
+}
+
+// Use PHP's error log if Monolog hasn't been configured.
+if (!isset($conf['elife_monolog_handlers'])) {
+  $conf['elife_monolog_handlers'] = new ErrorLogHandler();
 }
