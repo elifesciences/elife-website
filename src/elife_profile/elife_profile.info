@@ -23,7 +23,6 @@ dependencies[] = taxonomy
 ; Development modules.
 dependencies[] = admin_devel
 dependencies[] = context_ui
-dependencies[] = dblog
 dependencies[] = delta_ui
 dependencies[] = devel
 dependencies[] = ds_ui
@@ -129,6 +128,7 @@ dependencies[] = elife_early_careers
 dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header
+dependencies[] = elife_monolog
 dependencies[] = elife_person_profile
 dependencies[] = elife_podcast
 dependencies[] = elife_resources

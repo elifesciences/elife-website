@@ -1,0 +1,80 @@
+<?php
+
+use Monolog\Logger;
+use Psr\Log\LogLevel;
+
+/**
+ * Implements hook_watchdog().
+ */
+function elife_monolog_watchdog(array $log_entry) {
+  $logger = _elife_monolog_logger($log_entry['type']);
+
+  $context = array_filter(array_intersect_key($log_entry, [
+    'uid' => 'uid',
+    'request_uri' => 'request_uri',
+    'referer' => 'referer',
+    'ip' => 'ip',
+    'link' => 'link',
+  ]));
+  $message = strip_tags(!isset($log_entry['variables']) ? $log_entry['message'] : strtr($log_entry['message'], $log_entry['variables']));
+  $level = elife_monolog_level($log_entry['severity']);
+
+  $logger->log($level, $message, $context);
+}
+
+/**
+ * Get a logger.
+ *
+ * @param string $type
+ *   Type.
+ *
+ * @return Logger
+ *   Logger.
+ */
+function _elife_monolog_logger($type) {
+  $logger = new Logger($type);
+
+  if ($handlers = variable_get('elife_monolog_handlers')) {
+    if (!is_array($handlers)) {
+      $handlers = [$handlers];
+    }
+    foreach ($handlers as $handler) {
+      $logger->pushHandler($handler);
+    }
+  }
+
+  if ($processors = variable_get('elife_monolog_processors')) {
+    if (!is_array($processors)) {
+      $processors = [$processors];
+    }
+    foreach ($processors as $processor) {
+      $logger->pushProcessor($processor);
+    }
+  }
+
+  return $logger;
+}
+
+/**
+ * Maps a Watchdog severity level to a PSR-3 severity level.
+ *
+ * @param string $level
+ *   The Watchdog severity level.
+ *
+ * @return int
+ *   The PSR-3 severity level.
+ */
+function elife_monolog_level($level) {
+  static $levels = [
+    WATCHDOG_DEBUG => LogLevel::DEBUG,
+    WATCHDOG_INFO => LogLevel::INFO,
+    WATCHDOG_NOTICE => LogLevel::NOTICE,
+    WATCHDOG_WARNING => LogLevel::WARNING,
+    WATCHDOG_ERROR => LogLevel::ERROR,
+    WATCHDOG_CRITICAL => LogLevel::CRITICAL,
+    WATCHDOG_ALERT => LogLevel::ALERT,
+    WATCHDOG_EMERGENCY => LogLevel::EMERGENCY,
+  ];
+
+  return isset($levels[$level]) ? $levels[$level] : LogLevel::NOTICE;
+}
