@@ -31,6 +31,11 @@ $conf['pathologic_local_paths'] = [
 // File cache directory.
 $conf['elife_cache_dir'] = __DIR__ . '/../cache';
 
+// Uploaded files directories.
+$conf['file_public_path'] = 'sites/default/files';
+$conf['file_private_path'] = 'sites/default/private';
+$conf['file_temporary_path'] = sys_get_temp_dir();
+
 // Include the local settings, this MUST contain the $databases variable (and
 // any other sensitive credentials in the future), as well as any custom
 // configuration required during development.
