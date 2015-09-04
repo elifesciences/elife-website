@@ -32,27 +32,33 @@ function elife_monolog_watchdog(array $log_entry) {
  *   Logger.
  */
 function _elife_monolog_logger($type) {
-  $logger = new Logger($type);
+  static $loggers = [];
 
-  if ($handlers = variable_get('elife_monolog_handlers')) {
-    if (!is_array($handlers)) {
-      $handlers = [$handlers];
+  if (empty($loggers[$type])) {
+    $logger = new Logger($type);
+
+    if ($handlers = variable_get('elife_monolog_handlers')) {
+      if (!is_array($handlers)) {
+        $handlers = [$handlers];
+      }
+      foreach ($handlers as $handler) {
+        $logger->pushHandler($handler);
+      }
     }
-    foreach ($handlers as $handler) {
-      $logger->pushHandler($handler);
+
+    if ($processors = variable_get('elife_monolog_processors')) {
+      if (!is_array($processors)) {
+        $processors = [$processors];
+      }
+      foreach ($processors as $processor) {
+        $logger->pushProcessor($processor);
+      }
     }
+
+    $loggers[$type] = $logger;
   }
 
-  if ($processors = variable_get('elife_monolog_processors')) {
-    if (!is_array($processors)) {
-      $processors = [$processors];
-    }
-    foreach ($processors as $processor) {
-      $logger->pushProcessor($processor);
-    }
-  }
-
-  return $logger;
+  return $loggers[$type];
 }
 
 /**
