@@ -21,7 +21,7 @@ Feature: Display channel types
   @api
   Scenario: Add a display channel description
     Given "elife_term_assets" content:
-      | title | field_elife_ta_term | body |
+      | title | field_elife_ta_term | field_elife_ta_body |
       | Research article | Research article | Description of research article |
     When I am viewing an "elife_categories" term with the name "Research article"
     Then I should see "Description of research article"

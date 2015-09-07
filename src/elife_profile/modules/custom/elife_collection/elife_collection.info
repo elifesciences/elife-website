@@ -10,7 +10,6 @@ features[ctools][] = strongarm:strongarm:1
 features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[field_base][] = field_elife_c_keyword
-features[field_instance][] = node-elife_collection-body
 features[field_instance][] = node-elife_collection-field_elife_c_keyword
 features[node][] = elife_collection
 features[page_manager_handlers][] = node_view__elife_collection

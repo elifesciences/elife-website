@@ -10,52 +10,48 @@
 function elife_term_assets_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_term_assets-body'
-  $field_instances['node-elife_term_assets-body'] = array(
+  // Exported field_instance: 'node-elife_term_assets-field_elife_ta_body'
+  $field_instances['node-elife_term_assets-field_elife_ta_body'] = array(
     'bundle' => 'elife_term_assets',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
-    'field_name' => 'body',
+    'field_name' => 'field_elife_ta_body',
     'label' => 'Body',
-    'required' => FALSE,
+    'required' => 0,
     'settings' => array(
-      'display_summary' => TRUE,
-      'text_processing' => 1,
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
+        'rows' => 5,
       ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 2,
+      'type' => 'text_textarea',
+      'weight' => 3,
     ),
   );
 
-  // Exported field_instance:
-  // 'node-elife_term_assets-field_elife_ta_term'
+  // Exported field_instance: 'node-elife_term_assets-field_elife_ta_term'
   $field_instances['node-elife_term_assets-field_elife_ta_term'] = array(
     'bundle' => 'elife_term_assets',
     'default_value' => NULL,
