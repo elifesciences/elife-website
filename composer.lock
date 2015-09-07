@@ -654,6 +654,43 @@
     ],
     "packages-dev": [
         {
+            "name": "adamquaile/behat-php-server-extension",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamquaile/behat-php-server-extension.git",
+                "reference": "9c30552a1f266ac6484b154c9e256ddf65f98d08"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamquaile/behat-php-server-extension/zipball/9c30552a1f266ac6484b154c9e256ddf65f98d08",
+                "reference": "9c30552a1f266ac6484b154c9e256ddf65f98d08",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0",
+                "symfony/process": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "AdamQuaile\\Behat\\PhpServerExtension": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Adam Quaile",
+                    "email": "adamquaile@gmail.com"
+                }
+            ],
+            "description": "Extension to run PHP's built-in web server during tests",
+            "time": "2014-10-31 19:51:04"
+        },
+        {
             "name": "behat/behat",
             "version": "v3.0.15",
             "source": {
@@ -3202,6 +3239,7 @@
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
         "behat/web-api-extension": 20,
+        "adamquaile/behat-php-server-extension": 0,
         "elife/isolated-drupal-behat-extension": 0
     },
     "prefer-stable": false,

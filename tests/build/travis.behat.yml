@@ -5,3 +5,11 @@ default:
   extensions:
     eLife\IsolatedDrupalBehatExtension:
       db_url: 'mysql://root:@localhost/elife_profile'
+    AdamQuaile\Behat\PhpServerExtension:
+      host: '127.0.0.1:8080'
+      docroot: '%paths.base%/../../web'
+      router: '%paths.base%/../build/router.php'
+    Behat\WebApiExtension:
+      base_url: 'http://127.0.0.1:8080'
+    Behat\MinkExtension:
+      base_url: 'http://127.0.0.1:8080'
