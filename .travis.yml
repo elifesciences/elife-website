@@ -9,24 +9,19 @@ matrix:
   allow_failures:
         - php: 7.0
 
+sudo: false
+
 mysql:
   database: elife_profile
   username: root
   encoding: utf8
 
 cache:
-  apt: true
   directories:
     - $HOME/.composer/cache
     - $HOME/.drush/cache
     - $HOME/.npm
     - $HOME/custom
-
-addons:
-  apt:
-    packages:
-      - apache2
-      - libapache2-mod-fastcgi
 
 env:
   global:
@@ -38,20 +33,6 @@ before_install:
 install:
   # Create MySQL Database
   - mysql -e 'create database elife_profile;'
-
-  # Set up Apache
-  - sudo a2enmod rewrite actions fastcgi alias
-  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-  - if [[ -f ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ]] ; then sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf ; fi
-  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-
-  # configure apache virtual hosts
-  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-  # restart the server
-  - sudo service apache2 restart
-  - cat /etc/apache2/sites-available/default
 
   # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
