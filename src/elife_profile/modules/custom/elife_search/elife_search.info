@@ -3,7 +3,6 @@ core = 7.x
 package = eLife
 version = 7.x-1.0
 project = elife_search
-dependencies[] = date_facets
 dependencies[] = elife_article
 dependencies[] = page_manager
 dependencies[] = search_api_facetapi

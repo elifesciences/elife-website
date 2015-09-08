@@ -28,12 +28,6 @@ projects:
     version: '1.7'
   date:
     version: '2.8'
-  date_facets:
-    version: '1.x-dev'
-    download:
-      type: 'git'
-      url: 'http://git.drupal.org/project/date_facets.git'
-      revision: '9037608bc2736096b9e30d94e843958aab27e584'
   delta:
     version: '3.0-beta11'
   devel:

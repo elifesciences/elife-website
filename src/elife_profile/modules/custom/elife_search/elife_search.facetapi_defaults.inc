@@ -102,10 +102,10 @@ function elife_search_facetapi_default_facet_settings() {
   $facet->searcher = 'search_api@elife_articles_index';
   $facet->realm = 'block';
   $facet->facet = 'field_elife_a_fpubdate';
-  $facet->enabled = TRUE;
+  $facet->enabled = FALSE;
   $facet->settings = array(
     'weight' => 0,
-    'widget' => 'date_range',
+    'widget' => 'facetapi_links',
     'filters' => array(),
     'active_sorts' => array(
       'indexed' => 'indexed',
