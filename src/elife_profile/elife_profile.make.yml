@@ -75,7 +75,7 @@ projects:
     download:
       type: 'git'
       url: 'http://git.drupal.org/project/image_class.git'
-      revision: 'a4baf33f3acd6b63c7cb81eb393cf61f4b7962ea'
+      revision: 'a4baf33f3acd6b63c7cb81eb393cf61f4b7962ea' # Includes fix for https://www.drupal.org/node/2246595.
   imagecache_actions:
     version: '1.5'
   imagecache_external:
