@@ -13,19 +13,17 @@ projects:
   ckeditor:
     version: '1.16'
   cluetip:
-    version: '1.x-dev'
+    version: '1.x-dev' # no stable release available
     download:
       type: 'git'
       url: 'http://git.drupal.org/project/cluetip.git'
-      revision: '6fe2bf6058a7899cfbc34050a7db56dff77a2a34'
-    patch:
-      - 'https://www.drupal.org/files/issues/cluetip-not-found-2248861-5.patch'
+      revision: '3681d551971ae3e9e2d826b9e5e66d8cde1e13da'
   context:
     version: '3.6'
   countries:
     version: '2.3'
   ctools:
-    version: '1.7'
+    version: '1.9'
   date:
     version: '2.8'
   date_facets:
@@ -53,7 +51,7 @@ projects:
     patch:
       - 'https://www.drupal.org/files/issues/entityreference-2010898-80-Use-tokens.patch'
   entityqueue:
-    version: '1.0'
+    version: '1.1'
   facetapi:
     version: '1.5'
   features:
@@ -97,17 +95,17 @@ projects:
   menu_token:
     version: '1.0-beta5'
   metatag:
-    version: '1.6'
+    version: '1.7'
   migrate:
     version: '2.8'
   migrate_extras:
     version: '2.5'
   module_builder:
-    version: '2.x-dev'
+    version: '2.x-dev' # no stable release available
     download:
       type: 'git'
       url: 'http://git.drupal.org/project/module_builder.git'
-      revision: '15b8d39cd34bbdce8b9cfcee6c9aaec5e37ac8b0'
+      revision: 'f0b3b384e592adee3c07aefbb1a318539cdb48f8'
   module_filter:
     version: '2.0'
   node_clone:
@@ -146,9 +144,9 @@ projects:
   scheduler:
     version: '1.3'
   search_api:
-    version: '1.15'
+    version: '1.16'
   search_api_solr:
-    version: '1.8'
+    version: '1.9'
   semanticviews:
     version: '1.0-rc2'
   services:
@@ -170,7 +168,7 @@ projects:
   views_bulk_operations:
     version: '3.3'
   views_ctools_field:
-    version: '2.x-dev'
+    version: '2.x-dev' # no stable release available
     download:
       type: 'git'
       url: 'http://git.drupal.org/project/views_ctools_field.git'
@@ -182,7 +180,7 @@ projects:
   views_field_view:
     version: '1.1'
   webform:
-    version: '4.9'
+    version: '4.10'
   xmlsitemap:
     version: '2.2'
 
