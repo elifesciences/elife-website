@@ -144,6 +144,11 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
               $email = reset($emails);
               $variables['email'] = $email;
             }
+            elseif (!empty($variables['affiliation']) &&
+              preg_match('/^(?P<before>.*)\s<span class=\"email\">(?P<email>[^\<]+)<\/span>(?P<after>.*)$/', $variables['affiliation'], $matches)) {
+              $variables['affiliation'] = $matches['before'] . $matches['after'];
+              $variables['email'] = $matches['email'];
+            }
             if (!empty($references['contribution'])) {
               $variables['contrib'] = implode('; ', array_intersect_key($contribs, array_flip($references['contribution'])));
             }
@@ -252,6 +257,9 @@ function _elife_article_authors_affiliation_cache(ArticleVersion $article_versio
       }
       if ($country = $affiliation->getCountry()) {
         $name['country'] = $country;
+      }
+      if ($email = $affiliation->getEmail()) {
+        $name['email'] = $email;
       }
 
       if (!empty($name)) {
