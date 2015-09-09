@@ -45,7 +45,6 @@ dependencies[] = countries
 dependencies[] = ctools
 dependencies[] = date
 dependencies[] = date_api
-dependencies[] = date_facets
 dependencies[] = date_popup
 dependencies[] = date_views
 dependencies[] = delta
