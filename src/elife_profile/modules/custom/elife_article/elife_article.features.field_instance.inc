@@ -116,6 +116,42 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_email'
+  $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_email'] = array(
+    'bundle' => 'field_elife_a_aff_ref',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_elife_a_aff_ref_email',
+    'label' => 'Email',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 8,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_inst'
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_inst'] = array(
     'bundle' => 'field_elife_a_aff_ref',
@@ -3624,6 +3660,7 @@ function elife_article_field_default_field_instances() {
   t('DOI');
   t('Deceased');
   t('Department');
+  t('Email');
   t('Equal contributor');
   t('First Publication Date');
   t('First names');
