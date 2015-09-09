@@ -34,16 +34,25 @@ final class Affiliation {
   private $country;
 
   /**
+   * @var string|null
+   *
+   * @Serializer\Type("string")
+   */
+  private $email;
+
+  /**
    * @param string|null $dept
    * @param string|null $institution
    * @param string|null $city
    * @param string|null $country
+   * @param string|null $email
    */
-  public function __construct($dept, $institution, $city, $country) {
+  public function __construct($dept, $institution, $city, $country, $email) {
     $this->dept = $dept;
     $this->institution = $institution;
     $this->city = $city;
     $this->country = $country;
+    $this->email = $email;
   }
 
   public function getDept() {
@@ -60,5 +69,9 @@ final class Affiliation {
 
   public function getCountry() {
     return $this->country;
+  }
+
+  public function getEmail() {
+    return $this->email;
   }
 }

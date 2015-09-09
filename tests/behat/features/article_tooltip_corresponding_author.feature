@@ -68,6 +68,7 @@ Feature: Footnote
             {
               "type": "author",
               "id": "author-3",
+              "corresp": "yes",
               "surname": "Thines",
               "given-names": "Marco",
               "references": {
@@ -118,7 +119,8 @@ Feature: Footnote
                 "dept": "department3",
                 "institution": "inst3",
                 "city": "city3",
-                "country": "Country3"
+                "country": "Country3",
+                "email": "mt@ucsd.edu"
               }
             },
             "contribution": {
@@ -143,6 +145,7 @@ Feature: Footnote
       | author              | author_email            | n | email            |
       | Mikel Garcia-Marcos | mailto:mgm1@bu.edu      | 1 | mgm1@bu.edu      |
       | Pradipta Ghosh      | mailto:prghosh@ucsd.edu | 2 | prghosh@ucsd.edu |
+      | Marco Thines        | mailto:mt@ucsd.edu      | 3 | mt@ucsd.edu      |
 
   Scenario Outline: Author has not provided email id
     Given there is an article:
