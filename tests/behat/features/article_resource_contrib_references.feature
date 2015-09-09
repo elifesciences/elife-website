@@ -157,7 +157,8 @@ Feature: Article Resource - Contributor references (API)
                 "dept": "Department of Molecular and Cell Biology",
                 "institution": "University of California, Berkeley",
                 "city": "Berkeley",
-                "country": "United States"
+                "country": "United States",
+                "email": "jon_clardy@hms.harvard.edu"
               },
               "aff2": {
                 "dept": "Department of Biological Chemistry and Molecular Pharmacology",
@@ -277,7 +278,8 @@ Feature: Article Resource - Contributor references (API)
                 "dept": "Department of Molecular and Cell Biology",
                 "institution": "University of California, Berkeley",
                 "city": "Berkeley",
-                "country": "United States"
+                "country": "United States",
+                "email": "jon_clardy@hms.harvard.edu"
               },
               "aff2": {
                 "dept": "Department of Biological Chemistry and Molecular Pharmacology",
