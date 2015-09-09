@@ -31,6 +31,13 @@ abstract class PersonContributor extends Contributor {
   protected $suffix;
 
   /**
+   * @var string|null
+   *
+   * @Serializer\Type("string")
+   */
+  protected $email;
+
+  /**
    * @var Affiliation[]
    *
    * @Serializer\Type("array<eLife\EIF\ArticleVersion\Affiliation>")
@@ -46,6 +53,7 @@ abstract class PersonContributor extends Contributor {
    * @param string $surname
    * @param string $given_names
    * @param string|null $suffix
+   * @param string|null $email
    * @param Affiliation[] $affiliations
    */
   public function __construct(
@@ -57,6 +65,7 @@ abstract class PersonContributor extends Contributor {
     $surname,
     $given_names,
     $suffix,
+    $email,
     array $affiliations
   ) {
     parent::__construct($type, $corresp, $id, $group_author_key,
@@ -64,6 +73,7 @@ abstract class PersonContributor extends Contributor {
     $this->surname = (string) $surname;
     $this->given_names = (string) $given_names;
     $this->suffix = $suffix;
+    $this->email = $email;
     $this->affiliations = $affiliations;
   }
 
@@ -77,6 +87,10 @@ abstract class PersonContributor extends Contributor {
 
   public function getSuffix() {
     return $this->suffix;
+  }
+
+  public function getEmail() {
+    return $this->email;
   }
 
   public function getAffiliations() {

@@ -165,16 +165,16 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '28',
+          'weight' => '29',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '27',
+          'weight' => '28',
         ),
         'redirect' => array(
-          'weight' => '26',
+          'weight' => '27',
         ),
         'rabbit_hole' => array(
           'weight' => '0',

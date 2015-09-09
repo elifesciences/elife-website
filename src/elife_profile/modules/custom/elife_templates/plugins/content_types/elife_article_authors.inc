@@ -8,6 +8,7 @@
 use eLife\EIF\ArticleVersion;
 use eLife\EIF\ArticleVersion\Contributor;
 use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor;
 use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
 use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
 
@@ -144,11 +145,25 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
               $email = reset($emails);
               $variables['email'] = $email;
             }
-            elseif (!empty($variables['affiliation']) &&
+            elseif ($contributor instanceof PersonContributor && $contributor->getEmail()) {
+              $variables['email'] = $contributor->getEmail();
+            }
+
+            if (empty($variables['email']) && $contributor instanceof PersonContributor && count($contributor->getAffiliations())) {
+              foreach ($contributor->getAffiliations() as $aff) {
+                if ($email = $aff->getEmail()) {
+                  $variables['email'] = $email;
+                  break;
+                }
+              }
+            }
+
+            if (empty($variables['email']) && !empty($variables['affiliation']) &&
               preg_match('/^(?P<before>.*)\s<span class=\"email\">(?P<email>[^\<]+)<\/span>(?P<after>.*)$/', $variables['affiliation'], $matches)) {
               $variables['affiliation'] = $matches['before'] . $matches['after'];
               $variables['email'] = $matches['email'];
             }
+
             if (!empty($references['contribution'])) {
               $variables['contrib'] = implode('; ', array_intersect_key($contribs, array_flip($references['contribution'])));
             }
