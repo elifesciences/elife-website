@@ -152,26 +152,42 @@ function elife_article_strongarm() {
       'diff_standard' => array(
         'custom_settings' => FALSE,
       ),
+      'elife_teaser_alternative' => array(
+        'custom_settings' => FALSE,
+      ),
+      'elife_teaser_compact' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '27',
+          'weight' => '28',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '26',
+          'weight' => '27',
         ),
         'redirect' => array(
-          'weight' => '25',
+          'weight' => '26',
         ),
         'rabbit_hole' => array(
           'weight' => '0',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'sharethis' => array(
+          'default' => array(
+            'weight' => '10',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__elife_contributor'] = $strongarm;

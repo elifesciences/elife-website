@@ -484,13 +484,15 @@ function elife_article_version_to_dto(stdClass $entity) {
               $entity_contributor->field_elife_a_aff_dept->value() ||
               $entity_contributor->field_elife_a_aff_inst->value() ||
               $entity_contributor->field_elife_a_aff_city->value() ||
-              $entity_contributor->field_elife_a_aff_country->value()
+              $entity_contributor->field_elife_a_aff_country->value() ||
+              $entity_contributor->field_elife_a_aff_email->value()
             ) {
               $affiliations[] = new Affiliation(
                 $entity_contributor->field_elife_a_aff_dept->value(),
                 $entity_contributor->field_elife_a_aff_inst->value(),
                 $entity_contributor->field_elife_a_aff_city->value(),
-                $entity_contributor->field_elife_a_aff_country->value()
+                $entity_contributor->field_elife_a_aff_country->value(),
+                $entity_contributor->field_elife_a_aff_email->value()
               );
             }
 
@@ -1060,6 +1062,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
                 $entity_contributor->field_elife_a_aff_inst->set($contributor->getAffiliations()[0]->getInstitution());
                 $entity_contributor->field_elife_a_aff_city->set($contributor->getAffiliations()[0]->getCity());
                 $entity_contributor->field_elife_a_aff_country->set($contributor->getAffiliations()[0]->getCountry());
+                $entity_contributor->field_elife_a_aff_email->set($contributor->getAffiliations()[0]->getEmail());
               }
             }
             elseif ($contributor instanceof CollabContributor) {

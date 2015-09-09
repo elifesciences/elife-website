@@ -299,7 +299,8 @@ Feature: Article Resource - Contributors (API)
               "affiliations": [
                 {
                   "institution": "Pediatric Dengue Vaccine Initiative",
-                  "country": "United States"
+                  "country": "United States",
+                  "email": "christopher.sneden@email.com"
                 }
               ]
             },
@@ -714,7 +715,8 @@ Feature: Article Resource - Contributors (API)
               "affiliations": [
                 {
                   "institution": "Pediatric Dengue Vaccine Initiative",
-                  "country": "United States"
+                  "country": "United States",
+                  "email": "christopher.sneden@email.com"
                 }
               ]
             },
