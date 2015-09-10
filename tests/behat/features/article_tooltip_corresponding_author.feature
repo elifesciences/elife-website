@@ -88,6 +88,29 @@ Feature: Footnote
               "id": "author-4",
               "surname": "Weigel",
               "given-names": "Detlef",
+              "affiliations": [
+                {
+                  "email": "detlef.weigel@email.com"
+                }
+              ],
+              "references": {
+                "affiliation": [
+                  "aff2"
+                ],
+                "equal-contrib": [
+                  "equal-contrib"
+                ],
+                "contribution": [
+                  "con3"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "id": "author-5",
+              "surname": "Lisgo",
+              "given-names": "Nathan",
+              "email": "n.lisgo@elifesciences.org",
               "references": {
                 "affiliation": [
                   "aff2"
@@ -142,10 +165,12 @@ Feature: Footnote
     Then I should see "For Correspondence:" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-corresp .author-tooltip-label" element
 
     Examples:
-      | author              | author_email            | n | email            |
-      | Mikel Garcia-Marcos | mailto:mgm1@bu.edu      | 1 | mgm1@bu.edu      |
-      | Pradipta Ghosh      | mailto:prghosh@ucsd.edu | 2 | prghosh@ucsd.edu |
-      | Marco Thines        | mailto:mt@ucsd.edu      | 3 | mt@ucsd.edu      |
+      | author              | author_email                     | n | email                     |
+      | Mikel Garcia-Marcos | mailto:mgm1@bu.edu               | 1 | mgm1@bu.edu               |
+      | Pradipta Ghosh      | mailto:prghosh@ucsd.edu          | 2 | prghosh@ucsd.edu          |
+      | Marco Thines        | mailto:mt@ucsd.edu               | 3 | mt@ucsd.edu               |
+      | Detlef Weigel       | mailto:detlef.weigel@email.com   | 4 | detlef.weigel@email.com   |
+      | Nathan Lisgo        | mailto:n.lisgo@elifesciences.org | 5 | n.lisgo@elifesciences.org |
 
   Scenario Outline: Author has not provided email id
     Given there is an article:

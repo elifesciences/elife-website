@@ -48,6 +48,7 @@ final class BylineContributor extends PersonContributor {
    * @param string $surname
    * @param string $given_names
    * @param string|null $suffix
+   * @param string|null $email
    * @param string|null $orcid
    * @param string|null $role
    * @param Affiliation[] $affiliations
@@ -63,13 +64,13 @@ final class BylineContributor extends PersonContributor {
     $surname,
     $given_names,
     $suffix,
+    $email,
     $orcid,
     $role,
     array $affiliations
   ) {
-    parent::__construct($type, $corresp, $id, $group_author_key,
-      $references, (string) $surname, (string) $given_names, $suffix,
-      $affiliations);
+    parent::__construct($type, $corresp, $id, $group_author_key, $references,
+      (string) $surname, (string) $given_names, $suffix, $email, $affiliations);
     $this->equal_contrib = ($equal_contrib ? 'yes' : 'no');
     $this->deceased = ($deceased ? 'yes' : 'no');
     $this->orcid = $orcid;
