@@ -18,8 +18,98 @@ Feature: Search
     And I fill in "Keyword" with "Algoriphagus"
     And I click "Search"
 
-  Scenario: Search page has a default list of all articles of the eLife journal
+  Scenario: Search page when the journal has no articles
     Given I am on "/elife/search"
     Then the response status code should be 200
-    And I should see an ".elife-searchlist-results" element
+    And I should not see an "div.view-content" element
+    And I should see an "div.site-footer" element
+
+  @api
+  Scenario: Search page has a default list of all articles of the eLife journal
+    Given there are articles:
+    """
+        [
+          {
+            "title": "VOR 05224",
+            "version": "1",
+            "doi": "10.7554/eLife.05224",
+            "volume": "4",
+            "elocation-id": "e05224",
+            "article-id": "05224",
+            "article-version-id": "05224",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05224",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Algoriphagus"
+              ]
+            }
+          },
+          {
+            "title": "VOR 05225",
+            "version": "2",
+            "doi": "10.7554/eLife.05225",
+            "volume": "4",
+            "elocation-id": "e05225",
+            "article-id": "05225",
+            "article-version-id": "05225",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05225",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Algoriphagus"
+              ]
+            }
+          },
+          {
+            "title": "VOR 05226",
+            "version": "1",
+            "doi": "10.7554/eLife.05226",
+            "volume": "4",
+            "elocation-id": "e05226",
+            "article-id": "05226",
+            "article-version-id": "05226",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05226",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Algoriphagus",
+                "bacterial sulfonolipid"
+              ]
+            }
+          },
+          {
+            "title": "VOR 05227",
+            "version": "1",
+            "doi": "10.7554/eLife.05227",
+            "volume": "4",
+            "elocation-id": "e05227",
+            "article-id": "05227",
+            "article-version-id": "05227",
+            "pub-date": "1979-08-17",
+            "path": "content/4/e05227",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "bacterial sulfonolipid"
+              ]
+            }
+          }
+        ]
+      """
+    And I run cron
+    Given I am on "/elife/search"
+    Then the response status code should be 200
+    And I should see an "div.view-content" element
     And I should see an "div.site-footer" element
