@@ -34,8 +34,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function resetFollowingRedirects() {
     try {
       $this->canIntercept();
-      $this->getSession()->getDriver()->getClient()->followRedirects(true);
-    } catch(UnsupportedDriverActionException $e) {
+      $this->getSession()->getDriver()->getClient()->followRedirects(TRUE);
+    } catch (UnsupportedDriverActionException $e) {
       // Do nothing.
     }
   }
@@ -94,8 +94,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^the versions should be ordered "([^"]+)" for "([^"]+)"$/
    */
-  public function theVersionsShouldBeOrderedFor($expected, $article_id)
-  {
+  public function theVersionsShouldBeOrderedFor($expected, $article_id) {
     $expected = explode(',', $expected);
     $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT']);
     $actual = [];
@@ -115,8 +114,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^there should be (\d+) versions of article "([^"]+)"$/
    */
-  public function thereShouldBeVersionsOfArticle($expected, $article_id)
-  {
+  public function thereShouldBeVersionsOfArticle($expected, $article_id) {
     $expected = intval($expected);
     $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT']);
     $actual = !empty($versions) ? count($versions) : 0;
@@ -131,10 +129,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^there should be (\d+) published versions of article "([^"]+)"$/
    */
-  public function thereShouldBePublishedVersionsOfArticle($expected, $article_id)
-  {
+  public function thereShouldBePublishedVersionsOfArticle($expected, $article_id) {
     $expected = intval($expected);
-    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT', ['1', 'status', '=', 'propertyCondition']]);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', [
+      'DANGEROUS_ACCESS_CHECK_OPT_OUT',
+      ['1', 'status', '=', 'propertyCondition']
+    ]);
     $actual = !empty($versions) ? count($versions) : 0;
     Assertions::assertSame($expected, $actual);
   }
@@ -147,10 +147,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^there should be (\d+) unpublished versions of article "([^"]+)"$/
    */
-  public function thereShouldBeUnpublishedVersionsOfArticle($expected, $article_id)
-  {
+  public function thereShouldBeUnpublishedVersionsOfArticle($expected, $article_id) {
     $expected = intval($expected);
-    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT', ['0', 'status', '=', 'propertyCondition']]);
+    $versions = ElifeArticleVersion::fromId($article_id, FALSE, 'elife_article_ver', [
+      'DANGEROUS_ACCESS_CHECK_OPT_OUT',
+      ['0', 'status', '=', 'propertyCondition']
+    ]);
     $actual = !empty($versions) ? count($versions) : 0;
     Assertions::assertSame($expected, $actual);
   }
@@ -163,8 +165,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Then /^there should be (\d+) contributors for "([^"]+)"$/
    */
-  public function thereShouldBeContributorsFor($expected, $article_version_id)
-  {
+  public function thereShouldBeContributorsFor($expected, $article_version_id) {
     $expected = intval($expected);
     $article = ElifeArticleVersion::fromIdentifier($article_version_id);
     /* @var EntityDrupalWrapper $ewrapper */
@@ -176,8 +177,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then /^there should be (\d+) verified related articles?$/
    */
-  public function thereShouldBeVerifiedRelatedArticles($expected)
-  {
+  public function thereShouldBeVerifiedRelatedArticles($expected) {
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles();
     $actual = count($results);
@@ -187,8 +187,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then /^there should be (\d+) unique verified related articles?$/
    */
-  public function thereShouldBeUniqueVerifiedRelatedArticles($expected)
-  {
+  public function thereShouldBeUniqueVerifiedRelatedArticles($expected) {
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles(NULL, TRUE, TRUE);
     $actual = count($results);
@@ -198,8 +197,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then /^there should be (\d+) unverified related articles?$/
    */
-  public function thereShouldBeUnverifiedRelatedArticles($expected)
-  {
+  public function thereShouldBeUnverifiedRelatedArticles($expected) {
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles(NULL, FALSE);
     $actual = count($results);
@@ -209,8 +207,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then there should be :expected verified related articles for :article_id
    */
-  public function thereShouldBeVerifiedRelatedArticleFor($expected, $article_id)
-  {
+  public function thereShouldBeVerifiedRelatedArticleFor($expected, $article_id) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE);
@@ -221,8 +218,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then there should be :expected unique verified related articles for :article_id
    */
-  public function thereShouldBeUniqueVerifiedRelatedArticleFor($expected, $article_id)
-  {
+  public function thereShouldBeUniqueVerifiedRelatedArticleFor($expected, $article_id) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
@@ -233,8 +229,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then there should be :expected unverified related articles for :article_id
    */
-  public function thereShouldBeUnverifiedRelatedArticlesFor($expected, $article_id)
-  {
+  public function thereShouldBeUnverifiedRelatedArticlesFor($expected, $article_id) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $expected = intval($expected);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
@@ -245,8 +240,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then article :article_id should be related to :related_to
    */
-  public function articleShouldBeRelatedTo($article_id, $related_to)
-  {
+  public function articleShouldBeRelatedTo($article_id, $related_to) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $related_to = explode(',', $related_to);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
@@ -263,8 +257,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then article :article_id should not be related to :related_to
    */
-  public function articleShouldNotBeRelatedTo($article_id, $not_related_to)
-  {
+  public function articleShouldNotBeRelatedTo($article_id, $not_related_to) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $not_related_to = explode(',', $not_related_to);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
@@ -281,8 +274,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then article :article_id should have unverified related articles of :related_to
    */
-  public function articleShouldHaveUnverifiedRelatedArticles($article_id, $related_to)
-  {
+  public function articleShouldHaveUnverifiedRelatedArticles($article_id, $related_to) {
     $article = ElifeArticleVersion::getArticle($article_id);
     $related_to = explode(', ', $related_to);
     $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
@@ -305,8 +297,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @When /^I add "([^"]+)" with title "([^"]+)" to entityqueue "([^"]+)"$/
    */
-  public function iAddToEntityqueue($type, $title, $queue)
-  {
+  public function iAddToEntityqueue($type, $title, $queue) {
     Assertions::assertTrue(module_exists('entityqueue'), 'Entityqueue module is enabled');
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node');
@@ -331,8 +322,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Given I set variable :name to :type :value
    */
-  public function iSetVariableToArray($name, $type, $value)
-  {
+  public function iSetVariableToArray($name, $type, $value) {
     if ($type == 'array') {
       $value = json_decode($value, TRUE);
     }
@@ -351,8 +341,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @Then /^display channels should be arranged "([^"]+)"$/
    */
-  public function displayChannelsShouldBeArranged($expected)
-  {
+  public function displayChannelsShouldBeArranged($expected) {
     $expected = explode(', ', $expected);
     $actual = array();
     $categories_vocabulary = taxonomy_vocabulary_machine_name_load('elife_categories');
@@ -394,161 +383,218 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       );
     }
   }
-    /**
-     * @Given /^(?:|I )hover over the author "(?P<author>[^"]*)" in the "(?P<selector>[^"]*)" element$/
-     *
-     * @param $author
-     *   The name of the author to look for
-     * @param $selector
-     *   The css selector for the items enclosing each author
-     *
-     * @throws Exception
-     */
-    public function iHoverOverTheAuthorInElement($author, $selector) {
-        $session = $this->getSession();
-        if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
-            throw new Exception('Cannot run hover tests for "' . $author . '" without using Selenium.');
-        }
-        $auth = $this->findAuthorNode($selector, $author);
-        if (empty($auth)) {
-            throw new Exception('Cannot find the author "' . $author . '" in the element "' . $selector . '"');
-        }
-        $html = $auth->getAttribute('data-tooltip-content');
-        // Delete initial | in string and add in a wrapper to emulate cluetip.
-        $html =
-            '<div id="cluetip" style="position: absolute; background-color: papayawhip;">' .
-            '<div class="cluetip-outer" style="position: relative; z-index: 97; overflow: visible; height: auto;">' .
-            '<h3 class="cluetip-title ui-widget-header ui-cluetip-header" style="display: none;"></h3>' .
-            '<div class="cluetip-inner ui-widget-content ui-cluetip-content">' .
-            '<div class="cluetip-close"><a href="#">Close</a></div>' .
-            substr($html, 1) .
-            '</div>' .
-            '</div>' .
-            '</div>' .
-            '</div>';
 
-        $js = <<<'JS'
+  /**
+   * @Given /^(?:|I )hover over the author "(?P<author>[^"]*)" in the "(?P<selector>[^"]*)" element$/
+   *
+   * @param $author
+   *   The name of the author to look for
+   * @param $selector
+   *   The css selector for the items enclosing each author
+   *
+   * @throws Exception
+   */
+  public function iHoverOverTheAuthorInElement($author, $selector) {
+    $session = $this->getSession();
+    if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
+      throw new Exception('Cannot run hover tests for "' . $author . '" without using Selenium.');
+    }
+    $auth = $this->findAuthorNode($selector, $author);
+    if (empty($auth)) {
+      throw new Exception('Cannot find the author "' . $author . '" in the element "' . $selector . '"');
+    }
+    $html = $auth->getAttribute('data-tooltip-content');
+    // Delete initial | in string and add in a wrapper to emulate cluetip.
+    $html =
+      '<div id="cluetip" style="position: absolute; background-color: papayawhip;">' .
+      '<div class="cluetip-outer" style="position: relative; z-index: 97; overflow: visible; height: auto;">' .
+      '<h3 class="cluetip-title ui-widget-header ui-cluetip-header" style="display: none;"></h3>' .
+      '<div class="cluetip-inner ui-widget-content ui-cluetip-content">' .
+      '<div class="cluetip-close"><a href="#">Close</a></div>' .
+      substr($html, 1) .
+      '</div>' .
+      '</div>' .
+      '</div>' .
+      '</div>';
+
+    $js = <<<'JS'
     (function(selector, newcontent) {
         jQuery(selector).prepend(newcontent);
     })('#section-content', '{{NEWCONTENT}}');
 JS;
-        $html = str_replace("'", "\\'", $html);
-        $js = str_replace('{{NEWCONTENT}}', $html, $js);
-        $session->executeScript($js);
-        $this->sendJSMouseEnter($auth);
-        sleep(4);
+    $html = str_replace("'", "\\'", $html);
+    $js = str_replace('{{NEWCONTENT}}', $html, $js);
+    $session->executeScript($js);
+    $this->sendJSMouseEnter($auth);
+    sleep(4);
+  }
+
+  /**
+   * @Then /^(?:|I )should see the "(?P<name>[^"]*)" tooltip$/
+   *
+   * TODO: elife - this implementation is tightly-bound to the cluetip jquery plugin.
+   * @throws Exception
+   */
+  public function iShouldSeeTheCluetip($name) {
+    $session = $this->getSession();
+    if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
+      throw new Exception('Cannot run hover tests for "' . $name . '" without using Selenium.');
+    }
+    sleep(2);
+    $element = $session->getPage()->find('css', '#cluetip');
+    if (empty($element)) {
+      throw new Exception('Cannot find the id=cluetip element.');
+    }
+    if (!$element->isVisible()) {
+      throw new Exception('The "' . $name . '" tooltip is not visible.');
+    }
+    $this->last_author_element = $element;
+  }
+
+  /**
+   * Return the element containing an article author given the author-class.
+   *
+   * The supplied class/selector must be a selector that returns all authors,
+   * for example .elife-article-author-item
+   *
+   * @param $css
+   *   The selector which returns all authors.
+   * @param $author
+   *   The text (no html) of the author's name.
+   *
+   * @return mixed
+   *   The behat element object or null if not found
+   */
+  function findAuthorNode($css, $author) {
+    $elements = $this->getSession()->getPage()->findAll('css', $css);
+    foreach ($elements as $auth) {
+      if ($auth->getText() == $author) {
+        $this->last_author_element = $auth;
+        return $auth;
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * Check the URL value of a specific attribute of a tag.
+   *
+   * @Then /^(?:|I )should see the url "(?P<url>(?:[^"]|\\")*)" in the "(?P<attr>(?:[^"]|\\")*)" attribute of the "(?P<elem>(?:[^"]|\\")*)" element$/
+   */
+  public function iShouldSeeURLInTheAttributeOfTheElement($elem, $attr, $url) {
+    $current_url = $this->returnValueOfAttribute($elem, $attr, TRUE);
+    $url = $this->locatePath($url);
+    if ($url !== $current_url) {
+      throw new Exception('Expected url "' . $url . '" but found "' . $current_url . '"');
+    }
+  }
+
+  /**
+   * General check on the value of a specific attribute of a tag.
+   *
+   * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<attr>(?:[^"]|\\")*)" attribute of the "(?P<elem>(?:[^"]|\\")*)" element$/
+   *
+   * @param string $elem
+   *   The element's CSS selector.
+   * @param string $attr
+   *   The attribute name to examine.
+   * @param string $text
+   *   The expected text in the attribute.
+   *
+   * @throws Exception
+   */
+  public function iShouldSeeInTheAttributeOfTheElement($elem, $attr, $text) {
+    $value_current = $this->returnValueOfAttribute($elem, $attr);
+    if ($text !== $value_current) {
+      throw new Exception('Expected value "' . $text . '" but found "' . $value_current . '"');
+    }
+  }
+
+  /**
+   * Check for the value of a metatag.
+   *
+   * @Then /^the metatag attribute "(?P<attribute>[^"]*)" should have the value "(?P<value>[^"]*)"$/
+   *
+   * @throws Exception
+   *   If region or link within it cannot be found.
+   */
+  public function assertMetaRegion($metatag, $value) {
+    $types = array(
+      'name',
+      'property',
+    );
+    $element_found = FALSE;
+
+    foreach ($types as $type) {
+      $element = $this->getSession()
+        ->getPage()
+        ->find('xpath', '/head/meta[@' . $type . '="' . $metatag . '"]/@content');
+      if (!empty($element)) {
+        $element_found = TRUE;
+        if ($value == $element->getText()) {
+          return TRUE;
+        }
+      }
     }
 
-    /**
-     * @Then /^(?:|I )should see the "(?P<name>[^"]*)" tooltip$/
-     *
-     * TODO: elife - this implementation is tightly-bound to the cluetip jquery plugin.
-     * @throws Exception
-     */
-    public function iShouldSeeTheCluetip($name) {
-        $session = $this->getSession();
-        if (!$session->getDriver() instanceof Behat\Mink\Driver\Selenium2Driver) {
-            throw new Exception('Cannot run hover tests for "' . $name . '" without using Selenium.');
-        }
-        sleep(2);
-        $element = $session->getPage()->find('css', '#cluetip');
-        if (empty($element)) {
-            throw new Exception('Cannot find the id=cluetip element.');
-        }
-        if (!$element->isVisible()) {
-            throw new Exception('The "' . $name . '" tooltip is not visible.');
-        }
-        $this->last_author_element = $element;
+    if ($element_found) {
+      throw new Exception(sprintf('No value match for the metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+    }
+    else {
+      throw new Exception(sprintf('No metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
+   * Return value of attribute in element.
+   *
+   * @param string $elem
+   *   Element that we wish to inspect.
+   * @param string $attr
+   *   Attribute of the element that we wish to inspect.
+   * @param bool $url_flag
+   *   Set TRUE if value is a url. FALSE is default.
+   *
+   * @return mixed|null|string
+   *   Return value of attribute in element or throw exception.
+   * @throws Exception
+   */
+  private function returnValueOfAttribute($elem, $attr, $url_flag = FALSE) {
+    $element = $this->getSession()->getPage()->find("css", $elem);
+    if (!$element) {
+      throw new Exception('Expected element ' . $elem . ' not found on page.');
+    }
+    $current_value = $element->getAttribute($attr);
+
+    if ($url_flag) {
+      $current_value = $this->locatePath($current_value);
     }
 
-    /**
-     * Return the element containing an article author given the author-class.
-     *
-     * The supplied class/selector must be a selector that returns all authors,
-     * for example .elife-article-author-item
-     *
-     * @param $css
-     *   The selector which returns all authors.
-     * @param $author
-     *   The text (no html) of the author's name.
-     *
-     * @return mixed
-     *   The behat element object or null if not found
-     */
-    function findAuthorNode($css, $author) {
-        $elements = $this->getSession()->getPage()->findAll('css', $css);
-        foreach ($elements as $auth) {
-            if ($auth->getText() == $author) {
-                $this->last_author_element = $auth;
-                return $auth;
-            }
-        }
-        return null;
+    return $current_value;
+  }
+
+  /**
+   * Check for a specific image filename in an img tag.
+   *
+   * @Then /^(?:|I )should see the image "(?P<text>(?:[^"]|\\")*)" in the "(?P<elem>(?:[^"]|\\")*)" element$/
+   *
+   * @param string $elem
+   *   The element's CSS selector.
+   * @param string $text
+   *   The expected filename in the src attribute.
+   *
+   * @throws Exception
+   */
+  public function iShouldSeeTheImageInTheElement($elem, $text) {
+    $element = $this->getSession()->getPage()->find("css", $elem);
+    if (!$element) {
+      throw new Exception('Expected element ' . $elem . ' not found on page.');
     }
-
-    /**
-     * Check the URL value of a specific attribute of a tag.
-     *
-     * @Then /^(?:|I )should see the url "(?P<url>(?:[^"]|\\")*)" in the "(?P<attr>(?:[^"]|\\")*)" attribute of the "(?P<elem>(?:[^"]|\\")*)" element$/
-     */
-    public function iShouldSeeURLInTheAttributeOfTheElement($elem, $attr, $url) {
-        $current_url = $this->returnValueOfAttribute($elem, $attr, TRUE);
-        $url = $this->locatePath($url);
-        if ($url !== $current_url) {
-            throw new Exception('Expected url "' . $url . '" but found "' . $current_url. '"');
-        }
+    $value_current = $element->getAttribute("src");
+    if ($text !== $value_current && $text !== basename($value_current)) {
+      throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
     }
-
-    /**
-     * Return value of attribute in element.
-     *
-     * @param string $elem
-     *   Element that we wish to inspect.
-     * @param string $attr
-     *   Attribute of the element that we wish to inspect.
-     * @param bool $url_flag
-     *   Set TRUE if value is a url. FALSE is default.
-     *
-     * @return mixed|null|string
-     *   Return value of attribute in element or throw exception.
-     * @throws Exception
-     */
-    private function returnValueOfAttribute($elem, $attr, $url_flag = FALSE) {
-        $element = $this->getSession()->getPage()->find("css", $elem);
-        if (!$element) {
-            throw new Exception('Expected element ' . $elem . ' not found on page.');
-        }
-        $current_value = $element->getAttribute($attr);
-
-        if ($url_flag) {
-            $current_value = $this->locatePath($current_value);
-        }
-
-        return $current_value;
-    }
-
-    /**
-     * Check for a specific image filename in an img tag.
-     *
-     * @Then /^(?:|I )should see the image "(?P<text>(?:[^"]|\\")*)" in the "(?P<elem>(?:[^"]|\\")*)" element$/
-     *
-     * @param string $elem
-     *   The element's CSS selector.
-     * @param string $text
-     *   The expected filename in the src attribute.
-     *
-     * @throws Exception
-     */
-    public function iShouldSeeTheImageInTheElement($elem, $text) {
-        $element = $this->getSession()->getPage()->find("css", $elem);
-        if (!$element) {
-            throw new Exception('Expected element ' . $elem . ' not found on page.');
-        }
-        $value_current = $element->getAttribute("src");
-        if ($text !== $value_current && $text !== basename($value_current)) {
-            throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
-        }
-    }
+  }
 
   /**
    * Returns fixed step argument (with \\" replaced back to ").
@@ -557,8 +603,7 @@ JS;
    *
    * @return string
    */
-  protected function fixStepArgument($argument)
-  {
+  protected function fixStepArgument($argument) {
     return str_replace('\\"', '"', $argument);
   }
 }
