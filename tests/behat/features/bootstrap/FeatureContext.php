@@ -490,6 +490,62 @@ JS;
   }
 
   /**
+   * General check on the value of a specific attribute of a tag.
+   *
+   * @Then /^(?:|I )should see "(?P<text>(?:[^"]|\\")*)" in the "(?P<attr>(?:[^"]|\\")*)" attribute of the "(?P<elem>(?:[^"]|\\")*)" element$/
+   *
+   * @param string $elem
+   *   The element's CSS selector.
+   * @param string $attr
+   *   The attribute name to examine.
+   * @param string $text
+   *   The expected text in the attribute.
+   *
+   * @throws Exception
+   */
+  public function iShouldSeeInTheAttributeOfTheElement($elem, $attr, $text) {
+    $value_current = $this->returnValueOfAttribute($elem, $attr);
+    if ($text !== $value_current) {
+      throw new Exception('Expected value "' . $text . '" but found "' . $value_current . '"');
+    }
+  }
+
+  /**
+   * Check for the value of a metatag.
+   *
+   * @Then /^the metatag attribute "(?P<attribute>[^"]*)" should have the value "(?P<value>[^"]*)"$/
+   *
+   * @throws Exception
+   *   If region or link within it cannot be found.
+   */
+  public function assertMetaRegion($metatag, $value) {
+    $types = array(
+      'name',
+      'property',
+    );
+    $element_found = FALSE;
+
+    foreach ($types as $type) {
+      $element = $this->getSession()
+        ->getPage()
+        ->find('xpath', '/head/meta[@' . $type . '="' . $metatag . '"]/@content');
+      if (!empty($element)) {
+        $element_found = TRUE;
+        if ($value == $element->getText()) {
+          return TRUE;
+        }
+      }
+    }
+
+    if ($element_found) {
+      throw new Exception(sprintf('No value match for the metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+    }
+    else {
+      throw new Exception(sprintf('No metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
    * Return value of attribute in element.
    *
    * @param string $elem
