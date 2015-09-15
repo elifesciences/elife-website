@@ -5,6 +5,7 @@
         "This file is @generated automatically"
     ],
     "hash": "4a29d64b20d16f7c113c59efdccc7a56",
+    "content-hash": "07fb65d10f614fce0d2bb1152c64f7eb",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -611,7 +612,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/462909b23a0ded00481990395c5d8bf8d5d7a8a9",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/361e098955069062c2d688a2c116d7dd837acb38",
                 "reference": "462909b23a0ded00481990395c5d8bf8d5d7a8a9",
                 "shasum": ""
             },
@@ -3189,6 +3190,62 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-07-01 11:25:50"
+        },
+        {
+            "name": "zalas/behat-no-extension",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakzal/BehatNoExtension.git",
+                "reference": "eaa6d2c67feca03ff57a7c73a7723853544e8dcb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakzal/BehatNoExtension/zipball/eaa6d2c67feca03ff57a7c73a7723853544e8dcb",
+                "reference": "eaa6d2c67feca03ff57a7c73a7723853544e8dcb",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": "~3.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "bossa/phpspec2-expect": "~1.0",
+                "phpspec/phpspec": "~2.0",
+                "symfony/filesystem": "~2.3",
+                "symfony/process": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zalas\\Behat\\NoExtension\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Zalas",
+                    "email": "jakub@zalas.pl"
+                }
+            ],
+            "description": "The ultimate Behat extension",
+            "homepage": "https://github.com/jakzal/BehatNoExtension",
+            "keywords": [
+                "BDD",
+                "Behat",
+                "dependency-injection",
+                "extension",
+                "service-container"
+            ],
+            "time": "2015-03-09 14:11:13"
         }
     ],
     "aliases": [],
@@ -3202,7 +3259,9 @@
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
         "behat/web-api-extension": 20,
-        "elife/isolated-drupal-behat-extension": 0
+        "elife/isolated-drupal-behat-extension": 0,
+        "guzzlehttp/guzzle": 0,
+        "zalas/behat-no-extension": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
