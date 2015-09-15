@@ -4,6 +4,7 @@
     "behat/drupal-propeople-context": "~1.2",
     "behat/web-api-extension": "~1.0@dev",
     "elife/isolated-drupal-behat-extension": "~0.1",
+    "guzzlehttp/guzzle": "~5.0",
     "zalas/behat-no-extension": "~1.1"
   },
   "autoload-dev": {

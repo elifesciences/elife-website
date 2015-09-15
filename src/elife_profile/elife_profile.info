@@ -95,6 +95,7 @@ dependencies[] = rules
 dependencies[] = scheduler
 dependencies[] = search_api
 dependencies[] = search_api_facetapi
+dependencies[] = search_api_override
 dependencies[] = search_api_solr
 dependencies[] = search_api_views
 dependencies[] = semanticviews

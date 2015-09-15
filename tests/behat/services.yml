@@ -1,6 +1,15 @@
 services:
 
-  elife.behat.listener.reset_solr:
-    class: eLife\Behat\ResetSolrListener
+  elife.behat.listener.isolated_solr:
+    class: eLife\Behat\IsolatedSolrListener
+    arguments:
+      - @elife.behat.solr_client
+      - %elife.solr_uri%
     tags:
       - { name: event_dispatcher.subscriber }
+
+  elife.behat.solr_client:
+    class: GuzzleHttp\Client
+    arguments:
+      - { base_url: %elife.solr_uri% }
+    public: false
