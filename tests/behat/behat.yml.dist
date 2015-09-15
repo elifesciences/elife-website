@@ -13,6 +13,9 @@ default:
     eLife\IsolatedDrupalBehatExtension:
       profile: 'elife_profile'
       settings_file: '%paths.base%/../../src/settings.php'
+    Zalas\Behat\NoExtension:
+      imports:
+        - services.yml
     SensioLabs\Behat\PageObjectExtension:
     Behat\WebApiExtension:
       base_url: 'http://127.0.0.1:80'

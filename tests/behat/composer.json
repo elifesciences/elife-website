@@ -3,6 +3,12 @@
     "sensiolabs/behat-page-object-extension": "~2.0@dev",
     "behat/drupal-propeople-context": "~1.2",
     "behat/web-api-extension": "~1.0@dev",
-    "elife/isolated-drupal-behat-extension": "~0.1"
+    "elife/isolated-drupal-behat-extension": "~0.1",
+    "zalas/behat-no-extension": "~1.1"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "eLife\\Behat\\": "src/"
+    }
   }
 }

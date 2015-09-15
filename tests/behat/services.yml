@@ -1,0 +1,6 @@
+services:
+
+  elife.behat.listener.reset_solr:
+    class: eLife\Behat\ResetSolrListener
+    tags:
+      - { name: event_dispatcher.subscriber }
