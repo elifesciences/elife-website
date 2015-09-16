@@ -519,29 +519,59 @@ JS;
    *   If region or link within it cannot be found.
    */
   public function assertMetaRegion($metatag, $value) {
+    return $this->assertMetaRegionInPosition($metatag, 0, $value);
+  }
+
+  /**
+   * Check for the value of a metatag.
+   *
+   * @Then /^the metatag attribute "(?P<attribute>[^"]*)" in position "(?P<position>[^"]*)" should have the value "(?P<value>[^"]*)"$/
+   *
+   * @throws Exception
+   *   If region or link within it cannot be found.
+   */
+  public function assertMetaRegionInPosition($metatag, $position, $value) {
     $types = array(
       'name',
       'property',
     );
     $element_found = FALSE;
 
+    $xpath_query = "/head/meta[@%s='" . $metatag . "']";
+
+    if ($position > 0) {
+      $xpath_query .= '[' . $position . ']';
+    }
+
     foreach ($types as $type) {
+      $xpath = sprintf($xpath_query, $type);
       $element = $this->getSession()
         ->getPage()
-        ->find('xpath', '/head/meta[@' . $type . '="' . $metatag . '"]/@content');
+        ->find('xpath', $xpath . '/@content');
       if (!empty($element)) {
         $element_found = TRUE;
-        if ($value == $element->getText()) {
-          return TRUE;
-        }
+      }
+
+      $element = $this->getSession()
+        ->getPage()
+        ->find('xpath', $xpath . "[@content='" . $value . "']");
+
+      if (!empty($element)) {
+        return TRUE;
       }
     }
 
+    $attribute = $metatag;
+
+    if ($position > 0) {
+      $attribute .= ' [' . $position . ']';
+    }
+
     if ($element_found) {
-      throw new Exception(sprintf('No value match for the metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+      throw new Exception(sprintf('No value match for the metatag attribute "%s" found on the page %s', $attribute, $this->getSession()->getCurrentUrl()));
     }
     else {
-      throw new Exception(sprintf('No metatag attribute "%s" found on the page %s', $metatag, $this->getSession()->getCurrentUrl()));
+      throw new Exception(sprintf('No metatag attribute "%s" found on the page %s', $attribute, $this->getSession()->getCurrentUrl()));
     }
   }
 
