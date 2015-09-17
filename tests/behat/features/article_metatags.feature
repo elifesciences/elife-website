@@ -725,9 +725,7 @@ Feature: As a developer
     """
     And the response code should be 200
     And I go to "content/4/e07939"
-    Then the metatag attribute "x-dns-prefetch-control" should have the value "on"
     And I should see "on" in the "content" attribute of the "meta[http-equiv='x-dns-prefetch-control']" element
-    Then the metatag attribute "<itemprop>" should have the value "<content>"
     And I should see "<content>" in the "content" attribute of the "meta[property='<itemprop>']" element
 
     Examples:
@@ -840,7 +838,6 @@ Feature: As a developer
     """
     And the response code should be 200
     And I go to "content/4/e07939"
-    Then the metatag attribute "<name>" should have the value "<content>"
     And I should see "<content>" in the "content" attribute of the "meta[name='<name>']" element
 
     Examples:
@@ -851,3 +848,4 @@ Feature: As a developer
     |twitter:site |@eLife                                                          |
     |twitter:title|The β-hairpin of 40S exit channel protein Rps5/uS7 promotes efficient and accurate translation initiation in vivo|
     |twitter:description|A structural element of mRNA exit channel protein Rps5 performs a critical role in start codon recognition during translation initiation by stabilizing initiator tRNA binding to the pre-initiation complex.|
+
