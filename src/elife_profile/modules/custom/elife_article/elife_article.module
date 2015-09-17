@@ -9,6 +9,7 @@ include_once 'elife_article.features.inc';
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Drupal\elife_article\ElifeArticleVersion;
 use Drupal\elife_article\ElifeMarkupService;
+use Drupal\elife_article\ElifeXslMarkupService;
 use Drupal\elife_article\ExeterMarkupService;
 use Drupal\elife_article\MockMarkupService;
 use eLife\EIF\ArticleVersion;
@@ -298,8 +299,16 @@ function elife_article_validator() {
  */
 function elife_article_markup_service() {
   /* @var string $factory */
-  $factory = variable_get('elife_article_markup_service_factory', '_elife_article_exeter_markup_service');
+  $factory = variable_get('elife_article_markup_service_factory', '_elife_article_xsl_markup_service');
   $markup_service = $factory();
+  return $markup_service;
+}
+
+/**
+ * @return ElifeXslMarkupService
+ */
+function _elife_article_xsl_markup_service() {
+  $markup_service = new ElifeXslMarkupService();
   return $markup_service;
 }
 

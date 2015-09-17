@@ -203,3 +203,9 @@ libraries:
       type: 'git'
       url: 'https://github.com/mustangostang/spyc/'
       tag: '0.5.1'
+  eLifeIngestXsl:
+    download:
+      type: 'git'
+      url: 'ssh://git@github.com/elifesciences/elife-ingest-xsl.git'
+      branch: 'dev'
+      revision: 'cca6664ac44eb37fc4341bd203bcc6fa55f5491e'
