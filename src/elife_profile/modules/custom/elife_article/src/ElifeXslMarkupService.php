@@ -93,19 +93,13 @@ final class ElifeXslMarkupService extends ElifeMarkupService {
       foreach ($article_queries as $article_query) {
         $query_id = array_merge([array_search($article_query['method'], $this->methods)], $article_query['params']);
         $query_id = implode('::', $query_id);
+
         $res = call_user_func_array([$html, $article_query['method']], $article_query['params']);
         $this->results[$article_id][$query_id] = [];
         if (!empty($res)) {
-          $this->results[$article_id][$query_id][] = call_user_func_array([$html, $article_query['method']], $article_query['params']);
+          $this->results[$article_id][$query_id][] = $res;
         }
       }
-    }
-  }
-
-  public function retrieveXml($article_id) {
-    $xml = $this->retrieveXmlCache($article_id);
-    if (!empty($xml[$article_id])) {
-      return $xml[$article_id];
     }
   }
 
@@ -139,6 +133,13 @@ final class ElifeXslMarkupService extends ElifeMarkupService {
     }
 
     return $cache;
+  }
+
+  public function retrieveXml($article_id) {
+    $xml = $this->retrieveXmlCache($article_id);
+    if (!empty($xml[$article_id])) {
+      return $xml[$article_id];
+    }
   }
 
   private function retrieveXmlCache($article_id) {
