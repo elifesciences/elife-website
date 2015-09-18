@@ -100,10 +100,12 @@ function elife_front_matter_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 5,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -112,63 +114,24 @@ function elife_front_matter_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_fm_reference',
     'label' => 'Reference',
     'required' => 1,
     'settings' => array(
-      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'entityreference',
       'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
         'size' => 60,
       ),
-      'type' => 'text_textfield',
+      'type' => 'entityreference_autocomplete',
       'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance: 'node-elife_cover-field_elife_fm_reference_type'
-  $field_instances['node-elife_cover-field_elife_fm_reference_type'] = array(
-    'bundle' => 'elife_cover',
-    'default_value' => array(
-      0 => array(
-        'value' => 'article',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 6,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_fm_reference_type',
-    'label' => 'Reference type',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 5,
     ),
   );
 
@@ -182,6 +145,7 @@ function elife_front_matter_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'class' => '',
           'image_link' => '',
           'image_style' => '',
         ),
@@ -231,9 +195,11 @@ function elife_front_matter_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 1,
       ),
       'teaser' => array(
@@ -243,64 +209,24 @@ function elife_front_matter_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_fm_reference',
     'label' => 'Reference',
     'required' => 1,
     'settings' => array(
-      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'entityreference',
       'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
         'size' => 60,
       ),
-      'type' => 'text_textfield',
+      'type' => 'entityreference_autocomplete',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'node-elife_front_matter-field_elife_fm_reference_type'
-  $field_instances['node-elife_front_matter-field_elife_fm_reference_type'] = array(
-    'bundle' => 'elife_front_matter',
-    'default_value' => array(
-      0 => array(
-        'value' => 'article',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_fm_reference_type',
-    'label' => 'Reference type',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 3,
     ),
   );
 
@@ -354,6 +280,7 @@ function elife_front_matter_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'class' => '',
           'image_link' => '',
           'image_style' => '',
         ),
@@ -399,7 +326,6 @@ function elife_front_matter_field_default_field_instances() {
   t('Custom action label');
   t('Image');
   t('Reference');
-  t('Reference type');
   t('Relabel section');
   t('Should text be light or dark?');
 

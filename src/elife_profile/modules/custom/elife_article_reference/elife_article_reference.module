@@ -9,6 +9,159 @@ use Drupal\elife_article\ElifeArticleVersion;
 include_once 'elife_article_reference.features.inc';
 
 /**
+ * Implements hook_node_view_alter().
+ */
+function elife_article_reference_node_view_alter(&$build) {
+  // We don't want to see elife_article_reference anywhere, so replace it with the
+  // first elife_article_ver.
+  if ('elife_article_reference' === $build['#bundle']) {
+    $article = ElifeArticleVersion::getArticle($build['#node']->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
+    if ($article && !empty($article->field_elife_a_versions)) {
+      $article_version = node_load($article->field_elife_a_versions[LANGUAGE_NONE][0]['target_id']);
+      if ($article_version) {
+        $build = node_view($article_version, $build['#view_mode'], $build['#language']);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for node_form().
+ */
+function elife_article_reference_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if ('elife_article_reference' !== $form['#bundle']) {
+    return;
+  }
+
+  // Title might not be required.
+  $form['title']['#required'] = FALSE;
+
+  if (isset($form['#node']->field_elife_a_article_id)) {
+    // If the article exists, then disable the title and article ID fields.
+    $form['title']['#attributes']['disabled'] = TRUE;
+    $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#attributes']['disabled'] = TRUE;
+    $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#required'] = FALSE;
+  }
+
+  // Hide the publish field.
+  $form['options']['status']['#access'] = FALSE;
+
+  $form['#validate'][] = 'elife_article_reference_form_validate';
+}
+
+/**
+ * Form validation handler for node_form() and elife_article_reference entities.
+ */
+function elife_article_reference_form_validate($form, &$form_state) {
+  if (empty($form_state['values']['title']) && !empty($form_state['values']['field_elife_a_article_id'][LANGUAGE_NONE][0]['value'])) {
+    $article = ElifeArticleVersion::getArticle($form_state['values']['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']);
+    if (!$article) {
+      form_set_error('title', t('A title is required if the article is not yet known by the site.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function elife_article_reference_node_presave($node) {
+  if ('elife_article' === $node->type) {
+    $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+
+    $article_reference = elife_article_reference_for_article_id($article_id);
+
+    if (!$article_reference) {
+      $article_reference = new stdClass();
+      $article_reference->type = 'elife_article_reference';
+      node_object_prepare($article_reference);
+      $article_reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value'] = $article_id;
+      $article_reference->language = LANGUAGE_NONE;
+      $article_reference->uid = 1;
+      node_submit($article_reference);
+    }
+
+    $article_reference->title = sprintf('%s: %s', $article_id, $node->title);
+    $article_reference->status = $node->status;
+
+    $article_reference->elife_autogenerating = TRUE; // Hack to stop the below happening.
+    node_save($article_reference);
+  }
+  elseif ('elife_article_reference' === $node->type && !isset($node->elife_autogenerating)) {
+    $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+
+    $article = ElifeArticleVersion::getArticle($article_id);
+
+    if ($article) {
+      $node->title = sprintf('%s: %s', $article_id, $article->title);
+      $node->status = $article->status;
+    }
+    else {
+      $node->status = NODE_NOT_PUBLISHED;
+    }
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function elife_article_reference_node_delete($node) {
+  if ('elife_article' !== $node->type || empty($node->field_elife_a_article_id)) {
+    return;
+  }
+
+  $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+
+  $article_reference = elife_article_reference_for_article_id($article_id);
+
+  if ($article_reference) {
+    $article_reference->status = NODE_NOT_PUBLISHED;
+    $article_reference->elife_autogenerating = TRUE; // Hack to stop elife_article_reference_node_presave() from happening.
+    node_save($article_reference);
+  }
+}
+
+/**
+ * Get article reference entity for an article ID.
+ *
+ * @param string $article_id
+ *   Article ID.
+ *
+ * @return object|bool
+ *   Article reference entity, or FALSE.
+ */
+function elife_article_reference_for_article_id($article_id) {
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_article_reference')
+    ->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=')
+    ->range(0, 1);
+
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    $article_versions = entity_load('node', $nids);
+
+    return reset($article_versions);
+  }
+
+  return FALSE;
+}
+
+function elife_article_reference_get_article_version($article_reference) {
+  $article = ElifeArticleVersion::getArticle($article_reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
+  if ($article && !empty($article->field_elife_a_versions)) {
+    $article_version = node_load($article->field_elife_a_versions[LANGUAGE_NONE][0]['target_id']);
+    if ($article_version) {
+      return $article_version;
+    }
+  }
+
+  return FALSE;
+}
+
+/**
  * Get the image style path for the article striking image.
  *
  * @param string $article_id

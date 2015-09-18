@@ -14,6 +14,7 @@ use EntityFieldQueryExtraFields;
 use EntityListWrapper;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use stdClass;
 
 class ElifeArticleVersion {
 
@@ -1191,60 +1192,38 @@ class ElifeArticleVersion {
   }
 
   /**
-   * Get the section for the supplied article id.
+   * Get the section for the supplied node.
    *
-   * @param string $reference
-   *   Article Id or url.
-   * @param string $type
-   *   Article or url.
+   * @param stdClass $node
+   *   Node.
    *
-   * @return array
-   *   Array of section name and code.
+   * @return string
+   *   Section code.
    */
-  public static function getSection(&$reference, $type = 'url') {
+  public static function getSectionCode(stdClass $node) {
     $available_sections = self::availableSections();
     $section_code = NULL;
     $section_name = NULL;
     $reference_path = NULL;
-    if ($type == 'url') {
-      if ($path = drupal_lookup_path('source', $reference)) {
-        $node = menu_get_object('node', 1, $path);
-        if (array_key_exists($node->type, $available_sections)) {
-          $section_code = $node->type;
+
+    if ('elife_article_reference' === $node->type) {
+      $article_ver = elife_article_reference_get_article_version($node);
+
+      /* @var EntityDrupalWrapper $art_wrapper */
+      $node_wrapper = entity_metadata_wrapper('node', $article_ver);
+      $categories = self::getCategories($node_wrapper->field_elife_a_article_version_id->value());
+      if (!empty($categories) && !empty($categories['display-channel'])) {
+        $section_title = $categories['display-channel'][0];
+        if ($key = array_search(strtolower($section_title), array_map('strtolower', $available_sections))) {
+          return $key;
         }
       }
-      if (!$section_code) {
-        $section_code = 'other';
-      }
-      $reference_path = url($reference, ['absolute' => TRUE]);
     }
-    else {
-      if ($article = self::getArticle($reference)) {
-        /* @var EntityDrupalWrapper $art_wrapper */
-        $art_wrapper = entity_metadata_wrapper('node', $article);
-        /* @var EntityDrupalWrapper $article_version */
-        $article_version = $art_wrapper->field_elife_a_versions[0];
-        $categories = self::getCategories($article_version->field_elife_a_article_version_id->value());
-        if (!empty($categories) && !empty($categories['display-channel'])) {
-          $section_title = $categories['display-channel'][0];
-          if ($key = array_search(strtolower($section_title), array_map('strtolower', $available_sections))) {
-            $section_code = $key;
-          }
-        }
-        $reference_path = drupal_get_path_alias('node/' . $article_version->nid->value());
-      }
+    elseif (array_key_exists($type = preg_replace('/^elife_/', '', $node->type), $available_sections)) {
+      return $type;
     }
-    if ($reference_path) {
-      $reference = $reference_path;
-    }
-    if ($section_code) {
-      $code = preg_replace('/^elife_/', '', $section_code);
-      $section = array(
-        'code' => $code,
-        'name' => $available_sections[$section_code],
-      );
-      return $section;
-    }
+
+    return 'other';
   }
 
   /**
@@ -1269,8 +1248,8 @@ class ElifeArticleVersion {
         'short' => 'Short Report',
         'correction' => 'Correction',
         'retraction' => 'Retraction',
-        'elife_news' => 'eLife News',
-        'elife_podcast' => 'Podcast',
+        'news' => 'eLife News',
+        'podcast' => 'Podcast',
         'other' => 'Supplementary',
       );
 
@@ -1281,24 +1260,25 @@ class ElifeArticleVersion {
   }
 
   /**
-   * Get acceptable identifier for section.
+   * Get section name for a code.
    *
    * @param string $section
-   *   Section name.
+   *   Section code.
    *
-   * @return bool|string
-   *   Identifier for use in markup.
+   * @return string
+   *   Section name.
    */
-  public static function getSectionId($section) {
-    $sections = self::availableSections();
-    if (array_key_exists($section, $sections)) {
-      return $section;
+  public static function getSection($section) {
+    if (!empty($section)) {
+      $sections = self::availableSections();
+      if (array_key_exists($section, $sections)) {
+        return $section;
+      }
+      elseif ($key = array_search(strtolower($section), array_map('strtolower', $sections))) {
+        return $key;
+      }
     }
-    elseif ($key = array_search(strtolower($section), array_map('strtolower', $sections))) {
-      return $key;
-    }
-    else {
-      return FALSE;
-    }
+
+    return 'Supplementary';
   }
 }

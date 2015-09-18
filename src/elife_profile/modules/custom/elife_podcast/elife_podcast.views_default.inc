@@ -34,7 +34,8 @@ function elife_podcast_views_default_views() {
   $handler->display->display_options['style_options']['row']['first_class'] = '';
   $handler->display->display_options['style_options']['row']['last_class'] = '';
   $handler->display->display_options['style_options']['row']['striping_classes'] = '';
-  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_plugin'] = 'entity';
+  $handler->display->display_options['row_options']['view_mode'] = 'elife_teaser_compact';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -42,21 +43,26 @@ function elife_podcast_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   /* Contextual filter: Content: Articles (field_elife_p_articles) */
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['id'] = 'field_elife_p_articles_value';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['table'] = 'field_data_field_elife_p_articles';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['field'] = 'field_elife_p_articles_value';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['default_action'] = 'not found';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['default_argument_type'] = 'fixed';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_elife_p_articles_value']['limit'] = '0';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['id'] = 'field_elife_p_articles_target_id';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['table'] = 'field_data_field_elife_p_articles';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['field'] = 'field_elife_p_articles_target_id';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['default_action'] = 'not found';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['validate']['type'] = 'node';
+  $handler->display->display_options['arguments']['field_elife_p_articles_target_id']['validate_options']['types'] = array(
+    'elife_article_reference' => 'elife_article_reference',
+  );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -72,18 +78,8 @@ function elife_podcast_views_default_views() {
     'elife_podcast' => 'elife_podcast',
   );
 
-  /* Display: Article Podcast */
-  $handler = $view->new_display('panel_pane', 'Article Podcast', 'panel_pane_1');
-  $handler->display->display_options['argument_input'] = array(
-    'field_elife_p_articles_value' => array(
-      'type' => 'user',
-      'context' => 'entity:field_collection_item.archived',
-      'context_optional' => 0,
-      'panel' => '0',
-      'fixed' => '',
-      'label' => 'Content: Articles (field_elife_p_articles)',
-    ),
-  );
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
   $export['elife_article_podcast'] = $view;
 
   return $export;

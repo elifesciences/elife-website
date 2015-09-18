@@ -68,8 +68,8 @@ Feature: Article Resource - POST (API)
       | field_elife_a_article_version_id | field_elife_a_article_id |
       | 05227.1                          | 05227                    |
     And "elife_article" content:
-      | field_elife_a_article_id |
-      | 05227                    |
+      | title | field_elife_a_article_id |
+      | 05227 | 05227                    |
     And I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
       """

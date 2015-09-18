@@ -19,9 +19,11 @@ function elife_podcast_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
         'weight' => 1,
       ),
       'elife_teaser_compact' => array(
@@ -37,21 +39,23 @@ function elife_podcast_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_p_articles',
     'label' => 'Articles',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
-      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'text',
+      'module' => 'entityreference',
       'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
         'size' => 60,
       ),
-      'type' => 'text_textfield',
+      'type' => 'entityreference_autocomplete',
       'weight' => 2,
     ),
   );

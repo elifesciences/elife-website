@@ -5,3 +5,5 @@ core = 7.x
 dependencies[] = elife_content_alerts
 dependencies[] = elife_front_matter
 dependencies[] = elife_article
+dependencies[] = elife_article_reference
+dependencies[] = elife_podcast

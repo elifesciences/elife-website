@@ -32,10 +32,11 @@ function elife_article_reference_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_a_article_id',
     'label' => 'Article ID',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -103,6 +104,7 @@ function elife_article_reference_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
+          'class' => '',
           'image_link' => '',
           'image_style' => '',
         ),

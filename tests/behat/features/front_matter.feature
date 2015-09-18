@@ -23,8 +23,8 @@ Feature: Front Matter
         }
       """
     And "elife_cover" content:
-      | title | field_elife_fm_reference | field_elife_fm_reference_type |
-      | Check out 05224 | 05224 | Article |
+      | title | field_elife_fm_reference |
+      | Check out 05224 | 05224: VOR 05224 v1 |
     And I add "elife_cover" with title "Check out 05224" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Check out 05224" in the "front_matter_cover" region
@@ -33,19 +33,28 @@ Feature: Front Matter
     And I should see "VOR 05224 v1" in the "h1" element
 
   @api
-  Scenario: Load cover item to homepage referencing a URL
-    Given "elife_cover" content:
-      | title | field_elife_fm_reference | field_elife_fm_reference_type |
-      | Podcast 1 | podcast/1 | Url |
+  Scenario: Load cover item to homepage referencing a podcast
+    Given "elife_podcast" content:
+      | title |
+      | Podcast 1 |
+    And "elife_cover" content:
+      | title | field_elife_fm_reference |
+      | Podcast 1 | Podcast 1 |
     And I add "elife_cover" with title "Podcast 1" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Podcast 1" in the "front_matter_cover" region
     And I follow "Podcast 1" in the "front_matter_cover" region
-    And I should be on "podcast/1"
+    And I should be on "content/podcast-1"
 
   @api
   Scenario: Load front matter items to homepage
-    Given there are articles:
+    Given "elife_podcast" content:
+      | title |
+      | Podcast 1 |
+    And "elife_collection" content:
+      | title |
+      | Collection 1 |
+    And there are articles:
       """
         [
           {
@@ -107,13 +116,13 @@ Feature: Front Matter
         ]
       """
     And "elife_front_matter" content:
-      | title | field_elife_fm_reference | field_elife_fm_reference_type |
-      | Check out 05224 | 05224 | Article |
-      | Check out 05225 | 05225 | Article |
-      | Check out 05226 | 05226 | Article |
-      | Check out 05227 | 05227 | Article |
-      | Podcast 1 | podcast/1 | Url |
-      | Collection 1 | collection/1 | Url |
+      | title | field_elife_fm_reference |
+      | Check out 05224 | 05224: VOR 05224 |
+      | Check out 05225 | 05225: VOR 05225 |
+      | Check out 05226 | 05226: VOR 05226 |
+      | Check out 05227 | 05227: VOR 05227 |
+      | Podcast 1 | Podcast 1 |
+      | Collection 1 | Collection 1 |
     And I add "elife_front_matter" with title "Check out 05224" to entityqueue "elife_front_matter_col_1"
     And I add "elife_front_matter" with title "Check out 05225" to entityqueue "elife_front_matter_col_1"
     And I add "elife_front_matter" with title "Podcast 1" to entityqueue "elife_front_matter_col_1"

@@ -18,17 +18,34 @@ function elife_podcast_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_elife_p_articles',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'target_id' => array(
+        0 => 'target_id',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'entityreference',
     'settings' => array(
-      'max_length' => 255,
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'entityqueue' => array(
+            'status' => 0,
+          ),
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(
+          'elife_article_reference' => 'elife_article_reference',
+        ),
+      ),
+      'target_type' => 'node',
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_elife_p_body'
