@@ -8,6 +8,59 @@
     "content-hash": "07fb65d10f614fce0d2bb1152c64f7eb",
     "packages": [
         {
+            "name": "beberlei/assert",
+            "version": "v2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
+                "reference": "7281b1fd8118b31cb9162c2fb5a4cc6f01d62ed6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "@stable"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assert": "lib/"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "time": "2015-08-21 16:50:17"
+        },
+        {
             "name": "doctrine/annotations",
             "version": "v1.2.6",
             "source": {
@@ -182,6 +235,50 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "elife/elife-ingest-xsl",
+            "version": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
+                "reference": "5d5305239246d714a8001633ef5eb9b5b18750ce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/9162cb1bf59985a0af9312b54363d4aaf4060b7e",
+                "reference": "5d5305239246d714a8001633ef5eb9b5b18750ce",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "~2.3",
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.2",
+                "phpunit/phpunit": "~4.7",
+                "symfony/var-dumper": "^2.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "eLifeIngestXsl\\": [
+                        "domain/src/eLifeIngestXsl/"
+                    ]
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "spec\\eLifeIngestXsl\\": "domain/spec/eLifeIngestXsl/",
+                    "tests\\eLifeIngestXsl\\": [
+                        "domain/tests/eLifeIngestXsl/"
+                    ]
+                }
+            },
+            "support": {
+                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
+            },
+            "time": "2015-09-18 11:35:07"
         },
         {
             "name": "jms/metadata",
@@ -3255,6 +3352,7 @@
         "php": 0,
         "jms/serializer": 0,
         "symfony/process": 0,
+        "elife/elife-ingest-xsl": 20,
         "monolog/monolog": 0,
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
