@@ -43,6 +43,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
 
       if ($html) {
         $block = new stdClass();
+        // @todo - elife - nlisgo - suppress main-text for now as creating a lot of noise!
         $block->content = ($conf['markup_section'] == 'main-text') ? '<p>Under construction</p>' : $html;
 
         return $block;
