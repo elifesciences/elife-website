@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * elife_article_assets.features.field_base.inc
+ * elife_article_reference.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function elife_article_assets_field_default_field_bases() {
+function elife_article_reference_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_elife_aa_striking_figure'

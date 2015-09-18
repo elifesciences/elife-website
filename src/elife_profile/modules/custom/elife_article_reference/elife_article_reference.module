@@ -1,12 +1,12 @@
 <?php
 /**
  * @file
- * Code for the eLife: Article Assets feature.
+ * Code for the eLife: Article Reference feature.
  */
 
 use Drupal\elife_article\ElifeArticleVersion;
 
-include_once 'elife_article_assets.features.inc';
+include_once 'elife_article_reference.features.inc';
 
 /**
  * Get the image style path for the article striking image.
@@ -21,19 +21,19 @@ include_once 'elife_article_assets.features.inc';
  * @return string
  *   Image style path
  */
-function elife_article_assets_striking_image_path($article_id, $image_style = 'elife_striking_image', $figure = NULL) {
+function elife_article_reference_striking_image_path($article_id, $image_style = 'elife_striking_image', $figure = NULL) {
   if ($image_style = image_style_load($image_style)) {
     $id_query = new EntityFieldQuery();
     $id_query->entityCondition('entity_type', 'node');
-    $id_query->entityCondition('bundle', 'elife_article_assets');
+    $id_query->entityCondition('bundle', 'elife_article_reference');
     $id_query->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=');
     $id_query->range(0, 1);
     $ids = $id_query->execute();
     if (!empty($ids['node'])) {
       $nids = array_keys($ids['node']);
-      $article_assets = node_load($nids[0]);
+      $article_reference = node_load($nids[0]);
       /* @var EntityDrupalWrapper $ewrapper */
-      if ($ewrapper = entity_metadata_wrapper('node', $article_assets)) {
+      if ($ewrapper = entity_metadata_wrapper('node', $article_reference)) {
         if ($image_properties = $ewrapper->field_elife_aa_striking_image->value()) {
           $image_uri = $image_properties['uri'];
           $image_style_path = image_style_path($image_style['name'], $image_uri);

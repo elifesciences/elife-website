@@ -52,7 +52,7 @@ function elife_deploy_install() {
     'Research advance' => 'Research advances',
     'Registered report' => 'Registered reports',
   ];
-  variable_set('elife_category_assets_plural', $category_plurals);
+  variable_set('elife_category_reference_plural', $category_plurals);
 
   $category_weights = [
     'Editorial',
@@ -66,5 +66,5 @@ function elife_deploy_install() {
     'Correction',
     'Retraction',
   ];
-  variable_set('elife_category_assets_weight', $category_weights);
+  variable_set('elife_category_reference_weight', $category_weights);
 }

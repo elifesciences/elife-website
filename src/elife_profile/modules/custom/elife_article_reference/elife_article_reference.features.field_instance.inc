@@ -1,19 +1,19 @@
 <?php
 /**
  * @file
- * elife_article_assets.features.field_instance.inc
+ * elife_article_reference.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function elife_article_assets_field_default_field_instances() {
+function elife_article_reference_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'node-elife_article_assets-field_elife_a_article_id'
-  $field_instances['node-elife_article_assets-field_elife_a_article_id'] = array(
-    'bundle' => 'elife_article_assets',
+  // 'node-elife_article_reference-field_elife_a_article_id'
+  $field_instances['node-elife_article_reference-field_elife_a_article_id'] = array(
+    'bundle' => 'elife_article_reference',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -52,9 +52,9 @@ function elife_article_assets_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_assets-field_elife_aa_striking_figure'
-  $field_instances['node-elife_article_assets-field_elife_aa_striking_figure'] = array(
-    'bundle' => 'elife_article_assets',
+  // 'node-elife_article_reference-field_elife_aa_striking_figure'
+  $field_instances['node-elife_article_reference-field_elife_aa_striking_figure'] = array(
+    'bundle' => 'elife_article_reference',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -93,9 +93,9 @@ function elife_article_assets_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_assets-field_elife_aa_striking_image'
-  $field_instances['node-elife_article_assets-field_elife_aa_striking_image'] = array(
-    'bundle' => 'elife_article_assets',
+  // 'node-elife_article_reference-field_elife_aa_striking_image'
+  $field_instances['node-elife_article_reference-field_elife_aa_striking_image'] = array(
+    'bundle' => 'elife_article_reference',
     'deleted' => 0,
     'description' => '',
     'display' => array(
