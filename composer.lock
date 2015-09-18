@@ -246,7 +246,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/5d5305239246d714a8001633ef5eb9b5b18750ce",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/9162cb1bf59985a0af9312b54363d4aaf4060b7e",
                 "reference": "5d5305239246d714a8001633ef5eb9b5b18750ce",
                 "shasum": ""
             },
