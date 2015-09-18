@@ -9,8 +9,7 @@
         "merge-plugin": {
             "include": [
                 "./src/elife_profile/modules/*/*/composer.json",
-                "./tests/*/composer.json",
-                "./src/elife_profile/libraries/*/composer.json"
+                "./tests/*/composer.json"
             ]
         }
     },
