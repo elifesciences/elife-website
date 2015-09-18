@@ -43,7 +43,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
 
       if ($html) {
         $block = new stdClass();
-        $block->content = $html;
+        $block->content = ($conf['markup_section'] == 'main-text') ? '<p>Under construction</p>' : $html;
 
         return $block;
       }
