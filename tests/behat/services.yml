@@ -11,5 +11,5 @@ services:
   elife.behat.solr_client:
     class: GuzzleHttp\Client
     arguments:
-      - { base_url: %elife.solr_uri% }
+      - { base_url: %elife.solr_uri%, defaults: { version: 1.0 } }
     public: false
