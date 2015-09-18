@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * elife_term_assets.views_default.inc
+ * elife_term_reference.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function elife_term_assets_views_default_views() {
+function elife_term_reference_views_default_views() {
   $export = array();
 
   $view = new view();
@@ -70,7 +70,7 @@ function elife_term_assets_views_default_views() {
   $handler->display->display_options['filters']['type']['table'] = 'node';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
-    'elife_term_assets' => 'elife_term_assets',
+    'elife_term_reference' => 'elife_term_reference',
   );
 
   /* Display: Term description */

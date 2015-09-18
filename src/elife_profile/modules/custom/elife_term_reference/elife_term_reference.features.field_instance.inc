@@ -1,18 +1,18 @@
 <?php
 /**
  * @file
- * elife_term_assets.features.field_instance.inc
+ * elife_term_reference.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function elife_term_assets_field_default_field_instances() {
+function elife_term_reference_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_term_assets-field_elife_ta_body'
-  $field_instances['node-elife_term_assets-field_elife_ta_body'] = array(
-    'bundle' => 'elife_term_assets',
+  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_body'
+  $field_instances['node-elife_term_reference-field_elife_ta_body'] = array(
+    'bundle' => 'elife_term_reference',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -51,9 +51,9 @@ function elife_term_assets_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_term_assets-field_elife_ta_term'
-  $field_instances['node-elife_term_assets-field_elife_ta_term'] = array(
-    'bundle' => 'elife_term_assets',
+  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_term'
+  $field_instances['node-elife_term_reference-field_elife_ta_term'] = array(
+    'bundle' => 'elife_term_reference',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',

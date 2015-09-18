@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * elife_term_assets.features.field_base.inc
+ * elife_term_reference.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function elife_term_assets_field_default_field_bases() {
+function elife_term_reference_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_elife_ta_body'

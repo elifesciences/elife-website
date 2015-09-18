@@ -5,10 +5,7 @@ Feature: Podcast
 
   @api
   Scenario: Find podcast link on a Research article page
-    Given "elife_podcast" content:
-      | title      | field_elife_p_articles |
-      | Podcast 13 | 05224                  |
-    And there is an article:
+    Given there is an article:
       """
         {
           "title": "VOR 05224",
@@ -25,15 +22,15 @@ Feature: Podcast
           "publish": "1"
         }
       """
+    And "elife_podcast" content:
+      | title      | field_elife_p_articles |
+      | Podcast 13 | 05224: VOR 05224       |
     When I am on "content/4/e05224"
     Then I should see the link "Podcast 13" in the "sidebar" region
 
   @api
   Scenario: Only display podcast link on appropriate page
-    Given "elife_podcast" content:
-      | title      | field_elife_p_articles |
-      | Podcast 13 | 05224, 05226           |
-    And there are articles:
+    Given there are articles:
       """
         [
           {
@@ -80,6 +77,9 @@ Feature: Podcast
           }
         ]
       """
+    And "elife_podcast" content:
+      | title      | field_elife_p_articles             |
+      | Podcast 13 | 05224: VOR 05224, 05226: VOR 05226 |
     Then I am on "content/4/e05224"
     And I should see the link "Podcast 13" in the "sidebar" region
     And I am on "content/4/e05225"

@@ -389,7 +389,7 @@ Feature: Archive
       | 2012-10-01 | 2012/10 | 2012/10 |
 
   Scenario: Correct set of article types in the archive listing
-    Given I set variable "elife_category_assets_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
+    Given I set variable "elife_category_reference_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
     And there are articles:
       """
         [

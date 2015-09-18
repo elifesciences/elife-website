@@ -2270,16 +2270,17 @@ function elife_article_pages_default_page_manager_handlers() {
   $display->content['new-f57dee68-7d17-40b4-85e3-293ed11e1198'] = $pane;
   $display->panels['side_top'][1] = 'new-f57dee68-7d17-40b4-85e3-293ed11e1198';
   $pane = new stdClass();
-  $pane->pid = 'new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab';
+  $pane->pid = 'new-9a1ba0b1-0f18-45ce-a4ed-98c2f8ee32e3';
   $pane->panel = 'side_top';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'elife_article_podcast-panel_pane_1';
+  $pane->type = 'elife_article_podcasts';
+  $pane->subtype = 'elife_article_podcasts';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
-    'arguments' => array(
-      'field_elife_p_articles_value' => '%node:field-elife-a-article-id',
-    ),
+    'context' => 'argument_entity_id:node_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
   );
   $pane->cache = array();
   $pane->style = array(
@@ -2289,9 +2290,9 @@ function elife_article_pages_default_page_manager_handlers() {
   $pane->extras = array();
   $pane->position = 2;
   $pane->locks = array();
-  $pane->uuid = 'ffdb185e-6d8e-48b5-901a-2bbda76fa9ab';
-  $display->content['new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab'] = $pane;
-  $display->panels['side_top'][2] = 'new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab';
+  $pane->uuid = '9a1ba0b1-0f18-45ce-a4ed-98c2f8ee32e3';
+  $display->content['new-9a1ba0b1-0f18-45ce-a4ed-98c2f8ee32e3'] = $pane;
+  $display->panels['side_top'][2] = 'new-9a1ba0b1-0f18-45ce-a4ed-98c2f8ee32e3';
   $pane = new stdClass();
   $pane->pid = 'new-d9065221-a6d3-4ec2-b330-459713b5baed';
   $pane->panel = 'side_top';
@@ -2430,7 +2431,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $display->content['new-2f7bfe63-2c67-4846-bee6-ab62caab867d'] = $pane;
   $display->panels['top'][0] = 'new-2f7bfe63-2c67-4846-bee6-ab62caab867d';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = 'new-ffdb185e-6d8e-48b5-901a-2bbda76fa9ab';
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view__elife_research_article'] = $handler;
 

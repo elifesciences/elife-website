@@ -1,13 +1,16 @@
 <?php
 /**
  * @file
- * elife_article_assets.features.inc
+ * elife_article_reference.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function elife_article_assets_ctools_plugin_api($module = NULL, $api = NULL) {
+function elife_article_reference_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_validation" && $api == "default_field_validation_rules") {
+    return array("version" => "2");
+  }
   if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => "1");
   }
@@ -16,7 +19,7 @@ function elife_article_assets_ctools_plugin_api($module = NULL, $api = NULL) {
 /**
  * Implements hook_image_default_styles().
  */
-function elife_article_assets_image_default_styles() {
+function elife_article_reference_image_default_styles() {
   $styles = array();
 
   // Exported image style: elife_striking_image.
@@ -40,10 +43,10 @@ function elife_article_assets_image_default_styles() {
 /**
  * Implements hook_node_info().
  */
-function elife_article_assets_node_info() {
+function elife_article_reference_node_info() {
   $items = array(
-    'elife_article_assets' => array(
-      'name' => t('eLife Article Assets'),
+    'elife_article_reference' => array(
+      'name' => t('eLife Article Reference'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

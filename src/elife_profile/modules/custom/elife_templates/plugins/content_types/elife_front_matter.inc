@@ -30,7 +30,10 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $context->data);
   $reference = $ewrapper->field_elife_fm_reference->value();
-  $section = ElifeArticleVersion::getSection($reference, $ewrapper->field_elife_fm_reference_type->value());
+
+  if('elife_article_reference' === $reference->type) {
+    $reference = elife_article_reference_get_article_version($reference);
+  }
 
   $variables = array();
   $variables['display'] = ($conf['front_matter_type']) ? $conf['front_matter_type'] : 'regular';
@@ -55,15 +58,15 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
 
   $title_classes = array('headlines-secondary__item_title');
   $attribs = array('class' => $title_classes);
-  $variables['title'] = l($ewrapper->title->value(), $reference, array('attributes' => $attribs, 'html' => TRUE));
+  $variables['title'] = l($ewrapper->title->value(), 'node/' . $reference->nid, array('attributes' => $attribs, 'html' => TRUE));
 
-  $variables['section'] = $section['code'];
+  $variables['section'] = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
 
   // If a relabel value has been supplied then use that value for the section.
   // name other was use standard.
   $relabel = $ewrapper->field_elife_fm_relabel->value();
   if (empty($relabel)) {
-    $section_name = $section['name'];
+    $section_name = ElifeArticleVersion::getSection($variables['section']);
   }
   else {
     $section_name = $relabel;

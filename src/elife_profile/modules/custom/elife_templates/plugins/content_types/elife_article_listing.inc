@@ -137,7 +137,7 @@ function _elife_article_listing_detail($node, &$variables, $conf) {
     $detail['doi'] = $ewrapper->field_elife_a_doi->value();
   }
 
-  if (!empty($conf['image_style']) && $image_path = elife_article_assets_striking_image_path($ewrapper->field_elife_a_article_id->value(), $conf['image_style'])) {
+  if (!empty($conf['image_style']) && $image_path = elife_article_reference_striking_image_path($ewrapper->field_elife_a_article_id->value(), $conf['image_style'])) {
     $detail['image'] = theme('image', array('path' => $image_path));
   }
   // elife_article_get_citation_dates($detail, $options['date_options']);

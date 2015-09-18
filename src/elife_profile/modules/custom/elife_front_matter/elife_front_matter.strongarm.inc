@@ -30,6 +30,9 @@ function elife_front_matter_strongarm() {
         'redirect' => array(
           'weight' => '6',
         ),
+        'rabbit_hole' => array(
+          'weight' => '0',
+        ),
       ),
       'display' => array(),
     ),
@@ -55,6 +58,9 @@ function elife_front_matter_strongarm() {
         ),
         'redirect' => array(
           'weight' => '5',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '0',
         ),
       ),
       'display' => array(),
