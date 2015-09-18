@@ -22,7 +22,7 @@ final class ElifeXslMarkupService extends ElifeMarkupService {
     'abstract' => 'getAbstract',
     'digest' => 'getDigest',
     'references' => 'getReferences',
-    'acknowledgements' => 'getAcknowledgement',
+    'acknowledgements' => 'getAcknowledgements',
     'decision-letter' => 'getDecisionLetter',
     'author-response' => 'getAuthorResponse',
     'datasets' => 'getDatasets',
