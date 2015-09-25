@@ -82,6 +82,8 @@ projects:
     version: '3.0-alpha2'
   libraries:
     version: '2.2'
+  link:
+    version: '1.3'
   m4032404:
     version: '1.0-beta2'
   mathjax:
