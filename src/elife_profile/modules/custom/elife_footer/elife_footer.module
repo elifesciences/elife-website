@@ -214,6 +214,10 @@ function elife_footer_footer_load() {
       'data' => l(t('Podcasts'), 'podcast', array('attributes' => $section_links_attributes)),
       'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--podcasts'),
     ),
+    array(
+      'data' => l(t('Collections'), 'collections', array('attributes' => $section_links_attributes)),
+      'class' => array('site-footer__section_list_item', 'site-footer__section_list_item--collections'),
+    ),
   );
 
   // Only display link to elife-news once elife_news module has been introduced.

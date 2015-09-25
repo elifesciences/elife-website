@@ -1,0 +1,63 @@
+.elife-collection {
+  background-color: rgb(230, 230, 230);
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+  line-height: 1.4em;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.elife-collection .section-content {
+  width: 100%;
+}
+
+.elife-collection p {
+  margin-bottom: 1em;
+}
+
+.elife-collection__content {
+  background-color: rgb(255, 255, 255);
+  -webkit-box-shadow: 0 0 5px rgb(170, 170, 170);
+  box-shadow: 0 0 5px rgb(170, 170, 170);
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 25px;
+}
+
+@media only all and (min-width: 768px) {
+  .elife-collection__content {
+    margin-left: 5%;
+    width: 62%;
+    float: left;
+  }
+
+  .elife-collection__content--full {
+    width: 89%;
+  }
+}
+
+.elife-collection__sidebar {
+  background-color: rgb(255, 255, 255);
+  -webkit-box-shadow: 0 0 5px rgb(170, 170, 170);
+  box-shadow: 0 0 5px rgb(170, 170, 170);
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 25px;
+}
+
+@media only all and (min-width: 768px) {
+  .elife-collection__sidebar {
+    margin-right: 5%;
+    width: 27%;
+    float: right;
+  }
+}
+
+v

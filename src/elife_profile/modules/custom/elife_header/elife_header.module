@@ -162,6 +162,10 @@ function elife_header_header_load() {
     'class' => $header_li_section_class,
   );
   $header_li_section[] = array(
+    'data' => l(t('Collections'), 'collections', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('collections'))))),
+    'class' => $header_li_section_class,
+  );
+  $header_li_section[] = array(
     'data' => l(t('eLife News'), 'elife-news', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('news'))))),
     'class' => $header_li_section_class,
   );

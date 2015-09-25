@@ -15,20 +15,48 @@ function elife_collection_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_collection';
   $strongarm->value = array(
-    'view_modes' => array(),
+    'view_modes' => array(
+      'teaser' => array(
+        'custom_settings' => TRUE,
+      ),
+      'full' => array(
+        'custom_settings' => FALSE,
+      ),
+      'rss' => array(
+        'custom_settings' => FALSE,
+      ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
+      'token' => array(
+        'custom_settings' => FALSE,
+      ),
+      'elife_teaser_compact' => array(
+        'custom_settings' => FALSE,
+      ),
+      'elife_teaser_alternative' => array(
+        'custom_settings' => FALSE,
+      ),
+      'revision' => array(
+        'custom_settings' => FALSE,
+      ),
+    ),
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '5',
+          'weight' => '50',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '49',
         ),
         'redirect' => array(
-          'weight' => '3',
+          'weight' => '48',
+        ),
+        'rabbit_hole' => array(
+          'weight' => '47',
         ),
       ),
       'display' => array(),
@@ -77,7 +105,7 @@ function elife_collection_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_elife_collection_pattern';
-  $strongarm->value = '';
+  $strongarm->value = 'collections/[node:title]';
   $export['pathauto_node_elife_collection_pattern'] = $strongarm;
 
   return $export;

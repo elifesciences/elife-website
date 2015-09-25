@@ -1,0 +1,15 @@
+.elife-collection__content {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 5%;
+  width: 62%;
+  float: left;
+}
+
+.elife-collection__sidebar {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 5%;
+  width: 27%;
+  float: right;
+}

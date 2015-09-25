@@ -1,0 +1,307 @@
+/* hero-block */
+
+.hero-block {
+    box-sizing: border-box;
+    position: relative;
+}
+
+.hero-block__primary_content {
+    box-sizing: border-box;
+    color: rgb(255, 255, 255);
+    display: block;
+    height: 100%;
+    padding: 1em;
+    position: relative;
+    width: 100%;
+}
+
+.hero-block--light .hero-block__primary_content {
+    color: rgb(0, 0, 0);
+}
+
+.hero-block__image_credit {
+    font-size: 0.5em;
+    line-height: 1;
+    opacity: 0.6;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.hero-block__title {
+    display: block;
+    font-family: 'Avenir LT W01 55 Roman', Helvetica, Arial, Verdana, sans-serif;
+    font-size: 1.6em;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.hero-block__sub_title {
+    display: block;
+    font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
+    text-align: center;
+}
+
+@media only all and (min-width: 768px) {
+    .hero-block {
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    .hero-block__primary_content {
+        height: 400px;
+        padding: 3em;
+    }
+
+    .hero-block__image_credit {
+        right: 10px;
+        top: 10px;
+    }
+
+    .hero-block__title {
+        font-size: 4em;
+        text-align: left;
+    }
+
+    .hero-block__sub_title {
+        font-size: 1.5em;
+        text-align: left;
+    }
+}
+
+/* content-column */
+.content-column {
+    box-sizing: border-box;
+    display: block;
+    font-size: 0.9em;
+    line-height: 1.25;
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0 0 1em;
+}
+
+.content-column:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.content-column__item {
+    box-sizing: border-box;
+    padding-top: 1em;
+}
+
+@media only all and (min-width: 400px) {
+    .content-column__item {
+        float: left;
+        width: 50%;
+    }
+}
+
+@media only all and (min-width: 768px) {
+    .content-column {
+        font-size: 1.1em;
+    }
+
+    .content-column__item {
+        width: 25%;
+    }
+}
+
+@media only all and (min-width: 1220px) {
+    .content-column__item {
+        float: none;
+        width: 100%;
+    }
+}
+
+.content-column__type,
+.content-column__title {
+    padding: 0 10px;
+}
+
+@media only all and (min-width: 1220px) {
+    .content-column__type,
+    .content-column__title {
+        padding-left: 28px;
+    }
+}
+
+.content-column__type {
+    font-size: 0.75em;
+    line-height: 1;
+    padding-bottom: 0.5em;
+    text-transform: uppercase;
+}
+
+.content-column__title {
+    display: block;
+    min-height: 30px;
+}
+
+@media only all and (min-width: 1220px) {
+    .content-column__item--podcast .content-column__title {
+        background: url('../images/podcast-black.svg') no-repeat 0 -3px;
+        background-size: 25px 25px;
+    }
+
+    .hero-block:not(.hero-block--light) .content-column__item--podcast .content-column__title {
+        background-image: url('../images/podcast-white.svg');
+    }
+}
+
+.hero-block--light .hero-block__content-column {
+    color: rgb(0, 0, 0);
+}
+
+/* Content column when inside a hero-block */
+@media only all and (min-width: 1220px) {
+    .hero-block__content-column .content-column__title:link,
+    .hero-block__content-column .content-column__title:visited {
+        color: inherit;
+    }
+
+    .hero-block__content-column .content-column__title:hover,
+    .hero-block__content-column .content-column__title:active,
+    .hero-block__content-column .content-column__title:focus {
+        opacity: 0.5;
+    }
+
+    .hero-block__content-column {
+        color: rgb(255, 255, 255);
+        display: block;
+        float: none;
+        position: absolute;
+        right: 50px;
+        top: 50px;
+        width: 22.5%;
+    }
+
+    .hero-block__title {
+        /* (space available that's not content column - right offest of content
+        column - desired minimum gap between content column & title) */
+        width: calc(77.5% - 50px - 5px);
+    }
+
+    .hero-block__sub_title {
+        /* (space available that's not content column - right offest of content
+        column - desired minimum gap between content column & title) */
+        width: calc(77.5% - 50px - 5px);
+    }
+
+}
+
+/* cta */
+
+.cta {
+    line-height: 1.25;
+    position: relative;
+}
+
+.cta:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cta__text {
+    display: inline;
+    float: left;
+    width: calc(100% - 6em);
+}
+
+@media only all and (min-width: 768px) {
+    .cta__text {
+        display: block;
+        float: none;
+        margin-bottom: 1em;
+        width: auto;
+    }
+}
+
+.cta__link,
+a.cta__link {
+    background-color: rgb(206, 12, 78);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    float: right;
+    font-family: 'Avenir LT W01 45 Book', Helvetica, Arial, Verdana, sans-serif;
+    font-size: 0.85em;
+    font-weight: bold;
+    padding: 0.5em;
+    text-align: center;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.cta__link:hover {
+    background-color: rgb(235, 12, 87);
+}
+
+@media only all and (min-width: 768px) {
+    .cta__link,
+    a.cta__link {
+        display: inline-block;
+        float: none;
+        padding: 1em 2em;
+        width: auto;
+    }
+}
+
+/* cta when inside a hero-block */
+.hero-block__cta {
+    font-size: 0.75em;
+    margin: 1em auto 0;
+    padding-top: 1em;
+    text-align: center;
+    width: 90%;
+}
+
+.hero-block__cta .cta__link,
+.hero-block__cta a.cta__link {
+    display: inline-block;
+    float: none;
+    margin: 1em auto 0;
+}
+
+.hero-block__cta .cta__text {
+    float: none;
+}
+
+@media only all and (min-width: 768px) {
+    .hero-block__cta {
+        bottom: 1em;
+        font-size: 1em;
+        left: 3em;
+        position: absolute;
+        width: calc(75% - 50px - 5px);
+    }
+
+    .hero-block__cta {
+        margin: 1em 0 0;
+        text-align: left;
+    }
+
+    .hero-block__cta .cta__link,
+    .hero-block__cta a.cta__link {
+        display: inline-block;
+    }
+}
+
+@media only all and (min-width: 1220px) {
+    .hero-block__cta {
+        bottom: 3em;
+        font-size: 1em;
+        left: 3em;
+        position: absolute;
+        max-width: 20%;
+    }
+}
