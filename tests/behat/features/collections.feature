@@ -94,7 +94,6 @@ Feature: Collections
     And I should not see text matching "VOR 05224 v1"
     And I should not see text matching "VOR 05226 v1"
 
-
   Scenario: Collection of collections page
     Given I am logged in as a user with the "eLife Editor" permission
     Given there are articles:
