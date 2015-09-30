@@ -164,95 +164,64 @@ Feature: Collections
           ]
      """
 
-  Scenario: Create collection page for Algoriphagus
+  Scenario: Create collection page
     Given there are articles:
     """
         [
           {
-            "title": "VOR 05224 v1",
+            "title": "VOR 05229",
             "version": "1",
-            "doi": "10.7554/eLife.05224.1",
+            "doi": "10.7554/eLife.05229.1",
             "volume": "4",
-            "elocation-id": "e05224",
-            "article-id": "05224",
-            "article-version-id": "05224.1",
+            "elocation-id": "e05229",
+            "article-id": "05229",
+            "article-version-id": "05229.1",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05224v1",
+            "path": "content/4/e05229v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
-            "keywords": {
-              "author-keywords": [
-                "Algoriphagus"
-              ]
-            }
+            "publish": "1"
           },
           {
-            "title": "VOR 05224 v2",
-            "version": "2",
-            "doi": "10.7554/eLife.05224.2",
+            "title": "VOR 05252",
+            "version": "1",
+            "doi": "10.7554/eLife.05252.1",
             "volume": "4",
-            "elocation-id": "e05224",
-            "article-id": "05224",
-            "article-version-id": "05224.2",
+            "elocation-id": "e05252",
+            "article-id": "05252",
+            "article-version-id": "05252.1",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05224v2",
+            "path": "content/4/e05252v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
-            "keywords": {
-              "author-keywords": [
-                "Algoriphagus"
-              ]
-            }
+            "publish": "1"
           },
           {
-            "title": "VOR 05225 v1",
+            "title": "VOR 05262",
             "version": "1",
-            "doi": "10.7554/eLife.05225.1",
+            "doi": "10.7554/eLife.05262.1",
             "volume": "4",
-            "elocation-id": "e05225",
-            "article-id": "05225",
-            "article-version-id": "05225.1",
+            "elocation-id": "e05262",
+            "article-id": "05262",
+            "article-version-id": "05262.1",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05225v1",
+            "path": "content/4/e05262v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
-            "keywords": {
-              "author-keywords": [
-                "Algoriphagus",
-                "bacterial sulfonolipid"
-              ]
-            }
-          },
-          {
-            "title": "VOR 05226 v1",
-            "version": "1",
-            "doi": "10.7554/eLife.05226.1",
-            "volume": "4",
-            "elocation-id": "e05226",
-            "article-id": "05226",
-            "article-version-id": "05226.1",
-            "pub-date": "1979-08-17",
-            "path": "content/4/e05226v1",
-            "article-type": "research-article",
-            "status": "VOR",
-            "publish": "1",
-            "keywords": {
-              "author-keywords": [
-                "bacterial sulfonolipid"
-              ]
-            }
+            "publish": "1"
           }
         ]
       """
+    And "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | First Name               | Last Name               | Executive Staff    |
     When I am viewing an "elife_collection" content:
-      | field_elife_c_keyword | Algoriphagus |
-    Then I should not see text matching "VOR 05224 v2"
-    And I should see text matching "VOR 05225 v1"
-    And I should not see text matching "VOR 05224 v1"
-    And I should not see text matching "VOR 05226 v1"
+      | field_elife_c_articles | 05229: VOR 05229, 05252: VOR 05252     |
+      | field_elife_c_curators | First Name Last Name (Executive Staff) |
+    Then I should see text matching "VOR 05229"
+    And I should see text matching "VOR 05252"
+    And I should not see text matching "VOR 05262"
+
 
   Scenario: Collection of collections page
     When "elife_person_profile" content:
@@ -326,4 +295,3 @@ Feature: Collections
     Then I should see text matching "early-career"
     Then I should see text matching "Algoriphagus"
     Then I should see 2 "h2.collection-teaser__title" element
-
