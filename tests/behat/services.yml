@@ -8,6 +8,13 @@ services:
     tags:
       - { name: event_dispatcher.subscriber }
 
+  elife.behat.listener.isolated_redis:
+    class: eLife\Behat\IsolatedRedisListener
+    arguments:
+      - @elife.isolated_drupal_behat.random_string_generator
+    tags:
+      - { name: event_dispatcher.subscriber }
+
   elife.behat.solr_client:
     class: GuzzleHttp\Client
     arguments:
