@@ -5,15 +5,17 @@ bdpcdir=$basedir/bin/bdpc
 behatdir=$basedir/tests/behat
 TAGS="~@develop"
 FORMAT="progress"
+CLEAN_UP=true
 
 #########################
 # The command line help #
 #########################
 display_help() {
-    echo "Usage: $(basename "$0") [-h] [--tags <tags>] [--format <format>]"
+    echo "Usage: $(basename "$0") [-h] [--tags <tags>] [--format <format>] [--no-clean-up]"
     echo
-    echo "   --tags    set tags argument for behat"
-    echo "   --format  set format argument for behat"
+    echo "   --tags         set tags argument for behat"
+    echo "   --format       set format argument for behat"
+    echo "   --no-clean-up  set the clean_up option for the Isolated-Drupal Behat extension to false"
     exit 1
 }
 
@@ -36,6 +38,10 @@ do
           FORMAT="$2"
            shift 2
            ;;
+      --no-clean-up)
+          CLEAN_UP=false
+           shift
+           ;;
       -*)
           echo "Error: Unknown option: $1" >&2
           ## or call function display_help
@@ -51,6 +57,9 @@ done
 result=0
 cd $behatdir
 echo "$behatdir: $bdpcdir --format '$FORMAT' --tags '$TAGS' --strict"
+if [ $CLEAN_UP = false ] ; then
+    export BEHAT_PARAMS='{"extensions" : {"eLife\\IsolatedDrupalBehatExtension" : {"clean_up" : false}}}'
+fi
 $bdpcdir --format "$FORMAT" --tags "$TAGS" --strict
 rc=$?
 if [ $rc != 0 ] ; then
