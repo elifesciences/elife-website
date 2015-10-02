@@ -36,9 +36,21 @@ $conf['file_public_path'] = 'sites/default/files';
 $conf['file_private_path'] = 'sites/default/private';
 $conf['file_temporary_path'] = sys_get_temp_dir();
 
-// Include the local settings, this MUST contain the $databases variable (and
-// any other sensitive credentials in the future), as well as any custom
-// configuration required during development.
+// Configure Redis (if the PHP extension is available).
+if (extension_loaded('redis')) {
+  $conf['redis_client_interface'] = 'PhpRedis';
+  $conf['lock_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.lock.inc';
+  $conf['path_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.path.inc';
+  $conf['cache_backends'][] = 'profiles/elife_profile/modules/contrib/redis/redis.autoload.inc';
+  $conf['cache_default_class'] = 'Redis_Cache';
+}
+
+// Include the local settings, this MUST contain:
+//
+// - $databases
+// - $conf['redis_client_host'] OR $conf['redis_client_socket']
+//
+// It may also contain any custom configuration required by this environment.
 require __DIR__ . '/../local.settings.php';
 
 // Turn Pathologic setting into the expected string.
@@ -49,4 +61,20 @@ if (isset($conf['pathologic_local_paths'])) {
 // Use PHP's error log if Monolog hasn't been configured.
 if (!isset($conf['elife_monolog_handlers'])) {
   $conf['elife_monolog_handlers'] = new ErrorLogHandler();
+}
+
+// The 'cache_form' bin must be assigned to non-volatile storage.
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
+if (function_exists('drush_get_context') && 'site-install' === drush_get_context()['command']['command']) {
+  // If the site is being installed by Drush, Drupal can't cope with alternative
+  // caches. So, we need to remove any cache variables and let it fall back to
+  // using the database.
+  foreach ($conf as $key => $value) {
+    if ('cache_' === substr($key, 0, 6)) {
+      unset($conf[$key]);
+    }
+  }
+  unset($conf['lock_inc']);
+  unset($conf['path_inc']);
 }

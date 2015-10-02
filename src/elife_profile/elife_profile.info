@@ -91,6 +91,7 @@ dependencies[] = pathauto
 dependencies[] = pathologic
 dependencies[] = rabbit_hole
 dependencies[] = redirect
+dependencies[] = redis
 dependencies[] = reference_delete
 dependencies[] = rest_server
 dependencies[] = rh_node
