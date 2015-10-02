@@ -36,12 +36,14 @@ $conf['file_public_path'] = 'sites/default/files';
 $conf['file_private_path'] = 'sites/default/private';
 $conf['file_temporary_path'] = sys_get_temp_dir();
 
-// Configure Redis.
-$conf['redis_client_interface'] = 'PhpRedis';
-$conf['lock_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.lock.inc';
-$conf['path_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.path.inc';
-$conf['cache_backends'][] = 'profiles/elife_profile/modules/contrib/redis/redis.autoload.inc';
-$conf['cache_default_class'] = 'Redis_Cache';
+// Configure Redis (if the PHP extension is available).
+if (extension_loaded('redis')) {
+  $conf['redis_client_interface'] = 'PhpRedis';
+  $conf['lock_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.lock.inc';
+  $conf['path_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.path.inc';
+  $conf['cache_backends'][] = 'profiles/elife_profile/modules/contrib/redis/redis.autoload.inc';
+  $conf['cache_default_class'] = 'Redis_Cache';
+}
 
 // Include the local settings, this MUST contain:
 //
