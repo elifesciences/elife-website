@@ -1,4 +1,4 @@
-@api 
+@api @debug
 Feature: Collections
   In order to present compelling content
   As a feature editor
@@ -295,3 +295,30 @@ Feature: Collections
     Then I should see text matching "early-career"
     Then I should see text matching "Algoriphagus"
     Then I should see 2 "h2.collection-teaser__title" element
+
+  Scenario: Collection of collections page (when collections have no articles)
+    Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
+    When "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | FirstName                | LastName                | Executive Staff    |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | earlycareer2 | 01638: Article 12 for Collections test, 04900: Article 16 for Collections test | FirstName LastName (Executive Staff) |
+    And I am on "/collections"
+    Then I should see text matching "Algoriphags2"
+    Then I should see text matching "earlycareer2"
+
+  Scenario: Collections without articles
+    When "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | FirstName                | LastName                | Executive Staff    |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
+    And I am on "/collections/algoriphags2"
+    Then I should not see text matching "Article 11 for Collections test"
+    Then I should not see text matching "Article 13 for Collections test"
+    Then I should see text matching "Algoriphags2"
