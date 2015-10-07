@@ -1,6 +1,6 @@
-@api
+@api 
 Feature: In order to represent 'Collections'
-    I can create a Heroblock to present content matter and related images for collections page
+    I can create a Hero block to present content matter and related images for collections page
 
   Background:
     Given there are articles:
@@ -162,7 +162,7 @@ Feature: In order to represent 'Collections'
           ]
      """
 
-  Scenario: Creating and verifying Heroblock only
+  Scenario: Creating and verifying Hero block only
     Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content,bypass rh_node" permissions
     And I am on "/node/add/elife-hero-block"
     Then I should see "Create eLife Hero Block"
@@ -178,7 +178,7 @@ Feature: In order to represent 'Collections'
     And I should see "Hero block - Algoriphagus"
     And I should see "Sub-title for Algoriphagus"
 
-  Scenario: Verify Heroblock on a collections page
+  Scenario: Verify Hero block on a collections page
     Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
     When "elife_person_profile" content:
       | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
@@ -225,7 +225,7 @@ Feature: In order to represent 'Collections'
     Then I should see text matching "Algoriphagus"
     Then I should see text matching "early-career"
 
-  Scenario: Collections without articles
+  Scenario: Hero block for collections without articles
     Given I am logged in as a user with the "administrator" role
     When "elife_person_profile" content:
       | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
@@ -236,13 +236,11 @@ Feature: In order to represent 'Collections'
     Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Collection with no articles"
     Then I fill in "Appears on" with "collections/algoriphags2"
     When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
-    And I press "Upload"
     Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
     And I press "Save"
     When "elife_collection" content:
       | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
       | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
-
     And I am on "/collections/algoriphags2"
     And I should see "Hero block - Algoriphagus"
     And I should see "Collection with no articles"
@@ -250,18 +248,65 @@ Feature: In order to represent 'Collections'
     Then I should not see text matching "Article 13 for Collections test"
     Then I should see text matching "Algoriphags2"
 
+  Scenario: Hero block for collection of collections without articles
+    Given I am logged in as a user with the "administrator" role
+    When "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | FirstName                | LastName                | Executive Staff    |
+    And I am on "/node/add/elife-hero-block"
+    Then I should see "Create eLife Hero Block"
+    Then I fill in "Title" with "Hero block - Collections Page"
+    Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Collection with no articles"
+    Then I fill in "Appears on" with "collections"
+    When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
+    Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
+    And I press "Save"
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
+      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
+    When "elife_collection" content:
+      | title                 | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | No article collection | 05206: Article 15 for Collections test, 05207: Article 17 for Collections test | FirstName LastName (Executive Staff) |
+    And I am on "/collections"
+    And I should see "Hero block - Collections Page"
+    And I should see "Collection with no articles"
+    Then I should see text matching "Algoriphags2"
+    Then I should see text matching "No article collection"
+
+  Scenario: Hero block for collection of collections (with and without articles) page
+    Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
+    When "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | FirstName                | LastName                | Executive Staff    |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | Algoriphagus | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test | FirstName LastName (Executive Staff) |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | early-career | 01603: Article 17 for Collections test, 04900: Article 16 for Collections test | FirstName LastName (Executive Staff) |
+    And I am on "/node/add/elife-hero-block"
+    Then I should see "Create eLife Hero Block"
+    Then I fill in "Title" with "Hero block - Collections Page"
+    Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Collection of collections"
+    Then I fill in "Appears on" with "collections"
+    When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
+    Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
+    And I press "Save"
+    And I am on "/collections"
+    And I should see "Hero block - Collections Page"
+    And I should see "Collection of collections"
+    Then I should see text matching "Algoriphagus"
+    Then I should see text matching "early-career"
+
   @develop
-  Scenario: Creating heroblock before respective collection
+  Scenario: I should be able to create hero block before respective collection
     Given I am logged in as a user with the "administrator" role
     And I am on "/node/add/elife-hero-block"
-    And the response status code should be 200
-    And print current URL
     Then I should see "Create eLife Hero Block"
     Then I fill in "Title" with "Hero block - Algoriphagus"
     Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Sub-title for Algoriphagus"
     Then I fill in "Appears on" with "collections/algoriphagus"
     When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
-    And I press "Upload"
     Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
     And I press "Save"
     When "elife_person_profile" content:
@@ -275,3 +320,28 @@ Feature: In order to represent 'Collections'
     And I should see "Sub-title for Algoriphagus"
     Then I should see text matching "Article 2 for Collections test"
     Then I should see text matching "Article 3 for Collections test"
+
+  Scenario: I should be able to create Hero block first for collection of collections page
+    Given I am logged in as a user with the "administrator" role
+    When "elife_person_profile" content:
+      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
+      | FirstName                | LastName                | Executive Staff    |
+    And I am on "/node/add/elife-hero-block"
+    Then I should see "Create eLife Hero Block"
+    Then I fill in "Title" with "Hero block - Collections Page"
+    Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Collection of collections"
+    Then I fill in "Appears on" with "collections"
+    When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
+    Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
+    And I press "Save"
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | Algoriphagus | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test | FirstName LastName (Executive Staff) |
+    When "elife_collection" content:
+      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | early-career | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test | FirstName LastName (Executive Staff) |
+    And I am on "/collections"
+    And I should see "Hero block - Collections Page"
+    And I should see "Collection of collections"
+    Then I should see text matching "Algoriphagus"
+    Then I should see text matching "early-career"
