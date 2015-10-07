@@ -299,6 +299,9 @@ Feature: In order to represent 'Collections'
     Then I should see text matching "early-career"
 
   @develop
+  # The editor should be able to create Hero Block and Collections independent of each other
+  # and in any order. The current scenario fails when we create the Hero Block before the corresponding
+  # Collection
   Scenario: I should be able to create hero block before respective collection
     Given I am logged in as a user with the "administrator" role
     And I am on "/node/add/elife-hero-block"
