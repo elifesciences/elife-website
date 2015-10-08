@@ -1,4 +1,4 @@
-@api @debug
+@api
 Feature: Collections
   In order to present compelling content
   As a feature editor
