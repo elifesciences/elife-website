@@ -1,4 +1,4 @@
-@api @debug
+@api
 Feature: Collections
   In order to present compelling content
   As a feature editor
@@ -221,8 +221,7 @@ Feature: Collections
     Then I should see text matching "VOR 05229"
     And I should see text matching "VOR 05252"
     And I should not see text matching "VOR 05262"
-
-
+    
   Scenario: Collection of collections page
     When "elife_person_profile" content:
       | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
