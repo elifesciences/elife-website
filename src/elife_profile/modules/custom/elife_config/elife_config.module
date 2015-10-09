@@ -5,3 +5,12 @@
  */
 
 include_once 'elife_config.features.inc';
+
+/**
+ * Implements hook_imagemagick_arguments_alter().
+ */
+function elife_config_imagemagick_arguments_alter(&$args, $context) {
+  if (FALSE === in_array('-strip', $args)) {
+    $args[] = '-strip';
+  }
+}
