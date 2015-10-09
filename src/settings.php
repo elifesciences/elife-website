@@ -28,6 +28,11 @@ $conf['pathologic_local_paths'] = [
   '/',
 ];
 
+// Set up ImageMagick
+$conf['image_toolkit'] = 'imagemagick';
+$conf['imagemagick_quality'] = 75;
+$conf['imagemagick_advanced_interlace'] = 'plane';
+
 // File cache directory.
 $conf['elife_cache_dir'] = __DIR__ . '/../cache';
 
@@ -49,6 +54,7 @@ if (extension_loaded('redis')) {
 //
 // - $databases
 // - $conf['redis_client_host'] OR $conf['redis_client_socket']
+// - $conf['imagemagick_convert']
 //
 // It may also contain any custom configuration required by this environment.
 require __DIR__ . '/../local.settings.php';
