@@ -59,5 +59,6 @@ final class IsolatedSolrListener implements EventSubscriber {
         ],
       ],
     ];');
+    $event->addSettings('$conf["search_api_solr_site_hash"] = "elife_solr_test";');
   }
 }
