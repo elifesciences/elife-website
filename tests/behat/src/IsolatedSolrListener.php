@@ -2,8 +2,8 @@
 
 namespace eLife\Behat;
 
-use Behat\Behat\EventDispatcher\Event\BeforeOutlineTested;
-use Behat\Behat\EventDispatcher\Event\BeforeScenarioTested;
+use Behat\Behat\EventDispatcher\Event\ExampleTested;
+use Behat\Behat\EventDispatcher\Event\ScenarioTested;
 use eLife\IsolatedDrupalBehatExtension\Event\WritingSiteSettingsFile;
 use GuzzleHttp\ClientInterface as HttpClient;
 use GuzzleHttp\Exception\RequestException;
@@ -19,8 +19,8 @@ final class IsolatedSolrListener implements EventSubscriber {
 
   public static function getSubscribedEvents() {
     return [
-      BeforeScenarioTested::BEFORE => 'onBeforeTested',
-      BeforeOutlineTested::BEFORE => 'onBeforeTested',
+      ScenarioTested::BEFORE => 'onBeforeTested',
+      ExampleTested::BEFORE => 'onBeforeTested',
       WritingSiteSettingsFile::NAME => 'onWritingSiteSettingsFile',
     ];
   }
@@ -59,5 +59,6 @@ final class IsolatedSolrListener implements EventSubscriber {
         ],
       ],
     ];');
+    $event->addSettings('$conf["search_api_solr_site_hash"] = "elife_solr_test";');
   }
 }

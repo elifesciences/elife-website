@@ -68,13 +68,14 @@ install:
   - ./setup.sh
 
   # Get Solr
-  - if [[ ! -d "$HOME/custom/solr-5.2.1" ]]; then mkdir -p $HOME/custom; wget -qO- https://archive.apache.org/dist/lucene/solr/5.2.1/solr-5.2.1.tgz | tar xz --directory $HOME/custom; fi;
-  - cp -r $HOME/custom/solr-5.2.1 $HOME # We don't want to cache the changes we make, so use a copy.
-  - $HOME/solr-5.2.1/bin/solr start
-  - mkdir -p $HOME/solr-5.2.1/server/solr/drupal
-  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/5.x $HOME/solr-5.2.1/server/solr/drupal
-  - mv $HOME/solr-5.2.1/server/solr/drupal/5.x $HOME/solr-5.2.1/server/solr/drupal/conf
-  - $HOME/solr-5.2.1/bin/solr create -c drupal -d $HOME/solr-5.2.1/server/solr/drupal
+  - if [[ ! -d "$HOME/custom/solr-4.10.4" ]]; then mkdir -p $HOME/custom; wget -qO- https://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz | tar xz --directory $HOME/custom; fi;
+  - cp -r $HOME/custom/solr-4.10.4 $HOME # We don't want to cache the changes we make, so use a copy.
+  - mkdir -p $HOME/solr-4.10.4/example/solr/drupal
+  - echo "name=drupal" > $HOME/solr-4.10.4/example/solr/drupal/core.properties
+  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/4.x $HOME/solr-4.10.4/example/solr/drupal
+  - mv $HOME/solr-4.10.4/example/solr/drupal/4.x $HOME/solr-4.10.4/example/solr/drupal/conf
+  - sed -i -e "s?solr.autoSoftCommit.MaxTime=[0-9]\+?solr.autoSoftCommit.MaxTime=500?g" $HOME/solr-4.10.4/example/solr/drupal/conf/solrcore.properties
+  - $HOME/solr-4.10.4/bin/solr start
 
   # Setup display for selenium
   - sh -e /etc/init.d/xvfb start
