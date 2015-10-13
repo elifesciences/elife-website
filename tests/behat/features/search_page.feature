@@ -24,7 +24,7 @@ Feature: Search
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should not see an "div.view-content" element
-    And I should see an "view-empty" element
+    And I should see an ".view-empty" element
     And I should see "Your search yielded no results."
 
   Scenario: Default Search page has a default list of all articles of the eLife journal
@@ -90,15 +90,15 @@ Feature: Search
             }
           },
           {
-            "title": "VOR 05227",
+            "title": "VOR 05229",
             "version": "1",
-            "doi": "10.7554/eLife.05227",
+            "doi": "10.7554/eLife.05229",
             "volume": "4",
-            "elocation-id": "e05227",
-            "article-id": "05227",
-            "article-version-id": "05227",
+            "elocation-id": "e05229",
+            "article-id": "05229",
+            "article-version-id": "05229",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05227",
+            "path": "content/4/e05229",
             "article-type": "research-article",
             "status": "VOR",
             "publish": "1",
@@ -117,12 +117,11 @@ Feature: Search
     And I should see "VOR 05224"
     And I should see "VOR 05225"
     And I should see "VOR 05226"
-    And I should see "VOR 05227"
+    And I should see "VOR 05229"
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Algoriphagus"
     And I click "Search"
     And I should see "VOR 05224"
     And I should see "VOR 05225"
     And I should see "VOR 05226"
-    And I should not see "VOR 05227"
-
+    And I should not see "VOR 05229"
