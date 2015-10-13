@@ -1,4 +1,4 @@
-@api @debug
+@api
 Feature: Search
   In order to search articles posted in the journal
   As a website user
