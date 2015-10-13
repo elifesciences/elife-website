@@ -17,7 +17,7 @@ Feature: Search
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Algoriphagus"
-    And I click "Search"
+    And I press the Search button
     And I should see "Your search yielded no results."
 
   Scenario: Default Search page when the journal has no articles
@@ -120,7 +120,7 @@ Feature: Search
     And I should see "VOR 05229"
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Algoriphagus"
-    And I click "Search"
+    And I press the Search button
     And I should see "VOR 05224"
     And I should see "VOR 05225"
     And I should see "VOR 05226"
