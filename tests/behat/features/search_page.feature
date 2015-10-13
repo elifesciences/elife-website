@@ -1,4 +1,4 @@
-@api 
+@api @debug
 Feature: Search
   In order to search articles posted in the journal
   As a website user
@@ -118,7 +118,6 @@ Feature: Search
     And I should see "VOR 05225"
     And I should see "VOR 05226"
     And I should see "VOR 05227"
-    And I should see an "div.site-footer" element
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Algoriphagus"
     And I click "Search"
@@ -126,3 +125,4 @@ Feature: Search
     And I should see "VOR 05225"
     And I should see "VOR 05226"
     And I should not see "VOR 05227"
+
