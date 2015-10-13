@@ -1,3 +1,4 @@
+@debug
 Feature: Search
   In order to search articles posted in the journal
   As a website user
@@ -17,15 +18,17 @@ Feature: Search
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Algoriphagus"
     And I click "Search"
+    And I should see "Your search yielded no results."
 
   Scenario: Search page when the journal has no articles
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should not see an "div.view-content" element
-    And I should see an "div.site-footer" element
+    And I should see an "view-empty" element
+    And I should see "Your search yielded no results."
 
   @api
-  Scenario: Search page has a default list of all articles of the eLife journal
+  Scenario: Default Search page has a default list of all articles of the eLife journal
     Given there are articles:
     """
         [
