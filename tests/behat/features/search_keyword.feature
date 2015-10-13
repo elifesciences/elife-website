@@ -185,5 +185,4 @@ Feature: Article Search - Keywords
     And I click Search
     And I should not see an ".article-teaser__title" element
     And I should see "Your search yielded no results."
-
-
+    
