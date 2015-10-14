@@ -163,7 +163,7 @@ Feature: Article Search - Keywords
             }
           ]
      """
-
+    
   Scenario: Set keywords
     When I run cron
     Given I am on "/elife/search"
@@ -172,6 +172,10 @@ Feature: Article Search - Keywords
     And I fill in "Keyword" with "Algoriphagus"
     And I press the Search button
     And I should see 2 ".article-teaser__title" elements
+    And I should see "Article 2 for Search test"
+    And I should see "Article 3 for Search test"
+    And I should not see "Article 8 for Search test"
+    And I should not see "Article 7 for Search test"
 
   Scenario: No articles with searched keyword
     Given I am on "/elife/search"
@@ -179,10 +183,9 @@ Feature: Article Search - Keywords
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Applw"
-    And I click Search
-    And I should not see an ".article-teaser__title" element
+    And I press the Search button
+    And I should see "Your search yielded no results."
     And I fill in "Keyword" with "££$%^&"
-    And I click Search
+    And I press the Search button
     And I should not see an ".article-teaser__title" element
     And I should see "Your search yielded no results."
-    
