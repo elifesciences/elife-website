@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Contains \Drupal\elife_article\MockMarkupService.
+ * Contains \Drupal\elife_article\ElifeXslMarkupService.
  */
 
 namespace Drupal\elife_article;
@@ -10,7 +10,7 @@ use eLifeIngestXsl\ConvertXML\XMLString;
 use eLifeIngestXsl\ConvertXMLToHtml;
 use Exception;
 
-final class ElifeXslMarkupService extends ElifeMarkupService {
+class ElifeXslMarkupService extends ElifeMarkupService {
   private $queries = [];
   private $arrange_queries = [];
   private $response = 'response';
@@ -97,10 +97,20 @@ final class ElifeXslMarkupService extends ElifeMarkupService {
         $res = call_user_func_array([$html, $article_query['method']], $article_query['params']);
         $this->results[$article_id][$query_id] = [];
         if (!empty($res)) {
-          $this->results[$article_id][$query_id][] = $res;
+          $this->results[$article_id][$query_id][] = $this->postQueryProcess($res);
         }
       }
     }
+  }
+
+  /**
+   * @param string $markup
+   * @return string mixed
+   */
+  protected function postQueryProcess($markup) {
+    // @todo - elife - nlisgo - Introduce post process steps here.
+    // For example substitute paths to files.
+    return $markup;
   }
 
   /**
@@ -146,11 +156,15 @@ final class ElifeXslMarkupService extends ElifeMarkupService {
     $cache = &drupal_static(__FUNCTION__, []);
 
     if (!isset($cache[$article_id])) {
-      $xml = file_get_contents(sprintf('https://s3.amazonaws.com/elife-cdn/elife-articles/%s/elife%s.xml', $article_id, $article_id));
+      $xml = $this->getXml($article_id);
       $cache[$article_id] = $xml;
     }
 
     return $cache;
+  }
+
+  protected function getXml($article_id) {
+    return file_get_contents(sprintf('https://s3.amazonaws.com/elife-cdn/elife-articles/%s/elife%s.xml', $article_id, $article_id));
   }
 
   public function processResponse() {

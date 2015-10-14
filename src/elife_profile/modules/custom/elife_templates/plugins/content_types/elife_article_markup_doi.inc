@@ -22,13 +22,11 @@ function elife_article_markup_doi_render($subtype, $conf, $args, $context) {
 
       $doi = $ewrapper->field_elife_a_doi->value();
       $article_id = $ewrapper->field_elife_a_parent->field_elife_a_article_id->value();
-      if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-        $article_id = $matches['id'];
-      }
+      $article_id = _elife_article_process_article_id($article_id);
 
       $markup = elife_article_markup_service();
       $markup->addDoiQuery($article_id, $doi);
-      $markup->submitQuery();
+      $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
 
       if ($html) {

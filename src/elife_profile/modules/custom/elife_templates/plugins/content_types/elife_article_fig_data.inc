@@ -25,9 +25,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     'media' => [],
   ];
   $article_id = $dto->getArticleId();
-  if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-    $article_id = $matches['id'];
-  }
+  $article_id = _elife_article_process_article_id($article_id);
   $markup = elife_article_markup_service();
   foreach ($dto->getFragmentsOfType(array_keys($item_lists)) as $fragment) {
     $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
@@ -42,7 +40,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     $markup->addDoiQuery($article_id, $fragment->getDoi());
   }
 
-  $markup->submitQuery();
+  $markup = _elife_article_markup_query($markup);
   $results = $markup->getResults();
 
   if (!empty($results[$article_id])) {

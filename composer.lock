@@ -238,16 +238,16 @@
         },
         {
             "name": "elife/elife-ingest-xsl",
-            "version": "dev-dev",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "5d5305239246d714a8001633ef5eb9b5b18750ce"
+                "reference": "a7b61a4baaab1713266eacb30a7e79aa64eb7ab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/ed5819413b6671c3aa114c832c1c1779441059e3",
-                "reference": "5d5305239246d714a8001633ef5eb9b5b18750ce",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/a7b61a4baaab1713266eacb30a7e79aa64eb7ab4",
+                "reference": "a7b61a4baaab1713266eacb30a7e79aa64eb7ab4",
                 "shasum": ""
             },
             "require": {
@@ -276,9 +276,9 @@
                 }
             },
             "support": {
-                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
+                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2015-09-18 11:35:07"
+            "time": "2015-10-09 12:15:32"
         },
         {
             "name": "jms/metadata",
@@ -1423,21 +1423,22 @@
         },
         {
             "name": "elife/isolated-drupal-behat-extension",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/isolated-drupal-behat-extension.git",
-                "reference": "059db6726c346b048110a4fb8fd7a46f99066007"
+                "reference": "3e3df756d72212db56a381ad6523b64b128ac3e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/isolated-drupal-behat-extension/zipball/059db6726c346b048110a4fb8fd7a46f99066007",
-                "reference": "059db6726c346b048110a4fb8fd7a46f99066007",
+                "url": "https://api.github.com/repos/elifesciences/isolated-drupal-behat-extension/zipball/3e3df756d72212db56a381ad6523b64b128ac3e9",
+                "reference": "3e3df756d72212db56a381ad6523b64b128ac3e9",
                 "shasum": ""
             },
             "require": {
                 "behat/behat": "^3.0.6",
                 "behat/mink-extension": "~2.0",
+                "drupal/drupal-driver": "^1.0.1",
                 "drupal/drupal-extension": "~3.0",
                 "php": ">=5.4",
                 "symfony/dependency-injection": "~2.5",
@@ -1470,7 +1471,7 @@
             ],
             "description": "Extension for Behat that tests Drupal sites in isolation",
             "homepage": "https://github.com/elifesciences/isolated-drupal-behat-extension",
-            "time": "2015-10-09 10:35:29"
+            "time": "2015-10-13 14:35:17"
         },
         {
             "name": "fabpot/goutte",

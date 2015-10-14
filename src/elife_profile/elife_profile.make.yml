@@ -38,6 +38,10 @@ projects:
     version: '2.11'
   efq_extra_field:
     version: '1.0-alpha1'
+    patch:
+      - 'https://www.drupal.org/files/issues/param_datatypes_are-2561603-2.patch'
+  elysia_cron:
+    version: '2.1'
   entity:
     version: '1.6'
   entityreference:

@@ -32,20 +32,21 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       }
 
       $article_id = $dto->getArticleId();
-      if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-        $article_id = $matches['id'];
-      }
+      $article_id = _elife_article_process_article_id($article_id);
 
       $markup = elife_article_markup_service();
       $markup->addSectionQuery($article_id, $markup_section);
-      $markup->submitQuery();
+      $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
+
+      if ($conf['markup_section'] == 'main-text' && $dto->getStatus() == 'VOR') {
+        // @todo - elife - nlisgo - suppress main-text for now as creating a lot of noise!
+        $html = '<p>Under construction</p>';
+      }
 
       if ($html) {
         $block = new stdClass();
-        // @todo - elife - nlisgo - suppress main-text for now as creating a lot of noise!
-        $block->content = ($conf['markup_section'] == 'main-text') ? '<p>Under construction</p>' : $html;
-
+        $block->content = $html;
         return $block;
       }
     }
