@@ -38,6 +38,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @BeforeScenario
    */
+  public function SetDefaultMockCitationService() {
+    variable_set('elife_article_citation_service_factory', '_elife_article_mock_citation_service_disabled');
+  }
+
+  /**
+   * @BeforeScenario
+   */
   public function resetFollowingRedirects() {
     try {
       $this->canIntercept();
@@ -665,5 +672,54 @@ JS;
   public function markupServiceAvailable() {
     // @todo - elife - nlisgo - We need the step until we can apply it automatically when the @markup tag is used.
     variable_set('elife_article_markup_service_factory', '_elife_article_mock_xsl_markup_service');
+  }
+
+  /**
+   * @Given the citation service is available
+   */
+  public function citationServiceAvailable() {
+    // @todo - elife - nlisgo - We need the step until we can apply it automatically when the @citation tag is used.
+    variable_set('elife_article_citation_service_factory', '_elife_article_mock_citation_service');
+  }
+
+  /**
+   * Look for Content disposition header with the supplied text.
+   *
+   * @Then /^(?:|I )should see the header content filename "([^"]*)"$/
+   *
+   * @param string $filename
+   *   The particular filename to look for in the header.
+   *
+   * @throws Exception
+   */
+  public function iShouldSeeTheHeaderContentFilename($filename) {
+    $head = "Content-Disposition";
+    $pat = "#(.*); filename=\"$filename\"$#";
+    $driver = $this->getSession()->getDriver();
+    $headers = $driver->getResponseHeaders();
+    if (array_key_exists($head, $headers)) {
+      foreach ($headers[$head] as $k => $v) {
+        if (preg_match($pat, $v)) {
+          return;
+        }
+      }
+      $val = $headers[$head];
+      if (is_array($val)) {
+        $val = implode(" //", $val);
+      }
+      throw new Exception("Did not see \"$head: $filename\" in the headers, but found: \"$head: $val\".");
+    }
+    else {
+      throw new Exception("Did not see \"$head: $filename\" in the headers.");
+    }
+  }
+
+  /**
+   * @Then /^the response body should contain "([^"]*)"$/
+   */
+  public function responseBodyShouldContain($text) {
+    $expectedRegexp = '/' . preg_quote($text) . '/i';
+    $actual = (string) $this->getSession()->getPage()->getContent();
+    Assertions::assertRegExp($expectedRegexp, $actual);
   }
 }

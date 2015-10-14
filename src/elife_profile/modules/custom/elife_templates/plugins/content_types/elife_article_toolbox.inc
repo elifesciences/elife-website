@@ -215,6 +215,7 @@ function theme_elife_article_toolbox($variables) {
       ]),
       'children' => ['data' => $download],
       'id' => 'download',
+      'class' => ['show-article-toolbox-tooltip'],
     ],
     [
       'data' => l(t('Open'), '', [
@@ -223,6 +224,7 @@ function theme_elife_article_toolbox($variables) {
       ]),
       'children' => ['data' => $open],
       'id' => 'open',
+      'class' => ['show-article-toolbox-tooltip'],
     ],
   ];
 

@@ -8,8 +8,10 @@ include_once 'elife_article.features.inc';
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Drupal\elife_article\ElifeArticleVersion;
+use Drupal\elife_article\ElifeCitationService;
 use Drupal\elife_article\ElifeMarkupService;
 use Drupal\elife_article\ElifeXslMarkupService;
+use Drupal\elife_article\MockCitationService;
 use Drupal\elife_article\MockMarkupService;
 use Drupal\elife_article\MockXslMarkupService;
 use eLife\EIF\ArticleVersion;
@@ -56,7 +58,56 @@ function elife_article_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
+  $items['elife/citation'] = array(
+    'title' => 'Stream file from backend',
+    'page callback' => 'elife_article_citation_download',
+    'page arguments' => array(2, 3),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
   return $items;
+}
+
+/**
+ * Handle the request for the bibtex or ris citation format.
+ *
+ * @param int $nid
+ *   Node if of article version
+ * @param string $format
+ *   bibtex or ris - citation format
+ */
+function elife_article_citation_download($nid, $format) {
+  $article_version = node_load($nid);
+  $dto = elife_article_version_to_dto($article_version);
+
+  $article_id = $dto->getArticleId();
+  $article_id = _elife_article_process_article_id($article_id);
+
+  $citation = elife_article_citation_service();
+  $citation->setId($article_id);
+  $citation = _elife_article_citation_query($citation);
+
+  switch ($format) {
+    case 'bibtex':
+      $ext = 'bib';
+      drupal_add_http_header('Content-Type', 'application/x-bibtex; charset=utf-8');
+      break;
+
+    case 'ris':
+      $ext = 'ris';
+      drupal_add_http_header('Content-Type', 'application/x-research-info-systems');
+      break;
+
+    default:
+      drupal_not_found();
+      exit();
+  }
+
+  $filename = str_replace(' ', '-', strtolower(check_plain($article_version->title))) . '.' . $ext;
+
+  drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+  echo $citation->getFormat($format);
 }
 
 /**
@@ -353,6 +404,41 @@ function _elife_article_mock_xsl_markup_service() {
 function _elife_article_mock_markup_service() {
   $markup_service = new MockMarkupService();
   return $markup_service;
+}
+
+/**
+ * @return ElifeCitationService
+ */
+function elife_article_citation_service() {
+  /* @var string $factory */
+  $factory = variable_get('elife_article_citation_service_factory', '_elife_article_citation_service');
+  $markup_service = $factory();
+  return $markup_service;
+}
+
+/**
+ * @return ElifeCitationService
+ */
+function _elife_article_citation_service() {
+  $citation_service = new ElifeCitationService();
+  return $citation_service;
+}
+
+/**
+ * @return MockCitationService
+ */
+function _elife_article_mock_citation_service_disabled() {
+  $citation_service = new MockCitationService();
+  $citation_service->disableQuery();
+  return $citation_service;
+}
+
+/**
+ * @return MockCitationService
+ */
+function _elife_article_mock_citation_service() {
+  $citation_service = new MockCitationService();
+  return $citation_service;
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
@@ -1407,6 +1493,8 @@ function elife_article_cron() {
   foreach (array_values($emptys) as $article_version_id) {
     // Warm the markup query cache for this article version.
     _elife_article_markup_cache_warm($article_version_id);
+    // Warm the citation query cache at the same time.
+    _elife_article_citation_cache_warm($article_version_id);
   }
 }
 
@@ -1600,6 +1688,139 @@ function _elife_article_version_count() {
 function elife_article_query_main_text_null_alter(QueryAlterableInterface $query) {
   $query->leftJoin('field_data_field_elife_a_main_text', 'm', 'node.nid = m.entity_id');
   $query->isNull('m.field_elife_a_main_text_value');
+}
+
+/**
+ * Retrieve result from cache or perform query.
+ *
+ * @param ElifeCitationService $citation
+ *   Citation service container
+ * @param bool $from_store
+ *   Set to false if you don't want to try to retrieve from cache
+ *
+ * @return ElifeCitationService
+ *   Citation service container
+ */
+function _elife_article_citation_query(ElifeCitationService $citation, $from_store = TRUE) {
+  if ($from_store) {
+    $cache = _elife_article_citation_query_cache($citation);
+    $key = $citation->getId();
+    if (!empty($cache[$key])) {
+      $citation = $cache[$key];
+    }
+  }
+  else {
+    $citation->submitQuery();
+  }
+
+  return $citation;
+}
+
+/**
+ * Retrieve citation request from cache or trigger query if not in cache.
+ *
+ * @param ElifeCitationService $citation
+ *   Citation service container
+ *
+ * @return ElifeCitationService[]
+ *   Array of citation service containers that have been queried
+ *
+ * @throws Exception
+ */
+function _elife_article_citation_query_cache(ElifeCitationService $citation) {
+  $cache = &drupal_static(__FUNCTION__, []);
+  if (!empty($citation->getId())) {
+    $key = $citation->getId();
+    if (!isset($cache[$key])) {
+      $result = db_select('elife_citation', 'c')->fields('c', array('citation'))->condition('c.id', $key, '=')->range(0, 1)->execute()->fetchAssoc();
+
+      if ($result) {
+        $citation = unserialize($result['citation']);
+      }
+      else {
+        _elife_article_citation_cache_merge($citation);
+      }
+      $cache[$key] = $citation;
+    }
+  }
+
+  return $cache;
+}
+
+/**
+ * Populate the cache for a specific citation request.
+ *
+ * @param ElifeCitationService $citation
+ *   Citation service container
+ *
+ * @throws Exception
+ * @throws InvalidMergeQueryException
+ */
+function _elife_article_citation_cache_merge(ElifeCitationService $citation) {
+  $key = $citation->getId();
+  $citation->submitQuery();
+  db_merge('elife_citation')
+    ->key(array('id' => $key))
+    ->fields(array(
+      'citation' => serialize($citation),
+      'date' => time(),
+    ))
+    ->execute();
+}
+
+/**
+ * Warm the cache for specific article versions.
+ *
+ * @param array|string $article_version_ids
+ *   Article version ids
+ */
+function _elife_article_citation_cache_warm($article_version_ids) {
+  if (!is_array($article_version_ids)) {
+    $article_version_ids = [$article_version_ids];
+  }
+
+  foreach ($article_version_ids as $article_version_id) {
+    // Until we have access to xml for each article version then we need to
+    // convert this to the elocation-id (e.g. 00288).
+    $article_version_id = _elife_article_process_article_id($article_version_id);
+
+    $results = db_select('elife_citation', 'c')->fields('m', array('id', 'citation'))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
+    if ($results) {
+      foreach ($results as $key => $citation) {
+        _elife_article_citation_cache_merge(unserialize($citation));
+      }
+    }
+    else {
+      // If there is no cache to warm then trigger the generation of queries for
+      // each of the citation format of the article.
+      $citation = elife_article_citation_service();
+      $citation->setId($article_version_id);
+      _elife_article_citation_query($citation);
+    }
+  }
+}
+
+/**
+ * Clear the citation cache for specific article versions.
+ *
+ * @param array|string $article_version_ids
+ *   Article version ids
+ */
+function _elife_article_citation_cache_clear($article_version_ids) {
+  if (!is_array($article_version_ids)) {
+    $article_version_ids = [$article_version_ids];
+  }
+
+  foreach ($article_version_ids as $article_version_id) {
+    db_delete('elife_citation')->condition('id', $article_version_id)->execute();
+  }
+}
+
+/**
+ * Empty all entries in the citation query cache table.
+ */
+function _elife_article_citation_cache_clear_all() {
+  db_truncate('elife_citation')->execute();
 }
 
 /**
