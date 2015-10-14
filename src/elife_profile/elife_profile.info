@@ -53,6 +53,7 @@ dependencies[] = diff
 dependencies[] = ds
 dependencies[] = ds_extras
 dependencies[] = efq_extra_field
+dependencies[] = elysia_cron
 dependencies[] = entity
 dependencies[] = entity_token
 dependencies[] = entityqueue

@@ -8,6 +8,9 @@
  * Implements hook_ctools_plugin_api().
  */
 function elife_search_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "elysia_cron" && $api == "default_elysia_cron_rules") {
+    return array("version" => "1");
+  }
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
   }
@@ -50,16 +53,22 @@ function elife_search_default_search_api_index() {
           "entity_type" : "taxonomy_term"
         },
         "field_elife_a_versions:field_elife_a_keyword:name" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
+        "field_elife_a_versions:field_elife_a_main_text" : { "type" : "list\\u003Ctext\\u003E" },
         "field_elife_a_versions:title" : { "type" : "list\\u003Ctext\\u003E" },
         "search_api_language" : { "type" : "string" }
       },
       "data_alter_callbacks" : {
+        "search_api_alter_bundle_filter" : {
+          "status" : 0,
+          "weight" : "-10",
+          "settings" : { "default" : "1", "bundles" : [] }
+        },
         "search_api_alter_node_access" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_node_status" : { "status" : 0, "weight" : "0", "settings" : [] },
         "search_api_alter_add_hierarchy" : { "status" : 0, "weight" : "0", "settings" : { "fields" : [] } },
         "search_api_alter_add_viewed_entity" : { "status" : 0, "weight" : "0", "settings" : { "mode" : "teaser" } },
-        "search_api_alter_add_aggregation" : { "status" : 0, "weight" : "0", "settings" : [] },
-        "search_api_alter_add_url" : { "status" : 0, "weight" : "0", "settings" : [] }
+        "search_api_alter_add_url" : { "status" : 0, "weight" : "0", "settings" : [] },
+        "search_api_alter_add_aggregation" : { "status" : 0, "weight" : "0", "settings" : [] }
       },
       "processors" : {
         "search_api_case_ignore" : {
@@ -72,13 +81,23 @@ function elife_search_default_search_api_index() {
           }
         },
         "search_api_html_filter" : {
-          "status" : 0,
+          "status" : 1,
           "weight" : "10",
           "settings" : {
-            "fields" : [],
+            "fields" : { "field_elife_a_versions:field_elife_a_main_text" : true },
             "title" : 0,
             "alt" : 1,
             "tags" : "h1 = 5\\r\\nh2 = 3\\r\\nh3 = 2\\r\\nstrong = 2\\r\\nb = 2\\r\\nem = 1.5\\r\\nu = 1.5"
+          }
+        },
+        "search_api_transliteration" : {
+          "status" : 0,
+          "weight" : "15",
+          "settings" : { "fields" : {
+              "field_elife_a_versions:title" : true,
+              "field_elife_a_versions:field_elife_a_main_text" : true,
+              "field_elife_a_versions:field_elife_a_keyword:name" : true
+            }
           }
         },
         "search_api_tokenizer" : {

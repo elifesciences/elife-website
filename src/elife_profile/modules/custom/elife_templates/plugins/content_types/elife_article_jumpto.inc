@@ -23,14 +23,12 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
     if ($ewrapper->getBundle() == 'elife_article_ver' && !$ewrapper->field_elife_a_subarticle->value()) {
       $dto = elife_article_version_to_dto($article_version);
       $article_id = $dto->getArticleId();
-      if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-        $article_id = $matches['id'];
-      }
+      $article_id = _elife_article_process_article_id($article_id);
       $sections = ElifeMarkupService::getSectionLabels();
 
       $markup = elife_article_markup_service();
       $markup->addSectionQuery($article_id, array_keys($sections));
-      $markup->submitQuery();
+      $markup = _elife_article_markup_query($markup);
       $results = $markup->getResult($article_id);
       if (!empty($results) && $dto->getStatus() == 'VOR') {
         $links = [];

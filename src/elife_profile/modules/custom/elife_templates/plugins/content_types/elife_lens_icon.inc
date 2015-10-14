@@ -18,9 +18,7 @@ function elife_lens_icon_render($subtype, $conf, $args, $context) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $context->data);
   $article_id = $ewrapper->field_elife_a_article_id->value();
-  if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-    $article_id = $matches['id'];
-  }
+  $article_id = _elife_article_process_article_id($article_id);
   $url = $conf['lens_url'] . '/' . $article_id . '/index.html';
   $image_path = drupal_get_path('module', 'elife_templates') .
     '/images/lens.png';

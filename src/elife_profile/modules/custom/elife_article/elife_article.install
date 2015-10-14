@@ -26,3 +26,45 @@ function elife_article_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Implements hook_schema().
+ */
+function elife_article_schema() {
+  $schema['elife_markup'] = array(
+    'description' => 'Cache table for eLife markup service queries.',
+    'fields' => array(
+      // This is a md5 hash of the serialized output of
+      // \Drupal\elife_article\ElifeMarkupServiceInterface::getQuery().
+      'id' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 32,
+        'description' => 'Hash of markup queries',
+      ),
+      // In most cases this will just be one value, but this could be adapted to
+      // have multiple 'article_version_id' with a '::' delimiter.
+      'article_version_id' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 128,
+        'description' => 'Hash of markup queries',
+      ),
+      'markup' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'serialize' => TRUE,
+        'description' => 'Serialized ElifeMarkupService object',
+      ),
+      'date' => array(
+        'description' => 'The Unix timestamp of when the query was stored.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  return $schema;
+}

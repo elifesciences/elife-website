@@ -10,8 +10,8 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 use Drupal\elife_article\ElifeArticleVersion;
 use Drupal\elife_article\ElifeMarkupService;
 use Drupal\elife_article\ElifeXslMarkupService;
-use Drupal\elife_article\ExeterMarkupService;
 use Drupal\elife_article\MockMarkupService;
+use Drupal\elife_article\MockXslMarkupService;
 use eLife\EIF\ArticleVersion;
 use eLife\EIF\ArticleVersion\Affiliation;
 use eLife\EIF\ArticleVersion\BaseContributor;
@@ -42,6 +42,33 @@ use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializationContext;
+
+/**
+ * Implements hook_menu().
+ */
+function elife_article_menu() {
+  $items = array();
+  $items['admin/config/search/elife-article-markup'] = array(
+    'title' => 'Transfer Markup to cache',
+    'access arguments' => array('administer elife_article'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_article_markup_prepopulate_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_article.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function elife_article_permission() {
+  return array(
+    'administer elife_article' => array(
+      'title' => t('Administer eLife - Article'),
+    ),
+  );
+}
 
 /**
  * Implements hook_node_view_alter().
@@ -313,10 +340,10 @@ function _elife_article_xsl_markup_service() {
 }
 
 /**
- * @return ExeterMarkupService
+ * @return MockXslMarkupService
  */
-function _elife_article_exeter_markup_service() {
-  $markup_service = new ExeterMarkupService();
+function _elife_article_mock_xsl_markup_service() {
+  $markup_service = new MockXslMarkupService();
   return $markup_service;
 }
 
@@ -1362,4 +1389,366 @@ function _elife_article_keyword_links(ArticleVersion $article_version, $excludes
     }
   }
   return $items;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function elife_article_cron() {
+  // Populate empty main text fields for elife_article_ver nodes.
+  $emptys = _elife_article_prepare_main_text();
+
+  // Allow the number of markup requests per cron run to be limited.
+  $per_cron = variable_get('elife_markup_pre_cron', 100);
+  if ($per_cron > 0) {
+    $emptys = array_slice($emptys, 0, $per_cron, TRUE);
+  }
+
+  foreach (array_values($emptys) as $article_version_id) {
+    // Warm the markup query cache for this article version.
+    _elife_article_markup_cache_warm($article_version_id);
+  }
+}
+
+/**
+ * Prepare and populate all empty main text fields.
+ *
+ * @return array
+ *   Array of empty article versions that were populated.
+ */
+function _elife_article_prepare_main_text() {
+  $emptys = _elife_article_empty_main_text();
+  $emptys = _elife_article_emptys_clean($emptys);
+  _elife_article_emptys_markup_populate($emptys);
+
+  return $emptys;
+}
+
+/**
+ * Grab the markup where needed and store in cache tables.
+ *
+ * @param array $emptys
+ *   Array of empty article versions to be populated.
+ */
+function _elife_article_emptys_markup_populate($emptys) {
+  $markup = _elife_article_emptys_markup($emptys);
+  _elife_article_emptys_populate($markup);
+}
+
+/**
+ * Amend the nodes with the supplied markup in the main text field.
+ *
+ * @param array $populates
+ *   Array of html with nid as key.
+ *
+ * @throws EntityMetadataWrapperException
+ */
+function _elife_article_emptys_populate($populates) {
+  if (!empty($populates)) {
+    $nodes = node_load_multiple(array_keys($populates));
+    foreach ($nodes as $nid => $node) {
+      /* @var EntityDrupalWrapper $ewrapper */
+      $ewrapper = entity_metadata_wrapper('node', $node);
+      $ewrapper->field_elife_a_main_text->set($populates[$nid]);
+      $ewrapper->save();
+    }
+  }
+}
+
+/**
+ * Get the markup for the supplied articles to populate into main text field.
+ *
+ * @param array $emptys
+ *   Array of article version ids.
+ *
+ * @return array
+ *   Array of html with nid as key.
+ */
+function _elife_article_emptys_markup($emptys) {
+  $markup = elife_article_markup_service();
+  // Sections that we wish to include in the main text field which will be
+  // indexed in search.
+  $sections = [
+    'abstract',
+    'main-text',
+  ];
+  foreach ($emptys as $key => $article_id) {
+    foreach ($sections as $section) {
+      $markup->addSectionQuery($article_id, $section);
+    }
+  }
+  $markup = _elife_article_markup_query($markup, FALSE);
+
+  $populates = [];
+  if ($results = $markup->getResults()) {
+    foreach ($emptys as $nid => $empty) {
+      if (isset($results[$empty])) {
+        $prepare = [];
+        foreach ($results[$empty] as $result) {
+          $prepare = array_merge($prepare, $result);
+        }
+        $populates[$nid] = implode('', $prepare);
+      }
+    }
+  }
+
+  return $populates;
+}
+
+/**
+ * Cleanup the article version ids so we can use the value to query the xml.
+ *
+ * @param array $emptys
+ *   Array of article version ids.
+ *
+ * @return array
+ *   Array of cleaned article ids.
+ */
+function _elife_article_emptys_clean($emptys) {
+  $clean_emptys = [];
+  foreach ($emptys as $key => $empty) {
+    $clean_emptys[$key] = _elife_article_process_article_id($empty);
+  }
+  return $clean_emptys;
+}
+
+/**
+ * Process article version id or article id to just retrieve e-location id.
+ *
+ * Once the article xml is retrievable in the correct location we can in most
+ * cases we can stop using this function.
+ *
+ * @todo - elife - nlisgo - verify that uses of this function are still needed.
+ *
+ * @param string $article_id
+ *   Article ID or Article Version ID
+ *
+ * @return string|NULL
+ *   The e-location id if it can be derived from the ID given.
+ */
+function _elife_article_process_article_id($article_id) {
+  if (preg_match('/[^0-9]*(?<id>[0-9]{5})[^0-9]*/', $article_id, $matches)) {
+    return $matches['id'];
+  }
+}
+
+/**
+ * Retrieve the article version ids for all article versions with no main text.
+ *
+ * @param bool $force_empty
+ *   If you want to consider all article versions as being empty set to FALSE.
+ *
+ * @return array
+ *   Array of article version ids with the nid as a key.
+ */
+function _elife_article_empty_main_text($force_empty = FALSE) {
+  $emptys = [];
+  $query = new EntityFieldQueryExtraFields();
+  $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+  if (!$force_empty) {
+    $query->addTag('main_text_null');
+  }
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'elife_article_ver');
+  $results = $query->execute();
+  if (!empty($results) && !empty($results['node'])) {
+    $nids = array_keys($results['node']);
+    $query = new EntityFieldQueryExtraFields();
+    $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'elife_article_ver');
+    $query->propertyCondition('nid', $nids, 'IN');
+    $query->fieldCondition('field_elife_a_subarticle', 'value', 0);
+    $query->addExtraField('field_elife_a_article_version_id', 'value', 'value');
+    if ($results = $query->execute()) {
+      foreach ($results['node'] as $nid => $data) {
+        $emptys[$nid] = $data->extraFields->field_elife_a_article_version_id_value;
+      }
+    }
+  }
+  return $emptys;
+}
+
+/**
+ * Get the total number of article versions (published or unpublished).
+ *
+ * @return int
+ *   Integer of article versions in the systems
+ */
+function _elife_article_version_count() {
+  $cache = &drupal_static(__FUNCTION__);
+
+  if (is_null($cache)) {
+    $query = new EntityFieldQueryExtraFields();
+    $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'elife_article_ver');
+    $query->fieldCondition('field_elife_a_subarticle', 'value', 0);
+    if ($results = $query->execute()) {
+      $cache = count($results['node']);
+    }
+  }
+
+  return $cache;
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ *
+ * Check whether the main text field has a NULL value.
+ */
+function elife_article_query_main_text_null_alter(QueryAlterableInterface $query) {
+  $query->leftJoin('field_data_field_elife_a_main_text', 'm', 'node.nid = m.entity_id');
+  $query->isNull('m.field_elife_a_main_text_value');
+}
+
+/**
+ * Retrieve the markup for a specific request.
+ *
+ * @param ElifeMarkupService $markup
+ *   Markup service container
+ *
+ * @return string
+ *   Key to be used for markup service query
+ */
+function _elife_article_markup_query_key(ElifeMarkupService $markup) {
+  return md5(serialize($markup->getQuery()));
+}
+
+/**
+ * Retrieve result from cache or perform query.
+ *
+ * @param ElifeMarkupService $markup
+ *   Markup service container
+ * @param bool $from_store
+ *   Set to false if you don't want to try to retrieve from cache
+ *
+ * @return ElifeMarkupService
+ *   Markup service container
+ */
+function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = TRUE) {
+  if ($from_store) {
+    $cache = _elife_article_markup_query_cache($markup);
+    $key = _elife_article_markup_query_key($markup);
+    if (!empty($cache[$key])) {
+      $markup = $cache[$key];
+    }
+  }
+  else {
+    $markup->submitQuery();
+  }
+
+  return $markup;
+}
+
+/**
+ * Retrieve markup request from cache or trigger query if not in cache.
+ *
+ * @param ElifeMarkupService $markup
+ *   Markup service container
+ *
+ * @return ElifeMarkupService[]
+ *   Array of markup service containers that have been queried
+ *
+ * @throws Exception
+ */
+function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
+  $cache = &drupal_static(__FUNCTION__, []);
+  if (!empty($markup->getQuery())) {
+    $key = _elife_article_markup_query_key($markup);
+    if (!isset($cache[$key])) {
+      $result = db_select('elife_markup', 'm')->fields('m', array('markup'))->condition('m.id', $key, '=')->range(0, 1)->execute()->fetchAssoc();
+
+      if ($result) {
+        $markup = unserialize($result['markup']);
+      }
+      else {
+        _elife_article_markup_cache_merge($markup);
+      }
+      $cache[$key] = $markup;
+    }
+  }
+
+  return $cache;
+}
+
+/**
+ * Populate the cache for a specific markup request.
+ *
+ * @param ElifeMarkupService $markup
+ *   Markup service container
+ *
+ * @throws Exception
+ * @throws InvalidMergeQueryException
+ */
+function _elife_article_markup_cache_merge(ElifeMarkupService $markup) {
+  $key = _elife_article_markup_query_key($markup);
+  $article_version_id = '::' . implode('::', array_keys($markup->getQuery())) . '::';
+  $markup->submitQuery();
+  db_merge('elife_markup')
+    ->key(array('id' => $key))
+    ->fields(array(
+      'article_version_id' => $article_version_id,
+      'markup' => serialize($markup),
+      'date' => time(),
+    ))
+    ->execute();
+}
+
+/**
+ * Warm the cache for specific article versions.
+ *
+ * @param array|string $article_version_ids
+ *   Article version ids
+ */
+function _elife_article_markup_cache_warm($article_version_ids) {
+  if (!is_array($article_version_ids)) {
+    $article_version_ids = [$article_version_ids];
+  }
+
+  foreach ($article_version_ids as $article_version_id) {
+    // Until we have access to xml for each article version then we need to
+    // convert this to the elocation-id (e.g. 00288).
+    $article_version_id = _elife_article_process_article_id($article_version_id);
+
+    $results = db_select('elife_markup', 'm')->fields('m', array('id', 'markup'))->condition('m.article_version_id', '%::' . $article_version_id . '::%', 'LIKE')->execute()->fetchAllKeyed();
+    if ($results) {
+      foreach ($results as $key => $markup) {
+        _elife_article_markup_cache_merge(unserialize($markup));
+      }
+    }
+    else {
+      // If there is no cache to warm then trigger the generation of queries for
+      // each of the different sections of the article.
+      $sections = ElifeMarkupService::$sections;
+      foreach (array_keys($sections) as $section) {
+        $markup = elife_article_markup_service();
+        $markup->addSectionQuery($article_version_id, $section);
+        _elife_article_markup_query($markup);
+      }
+    }
+  }
+}
+
+/**
+ * Clear the markup cache for specific article versions.
+ *
+ * @param array|string $article_version_ids
+ *   Article version ids
+ */
+function _elife_article_markup_cache_clear($article_version_ids) {
+  if (!is_array($article_version_ids)) {
+    $article_version_ids = [$article_version_ids];
+  }
+
+  foreach ($article_version_ids as $article_version_id) {
+    db_delete('elife_markup')->condition('article_version_id', '%::' . $article_version_id . '::%', 'LIKE')->execute();
+  }
+}
+
+/**
+ * Empty all entries in the markup query cache table.
+ */
+function _elife_article_markup_cache_clear_all() {
+  db_truncate('elife_markup')->execute();
 }

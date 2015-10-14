@@ -200,9 +200,7 @@ function elife_article_reference_striking_image_path($article_id, $image_style =
         }
       }
     }
-    if (preg_match('/[0-9]*(?<id>[0-9]{5})[0-9]*/', $article_id, $matches)) {
-      $article_id = $matches['id'];
-    }
+    $article_id = _elife_article_process_article_id($article_id);
     if (empty($figure)) {
       $figure = '1';
     }

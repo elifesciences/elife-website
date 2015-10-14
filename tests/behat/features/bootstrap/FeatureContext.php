@@ -31,6 +31,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @BeforeScenario
    */
+  public function SetDefaultMockMarkupService() {
+    variable_set('elife_article_markup_service_factory', '_elife_article_mock_markup_service');
+  }
+
+  /**
+   * @BeforeScenario
+   */
   public function resetFollowingRedirects() {
     try {
       $this->canIntercept();
@@ -635,5 +642,28 @@ JS;
    */
   protected function fixStepArgument($argument) {
     return str_replace('\\"', '"', $argument);
+  }
+
+  /**
+   * @Given the search index is updated
+   */
+  public function searchIndexIsUpdated() {
+    $this->getDrushDriver()->drush('elysia-cron');
+  }
+
+  /**
+   * @return \Drupal\Driver\DrushDriver
+   */
+  public function getDrushDriver()
+  {
+    return $this->getDriver('drush');
+  }
+
+  /**
+   * @Given the markup service is available
+   */
+  public function markupServiceAvailable() {
+    // @todo - elife - nlisgo - We need the step until we can apply it automatically when the @markup tag is used.
+    variable_set('elife_article_markup_service_factory', '_elife_article_mock_xsl_markup_service');
   }
 }
