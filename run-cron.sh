@@ -8,4 +8,4 @@ if [ ! -e ./web/sites/default/settings.php ]; then
 fi
 
 cd web
-drush core-cron
+drush elysia-cron

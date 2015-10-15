@@ -72,7 +72,7 @@ if (!isset($conf['elife_monolog_handlers'])) {
 // The 'cache_form' bin must be assigned to non-volatile storage.
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
 
-if (function_exists('drush_get_context') && 'site-install' === drush_get_context()['command']['command']) {
+if (function_exists('drush_get_context') && isset(drush_get_context()['command']['command']) && 'site-install' === drush_get_context()['command']['command']) {
   // If the site is being installed by Drush, Drupal can't cope with alternative
   // caches. So, we need to remove any cache variables and let it fall back to
   // using the database.
