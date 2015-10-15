@@ -4,7 +4,7 @@ services:
     class: eLife\Behat\IsolatedSolrListener
     arguments:
       - @elife.behat.solr_client
-      - %elife.solr_uri%
+      - @elife.isolated_drupal_behat.random_string_generator
     tags:
       - { name: event_dispatcher.subscriber }
 
