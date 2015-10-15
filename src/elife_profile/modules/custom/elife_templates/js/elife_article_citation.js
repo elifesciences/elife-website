@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
     return false;
   });
  
-  
+  $('.citation-links > li').removeClass('show-article-toolbox-tooltip');
   
   $('.citation-links > li').hover(function(){
     $(this).toggleClass('show-article-toolbox-tooltip');
