@@ -26,4 +26,10 @@ class IsolatedDrupalContext extends DrupalContext {
   public function cleanRoles() {
     $this->roles = [];
   }
+
+  public function assertCron() {
+    /** @var \Drupal\Driver\DrushDriver $driver */
+    $driver = $this->getDriver('drush');
+    $driver->drush('elysia-cron');
+  }
 }
