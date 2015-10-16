@@ -39,11 +39,6 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
 
-      if ($conf['markup_section'] == 'main-text' && $dto->getStatus() == 'VOR') {
-        // @todo - elife - nlisgo - suppress main-text for now as creating a lot of noise!
-        $html = '<p>Under construction</p>';
-      }
-
       if ($html) {
         $block = new stdClass();
         $block->content = $html;
