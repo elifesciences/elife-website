@@ -165,7 +165,7 @@ Feature: Article Search - Keywords
      """
     
   Scenario: Set keywords
-    When I run cron
+    When the search index is updated
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
@@ -178,8 +178,8 @@ Feature: Article Search - Keywords
     And I should not see "Article 7 for Search test"
 
   Scenario: No articles with searched keyword
+    When the search index is updated
     Given I am on "/elife/search"
-    And I run cron
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Applw"
@@ -189,3 +189,103 @@ Feature: Article Search - Keywords
     And I press the Search button
     And I should not see an ".article-teaser__title" element
     And I should see "Your search yielded no results."
+
+  Scenario: Filter search results on category
+    Given there are articles:
+    """
+        [
+          {
+            "title": "VOR 04565",
+            "version": "1",
+            "doi": "10.7554/eLife.04565",
+            "volume": "3",
+            "elocation-id": "e04565",
+            "article-id": "04565",
+            "article-version-id": "04565",
+            "pub-date": "2014-09-19",
+            "path": "content/3/e04565",
+            "article-type": "article-commentary",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Ebola"
+              ]
+            }
+          },
+          {
+            "title": "VOR 04395",
+            "version": "1",
+            "doi": "10.7554/eLife.04395",
+            "volume": "3",
+            "elocation-id": "e04395",
+            "article-id": "04395",
+            "article-version-id": "04395",
+            "pub-date": "2014-09-08",
+            "path": "content/3/e04395",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Ebola"
+              ]
+            }
+          },
+          {
+            "title": "VOR 03908",
+            "version": "1",
+            "doi": "10.7554/eLife.03908",
+            "volume": "3",
+            "elocation-id": "e03908",
+            "article-id": "03908",
+            "article-version-id": "03908",
+            "pub-date": "2014-09-12",
+            "path": "content/3/e03908",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+                "Ebola",
+                "bacterial sulfonolipid"
+              ]
+            }
+          },
+          {
+            "title": "VOR 05564",
+            "version": "1",
+            "doi": "10.7554/eLife.05564",
+            "volume": "4",
+            "elocation-id": "e05564",
+            "article-id": "05564",
+            "article-version-id": "05564",
+            "pub-date": "2015-02-19",
+            "path": "content/4/e05564",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": "1",
+            "keywords": {
+              "author-keywords": [
+              "bacterial sulfonolipid",
+              "Ebola"
+              ]
+            }
+          }
+        ]
+      """
+    And the search index is updated
+    Given I am on "/elife/search"
+    Then the response status code should be 200
+    And I should see "Browse articles" in the "h1.pane-title" element
+    And I fill in "Keyword" with "Ebola"
+    And I press the Search button
+    And I should see " Showing results 1–4 of 4 " in the ".main-wrapper" element
+    And I should see 4 ".article-teaser__title" elements
+    And I should see "Filter by content type" in the ".sidebar-wrapper" element
+    Then I should see " Apply research-article filter" in the ".sidebar-wrapper" element
+    Then I click "research-article (3)"
+    And I should see 3 ".article-teaser__title" elements
+    Then I should see " Apply article-commentary filter" in the ".sidebar-wrapper" element
+    Then I click "article-commentary (1)"
+    And I should see 1 ".article-teaser__title" element
