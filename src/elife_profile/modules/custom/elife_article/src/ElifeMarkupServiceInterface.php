@@ -19,6 +19,12 @@ interface ElifeMarkupServiceInterface {
    */
   public function addDoiQuery($article_id, $doi);
 
+  /**
+   * @param string $article_id
+   * @param string $aff_id
+   */
+  public function addAffiliationQuery($article_id, $aff_id);
+
   public function getQuery();
 
   public function submitQuery();

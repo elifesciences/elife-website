@@ -17,6 +17,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   private $error = 'error';
   private $results = [];
   private $methods = [
+    'aff' => 'getAffiliation',
     'doi' => 'getDoi',
     'main-text' => 'getMainText',
     'abstract' => 'getAbstract',
@@ -82,6 +83,14 @@ class ElifeXslMarkupService extends ElifeMarkupService {
    */
   public function addDoiQuery($article_id, $doi) {
     $this->addQuery($article_id, 'doi', $doi);
+  }
+
+  /**
+   * @param string $article_id
+   * @param string $aff_id
+   */
+  public function addAffiliationQuery($article_id, $aff_id) {
+    $this->addQuery($article_id, 'aff', $aff_id);
   }
 
   public function submitQuery() {

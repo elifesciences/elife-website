@@ -61,6 +61,14 @@ final class MockMarkupService extends ElifeMarkupService {
     $this->addQuery($article_id, 'doi', $doi);
   }
 
+  /**
+   * @param string $article_id
+   * @param string $aff_id
+   */
+  public function addAffiliationQuery($article_id, $aff_id) {
+    $this->addQuery($article_id, 'aff', $aff_id);
+  }
+
   public function submitQuery() {}
 
   public function processResponse() {
