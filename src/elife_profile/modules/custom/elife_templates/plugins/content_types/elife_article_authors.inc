@@ -159,7 +159,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
             }
 
             if (empty($variables['email']) && !empty($variables['affiliation']) &&
-              preg_match('/^(?P<before>.*)\s<span class=\"email\">(?P<email>[^\<]+)<\/span>(?P<after>.*)$/', $variables['affiliation'], $matches)) {
+              preg_match('/^(?P<before>.*)\s<a [^>]*class=\"email\"[^>]*>(?P<email>[^\<]+)<\/a>(?P<after>.*)$/', $variables['affiliation'], $matches)) {
               $variables['affiliation'] = $matches['before'] . $matches['after'];
               $variables['email'] = $matches['email'];
             }
@@ -258,33 +258,15 @@ function _elife_article_authors_affiliation(ArticleVersion $article_version) {
 function _elife_article_authors_affiliation_cache(ArticleVersion $article_version) {
   $affiliations = &drupal_static(__FUNCTION__, []);
   if (!isset($affiliations[$article_version->getArticleId()])) {
+
+    $article_id = $article_version->getArticleId();
+    $article_id = _elife_article_process_article_id($article_id);
     $referenced = $article_version->getReferenced();
     foreach ($referenced->getAffiliation() as $key => $affiliation) {
-      $name = [];
-      if ($dept = $affiliation->getDept()) {
-        $name['dept'] = $dept;
-      }
-      if ($institution = $affiliation->getInstitution()) {
-        $name['institution'] = $institution;
-      }
-      if ($city = $affiliation->getCity()) {
-        $name['city'] = $city;
-      }
-      if ($country = $affiliation->getCountry()) {
-        $name['country'] = $country;
-      }
-      if ($email = $affiliation->getEmail()) {
-        $name['email'] = $email;
-      }
-
-      if (!empty($name)) {
-        $aff = [];
-        foreach ($name as $k => $n) {
-          $aff[] = '<span class="' . $k . '">' . $n . '</span>';
-        }
-
-        $affiliations[$article_version->getArticleVersionId()][$key] = '<span class="' . $key . '">' . implode(' ', $aff) . '</span>';
-      }
+      $markup = elife_article_markup_service();
+      $markup->addAffiliationQuery($article_id, $key);
+      $markup = _elife_article_markup_query($markup);
+      $affiliations[$article_version->getArticleVersionId()][$key] = $markup->output();
     }
   }
 
