@@ -67,24 +67,6 @@ Feature: Footnote
             },
             {
               "type": "author",
-              "id": "author-3",
-              "corresp": "yes",
-              "surname": "Thines",
-              "given-names": "Marco",
-              "references": {
-                "affiliation": [
-                  "aff3"
-                ],
-                "equal-contrib": [
-                  "equal-contrib"
-                ],
-                "contribution": [
-                  "con3"
-                ]
-              }
-            },
-            {
-              "type": "author",
               "id": "author-4",
               "surname": "Weigel",
               "given-names": "Detlef",
@@ -137,13 +119,6 @@ Feature: Footnote
                 "institution": "inst2",
                 "city": "city2",
                 "country": "Country2"
-              },
-              "aff3": {
-                "dept": "department3",
-                "institution": "inst3",
-                "city": "city3",
-                "country": "Country3",
-                "email": "mt@ucsd.edu"
               }
             },
             "contribution": {
@@ -168,9 +143,8 @@ Feature: Footnote
       | author              | author_email                     | n | email                     |
       | Mikel Garcia-Marcos | mailto:mgm1@bu.edu               | 1 | mgm1@bu.edu               |
       | Pradipta Ghosh      | mailto:prghosh@ucsd.edu          | 2 | prghosh@ucsd.edu          |
-      | Marco Thines        | mailto:mt@ucsd.edu               | 3 | mt@ucsd.edu               |
-      | Detlef Weigel       | mailto:detlef.weigel@email.com   | 4 | detlef.weigel@email.com   |
-      | Nathan Lisgo        | mailto:n.lisgo@elifesciences.org | 5 | n.lisgo@elifesciences.org |
+      | Detlef Weigel       | mailto:detlef.weigel@email.com   | 3 | detlef.weigel@email.com   |
+      | Nathan Lisgo        | mailto:n.lisgo@elifesciences.org | 4 | n.lisgo@elifesciences.org |
 
   Scenario Outline: Author has not provided email id
     Given there is an article:
@@ -221,3 +195,81 @@ Feature: Footnote
     Examples:
       | n |
       | 1 |
+
+    Scenario: Support corresponding email address directly in affiliation block
+      Given the markup service is available
+      And there are articles:
+        """
+          [
+            {
+              "status": "VOR",
+              "article-type": "editorial",
+              "force": "1",
+              "contributors": [
+                {
+                  "surname": "Morrison",
+                  "corresp": "yes",
+                  "given-names": "Sean J",
+                  "role": " Senior Editor",
+                  "references": {
+                    "affiliation": [
+                      "aff1"
+                    ],
+                    "competing-interest": [
+                      "conf1"
+                    ]
+                  },
+                  "type": "author",
+                  "id": "author-1146"
+                }
+              ],
+              "pub-date": "2014-12-10",
+              "title": "Time to do something about reproducibility",
+              "elocation-id": "e03981",
+              "publish": "1",
+              "article-version-id": "03981.1",
+              "volume": "3",
+              "keywords": {
+                "author-keywords": [
+                  "reproducibility project: cancer biology",
+                  "methodology",
+                  "open science",
+                  "reproducibility",
+                  "replication",
+                  "blood stem cells"
+                ]
+              },
+              "doi": "10.7554/eLife.03981",
+              "version": "1",
+              "referenced": {
+                "competing-interest": {
+                  "conf1": "The author declares that no competing interests exist."
+                },
+                "affiliation": {
+                  "aff1": {
+                    "email": "sean.morrison@utsouthwestern.edu",
+                    "city": "Dallas",
+                    "institution": " Children’s Research Institute at the University of Texas Southwestern Medical Center",
+                    "country": "USA"
+                  }
+                }
+              },
+              "path": "content/3/e03981",
+              "fragments": [],
+              "article-id": "10.7554/eLife.03981",
+              "categories": {
+                "sub-display-channel": [
+                  "Reproducibility Project: Cancer Biology"
+                ],
+                "heading": [
+                  "Human biology and medicine"
+                ],
+                "display-channel": [
+                  "Editorial"
+                ]
+              }
+            }
+          ]
+        """
+      When I visit "content/3/e03981"
+      Then I should see "sean.morrison@utsouthwestern.edu" in the ".author-list-full li:nth-of-type(1) .author-tooltip .author-tooltip-corresp .author-tooltip-text" element
