@@ -165,7 +165,7 @@ Feature: Article Search - Keywords
      """
     
   Scenario: Set keywords
-    When I run cron
+    When the search index is updated
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
@@ -178,8 +178,8 @@ Feature: Article Search - Keywords
     And I should not see "Article 7 for Search test"
 
   Scenario: No articles with searched keyword
+    When the search index is updated
     Given I am on "/elife/search"
-    And I run cron
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Applw"
@@ -267,18 +267,19 @@ Feature: Article Search - Keywords
             "publish": "1",
             "keywords": {
               "author-keywords": [
-                "bacterial sulfonolipid"
+              "bacterial sulfonolipid",
+              "Ebola"
               ]
             }
           }
         ]
       """
+    And the search index is updated
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Keyword" with "Ebola"
-    And I run cron
-    And I click "Search"
+    And I press the Search button
     And I should see " Showing results 1–4 of 4 " in the ".main-wrapper" element
     And I should see 4 ".article-teaser__title" elements
     And I should see "Filter by content type" in the ".sidebar-wrapper" element
