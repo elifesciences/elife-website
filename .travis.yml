@@ -37,6 +37,7 @@ env:
 
 before_install:
   - composer self-update
+  - composer config --global github-oauth.github.com $ELIFE_DEPLOY_USER_TOKEN
 
 install:
   # Create MySQL Database
