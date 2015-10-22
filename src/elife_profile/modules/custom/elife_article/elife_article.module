@@ -58,6 +58,15 @@ function elife_article_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
+  $items['admin/config/services/elife-article-xml-source'] = array(
+    'title' => 'eLife XML Source',
+    'description' => 'Configuration options for eLife XML source.',
+    'access arguments' => array('administer elife_article xml source'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_article_xml_source_settings_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_article.admin.inc',
+  );
   $items['elife/citation'] = array(
     'title' => 'Stream file from backend',
     'page callback' => 'elife_article_citation_download',
@@ -117,6 +126,9 @@ function elife_article_permission() {
   return array(
     'administer elife_article' => array(
       'title' => t('Administer eLife - Article'),
+    ),
+    'administer elife_article xml source' => array(
+      'title' => t('Administer eLife - Article xml source'),
     ),
   );
 }
@@ -300,6 +312,18 @@ function elife_article_token_info() {
     'name' => t('Plural name'),
     'description' => t('Plural name, if available.'),
   );
+  $info['tokens']['node']['version_no'] = array(
+    'name' => t('Version number'),
+    'description' => t('Version number of article as integer.'),
+  );
+  $info['tokens']['node']['eloc_id'] = array(
+    'name' => t('elocation ID of article'),
+    'description' => t("The identifier of an article as a string of 5 digits with a leading 'e' (e.g. e00001)."),
+  );
+  $info['tokens']['node']['manuscript_id'] = array(
+    'name' => t('Manuscript ID of article'),
+    'description' => t('The identifier of an article as a string of 5 digits (e.g. 00001).'),
+  );
   return $info;
 }
 
@@ -318,6 +342,44 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
         case 'plural':
           $plural = ElifeArticleVersion::getCategoryPlural($term->name);
           $replacements[$original] = $sanitize ? check_plain($plural) : $plural;
+          break;
+      }
+    }
+  }
+
+  if ($type == 'node' && !empty($data['node'])) {
+    $node = $data['node'];
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'version_no':
+          if ($dto = elife_article_version_to_dto($node)) {
+            $version = $dto->getVersion();
+          }
+          else {
+            $version = $original;
+          }
+          $replacements[$original] = $sanitize ? check_plain($version) : $version;
+          break;
+
+        case 'eloc_id':
+          if ($dto = elife_article_version_to_dto($node)) {
+            $eloc_id = $dto->getElocationId();
+          }
+          else {
+            $eloc_id = $original;
+          }
+          $replacements[$original] = $sanitize ? check_plain($eloc_id) : $eloc_id;
+          break;
+
+        case 'manuscript_id':
+          if ($dto = elife_article_version_to_dto($node)) {
+            $manuscript_id = ltrim($dto->getElocationId(), 'e');
+          }
+          else {
+            $manuscript_id = $original;
+          }
+          $replacements[$original] = $sanitize ? check_plain($manuscript_id) : $manuscript_id;
           break;
       }
     }
@@ -370,6 +432,26 @@ function elife_article_validator() {
   }
 
   return $validator;
+}
+
+function elife_article_version_source_xml_path($article_version) {
+  if (!is_object($article_version)) {
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version);
+  }
+
+  $source_xml_base_path = variable_get('elife_article_source_xml_base_path');
+  $source_xml_file_pattern = variable_get('elife_article_source_xml_file_pattern');
+
+  if (empty($source_xml_base_path) || empty($source_xml_file_pattern)) {
+    return FALSE;
+  }
+  else {
+    if (module_exists('token')) {
+      $source_xml_file_pattern = token_replace($source_xml_file_pattern, array('node' => $article_version));
+    }
+
+    return $source_xml_base_path . $source_xml_file_pattern;
+  }
 }
 
 /**
@@ -442,6 +524,10 @@ function _elife_article_mock_citation_service() {
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
+  // @todo - elife - nlisgo - consider adding drupal_static cache to this function.
+  if ($entity->type != 'elife_article_ver') {
+    return FALSE;
+  }
   /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
   $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE);

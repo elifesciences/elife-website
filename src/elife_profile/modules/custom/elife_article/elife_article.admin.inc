@@ -65,7 +65,6 @@ function elife_article_markup_prepopulate_process($force_empty = FALSE) {
   $emptys = _elife_article_empty_main_text($force_empty);
   $operations = [];
   if (!empty($emptys)) {
-    $emptys = _elife_article_emptys_clean($emptys);
     $per_batch = variable_get('elife_markup_pre_batch', 10);
     for ($i = 0; $i < count($emptys); $i += $per_batch) {
       $operations[] = array(
@@ -120,4 +119,64 @@ function elife_article_markup_prepopulate_process_finished($success, $results, $
     $error_operation = reset($operations);
     drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => $error_operation[1][0]->cid)));
   }
+}
+
+/**
+ * Implements hook_admin_settings().
+ */
+function elife_article_xml_source_settings_form($form_state) {
+  $form = array();
+  $form['source_xml'] = array(
+    '#title' => t('Settings for the retrieval of Article Version XML'),
+    '#type' => 'fieldset',
+  );
+
+  if (!empty(variable_get('elife_article_source_xml_base_path')) && !empty(variable_get('elife_article_source_xml_file_pattern'))) {
+    $query = new EntityFieldQueryExtraFields();
+
+    $entities = $query->entityCondition('entity_type', 'node')
+      ->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT')
+      ->propertyCondition('type', 'elife_article_ver')
+      ->fieldCondition('field_elife_a_subarticle', 'value', 0)
+      ->propertyCondition('status', 1)
+      ->range(0, 1)
+      ->execute();
+
+    if (!empty($entities['node'])) {
+      $nids = array_keys($entities['node']);
+      $node = node_load(array_shift($nids));
+      $example_xml_path = elife_article_version_source_xml_path($node);
+      $form['source_xml']['elife_article_source_xml_example'] = array(
+        '#type' => 'item',
+        '#title' => t('Example source xml path'),
+        '#markup' => $example_xml_path,
+      );
+    }
+  }
+
+  $form['source_xml']['elife_article_source_xml_base_path'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Source XML base path'),
+    '#default_value' => variable_get('elife_article_source_xml_base_path'),
+  );
+  $form['source_xml']['elife_article_source_xml_file_pattern'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Source XML file pattern'),
+    '#default_value' => variable_get('elife_article_source_xml_file_pattern'),
+  );
+
+  if (module_exists('token')) {
+    $form['source_xml']['elife_article_source_xml_file_pattern']['#description'] = t('Token replacement will be performed on this value.');
+    $form['source_xml']['tokens'] = array(
+      '#title' => t('Tokens'),
+      '#type' => 'fieldset',
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['source_xml']['tokens']['help'] = array(
+      '#theme' => 'token_tree',
+      '#token_types' => array('node'),
+    );
+  }
+  return system_settings_form($form);
 }
