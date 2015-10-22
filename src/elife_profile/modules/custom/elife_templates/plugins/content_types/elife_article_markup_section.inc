@@ -31,11 +31,10 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
         $markup_section = reset($markup_sections);
       }
 
-      $article_id = $dto->getArticleId();
-      $article_id = _elife_article_process_article_id($article_id);
+      $article_version_id = $dto->getArticleVersionId();
 
       $markup = elife_article_markup_service();
-      $markup->addSectionQuery($article_id, $markup_section);
+      $markup->addSectionQuery($article_version_id, $markup_section);
       $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
 

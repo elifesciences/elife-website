@@ -21,11 +21,10 @@ function elife_article_markup_doi_render($subtype, $conf, $args, $context) {
     if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
 
       $doi = $ewrapper->field_elife_a_doi->value();
-      $article_id = $ewrapper->field_elife_a_parent->field_elife_a_article_id->value();
-      $article_id = _elife_article_process_article_id($article_id);
+      $article_version_id = $ewrapper->field_elife_a_parent->field_elife_a_article_version_id->value();
 
       $markup = elife_article_markup_service();
-      $markup->addDoiQuery($article_id, $doi);
+      $markup->addDoiQuery($article_version_id, $doi);
       $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
 

@@ -89,11 +89,10 @@ function elife_article_citation_download($nid, $format) {
   $article_version = node_load($nid);
   $dto = elife_article_version_to_dto($article_version);
 
-  $article_id = $dto->getArticleId();
-  $article_id = _elife_article_process_article_id($article_id);
+  $article_version_id = $dto->getArticleVersionId();
 
   $citation = elife_article_citation_service();
-  $citation->setId($article_id);
+  $citation->setId($article_version_id);
   $citation = _elife_article_citation_query($citation);
 
   switch ($format) {
@@ -1592,7 +1591,6 @@ function elife_article_cron() {
  */
 function _elife_article_prepare_main_text() {
   $emptys = _elife_article_empty_main_text();
-  $emptys = _elife_article_emptys_clean($emptys);
   _elife_article_emptys_markup_populate($emptys);
 
   return $emptys;
@@ -1646,9 +1644,9 @@ function _elife_article_emptys_markup($emptys) {
     'abstract',
     'main-text',
   ];
-  foreach ($emptys as $key => $article_id) {
+  foreach ($emptys as $key => $article_version_id) {
     foreach ($sections as $section) {
-      $markup->addSectionQuery($article_id, $section);
+      $markup->addSectionQuery($article_version_id, $section);
     }
   }
   $markup = _elife_article_markup_query($markup, FALSE);
@@ -1667,23 +1665,6 @@ function _elife_article_emptys_markup($emptys) {
   }
 
   return $populates;
-}
-
-/**
- * Cleanup the article version ids so we can use the value to query the xml.
- *
- * @param array $emptys
- *   Array of article version ids.
- *
- * @return array
- *   Array of cleaned article ids.
- */
-function _elife_article_emptys_clean($emptys) {
-  $clean_emptys = [];
-  foreach ($emptys as $key => $empty) {
-    $clean_emptys[$key] = _elife_article_process_article_id($empty);
-  }
-  return $clean_emptys;
 }
 
 /**
@@ -1866,11 +1847,7 @@ function _elife_article_citation_cache_warm($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    // Until we have access to xml for each article version then we need to
-    // convert this to the elocation-id (e.g. 00288).
-    $article_version_id = _elife_article_process_article_id($article_version_id);
-
-    $results = db_select('elife_citation', 'c')->fields('m', array('id', 'citation'))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
+    $results = db_select('elife_citation', 'c')->fields('c', array('id', 'citation'))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
     if ($results) {
       foreach ($results as $key => $citation) {
         _elife_article_citation_cache_merge(unserialize($citation));
@@ -2014,10 +1991,6 @@ function _elife_article_markup_cache_warm($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    // Until we have access to xml for each article version then we need to
-    // convert this to the elocation-id (e.g. 00288).
-    $article_version_id = _elife_article_process_article_id($article_version_id);
-
     $results = db_select('elife_markup', 'm')->fields('m', array('id', 'markup'))->condition('m.article_version_id', '%::' . $article_version_id . '::%', 'LIKE')->execute()->fetchAllKeyed();
     if ($results) {
       foreach ($results as $key => $markup) {

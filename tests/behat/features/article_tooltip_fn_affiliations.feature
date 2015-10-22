@@ -14,7 +14,7 @@ Feature: Footnote
           "volume": "<volume>",
           "elocation-id": "e<eloc>",
           "article-id": "10.7554/eLife.<eloc>",
-          "article-version-id": "<eloc>",
+          "article-version-id": "<eloc>.1",
           "pub-date": "2014-10-14",
           "path": "content/<volume>/<eloc>",
           "article-type": "research-article",

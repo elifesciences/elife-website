@@ -29,14 +29,15 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'datasets' => 'getDatasets',
   ];
   private $htmls = [];
+  private $xmls = [];
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @param string $section
    * @param string $value
    */
-  private function addQuery($article_id, $section, $value = NULL) {
-    $query_id = [$article_id, $section];
+  private function addQuery($article_version_id, $section, $value = NULL) {
+    $query_id = [$article_version_id, $section];
     $method = $this->methods[$section];
 
     $query = ['method' => $method, 'params' => []];
@@ -52,8 +53,8 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   private function arrangeQuery() {
     $this->arrange_queries = [];
     foreach ($this->queries as $query_id => $query) {
-      list($article_id) = explode('::', $query_id);
-      $this->arrange_queries[$article_id][$query_id] = $query;
+      list($article_version_id) = explode('::', $query_id);
+      $this->arrange_queries[$article_version_id][$query_id] = $query;
     }
   }
 
@@ -67,46 +68,46 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @param string|array $section
    */
-  public function addSectionQuery($article_id, $section) {
+  public function addSectionQuery($article_version_id, $section) {
     $sections = (!is_array($section)) ? [$section] : $section;
     foreach ($sections as $section) {
-      $this->addQuery($article_id, $section);
+      $this->addQuery($article_version_id, $section);
     }
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @param string $doi
    */
-  public function addDoiQuery($article_id, $doi) {
-    $this->addQuery($article_id, 'doi', $doi);
+  public function addDoiQuery($article_version_id, $doi) {
+    $this->addQuery($article_version_id, 'doi', $doi);
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @param string $aff_id
    */
-  public function addAffiliationQuery($article_id, $aff_id) {
-    $this->addQuery($article_id, 'aff', $aff_id);
+  public function addAffiliationQuery($article_version_id, $aff_id) {
+    $this->addQuery($article_version_id, 'aff', $aff_id);
   }
 
   public function submitQuery() {
     $queries = $this->getQuery();
     $this->htmls = [];
     $this->results = [];
-    foreach ($queries as $article_id => $article_queries) {
-      $html = $this->retrieveHtml($article_id);
-      foreach ($article_queries as $article_query) {
-        $query_id = array_merge([array_search($article_query['method'], $this->methods)], $article_query['params']);
+    foreach ($queries as $article_version_id => $article_ver_queries) {
+      $html = $this->retrieveHtml($article_version_id);
+      foreach ($article_ver_queries as $article_ver_query) {
+        $query_id = array_merge([array_search($article_ver_query['method'], $this->methods)], $article_ver_query['params']);
         $query_id = implode('::', $query_id);
 
-        $res = call_user_func_array([$html, $article_query['method']], $article_query['params']);
-        $this->results[$article_id][$query_id] = [];
+        $res = call_user_func_array([$html, $article_ver_query['method']], $article_ver_query['params']);
+        $this->results[$article_version_id][$query_id] = [];
         if (!empty($res)) {
-          $this->results[$article_id][$query_id][] = $this->postQueryProcess($res);
+          $this->results[$article_version_id][$query_id][] = $this->postQueryProcess($res);
         }
       }
     }
@@ -123,57 +124,69 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @return ConvertXMLToHtml
    */
-  public function retrieveHtml($article_id) {
-    $xml = $this->retrieveXml($article_id);
+  public function retrieveHtml($article_version_id) {
+    $xml = $this->retrieveXml($article_version_id);
     if (!empty($xml)) {
-      $convert_xml_to_html = $this->retrieveHtmlCache($article_id);
-      if (!empty($convert_xml_to_html[$article_id])) {
-        return $convert_xml_to_html[$article_id];
+      $convert_xml_to_html = $this->retrieveHtmlCache($article_version_id);
+      if (!empty($convert_xml_to_html[$article_version_id])) {
+        return $convert_xml_to_html[$article_version_id];
       }
     }
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version__id
    * @return ConvertXMLToHtml[]
    */
-  public function retrieveHtmlCache($article_id) {
+  public function retrieveHtmlCache($article_version_id) {
     $cache = &drupal_static(__FUNCTION__, []);
 
-    if (!isset($cache[$article_id])) {
-      $xml = $this->retrieveXml($article_id);
+    if (!isset($cache[$article_version_id])) {
+      $xml = $this->retrieveXml($article_version_id);
       if (!empty($xml)) {
         $convert_xml_to_html = new ConvertXMLToHtml(XMLString::fromString($xml));
-        $cache[$article_id] = $convert_xml_to_html;
+        $cache[$article_version_id] = $convert_xml_to_html;
       }
     }
 
     return $cache;
   }
 
-  public function retrieveXml($article_id) {
-    $xml = $this->retrieveXmlCache($article_id);
-    if (!empty($xml[$article_id])) {
-      return $xml[$article_id];
+  public function retrieveXml($article_version_id) {
+    $xml = $this->retrieveXmlCache($article_version_id);
+    if (!empty($xml[$article_version_id])) {
+      return $xml[$article_version_id];
     }
   }
 
-  private function retrieveXmlCache($article_id) {
+  private function retrieveXmlCache($article_version_id) {
     $cache = &drupal_static(__FUNCTION__, []);
 
-    if (!isset($cache[$article_id])) {
-      $xml = $this->getXml($article_id);
-      $cache[$article_id] = $xml;
+    if (!isset($cache[$article_version_id])) {
+      $xml = $this->getXml($article_version_id);
+      $cache[$article_version_id] = $xml;
     }
 
     return $cache;
   }
 
-  protected function getXml($article_id) {
-    return file_get_contents(sprintf('https://s3.amazonaws.com/elife-cdn/elife-articles/%s/elife%s.xml', $article_id, $article_id));
+  public function setXml($article_version_id, $xml = NULL) {
+    if (!isset($this->xmls[$article_version_id])) {
+      if (empty($xml)) {
+        $xml = elife_article_version_source_xml_path($article_version_id);
+      }
+      $this->xmls[$article_version_id] = file_get_contents($xml);
+    }
+  }
+
+  protected function getXml($article_version_id) {
+    if (!isset($this->xmls[$article_version_id])) {
+      $this->setXml($article_version_id);
+    }
+    return $this->xmls[$article_version_id];
   }
 
   public function processResponse() {
@@ -208,24 +221,20 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     return $this->results;
   }
 
-  /**
-   * @return array
-   *   Return error string.
-   */
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    *   Article id.
    *
    * @return array
    *   Array of results.
    * @throws \Exception
    */
-  public function getResult($article_id) {
+  public function getResult($article_version_id) {
     if (empty($this->results)) {
       $this->processResponse();
     }
-    $results = (isset($this->results[$article_id])) ? $this->results[$article_id] : [];
+    $results = (isset($this->results[$article_version_id])) ? $this->results[$article_version_id] : [];
 
     return $results;
   }
@@ -237,8 +246,8 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   public function output() {
     $results = $this->getResults();
     $output = '';
-    foreach ($results as $article_queries) {
-      foreach ($article_queries as $data) {
+    foreach ($results as $article_ver_queries) {
+      foreach ($article_ver_queries as $data) {
         $output .= implode("\n", $data);
       }
     }
