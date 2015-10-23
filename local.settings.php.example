@@ -16,6 +16,8 @@ $databases = [
     ],
 ];
 
+$conf['elife_environment'] = ELIFE_ENVIRONMENT_DEVELOPMENT;
+
 $conf['redis_client_host'] = '127.0.0.1';
 $conf['redis_client_port'] = 6379;
 

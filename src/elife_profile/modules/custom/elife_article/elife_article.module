@@ -408,7 +408,7 @@ function elife_article_serializer() {
         $dispatcher->addSubscriber(new SubArticleSubscriber());
       })
       ->setCacheDir(variable_get('elife_cache_dir', sys_get_temp_dir()) . '/jms_serializer')
-      ->setDebug(!variable_get('elife_production', FALSE))
+      ->setDebug(ELIFE_ENVIRONMENT_PRODUCTION !== elife_environment())
       ->build();
   }
 

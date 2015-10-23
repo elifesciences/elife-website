@@ -2,12 +2,13 @@
 
 use Monolog\Handler\ErrorLogHandler;
 
+const ELIFE_ENVIRONMENT_PRODUCTION = 'production';
+const ELIFE_ENVIRONMENT_DEVELOPMENT = 'development';
+const ELIFE_ENVIRONMENT_TESTING = 'testing';
+
 // Set up Composer.
 require_once __DIR__ . '/../vendor/autoload.php';
 $conf['elife_composer_vendor_path'] = __DIR__ . '/../vendor';
-
-// Define the environment.
-$conf['elife_production'] = FALSE;
 
 // Don't allow modules to be added/updated through the UI.
 $conf['allow_authorize_operations'] = FALSE;
@@ -55,6 +56,7 @@ if (extension_loaded('redis')) {
 // - $databases
 // - $conf['redis_client_host'] OR $conf['redis_client_socket']
 // - $conf['imagemagick_convert']
+// - $conf['elife_environment']
 //
 // It may also contain any custom configuration required by this environment.
 require __DIR__ . '/../local.settings.php';

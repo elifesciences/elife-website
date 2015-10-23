@@ -1,0 +1,14 @@
+includes:
+  - 'elife_profile.make.yml'
+
+projects:
+  devel:
+    version: '1.5'
+    patch:
+      - 'https://www.drupal.org/files/issues/1858318-devel-efq-debug-30.patch'
+  module_builder:
+    version: '2.x-dev' # no stable release available
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/module_builder.git'
+      revision: 'f0b3b384e592adee3c07aefbb1a318539cdb48f8'

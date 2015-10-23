@@ -30,10 +30,6 @@ projects:
     version: '2.9'
   delta:
     version: '3.0-beta11'
-  devel:
-    version: '1.5'
-    patch:
-      - 'https://www.drupal.org/files/issues/1858318-devel-efq-debug-30.patch'
   diff:
     version: '3.2'
   ds:
@@ -114,12 +110,6 @@ projects:
     version: '2.8'
   migrate_extras:
     version: '2.5'
-  module_builder:
-    version: '2.x-dev' # no stable release available
-    download:
-      type: 'git'
-      url: 'http://git.drupal.org/project/module_builder.git'
-      revision: 'f0b3b384e592adee3c07aefbb1a318539cdb48f8'
   module_filter:
     version: '2.0'
   node_clone:
