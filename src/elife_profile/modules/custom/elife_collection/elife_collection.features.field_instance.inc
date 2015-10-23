@@ -10,7 +10,7 @@
 function elife_collection_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_collection-field_elife_c_articles'
+  // Exported field_instance: 'node-elife_collection-field_elife_c_articles'.
   $field_instances['node-elife_collection-field_elife_c_articles'] = array(
     'bundle' => 'elife_collection',
     'default_value' => NULL,
@@ -53,7 +53,7 @@ function elife_collection_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_collection-field_elife_c_curators'
+  // Exported field_instance: 'node-elife_collection-field_elife_c_curators'.
   $field_instances['node-elife_collection-field_elife_c_curators'] = array(
     'bundle' => 'elife_collection',
     'default_value' => NULL,
@@ -96,7 +96,7 @@ function elife_collection_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_collection-field_elife_c_podcast'
+  // Exported field_instance: 'node-elife_collection-field_elife_c_podcast'.
   $field_instances['node-elife_collection-field_elife_c_podcast'] = array(
     'bundle' => 'elife_collection',
     'default_value' => NULL,
@@ -135,7 +135,7 @@ function elife_collection_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_collection-field_elife_c_related'
+  // Exported field_instance: 'node-elife_collection-field_elife_c_related'.
   $field_instances['node-elife_collection-field_elife_c_related'] = array(
     'bundle' => 'elife_collection',
     'default_value' => NULL,

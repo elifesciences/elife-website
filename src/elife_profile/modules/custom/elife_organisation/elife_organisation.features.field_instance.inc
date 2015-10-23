@@ -10,7 +10,7 @@
 function elife_organisation_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_organisation-field_elife_o_country'
+  // Exported field_instance: 'node-elife_organisation-field_elife_o_country'.
   $field_instances['node-elife_organisation-field_elife_o_country'] = array(
     'bundle' => 'elife_organisation',
     'default_value' => NULL,
@@ -48,7 +48,7 @@ function elife_organisation_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_organisation-field_elife_o_name'
+  // Exported field_instance: 'node-elife_organisation-field_elife_o_name'.
   $field_instances['node-elife_organisation-field_elife_o_name'] = array(
     'bundle' => 'elife_organisation',
     'default_value' => NULL,

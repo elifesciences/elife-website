@@ -38,6 +38,8 @@ function elife_footer_footer_load() {
   $variables = array();
   $path = drupal_get_path('module', 'elife_footer');
 
+  drupal_add_css($path . '/css/footer.css');
+
   $default_detail = 'eLife Sciences is a unique, non-profit collaboration ' .
     'between the funders and practitioners of research to improve the way ' .
     'important results are presented and shared. The open-access <i>eLife</i> ' .

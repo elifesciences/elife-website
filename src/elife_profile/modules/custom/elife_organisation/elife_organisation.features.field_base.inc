@@ -10,7 +10,7 @@
 function elife_organisation_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_o_country'
+  // Exported field_base: 'field_elife_o_country'.
   $field_bases['field_elife_o_country'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -34,7 +34,7 @@ function elife_organisation_field_default_field_bases() {
     'type' => 'country',
   );
 
-  // Exported field_base: 'field_elife_o_name'
+  // Exported field_base: 'field_elife_o_name'.
   $field_bases['field_elife_o_name'] = array(
     'active' => 1,
     'cardinality' => 1,

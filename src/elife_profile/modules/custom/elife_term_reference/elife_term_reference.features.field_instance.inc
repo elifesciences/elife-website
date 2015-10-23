@@ -10,7 +10,7 @@
 function elife_term_reference_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_body'
+  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_body'.
   $field_instances['node-elife_term_reference-field_elife_ta_body'] = array(
     'bundle' => 'elife_term_reference',
     'default_value' => NULL,
@@ -51,7 +51,7 @@ function elife_term_reference_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_term'
+  // Exported field_instance: 'node-elife_term_reference-field_elife_ta_term'.
   $field_instances['node-elife_term_reference-field_elife_ta_term'] = array(
     'bundle' => 'elife_term_reference',
     'default_value' => NULL,

@@ -10,7 +10,7 @@
 function elife_article_reference_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_aa_striking_figure'
+  // Exported field_base: 'field_elife_aa_striking_figure'.
   $field_bases['field_elife_aa_striking_figure'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -31,7 +31,7 @@ function elife_article_reference_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_aa_striking_image'
+  // Exported field_base: 'field_elife_aa_striking_image'.
   $field_bases['field_elife_aa_striking_image'] = array(
     'active' => 1,
     'cardinality' => 1,

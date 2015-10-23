@@ -10,7 +10,7 @@
 function elife_collection_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_c_articles'
+  // Exported field_base: 'field_elife_c_articles'.
   $field_bases['field_elife_c_articles'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -48,7 +48,7 @@ function elife_collection_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_c_curators'
+  // Exported field_base: 'field_elife_c_curators'.
   $field_bases['field_elife_c_curators'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -86,7 +86,7 @@ function elife_collection_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_c_podcast'
+  // Exported field_base: 'field_elife_c_podcast'.
   $field_bases['field_elife_c_podcast'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -124,7 +124,7 @@ function elife_collection_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_c_related'
+  // Exported field_base: 'field_elife_c_related'.
   $field_bases['field_elife_c_related'] = array(
     'active' => 1,
     'cardinality' => -1,
