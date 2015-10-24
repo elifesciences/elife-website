@@ -26,12 +26,12 @@ final class MockCitationService extends ElifeCitationService {
   }
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @return string
    */
-  protected function getXml($article_id) {
+  protected function getXml($article_version_id) {
     $realpath = realpath(dirname(__FILE__) . '/../../../../../../tests/behat/resources');
-    $xml = file_get_contents($realpath . sprintf('/%s.xml', $article_id));
+    $xml = file_get_contents($realpath . sprintf('/%s.xml', $article_version_id));
     return $xml;
   }
 }

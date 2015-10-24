@@ -257,16 +257,15 @@ function _elife_article_authors_affiliation(ArticleVersion $article_version) {
  */
 function _elife_article_authors_affiliation_cache(ArticleVersion $article_version) {
   $affiliations = &drupal_static(__FUNCTION__, []);
-  if (!isset($affiliations[$article_version->getArticleId()])) {
+  if (!isset($affiliations[$article_version->getArticleVersionId()])) {
 
-    $article_id = $article_version->getArticleId();
-    $article_id = _elife_article_process_article_id($article_id);
+    $article_version_id = $article_version->getArticleVersionId();
     $referenced = $article_version->getReferenced();
     foreach ($referenced->getAffiliation() as $key => $affiliation) {
       $markup = elife_article_markup_service();
-      $markup->addAffiliationQuery($article_id, $key);
+      $markup->addAffiliationQuery($article_version_id, $key);
       $markup = _elife_article_markup_query($markup);
-      $affiliations[$article_version->getArticleVersionId()][$key] = $markup->output();
+      $affiliations[$article_version_id][$key] = $markup->output();
     }
   }
 

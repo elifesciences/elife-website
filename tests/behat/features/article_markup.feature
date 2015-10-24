@@ -17,7 +17,7 @@ Feature: Markup
             "volume": "4",
             "elocation-id": "e05224",
             "article-id": "05224",
-            "article-version-id": "05224",
+            "article-version-id": "05224.1",
             "pub-date": "1979-08-17",
             "path": "content/4/e05224",
             "article-type": "research-article",

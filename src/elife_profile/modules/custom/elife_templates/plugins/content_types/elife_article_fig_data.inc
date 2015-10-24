@@ -24,36 +24,35 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     'table-wrap' => [],
     'media' => [],
   ];
-  $article_id = $dto->getArticleId();
-  $article_id = _elife_article_process_article_id($article_id);
+  $article_version_id = $dto->getArticleVersionId();
   $markup = elife_article_markup_service();
   foreach ($dto->getFragmentsOfType(array_keys($item_lists)) as $fragment) {
     $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
-    $markup->addDoiQuery($article_id, $fragment->getDoi());
+    $markup->addDoiQuery($article_version_id, $fragment->getDoi());
   }
 
   $item_lists['datasets']['items'][] = 'datasets';
-  $markup->addSectionQuery($article_id, 'datasets');
+  $markup->addSectionQuery($article_version_id, 'datasets');
 
   foreach ($dto->getFragmentsOfType('supplementary-material', 0) as $fragment) {
     $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
-    $markup->addDoiQuery($article_id, $fragment->getDoi());
+    $markup->addDoiQuery($article_version_id, $fragment->getDoi());
   }
 
   $markup = _elife_article_markup_query($markup);
   $results = $markup->getResults();
 
-  if (!empty($results[$article_id])) {
+  if (!empty($results[$article_version_id])) {
     foreach ($item_lists as $type => $item_list) {
       $items = [];
       if (!empty($item_list['items'])) {
         foreach ($item_list['items'] as $k => $identifier) {
 
-          if (!empty($results[$article_id][$identifier])) {
-            $items[] = implode("\n", $results[$article_id][$identifier]);
+          if (!empty($results[$article_version_id][$identifier])) {
+            $items[] = implode("\n", $results[$article_version_id][$identifier]);
           }
-          elseif (!empty($results[$article_id]['doi::' . $identifier])) {
-            $items[] = implode("\n", $results[$article_id]['doi::' . $identifier]);
+          elseif (!empty($results[$article_version_id]['doi::' . $identifier])) {
+            $items[] = implode("\n", $results[$article_version_id]['doi::' . $identifier]);
           }
           // @todo - elife - nlisgo - when the markup service is reliable consider not outputting this value.
           else {

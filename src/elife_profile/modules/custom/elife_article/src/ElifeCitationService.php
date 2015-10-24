@@ -12,15 +12,16 @@ use eLifeIngestXsl\ConvertXMLToBibtex;
 use eLifeIngestXsl\ConvertXMLToRis;
 
 class ElifeCitationService {
-  protected $article_id = '';
+  protected $article_version_id = '';
   protected $formats = [];
+  protected $xmls = [];
 
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    */
-  public function setId($article_id) {
-    if ($article_id != $this->article_id) {
-      $this->article_id = $article_id;
+  public function setId($article_version_id) {
+    if ($article_version_id != $this->article_version_id) {
+      $this->article_version_id = $article_version_id;
     }
   }
 
@@ -28,11 +29,11 @@ class ElifeCitationService {
    * @return string
    */
   public function getId() {
-    return $this->article_id;
+    return $this->article_version_id;
   }
 
   public function submitQuery() {
-    $xml = $this->getXml($this->article_id);
+    $xml = $this->getXml($this->article_version_id);
     $bibtex = new ConvertXMLToBibtex(XMLString::fromString($xml));
     $ris = new ConvertXMLToRis(XMLString::fromString($xml));
     $this->formats = [
@@ -53,12 +54,25 @@ class ElifeCitationService {
     return $this->formats[$format];
   }
 
+  public function setXml($article_version_id, $xml = NULL) {
+    if (!isset($this->xmls[$article_version_id])) {
+      if (empty($xml)) {
+        $xml = elife_article_version_source_xml_path($article_version_id);
+      }
+
+      $this->xmls[$article_version_id] = file_get_contents($xml);
+    }
+  }
+
   /**
-   * @param string $article_id
+   * @param string $article_version_id
    * @return string
    */
-  protected function getXml($article_id) {
-    return file_get_contents(sprintf('https://s3.amazonaws.com/elife-cdn/elife-articles/%s/elife%s.xml', $article_id, $article_id));
+  protected function getXml($article_version_id) {
+    if (!isset($this->xmls[$article_version_id])) {
+      $this->setXml($article_version_id);
+    }
+    return $this->xmls[$article_version_id];
   }
 }
 

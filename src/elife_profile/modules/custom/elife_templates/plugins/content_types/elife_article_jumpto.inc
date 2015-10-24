@@ -22,14 +22,13 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
   if ($ewrapper = entity_metadata_wrapper('node', $article_version)) {
     if ($ewrapper->getBundle() == 'elife_article_ver' && !$ewrapper->field_elife_a_subarticle->value()) {
       $dto = elife_article_version_to_dto($article_version);
-      $article_id = $dto->getArticleId();
-      $article_id = _elife_article_process_article_id($article_id);
+      $article_version_id = $dto->getArticleVersionId();
       $sections = ElifeMarkupService::getSectionLabels();
 
       $markup = elife_article_markup_service();
-      $markup->addSectionQuery($article_id, array_keys($sections));
+      $markup->addSectionQuery($article_version_id, array_keys($sections));
       $markup = _elife_article_markup_query($markup);
-      $results = $markup->getResult($article_id);
+      $results = $markup->getResult($article_version_id);
       if (!empty($results) && $dto->getStatus() == 'VOR') {
         $links = [];
         $links['article']['data'] = elife_article_jumpto_link('Article', 'article', 'jnl_elife_article_article');

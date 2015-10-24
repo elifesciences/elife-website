@@ -17,9 +17,11 @@ $plugin = array(
 function elife_lens_icon_render($subtype, $conf, $args, $context) {
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $context->data);
-  $article_id = $ewrapper->field_elife_a_article_id->value();
-  $article_id = _elife_article_process_article_id($article_id);
-  $url = $conf['lens_url'] . '/' . $article_id . '/index.html';
+  $elocation_id = $ewrapper->field_elife_a_elocation_id->value();
+  $manuscript_id = ltrim($elocation_id, 'e');
+
+  // @todo - elife - nlisgo - Once lens is configured to render all versions of an article, we can refactor this code.
+  $url = $conf['lens_url'] . '/' . $manuscript_id . '/index.html';
   $image_path = drupal_get_path('module', 'elife_templates') .
     '/images/lens.png';
   $variables = array(
