@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e # all commands must pass
 
 basedir=$( cd $(dirname $0) ; pwd -P )
 bdpcdir=$basedir/bin/bdpc
