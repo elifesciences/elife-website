@@ -11,7 +11,7 @@ function elife_article_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_city'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_city'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_city'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -46,7 +46,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_country'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_country'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_country'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -81,7 +81,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_dept'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_dept'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_dept'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -116,7 +116,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_email'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_email'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_email'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -152,7 +152,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_inst'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_inst'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_inst'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -187,7 +187,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_label'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_label'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_aff_ref_label'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -222,7 +222,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_ref_key'
+  // 'field_collection_item-field_elife_a_aff_ref-field_elife_a_ref_key'.
   $field_instances['field_collection_item-field_elife_a_aff_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_aff_ref',
     'default_value' => NULL,
@@ -257,7 +257,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_type'
+  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_type'.
   $field_instances['field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_type'] = array(
     'bundle' => 'field_elife_a_basic_ref',
     'default_value' => NULL,
@@ -289,7 +289,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_value'
+  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_value'.
   $field_instances['field_collection_item-field_elife_a_basic_ref-field_elife_a_basic_ref_value'] = array(
     'bundle' => 'field_elife_a_basic_ref',
     'default_value' => NULL,
@@ -324,7 +324,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_ref_key'
+  // 'field_collection_item-field_elife_a_basic_ref-field_elife_a_ref_key'.
   $field_instances['field_collection_item-field_elife_a_basic_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_basic_ref',
     'default_value' => NULL,
@@ -359,7 +359,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_type'
+  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_type'.
   $field_instances['field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_type'] = array(
     'bundle' => 'field_elife_a_fn_ref',
     'default_value' => NULL,
@@ -394,7 +394,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_value'
+  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_value'.
   $field_instances['field_collection_item-field_elife_a_fn_ref-field_elife_a_fn_ref_value'] = array(
     'bundle' => 'field_elife_a_fn_ref',
     'default_value' => NULL,
@@ -429,7 +429,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_ref_key'
+  // 'field_collection_item-field_elife_a_fn_ref-field_elife_a_ref_key'.
   $field_instances['field_collection_item-field_elife_a_fn_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_fn_ref',
     'default_value' => NULL,
@@ -464,7 +464,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'.
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_award_id'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
@@ -499,7 +499,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id'
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id'.
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
@@ -534,7 +534,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id_type'
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id_type'.
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_id_type'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
@@ -569,7 +569,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst'
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst'.
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_fund_ref_inst'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
@@ -604,7 +604,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_ref_key'
+  // 'field_collection_item-field_elife_a_fund_ref-field_elife_a_ref_key'.
   $field_instances['field_collection_item-field_elife_a_fund_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_fund_ref',
     'default_value' => NULL,
@@ -639,7 +639,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_rel_ref-field_elife_a_ref_key'
+  // 'field_collection_item-field_elife_a_rel_ref-field_elife_a_ref_key'.
   $field_instances['field_collection_item-field_elife_a_rel_ref-field_elife_a_ref_key'] = array(
     'bundle' => 'field_elife_a_rel_ref',
     'default_value' => NULL,
@@ -674,7 +674,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_doi'
+  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_doi'.
   $field_instances['field_collection_item-field_elife_a_related_articles-field_elife_a_doi'] = array(
     'bundle' => 'field_elife_a_related_articles',
     'default_value' => NULL,
@@ -709,7 +709,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_ref'
+  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_ref'.
   $field_instances['field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_ref'] = array(
     'bundle' => 'field_elife_a_related_articles',
     'default_value' => NULL,
@@ -747,7 +747,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_type'
+  // 'field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_type'.
   $field_instances['field_collection_item-field_elife_a_related_articles-field_elife_a_rel_article_type'] = array(
     'bundle' => 'field_elife_a_related_articles',
     'default_value' => NULL,
@@ -781,7 +781,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_article_id'
+  // Exported field_instance: 'node-elife_article-field_elife_a_article_id'.
   $field_instances['node-elife_article-field_elife_a_article_id'] = array(
     'bundle' => 'elife_article',
     'default_value' => NULL,
@@ -821,7 +821,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_fpubdate'
+  // Exported field_instance: 'node-elife_article-field_elife_a_fpubdate'.
   $field_instances['node-elife_article-field_elife_a_fpubdate'] = array(
     'bundle' => 'elife_article',
     'deleted' => 0,
@@ -836,6 +836,7 @@ function elife_article_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 3,
@@ -875,7 +876,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article-field_elife_a_related_articles'
+  // 'node-elife_article-field_elife_a_related_articles'.
   $field_instances['node-elife_article-field_elife_a_related_articles'] = array(
     'bundle' => 'elife_article',
     'default_value' => NULL,
@@ -918,7 +919,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_versions'
+  // Exported field_instance: 'node-elife_article-field_elife_a_versions'.
   $field_instances['node-elife_article-field_elife_a_versions'] = array(
     'bundle' => 'elife_article',
     'default_value' => NULL,
@@ -966,7 +967,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article-field_elife_a_volume'
+  // Exported field_instance: 'node-elife_article-field_elife_a_volume'.
   $field_instances['node-elife_article-field_elife_a_volume'] = array(
     'bundle' => 'elife_article',
     'default_value' => NULL,
@@ -1012,7 +1013,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_aff_ref'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_aff_ref'.
   $field_instances['node-elife_article_ver-field_elife_a_aff_ref'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1061,7 +1062,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_article_id'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_article_id'.
   $field_instances['node-elife_article_ver-field_elife_a_article_id'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1108,7 +1109,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_article_type'
+  // 'node-elife_article_ver-field_elife_a_article_type'.
   $field_instances['node-elife_article_ver-field_elife_a_article_type'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1155,7 +1156,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_article_version_id'
+  // 'node-elife_article_ver-field_elife_a_article_version_id'.
   $field_instances['node-elife_article_ver-field_elife_a_article_version_id'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1201,7 +1202,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_author_imp'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_author_imp'.
   $field_instances['node-elife_article_ver-field_elife_a_author_imp'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1248,7 +1249,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_basic_ref'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_basic_ref'.
   $field_instances['node-elife_article_ver-field_elife_a_basic_ref'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1297,7 +1298,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_category'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_category'.
   $field_instances['node-elife_article_ver-field_elife_a_category'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1352,7 +1353,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_citations_json'
+  // 'node-elife_article_ver-field_elife_a_citations_json'.
   $field_instances['node-elife_article_ver-field_elife_a_citations_json'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1399,7 +1400,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_contributors_json'
+  // 'node-elife_article_ver-field_elife_a_contributors_json'.
   $field_instances['node-elife_article_ver-field_elife_a_contributors_json'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1446,7 +1447,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_contributors_pri'
+  // 'node-elife_article_ver-field_elife_a_contributors_pri'.
   $field_instances['node-elife_article_ver-field_elife_a_contributors_pri'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1500,7 +1501,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_copyright'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_copyright'.
   $field_instances['node-elife_article_ver-field_elife_a_copyright'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1546,7 +1547,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_doi'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_doi'.
   $field_instances['node-elife_article_ver-field_elife_a_doi'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1594,7 +1595,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_article_ver-field_elife_a_elocation_id'
+  // 'node-elife_article_ver-field_elife_a_elocation_id'.
   $field_instances['node-elife_article_ver-field_elife_a_elocation_id'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1640,7 +1641,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fn_ref'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fn_ref'.
   $field_instances['node-elife_article_ver-field_elife_a_fn_ref'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1689,7 +1690,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fragments'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fragments'.
   $field_instances['node-elife_article_ver-field_elife_a_fragments'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1738,7 +1739,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_full_title'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_full_title'.
   $field_instances['node-elife_article_ver-field_elife_a_full_title'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1784,7 +1785,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fund_ref'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_fund_ref'.
   $field_instances['node-elife_article_ver-field_elife_a_fund_ref'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1833,7 +1834,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_heading'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_heading'.
   $field_instances['node-elife_article_ver-field_elife_a_heading'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1887,7 +1888,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_keyword'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_keyword'.
   $field_instances['node-elife_article_ver-field_elife_a_keyword'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1941,7 +1942,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_main_text'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_main_text'.
   $field_instances['node-elife_article_ver-field_elife_a_main_text'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -1988,7 +1989,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_parent'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_parent'.
   $field_instances['node-elife_article_ver-field_elife_a_parent'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -2037,7 +2038,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_rel_ref'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_rel_ref'.
   $field_instances['node-elife_article_ver-field_elife_a_rel_ref'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -2086,7 +2087,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_status'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_status'.
   $field_instances['node-elife_article_ver-field_elife_a_status'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => array(
@@ -2133,7 +2134,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_subarticle'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_subarticle'.
   $field_instances['node-elife_article_ver-field_elife_a_subarticle'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => array(
@@ -2182,7 +2183,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_update'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_update'.
   $field_instances['node-elife_article_ver-field_elife_a_update'] = array(
     'bundle' => 'elife_article_ver',
     'deleted' => 0,
@@ -2197,6 +2198,7 @@ function elife_article_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
+          'show_remaining_days' => FALSE,
         ),
         'type' => 'date_default',
         'weight' => 3,
@@ -2241,7 +2243,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_variants'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_variants'.
   $field_instances['node-elife_article_ver-field_elife_a_variants'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -2287,7 +2289,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_version'
+  // Exported field_instance: 'node-elife_article_ver-field_elife_a_version'.
   $field_instances['node-elife_article_ver-field_elife_a_version'] = array(
     'bundle' => 'elife_article_ver',
     'default_value' => NULL,
@@ -2339,7 +2341,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_city'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_city'.
   $field_instances['node-elife_contributor-field_elife_a_aff_city'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2379,7 +2381,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_country'
+  // Exported field_instance:
+  // 'node-elife_contributor-field_elife_a_aff_country'.
   $field_instances['node-elife_contributor-field_elife_a_aff_country'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2419,7 +2422,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_dept'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_dept'.
   $field_instances['node-elife_contributor-field_elife_a_aff_dept'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2459,7 +2462,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_email'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_email'.
   $field_instances['node-elife_contributor-field_elife_a_aff_email'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2500,7 +2503,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_inst'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_aff_inst'.
   $field_instances['node-elife_contributor-field_elife_a_aff_inst'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2541,7 +2544,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_aff_ref_links'
+  // 'node-elife_contributor-field_elife_a_aff_ref_links'.
   $field_instances['node-elife_contributor-field_elife_a_aff_ref_links'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2581,7 +2584,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_author_id'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_author_id'.
   $field_instances['node-elife_contributor-field_elife_a_author_id'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2621,7 +2624,8 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_author_role'
+  // Exported field_instance:
+  // 'node-elife_contributor-field_elife_a_author_role'.
   $field_instances['node-elife_contributor-field_elife_a_author_role'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2662,7 +2666,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_author_suffix'
+  // 'node-elife_contributor-field_elife_a_author_suffix'.
   $field_instances['node-elife_contributor-field_elife_a_author_suffix'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2703,7 +2707,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_basic_ref_links'
+  // 'node-elife_contributor-field_elife_a_basic_ref_links'.
   $field_instances['node-elife_contributor-field_elife_a_basic_ref_links'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2743,7 +2747,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_collab'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_collab'.
   $field_instances['node-elife_contributor-field_elife_a_collab'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2784,7 +2788,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_contrib_type'
+  // 'node-elife_contributor-field_elife_a_contrib_type'.
   $field_instances['node-elife_contributor-field_elife_a_contrib_type'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2824,7 +2828,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_corresp'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_corresp'.
   $field_instances['node-elife_contributor-field_elife_a_corresp'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => array(
@@ -2867,7 +2871,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_deceased'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_deceased'.
   $field_instances['node-elife_contributor-field_elife_a_deceased'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => array(
@@ -2910,7 +2914,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_email'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_email'.
   $field_instances['node-elife_contributor-field_elife_a_email'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -2952,7 +2956,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_equal_contrib'
+  // 'node-elife_contributor-field_elife_a_equal_contrib'.
   $field_instances['node-elife_contributor-field_elife_a_equal_contrib'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => array(
@@ -2996,7 +3000,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_fn_ref_links'
+  // 'node-elife_contributor-field_elife_a_fn_ref_links'.
   $field_instances['node-elife_contributor-field_elife_a_fn_ref_links'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3036,7 +3040,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_fnames'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_fnames'.
   $field_instances['node-elife_contributor-field_elife_a_fnames'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3077,7 +3081,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_fund_ref_links'
+  // 'node-elife_contributor-field_elife_a_fund_ref_links'.
   $field_instances['node-elife_contributor-field_elife_a_fund_ref_links'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3118,7 +3122,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_group_author_key'
+  // 'node-elife_contributor-field_elife_a_group_author_key'.
   $field_instances['node-elife_contributor-field_elife_a_group_author_key'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3159,7 +3163,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_on_behalf_of'
+  // 'node-elife_contributor-field_elife_a_on_behalf_of'.
   $field_instances['node-elife_contributor-field_elife_a_on_behalf_of'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3199,7 +3203,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_orcid_id'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_orcid_id'.
   $field_instances['node-elife_contributor-field_elife_a_orcid_id'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3239,7 +3243,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_parent'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_parent'.
   $field_instances['node-elife_contributor-field_elife_a_parent'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3288,7 +3292,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-elife_contributor-field_elife_a_rel_ref_links'
+  // 'node-elife_contributor-field_elife_a_rel_ref_links'.
   $field_instances['node-elife_contributor-field_elife_a_rel_ref_links'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3328,7 +3332,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_contributor-field_elife_a_surname'
+  // Exported field_instance: 'node-elife_contributor-field_elife_a_surname'.
   $field_instances['node-elife_contributor-field_elife_a_surname'] = array(
     'bundle' => 'elife_contributor',
     'default_value' => NULL,
@@ -3368,7 +3372,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_doi'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_doi'.
   $field_instances['node-elife_fragment-field_elife_a_doi'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3408,7 +3412,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_frag_type'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_frag_type'.
   $field_instances['node-elife_fragment-field_elife_a_frag_type'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3448,7 +3452,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_fragments'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_fragments'.
   $field_instances['node-elife_fragment-field_elife_a_fragments'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3491,7 +3495,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_full_title'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_full_title'.
   $field_instances['node-elife_fragment-field_elife_a_full_title'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3531,7 +3535,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_parent'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_parent'.
   $field_instances['node-elife_fragment-field_elife_a_parent'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3574,7 +3578,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_parent_sub'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_parent_sub'.
   $field_instances['node-elife_fragment-field_elife_a_parent_sub'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => NULL,
@@ -3617,7 +3621,7 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_fragment-field_elife_a_subarticle'
+  // Exported field_instance: 'node-elife_fragment-field_elife_a_subarticle'.
   $field_instances['node-elife_fragment-field_elife_a_subarticle'] = array(
     'bundle' => 'elife_fragment',
     'default_value' => array(
@@ -3661,7 +3665,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-elife_categories-field_elife_category_type'
+  // 'taxonomy_term-elife_categories-field_elife_category_type'.
   $field_instances['taxonomy_term-elife_categories-field_elife_category_type'] = array(
     'bundle' => 'elife_categories',
     'default_value' => NULL,
@@ -3696,7 +3700,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-elife_keywords-field_elife_a_full_title'
+  // 'taxonomy_term-elife_keywords-field_elife_a_full_title'.
   $field_instances['taxonomy_term-elife_keywords-field_elife_a_full_title'] = array(
     'bundle' => 'elife_keywords',
     'default_value' => NULL,
@@ -3731,7 +3735,7 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'taxonomy_term-elife_keywords-field_elife_a_kwd_type'
+  // 'taxonomy_term-elife_keywords-field_elife_a_kwd_type'.
   $field_instances['taxonomy_term-elife_keywords-field_elife_a_kwd_type'] = array(
     'bundle' => 'elife_keywords',
     'default_value' => NULL,

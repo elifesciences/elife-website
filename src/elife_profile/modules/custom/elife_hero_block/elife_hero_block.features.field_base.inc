@@ -10,7 +10,7 @@
 function elife_hero_block_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_cc'
+  // Exported field_base: 'field_elife_cc'.
   $field_bases['field_elife_cc'] = array(
     'active' => 1,
     'cardinality' => 4,
@@ -32,7 +32,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_elife_cc_link'
+  // Exported field_base: 'field_elife_cc_link'.
   $field_bases['field_elife_cc_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -61,7 +61,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_elife_cc_type'
+  // Exported field_base: 'field_elife_cc_type'.
   $field_bases['field_elife_cc_type'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -96,7 +96,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_elife_cta_link'
+  // Exported field_base: 'field_elife_cta_link'.
   $field_bases['field_elife_cta_link'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -125,7 +125,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_elife_cta_text'
+  // Exported field_base: 'field_elife_cta_text'.
   $field_bases['field_elife_cta_text'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -146,7 +146,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_h_credit'
+  // Exported field_base: 'field_elife_h_credit'.
   $field_bases['field_elife_h_credit'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -167,7 +167,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_h_image'
+  // Exported field_base: 'field_elife_h_image'.
   $field_bases['field_elife_h_image'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -189,7 +189,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_elife_h_image_colour'
+  // Exported field_base: 'field_elife_h_image_colour'.
   $field_bases['field_elife_h_image_colour'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -214,7 +214,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_elife_h_path'
+  // Exported field_base: 'field_elife_h_path'.
   $field_bases['field_elife_h_path'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -235,7 +235,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_h_sub_title'
+  // Exported field_base: 'field_elife_h_sub_title'.
   $field_bases['field_elife_h_sub_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -256,7 +256,7 @@ function elife_hero_block_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_h_text'
+  // Exported field_base: 'field_elife_h_text'.
   $field_bases['field_elife_h_text'] = array(
     'active' => 1,
     'cardinality' => 1,

@@ -10,7 +10,7 @@
 function elife_person_profile_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_p_affiliation'
+  // Exported field_base: 'field_elife_p_affiliation'.
   $field_bases['field_elife_p_affiliation'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -48,7 +48,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_p_competing_interest'
+  // Exported field_base: 'field_elife_p_competing_interest'.
   $field_bases['field_elife_p_competing_interest'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -67,7 +67,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_elife_p_expertise'
+  // Exported field_base: 'field_elife_p_expertise'.
   $field_bases['field_elife_p_expertise'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -105,7 +105,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_p_first_name'
+  // Exported field_base: 'field_elife_p_first_name'.
   $field_bases['field_elife_p_first_name'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -126,7 +126,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_p_last_name'
+  // Exported field_base: 'field_elife_p_last_name'.
   $field_bases['field_elife_p_last_name'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -147,7 +147,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_p_organism'
+  // Exported field_base: 'field_elife_p_organism'.
   $field_bases['field_elife_p_organism'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -185,7 +185,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_p_past'
+  // Exported field_base: 'field_elife_p_past'.
   $field_bases['field_elife_p_past'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -210,7 +210,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_elife_p_photo'
+  // Exported field_base: 'field_elife_p_photo'.
   $field_bases['field_elife_p_photo'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -232,7 +232,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_elife_p_profile'
+  // Exported field_base: 'field_elife_p_profile'.
   $field_bases['field_elife_p_profile'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -251,7 +251,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_elife_p_research_focus'
+  // Exported field_base: 'field_elife_p_research_focus'.
   $field_bases['field_elife_p_research_focus'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -289,7 +289,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_p_title'
+  // Exported field_base: 'field_elife_p_title'.
   $field_bases['field_elife_p_title'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -310,7 +310,7 @@ function elife_person_profile_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_p_type'
+  // Exported field_base: 'field_elife_p_type'.
   $field_bases['field_elife_p_type'] = array(
     'active' => 1,
     'cardinality' => 1,

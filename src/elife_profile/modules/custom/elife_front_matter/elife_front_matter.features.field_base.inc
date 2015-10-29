@@ -10,7 +10,7 @@
 function elife_front_matter_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_c_action_label'
+  // Exported field_base: 'field_elife_c_action_label'.
   $field_bases['field_elife_c_action_label'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -31,7 +31,7 @@ function elife_front_matter_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_c_text_appearance'
+  // Exported field_base: 'field_elife_c_text_appearance'.
   $field_bases['field_elife_c_text_appearance'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -56,7 +56,7 @@ function elife_front_matter_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_elife_fm_reference'
+  // Exported field_base: 'field_elife_fm_reference'.
   $field_bases['field_elife_fm_reference'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -96,7 +96,7 @@ function elife_front_matter_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_fm_relabel'
+  // Exported field_base: 'field_elife_fm_relabel'.
   $field_bases['field_elife_fm_relabel'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -117,7 +117,7 @@ function elife_front_matter_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_elife_image'
+  // Exported field_base: 'field_elife_image'.
   $field_bases['field_elife_image'] = array(
     'active' => 1,
     'cardinality' => 1,

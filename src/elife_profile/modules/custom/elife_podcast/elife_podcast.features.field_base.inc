@@ -10,7 +10,7 @@
 function elife_podcast_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_elife_p_articles'
+  // Exported field_base: 'field_elife_p_articles'.
   $field_bases['field_elife_p_articles'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -48,7 +48,7 @@ function elife_podcast_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_elife_p_body'
+  // Exported field_base: 'field_elife_p_body'.
   $field_bases['field_elife_p_body'] = array(
     'active' => 1,
     'cardinality' => 1,

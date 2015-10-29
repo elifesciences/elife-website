@@ -11,7 +11,7 @@ function elife_hero_block_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_cc-field_elife_cc_link'
+  // 'field_collection_item-field_elife_cc-field_elife_cc_link'.
   $field_instances['field_collection_item-field_elife_cc-field_elife_cc_link'] = array(
     'bundle' => 'field_elife_cc',
     'default_value' => NULL,
@@ -63,7 +63,7 @@ function elife_hero_block_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_elife_cc-field_elife_cc_type'
+  // 'field_collection_item-field_elife_cc-field_elife_cc_type'.
   $field_instances['field_collection_item-field_elife_cc-field_elife_cc_type'] = array(
     'bundle' => 'field_elife_cc',
     'default_value' => NULL,
@@ -94,7 +94,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_cc'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_cc'.
   $field_instances['node-elife_hero_block-field_elife_cc'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,
@@ -137,7 +137,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_cta_link'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_cta_link'.
   $field_instances['node-elife_hero_block-field_elife_cta_link'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => array(
@@ -199,7 +199,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_cta_text'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_cta_text'.
   $field_instances['node-elife_hero_block-field_elife_cta_text'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => array(
@@ -243,7 +243,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_credit'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_h_credit'.
   $field_instances['node-elife_hero_block-field_elife_h_credit'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,
@@ -283,7 +283,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_image'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_h_image'.
   $field_instances['node-elife_hero_block-field_elife_h_image'] = array(
     'bundle' => 'elife_hero_block',
     'deleted' => 0,
@@ -334,7 +334,8 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_image_colour'
+  // Exported field_instance:
+  // 'node-elife_hero_block-field_elife_h_image_colour'.
   $field_instances['node-elife_hero_block-field_elife_h_image_colour'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,
@@ -371,7 +372,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_path'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_h_path'.
   $field_instances['node-elife_hero_block-field_elife_h_path'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,
@@ -412,7 +413,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_sub_title'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_h_sub_title'.
   $field_instances['node-elife_hero_block-field_elife_h_sub_title'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,
@@ -452,7 +453,7 @@ function elife_hero_block_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_hero_block-field_elife_h_text'
+  // Exported field_instance: 'node-elife_hero_block-field_elife_h_text'.
   $field_instances['node-elife_hero_block-field_elife_h_text'] = array(
     'bundle' => 'elife_hero_block',
     'default_value' => NULL,

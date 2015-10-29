@@ -10,7 +10,7 @@
 function elife_front_matter_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_cover-field_elife_c_action_label'
+  // Exported field_instance: 'node-elife_cover-field_elife_c_action_label'.
   $field_instances['node-elife_cover-field_elife_c_action_label'] = array(
     'bundle' => 'elife_cover',
     'default_value' => NULL,
@@ -50,7 +50,7 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_cover-field_elife_c_text_appearance'
+  // Exported field_instance: 'node-elife_cover-field_elife_c_text_appearance'.
   $field_instances['node-elife_cover-field_elife_c_text_appearance'] = array(
     'bundle' => 'elife_cover',
     'default_value' => array(
@@ -91,7 +91,7 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_cover-field_elife_fm_reference'
+  // Exported field_instance: 'node-elife_cover-field_elife_fm_reference'.
   $field_instances['node-elife_cover-field_elife_fm_reference'] = array(
     'bundle' => 'elife_cover',
     'default_value' => NULL,
@@ -135,7 +135,7 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_cover-field_elife_image'
+  // Exported field_instance: 'node-elife_cover-field_elife_image'.
   $field_instances['node-elife_cover-field_elife_image'] = array(
     'bundle' => 'elife_cover',
     'deleted' => 0,
@@ -186,7 +186,8 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_front_matter-field_elife_fm_reference'
+  // Exported field_instance:
+  // 'node-elife_front_matter-field_elife_fm_reference'.
   $field_instances['node-elife_front_matter-field_elife_fm_reference'] = array(
     'bundle' => 'elife_front_matter',
     'default_value' => NULL,
@@ -230,7 +231,7 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_front_matter-field_elife_fm_relabel'
+  // Exported field_instance: 'node-elife_front_matter-field_elife_fm_relabel'.
   $field_instances['node-elife_front_matter-field_elife_fm_relabel'] = array(
     'bundle' => 'elife_front_matter',
     'default_value' => NULL,
@@ -270,7 +271,7 @@ function elife_front_matter_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_front_matter-field_elife_image'
+  // Exported field_instance: 'node-elife_front_matter-field_elife_image'.
   $field_instances['node-elife_front_matter-field_elife_image'] = array(
     'bundle' => 'elife_front_matter',
     'deleted' => 0,

@@ -10,7 +10,7 @@
 function elife_podcast_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-elife_podcast-field_elife_p_articles'
+  // Exported field_instance: 'node-elife_podcast-field_elife_p_articles'.
   $field_instances['node-elife_podcast-field_elife_p_articles'] = array(
     'bundle' => 'elife_podcast',
     'default_value' => NULL,
@@ -60,7 +60,7 @@ function elife_podcast_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_podcast-field_elife_p_body'
+  // Exported field_instance: 'node-elife_podcast-field_elife_p_body'.
   $field_instances['node-elife_podcast-field_elife_p_body'] = array(
     'bundle' => 'elife_podcast',
     'default_value' => NULL,
