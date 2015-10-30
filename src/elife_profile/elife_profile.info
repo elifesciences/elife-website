@@ -41,6 +41,7 @@ dependencies[] = auto_entitylabel
 dependencies[] = ckeditor
 dependencies[] = clone
 dependencies[] = cluetip
+dependencies[] = colorbox
 dependencies[] = context
 dependencies[] = countries
 dependencies[] = ctools

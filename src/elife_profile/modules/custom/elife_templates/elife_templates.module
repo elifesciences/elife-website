@@ -204,3 +204,16 @@ function elife_templates_preprocess_html(&$variables) {
     drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/collection.css');
   }
 }
+
+function elife_templates_article_page_markup_assets() {
+  $cache = &drupal_static(__FUNCTION__, FALSE);
+  if (!$cache) {
+    // Add js and css needed to help render the markup once it's in place.
+    drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_figures.js');
+    drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_tables.js');
+    drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_reference_popup.js');
+
+    $cache = TRUE;
+  }
+  return $cache;
+}

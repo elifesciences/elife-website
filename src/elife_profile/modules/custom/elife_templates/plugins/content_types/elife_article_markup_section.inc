@@ -39,6 +39,7 @@ function elife_article_markup_section_render($subtype, $conf, $args, $context) {
       $html = $markup->output();
 
       if ($html) {
+        elife_templates_article_page_markup_assets();
         $block = new stdClass();
         $block->content = $html;
         return $block;

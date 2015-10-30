@@ -18,6 +18,8 @@ projects:
       type: 'git'
       url: 'http://git.drupal.org/project/cluetip.git'
       revision: '3681d551971ae3e9e2d826b9e5e66d8cde1e13da'
+  colorbox:
+    version: '2.10'
   context:
     version: '3.6'
   countries:
@@ -216,6 +218,11 @@ libraries:
       type: 'git'
       url: 'https://github.com/kswedberg/jquery-cluetip'
       revision: '1dcb5eecb9a3906f1020da0a6393f473f776a088'
+  colorbox:
+    download:
+      type: 'git'
+      url: 'https://github.com/jackmoore/colorbox'
+      tag: '1.6.3'
   elife-eif-schema:
     download:
       type: 'git'
