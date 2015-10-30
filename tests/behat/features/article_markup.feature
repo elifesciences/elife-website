@@ -11,15 +11,15 @@ Feature: Markup
       """
         [
           {
-            "title": "VOR 05224",
-            "version": "1",
+            "title": "VOR 05224 v2",
+            "version": "2",
             "doi": "10.7554/eLife.05224",
             "volume": "4",
             "elocation-id": "e05224",
             "article-id": "05224",
-            "article-version-id": "05224.1",
+            "article-version-id": "05224.2",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05224",
+            "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
             "publish": "1",
@@ -32,7 +32,7 @@ Feature: Markup
         ]
       """
     And the search index is updated
-    When I visit "content/4/e05224"
+    When I visit "content/4/e05224v2"
     Then I should see "diet, kinship, and shared environments" in the "#abstract" element
     And I should see 1 "#abstract" element
     And I should see 1 "#digest" element

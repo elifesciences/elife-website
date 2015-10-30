@@ -16,7 +16,7 @@ Feature: Footnote
           "article-id": "10.7554/eLife.<eloc>",
           "article-version-id": "<eloc>.1",
           "pub-date": "2014-10-14",
-          "path": "content/<volume>/<eloc>",
+          "path": "content/<volume>/<eloc>v1",
           "article-type": "research-article",
           "status": "VOR",
           "publish": "1",
@@ -46,7 +46,7 @@ Feature: Footnote
           }
         }
       """
-    And I go to "content/<volume>/<eloc>"
+    And I go to "content/<volume>/<eloc>v1"
     Then I should see "<author>" in the ".author-tooltip-name" element
     And I should see "<aff>" in the ".aff" element
 
