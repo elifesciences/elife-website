@@ -21,7 +21,7 @@ function elife_person_profile_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'auto_entitylabel_pattern_node_elife_person_profile';
-  $strongarm->value = '[node:field-elife-p-last-name], [node:field-elife-p-first-name] ([node:field-elife-p-type])';
+  $strongarm->value = '[node:field-elife-pp-last-name], [node:field-elife-pp-first-name] ([node:field-elife-pp-type])';
   $export['auto_entitylabel_pattern_node_elife_person_profile'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -179,23 +179,23 @@ function elife_person_profile_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_action_elife_p_experimental_organism';
+  $strongarm->name = 'rh_taxonomy_term_action_elife_pp_experimental_organism';
   $strongarm->value = '2';
-  $export['rh_taxonomy_term_action_elife_p_experimental_organism'] = $strongarm;
+  $export['rh_taxonomy_term_action_elife_pp_experimental_organism'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_action_elife_p_expertise';
+  $strongarm->name = 'rh_taxonomy_term_action_elife_pp_expertise';
   $strongarm->value = '2';
-  $export['rh_taxonomy_term_action_elife_p_expertise'] = $strongarm;
+  $export['rh_taxonomy_term_action_elife_pp_expertise'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_action_elife_p_research_focus';
+  $strongarm->name = 'rh_taxonomy_term_action_elife_pp_research_focus';
   $strongarm->value = '2';
-  $export['rh_taxonomy_term_action_elife_p_research_focus'] = $strongarm;
+  $export['rh_taxonomy_term_action_elife_pp_research_focus'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -207,65 +207,65 @@ function elife_person_profile_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_override_elife_p_experimental_organism';
+  $strongarm->name = 'rh_taxonomy_term_override_elife_pp_experimental_organism';
   $strongarm->value = 0;
-  $export['rh_taxonomy_term_override_elife_p_experimental_organism'] = $strongarm;
+  $export['rh_taxonomy_term_override_elife_pp_experimental_organism'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_override_elife_p_expertise';
+  $strongarm->name = 'rh_taxonomy_term_override_elife_pp_expertise';
   $strongarm->value = 0;
-  $export['rh_taxonomy_term_override_elife_p_expertise'] = $strongarm;
+  $export['rh_taxonomy_term_override_elife_pp_expertise'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_override_elife_p_research_focus';
+  $strongarm->name = 'rh_taxonomy_term_override_elife_pp_research_focus';
   $strongarm->value = 0;
-  $export['rh_taxonomy_term_override_elife_p_research_focus'] = $strongarm;
+  $export['rh_taxonomy_term_override_elife_pp_research_focus'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_elife_p_experimental_organism';
+  $strongarm->name = 'rh_taxonomy_term_redirect_elife_pp_experimental_organism';
   $strongarm->value = '';
-  $export['rh_taxonomy_term_redirect_elife_p_experimental_organism'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_elife_pp_experimental_organism'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_elife_p_expertise';
+  $strongarm->name = 'rh_taxonomy_term_redirect_elife_pp_expertise';
   $strongarm->value = '';
-  $export['rh_taxonomy_term_redirect_elife_p_expertise'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_elife_pp_expertise'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_elife_p_research_focus';
+  $strongarm->name = 'rh_taxonomy_term_redirect_elife_pp_research_focus';
   $strongarm->value = '';
-  $export['rh_taxonomy_term_redirect_elife_p_research_focus'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_elife_pp_research_focus'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_p_experimental_organism';
+  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_pp_experimental_organism';
   $strongarm->value = '301';
-  $export['rh_taxonomy_term_redirect_response_elife_p_experimental_organism'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_response_elife_pp_experimental_organism'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_p_expertise';
+  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_pp_expertise';
   $strongarm->value = '301';
-  $export['rh_taxonomy_term_redirect_response_elife_p_expertise'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_response_elife_pp_expertise'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_p_research_focus';
+  $strongarm->name = 'rh_taxonomy_term_redirect_response_elife_pp_research_focus';
   $strongarm->value = '301';
-  $export['rh_taxonomy_term_redirect_response_elife_p_research_focus'] = $strongarm;
+  $export['rh_taxonomy_term_redirect_response_elife_pp_research_focus'] = $strongarm;
 
   return $export;
 }

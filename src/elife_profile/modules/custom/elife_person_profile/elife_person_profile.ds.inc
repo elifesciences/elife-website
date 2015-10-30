@@ -17,7 +17,7 @@ function elife_person_profile_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_person_profile';
   $ds_fieldsetting->view_mode = 'elife_teaser_alternative';
   $ds_fieldsetting->settings = array(
-    'field_elife_p_affiliation' => array(
+    'field_elife_pp_affiliation' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -31,7 +31,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_first_name' => array(
+    'field_elife_pp_first_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -39,14 +39,14 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_last_name' => array(
+    'field_elife_pp_last_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_organism' => array(
+    'field_elife_pp_organism' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -68,7 +68,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_research_focus' => array(
+    'field_elife_pp_research_focus' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -90,7 +90,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_title' => array(
+    'field_elife_pp_title' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -114,7 +114,7 @@ function elife_person_profile_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_person_profile';
   $ds_fieldsetting->view_mode = 'elife_teaser_compact';
   $ds_fieldsetting->settings = array(
-    'field_elife_p_affiliation' => array(
+    'field_elife_pp_affiliation' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -128,7 +128,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_first_name' => array(
+    'field_elife_pp_first_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -136,14 +136,14 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_last_name' => array(
+    'field_elife_pp_last_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_photo' => array(
+    'field_elife_pp_photo' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -156,7 +156,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_title' => array(
+    'field_elife_pp_title' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -180,7 +180,7 @@ function elife_person_profile_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_person_profile';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
-    'elife_p_name' => array(
+    'elife_pp_name' => array(
       'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
@@ -197,7 +197,7 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_affiliation' => array(
+    'field_elife_pp_affiliation' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -211,21 +211,21 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_competing_interest' => array(
+    'field_elife_pp_interest' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_expertise' => array(
+    'field_elife_pp_expertise' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_first_name' => array(
+    'field_elife_pp_first_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -233,28 +233,28 @@ function elife_person_profile_ds_field_settings_info() {
         ),
       ),
     ),
-    'field_elife_p_last_name' => array(
+    'field_elife_pp_last_name' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_photo' => array(
+    'field_elife_pp_photo' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_profile' => array(
+    'field_elife_pp_profile' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
       ),
     ),
-    'field_elife_p_title' => array(
+    'field_elife_pp_title' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
@@ -282,7 +282,7 @@ function elife_person_profile_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
-  $ds_field->field = 'elife_p_name';
+  $ds_field->field = 'elife_pp_name';
   $ds_field->label = 'Name';
   $ds_field->field_type = 5;
   $ds_field->entities = array(
@@ -291,12 +291,12 @@ function elife_person_profile_ds_custom_fields_info() {
   $ds_field->ui_limit = 'elife_person_profile|*';
   $ds_field->properties = array(
     'code' => array(
-      'value' => '[node:elife-p-name]',
+      'value' => '[node:elife-pp-name]',
       'format' => 'plain_text',
     ),
     'use_token' => 1,
   );
-  $export['elife_p_name'] = $ds_field;
+  $export['elife_pp_name'] = $ds_field;
 
   return $export;
 }
@@ -317,23 +317,23 @@ function elife_person_profile_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'group_elife_p_name',
-        1 => 'field_elife_p_first_name',
-        2 => 'field_elife_p_title',
-        3 => 'field_elife_p_last_name',
-        4 => 'field_elife_p_affiliation',
-        5 => 'field_elife_p_research_focus',
-        6 => 'field_elife_p_organism',
+        0 => 'group_elife_pp_name',
+        1 => 'field_elife_pp_first_name',
+        2 => 'field_elife_pp_title',
+        3 => 'field_elife_pp_last_name',
+        4 => 'field_elife_pp_affiliation',
+        5 => 'field_elife_pp_research_focus',
+        6 => 'field_elife_pp_organism',
       ),
     ),
     'fields' => array(
-      'group_elife_p_name' => 'ds_content',
-      'field_elife_p_first_name' => 'ds_content',
-      'field_elife_p_title' => 'ds_content',
-      'field_elife_p_last_name' => 'ds_content',
-      'field_elife_p_affiliation' => 'ds_content',
-      'field_elife_p_research_focus' => 'ds_content',
-      'field_elife_p_organism' => 'ds_content',
+      'group_elife_pp_name' => 'ds_content',
+      'field_elife_pp_first_name' => 'ds_content',
+      'field_elife_pp_title' => 'ds_content',
+      'field_elife_pp_last_name' => 'ds_content',
+      'field_elife_pp_affiliation' => 'ds_content',
+      'field_elife_pp_research_focus' => 'ds_content',
+      'field_elife_pp_organism' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(
@@ -362,25 +362,25 @@ function elife_person_profile_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'field_elife_p_photo',
-        1 => 'group_elife_p_text_wrapper',
-        2 => 'field_elife_p_first_name',
-        3 => 'field_elife_p_last_name',
-        4 => 'group_elife_p_text',
-        5 => 'group_elife_p_name',
-        6 => 'field_elife_p_title',
-        7 => 'field_elife_p_affiliation',
+        0 => 'field_elife_pp_photo',
+        1 => 'group_elife_pp_text_wrapper',
+        2 => 'field_elife_pp_first_name',
+        3 => 'field_elife_pp_last_name',
+        4 => 'group_elife_pp_text',
+        5 => 'group_elife_pp_name',
+        6 => 'field_elife_pp_title',
+        7 => 'field_elife_pp_affiliation',
       ),
     ),
     'fields' => array(
-      'field_elife_p_photo' => 'ds_content',
-      'group_elife_p_text_wrapper' => 'ds_content',
-      'field_elife_p_first_name' => 'ds_content',
-      'field_elife_p_last_name' => 'ds_content',
-      'group_elife_p_text' => 'ds_content',
-      'group_elife_p_name' => 'ds_content',
-      'field_elife_p_title' => 'ds_content',
-      'field_elife_p_affiliation' => 'ds_content',
+      'field_elife_pp_photo' => 'ds_content',
+      'group_elife_pp_text_wrapper' => 'ds_content',
+      'field_elife_pp_first_name' => 'ds_content',
+      'field_elife_pp_last_name' => 'ds_content',
+      'group_elife_pp_text' => 'ds_content',
+      'group_elife_pp_name' => 'ds_content',
+      'field_elife_pp_title' => 'ds_content',
+      'field_elife_pp_affiliation' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(
@@ -409,41 +409,41 @@ function elife_person_profile_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'elife_p_name',
-        1 => 'group_elife_p_link',
-        2 => 'field_elife_p_competing_interest',
-        3 => 'field_elife_p_photo',
-        4 => 'field_elife_p_expertise',
-        5 => 'group_elife_p_biog_outer',
-        6 => 'group_elife_p_name',
-        7 => 'field_elife_p_profile',
-        8 => 'field_elife_p_title',
-        9 => 'field_elife_p_affiliation',
-        10 => 'group_elife_p_caption',
-        11 => 'field_elife_p_first_name',
-        12 => 'field_elife_p_last_name',
-        13 => 'group_elife_p_biog_wrapper',
-        14 => 'group_elife_p_biog',
-        15 => 'group_elife_p_competing_interest',
+        0 => 'elife_pp_name',
+        1 => 'group_elife_pp_link',
+        2 => 'field_elife_pp_interest',
+        3 => 'field_elife_pp_photo',
+        4 => 'field_elife_pp_expertise',
+        5 => 'group_elife_pp_biog_outer',
+        6 => 'group_elife_pp_name',
+        7 => 'field_elife_pp_profile',
+        8 => 'field_elife_pp_title',
+        9 => 'field_elife_pp_affiliation',
+        10 => 'group_elife_pp_caption',
+        11 => 'field_elife_pp_first_name',
+        12 => 'field_elife_pp_last_name',
+        13 => 'group_elife_pp_biog_wrapper',
+        14 => 'group_elife_pp_biog',
+        15 => 'group_elife_pp_interest',
       ),
     ),
     'fields' => array(
-      'elife_p_name' => 'ds_content',
-      'group_elife_p_link' => 'ds_content',
-      'field_elife_p_competing_interest' => 'ds_content',
-      'field_elife_p_photo' => 'ds_content',
-      'field_elife_p_expertise' => 'ds_content',
-      'group_elife_p_biog_outer' => 'ds_content',
-      'group_elife_p_name' => 'ds_content',
-      'field_elife_p_profile' => 'ds_content',
-      'field_elife_p_title' => 'ds_content',
-      'field_elife_p_affiliation' => 'ds_content',
-      'group_elife_p_caption' => 'ds_content',
-      'field_elife_p_first_name' => 'ds_content',
-      'field_elife_p_last_name' => 'ds_content',
-      'group_elife_p_biog_wrapper' => 'ds_content',
-      'group_elife_p_biog' => 'ds_content',
-      'group_elife_p_competing_interest' => 'ds_content',
+      'elife_pp_name' => 'ds_content',
+      'group_elife_pp_link' => 'ds_content',
+      'field_elife_pp_interest' => 'ds_content',
+      'field_elife_pp_photo' => 'ds_content',
+      'field_elife_pp_expertise' => 'ds_content',
+      'group_elife_pp_biog_outer' => 'ds_content',
+      'group_elife_pp_name' => 'ds_content',
+      'field_elife_pp_profile' => 'ds_content',
+      'field_elife_pp_title' => 'ds_content',
+      'field_elife_pp_affiliation' => 'ds_content',
+      'group_elife_pp_caption' => 'ds_content',
+      'field_elife_pp_first_name' => 'ds_content',
+      'field_elife_pp_last_name' => 'ds_content',
+      'group_elife_pp_biog_wrapper' => 'ds_content',
+      'group_elife_pp_biog' => 'ds_content',
+      'group_elife_pp_interest' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(

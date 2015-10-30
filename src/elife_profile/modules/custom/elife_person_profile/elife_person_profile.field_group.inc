@@ -13,8 +13,8 @@ function elife_person_profile_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_biog_outer|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_biog_outer';
+  $field_group->identifier = 'group_elife_pp_biog_outer|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_biog_outer';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
@@ -23,7 +23,7 @@ function elife_person_profile_field_group_info() {
     'label' => 'Biography outer',
     'weight' => '1',
     'children' => array(
-      0 => 'group_elife_p_biog_wrapper',
+      0 => 'group_elife_pp_biog_wrapper',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -37,23 +37,23 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_biog_outer|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_biog_outer|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_biog_wrapper|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_biog_wrapper';
+  $field_group->identifier = 'group_elife_pp_biog_wrapper|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_biog_wrapper';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
-  $field_group->parent_name = 'group_elife_p_biog_outer';
+  $field_group->parent_name = 'group_elife_pp_biog_outer';
   $field_group->data = array(
     'label' => 'Biography wrapper',
     'weight' => '25',
     'children' => array(
-      0 => 'group_elife_p_biog',
-      1 => 'group_elife_p_competing_interest',
+      0 => 'group_elife_pp_biog',
+      1 => 'group_elife_pp_interest',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -67,24 +67,24 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_biog_wrapper|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_biog_wrapper|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_biog|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_biog';
+  $field_group->identifier = 'group_elife_pp_biog|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_biog';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
-  $field_group->parent_name = 'group_elife_p_biog_wrapper';
+  $field_group->parent_name = 'group_elife_pp_biog_wrapper';
   $field_group->data = array(
     'label' => 'Biography',
     'weight' => '28',
     'children' => array(
-      0 => 'field_elife_p_expertise',
-      1 => 'field_elife_p_profile',
-      2 => 'elife_p_name',
+      0 => 'field_elife_pp_expertise',
+      1 => 'field_elife_pp_profile',
+      2 => 'elife_pp_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -98,25 +98,25 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_biog|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_biog|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_caption|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_caption';
+  $field_group->identifier = 'group_elife_pp_caption|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_caption';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
-  $field_group->parent_name = 'group_elife_p_link';
+  $field_group->parent_name = 'group_elife_pp_link';
   $field_group->data = array(
     'label' => 'Caption',
     'weight' => '4',
     'children' => array(
-      0 => 'field_elife_p_affiliation',
-      1 => 'field_elife_p_photo',
-      2 => 'field_elife_p_title',
-      3 => 'group_elife_p_name',
+      0 => 'field_elife_pp_affiliation',
+      1 => 'field_elife_pp_photo',
+      2 => 'field_elife_pp_title',
+      3 => 'group_elife_pp_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -130,22 +130,55 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_caption|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_caption|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_competing_interest|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_competing_interest';
+  $field_group->identifier = 'group_elife_pp_details|node|elife_person_profile|form';
+  $field_group->group_name = 'group_elife_pp_details';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'elife_person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Details',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_elife_pp_interest',
+      1 => 'field_elife_pp_past',
+      2 => 'field_elife_pp_photo',
+      3 => 'field_elife_pp_title',
+      4 => 'field_elife_pp_type',
+      5 => 'group_elife_pp_name',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'label' => 'Details',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_elife_pp_details|node|elife_person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_elife_pp_interest|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_interest';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
-  $field_group->parent_name = 'group_elife_p_biog_wrapper';
+  $field_group->parent_name = 'group_elife_pp_biog_wrapper';
   $field_group->data = array(
     'label' => 'Competing interests statement',
     'weight' => '29',
     'children' => array(
-      0 => 'field_elife_p_competing_interest',
+      0 => 'field_elife_pp_interest',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -159,46 +192,13 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_competing_interest|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_interest|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_details|node|elife_person_profile|form';
-  $field_group->group_name = 'group_elife_p_details';
-  $field_group->entity_type = 'node';
-  $field_group->bundle = 'elife_person_profile';
-  $field_group->mode = 'form';
-  $field_group->parent_name = '';
-  $field_group->data = array(
-    'label' => 'Details',
-    'weight' => '0',
-    'children' => array(
-      0 => 'field_elife_p_competing_interest',
-      1 => 'field_elife_p_past',
-      2 => 'field_elife_p_photo',
-      3 => 'field_elife_p_title',
-      4 => 'field_elife_p_type',
-      5 => 'group_elife_p_name',
-    ),
-    'format_type' => 'tab',
-    'format_settings' => array(
-      'label' => 'Details',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => '',
-        'description' => '',
-      ),
-      'formatter' => 'open',
-    ),
-  );
-  $export['group_elife_p_details|node|elife_person_profile|form'] = $field_group;
-
-  $field_group = new stdClass();
-  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
-  $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_link|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_link';
+  $field_group->identifier = 'group_elife_pp_link|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_link';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
@@ -207,7 +207,7 @@ function elife_person_profile_field_group_info() {
     'label' => 'Link',
     'weight' => '0',
     'children' => array(
-      0 => 'group_elife_p_caption',
+      0 => 'group_elife_pp_caption',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -221,13 +221,13 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_link|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_link|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_alternative';
-  $field_group->group_name = 'group_elife_p_name';
+  $field_group->identifier = 'group_elife_pp_name|node|elife_person_profile|elife_teaser_alternative';
+  $field_group->group_name = 'group_elife_pp_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'elife_teaser_alternative';
@@ -236,8 +236,8 @@ function elife_person_profile_field_group_info() {
     'label' => 'Name',
     'weight' => '0',
     'children' => array(
-      0 => 'field_elife_p_first_name',
-      1 => 'field_elife_p_last_name',
+      0 => 'field_elife_pp_first_name',
+      1 => 'field_elife_pp_last_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -251,23 +251,23 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
+  $export['group_elife_pp_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|elife_teaser_compact';
-  $field_group->group_name = 'group_elife_p_name';
+  $field_group->identifier = 'group_elife_pp_name|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_pp_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'elife_teaser_compact';
-  $field_group->parent_name = 'group_elife_p_text';
+  $field_group->parent_name = 'group_elife_pp_text';
   $field_group->data = array(
     'label' => 'Name',
     'weight' => '2',
     'children' => array(
-      0 => 'field_elife_p_first_name',
-      1 => 'field_elife_p_last_name',
+      0 => 'field_elife_pp_first_name',
+      1 => 'field_elife_pp_last_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -281,23 +281,23 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_name|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $export['group_elife_pp_name|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|form';
-  $field_group->group_name = 'group_elife_p_name';
+  $field_group->identifier = 'group_elife_pp_name|node|elife_person_profile|form';
+  $field_group->group_name = 'group_elife_pp_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_elife_p_details';
+  $field_group->parent_name = 'group_elife_pp_details';
   $field_group->data = array(
     'label' => 'Name',
     'weight' => '6',
     'children' => array(
-      0 => 'field_elife_p_first_name',
-      1 => 'field_elife_p_last_name',
+      0 => 'field_elife_pp_first_name',
+      1 => 'field_elife_pp_last_name',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -310,23 +310,23 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_elife_p_name|node|elife_person_profile|form'] = $field_group;
+  $export['group_elife_pp_name|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_name|node|elife_person_profile|teaser';
-  $field_group->group_name = 'group_elife_p_name';
+  $field_group->identifier = 'group_elife_pp_name|node|elife_person_profile|teaser';
+  $field_group->group_name = 'group_elife_pp_name';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'teaser';
-  $field_group->parent_name = 'group_elife_p_caption';
+  $field_group->parent_name = 'group_elife_pp_caption';
   $field_group->data = array(
     'label' => 'Name',
     'weight' => '1',
     'children' => array(
-      0 => 'field_elife_p_first_name',
-      1 => 'field_elife_p_last_name',
+      0 => 'field_elife_pp_first_name',
+      1 => 'field_elife_pp_last_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -340,13 +340,13 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_name|node|elife_person_profile|teaser'] = $field_group;
+  $export['group_elife_pp_name|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_profile|node|elife_person_profile|form';
-  $field_group->group_name = 'group_elife_p_profile';
+  $field_group->identifier = 'group_elife_pp_profile|node|elife_person_profile|form';
+  $field_group->group_name = 'group_elife_pp_profile';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'form';
@@ -355,7 +355,7 @@ function elife_person_profile_field_group_info() {
     'label' => 'Profile',
     'weight' => '1',
     'children' => array(
-      0 => 'field_elife_p_profile',
+      0 => 'field_elife_pp_profile',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -368,13 +368,13 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_p_profile|node|elife_person_profile|form'] = $field_group;
+  $export['group_elife_pp_profile|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_research|node|elife_person_profile|form';
-  $field_group->group_name = 'group_elife_p_research';
+  $field_group->identifier = 'group_elife_pp_research|node|elife_person_profile|form';
+  $field_group->group_name = 'group_elife_pp_research';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'form';
@@ -383,10 +383,10 @@ function elife_person_profile_field_group_info() {
     'label' => 'Research',
     'weight' => '2',
     'children' => array(
-      0 => 'field_elife_p_affiliation',
-      1 => 'field_elife_p_expertise',
-      2 => 'field_elife_p_organism',
-      3 => 'field_elife_p_research_focus',
+      0 => 'field_elife_pp_affiliation',
+      1 => 'field_elife_pp_expertise',
+      2 => 'field_elife_pp_organism',
+      3 => 'field_elife_pp_research_focus',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -399,13 +399,13 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_p_research|node|elife_person_profile|form'] = $field_group;
+  $export['group_elife_pp_research|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_text_wrapper|node|elife_person_profile|elife_teaser_compact';
-  $field_group->group_name = 'group_elife_p_text_wrapper';
+  $field_group->identifier = 'group_elife_pp_text_wrapper|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_pp_text_wrapper';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'elife_teaser_compact';
@@ -414,7 +414,7 @@ function elife_person_profile_field_group_info() {
     'label' => 'Text wrapper',
     'weight' => '1',
     'children' => array(
-      0 => 'group_elife_p_text',
+      0 => 'group_elife_pp_text',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -428,24 +428,24 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_text_wrapper|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $export['group_elife_pp_text_wrapper|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_elife_p_text|node|elife_person_profile|elife_teaser_compact';
-  $field_group->group_name = 'group_elife_p_text';
+  $field_group->identifier = 'group_elife_pp_text|node|elife_person_profile|elife_teaser_compact';
+  $field_group->group_name = 'group_elife_pp_text';
   $field_group->entity_type = 'node';
   $field_group->bundle = 'elife_person_profile';
   $field_group->mode = 'elife_teaser_compact';
-  $field_group->parent_name = 'group_elife_p_text_wrapper';
+  $field_group->parent_name = 'group_elife_pp_text_wrapper';
   $field_group->data = array(
     'label' => 'Text',
     'weight' => '2',
     'children' => array(
-      0 => 'field_elife_p_affiliation',
-      1 => 'field_elife_p_title',
-      2 => 'group_elife_p_name',
+      0 => 'field_elife_pp_affiliation',
+      1 => 'field_elife_pp_title',
+      2 => 'group_elife_pp_name',
     ),
     'format_type' => 'html-element',
     'format_settings' => array(
@@ -459,7 +459,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_p_text|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $export['group_elife_pp_text|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   return $export;
 }

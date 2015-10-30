@@ -174,7 +174,7 @@ function elife_about_profiles_load() {
     ];
   }
 
-  $expertises = taxonomy_vocabulary_machine_name_load('elife_p_expertise');
+  $expertises = taxonomy_vocabulary_machine_name_load('elife_pp_expertise');
   $expertises = taxonomy_get_tree($expertises->vid);
 
   foreach ($expertises as $expertise) {
