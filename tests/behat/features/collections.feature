@@ -213,28 +213,28 @@ Feature: Collections
         ]
       """
     And "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | First Name               | Last Name               | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | First Name                | Last Name                | Executive Staff     |
     When I am viewing an "elife_collection" content:
       | field_elife_c_articles | 05229: VOR 05229, 05252: VOR 05252     |
       | field_elife_c_curators | First Name Last Name (Executive Staff) |
     Then I should see text matching "VOR 05229"
     And I should see text matching "VOR 05252"
     And I should not see text matching "VOR 05262"
-    
+
   Scenario: Collection of collections page
     When "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | FirstName                | LastName                | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | FirstName                 | LastName                 | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                |
-      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff)                                        |
+      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
     And I should see text matching "Article 2 for Collections test"
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                           |
-      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff)   |
+      | title                  | early-career                                                                 |
+      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
     Then I should see text matching "Article 7 for Collections test"
     Given I am on "/collections"
     Then I should see an ".elife-collection__content" element
@@ -244,21 +244,21 @@ Feature: Collections
 
   Scenario: Collections with related content
     When "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | FirstName                | LastName                | Executive Staff    |
-      | Fname                    | LName                   | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | FirstName                 | LastName                 | Executive Staff     |
+      | Fname                     | LName                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                |
-      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff)                                        |
-      | field_elife_c_related  | 00477: Article 8 for Collections test  |
+      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
+      | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     And I should see text matching "Article 2 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                           |
-      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff)   |
-      | field_elife_c_related  | 00477: Article 8 for Collections test  |
+      | title                  | early-career                                                                 |
+      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
+      | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     Then I should see text matching "Article 7 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     Then I should see "Article 8 for Collections test" in the ".elife-collection__sidebar" element
@@ -271,21 +271,21 @@ Feature: Collections
 
   Scenario: Collections by multiple curators
     When "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | FirstName                | LastName                | Executive Staff    |
-      | Fname                    | LName                   | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | FirstName                 | LastName                 | Executive Staff     |
+      | Fname                     | LName                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                |
-      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)         |
-      | field_elife_c_related  | 00477: Article 8 for Collections test                                       |
+      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)          |
+      | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     And I should see text matching "Article 2 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                                                                |
-      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test|
-      | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)         |
-      | field_elife_c_related  | 00477: Article 8 for Collections test                                       |
+      | title                  | early-career                                                                 |
+      | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
+      | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)          |
+      | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     Then I should see text matching "Article 7 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     Then I should see "Article 8 for Collections test" in the ".elife-collection__sidebar" element
@@ -298,13 +298,13 @@ Feature: Collections
   Scenario: Collection of collections page (when collections have no articles)
     Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
     When "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | FirstName                | LastName                | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | FirstName                 | LastName                 | Executive Staff     |
     When "elife_collection" content:
-      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
       | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
     When "elife_collection" content:
-      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
       | earlycareer2 | 01638: Article 12 for Collections test, 04900: Article 16 for Collections test | FirstName LastName (Executive Staff) |
     And I am on "/collections"
     Then I should see text matching "Algoriphags2"
@@ -312,10 +312,10 @@ Feature: Collections
 
   Scenario: Collections without articles
     When "elife_person_profile" content:
-      | field_elife_p_first_name | field_elife_p_last_name | field_elife_p_type |
-      | FirstName                | LastName                | Executive Staff    |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
+      | FirstName                 | LastName                 | Executive Staff     |
     When "elife_collection" content:
-      | title        | field_elife_c_articles                                                       | field_elife_c_curators               |
+      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
       | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
     And I am on "/collections/algoriphags2"
     Then I should not see text matching "Article 11 for Collections test"

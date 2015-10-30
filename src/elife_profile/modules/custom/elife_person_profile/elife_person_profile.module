@@ -10,7 +10,7 @@ include_once 'elife_person_profile.features.inc';
  * Implements hook_token_info().
  */
 function elife_person_profile_token_info() {
-  $info['tokens']['node']['elife-p-name'] = array(
+  $info['tokens']['node']['elife-pp-name'] = array(
     'name' => t('Person name'),
     'description' => t('Person name.'),
   );
@@ -26,10 +26,10 @@ function elife_person_profile_tokens($type, $tokens, array $data = [], array $op
   if ('node' === $type) {
     foreach ($tokens as $name => $original) {
       switch ($name) {
-        case 'elife-p-name':
+        case 'elife-pp-name':
           $parts = [
-            $data['node']->field_elife_p_first_name[LANGUAGE_NONE][0]['value'],
-            $data['node']->field_elife_p_last_name[LANGUAGE_NONE][0]['value'],
+            $data['node']->field_elife_pp_first_name[LANGUAGE_NONE][0]['value'],
+            $data['node']->field_elife_pp_last_name[LANGUAGE_NONE][0]['value'],
           ];
 
           $replacements[$original] = implode(' ', $parts);
@@ -45,7 +45,7 @@ function elife_person_profile_tokens($type, $tokens, array $data = [], array $op
  * Implements ds_views_row_adv_VIEWSNAME() for elife_person_profiles.
  */
 function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comments) {
-  if ('reviewing-editor' === $entity->field_elife_p_type[LANGUAGE_NONE][0]['value']) {
+  if ('reviewing-editor' === $entity->field_elife_pp_type[LANGUAGE_NONE][0]['value']) {
     $view_mode = 'elife_teaser_alternative';
   }
 
@@ -149,8 +149,8 @@ function elife_person_profile_count_by_type($types, $past = FALSE) {
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'elife_person_profile')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_elife_p_type', 'value', (array) $types, 'IN')
-    ->fieldCondition('field_elife_p_past', 'value', (int) $past)
+    ->fieldCondition('field_elife_pp_type', 'value', (array) $types, 'IN')
+    ->fieldCondition('field_elife_pp_past', 'value', (int) $past)
     ->count();
 
   return (int) $query->execute();
@@ -161,9 +161,9 @@ function elife_person_profile_count_by_type($types, $past = FALSE) {
  */
 function elife_person_profile_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
   $taxonomy_bundles = [
-    'elife_p_research_focus',
-    'elife_p_experimental_organism',
-    'elife_p_research_focus',
+    'elife_pp_research_focus',
+    'elife_pp_experimental_organism',
+    'elife_pp_research_focus',
   ];
 
   if ('taxonomy_term' === $entity_form['#entity_type'] && in_array($entity_form['#bundle'], $taxonomy_bundles)) {
