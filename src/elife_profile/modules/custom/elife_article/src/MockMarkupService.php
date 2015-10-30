@@ -14,6 +14,7 @@ final class MockMarkupService extends ElifeMarkupService {
   private $response = 'response';
   private $error = 'error';
   private $results = [];
+  private $replacements = [];
 
   /**
    * @param string $article_id
@@ -132,5 +133,7 @@ final class MockMarkupService extends ElifeMarkupService {
   public function output() {
     return implode("\n", array_values($this->getResults()));
   }
+
+  public function preloadReplacements() {}
 }
 

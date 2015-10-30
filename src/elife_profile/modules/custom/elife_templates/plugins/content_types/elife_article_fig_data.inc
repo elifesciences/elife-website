@@ -39,7 +39,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     $markup->addDoiQuery($article_version_id, $fragment->getDoi());
   }
 
-  $markup = _elife_article_markup_query($markup);
+  $markup = _elife_article_markup_query($markup, TRUE, TRUE);
   $results = $markup->getResults();
 
   if (!empty($results[$article_version_id])) {
