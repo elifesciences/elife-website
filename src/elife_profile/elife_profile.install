@@ -340,6 +340,8 @@ function elife_profile_install() {
   }
   // Disable migrate autoregistration.
   variable_set('migrate_disable_autoregistration', TRUE);
+
+  elife_environment_enable_environment_modules();
 }
 
 /**

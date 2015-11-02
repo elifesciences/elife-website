@@ -1,5 +1,10 @@
 services:
 
+  elife.behat.listener.environment:
+    class: eLife\Behat\EnvironmentListener
+    tags:
+      - { name: event_dispatcher.subscriber }
+
   elife.behat.listener.isolated_solr:
     class: eLife\Behat\IsolatedSolrListener
     arguments:

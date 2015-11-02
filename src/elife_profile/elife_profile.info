@@ -9,7 +9,6 @@ exclusive = true
 dependencies[] = admin_menu
 dependencies[] = block
 dependencies[] = contextual
-dependencies[] = field_ui
 dependencies[] = file
 dependencies[] = image
 dependencies[] = list
@@ -19,17 +18,6 @@ dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = path
 dependencies[] = taxonomy
-
-; Development modules.
-dependencies[] = admin_devel
-dependencies[] = context_ui
-dependencies[] = delta_ui
-dependencies[] = devel
-dependencies[] = ds_ui
-dependencies[] = field_validation_ui
-dependencies[] = module_builder
-dependencies[] = rules_admin
-dependencies[] = views_ui
 
 ; Migration modules.
 dependencies[] = migrate
@@ -136,6 +124,7 @@ dependencies[] = elife_collection
 dependencies[] = elife_config
 dependencies[] = elife_content_alerts
 dependencies[] = elife_early_careers
+dependencies[] = elife_environment
 dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header

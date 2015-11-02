@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Enable modules required by this environment.
+ *
+ * @return array
+ *   Modules enabled.
+ */
+function elife_environment_enable_environment_modules() {
+  $enable = elife_profile_environment_modules(elife_environment(), TRUE);
+
+  $currently_enabled = system_list('module_enabled');
+
+  foreach ($enable as $key => $value) {
+    if (isset($currently_enabled[$value])) {
+      unset($enable[$key]);
+    }
+  }
+
+  if (!empty($enable)) {
+    if (!module_enable($enable, FALSE)) {
+      throw new RuntimeException(t('Failed to enable: !modules', ['!modules' => implode(', ', $enable)]));
+    }
+  }
+
+  return $enable;
+}
+
+/**
+ * Disable modules not required by this environment.
+ *
+ * @return array
+ *   Modules disabled.
+ */
+function elife_environment_disable_environment_modules() {
+  $disable = elife_profile_environment_modules(elife_environment(), FALSE);
+
+  $currently_enabled = system_list('module_enabled');
+
+  foreach ($disable as $key => $value) {
+    if (!isset($currently_enabled[$value])) {
+      unset($disable[$key]);
+    }
+  }
+
+  if (!empty($disable)) {
+    module_disable($disable, TRUE);
+  }
+
+  return $disable;
+}
