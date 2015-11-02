@@ -154,7 +154,7 @@
 
           $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-desc first"><a href="#">View caption</a><span> | ');
           $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-wind"><a href="' + href + '" target="_blank">Open in new window</a><span> | ');
-          $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-down last"><a href="' + href + '?download=true">Download figure</a><span>');
+          $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-down last"><a href="' + href + '" download>Download figure</a><span>');
 
           $('#cboxCurrent', '#cboxContent').append($links);
           $('#cboxCurrent', '#cboxContent').show();
