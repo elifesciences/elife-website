@@ -129,7 +129,7 @@
 
         $(this).data('figure-caption', figCaptionHtml);
       });
-      $('a.figure-expand-popup', context).colorbox({title: false, inline: true, width: 1000, height: 500, current: "{current} of {total}"});
+      $('a.figure-expand-popup', context).colorbox({title: false, width: 1000, height: 500, current: "{current} of {total}"});
 
       // Colorbox modifications
       $(document).bind('cbox_complete', function(){
