@@ -242,6 +242,10 @@ Feature: Collections
     Then I should see text matching "Algoriphagus"
     Then I should see 2 "h2.collection-teaser__title" element
 
+  Scenario: Sub-paths aren't accessible
+    When I go to "/collections/foo"
+    Then the response status code should be 404
+
   Scenario: Collections with related content
     When "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
