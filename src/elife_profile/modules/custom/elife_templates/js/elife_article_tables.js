@@ -10,7 +10,7 @@
           $fragment_tables.once(function () {
             var $wrapper = $(this).closest('.table-expansion').clone();
             $('.table-inline', $wrapper).remove();
-            $('table', $wrapper).show();
+            $('table, .table-foot', $wrapper).show();
             $(this).data('table-html', $wrapper.html());
           });
 
@@ -23,7 +23,7 @@
         $('a.table-expand-inline', context).once('eLifeArticleTablesMarkup', function() {
           $(this, context).each(function() {
             var $inlineToggler = $(this),
-              $table = $('table', $inlineToggler.closest('.table-expansion'));
+              $table = $('table, .table-foot', $inlineToggler.closest('.table-expansion'));
 
             $table.hide();
             
