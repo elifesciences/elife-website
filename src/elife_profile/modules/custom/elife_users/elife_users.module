@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Users feature.
+ */
+
+include_once 'elife_users.features.inc';

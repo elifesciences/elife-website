@@ -10,6 +10,8 @@
  * @throws \Exception
  */
 function elife_config_install() {
+  theme_enable(['elife', 'elife_newlook', 'seven']);
+
   // Only do db_insert if the row doesn't exist already.
   if ((db_query("SELECT ptid FROM {page_theme} WHERE theme = 'elife_newlook' AND status = '1'")->fetchField()) == 0) {
     $field = array();
