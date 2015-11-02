@@ -162,22 +162,6 @@ Feature: In order to represent 'Collections'
           ]
      """
 
-  Scenario: Creating and verifying Hero block only
-    Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content,bypass rh_node" permissions
-    And I am on "/node/add/elife-hero-block"
-    Then I should see "Create eLife Hero Block"
-    Then I fill in "Title" with "Hero block - Algoriphagus"
-    Then I fill in "edit-field-elife-h-sub-title-und-0-value" with "Sub-title for Algoriphagus"
-    Then I fill in "Appears on" with "collections/algoriphagus"
-    When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
-    Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
-    And I press "Save"
-    And I should see "Hero block - Algoriphagus"
-    And I should see "Sub-title for Algoriphagus"
-    And I am on "/collections/algoriphagus"
-    And I should see "Hero block - Algoriphagus"
-    And I should see "Sub-title for Algoriphagus"
-
   Scenario: Verify Hero block on a collections page
     Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
     When "elife_person_profile" content:
@@ -227,6 +211,9 @@ Feature: In order to represent 'Collections'
 
   Scenario: Hero block for collections without articles
     Given I am logged in as a user with the "administrator" role
+    And "elife_collection" content:
+      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
+      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
     When "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | FirstName                 | LastName                 | Executive Staff     |
@@ -238,9 +225,6 @@ Feature: In order to represent 'Collections'
     When I attach the file "test.jpg" to "edit-field-elife-h-image-und-0-upload"
     Then I select the radio button "Dark" with the id "edit-field-elife-h-image-colour-und-dark"
     And I press "Save"
-    When "elife_collection" content:
-      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
-      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
     And I am on "/collections/algoriphags2"
     And I should see "Hero block - Algoriphagus"
     And I should see "Collection with no articles"

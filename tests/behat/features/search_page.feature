@@ -12,6 +12,10 @@ Feature: Search
     When I click the ".header__list li a.header__list_link.header__list_link--search" element
     Then the url should match "/elife/search"
 
+  Scenario: Sub-paths aren't accessible
+    When I go to "/elife/search/foo"
+    Then the response status code should be 404
+
   Scenario: Appropriate title and input box for the Search page
     Given I am on "/elife/search"
     Then the response status code should be 200

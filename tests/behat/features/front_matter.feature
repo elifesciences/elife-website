@@ -32,6 +32,10 @@ Feature: Front Matter
     And I should be on "content/4/e05224v1"
     And I should see "VOR 05224 v1" in the "h1" element
 
+  Scenario: Sub-paths aren't accessible
+    When I go to "/cover/foo"
+    Then the response status code should be 404
+
   @api
   Scenario: Load cover item to homepage referencing a podcast
     Given "elife_podcast" content:

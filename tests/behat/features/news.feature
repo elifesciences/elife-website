@@ -10,6 +10,10 @@ Feature: News
     And I should see "No news articles are currently available." in the ".content .main-wrapper" element
     And I should not see a ".content .sidebar-wrapper" element
 
+  Scenario: Sub-paths aren't accessible
+    When I go to "/elife-news/foo"
+    Then the response status code should be 404
+
   Scenario: News article without any categories
     Given "elife_news_article" content:
       | title | field_elife_n_text |
