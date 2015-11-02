@@ -2,6 +2,7 @@
 
 namespace eLife\EIF\ArticleVersion\Contributor;
 
+use eLife\EIF\ArticleVersion\Affiliation;
 use eLife\EIF\ArticleVersion\Contributor;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -14,12 +15,20 @@ final class CollabContributor extends Contributor {
   private $collab;
 
   /**
+   * @var Affiliation[]
+   *
+   * @Serializer\Type("array<eLife\EIF\ArticleVersion\Affiliation>")
+   */
+  private $affiliations = array();
+
+  /**
    * @param string $type
    * @param boolean $corresp
    * @param string|null $id
    * @param string $group_author_key
    * @param array $references
    * @param string $collab
+   * @param Affiliation[] $affiliations
    */
   public function __construct(
     $type,
@@ -27,11 +36,13 @@ final class CollabContributor extends Contributor {
     $id,
     $group_author_key,
     array $references,
-    $collab
+    $collab,
+    array $affiliations
   ) {
     parent::__construct($type, $corresp, $id, $group_author_key,
       $references);
     $this->collab = $collab;
+    $this->affiliations = $affiliations;
   }
 
   public function getCollab() {
@@ -44,5 +55,9 @@ final class CollabContributor extends Contributor {
 
   public function getShortName() {
     return $this->getName();
+  }
+
+  public function getAffiliations() {
+    return $this->affiliations;
   }
 }
