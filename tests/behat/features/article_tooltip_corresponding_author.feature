@@ -254,7 +254,7 @@ Feature: Footnote
                   }
                 }
               },
-              "path": "content/3/e03981",
+              "path": "content/3/e03981v1",
               "fragments": [],
               "article-id": "10.7554/eLife.03981",
               "categories": {
@@ -271,5 +271,5 @@ Feature: Footnote
             }
           ]
         """
-      When I visit "content/3/e03981"
+      When I visit "content/3/e03981v1"
       Then I should see "sean.morrison@utsouthwestern.edu" in the ".author-list-full li:nth-of-type(1) .author-tooltip .author-tooltip-corresp .author-tooltip-text" element

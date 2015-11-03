@@ -11,15 +11,15 @@ Feature: Citation formats
       """
         [
           {
-            "title": "VOR 05224",
-            "version": "1",
+            "title": "VOR 05224 v2",
+            "version": "2",
             "doi": "10.7554/eLife.05224",
             "volume": "4",
             "elocation-id": "e05224",
             "article-id": "05224",
-            "article-version-id": "05224.1",
+            "article-version-id": "05224.2",
             "pub-date": "1979-08-17",
-            "path": "content/4/e05224",
+            "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
             "publish": "1",
@@ -31,11 +31,11 @@ Feature: Citation formats
           }
         ]
       """
-    When I visit "content/4/e05224"
+    When I visit "content/4/e05224v2"
     And I follow "BibTeX"
-    Then I should see the header content filename "vor-05224.bib"
+    Then I should see the header content filename "vor-05224-v2.bib"
     And the response body should contain "title = {Social networks predict gut microbiome composition in wild baboons}"
-    When I visit "content/4/e05224"
+    When I visit "content/4/e05224v2"
     And I follow "RIS"
-    Then I should see the header content filename "vor-05224.ris"
+    Then I should see the header content filename "vor-05224-v2.ris"
     And the response body should contain "TI  - Social networks predict gut microbiome composition in wild baboons"
