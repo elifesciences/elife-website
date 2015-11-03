@@ -125,9 +125,11 @@
         var $figCaption = $('.fig-caption', $(this).closest('.fig-expansion')).clone(),
           figCaptionHtml;
         $('.elife-figure-links, .supplementary-material', $figCaption).remove();
-        figCaptionHtml = $figCaption[0].outerHTML;
+        if ($figCaption.length > 0) {
+          figCaptionHtml = $figCaption[0].outerHTML;
 
-        $(this).data('figure-caption', figCaptionHtml);
+          $(this).data('figure-caption', figCaptionHtml);
+        }
       });
       $('a.figure-expand-popup', context).colorbox({title: false, width: 1000, height: 500, current: "{current} of {total}"});
 
