@@ -41,11 +41,6 @@
 		
 		<?php if ($content['side_top'] || $content['side_bottom'] || $content['side_lens'] || $content['side_link']): ?>
 			<div class="sidebar-wrapper grid-9 omega">
-        <?php if ($content['side_lens']): ?>
-          <div class="panel-panel panel-region-sidebar-lens">
-            <?php print $content['side_lens']; ?>
-          </div>
-        <?php endif; ?>
         <?php if ($content['side_link']): ?>
           <div class="panel-panel panel-region-sidebar-link">
             <?php print $content['side_link']; ?>
