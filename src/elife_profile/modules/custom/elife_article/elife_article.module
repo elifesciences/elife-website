@@ -1907,19 +1907,24 @@ function _elife_article_markup_query_key(ElifeMarkupService $markup) {
  *   Markup service container
  * @param bool $from_store
  *   Set to false if you don't want to try to retrieve from cache
+ * @param bool $preload_replacements
+ *   Set to true if you want to try to build up replacements before submission
  *
  * @return ElifeMarkupService
  *   Markup service container
  */
-function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = TRUE) {
+function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = TRUE, $preload_replacements = FALSE) {
   if ($from_store) {
-    $cache = _elife_article_markup_query_cache($markup);
+    $cache = _elife_article_markup_query_cache($markup, $preload_replacements);
     $key = _elife_article_markup_query_key($markup);
     if (!empty($cache[$key])) {
       $markup = $cache[$key];
     }
   }
   else {
+    if ($preload_replacements) {
+      $markup->preloadReplacements();
+    }
     $markup->submitQuery();
   }
 
@@ -1931,13 +1936,15 @@ function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = T
  *
  * @param ElifeMarkupService $markup
  *   Markup service container
+ * @param bool $preload_replacements
+ *   Set to true if you want to try to build up replacements before submission
  *
  * @return ElifeMarkupService[]
  *   Array of markup service containers that have been queried
  *
  * @throws Exception
  */
-function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
+function _elife_article_markup_query_cache(ElifeMarkupService $markup, $preload_replacements = FALSE) {
   $cache = &drupal_static(__FUNCTION__, []);
   if (!empty($markup->getQuery())) {
     $key = _elife_article_markup_query_key($markup);
@@ -1948,7 +1955,7 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
         $markup = unserialize($result['markup']);
       }
       else {
-        _elife_article_markup_cache_merge($markup);
+        _elife_article_markup_cache_merge($markup, $preload_replacements);
       }
       $cache[$key] = $markup;
     }
@@ -1962,13 +1969,18 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
  *
  * @param ElifeMarkupService $markup
  *   Markup service container
+ * @param bool $preload_replacements
+ *   Set to true if you want to try to build up replacements before submission
  *
  * @throws Exception
  * @throws InvalidMergeQueryException
  */
-function _elife_article_markup_cache_merge(ElifeMarkupService $markup) {
+function _elife_article_markup_cache_merge(ElifeMarkupService $markup, $preload_replacements = FALSE) {
   $key = _elife_article_markup_query_key($markup);
   $article_version_id = '::' . implode('::', array_keys($markup->getQuery())) . '::';
+  if ($preload_replacements) {
+    $markup->preloadReplacements();
+  }
   $markup->submitQuery();
   db_merge('elife_markup')
     ->key(array('id' => $key))

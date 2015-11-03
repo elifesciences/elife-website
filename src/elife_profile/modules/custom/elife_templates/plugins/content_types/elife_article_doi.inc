@@ -125,6 +125,7 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
         $output .= '</span>';
       }
 
+      elife_templates_article_page_markup_assets();
       $block = new stdClass();
       $block->content = $output;
 

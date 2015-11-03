@@ -29,6 +29,8 @@ interface ElifeMarkupServiceInterface {
 
   public function submitQuery();
 
+  public function preloadReplacements();
+
   public function processResponse();
 
   public function getResponse();
