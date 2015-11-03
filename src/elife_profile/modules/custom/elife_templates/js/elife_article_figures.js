@@ -125,11 +125,13 @@
         var $figCaption = $('.fig-caption', $(this).closest('.fig-expansion')).clone(),
           figCaptionHtml;
         $('.elife-figure-links, .supplementary-material', $figCaption).remove();
-        figCaptionHtml = $figCaption[0].outerHTML;
+        if ($figCaption.length > 0) {
+          figCaptionHtml = $figCaption[0].outerHTML;
 
-        $(this).data('figure-caption', figCaptionHtml);
+          $(this).data('figure-caption', figCaptionHtml);
+        }
       });
-      $('a.figure-expand-popup', context).colorbox({title: false, inline: true, width: 1000, height: 500, current: "{current} of {total}"});
+      $('a.figure-expand-popup', context).colorbox({title: false, width: 1000, height: 500, current: "{current} of {total}"});
 
       // Colorbox modifications
       $(document).bind('cbox_complete', function(){
@@ -154,7 +156,7 @@
 
           $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-desc first"><a href="#">View caption</a><span> | ');
           $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-wind"><a href="' + href + '" target="_blank">Open in new window</a><span> | ');
-          $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-down last"><a href="' + href + '?download=true">Download figure</a><span>');
+          $links.append('<span class="elife-cboxfigure-link elife-cboxfigure-down last"><a href="' + href + '" download>Download figure</a><span>');
 
           $('#cboxCurrent', '#cboxContent').append($links);
           $('#cboxCurrent', '#cboxContent').show();
