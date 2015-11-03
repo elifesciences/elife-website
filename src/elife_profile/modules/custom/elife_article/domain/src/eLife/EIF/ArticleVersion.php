@@ -307,6 +307,11 @@ final class ArticleVersion {
     return $this->article_id;
   }
 
+  public function getManuscriptId() {
+    preg_match('/^[0-9.]+\/eLife\.([0-9]+)$/', $this->article_id, $matches);
+    return $matches[1];
+  }
+  
   public function getArticleVersionId() {
     return $this->article_version_id;
   }
