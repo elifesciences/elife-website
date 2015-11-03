@@ -675,6 +675,23 @@ function elife_article_version_to_dto(stdClass $entity) {
             }
           }
 
+          $affiliations = [];
+          if (
+            $entity_contributor->field_elife_a_aff_dept->value() ||
+            $entity_contributor->field_elife_a_aff_inst->value() ||
+            $entity_contributor->field_elife_a_aff_city->value() ||
+            $entity_contributor->field_elife_a_aff_country->value() ||
+            $entity_contributor->field_elife_a_aff_email->value()
+          ) {
+            $affiliations[] = new Affiliation(
+              $entity_contributor->field_elife_a_aff_dept->value(),
+              $entity_contributor->field_elife_a_aff_inst->value(),
+              $entity_contributor->field_elife_a_aff_city->value(),
+              $entity_contributor->field_elife_a_aff_country->value(),
+              $entity_contributor->field_elife_a_aff_email->value()
+            );
+          }
+
           if ($entity_contributor->field_elife_a_collab->value()) {
             $contributors[] = new CollabContributor(
               $entity_contributor->field_elife_a_contrib_type->value(),
@@ -682,27 +699,11 @@ function elife_article_version_to_dto(stdClass $entity) {
               $entity_contributor->field_elife_a_author_id->value(),
               $entity_contributor->field_elife_a_group_author_key->value(),
               $references,
-              $entity_contributor->field_elife_a_collab->value()
+              $entity_contributor->field_elife_a_collab->value(),
+              $affiliations
             );
           }
           else {
-            $affiliations = [];
-            if (
-              $entity_contributor->field_elife_a_aff_dept->value() ||
-              $entity_contributor->field_elife_a_aff_inst->value() ||
-              $entity_contributor->field_elife_a_aff_city->value() ||
-              $entity_contributor->field_elife_a_aff_country->value() ||
-              $entity_contributor->field_elife_a_aff_email->value()
-            ) {
-              $affiliations[] = new Affiliation(
-                $entity_contributor->field_elife_a_aff_dept->value(),
-                $entity_contributor->field_elife_a_aff_inst->value(),
-                $entity_contributor->field_elife_a_aff_city->value(),
-                $entity_contributor->field_elife_a_aff_country->value(),
-                $entity_contributor->field_elife_a_aff_email->value()
-              );
-            }
-
             $contributors[] = new BylineContributor(
               $entity_contributor->field_elife_a_contrib_type->value(),
               $entity_contributor->field_elife_a_corresp->value(),

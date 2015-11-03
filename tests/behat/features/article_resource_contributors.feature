@@ -1245,7 +1245,13 @@ Feature: Article Resource - Contributors (API)
               "type": "author",
               "corresp": "yes",
               "group-author-key": "group-author-id2",
-              "collab": "eLife staff group"
+              "collab": "eLife staff group",
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "editor",
@@ -1636,7 +1642,13 @@ Feature: Article Resource - Contributors (API)
               "type": "author",
               "corresp": "yes",
               "group-author-key": "group-author-id2",
-              "collab": "eLife staff group"
+              "collab": "eLife staff group",
+              "affiliations": [
+                {
+                  "institution": "Pediatric Dengue Vaccine Initiative",
+                  "country": "United States"
+                }
+              ]
             },
             {
               "type": "editor",
