@@ -124,8 +124,7 @@ function elife_article_markup_prepopulate_process_finished($success, $results, $
 /**
  * Implements hook_admin_settings().
  */
-function elife_article_xml_source_settings_form($form_state) {
-  $form = array();
+function elife_article_xml_source_settings_form($form, &$form_state) {
   $form['source_xml'] = array(
     '#title' => t('Settings for the retrieval of Article Version XML'),
     '#type' => 'fieldset',
@@ -170,12 +169,17 @@ function elife_article_xml_source_settings_form($form_state) {
     $form['source_xml']['tokens'] = array(
       '#title' => t('Tokens'),
       '#type' => 'fieldset',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
+      '#states' => array(
+        'visible' => array(
+          ':input[name="source_xml[elife_article_source_xml_file_pattern]"]' => array("value" => "tokens"),
+        ),
+      ),
     );
     $form['source_xml']['tokens']['help'] = array(
       '#theme' => 'token_tree',
-      '#token_types' => array('node'),
+      '#token_types' => 'all',
+      '#global_types' => FALSE,
+      '#dialog' => TRUE,
     );
   }
   return system_settings_form($form);
