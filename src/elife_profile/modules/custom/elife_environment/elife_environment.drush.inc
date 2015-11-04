@@ -13,7 +13,7 @@ function elife_environment_drush_command() {
 /**
  * Command callback. Enables/disables modules for the current environment.
  */
-function drush_elife_environment_elife_environment_modules() {
+function drush_elife_environment_modules() {
   $enabled = elife_environment_enable_environment_modules();
   $disabled = elife_environment_disable_environment_modules();
 
