@@ -2013,7 +2013,7 @@ function _elife_article_markup_cache_warm($article_version_ids) {
     else {
       // If there is no cache to warm then trigger the generation of queries for
       // each of the different sections of the article.
-      $sections = ElifeMarkupService::$sections;
+      $sections = ElifeMarkupService::getSectionLabels();
       foreach (array_keys($sections) as $section) {
         $markup = elife_article_markup_service();
         $markup->addSectionQuery($article_version_id, $section);

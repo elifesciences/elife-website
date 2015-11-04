@@ -27,6 +27,18 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'decision-letter' => 'getDecisionLetter',
     'author-response' => 'getAuthorResponse',
     'datasets' => 'getDatasets',
+    'author-info-group-authors' => 'getAuthorInfoGroupAuthors',
+    'author-info-contributions' => 'getAuthorInfoContributions',
+    'author-info-equal-contrib' => 'getAuthorInfoEqualContrib',
+    'author-info-other-footnotes' => 'getAuthorInfoOtherFootnotes',
+    'author-info-correspondence' => 'getAuthorInfoCorrespondence',
+    'author-info-additional-address' => 'getAuthorInfoAdditionalAddress',
+    'author-info-competing-interest' => 'getAuthorInfoCompetingInterest',
+    'author-info-funding' => 'getAuthorInfoFunding',
+    'article-info-identification' => 'getArticleInfoIdentification',
+    'article-info-history' => 'getArticleInfoHistory',
+    'article-info-ethics' => 'getArticleInfoEthics',
+    'article-info-license' => 'getArticleInfoLicense',
   ];
   private $htmls = [];
   private $xmls = [];
