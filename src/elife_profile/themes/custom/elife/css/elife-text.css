@@ -314,14 +314,15 @@ h2.snippet-title {
 		margin-top: 12px;
 	}
 
-/* article & fragment 'metadata region' doi links */
-.node-type-highwire-fragment .pane-highwire-doi,
-.node-type-highwire-article .pane-highwire-doi {
-	font-size: 0.86em;
-	line-height: 1.5em;
+.pane-elife-doi,
+.elife-doi-epubdate,
+.elife-doi-cite-as {
+	font-size: 0.86rem;
+	line-height: 1.125rem;
 }
-.node-type-highwire-fragment .pane-highwire-doi .label,
-.node-type-highwire-article .pane-highwire-doi .label {
+.label.elife-doi-pre-label,
+.label.elife-doi-epubdate-label,
+.label.elife-doi-cite-as-label {
 	font-weight: bold;
 }
 
@@ -741,8 +742,4 @@ label.option,
 input:-moz-placeholder {  
 	font-family: 'AvenirLTW01-35LightObli', Helvetica, Arial, Verdana, sans-serif;
 	font-style: normal;
-}
-
-.elife-doi-pre-label {
-	
 }
