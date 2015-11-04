@@ -98,8 +98,8 @@ function elife_article_schema() {
  */
 function elife_article_install() {
   // @todo - elife - nlisgo - swap this for actual paths when in production.
-  variable_set('elife_article_source_xml_base_path', 'https://s3.amazonaws.com/elife-cdn/elife-articles/');
-  variable_set('elife_article_source_xml_file_pattern', '[node:manuscript_id]/elife[node:manuscript_id].xml');
+  variable_set('elife_article_source_xml_base_path', 'http://s3.amazonaws.com/elife-articles-renamed/samples05/article-xml/');
+  variable_set('elife_article_source_xml_file_pattern', 'elife-[node:manuscript_id]-v[node:version_no].xml');
 }
 
 /**
