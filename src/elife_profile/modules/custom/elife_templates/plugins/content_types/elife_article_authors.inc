@@ -226,7 +226,7 @@ function elife_article_authors_render($subtype, $conf, $args, $context) {
   if (!empty($authors)) {
     $block->title = t('Article Authors');
     $block->content = '<div class="author-list"><ul>' . implode("\n", $authors) . '</ul></div>';
-    $block->content .= '<div class="author-list-full"><ul>' . implode("\n", $authors_full) . '</ul></div>';
+    $block->content .= '<div class="ctools-collapsible-container compact-collapsible visible-small ctools-collapsed"><h2 class="pane-title ctools-collapsible-handle">Affiliation details</h2><div class="author-list-full ctools-collapsible-content"><ul>' . implode("\n", $authors_full) . '</ul></div></div>';
   }
 
   return $block;

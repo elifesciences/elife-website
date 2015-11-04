@@ -77,7 +77,10 @@ ul ul {
   list-style: circle outside;
   margin-bottom: 0.5em;
 }
-
+.author-list-full ul {
+  list-style: none;
+  padding-left: 0;
+}
 ol {
   list-style: decimal outside;
   padding-left: 2em;
@@ -1544,12 +1547,16 @@ a.logo-wt {
 #zone-content .pane-elife-article-title + .panel-separator,
 #zone-content .pane-elife-article-fragment-title + .panel-separator,
 #zone-content .pane-elife-article-authors + .panel-separator,
+#zone-content .pane-elife-article-affiliation + .panel-separator,
 .node-type-highwire-fragment #zone-content .elife-fragment-doi + .panel-separator {
   background: transparent;
   height: 0;
   margin: 0;
 }
 
+#zone-content .pane-elife-article-affiliation + .panel-separator {
+  margin: 5px 0;
+}
 
 /* author list */
 .pane-elife-article-authors .author-list {
