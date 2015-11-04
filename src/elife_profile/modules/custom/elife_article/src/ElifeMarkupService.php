@@ -7,7 +7,7 @@
 namespace Drupal\elife_article;
 
 abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
-  public static $sections = [
+  private static $sections = [
     'abstract' => 'Abstract',
     'digest' => 'eLife digest',
     'main-text' => 'Main text',
@@ -16,6 +16,18 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'decision-letter' => 'Decision letter',
     'author-response' => 'Author response',
     'datasets' => 'Major datasets',
+    'author-info-group-authors' => 'Other contributors',
+    'author-info-equal-contrib' => 'Equal contributions',
+    'author-info-other-footnotes' => 'Other Footnotes',
+    'author-info-contributions' => 'Author contributions',
+    'author-info-correspondence' => 'For corresponsdence',
+    'author-info-additional-address' => 'Additional address',
+    'author-info-competing-interest' => 'Competing interests',
+    'author-info-funding' => 'Funding',
+    'article-info-identification' => 'Identification',
+    'article-info-history' => 'Publication history',
+    'article-info-ethics' => 'Ethics',
+    'article-info-license' => 'Copyright',
   ];
 
   /**
