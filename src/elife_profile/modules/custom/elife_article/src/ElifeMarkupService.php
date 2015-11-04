@@ -27,6 +27,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'article-info-identification' => 'Identification',
     'article-info-history' => 'Publication history',
     'article-info-ethics' => 'Ethics',
+    'article-info-reviewing-editor' => 'Reviewing editor',
     'article-info-license' => 'Copyright',
   ];
 
