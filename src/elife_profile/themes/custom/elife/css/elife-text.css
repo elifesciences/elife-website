@@ -270,16 +270,17 @@ h2.snippet-title {
 	/*font-size: 1.3em;*/ /* ~18px */
 }
 
-.pane-elife-article-authors . elife-institutions-list {
+.pane-elife-article-affiliation .elife-institutions-list {
 	font-size: 1em; 			/* 14px */
-	line-height: 1.29em;	/* ~18px */
+	line-height: 1.125rem;	/* ~18px */
+	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
 }
 
 .elife-article-author-affiliation-item,
 .ui-cluetip-content {
 	font-family: Helvetica, Arial, Verdana, sans-serif;
-	font-size: 0.86em; /* ~12px */
-	line-height: 1.33em;	/* ~16px */
+	font-size: 0.86rem; /* ~13px */
+	line-height: 1rem;	/* ~16px */
 }
 	/* reset smaller font size coming from highwire.style.highwire.css */
 	div.ui-cluetip .highwire-markup { font-size: 1em; }
@@ -287,8 +288,10 @@ h2.snippet-title {
 .author-detail-name,
 .author-tooltip .author-tooltip-name {
 	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
-	font-size: 1.5em; /* ~18px */
-	line-height: 1.67em; /* ~30px */
+	/*font-size: 1.5em; !* ~18px *!*/
+	/*line-height: 1.67em; !* ~30px *!*/
+	font-size: 1.3rem;
+	line-height: 1.875; /* ~30px */
 }
 
 .author-detail-label,
@@ -311,14 +314,15 @@ h2.snippet-title {
 		margin-top: 12px;
 	}
 
-/* article & fragment 'metadata region' doi links */
-.node-type-highwire-fragment .pane-highwire-doi,
-.node-type-highwire-article .pane-highwire-doi {
-	font-size: 0.86em;
-	line-height: 1.5em;
+.pane-elife-doi,
+.elife-doi-epubdate,
+.elife-doi-cite-as {
+	font-size: 0.86rem;
+	line-height: 1.125rem;
 }
-.node-type-highwire-fragment .pane-highwire-doi .label,
-.node-type-highwire-article .pane-highwire-doi .label {
+.label.elife-doi-pre-label,
+.label.elife-doi-epubdate-label,
+.label.elife-doi-cite-as-label {
 	font-weight: bold;
 }
 

@@ -5,8 +5,8 @@
  * elife_templates/templates/elife_article_author_tooltip.tpl.php
  */
 ?>
-<div class="author-tooltip">
-  <div class="author-tooltip-name"><?php print $tooltip_name; ?></div>
+<div class="author-tooltip elife-article-author-affiliation-item ">
+  <h2 class="author-tooltip-name"><?php print $tooltip_name; ?></h2>
   <?php if ($affiliation): ?>
     <div class="author-tooltip-affiliation"><span class="author-tooltip-text"><?php print $affiliation; ?></span></div>
   <?php endif; ?>

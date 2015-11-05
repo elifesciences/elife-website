@@ -107,22 +107,22 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
       foreach ($doi_links as $label => $doi_link) {
         $output .= '<div class="pane-elife-doi">';
-        $output .= '<span class="elife-doi-doi">';
+        $output .= '<div class="elife-doi-doi">';
         $output .= '<span class="elife-doi-pre-label label">' . $label . ': </span>';
         $output .= '<span class="elife-doi-doi">' . $doi_link . '</span>';
-        $output .= '</span>';
+        $output .= '</div>';
         $output .= '</div>';
       }
 
       if (!$fragment) {
-        $output .= '<span class="elife-doi-epubdate">';
+        $output .= '<div class="elife-doi-epubdate">';
         $output .= '<span class="elife-doi-epubdate-label label">' . t('Published') . '</span> ';
         $output .= '<span class="elife-doi-epubdate-data">' . ($article_version->getPubDate() ? $article_version->getPubDate()->format('F j, Y') : t('N/A')) . '</span>';
-        $output .= '</span>';
-        $output .= '<span class="elife-doi-cite-as">';
+        $output .= '</div>';
+        $output .= '<div class="elife-doi-cite-as">';
         $output .= '<span class="elife-doi-cite-as-label label">' . t('Cite as') . '</span> ';
         $output .= '<span class="elife-doi-cite-as-data">' . $article_version->getCiteAs() . '</span>';
-        $output .= '</span>';
+        $output .= '</div>';
       }
 
       elife_templates_article_page_markup_assets();
