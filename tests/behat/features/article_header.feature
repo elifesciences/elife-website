@@ -4,8 +4,7 @@ Feature: Article Header
   I need an appropriate header section
 
   Scenario Outline: Article header should have Article tabs
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 00013",
@@ -161,8 +160,7 @@ Feature: Article Header
       | Article & author info | 3 | /content/3/e00013/article-info | VOR 00013 |
 
   Scenario Outline: Authors should be listed under the article title
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 07091",
@@ -302,3 +300,29 @@ Feature: Article Header
       | Pradipta   | Ghosh         | 2 |
       | Marco      | Thines        | 3 |
       | Detlef     | Weigel        | 4 |
+
+  Scenario: Verifying article Doi information is listed correctly
+    Given there is an article:
+    """
+      {
+        "title": "VOR 05224 v2",
+        "version": "2",
+        "doi": "10.7554/eLife.05224",
+        "volume": "4",
+        "elocation-id": "e05224",
+        "article-id": "05224",
+        "article-version-id": "05224.2",
+        "pub-date": "2015-08-17",
+        "path": "content/4/e05224v2",
+        "article-type": "research-article",
+        "status": "VOR",
+        "publish": "1",
+        "keywords": {
+        "author-keywords": [
+        "Algoriphagus"
+          ]
+        }
+      }
+    """
+    Given I am on "content/4/e05224v2"
+    Then I should see "eLife 2015;4:e05224" in the ".elife-doi-cite-as" element
