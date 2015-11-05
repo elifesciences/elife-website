@@ -1,0 +1,126 @@
+.lens-link {
+  display: none;
+}
+
+@media only all and (min-width: 768px) {
+  .lens-link,
+  .lens-link:before,
+  .lens-link:after,
+  .lens-link * {
+    box-sizing: border-box;
+  }
+
+  .lens-link {
+    display: block;
+    left: -50px;
+    position: absolute;
+    top: 260px;
+  }
+
+  .lens-link__link.knockback {
+    opacity: 0.1;
+  }
+
+  .lens-link.anchor-to-top {
+    position: fixed;
+    top: 75px;
+    left: 15px;
+    z-index: 5;
+  }
+
+  .lens-link:after {
+    clear: both;
+    float: none;
+  }
+
+  a.lens-link__link:link,
+  a.lens-link__link:hover,
+  a.lens-link__link:active,
+  a.lens-link__link:visited {
+    background-color: #CF0C4E;
+    border-radius: 4px 0 0 4px;
+    box-shadow: -1px   -1px   1px   0   #aaa,
+    -1px    0     1px   0   #aaa,
+    -1px    1px   1px   0   #aaa;
+    color: #fff;
+    display: block;
+    float: left;
+    height: 50px;
+    min-height: 50px;
+    min-width: 50px;
+    position: relative;
+    /* Keep this duration less than the delay in 
+       elife_lenslink.js:hideLensLinkText() */
+    transition: opacity 1s ease-in-out;
+    width: 50px;
+    z-index: 10;
+  }
+
+  .lens-link__image {
+    border: none;
+    left: 8px;
+    height: 27px;
+    position: absolute;
+    top: 11px;
+    width: 34px;
+  }
+
+  .lens-link__text {
+    background-color: #b10141;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 1px   -1px   1px   0   #aaa,
+    1px    0     1px   0   #aaa,
+    1px    1px   1px   0   #aaa,
+    -2px   -1px   1px   0   #aaa,
+    -2px    1px   1px   0   #aaa;
+    color: #fff;
+    float: left;
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+    min-height: 50px;
+    padding: 12px;
+    position: relative;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 5;
+  }
+
+  .lens-link__link.knockback {
+    opacity: 0.1;
+  }
+
+  .lens-link__text.fadeout {
+    opacity: 0;
+  }
+
+  /* Required to match jQuery('.lens-link__text:hidden') for a Behat test. */
+  .lens-link__text.collapse {
+    height: 0;
+    min-height: 0;
+    min-width: 0;
+    padding: 0;
+    width: 0;
+  }
+
+  .lens-link__extra {
+    font-size: 0.5625rem;
+    line-height: 0.5625rem;
+    padding-top: 3px;
+  }
+}
+
+/* 8px too great in IE11. Possibly scrollbar issue with 100vw. Can live with it. */
+@media only all and (min-width: 963px) {
+  .lens-link.anchor-to-top {
+    left: -webkit-calc((100vw - 963px) / 2 + 16px);
+    left: calc((100vw - 963px) / 2 + 16px);
+  }
+}
+
+/* 8px too great in IE11. Possibly scrollbar issue with 100vw. Can live with it. */
+@media only all and (min-width: 1220px) {
+  .lens-link.anchor-to-top {
+    left: -webkit-calc( ( 100vw - 1220px ) / 2 + 47px);
+    left: calc( ( 100vw - 1220px ) / 2 + 47px);
+  }
+}

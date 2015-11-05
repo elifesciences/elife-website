@@ -307,6 +307,10 @@ final class ArticleVersion {
     return $this->article_id;
   }
 
+  public function getManuscriptId() {
+    return ltrim($this->getElocationId(), 'e');
+  }
+  
   public function getArticleVersionId() {
     return $this->article_version_id;
   }

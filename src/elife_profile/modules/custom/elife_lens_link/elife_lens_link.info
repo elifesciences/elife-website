@@ -1,0 +1,5 @@
+name = eLife - Lens links
+description = Injects Lens links into article pages
+core = 7.x
+dependencies[] = elife_article
+files[] = elife_lens_link.module

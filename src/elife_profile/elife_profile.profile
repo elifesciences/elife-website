@@ -63,3 +63,17 @@ function elife_profile_environment_modules($environment, $inverse = FALSE) {
     return array_unique(array_diff($filtered, $modules[$environment]));
   }
 }
+
+/**
+ * Implements hook_ctools_render_alter().
+ */
+function elife_profile_ctools_render_alter(&$info, &$page, &$context) {
+  if ($page && in_array($context['task']['name'], array('node_view'), TRUE)) {
+    $data = array_values($context['contexts']);
+    // Below is nothing but to call hook_node_view which force to pass the node
+    // object.
+    // @see https://www.drupal.org/node/1606912#comment-8318685
+    $langcode = $GLOBALS['language_content']->language;
+    module_invoke_all('node_view', $data[0]->data, 'full', $langcode);
+  }
+}
