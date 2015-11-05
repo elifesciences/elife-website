@@ -83,7 +83,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
   if (!empty($output)) {
     $block = new stdClass();
     $block->title = t('Article Figures & Data');
-    $block->content = '<div class="elements-frag-data highwire-markup" id="fig-data">';
+    $block->content = '<div class="elements-frag-data" id="fig-data">';
     $block->content .= $output;
     $block->content .= '</div>';
     return $block;

@@ -38,6 +38,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'article-info-identification' => 'getArticleInfoIdentification',
     'article-info-history' => 'getArticleInfoHistory',
     'article-info-ethics' => 'getArticleInfoEthics',
+    'article-info-reviewing-editor' => 'getArticleInfoReviewingEditor',
     'article-info-license' => 'getArticleInfoLicense',
   ];
   private $htmls = [];
