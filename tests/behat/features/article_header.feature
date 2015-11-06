@@ -301,6 +301,7 @@ Feature: Article Header
       | Marco      | Thines        | 3 |
       | Detlef     | Weigel        | 4 |
 
+@develop
   Scenario: Verifying article Doi information is listed correctly
     Given there is an article:
     """
