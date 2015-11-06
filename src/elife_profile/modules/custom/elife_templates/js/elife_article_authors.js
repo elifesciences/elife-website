@@ -28,10 +28,7 @@
           });
 
           $(this).hover(function() {
-            var insts = $(this).attr('class').split(/\s+/);
-            for (var inst in insts) {
-              $('.elife-institutions-list .' + insts[inst]).addClass('institution-highlight');
-            }
+            $('.elife-institutions-list .' + $(this).data('affiliation')).addClass('institution-highlight');
           }, function() {
             $('.elife-institution').removeClass('institution-highlight');
           });

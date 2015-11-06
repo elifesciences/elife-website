@@ -14,7 +14,6 @@ final class MockMarkupService extends ElifeMarkupService {
   private $response = 'response';
   private $error = 'error';
   private $results = [];
-  private $replacements = [];
 
   /**
    * @param string $article_id
@@ -68,6 +67,14 @@ final class MockMarkupService extends ElifeMarkupService {
    */
   public function addAffiliationQuery($article_id, $aff_id) {
     $this->addQuery($article_id, 'aff', $aff_id);
+  }
+
+  /**
+   * @param string $article_id
+   * @param string $author_pos
+   */
+  public function addAuthorAffiliationQuery($article_id, $author_pos) {
+    $this->addQuery($article_id, 'author-aff', $author_pos);
   }
 
   public function submitQuery() {}

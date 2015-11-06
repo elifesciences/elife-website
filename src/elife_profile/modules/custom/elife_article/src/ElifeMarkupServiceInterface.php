@@ -25,6 +25,12 @@ interface ElifeMarkupServiceInterface {
    */
   public function addAffiliationQuery($article_id, $aff_id);
 
+  /**
+   * @param string $article_id
+   * @param int $author_pos
+   */
+  public function addAuthorAffiliationQuery($article_id, $author_pos);
+
   public function getQuery();
 
   public function submitQuery();
