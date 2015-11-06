@@ -1,9 +1,10 @@
 <?php
+/**
+ * @file
+ * Code for the eLife - Lens links module.
+ */
 
-function _deriveLensLink($dto) {
-  $manuscript_id = $dto->getManuscriptId(); 
-  return  $manuscript_id ? $manuscript_id : '';
-}
+use eLife\EIF\ArticleVersion;
 
 /**
  * Implements hook_node_view().
@@ -11,19 +12,17 @@ function _deriveLensLink($dto) {
 function elife_lens_link_node_view($node, $view_mode, $langcode) {
   if ($node->type === 'elife_article_ver' && $view_mode === 'full') {
     $dto = elife_article_version_to_dto($node);
-    if ($dto ->getStatus() === 'VOR') {
-      $lensArticleId = _deriveLensLink($dto);
-      if ($lensArticleId) {
-        $path = drupal_get_path('module', 'elife_lens_link');
-        drupal_add_css($path . '/css/elife-lens-link.css');
-        drupal_add_js($path . '/js/elife-lens-link.js');
-        drupal_add_js(array(
-          'elife_lens_link' => array(
-            'lensUri' => '//lens.elifesciences.org' . '/' . $lensArticleId .
-              '/index.html'
-          ),
-        ), 'setting');        
-      }
+    if ($dto && $dto->getStatus() === 'VOR') {
+      $path = drupal_get_path('module', 'elife_lens_link');
+      drupal_add_css($path . '/css/elife-lens-link.css');
+      drupal_add_js($path . '/js/elife-lens-link.js');
+      drupal_add_js(array(
+        'elife_lens_link' => array(
+          // @todo - elife - nlisgo - consider making this a configuration option.
+          'lensUri' => '//lens.elifesciences.org/' . $dto->getManuscriptId() .
+          '/index.html',
+        ),
+      ), 'setting');
     }
   }
 }
