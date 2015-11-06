@@ -529,6 +529,10 @@ function elife_article_version_to_dto(stdClass $entity) {
   }
   /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
+
+  if ($entity->field_elife_a_subarticle->value() == 1) {
+    return FALSE;
+  }
   $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE);
   /* @var EntityDrupalWrapper $entity_article */
   $entity_article = entity_metadata_wrapper('node', $entity_article);
