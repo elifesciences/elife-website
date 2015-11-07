@@ -47,6 +47,7 @@ features[variable][] = page_manager_term_view_disabled
 features[variable][] = pathauto_node_page_pattern
 features[variable][] = pathauto_node_pattern
 features[variable][] = pathauto_node_webform_pattern
+features[variable][] = pathauto_taxonomy_term_pattern
 features[variable][] = pathauto_transliterate
 features[variable][] = theme_default
 features[variable][] = theme_seven_settings
