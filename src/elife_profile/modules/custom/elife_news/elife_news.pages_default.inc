@@ -201,6 +201,21 @@ function elife_news_default_page_manager_handlers() {
     'contexts' => array(),
     'relationships' => array(),
     'name' => '',
+    'access' => array(
+      'plugins' => array(
+        0 => array(
+          'name' => 'term_vocabulary',
+          'settings' => array(
+            'machine_name' => array(
+              'elife_n_category' => 'elife_n_category',
+            ),
+          ),
+          'context' => 'argument_term_1',
+          'not' => FALSE,
+        ),
+      ),
+      'logic' => 'and',
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_article';
