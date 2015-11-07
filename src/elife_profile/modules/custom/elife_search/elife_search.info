@@ -32,7 +32,6 @@ features[features_api][] = api:2
 features[page_manager_handlers][] = term_view__elife_category
 features[page_manager_handlers][] = term_view__elife_heading
 features[page_manager_handlers][] = term_view__elife_keyword
-features[page_manager_handlers][] = term_view__panel_context_84ba7cb7-4496-4023-b19f-cc3fa8388675
 features[page_manager_pages][] = elife_search
 features[search_api_index][] = elife_articles_index
 features[search_api_server][] = elife_solr
