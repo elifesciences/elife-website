@@ -114,7 +114,7 @@ function elife_about_profiles_load() {
   ]);
   $senior_editors = elife_person_profile_get_view('senior-editor');
 
-  if (!empty($leadership) && !empty($senior_editors)) {
+  if (!empty($leadership) || !empty($senior_editors)) {
     $regular = [
       'sheet_id' => 'leadership',
       'sheet_title' => 'Leadership team',
