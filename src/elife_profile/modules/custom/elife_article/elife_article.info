@@ -246,6 +246,7 @@ features[variable][] = pathauto_node_elife_contributor_pattern
 features[variable][] = pathauto_node_elife_fragment_pattern
 features[variable][] = pathauto_taxonomy_term_elife_categories_pattern
 features[variable][] = pathauto_taxonomy_term_elife_headings_pattern
+features[variable][] = pathauto_taxonomy_term_elife_keywords_pattern
 features[variable][] = rh_module_elife_article
 features[variable][] = rh_node_action_elife_article
 features[views_view][] = elife_article_version_node_group
