@@ -25,6 +25,7 @@ features[variable][] = menu_parent_elife_organisation
 features[variable][] = node_options_elife_organisation
 features[variable][] = node_preview_elife_organisation
 features[variable][] = node_submitted_elife_organisation
+features[variable][] = pathauto_node_elife_organisation_pattern
 features[variable][] = rh_module_elife_organisation
 features[variable][] = rh_node_action_elife_organisation
 features[variable][] = rh_node_override_elife_organisation
