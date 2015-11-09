@@ -38,6 +38,7 @@ function elife_config_strongarm() {
   $strongarm->value = 'article-teaser
 article-teaser--compact
 collection-teaser
+collection-teaser--compact
 person-profile
 person-profile--extended
 person-profile-compact

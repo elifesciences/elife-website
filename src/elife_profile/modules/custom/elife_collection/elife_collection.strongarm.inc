@@ -32,7 +32,7 @@ function elife_collection_strongarm() {
         'custom_settings' => FALSE,
       ),
       'elife_teaser_compact' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'elife_teaser_alternative' => array(
         'custom_settings' => FALSE,
