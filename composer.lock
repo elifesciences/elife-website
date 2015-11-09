@@ -242,17 +242,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "b0abb1397ab9478857c4951ff5a5045effc830b9"
+                "reference": "244d26ecd85d47790df804e935568f17ece9f8e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/b0abb1397ab9478857c4951ff5a5045effc830b9",
-                "reference": "b0abb1397ab9478857c4951ff5a5045effc830b9",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/244d26ecd85d47790df804e935568f17ece9f8e3",
+                "reference": "244d26ecd85d47790df804e935568f17ece9f8e3",
                 "shasum": ""
             },
             "require": {
                 "beberlei/assert": "~2.3",
-                "php": ">=5.5"
+                "php": ">=5.5",
+                "symfony/process": "~2.7"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.2",
@@ -275,9 +276,9 @@
                 }
             },
             "support": {
-                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
+                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
             },
-            "time": "2015-11-06 00:22:49"
+            "time": "2015-11-09 09:32:53"
         },
         {
             "name": "jms/metadata",
@@ -710,7 +711,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/ef66d8b92b741d6278dace3658afc35416831ff1",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/f770a4dd9771041f713f5ba3d8e4ba702015653d",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },
