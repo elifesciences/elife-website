@@ -1087,6 +1087,10 @@ a {
     margin-top: 1.391em;
   }
 
+  .aims-scope__people_sub_heading--senior + .view-elife-person-profiles ul {
+    padding-left: 1rem;
+  }
+
   /* those layouts of all-photos have wider LHS gutter. */
   .aims-scope__people--leadership .aims-scope__people_sub_heading,
   .aims-scope__people--directors .aims-scope__people_sub_heading,
@@ -1095,6 +1099,7 @@ a {
   }
 
   .aims-scope__people--leadership ul,
+  .aims-scope__people--leadership .aims-scope__people_sub_heading--senior + .view-elife-person-profiles ul,
   .aims-scope__people--directors ul,
   .aims-scope__people--staff ul {
     padding-left: 1.391em;
