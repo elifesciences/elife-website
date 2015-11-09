@@ -516,6 +516,15 @@ function elife_users_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'administer realname'.
+  $permissions['administer realname'] = array(
+    'name' => 'administer realname',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'realname',
+  );
+
   // Exported permission: 'administer redirects'.
   $permissions['administer redirects'] = array(
     'name' => 'administer redirects',

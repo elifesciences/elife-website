@@ -84,6 +84,7 @@ dependencies[] = panels_style_collapsible
 dependencies[] = pathauto
 dependencies[] = pathologic
 dependencies[] = rabbit_hole
+dependencies[] = realname
 dependencies[] = redirect
 dependencies[] = redis
 dependencies[] = reference_delete
