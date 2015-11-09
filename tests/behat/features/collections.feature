@@ -250,11 +250,11 @@ Feature: Collections
     When "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | FirstName                 | LastName                 | Executive Staff     |
-      | Fname                     | LName                    | Executive Staff     |
+      | One Two                   | Three                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
       | title                  | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
-      | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
+      | field_elife_c_curators | FirstName LastName (Executive Staff), One Two Three (Executive Staff)        |
       | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     And I should see text matching "Article 2 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
@@ -262,10 +262,13 @@ Feature: Collections
       | title                  | early-career                                                                 |
       | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
-      | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
+      | field_elife_c_related  | 00477: Article 8 for Collections test, Algoriphagus                          |
     Then I should see text matching "Article 7 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     Then I should see "Article 8 for Collections test" in the ".elife-collection__sidebar" element
+    Then I should see "Algoriphagus" in the ".elife-collection__sidebar" element
+    Then I should see "F LastName" in the ".elife-collection__sidebar .curator-list" element
+    Then I should see "OT Three" in the ".elife-collection__sidebar .curator-list" element
     Given I am on "/collections"
     Then I should see an ".elife-collection__content" element
     Then I should see text matching "early-career"
@@ -277,7 +280,7 @@ Feature: Collections
     When "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | FirstName                 | LastName                 | Executive Staff     |
-      | Fname                     | LName                    | Executive Staff     |
+      | FName                     | LName                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
       | title                  | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
@@ -297,6 +300,8 @@ Feature: Collections
     Then I should see an ".elife-collection__content" element
     Then I should see text matching "early-career"
     Then I should see text matching "Algoriphagus"
+    Then I should see text matching "FirstName LastName"
+    Then I should see text matching "FName LName"
     Then I should see 2 "h2.collection-teaser__title" element
 
   Scenario: Collection of collections page (when collections have no articles)
