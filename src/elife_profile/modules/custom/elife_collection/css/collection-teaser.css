@@ -1,11 +1,47 @@
+.curator-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.node ol.curator-list {
+  padding: 0;
+  margin: 0;
+}
+
+.item-list ol.curator-list li {
+  margin: 0;
+}
+
+.curator-list__item {
+  display: inline;
+}
+
+.curator-list__item:after {
+  content: ',';
+}
+
+.curator-list__item:last-child:after {
+  content: '';
+}
+
 .collection-teaser {
   list-style: none;
   padding: 0;
   margin: 2em 0 0;
 }
 
+.collection-teaser--compact {
+  font-size: 0.9em;
+  margin: 1em 0;
+}
+
 div.panel-pane div.node.collection-teaser {
   margin: 2em 0 0;
+}
+
+div.panel-pane div.node.collection-teaser--compact {
+  margin: 1em 0;
 }
 
 .collection-teaser__title {
@@ -15,8 +51,20 @@ div.panel-pane div.node.collection-teaser {
   margin-bottom: 0.5em;
 }
 
+.collection-teaser--compact .collection-teaser__title {
+  font-size: 1.25em;
+}
+
 .collection-teaser__image {
   float: left;
   margin-right: 20px;
   max-width: 200px;
+}
+
+.collection-teaser__curator-list {
+  margin-bottom: 0.5em;
+}
+
+.item-list ol.collection-teaser__curator-list {
+  margin-bottom: 0.5em;
 }

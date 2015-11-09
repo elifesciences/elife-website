@@ -26,6 +26,12 @@ function elife_collection_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 2,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -68,6 +74,12 @@ function elife_collection_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 0,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -112,6 +124,12 @@ function elife_collection_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 7,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -150,6 +168,12 @@ function elife_collection_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 8,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
