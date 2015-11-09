@@ -7,7 +7,7 @@
  *   Modules enabled.
  */
 function elife_environment_enable_environment_modules() {
-  $enable = elife_profile_environment_modules(elife_environment(), TRUE);
+  $enable = elife_profile_environment_modules(elife_environment(), FALSE);
 
   $currently_enabled = system_list('module_enabled');
 
@@ -33,7 +33,7 @@ function elife_environment_enable_environment_modules() {
  *   Modules disabled.
  */
 function elife_environment_disable_environment_modules() {
-  $disable = elife_profile_environment_modules(elife_environment(), FALSE);
+  $disable = elife_profile_environment_modules(elife_environment(), TRUE);
 
   $currently_enabled = system_list('module_enabled');
 
