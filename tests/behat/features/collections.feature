@@ -280,7 +280,7 @@ Feature: Collections
     When "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | FirstName                 | LastName                 | Executive Staff     |
-      | Fname                     | LName                    | Executive Staff     |
+      | FName                     | LName                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
       | title                  | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
@@ -300,6 +300,8 @@ Feature: Collections
     Then I should see an ".elife-collection__content" element
     Then I should see text matching "early-career"
     Then I should see text matching "Algoriphagus"
+    Then I should see text matching "FirstName LastName"
+    Then I should see text matching "FName LName"
     Then I should see 2 "h2.collection-teaser__title" element
 
   Scenario: Collection of collections page (when collections have no articles)

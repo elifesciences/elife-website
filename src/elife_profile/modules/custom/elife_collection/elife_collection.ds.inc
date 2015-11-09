@@ -119,13 +119,18 @@ function elife_collection_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_collection';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
+    'elife_c_curators' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'elife_c_image' => array(
       'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'elife_c_text' => array(
-      'weight' => '2',
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -153,6 +158,18 @@ function elife_collection_ds_field_settings_info() {
  */
 function elife_collection_ds_custom_fields_info() {
   $export = array();
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'elife_c_curators';
+  $ds_field->label = 'Curators';
+  $ds_field->field_type = 3;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'elife_collection|*';
+  $ds_field->properties = array();
+  $export['elife_c_curators'] = $ds_field;
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
@@ -286,12 +303,14 @@ function elife_collection_ds_layout_settings_info() {
       'ds_content' => array(
         0 => 'elife_c_image',
         1 => 'title',
-        2 => 'elife_c_text',
+        2 => 'elife_c_curators',
+        3 => 'elife_c_text',
       ),
     ),
     'fields' => array(
       'elife_c_image' => 'ds_content',
       'title' => 'ds_content',
+      'elife_c_curators' => 'ds_content',
       'elife_c_text' => 'ds_content',
     ),
     'classes' => array(

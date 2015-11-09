@@ -23,6 +23,7 @@ features[ctools][] = views:views_default:3.0
 features[ds_field_settings][] = node|elife_collection|default
 features[ds_field_settings][] = node|elife_collection|elife_teaser_compact
 features[ds_field_settings][] = node|elife_collection|teaser
+features[ds_fields][] = elife_c_curators
 features[ds_fields][] = elife_c_curators_short
 features[ds_fields][] = elife_c_image
 features[ds_fields][] = elife_c_text

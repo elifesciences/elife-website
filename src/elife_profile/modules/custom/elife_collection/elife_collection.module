@@ -54,6 +54,7 @@ function elife_collection_preprocess_node(&$variables) {
       }
     }
 
+    $curators = [];
     $curators_short = [];
 
     if (!empty($variables['elements']['#node']->field_elife_c_curators)) {
@@ -72,11 +73,29 @@ function elife_collection_preprocess_node(&$variables) {
         preg_match_all('/[A-Z]/', ucwords(strtolower($parts['first-name'])), $parts['initials']);
         $parts['initials'] = implode('', $parts['initials'][0]);
 
+        $curators[] = [
+          'data' => implode(' ', [$parts['first-name'], $parts['last-name']]),
+          'class' => ['curator-list__item'],
+        ];
         $curators_short[] = [
           'data' => implode(' ', [$parts['initials'], $parts['last-name']]),
           'class' => ['curator-list__item'],
         ];
       }
+    }
+
+    if (!empty($curators)) {
+      $variables['elife_c_curators'] = theme('item_list', [
+        'items' => $curators,
+        'type' => 'ol',
+        'title' => '',
+        'attributes' => [
+          'class' => [
+            'collection-teaser__curator-list',
+            'curator-list',
+          ],
+        ],
+      ]);
     }
 
     if (!empty($curators_short)) {
