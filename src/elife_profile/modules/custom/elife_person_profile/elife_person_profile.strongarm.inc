@@ -21,7 +21,7 @@ function elife_person_profile_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'auto_entitylabel_pattern_node_elife_person_profile';
-  $strongarm->value = '[node:field-elife-pp-last-name], [node:field-elife-pp-first-name] ([node:field-elife-pp-type])';
+  $strongarm->value = '[node:field-elife-pp-first-name] [node:field-elife-pp-last-name] ([node:field-elife-pp-type])';
   $export['auto_entitylabel_pattern_node_elife_person_profile'] = $strongarm;
 
   $strongarm = new stdClass();
