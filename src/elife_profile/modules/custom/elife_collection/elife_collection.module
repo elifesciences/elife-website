@@ -17,39 +17,80 @@ function elife_collection_ctools_plugin_directory($owner, $plugin_type) {
  * Implements template_preprocess_node().
  */
 function elife_collection_preprocess_node(&$variables) {
-  if ('elife_collection' === $variables['type'] && 'teaser' === $variables['view_mode']) {
-    drupal_add_css(drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css');
+  if ('elife_collection' === $variables['type']) {
+    if (in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])) {
+      drupal_add_css(drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css');
 
-    $hero_block = elife_hero_block_for_path($variables['node_url']);
+      $hero_block = elife_hero_block_for_path($variables['node_url']);
 
-    if ($hero_block) {
-      if (!empty($hero_block->field_elife_h_text)) {
-        $display = [
-          'label' => 'hidden',
-          'type' => 'text_trimmed',
-          'settings' => [
-            'trim_length' => 250,
-          ],
+      if ($hero_block) {
+        if (!empty($hero_block->field_elife_h_text)) {
+          $display = [
+            'label' => 'hidden',
+            'type' => 'text_trimmed',
+            'settings' => [
+              'trim_length' => 250,
+            ],
+          ];
+
+          $text = field_view_field('node', $hero_block, 'field_elife_h_text', $display);
+
+          $variables['elife_c_text'] = drupal_render($text);
+        }
+        if (!empty($hero_block->field_elife_h_image)) {
+          $display = [
+            'label' => 'hidden',
+            'type' => 'image',
+            'settings' => [
+              'image_style' => 'elife_hero_block_teaser',
+              'class' => 'collection-teaser__image',
+            ],
+          ];
+
+          $image = field_view_field('node', $hero_block, 'field_elife_h_image', $display);
+
+          $variables['elife_c_image'] = drupal_render($image);
+        }
+      }
+    }
+
+    $curators_short = [];
+
+    if (!empty($variables['elements']['#node']->field_elife_c_curators)) {
+      foreach ($variables['elements']['#node']->field_elife_c_curators[LANGUAGE_NONE] as $curator) {
+        $curator = node_load($curator['target_id']);
+
+        if (empty($curator)) {
+          continue;
+        }
+
+        $parts = [
+          'first-name' => $curator->field_elife_pp_first_name[LANGUAGE_NONE][0]['safe_value'],
+          'last-name' => $curator->field_elife_pp_last_name[LANGUAGE_NONE][0]['safe_value'],
         ];
 
-        $text = field_view_field('node', $hero_block, 'field_elife_h_text', $display);
+        preg_match_all('/[A-Z]/', ucwords(strtolower($parts['first-name'])), $parts['initials']);
+        $parts['initials'] = implode('', $parts['initials'][0]);
 
-        $variables['elife_c_text'] = drupal_render($text);
-      }
-      if (!empty($hero_block->field_elife_h_image)) {
-        $display = [
-          'label' => 'hidden',
-          'type' => 'image',
-          'settings' => [
-            'image_style' => 'elife_hero_block_teaser',
-            'class' => 'collection-teaser__image',
-          ],
+        $curators_short[] = [
+          'data' => implode(' ', [$parts['initials'], $parts['last-name']]),
+          'class' => ['curator-list__item'],
         ];
-
-        $image = field_view_field('node', $hero_block, 'field_elife_h_image', $display);
-
-        $variables['elife_c_image'] = drupal_render($image);
       }
+    }
+
+    if (!empty($curators_short)) {
+      $variables['elife_c_curators_short'] = theme('item_list', [
+        'items' => $curators_short,
+        'type' => 'ol',
+        'title' => '',
+        'attributes' => [
+          'class' => [
+            'collection-teaser__curator-list',
+            'curator-list',
+          ],
+        ],
+      ]);
     }
   }
 }
