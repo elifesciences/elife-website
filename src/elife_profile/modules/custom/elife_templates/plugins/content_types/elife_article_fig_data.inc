@@ -54,10 +54,6 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
           elseif (!empty($results[$article_version_id]['doi::' . $identifier])) {
             $items[] = implode("\n", $results[$article_version_id]['doi::' . $identifier]);
           }
-          // @todo - elife - nlisgo - when the markup service is reliable consider not outputting this value.
-          else {
-            $items[] = 'No result for: ' . $identifier;
-          }
         }
       }
       if (!empty($items)) {
