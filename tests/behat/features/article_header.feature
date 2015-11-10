@@ -147,7 +147,7 @@ Feature: Article Header
           }
         }
       """
-    And the response code should be 200
+    And the response status code should be 200
     And I go to "content/3/e00013"
     Then I should see "<title>" in the ".pane-content .page-title" element
     Then I should see "<item>" in the ".pane-content .item-list li:nth-of-type(<n>) a" element
@@ -288,7 +288,7 @@ Feature: Article Header
           }
         }
       """
-    And the response code should be 200
+    And the response status code should be 200
     And I go to "content/4/e07091"
     Then I should see "<given-name>" in the ".author-list li:nth-of-type(<n>) .given-names" element
     Then I should see "<surname>" in the ".author-list li:nth-of-type(<n>) .surname" element
@@ -327,4 +327,3 @@ Feature: Article Header
     """
     Given I am on "content/4/e05224v2"
     Then I should see "eLife 2015;4:e05224" in the ".elife-doi-cite-as" element
-    
