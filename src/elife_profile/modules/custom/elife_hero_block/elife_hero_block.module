@@ -6,6 +6,10 @@
 
 include_once 'elife_hero_block.features.inc';
 
+const ELIFE_HERO_BLOCK_CTA_TEXT_DEFAULT = 'Sign up to receive weekly alerts on new content from eLife';
+const ELIFE_HERO_BLOCK_CTA_LINK_TEXT_DEFAULT = 'Sign up';
+const ELIFE_HERO_BLOCK_CTA_LINK_TEXT_URL_DEFAULT = 'http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=18';
+
 /**
  * Implements hook_ctools_plugin_directory().
  */
@@ -14,84 +18,28 @@ function elife_hero_block_ctools_plugin_directory($owner, $plugin_type) {
 }
 
 /**
- * Implements hook_theme_registry_alter().
+ * Implements hook_theme().
  */
-function elife_hero_block_theme_registry_alter(&$theme_registry) {
-  $theme_registry['node__elife_hero_block'] = array(
-    'template' => drupal_get_path('module', 'elife_hero_block') . '/templates/node--elife_hero_block',
-    'type' => 'module',
-  );
-}
-
-/**
- * Implements template_preprocess_node().
- */
-function elife_hero_block_preprocess_node(&$variables) {
-  if ('elife_hero_block' === $variables['type']) {
-    drupal_add_css(drupal_get_path('module', 'elife_hero_block') . '/css/hero-block.css');
+function elife_hero_block_theme($existing, $type, $theme, $path) {
+  if ('module' === $type) {
+    $path = drupal_get_path('module', 'elife_hero_block');
+    $templates = [
+      'elife_hero_block' => [
+        'variables' => [
+          'image_colour' => 'light',
+          'image_path' => NULL,
+          'credit' => NULL,
+          'title' => NULL,
+          'sub_title' => NULL,
+          'cta_text' => ELIFE_HERO_BLOCK_CTA_TEXT_DEFAULT,
+          'cta_link_text' => ELIFE_HERO_BLOCK_CTA_LINK_TEXT_DEFAULT,
+          'cta_link_url' => ELIFE_HERO_BLOCK_CTA_LINK_TEXT_URL_DEFAULT,
+          'content_column_items' => [],
+        ],
+        'template' => 'elife_hero_block',
+        'path' => $path . '/templates',
+      ],
+    ];
+    return $templates;
   }
-}
-
-/**
- * Implements template_preprocess_form_element().
- */
-function elife_hero_block_preprocess_form_element(&$variables) {
-  if (isset($variables['element']['#entity_type']) && 'node' === $variables['element']['#entity_type'] && 'elife_hero_block' === $variables['element']['#bundle'] && 'field_elife_h_path' === $variables['element']['#field_name']) {
-    $variables['element']['#field_prefix'] = url(NULL, array('absolute' => TRUE)) . (variable_get('clean_url', FALSE) ? '' : '?q=');
-  }
-}
-
-/**
- * Implements hook_form_FORM_ID_alter() for node_form().
- */
-function elife_hero_block_form_node_form_alter(&$form, &$form_state, $form_id) {
-  if (!empty($form['field_elife_h_path'][LANGUAGE_NONE][0]['value']['#default_value'])) {
-    $form['field_elife_h_path'][LANGUAGE_NONE][0]['value']['#default_value'] = drupal_get_path_alias($form['field_elife_h_path'][LANGUAGE_NONE][0]['value']['#default_value']);
-  }
-}
-
-/**
- * Implements hook_node_submit().
- */
-function elife_hero_block_node_submit($node, $form, &$form_state) {
-  if (!empty($form_state['values']['field_elife_h_path'][LANGUAGE_NONE][0]['value'])) {
-    $node->field_elife_h_path[LANGUAGE_NONE][0]['value'] = drupal_get_normal_path($node->field_elife_h_path[LANGUAGE_NONE][0]['value']);
-  }
-}
-
-/**
- * Fetch a hero block for a path.
- *
- * @param string|NULL $path
- *   Path, or NULL to use the value of current_path().
- *
- * @return object|NULL
- *   Hero block, if found.
- */
-function elife_hero_block_for_path($path = NULL) {
-  if (empty($path)) {
-    $path = current_path();
-  }
-  else {
-    $path = drupal_get_normal_path(trim($path, '/'));
-  }
-
-  $query = new EntityFieldQuery();
-
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'elife_hero_block')
-    ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_elife_h_path', 'value', $path, '=')
-    ->range(0, 1);
-
-  $result = $query->execute();
-
-  $hero_block = NULL;
-
-  if (!empty($result)) {
-    $hero_block = reset($result['node']);
-    $hero_block = node_load($hero_block->nid, $hero_block->vid);
-  }
-
-  return $hero_block;
 }

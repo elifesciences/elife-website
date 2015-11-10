@@ -21,95 +21,135 @@ function elife_collection_preprocess_node(&$variables) {
     if (in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])) {
       drupal_add_css(drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css');
 
-      $hero_block = elife_hero_block_for_path($variables['node_url']);
+      $curators = [];
+      $curators_short = [];
 
-      if ($hero_block) {
-        if (!empty($hero_block->field_elife_h_text)) {
-          $display = [
-            'label' => 'hidden',
-            'type' => 'text_trimmed',
-            'settings' => [
-              'trim_length' => 250,
-            ],
+      if (!empty($variables['elements']['#node']->field_elife_c_curators)) {
+        foreach ($variables['elements']['#node']->field_elife_c_curators[LANGUAGE_NONE] as $curator) {
+          $curator = node_load($curator['target_id']);
+
+          if (empty($curator)) {
+            continue;
+          }
+
+          $parts = [
+            'first-name' => $curator->field_elife_pp_first_name[LANGUAGE_NONE][0]['safe_value'],
+            'last-name' => $curator->field_elife_pp_last_name[LANGUAGE_NONE][0]['safe_value'],
           ];
 
-          $text = field_view_field('node', $hero_block, 'field_elife_h_text', $display);
+          preg_match_all('/[A-Z]/', ucwords(strtolower($parts['first-name'])), $parts['initials']);
+          $parts['initials'] = implode('', $parts['initials'][0]);
 
-          $variables['elife_c_text'] = drupal_render($text);
-        }
-        if (!empty($hero_block->field_elife_h_image)) {
-          $display = [
-            'label' => 'hidden',
-            'type' => 'image',
-            'settings' => [
-              'image_style' => 'elife_hero_block_teaser',
-              'class' => 'collection-teaser__image',
-            ],
+          $curators[] = [
+            'data' => implode(' ', [$parts['first-name'], $parts['last-name']]),
+            'class' => ['curator-list__item'],
           ];
-
-          $image = field_view_field('node', $hero_block, 'field_elife_h_image', $display);
-
-          $variables['elife_c_image'] = drupal_render($image);
+          $curators_short[] = [
+            'data' => implode(' ', [$parts['initials'], $parts['last-name']]),
+            'class' => ['curator-list__item'],
+          ];
         }
       }
-    }
 
-    $curators = [];
-    $curators_short = [];
+      if (!empty($curators)) {
+        $variables['elife_c_curators'] = theme('item_list', [
+          'items' => $curators,
+          'type' => 'ol',
+          'title' => '',
+          'attributes' => [
+            'class' => [
+              'collection-teaser__curator-list',
+              'curator-list',
+            ],
+          ],
+        ]);
+      }
 
-    if (!empty($variables['elements']['#node']->field_elife_c_curators)) {
-      foreach ($variables['elements']['#node']->field_elife_c_curators[LANGUAGE_NONE] as $curator) {
-        $curator = node_load($curator['target_id']);
-
-        if (empty($curator)) {
-          continue;
-        }
-
-        $parts = [
-          'first-name' => $curator->field_elife_pp_first_name[LANGUAGE_NONE][0]['safe_value'],
-          'last-name' => $curator->field_elife_pp_last_name[LANGUAGE_NONE][0]['safe_value'],
-        ];
-
-        preg_match_all('/[A-Z]/', ucwords(strtolower($parts['first-name'])), $parts['initials']);
-        $parts['initials'] = implode('', $parts['initials'][0]);
-
-        $curators[] = [
-          'data' => implode(' ', [$parts['first-name'], $parts['last-name']]),
-          'class' => ['curator-list__item'],
-        ];
-        $curators_short[] = [
-          'data' => implode(' ', [$parts['initials'], $parts['last-name']]),
-          'class' => ['curator-list__item'],
-        ];
+      if (!empty($curators_short)) {
+        $variables['elife_c_curators_short'] = theme('item_list', [
+          'items' => $curators_short,
+          'type' => 'ol',
+          'title' => '',
+          'attributes' => [
+            'class' => [
+              'collection-teaser__curator-list',
+              'curator-list',
+            ],
+          ],
+        ]);
       }
     }
+  }
+}
 
-    if (!empty($curators)) {
-      $variables['elife_c_curators'] = theme('item_list', [
-        'items' => $curators,
-        'type' => 'ol',
-        'title' => '',
-        'attributes' => [
-          'class' => [
-            'collection-teaser__curator-list',
-            'curator-list',
-          ],
-        ],
-      ]);
-    }
+/**
+ * Implements hook_token_info().
+ */
+function elife_collection_token_info() {
+  $info['tokens']['node']['elife-c-full-title'] = [
+    'name' => t('Full title'),
+    'description' => t('Full collection title.'),
+  ];
+  return $info;
+}
 
-    if (!empty($curators_short)) {
-      $variables['elife_c_curators_short'] = theme('item_list', [
-        'items' => $curators_short,
-        'type' => 'ol',
-        'title' => '',
-        'attributes' => [
-          'class' => [
-            'collection-teaser__curator-list',
-            'curator-list',
-          ],
-        ],
-      ]);
+/**
+ * Implements hook_tokens().
+ */
+function elife_collection_tokens($type, $tokens, array $data = [], array $options = []) {
+  $replacements = [];
+
+  if ('node' === $type) {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'elife-c-full-title':
+          $full_title = $data['node']->field_elife_c_title[LANGUAGE_NONE][0]['value'];
+
+          if (!empty($data['node']->field_elife_c_sub_title[LANGUAGE_NONE][0]['value'])) {
+            $full_title .= ': ' . $data['node']->field_elife_c_sub_title[LANGUAGE_NONE][0]['value'];
+          }
+
+          $replacements[$original] = $full_title;
+          break;
+      }
     }
+  }
+
+  return $replacements;
+}
+
+/**
+ * Implements hook_elife_hero_block_alter().
+ */
+function elife_collection_elife_hero_block_alter(&$content) {
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $nid = arg(1);
+    if ($nid) {
+      $node = node_load($nid);
+
+      if ($node && 'elife_collection' === $node->type) {
+        /* @var EntityDrupalWrapper $node */
+        $node = entity_metadata_wrapper('node', $node);
+
+        $variables = [
+          'image_colour' => $node->field_elife_c_image_colour->value(),
+          'image_path' => $node->field_elife_c_image->value()['uri'],
+          'credit' => $node->field_elife_c_image_credit->value(),
+          'title' => $node->field_elife_c_title->value(),
+          'sub_title' => $node->field_elife_c_sub_title->value(),
+        ];
+        $content = theme('elife_hero_block', $variables);
+      }
+    }
+  }
+  elseif ('collections' === current_path()) {
+    $variables = [
+      'title' => t('Collections'),
+      'image_colour' => 'dark',
+      'image_path' => base_path() . drupal_get_path('module', 'elife_collection') . '/images/collections.png',
+      'credit' => 'Nephrons captured with a 63X objective on a Nikon Confocal A1R microscope. 10.7554/eLife.04000',
+    ];
+
+    $content = theme('elife_hero_block', $variables);
   }
 }
