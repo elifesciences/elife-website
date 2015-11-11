@@ -212,6 +212,7 @@ function elife_templates_article_page_markup_assets() {
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_figures.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_tables.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_reference_popup.js');
+    drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/elife-article-tables.css');
 
     $cache = TRUE;
   }
