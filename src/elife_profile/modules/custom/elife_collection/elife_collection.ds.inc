@@ -124,16 +124,6 @@ function elife_collection_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'elife_c_image' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
-    'elife_c_text' => array(
-      'weight' => '3',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
     'title' => array(
       'weight' => '1',
       'label' => 'hidden',
@@ -142,6 +132,20 @@ function elife_collection_ds_field_settings_info() {
         'link' => '1',
         'wrapper' => 'h2',
         'class' => 'collection-teaser__title',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_elife_c_image' => array(
+      'formatter_settings' => array(
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
+    'field_elife_c_text' => array(
+      'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_reset',
         ),
@@ -182,30 +186,6 @@ function elife_collection_ds_custom_fields_info() {
   $ds_field->ui_limit = 'elife_collection|*';
   $ds_field->properties = array();
   $export['elife_c_curators_short'] = $ds_field;
-
-  $ds_field = new stdClass();
-  $ds_field->api_version = 1;
-  $ds_field->field = 'elife_c_image';
-  $ds_field->label = 'Image';
-  $ds_field->field_type = 3;
-  $ds_field->entities = array(
-    'node' => 'node',
-  );
-  $ds_field->ui_limit = 'elife_collection|teaser';
-  $ds_field->properties = array();
-  $export['elife_c_image'] = $ds_field;
-
-  $ds_field = new stdClass();
-  $ds_field->api_version = 1;
-  $ds_field->field = 'elife_c_text';
-  $ds_field->label = 'Text';
-  $ds_field->field_type = 3;
-  $ds_field->entities = array(
-    'node' => 'node',
-  );
-  $ds_field->ui_limit = 'elife_collection|teaser';
-  $ds_field->properties = array();
-  $export['elife_c_text'] = $ds_field;
 
   return $export;
 }
@@ -301,17 +281,17 @@ function elife_collection_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'elife_c_image',
+        0 => 'field_elife_c_image',
         1 => 'title',
         2 => 'elife_c_curators',
-        3 => 'elife_c_text',
+        3 => 'field_elife_c_text',
       ),
     ),
     'fields' => array(
-      'elife_c_image' => 'ds_content',
+      'field_elife_c_image' => 'ds_content',
       'title' => 'ds_content',
       'elife_c_curators' => 'ds_content',
-      'elife_c_text' => 'ds_content',
+      'field_elife_c_text' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(

@@ -5,21 +5,6 @@
  */
 
 /**
- * Implements hook_ctools_plugin_api().
- */
-function elife_hero_block_ctools_plugin_api($module = NULL, $api = NULL) {
-  if ($module == "field_group" && $api == "field_group") {
-    return array("version" => "1");
-  }
-  if ($module == "field_validation" && $api == "default_field_validation_rules") {
-    return array("version" => "2");
-  }
-  if ($module == "strongarm" && $api == "strongarm") {
-    return array("version" => "1");
-  }
-}
-
-/**
  * Implements hook_image_default_styles().
  */
 function elife_hero_block_image_default_styles() {
@@ -64,22 +49,4 @@ function elife_hero_block_image_default_styles() {
   );
 
   return $styles;
-}
-
-/**
- * Implements hook_node_info().
- */
-function elife_hero_block_node_info() {
-  $items = array(
-    'elife_hero_block' => array(
-      'name' => t('eLife Hero Block'),
-      'base' => 'node_content',
-      'description' => '',
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-  );
-  drupal_alter('node_info', $items);
-  return $items;
 }

@@ -28,7 +28,7 @@
 .collection-teaser {
   list-style: none;
   padding: 0;
-  margin: 2em 0 0;
+  margin: 1em 0;
 }
 
 .collection-teaser--compact {
@@ -37,7 +37,7 @@
 }
 
 div.panel-pane div.node.collection-teaser {
-  margin: 2em 0 0;
+  margin: 1em 0;
 }
 
 div.panel-pane div.node.collection-teaser--compact {

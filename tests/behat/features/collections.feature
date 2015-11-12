@@ -216,9 +216,13 @@ Feature: Collections
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | First Name                | Last Name                | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | field_elife_c_articles | 05229: VOR 05229, 05252: VOR 05252     |
-      | field_elife_c_curators | First Name Last Name (Executive Staff) |
-    Then I should see text matching "VOR 05229"
+      | field_elife_c_title     | My Collection                          |
+      | field_elife_c_sub_title | Sub-title                              |
+      | field_elife_c_articles  | 05229: VOR 05229, 05252: VOR 05252     |
+      | field_elife_c_curators  | First Name Last Name (Executive Staff) |
+    Then I should see "My Collection" in the ".elife-collection__hero-block" element
+    And I should see "Sub-title" in the ".elife-collection__hero-block" element
+    And I should see text matching "VOR 05229"
     And I should see text matching "VOR 05252"
     And I should not see text matching "VOR 05262"
 
@@ -303,30 +307,3 @@ Feature: Collections
     Then I should see text matching "FirstName LastName"
     Then I should see text matching "FName LName"
     Then I should see 2 "h2.collection-teaser__title" element
-
-  Scenario: Collection of collections page (when collections have no articles)
-    Given I am logged in as a user with the "access administration menu,access content,create elife_hero_block content" permissions
-    When "elife_person_profile" content:
-      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
-      | FirstName                 | LastName                 | Executive Staff     |
-    When "elife_collection" content:
-      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
-      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
-    When "elife_collection" content:
-      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
-      | earlycareer2 | 01638: Article 12 for Collections test, 04900: Article 16 for Collections test | FirstName LastName (Executive Staff) |
-    And I am on "/collections"
-    Then I should see text matching "Algoriphags2"
-    Then I should see text matching "earlycareer2"
-
-  Scenario: Collections without articles
-    When "elife_person_profile" content:
-      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
-      | FirstName                 | LastName                 | Executive Staff     |
-    When "elife_collection" content:
-      | title        | field_elife_c_articles                                                         | field_elife_c_curators               |
-      | Algoriphags2 | 05204: Article 11 for Collections test, 05205: Article 13 for Collections test | FirstName LastName (Executive Staff) |
-    And I am on "/collections/algoriphags2"
-    Then I should not see text matching "Article 11 for Collections test"
-    Then I should not see text matching "Article 13 for Collections test"
-    Then I should see text matching "Algoriphags2"

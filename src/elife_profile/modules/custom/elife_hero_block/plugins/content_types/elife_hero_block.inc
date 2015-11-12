@@ -11,14 +11,16 @@ $plugin = array(
 );
 
 function elife_hero_block_plugin_render($subtype, $conf, $args, $context) {
-  $hero_block = elife_hero_block_for_path();
+  $content = '';
+  drupal_alter('elife_hero_block', $content);
 
-  if (empty($hero_block)) {
+  if (empty($content)) {
     return NULL;
   }
 
+  drupal_add_css(drupal_get_path('module', 'elife_hero_block') . '/css/hero-block.css');
   $block = new stdClass();
-  $block->content = node_view($hero_block);
+  $block->content = $content;
 
   return $block;
 }
