@@ -2,23 +2,34 @@
   overflow: auto;  
 }
 
-/* colorbox doesn't give any class hooks, have to style off ids. */
-.table-expansion #cboxWrapper .table-caption {
-  font-size: 12.04px;
-  font-size: 0.64715rem;
-}
-
 .table-expansion .table-label {
   font-family: 'Avenir LT W01 85 Heavy',sans-serif;
-  font-size: 13.8px;
-  font-size: 0.8625rem;
+  font-size: 16px;
+  font-size: 1rem;
+}
+
+.table-expansion .table-caption {
+  font-size: 12.04px;
+  font-size: 0.7525rem;
 }
 
 .table-expansion table {
   background-color: white;
   color: rgb(0, 0, 15);
   font-size: 12.04px;
+  font-size: 0.7525rem;
+}
+
+/* colorbox doesn't give any class hooks, have to style off ids. */
+.table-expansion #cboxWrapper .table-caption,
+.table-expansion #cboxWrapper table {
+  font-size: 10.35px;
   font-size: 0.64715rem;
+}
+
+.table-expansion #cboxWrapper .table-label {
+  font-size: 13.8px;
+  font-size: 0.8625rem;
 }
 
 .table-expansion thead {
