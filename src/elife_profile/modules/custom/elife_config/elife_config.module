@@ -7,10 +7,75 @@
 include_once 'elife_config.features.inc';
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function elife_config_module_implements_alter(&$implementations, $hook) {
+  if (!isset($implementations['elife_config'])) {
+    return;
+  }
+
+  switch ($hook) {
+    case 'form_alter':
+    case 'inline_entity_form_entity_form_alter':
+      // Move to the end.
+      $group = $implementations['elife_config'];
+      unset($implementations['elife_config']);
+      $implementations['elife_config'] = $group;
+      break;
+  }
+}
+
+/**
  * Implements hook_imagemagick_arguments_alter().
  */
 function elife_config_imagemagick_arguments_alter(&$args, $context) {
   if (FALSE === in_array('-strip', $args)) {
     $args[] = '-strip';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for node_form().
+ */
+function elife_config_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if (RABBIT_HOLE_DISPLAY_CONTENT == rabbit_hole_get_action_bundle('node', $form['#bundle'])) {
+    return;
+  }
+
+  // This isn't going to be displayed as a page, so hide redundant fields.
+  $fields = [
+    'author',
+    'metatags',
+    'options',
+    'path',
+    'redirect',
+    'revision_information',
+  ];
+
+  foreach ($fields as $field) {
+    if (isset($form[$field])) {
+      $form[$field]['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function elife_config_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if (RABBIT_HOLE_DISPLAY_CONTENT == rabbit_hole_get_action_bundle($entity_form['#entity_type'], $entity_form['#bundle'])) {
+    return;
+  }
+
+  // This isn't going to be displayed as a page, so hide redundant fields.
+  $fields = [
+    'redirect',
+    'status',
+  ];
+
+  foreach ($fields as $field) {
+    if (isset($entity_form[$field])) {
+      $entity_form[$field]['#access'] = FALSE;
+    }
   }
 }
