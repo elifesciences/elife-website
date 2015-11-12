@@ -334,7 +334,6 @@
   window.addEventListener('DOMContentLoaded', function () {
     var lensLink = null,
       loadTimer;
-console.log('Inside DOMContentLoaded');
     // Bail if the browser is not likely to be able to use Lens,
     // or there is no Lens version available.
     if (!canProbablyUseLens() || getPathToLensVersion() === '#') {
