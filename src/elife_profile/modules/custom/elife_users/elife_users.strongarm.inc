@@ -27,6 +27,13 @@ function elife_users_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'realname_pattern';
+  $strongarm->value = '[user:field-elife-u-first-name] [user:field-elife-u-last-name]';
+  $export['realname_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'user_admin_role';
   $strongarm->value = '3';
   $export['user_admin_role'] = $strongarm;
@@ -109,7 +116,7 @@ This link can only be used once to log in and will lead you to a page where you 
 
 After setting your password, you will be able to log in at [site:login-url] in the future using:
 
-username: [user:name]
+username: [user:name-raw]
 password: Your password
 
 --  [site:name] team';
@@ -136,7 +143,7 @@ This link can only be used once to log in and will lead you to a page where you 
 
 After setting your password, you will be able to log in at [site:login-url] in the future using:
 
-username: [user:name]
+username: [user:name-raw]
 password: Your password
 
 --  [site:name] team';
@@ -184,7 +191,7 @@ This link can only be used once to log in and will lead you to a page where you 
 
 After setting your password, you will be able to log in at [site:login-url] in the future using:
 
-username: [user:name]
+username: [user:name-raw]
 password: Your password
 
 --  [site:name] team';

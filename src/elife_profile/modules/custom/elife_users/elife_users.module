@@ -5,3 +5,23 @@
  */
 
 include_once 'elife_users.features.inc';
+
+/**
+ * Implements hook_realname_alter().
+ */
+function elife_users_realname_alter(&$realname, $account) {
+  if (1 == $account->uid) {
+    $realname = 'Administrator'; // The admin user shouldn't have a real name.
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_profile_form().
+ */
+function elife_users_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['#entity']) && 1 == $form['#entity']->uid) {
+    // Hide the fields, as the admin user shouldn't have a real name.
+    $form['field_elife_u_first_name']['#access'] = FALSE;
+    $form['field_elife_u_last_name']['#access'] = FALSE;
+  }
+}

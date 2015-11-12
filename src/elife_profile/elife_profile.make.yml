@@ -137,6 +137,8 @@ projects:
     version: '3.0-beta2'
   rabbit_hole:
     version: '2.23'
+  realname:
+    version: '1.2'
   redirect:
     version: '1.0-rc3'
     patch:
