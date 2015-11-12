@@ -130,7 +130,7 @@ function elife_article_pages_default_panels_mini() {
   $pane->style = array(
     'settings' => array(
       'pane_title' => 'eLife digest',
-      'pane_collapsed' => 1,
+      'pane_collapsed' => 0,
     ),
     'style' => 'collapsible',
   );
