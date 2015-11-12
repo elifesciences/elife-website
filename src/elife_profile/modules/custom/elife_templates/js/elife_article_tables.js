@@ -14,7 +14,7 @@
             $(this).data('table-html', $wrapper.html());
           });
 
-          $fragment_tables.colorbox({title: false, width: 1000, height: 500, html: function () { return $(this).data('table-html'); }, current: "{current} of {total}"});
+          $fragment_tables.colorbox({title: false, width: 1050, height: 615, html: function () { return $(this).data('table-html'); }, className: 'table-expansion', current: "{current} of {total}"});
         };
 
         $('.table-expansion', context).once('eLifeArticleTableExpansion', function () {
