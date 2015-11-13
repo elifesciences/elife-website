@@ -169,7 +169,7 @@
       isDigestRead = false,
       isDigestSkipped = false;
 
-    if (!$digest) {
+    if (!$digest.length) {
       return;
     }
 
