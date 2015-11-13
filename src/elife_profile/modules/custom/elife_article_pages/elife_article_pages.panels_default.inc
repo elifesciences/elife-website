@@ -214,7 +214,7 @@ function elife_article_pages_default_panels_mini() {
   );
   $pane->css = array(
     'css_id' => 'references',
-    'css_class' => '',
+    'css_class' => 'references',
   );
   $pane->extras = array();
   $pane->position = 4;
