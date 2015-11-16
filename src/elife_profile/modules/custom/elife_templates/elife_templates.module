@@ -152,6 +152,25 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_front_matter_wrapper',
         'path' => $path . '/templates',
       ),
+      'elife_article_metrics_cited' => array(
+        'variables' => array(
+          'providers_list' => NULL,
+          'doi' => NULL,
+          'via' => NULL,
+        ),
+        'template' => 'elife_article_metrics_cited',
+        'path' => $path . '/templates',
+      ),
+      'elife_article_metrics_provider_data' => array(
+        'variables' => array(
+          'icon' => '',
+          'class_link' => '',
+          'value' => 0,
+          'name_link' => '',
+        ),
+        'template' => 'elife_article_metrics_provider_data',
+        'path' => $path . '/templates',
+      ),
     );
     return $templates;
   }

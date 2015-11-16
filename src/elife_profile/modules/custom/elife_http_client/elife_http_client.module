@@ -1,0 +1,35 @@
+<?php
+
+use eLife\HttpClient\Guzzle5HttpClient;
+use eLife\HttpClient\HttpClientInterface;
+use GuzzleHttp\Client as Guzzle;
+
+/**
+ * @return HttpClientInterface
+ */
+function elife_http_client_get_client() {
+  $client = &drupal_static(__FUNCTION__);
+
+  if (!isset($client)) {
+    /* @var string $factory */
+    $factory = variable_get('elife_http_client_factory', '_elife_http_client_guzzle');
+
+    $client = $factory();
+  }
+
+  return $client;
+}
+
+/**
+ * @return Guzzle5HttpClient
+ */
+function _elife_http_client_guzzle() {
+  $client = &drupal_static(__FUNCTION__);
+
+  if (!isset($client)) {
+    $guzzle = new Guzzle();
+    $client = new Guzzle5HttpClient($guzzle);
+  }
+
+  return $client;
+}

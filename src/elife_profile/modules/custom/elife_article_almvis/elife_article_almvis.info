@@ -1,0 +1,8 @@
+name = eLife - Article Page View Visualisations
+description = This module creates visualisations of the per-article page views over time.
+core = 7.x
+dependencies[] = lagotto_services
+version = 7.x-1.1
+package = eLife
+
+files[] = elife_article_almvis.test

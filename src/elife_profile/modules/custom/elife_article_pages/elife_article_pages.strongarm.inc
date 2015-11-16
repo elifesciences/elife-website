@@ -20,10 +20,12 @@ function elife_article_pages_strongarm() {
     'panes' => array(
       'elife-article-tabs' => array(
         'elife_article' => '',
+        'elife_article_metrics' => 'article-metrics',
       ),
       'elife-research-article-tabs' => array(
         'elife_article' => '',
         'elife_article_figdata' => 'article-data',
+        'elife_article_metrics' => 'article-metrics',
         'elife_article_author' => 'article-info',
       ),
     ),

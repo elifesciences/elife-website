@@ -1632,17 +1632,29 @@ function elife_article_pages_default_page_manager_handlers() {
   $pane->access = array();
   $pane->configuration = array(
     'mini_panels' => array(
-      'elife_article_author' => array(
-        'selected' => 0,
-        'tab_title' => '',
-        'url_id' => '',
-        'weight' => '-10',
-      ),
       'elife_article' => array(
         'selected' => 1,
         'tab_title' => '',
         'url_id' => '',
         'weight' => '-10',
+      ),
+      'elife_article_metrics' => array(
+        'selected' => 1,
+        'tab_title' => '',
+        'url_id' => 'article-metrics',
+        'weight' => '-9',
+      ),
+      'elife_article_author' => array(
+        'selected' => 0,
+        'tab_title' => '',
+        'url_id' => '',
+        'weight' => '-8',
+      ),
+      'elife_article_figdata' => array(
+        'selected' => 0,
+        'tab_title' => '',
+        'url_id' => '',
+        'weight' => '-7',
       ),
     ),
     'container_id' => 'elife-article-tabs',
@@ -1949,17 +1961,29 @@ function elife_article_pages_default_page_manager_handlers() {
   $pane->access = array();
   $pane->configuration = array(
     'mini_panels' => array(
-      'elife_article_author' => array(
-        'selected' => 0,
-        'tab_title' => '',
-        'url_id' => '',
-        'weight' => '-10',
-      ),
       'elife_article' => array(
         'selected' => 1,
         'tab_title' => '',
         'url_id' => '',
         'weight' => '-10',
+      ),
+      'elife_article_metrics' => array(
+        'selected' => 1,
+        'tab_title' => '',
+        'url_id' => 'article-metrics',
+        'weight' => '-9',
+      ),
+      'elife_article_author' => array(
+        'selected' => 0,
+        'tab_title' => '',
+        'url_id' => '',
+        'weight' => '-8',
+      ),
+      'elife_article_figdata' => array(
+        'selected' => 0,
+        'tab_title' => '',
+        'url_id' => '',
+        'weight' => '-7',
       ),
     ),
     'container_id' => 'elife-article-tabs',
@@ -2253,17 +2277,29 @@ function elife_article_pages_default_page_manager_handlers() {
   $pane->access = array();
   $pane->configuration = array(
     'mini_panels' => array(
-      'elife_article_author' => array(
-        'selected' => 1,
-        'tab_title' => '',
-        'url_id' => 'article-info',
-        'weight' => '-10',
-      ),
       'elife_article' => array(
         'selected' => 1,
         'tab_title' => '',
         'url_id' => '',
         'weight' => '-10',
+      ),
+      'elife_article_figdata' => array(
+        'selected' => 1,
+        'tab_title' => '',
+        'url_id' => 'article-data',
+        'weight' => '-9',
+      ),
+      'elife_article_metrics' => array(
+        'selected' => 1,
+        'tab_title' => '',
+        'url_id' => 'article-metrics',
+        'weight' => '-8',
+      ),
+      'elife_article_author' => array(
+        'selected' => 1,
+        'tab_title' => 'Article info',
+        'url_id' => 'article-info',
+        'weight' => '-7',
       ),
     ),
     'container_id' => 'elife-research-article-tabs',
@@ -2586,11 +2622,17 @@ function elife_article_pages_default_page_manager_handlers() {
         'url_id' => 'article-data',
         'weight' => '-9',
       ),
+      'elife_article_metrics' => array(
+        'selected' => 1,
+        'tab_title' => '',
+        'url_id' => 'article-metrics',
+        'weight' => '-8',
+      ),
       'elife_article_author' => array(
         'selected' => 1,
         'tab_title' => '',
         'url_id' => 'article-info',
-        'weight' => '-8',
+        'weight' => '-7',
       ),
     ),
     'container_id' => 'elife-research-article-tabs',

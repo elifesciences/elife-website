@@ -1,0 +1,130 @@
+.alm {
+  font-size: 1em;
+
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 1.5em;
+  color: #789aa1;
+  text-decoration: underline;
+}
+
+.alm-chart-area {
+  font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;;
+  font-size: 11px;
+  float: left;
+  width: 75%;
+}
+
+.axis text {
+  font-size: 10px;
+}
+.axis line,
+.axis path {
+  fill: none;
+  stroke: black;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.barsForTooltip {
+  fill: ffffff;
+  fill-opacity: 0;
+}
+
+.bar.main {
+  fill: #0961AB;
+}
+
+.bar.alt {
+  fill: #732060;
+}
+
+.alm-row {
+  margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.alm-category-row-heading {
+  font-size: 1.2em;
+}
+
+.alm-category-row-info {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  top: -5px;
+  left: 2px;
+  margin-top: 5px;
+}
+
+/* the metrics box, including name & count */
+.alm-count-label {
+  font-size: 0.8rem;
+  width: 20%;
+  float: left;
+  margin-top: .5em;
+  margin-right: 1em;
+  padding: 0.5em;
+  text-align: center;
+  border: 1px solid #c5dbec;
+  background: #273B81;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  color: white;
+}
+
+.alm-count-label a {
+  text-decoration: none;
+}
+
+.alm-count-label a:hover {
+  background-color: transparent !important;
+  color: #555555 !important;
+}
+
+.alm-count-label img {
+  padding-right: 0.5em;
+}
+
+/* the metric value itself. Within alm-count-label */
+.alm-count {
+  font-size: 1.3em;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+  font-family: 'Avenir LT W01 95 Black', 'Avenir LT 95 Black', Helvetica, Arial, Verdana, sans-serif;;
+  vertical-align: middle;
+}
+
+.alm-control {
+  text-decoration: underline;
+  color: blue;
+}
+
+.alm-control.active {
+  text-decoration: none;
+}
+
+.alm-control.disabled {
+  cursor: default;
+  text-decoration: none;
+  color: grey;
+}
+
+.alm-control:hover {
+  background-color: transparent;
+}
+
+.label-img {
+  vertical-align: middle;
+}
+
+#built-with {
+  float: right;
+  font-size: .75em;
+}

@@ -1,0 +1,653 @@
+<?php
+/**
+ * @file
+ * elife_article_almvis.test
+ *
+ * Test suites for the eLife - ALM Server service access module.
+ * @package elife_article_almvis
+ */
+
+/**
+ * Unit test suite for the elife_article_almvis module.
+ *
+ * @package elife_article_almvis
+ */
+class ElifeArticleAlmvisUnitTestCase extends DrupalUnitTestCase {
+
+  /**
+   * Return information related to the test suite.
+   *
+   * @return array
+   *   Information about test
+   */
+  public static function getInfo() {
+    return array(
+      'name' => t('elife_article_almvis unit tests'),
+      'description' => t('Executes unit test suite for eLife - Article Metrics Page module'),
+      'group' => t('eLife'),
+    );
+  }
+
+  /**
+   * Check for the DOI sanitisation functions.
+   *
+   * - Check that each call returns/doesn't return NULL as appropriate.
+   * - Check that totals in 'full','xml','pdf' match the input
+   *     array. Not all of those tested for all cases but all are
+   *     tested.
+   * Do the tests with a range of inputs, both well-formed and malformed.
+   *
+   * Possible extensions:
+   *  - longer arrays (e.g. 10000 items);
+   */
+  public function testStatsTotals() {
+    $test1 = array();
+
+    $test2 = array(
+      array(
+        'pdf' => 1,
+        'full' => 1,
+        'xml' => 1,
+      ),
+      array(
+        'pdf' => 2,
+        'full' => 2,
+        'xml' => 2,
+      ),
+    );
+
+    $test3 = array(
+      '20140101' => array(
+        'day' => '2014-01-01',
+        'pdf' => 1,
+      ),
+    );
+
+    $test4 = array(
+      '20130906' => array(
+        'day' => '2013-09-06',
+        'abstract' => 0,
+        'full' => 2,
+        'pdf' => 1,
+      ),
+      '20130908' => array(
+        'day' => '2013-09-08',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+      ),
+    );
+
+    $result = elife_article_almvis_totals(NULL);
+    $this->assertNotNull($result, t('elife_article_almvis_totals returned NULL for NULL input'));
+    $this->assertEqual($result['pdf'], 0, t('elife_article_almvis_totals should have returned pdf:0 in empty return.'));
+    $this->assertEqual($result['xml'], 0, t('elife_article_almvis_totals should have returned xml:0 in empty return.'));
+
+    $result = elife_article_almvis_totals($test1);
+    $this->assertNotNull($result, t('elife_article_almvis_totals returned NULL for empty input'));
+    $this->assertEqual($result['full'], 0, t('StatsTotals should have returned 0 in empty return.'));
+
+    $result = elife_article_almvis_totals($test2);
+    $this->assertNotNull($result, t('elife_article_almvis_totals returned NULL unexpectedly.'));
+
+    $this->assertEqual($result['pdf'], 3, t('elife_article_almvis_totals should have returned 3 in pdf.'));
+    $this->assertEqual($result['full'], 3, t('elife_article_almvis_totals should have returned 3 in full.'));
+    $this->assertEqual($result['xml'], 3, t('elife_article_almvis_totals should have returned 3 in xml.'));
+
+    $result = elife_article_almvis_totals($test3);
+    $this->assertEqual($result['pdf'], 1, t('elife_article_almvis_totals should have returned 1 for pdf (short array)'));
+
+    $result = elife_article_almvis_totals($test4);
+    $this->assertEqual($result['full'], 6, t('elife_article_almvis_totals should have returned 6 for full in dated array.'));
+  }
+
+  /**
+   * Check alm stat object.
+   *
+   * Construct a plausible object and check:
+   *  - that it is an object;
+   *  - that various 'important' fields get the assigned values.
+   *  - that the sources field is an array (assumed later).
+   */
+  public function testAlmstatObjectA() {
+    $doi = '10.7554/eLife.01883';
+    $date = strtotime('16 April 2014 10:00 GMT');
+    $almdate = '2014-04-16T10:00:00Z';
+    $title = 'The Title';
+
+    $result = elife_article_almvis_make_almstat($title, $doi, $date);
+
+    $this->assertTrue(is_object($result), t('elife_article_almvis_make_almstat returns an object.'));
+    $this->assertEqual($result->doi, $doi, t('elife_article_almvis_make_almstat DOI is correct.'));
+    $this->assertEqual($result->title, $title, t('elife_article_almvis_make_almstat title is correct.'));
+    $this->assertEqual($result->publication_date, $almdate, t('elife_article_almvis_make_almstat pub date is correct.'));
+    $this->assertEqual($result->update_date, $almdate, t('elife_article_almvis_make_almstat update date is correct.'));
+    $this->assertTrue(is_array($result->sources), t('elife_article_almvis_make_almstat sources is an array.'));
+    $this->assertEqual($result->bookmarks, 0, t('elife_article_almvis_make_almstat bookmarks is 0.'));
+    $this->assertEqual($result->citations, 0, t('elife_article_almvis_make_almstat citations is 0.'));
+    $this->assertEqual($result->views, 0, t('elife_article_almvis_make_almstat views is 0.'));
+  }
+
+  /**
+   * Check alm stat object.
+   *
+   * Much as for testAlmstatObjectA but checks there's no problem with:
+   *  - DOIs including subcomponent IDs;
+   *  - Dates specified in UTC vs GMT;
+   *  - Titles containing HTML entities and elements are properly treated.
+   *    [Note: the correct behaviour here is under review.]
+   */
+  public function testAlmstatObjectB() {
+    $doi = '10.7554/eLife.01883.003';
+    $date = strtotime('26 December 2015 19:00 UTC');
+    $almdate = '2015-12-26T19:00:00Z';
+    $title = 'The Title with e=mc<sup>2</sup> and áccent and entities &plusmn;';
+
+    $result = elife_article_almvis_make_almstat($title, $doi, $date);
+
+    $this->assertTrue(is_object($result), t('elife_article_almvis_make_almstat returns an object.'));
+    $this->assertEqual($result->doi, $doi, t('elife_article_almvis_make_almstat DOI is correct.'));
+    $this->assertEqual($result->title, $title, t('elife_article_almvis_make_almstat title is correct.'));
+    $this->assertEqual($result->publication_date, $almdate, t('elife_article_almvis_make_almstat pub date is correct.'));
+    $this->assertEqual($result->update_date, $almdate, t('elife_article_almvis_make_almstat update date is correct.'));
+    $this->assertTrue(is_array($result->sources), t('elife_article_almvis_make_almstat sources is an array.'));
+    $this->assertEqual($result->bookmarks, 0, t('elife_article_almvis_make_almstat bookmarks is 0.'));
+    $this->assertEqual($result->citations, 0, t('elife_article_almvis_make_almstat citations is 0.'));
+    $this->assertEqual($result->views, 0, t('elife_article_almvis_make_almstat views is 0.'));
+  }
+
+  /**
+   * Check alm stat object with null totals.
+   *
+   * Use totals call to generate a valid null totals array, and pass that
+   * into the make metric call. Check that the metrics are properly set.
+   */
+  public function testMetricObjectA() {
+    $test = array();
+    $total = elife_article_almvis_totals($test);
+    $result = elife_article_almvis_make_metric('mymetric', t('My Metric'), $total);
+
+    $this->assertNotNull($result, t('elife_article_almvis_make_metric returned NULL unexpectedly.'));
+    $this->assertEqual($result->metrics->html, 0, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->pdf, 0, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->xml, 0, t('XML total not assigned to metrics.'));
+
+    $this->assertNull($result->update_date, t('Metric updated date is null.'));
+    $this->assertEqual($result->name, 'mymetric', t('Metric internal name is correct.'));
+    $this->assertEqual($result->display_name, t('My Metric'), t('Metric display name is correct.'));
+  }
+
+  /**
+   * Check alm stat object with non-null totals (one day).
+   *
+   * Possible improvements:
+   *  - check what happens to the abstract numbers;
+   */
+  public function testMetricObjectB() {
+    $test = array(
+      '20130908' => array(
+        'day' => '2013-09-08',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+      ),
+    );
+    $total = elife_article_almvis_totals($test);
+    $result = elife_article_almvis_make_metric('mymetric', t('My Metric'), $total);
+
+    $this->assertNotNull($result, t('elife_article_almvis_make_metric returned NULL unexpectedly.'));
+    $this->assertEqual($result->metrics->html, 4, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->pdf, 3, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->xml, 0, t('XML total not assigned to metrics.'));
+
+    $this->assertNull($result->update_date, t('Metric updated date is null.'));
+    $this->assertEqual($result->name, 'mymetric', t('Metric internal name is correct.'));
+    $this->assertEqual($result->display_name, t('My Metric'), t('Metric display name is correct.'));
+  }
+
+  /**
+   * Check alm stat object with totals specified explicitly.
+   */
+  public function testMetricObjectC() {
+    $total = array(
+      'xml' => 4,
+      'pdf' => 5,
+      'full' => 6,
+      'abstract' => 3,
+    );
+    $result = elife_article_almvis_make_metric('mymetric', t('My Metric'), $total);
+
+    $this->assertNotNull($result, t('elife_article_almvis_make_metric returned NULL unexpectedly.'));
+    $this->assertTrue(is_object($result->metrics), t('elife_article_almvis_make_almstat metrics is not an object.'));
+    $this->assertEqual($result->metrics->full, 6, t('full total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->html, 9, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->pdf, 5, t('html total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->xml, 4, t('XML total not assigned to metrics.'));
+    $this->assertEqual($result->metrics->abstract, 3, t('abstract total not assigned to metrics.'));
+
+    $this->assertNull($result->update_date, t('Metric updated date is null.'));
+    $this->assertEqual($result->name, 'mymetric', t('Metric internal name is correct.'));
+    $this->assertEqual($result->display_name, t('My Metric'), t('Metric display name is correct.'));
+  }
+
+  /**
+   * Check stats by day from a null metrics input.
+   *
+   * Make a null stats array and convert it. Check that the result is
+   * non-null and well-formed.
+   */
+  public function testStatsByDayA() {
+    $metric = new stdClass();
+
+    $stats = array();
+    $result = elife_article_almvis_stats_by_day($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $days = $result->by_day;
+    $this->assertTrue(is_array($days), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($days), 0, t('elife_article_almvis_make_almstat returned 0 stats.'));
+  }
+
+  /**
+   * Check stats by day from a one day's metrics input.
+   *
+   * Make one day's stats array and convert it. Check that the result is
+   * non-null and well-formed:
+   *  - that field by_day is an array;
+   *  - that it has one day's data;
+   *  - that the day totals are correct;
+   *  - that the date is split out properly.
+   */
+  public function testStatsByDayB() {
+    $metric = new stdClass();
+
+    $stats = array(
+      '20110906' => array(
+        'day' => '2011-09-06',
+        'abstract' => 1,
+        'full' => 2,
+        'pdf' => 3,
+        'xml' => 4,
+      ),
+    );
+    $result = elife_article_almvis_stats_by_day($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $days = $result->by_day;
+    $this->assertTrue(is_array($days), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($days), 1, t('elife_article_almvis_make_almstat returned 0 stats.'));
+
+    $item = $days[0];
+    $this->assertNotNull($item, t('by-day not assigned to metrics.'));
+    $this->assertEqual($item->day, 6, t('elife_article_almvis_make_metric day is 6.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric month is 9.'));
+    $this->assertEqual($item->year, 2011, t('elife_article_almvis_make_metric year is 2011.'));
+
+    $this->assertEqual($item->xml, 4, t('elife_article_almvis_make_metric xml is 4.'));
+    $this->assertEqual($item->pdf, 3, t('elife_article_almvis_make_metric pdf is 3.'));
+    $this->assertEqual($item->total, 10, t('elife_article_almvis_make_metric total is 10.'));
+  }
+
+  /**
+   * Check stats by day from a two day's metrics input.
+   *
+   * Make one day's stats array and convert it. Check that the result is
+   * non-null and well-formed:
+   *  - that field by_day is an array;
+   *  - that it has two day's data;
+   *  - that both of the day totals are correct;
+   *  - that the date is split out properly.
+   */
+  public function testStatsByDayC() {
+    $metric = new stdClass();
+
+    $stats = array(
+      '20130906' => array(
+        'day' => '2013-09-06',
+        'abstract' => 0,
+        'full' => 2,
+        'pdf' => 1,
+      ),
+      '20130908' => array(
+        'day' => '2013-09-08',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+        'xml' => 1,
+      ),
+    );
+    $result = elife_article_almvis_stats_by_day($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $days = $result->by_day;
+    $this->assertTrue(is_array($days), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($days), 2, t('elife_article_almvis_make_almstat returned 0 stats.'));
+
+    $item = $days[0];
+    $this->assertNotNull($item, t('by-day not assigned to metrics.'));
+    $this->assertEqual($item->day, 6, t('elife_article_almvis_make_metric day is 6.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+
+    $this->assertEqual($item->xml, 0, t('elife_article_almvis_make_metric xml is 0.'));
+    $this->assertEqual($item->total, 3, t('elife_article_almvis_make_metric total is 3.'));
+
+    $item = $days[1];
+    $this->assertNotNull($item, t('by-day not assigned to metrics.'));
+    $this->assertEqual($item->day, 8, t('elife_article_almvis_make_metric day is 6.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+
+    $this->assertEqual($item->xml, 1, t('elife_article_almvis_make_metric xml is 1.'));
+    $this->assertEqual($item->total, 8, t('elife_article_almvis_make_metric total is 8.'));
+  }
+
+  /**
+   * Check stats by month from the metrics input.
+   *
+   * Two cases: null metrics input and one day's input.
+   *
+   * For null input make a null stats array and convert it. Check that the
+   * result is non-null and well-formed.
+   *
+   * Otherwise, make one month's stats array and convert it. Check that the
+   * result is non-null and well-formed:
+   *  - that field by_month is an array;
+   *  - that it has one month's data;
+   *  - that the month's totals are correct;
+   *  - that the date is split out properly.
+   */
+  public function testStatsByMonthA() {
+    $metric = new stdClass();
+    $stats = array();
+    $result = elife_article_almvis_stats_by_month($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $months = $result->by_month;
+    $this->assertTrue(is_array($months), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($months), 0, t('elife_article_almvis_make_almstat returned 0 stats.'));
+
+    $metric = new stdClass();
+    $stats = array(
+      '201309' => array(
+        'month' => '2013-09',
+        'abstract' => 0,
+        'full' => 23,
+        'pdf' => 10,
+      ),
+    );
+    $result = elife_article_almvis_stats_by_month($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $months = $result->by_month;
+    $this->assertTrue(is_array($months), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($months), 1, t('elife_article_almvis_make_almstat returned 1 stat.'));
+
+    $item = $months[0];
+    $this->assertNotNull($item, t('by_month not assigned to metrics.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+
+    $this->assertEqual($item->xml, 0, t('elife_article_almvis_make_metric xml is 0.'));
+    $this->assertEqual($item->html, 23, t('elife_article_almvis_make_metric html is 23.'));
+    $this->assertEqual($item->total, 33, t('elife_article_almvis_make_metric total is 3.'));
+  }
+
+  /**
+   * Check stats by month from two days data in different months.
+   *
+   * Make a stats array covering two months and convert it. Check that the
+   * result is non-null and well-formed:
+   *  - that field by_month is an array;
+   *  - that it has two month's data;
+   *  - that both of the month totals are correct;
+   *  - that abstract totals are not counted (we don't use them);
+   *  - that the date is split out properly.
+   */
+  public function testStatsByMonthB() {
+    $metric = new stdClass();
+
+    $stats = array(
+      '201309' => array(
+        'month' => '2013-09',
+        'abstract' => 0,
+        'full' => 23,
+        'pdf' => 10,
+      ),
+      '201310' => array(
+        'month' => '2013-10',
+        // This value should not be counted - eLife aren't using abstract.
+        'abstract' => 1,
+        'full' => 42,
+        'pdf' => 35,
+        'xml' => 1,
+      ),
+    );
+    $result = elife_article_almvis_stats_by_month($stats, $metric);
+
+    $this->assertEqual($result, $metric, t('elife_article_almvis_make_metric returned passed-in object.'));
+    $months = $result->by_month;
+    $this->assertTrue(is_array($months), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $this->assertEqual(count($months), 2, t('elife_article_almvis_make_almstat returned 2.'));
+
+    $item = $months[0];
+    $this->assertNotNull($item, t('by-month not assigned to metrics.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+
+    $this->assertEqual($item->xml, 0, t('elife_article_almvis_make_metric xml is 0.'));
+    $this->assertEqual($item->html, 23, t('elife_article_almvis_make_metric html is 23.'));
+    $this->assertEqual($item->total, 33, t('elife_article_almvis_make_metric total is 3.'));
+
+    $item = $months[1];
+    $this->assertNotNull($item, t('by-month not assigned to metrics.'));
+    $this->assertEqual($item->month, 10, t('elife_article_almvis_make_metric day is 10.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+
+    $this->assertEqual($item->xml, 1, t('elife_article_almvis_make_metric xml is 1.'));
+    $this->assertEqual($item->pdf, 35, t('elife_article_almvis_make_metric pdf is 35.'));
+    $this->assertEqual($item->total, 79, t('elife_article_almvis_make_metric total is 79.'));
+  }
+
+  /**
+   * Make a complete stats array and check that it looks valid.
+   *
+   * Make daily and monthly stats arrays covering two months and make a stats
+   * object from them.
+   *
+   * Check that the result is non-null and well-formed:
+   *  - that the result is an array;
+   *  - that it has a single stats object in it;
+   *  - that sources is set and valid;
+   *  - that the stats totals are correct;
+   *  - that fields by_day and by_month are arrays;
+   *  - that abstract count is added to totals
+   */
+  public function testMakeStats() {
+
+    // Daily stats and monthly stats are consistent with each other.
+    $dailystats = array(
+      '20130906' => array(
+        'day' => '2013-09-06',
+        'abstract' => 0,
+        'full' => 2,
+        'pdf' => 1,
+      ),
+      '20130908' => array(
+        'day' => '2013-09-08',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+        'xml' => 1,
+      ),
+      '20131006' => array(
+        'day' => '2013-10-06',
+        'abstract' => 7,
+        'full' => 20,
+        'pdf' => 5,
+      ),
+      '20131008' => array(
+        'day' => '2013-10-08',
+        'abstract' => 0,
+        'full' => 22,
+        'pdf' => 30,
+        // Note this key didn't appear earlier (intentionally).
+        'xml' => 1,
+      ),
+    );
+
+    $monthlystats = array(
+      '201309' => array(
+        'month' => '2013-09',
+        'abstract' => 0,
+        'full' => 23,
+        'pdf' => 10,
+      ),
+      '201310' => array(
+        'month' => '2013-10',
+        'abstract' => 1,
+        'full' => 42,
+        'pdf' => 35,
+        'xml' => 1,
+      ),
+    );
+
+    $doi = '10.7554/eLife.01883';
+    // Input date:
+    $date = strtotime('16 April 2014 10:00 GMT');
+    // How should appear in object.
+    $almdate = '2014-04-16T10:00:00Z';
+    $title = 'The Title';
+
+    $result = elife_article_almvis_make_stats($title, $doi, $date, $dailystats, $monthlystats);
+
+    $this->assertTrue(is_array($result), t('elife_article_almvis_make_stats returns an array.'));
+    $this->assertEqual(count($result), 1, t('elife_article_almvis_make_stats returned 1 stat.'));
+
+    $stats = $result[0];
+    $this->assertEqual($stats->doi, $doi, t('Metric internal name is correct.'));
+    $this->assertEqual($stats->title, $title, t('Metric display name is correct.'));
+
+    $this->assertEqual($stats->doi, $doi, t('elife_article_almvis_make_stats DOI is correct.'));
+    $this->assertEqual($stats->title, $title, t('elife_article_almvis_make_stats title is correct.'));
+    $this->assertEqual($stats->publication_date, $almdate, t('elife_article_almvis_make_stats pub date is correct.'));
+
+    $sources = $stats->sources;
+    $this->assertTrue(is_array($sources), t('elife_article_almvis_make_almstat sources is an array.'));
+
+    $source = $sources[0];
+    $this->assertEqual($source->name, 'elifeviews', t('Metric internal name is correct.'));
+    $this->assertEqual($source->display_name, t('eLife Journal'), t('Metric display name is correct.'));
+
+    $days = $source->by_day;
+    $this->assertTrue(is_array($days), t('elife_article_almvis_make_almstat by_day is an array.'));
+    $item = $days[0];
+    $this->assertNotNull($item, t('by-day not assigned to metrics.'));
+    $this->assertEqual($item->day, 6, t('elife_article_almvis_make_metric day is 6.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+    $this->assertEqual($item->total, 3, t('elife_article_almvis_make_metric total is 3.'));
+
+    $item = $days[2];
+    $this->assertNotNull($item, t('by-day not assigned to metrics.'));
+    $this->assertEqual($item->day, 6, t('elife_article_almvis_make_metric day is 6.'));
+    $this->assertEqual($item->month, 10, t('elife_article_almvis_make_metric day is 10.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+    $this->assertEqual($item->total, 32, t('elife_article_almvis_make_metric total is 32.'));
+
+    $months = $source->by_month;
+    $this->assertTrue(is_array($months), t('elife_article_almvis_make_almstat by_month is an array.'));
+    $item = $months[0];
+    $this->assertNotNull($item, t('by-month not assigned to metrics.'));
+    $this->assertEqual($item->month, 9, t('elife_article_almvis_make_metric day is 9.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+    $this->assertEqual($item->total, 33, t('elife_article_almvis_make_metric total is 33.'));
+
+    $item = $months[1];
+    $this->assertNotNull($item, t('by-month not assigned to metrics.'));
+    $this->assertEqual($item->month, 10, t('elife_article_almvis_make_metric day is 10.'));
+    $this->assertEqual($item->year, 2013, t('elife_article_almvis_make_metric day is 2013.'));
+    $this->assertEqual($item->total, 79, t('elife_article_almvis_make_metric total should be 79.'));
+  }
+
+  /**
+   * Test the _elife_article_almvis_key_exists function.
+   *
+   * The function should return a key that can be used to identify stats for a
+   * specific day or month.
+   */
+  public function testKeyExists() {
+
+    // Daily stats with duplicate entries and trailing characters.
+    $stats = array(
+      '2013090600' => array(
+        'day' => '2013-09-06',
+        'platform' => 'highwire',
+        'abstract' => 0,
+        'full' => 2,
+        'pdf' => 1,
+      ),
+      '2013090601' => array(
+        'day' => '2013-09-06',
+        'platform' => 'highwire',
+        'abstract' => 0,
+        'full' => 2,
+        'pdf' => 1,
+      ),
+      '2013090801' => array(
+        'day' => '2013-09-08',
+        'platform' => 'highwire',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+        'xml' => 1,
+      ),
+      '2013090800' => array(
+        'day' => '2013-09-08',
+        'platform' => 'highwire',
+        'abstract' => 0,
+        'full' => 4,
+        'pdf' => 3,
+        'xml' => 1,
+      ),
+      '2013100600' => array(
+        'day' => '2013-10-06',
+        'platform' => 'highwire',
+        'abstract' => 1,
+        'full' => 20,
+        'pdf' => 5,
+      ),
+      '2013100800' => array(
+        'day' => '2013-10-08',
+        'platform' => 'highwire',
+        'abstract' => 0,
+        'full' => 22,
+        'pdf' => 30,
+        'xml' => 1,
+      ),
+    );
+
+    $message = 'Returned key :returned is not what was expected (:expected)';
+
+    $key = _elife_article_almvis_key_exists('/^20130906/', $stats);
+    $args = array(
+      ':returned' => $key,
+      ':expected' => '2013090600',
+    );
+    $this->assertEqual($args[':expected'], $args[':returned'], t($message, $args));
+
+    $key = _elife_article_almvis_key_exists('/^20130908/', $stats);
+    $args = array(
+      ':returned' => $key,
+      ':expected' => '2013090801',
+    );
+    $this->assertEqual($args[':expected'], $args[':returned'], t($message, $args));
+
+    $key = _elife_article_almvis_key_exists('/^20130908/', $stats, TRUE);
+    $args = array(
+      ':returned' => $key,
+      ':expected' => '2013090800',
+    );
+    $this->assertEqual($args[':expected'], $args[':returned'], t($message, $args));
+  }
+}

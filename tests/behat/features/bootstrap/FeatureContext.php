@@ -45,6 +45,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   /**
    * @BeforeScenario
    */
+  public function SetDefaultMockMetricService() {
+    variable_set('elife_article_almvis_metric_service_factory', '_elife_article_almvis_mock_metric_service');
+  }
+
+  /**
+   * @BeforeScenario
+   */
   public function resetFollowingRedirects() {
     try {
       $this->canIntercept();
