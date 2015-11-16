@@ -21,5 +21,6 @@ features[page_manager_handlers][] = node_view__elife_sub_article
 features[panels_mini][] = elife_article
 features[panels_mini][] = elife_article_author
 features[panels_mini][] = elife_article_figdata
+features[panels_mini][] = elife_article_metrics
 features[variable][] = panels_ajax_tab
 project path = profiles/elife_profile/modules/custom

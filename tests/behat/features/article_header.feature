@@ -3,6 +3,7 @@ Feature: Article Header
   As a website user
   I need an appropriate header section
 
+  @debugx
   Scenario Outline: Article header should have Article tabs
     Given there is an article:
     """
@@ -154,10 +155,11 @@ Feature: Article Header
     Then I should see the url "<url>" in the "href" attribute of the ".pane-content .item-list li:nth-of-type(<n>) a" element
 
   Examples:
-    | item                  | n | url                            | title     |
-    | Article               | 1 | /content/3/e00013              | VOR 00013 |
-    | Figures & data        | 2 | /content/3/e00013/article-data | VOR 00013 |
-    | Article & author info | 3 | /content/3/e00013/article-info | VOR 00013 |
+    | item                  | n | url                               | title     |
+    | Article               | 1 | /content/3/e00013                 | VOR 00013 |
+    | Figures & data        | 2 | /content/3/e00013/article-data    | VOR 00013 |
+    | Metrics               | 3 | /content/3/e00013/article-metrics | VOR 00013 |
+    | Article & author info | 4 | /content/3/e00013/article-info    | VOR 00013 |
 
   Scenario Outline: Authors should be listed under the article title
     Given there is an article:

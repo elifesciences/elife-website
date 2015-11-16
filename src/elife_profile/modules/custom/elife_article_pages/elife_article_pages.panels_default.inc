@@ -520,5 +520,91 @@ function elife_article_pages_default_panels_mini() {
   $mini->display = $display;
   $export['elife_article_figdata'] = $mini;
 
+  $mini = new stdClass();
+  $mini->disabled = FALSE; /* Edit this to true to make a default mini disabled initially */
+  $mini->api_version = 1;
+  $mini->name = 'elife_article_metrics';
+  $mini->category = '';
+  $mini->admin_title = 'Metrics';
+  $mini->admin_description = '';
+  $mini->requiredcontexts = array(
+    0 => array(
+      'identifier' => 'Article Version',
+      'keyword' => 'node',
+      'name' => 'entity:node',
+      'entity_id' => '',
+      'optional' => 0,
+      'id' => 1,
+    ),
+  );
+  $mini->contexts = array();
+  $mini->relationships = array();
+  $display = new panels_display();
+  $display->layout = 'onecol';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'middle' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = '6ed6114d-f419-416f-b2b2-756e7af86d0c';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-3010a928-9c18-4e2c-975e-f552c4ce64f9';
+  $pane->panel = 'middle';
+  $pane->type = 'elife_article_almvis_graph';
+  $pane->subtype = 'elife_article_almvis_graph';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => 'requiredcontext_entity:node_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '3010a928-9c18-4e2c-975e-f552c4ce64f9';
+  $display->content['new-3010a928-9c18-4e2c-975e-f552c4ce64f9'] = $pane;
+  $display->panels['middle'][0] = 'new-3010a928-9c18-4e2c-975e-f552c4ce64f9';
+  $pane = new stdClass();
+  $pane->pid = 'new-8aa5ec11-e64f-4be7-ad90-d00c6e1d8047';
+  $pane->panel = 'middle';
+  $pane->type = 'elife_article_metrics';
+  $pane->subtype = 'elife_article_metrics';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => 'requiredcontext_entity:node_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '8aa5ec11-e64f-4be7-ad90-d00c6e1d8047';
+  $display->content['new-8aa5ec11-e64f-4be7-ad90-d00c6e1d8047'] = $pane;
+  $display->panels['middle'][1] = 'new-8aa5ec11-e64f-4be7-ad90-d00c6e1d8047';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = 'new-8aa5ec11-e64f-4be7-ad90-d00c6e1d8047';
+  $mini->display = $display;
+  $export['elife_article_metrics'] = $mini;
+
   return $export;
 }

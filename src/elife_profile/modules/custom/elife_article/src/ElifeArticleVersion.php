@@ -84,6 +84,21 @@ class ElifeArticleVersion {
   }
 
   /**
+   * Get the latest article version from the DOI.
+   *
+   * @param string $doi
+   *   Article version DOI.
+   * @param bool $load
+   *   Flag set to TRUE if we wish to load the article data.
+   *
+   * @return bool|mixed
+   *   Details of the articles that match criteria.
+   */
+  public static function latestFromDoi($doi, $load = TRUE) {
+    return self::fromId($doi, $load, 'elife_article_ver', array(), 1, 'field_elife_a_doi');
+  }
+
+  /**
    * Get POA from article id.
    *
    * This will not return the POA for articles that are now VOR.

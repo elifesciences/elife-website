@@ -1,0 +1,677 @@
+<?php
+/**
+ * @file
+ * Server-side render function for PLoS ALM metrics page.
+ */
+
+use Drupal\elife_article\ElifeArticleVersion;
+use eLife\EIF\ArticleVersion;
+use eLife\MetricService\ElifeMetricService;
+use eLife\MetricService\MetricServiceInterface;
+use eLife\MetricService\MockMetricService;
+
+/* ALM lookup cache lifetime in seconds. */
+define('ELIFE_ARTICLE_ALMVIS_CACHE_LIFE', 900);
+define('ELIFE_ARTICLE_ALMVIS_DAILYNDAYS', 30);
+
+/**
+ * Implements hook_menu().
+ *
+ * Used to satisfy an AJAX call from the elife_article_almvis_graph.js code:
+ *    $.getJSON('/elife/article-metrics-data/' + $wrapper.data('doi')
+ */
+function elife_article_almvis_menu() {
+  $items['elife/article-pageview-data'] = array(
+    'page callback' => 'elife_article_almvis_pageview_data_ajax',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * @return MetricServiceInterface
+ */
+function elife_article_almvis_metric_service() {
+  $metric_service = &drupal_static(__FUNCTION__);
+
+  if (!isset($metric_service)) {
+    /* @var string $factory */
+    $factory = variable_get('elife_article_almvis_metric_service_factory', '_elife_article_almvis_mock_metric_service');
+
+    $metric_service = $factory();
+  }
+
+  return $metric_service;
+}
+
+/**
+ * @return ElifeMetricService
+ */
+function _elife_article_almvis_elife_metric_service() {
+  $metric_service = &drupal_static(__FUNCTION__);
+
+  if (!isset($metric_service)) {
+    $metric_service = new ElifeMetricService(
+      elife_http_client_get_client(),
+      variable_get('elife_article_almvis_metrics_url')
+    );
+  }
+
+  return $metric_service;
+}
+
+/**
+ * @return MockMetricService
+ */
+function _elife_article_almvis_mock_metric_service() {
+  $metric_service = &drupal_static(__FUNCTION__);
+
+  if (!isset($metric_service)) {
+    $metric_service = new MockMetricService();
+  }
+
+  return $metric_service;
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ *
+ * This lets ctools know to scan my module for a content_type plugin file
+ * Detailed docks in ctools/ctools.api.php
+ */
+function elife_article_almvis_ctools_plugin_directory($owner, $plugin) {
+  return 'plugins/' . $plugin;
+}
+
+/**
+ * Return a JSON array of download data within a specific interval.
+ *
+ * AJAX function: return a JSON array of download data within a specific
+ * interval for the indicated DOI, split into abstract, full, pdf and XML
+ * downloads.
+ *
+ * Callback function from the ALM menu, set in elife_article_almvis_menu()
+ *
+ * Get the DOI.
+ * Convert the output array to JSON and set in drupal cache
+ * Return the JSON array.
+ */
+function elife_article_almvis_pageview_data_ajax() {
+  $doi = arg(2) . '/' . arg(3);
+
+  $data = elife_article_almvis_pageview_data_get($doi, $message);
+  if (empty($data)) {
+    $data = new stdClass();
+  }
+
+  header('Content-Type: application/json');
+  header('X-eLife-Info: ' . $message);
+  print json_encode($data);
+
+}
+
+/**
+ * Retrieve data from ALM Stats, convert to the ALM JSON format, and return.
+ *
+ * - Get node ID from DOI.
+ * - Load the node entity for that node ID.
+ * - Load the article version data transfer object from the node entity.
+ * - Check the drupal cache for that node and if present, return as JSON
+ * - Create an ALM stats object and initialise from the Atom data for the
+ *   article.
+ * - If no stats, return 'false'
+ * - Create a 'totals' array and accumulate totals from the ALM Stats.
+ * - Query the XML Log to accumulate stats of XML downloads
+ * - Convert stats to an array with one entry per day in the interval.
+ *
+ * @param string $doi
+ *   The DOI of the article to return stats for.
+ * @param string &$message
+ *   Message to return indicating origin of data.
+ * @param bool $use_cache
+ *   Flag indicating whether cache of previous calls should be used.
+ *
+ * @return array
+ *   The ALM-formatted JSON data structure to return.
+ */
+function elife_article_almvis_pageview_data_get($doi, &$message = '', $use_cache = FALSE) {
+  $doi = lagotto_services_validate_doi($doi);
+
+  $article_version = ElifeArticleVersion::latestFromDoi($doi);
+
+  if ($article_version) {
+    if ($use_cache && $cache = cache_get('elife_article_almvis_' . $article_version->nid)) {
+      $message = 'Loaded from cache';
+      return $cache->data;
+    }
+
+    $dto = elife_article_version_to_dto($article_version);
+    $data = _elife_article_almvis_request_results($dto);
+    if (empty($data)) {
+      $message = 'Unable to load stats for ' . ($doi);
+      return NULL;
+    }
+
+    $publish = $dto->getPubDate()->getTimestamp();
+    $title = check_plain($dto->getTitle());
+
+    $alm_stats = elife_article_almvis_make_stats($title, $doi, $publish, $data['daily'], $data['monthly']);
+
+    if ($use_cache) {
+      // Set the cache lifetime.
+      cache_set('elife_article_almvis_' . $article_version->nid,
+        $alm_stats,
+        'cache',
+        time() + ELIFE_ARTICLE_ALMVIS_CACHE_LIFE);
+    }
+
+    $message = 'Generated';
+    return $alm_stats;
+  }
+  else {
+    $message = 'Unable to lookup doi = ' . $doi;
+    return NULL;
+  }
+}
+
+/**
+ * Request the results from the Metrics API and prepare array of results.
+ *
+ * @param ArticleVersion $dto
+ *   The Article version object.
+ *
+ * @return array
+ *   Array of results.
+ */
+function _elife_article_almvis_request_results(ArticleVersion $dto) {
+  $switch_date = variable_get('elife_article_almvis_ga_switch_date');
+
+  if (empty($switch_date)) {
+    return NULL;
+  }
+
+  $metric_service = elife_article_almvis_metric_service();
+  $metric_service->setDoi($dto->getDoi());
+  $data = $metric_service->request();
+
+  if (!empty($data)) {
+    $data = _elife_article_almvis_process_results($dto, $data, $switch_date);
+  }
+  else {
+    $data = array();
+  }
+
+  return $data;
+}
+
+/**
+ * Process the results from the Metrics API request in preparation for display.
+ *
+ * This should give us a continuous array of results for HW and GA monthly and
+ * daily stats.
+ *
+ * @param ArticleVersion $dto
+ *   The Article version object.
+ * @param string $data
+ *   The successful data object returned by the API request.
+ * @param string $switch_date
+ *   The date we are switching from HW to GA stats.
+ *
+ * @return array
+ *   Array of processed results.
+ */
+function _elife_article_almvis_process_results(ArticleVersion $dto, $data, $switch_date) {
+  $doi = $dto->getDoi();
+  $data = json_decode($data);
+  $all_stats = array();
+  $switch_date = new DateTime($switch_date);
+  $daily_start_date = new DateTime(ELIFE_ARTICLE_ALMVIS_DAILYNDAYS . ' days ago');
+  $daily_end_date = new DateTime('yesterday');
+  if ($daily_start_date->getTimestamp() < $dto->getPubDate()->getTimestamp()) {
+    $daily_start_date = $dto->getPubDate();
+  }
+  $monthly_start_date = $dto->getPubDate();
+  $monthly_end_date = new DateTime('last month');
+
+  $hw = $data->hw;
+  $hw_stats = $hw->{$doi};
+
+  $ga = $data->ga;
+  $ga_stats = $ga->{$doi};
+
+  $daily_stats = [];
+  if ($switch_date->getTimestamp() < $daily_start_date->getTimestamp()) {
+    foreach ($hw_stats->daily as $day => $stats) {
+      if (strtotime($day) < $switch_date->getTimestamp()) {
+        $stats->day = $day;
+        $daily_stats[str_replace('-', '', $day)] = $stats;
+      }
+    }
+  }
+  foreach ($ga_stats->daily as $day => $stats) {
+    if (strtotime($day) >= $switch_date->getTimestamp()) {
+      $stats->day = $day;
+      $daily_stats[str_replace('-', '', $day)] = $stats;
+    }
+  }
+  if (!empty($daily_stats)) {
+    $daily_stats = json_decode(json_encode($daily_stats), TRUE);
+    $daily_stats += array(
+      $daily_start_date->format('Ymd') => array(
+        'day' => $daily_start_date->format('Y-m-d'),
+      ),
+    );
+    $daily_stats += array(
+      $daily_end_date->format('Ymd') => array(
+        'day' => $daily_end_date->format('Y-m-d'),
+      ),
+    );
+    $all_stats['daily'] = elife_article_almvis_pageviews_level_cont($daily_stats, 'day');
+  }
+
+  $monthly_stats = [];
+  foreach ($hw_stats->monthly as $month => $stats) {
+    if (strtotime($month) < $switch_date->getTimestamp()) {
+      $stats->month = $month;
+      $monthly_stats[str_replace('-', '', $month)] = $stats;
+    }
+  }
+  foreach ($ga_stats->monthly as $month => $stats) {
+    if (strtotime($month) >= $switch_date->getTimestamp()) {
+      $stats->month = $month;
+      $monthly_stats[str_replace('-', '', $month)] = $stats;
+    }
+  }
+  if (!empty($monthly_stats)) {
+    $monthly_stats = json_decode(json_encode($monthly_stats), TRUE);
+    $monthly_stats += array(
+      $monthly_start_date->format('Ym') => array(
+        'month' => $monthly_start_date->format('Y-m'),
+      ),
+    );
+    $monthly_stats += array(
+      $monthly_end_date->format('Ym') => array(
+        'month' => $monthly_end_date->format('Y-m'),
+      ),
+    );
+    $all_stats['monthly'] = elife_article_almvis_pageviews_level_cont($monthly_stats, 'month');
+  }
+
+  return $all_stats;
+}
+
+/**
+ * Provide an array of stats filling in empty dates.
+ *
+ * @param array $stats
+ *   an array of statistics grouped by day or month
+ * @param string $level
+ *   for now the stats level is day or month
+ * @param int $limit
+ *   limit number of returned results - 30 will return the last 30 days or
+ *   months depending on the $level value 0 will apply no limit and return all
+ *   available stats
+ *
+ * @return array
+ *   an array of continuous statistics grouped by day or month
+ */
+function elife_article_almvis_pageviews_level_cont($stats, $level = 'day', $limit = 0) {
+  // Ensure stats are in ascending date order.
+  ksort($stats);
+
+  // Prepare array to store the continuous statistics.
+  $stats_cont = array();
+
+  $interval = DateInterval::createFromDateString('1 ' . $level);
+  $first_stat = reset($stats);
+  $first_stat_level = $first_stat[$level];
+  if ($level == 'month') {
+    $first_stat_level .= '-01';
+  }
+  $start_date = new DateTime($first_stat_level);
+  $last_stat  = end($stats);
+  $last_stat_level = $last_stat[$level];
+  if ($level == 'month') {
+    $last_stat_level .= '-01';
+  }
+  $last_date  = new DateTime($last_stat_level);
+  $last_date->add($interval);
+
+  $period = new DatePeriod($start_date, $interval, $last_date, 0);
+
+  /** @var DateTime $dt */
+  foreach ($period as $dt) {
+    $key = $dt->format('Ym');
+    $level_date = $dt->format('Y-m');
+    if ($level == 'day') {
+      $key .= $dt->format('d');
+      $level_date .= $dt->format('-d');
+    }
+
+    // Check if there is an entry for this date (e.g. '/^21040506/')
+    if ($match = _elife_article_almvis_key_exists('/^' . $key . '/', $stats)) {
+      $stats_cont[$key] = $stats[$match];
+    }
+    else {
+      $stats_cont[$key] = array(
+        $level => $level_date,
+      );
+    }
+
+    $stats_cont[$key] += array(
+      'xml' => 0,
+      'pdf' => 0,
+      'full' => 0,
+      'abstract' => 0,
+    );
+  }
+
+  // Ensure stats are in ascending date order.
+  ksort($stats_cont);
+
+  if ($limit && count($stats_cont) > $limit) {
+    $stats_cont = array_slice($stats_cont, -$limit, $limit, TRUE);
+  }
+
+  return $stats_cont;
+}
+
+/**
+ * Return key that matches regex.
+ *
+ * @param string $pattern
+ *   Regular expression pattern
+ * @param array $array
+ *   Associative array
+ * @param bool $sort
+ *   Flag to perform sort or not
+ *
+ * @return string|bool
+ *   First index that matches pattern
+ */
+function _elife_article_almvis_key_exists($pattern, $array, $sort = FALSE) {
+  $keys = array_keys($array);
+  if ($res = preg_grep($pattern, $keys)) {
+    if ($sort) {
+      sort($res);
+    }
+    return reset($res);
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Create the JSON data structure for the article.
+ *
+ * @param string $title
+ *   The article title in simple non-html form.
+ * @param string $doi
+ *   The article's main DOI in the form 10.NNNN/X.Y
+ * @param int $pubdate
+ *   The article publication date (epubdate).
+ * @param array $daily_stats
+ *   The daily statistics array for this article
+ * @param array $month_stats
+ *   The monthly statistics array for this article
+ *
+ * @return array
+ *   The ALM-formatted JSON data structure to return.
+ */
+function elife_article_almvis_make_stats($title, $doi, $pubdate, $daily_stats, $month_stats) {
+  // Sum the stats data to get a total for each category.
+  $total = elife_article_almvis_totals($month_stats);
+
+  // Make a metric container into which the pageview stats will be put.
+  $metric = elife_article_almvis_make_metric('elifeviews', t('eLife Journal'), $total);
+
+  // Convert the stats from the original form into ALM JSON form.
+  $metric = elife_article_almvis_stats_by_day($daily_stats, $metric);
+  $metric = elife_article_almvis_stats_by_month($month_stats, $metric);
+
+  // Munge the data into the data format used by the ALM server, and understood
+  // by the Almviz Javascript.
+  $stat = elife_article_almvis_make_almstat($title, $doi, $pubdate);
+  $stat->sources[0] = $metric;
+
+  return array($stat);
+}
+
+/**
+ * Return the total numbers of xml, pdf & full downloads.
+ *
+ * @param array $stats
+ *   An array containing one entry for each period covered. Items are arrays
+ * keyed by the date as YYYYMMDD or YYYYMM, with the value having entries
+ * including the keys 'abstract', 'full', 'pdf', 'xml' and 'day' or 'month'.
+ *
+ * For example:
+ *   array(
+ *     '20130906' => array(
+ *       'day' => '2013-09-06',
+ *       'abstract' => 0,
+ *       'full' => 2,
+ *       'pdf' => 1,
+ *     ),
+ *   ),
+ *
+ * @return array
+ *   Containing the totals of xml,pdf,full and abstract entries:
+ *   array(
+ *     'xml' => 0,
+ *     'pdf' => 0,
+ *     'full' => 0,
+ *     'abstract' => 0,
+ *   );
+ */
+function elife_article_almvis_totals($stats) {
+  $defaults = array(
+    'xml' => 0,
+    'pdf' => 0,
+    'full' => 0,
+    'abstract' => 0,
+  );
+
+  $total = $defaults;
+  if (!empty($stats)) {
+    foreach ($stats as $k => $stat) {
+      $stat += $defaults;
+      foreach (array_keys($defaults) as $default) {
+        $total[$default] += $stat[$default];
+        $stats[$k] = $stat;
+      }
+    }
+  }
+
+  return $total;
+}
+
+/**
+ * Create a new object for a single ALM metric.
+ *
+ * The new object is initialised from the given names and $total array, but may
+ * require or benefit from further initialisation as well.
+ *
+ * @param string $machinename
+ *   Internal name for this metric. Short, lowercase, alphabetic only.
+ * @param string $username
+ *   User-visible name for this metric. Translateable, UTF8. NOT HTML.
+ * @param array $total
+ *   Array containing total number of 'xml', 'pdf', 'full', 'abstract' events.
+ *
+ * @return object
+ *   The new metric object.
+ */
+function elife_article_almvis_make_metric($machinename, $username, $total) {
+  $metrics = new stdClass();
+  $metrics->by_year = NULL;
+  $metrics->histories = NULL;
+  $metrics->metrics = new stdClass();
+  $metrics->metrics->citations = NULL;
+  $metrics->metrics->comments = NULL;
+  $metrics->metrics->groups = NULL;
+  $metrics->metrics->xml = $total['xml'];
+  $metrics->metrics->full = $total['full'];
+  $metrics->metrics->html = $total['full'] + $total['abstract'];
+  $metrics->metrics->abstract = $total['abstract'];
+  $metrics->metrics->likes = NULL;
+  $metrics->metrics->pdf = $total['pdf'];
+  $metrics->metrics->shares = NULL;
+  $metrics->metrics->total = $total['pdf'] + $total['full'] + $total['abstract'] + $total['xml'];
+  $metrics->update_date = NULL;
+
+  /* This value is the 'machine name' for the source */
+  $metrics->name = $machinename;
+
+  /* This value is used as the 'Source' name in AlmViz, if that is enabled */
+  $metrics->display_name = $username;
+
+  return $metrics;
+}
+
+/**
+ * Convert the statistics data from its array form to ALM style.
+ *
+ * Both data sources can be in sparse-date format, so not all dates will be
+ * present. For each item in the stats source array, key 'day' is read to get
+ * the date and the output metrics object initialiased from it. The result
+ * is written to $metrics->by_day[]
+ *
+ * @param array $stats
+ *   The statistics array from which data is read.
+ * @param object $metric
+ *   The metric object to which the day data is assigned.
+ *
+ * @return object
+ *   The modified metric object
+ */
+function elife_article_almvis_stats_by_day($stats, $metric) {
+  // Generate the per-day stats.
+  $metric->by_day = array();
+
+  foreach ($stats as $item) {
+    $item += array(
+      'abstract' => 0,
+      'full' => 0,
+      'pdf' => 0,
+      'xml' => 0,
+    );
+
+    $date = strtotime($item['day']);
+
+    $newitem = new stdClass();
+    $newitem->day = date('j', $date);
+    $newitem->month = date('n', $date);
+    $newitem->year = date('Y', $date);
+
+    $newitem->pdf = $item['pdf'];
+    $newitem->full = $item['full'];
+    $newitem->html = $item['full'] + $item['abstract'];
+    $newitem->abstract = $item['abstract'];
+    $newitem->xml = $item['xml'];
+    $newitem->total = $item['pdf'] + $item['full'] + $item['abstract'] + $item['xml'];
+
+    $newitem->citations = NULL;
+    $newitem->comments = NULL;
+    $newitem->groups = NULL;
+    $newitem->likes = NULL;
+    $newitem->shares = NULL;
+
+    $metric->by_day[] = $newitem;
+  }
+
+  return $metric;
+}
+
+/**
+ * Convert the statistics data from its array form to ALM style.
+ *
+ * Both data sources can be in sparse-date format, so not all dates will be
+ * present. For each item in the stats source array, key 'day' is read to get
+ * the date and the output metrics object initialiased from it. The result
+ * is written to $metrics->by_month[]
+ *
+ * @param array $month_stats
+ *   The statistics array from which data is read.
+ * @param object $metric
+ *   The metric object to which the day data is assigned.
+ *
+ * @return object
+ *   The modified metric object
+ */
+function elife_article_almvis_stats_by_month($month_stats, $metric) {
+  // Generate the per-month stats.
+  $metric->by_month = array();
+  foreach ($month_stats as $item) {
+    $item += array(
+      'abstract' => 0,
+      'full' => 0,
+      'pdf' => 0,
+      'xml' => 0,
+    );
+
+    $date = strtotime($item['month']);
+
+    $newitem = new stdClass();
+    $newitem->month = date('n', $date);
+    $newitem->year = date('Y', $date);
+
+    $newitem->pdf = $item['pdf'];
+    $newitem->full = $item['full'];
+    $newitem->html = $item['full'] + $item['abstract'];
+    $newitem->abstract = $item['abstract'];
+    $newitem->xml = $item['xml'];
+    $newitem->total = $item['pdf'] + $item['full'] + $item['abstract'] + $item['xml'];
+
+    $newitem->citations = NULL;
+    $newitem->comments = NULL;
+    $newitem->groups = NULL;
+    $newitem->likes = NULL;
+    $newitem->shares = NULL;
+
+    $metric->by_month[] = $newitem;
+  }
+
+  return $metric;
+}
+
+/**
+ * Create an ALM Stats response object.
+ *
+ * Set up an array containing 1 object having the correct object structure
+ * for an ALM stats JSON response.
+ *
+ * @param string $title
+ *   The title of the article.
+ * @param string $doi
+ *   The DOI of the article in the form 10.NNNN/X.Y.
+ * @param int $publish
+ *   PHP date indicating the publication date.
+ *
+ * @return array
+ *   The new ALM stat object.
+ */
+function elife_article_almvis_make_almstat($title, $doi, $publish) {
+  // Make date in format:    '2009-03-16T17:03:26Z', where 'Z' is for Zulu / UTC
+  // gmdate 'c' is ISO 8601 : 2004-02-12T15:19:21+00:00
+  $pubdate = str_replace('+00:00', 'Z', gmdate('c', $publish));
+
+  $alm_stat = new stdClass();
+  $alm_stat->doi = $doi;
+  $alm_stat->bookmarks = 0;
+  $alm_stat->citations = 0;
+  $alm_stat->mendeley = 0;
+  $alm_stat->pmcid = 0;
+  $alm_stat->pmid = 0;
+  $alm_stat->shares = 0;
+  $alm_stat->title = $title;
+  $alm_stat->publication_date = $pubdate;
+  $alm_stat->sources = array();
+  $alm_stat->sources[0] = new stdClass();
+  $alm_stat->update_date = $pubdate;
+  $alm_stat->url = NULL;
+  $alm_stat->views = 0;
+
+  return $alm_stat;
+}

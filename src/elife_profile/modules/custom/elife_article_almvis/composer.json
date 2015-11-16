@@ -1,0 +1,13 @@
+{
+  "require": {
+    "php": ">=5.5",
+    "guzzlehttp/psr7": "~1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "eLife\\": [
+        "src/eLife/"
+      ]
+    }
+  }
+}

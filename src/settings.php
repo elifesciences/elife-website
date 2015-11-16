@@ -86,3 +86,11 @@ if (function_exists('drush_get_context') && isset(drush_get_context()['command']
   unset($conf['lock_inc']);
   unset($conf['path_inc']);
 }
+
+// Setup lagotto_services.
+$conf['lagotto_services_url'] = 'http://alm.svr.elifesciences.org';
+$conf['lagotto_services_apikey'] = '5pVvShVqAJ9Ch3tFzori';
+
+// Setup elife_article_almvis.
+$conf['elife_article_almvis_metrics_url'] = 'http://2015-09-03.api.elifesciences.org/proxy/metrics/api/v1/article/hw,ga/';
+$conf['elife_article_almvis_ga_switch_date'] = '2015-11-11';
