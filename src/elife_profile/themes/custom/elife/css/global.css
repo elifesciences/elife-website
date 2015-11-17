@@ -2056,10 +2056,30 @@ img.elife-embed-fragment-image {
 
   .ui-cluetip-content .elife-reflinks-reflink {
   	font-size: 1.17em;
+    list-style: none;
   	margin-top: 0;
   }
 
-	.elife-reflinks-reflink .elife-reflink-indicators {
+  /* Need this depth to win a selector war. Not worth refactoring now. */
+  .ui-cluetip-content .elife-reflinks-reflink .elife-reflink-title {
+    font-size: 16.2px;
+    font-size: 1.0125rem;
+    line-height: 1.2;
+  }
+
+  .ui-cluetip-content .elife-reflinks-reflink .elife-reflink-authors {
+    font-size: 14px;
+    font-size: 0.875rem;
+    line-height: 1.2;
+  }
+  
+  .ui-cluetip-content .elife-reflinks-reflink .elife-reflink-details {
+    font-size: 11px;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+  
+  .elife-reflinks-reflink .elife-reflink-indicators {
 		float: left;
 		margin-right: 10px;
 	}
@@ -2099,11 +2119,11 @@ img.elife-embed-fragment-image {
 		margin-left: 27px;
 	}
 
-	.elife-reflink-title {
+ .elife-reflink-title {
 		display: block;
 	}
-
-	.elife-reflinks-reflink .elife-reflink-links-wrapper {
+	
+  .elife-reflinks-reflink .elife-reflink-links-wrapper {
 		margin: 2px 0 0;
 	}
 
@@ -2122,7 +2142,24 @@ img.elife-embed-fragment-image {
 		color: #575759;
 	}
 
-	#fig-data .section span.ext-link a,
+  .reference-ordinal,
+  .references .elife-reflinks-reflink:before {
+    background-color: #22a0d8;
+    background-clip: padding-box;
+    border-radius: 10px;
+    color: #fff;
+    cursor: default;
+    display: inline-block;
+    float: left;
+    font-size: 9.94px;
+    font-size: 0.6125rem;
+    line-height: 1em;
+    margin-left: -5px;
+    padding: 4px 6px;
+    vertical-align: middle;
+  }
+
+  #fig-data .section span.ext-link a,
 	.elife-reflinks-reflink .elife-reflink-link.life-reflink-link-uri a {
 		word-wrap: break-word;
 	}

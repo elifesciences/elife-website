@@ -402,6 +402,27 @@ div.highwire-markup .fig-caption p .supplementary-material .supplementary-materi
 	text-align: center;
 }
 
+.elife-reflinks-links {
+	counter-reset: reference-counter;
+	padding-left: 0;
+	list-style: none;
+} 
+
+/* We only want this in the main ref list, not in the popouts. */
+.references .elife-reflinks-reflink:before {
+	content: counter(reference-counter);
+	counter-increment: reference-counter;
+	float: left;
+}
+
+/* js adds 'no-counter' to replace the css counter with explicit original 
+ *	ordinal in html so the original ordinal can be preserved when js-mediated
+ * reference sorting occurs.
+ */
+.references .elife-reflinks-reflink.no-counter:before {
+	display: none;
+} 
+
 /* Figures & Data tab */
 #fig-data .view-options span {
 	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
