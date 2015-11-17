@@ -56,14 +56,16 @@ class ElifeMetricService implements MetricServiceInterface {
   /**
    * @param string $doi
    */
-  public function setDoi($doi) {
+  private function setDoi($doi) {
     $this->doi = trim($doi, '/');
   }
 
   /**
+   * @param string $doi
    * @return \Psr\Http\Message\StreamInterface
    */
-  public function request() {
+  public function request($doi) {
+    $this->setDoi($doi);
     $request = new Request(
       'GET',
       // @todo - elife - nlisgo - we seem to be unable to handle 301 redirects.
