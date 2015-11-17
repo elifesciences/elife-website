@@ -15,7 +15,7 @@ function elife_search_default_elysia_cron_rules() {
   $cron_rule->api_version = 1;
   $cron_rule->name = 'search_api_cron';
   $cron_rule->disable = NULL;
-  $cron_rule->rule = NULL;
+  $cron_rule->rule = '*/15 * * * *';
   $cron_rule->weight = 10;
   $cron_rule->context = NULL;
   $cron_rules['search_api_cron'] = $cron_rule;
@@ -25,7 +25,7 @@ function elife_search_default_elysia_cron_rules() {
   $cron_rule->api_version = 1;
   $cron_rule->name = 'search_api_solr_cron';
   $cron_rule->disable = NULL;
-  $cron_rule->rule = NULL;
+  $cron_rule->rule = '4 0 * * *';
   $cron_rule->weight = 10;
   $cron_rule->context = NULL;
   $cron_rules['search_api_solr_cron'] = $cron_rule;
