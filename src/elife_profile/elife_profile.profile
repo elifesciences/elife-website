@@ -31,6 +31,7 @@ function elife_profile_environment_modules($environment, $inverse = FALSE) {
       'delta_ui',
       'devel',
       'ds_ui',
+      'elife_users_dev',
       'field_ui',
       'field_validation_ui',
       'module_builder',
