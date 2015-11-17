@@ -25,3 +25,13 @@ function elife_users_form_user_profile_form_alter(&$form, &$form_state, $form_id
     $form['field_elife_u_last_name']['#access'] = FALSE;
   }
 }
+
+/**
+ * Implements hook_features_post_restore().
+ */
+function elife_users_features_post_restore($op, $items) {
+  if ('disable' !== $op && !empty($items['elife_users'])) {
+    // Give user 1 the Administrator role.
+    user_multiple_role_edit([1], 'add_role', variable_get('user_admin_role'));
+  }
+}
