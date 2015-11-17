@@ -36,7 +36,7 @@ function elife_article_almvis_metric_service() {
 
   if (!isset($metric_service)) {
     /* @var string $factory */
-    $factory = variable_get('elife_article_almvis_metric_service_factory', '_elife_article_almvis_mock_metric_service');
+    $factory = variable_get('elife_article_almvis_metric_service_factory', '_elife_article_almvis_elife_metric_service');
 
     $metric_service = $factory();
   }
@@ -134,7 +134,7 @@ function elife_article_almvis_pageview_data_ajax() {
  * @return array
  *   The ALM-formatted JSON data structure to return.
  */
-function elife_article_almvis_pageview_data_get($doi, &$message = '', $use_cache = FALSE) {
+function elife_article_almvis_pageview_data_get($doi, &$message = '', $use_cache = TRUE) {
   $doi = lagotto_services_validate_doi($doi);
 
   $article_version = ElifeArticleVersion::latestFromDoi($doi);
@@ -191,8 +191,7 @@ function _elife_article_almvis_request_results(ArticleVersion $dto) {
   }
 
   $metric_service = elife_article_almvis_metric_service();
-  $metric_service->setDoi($dto->getDoi());
-  $data = $metric_service->request();
+  $data = $metric_service->request($dto->getDoi());
 
   if (!empty($data)) {
     $data = _elife_article_almvis_process_results($dto, $data, $switch_date);

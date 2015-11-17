@@ -3,7 +3,6 @@ Feature: Article Header
   As a website user
   I need an appropriate header section
 
-  @debugx
   Scenario Outline: Article header should have Article tabs
     Given there is an article:
     """

@@ -6,7 +6,5 @@ interface MetricServiceInterface {
   /**
    * @param string $doi
    */
-  public function setDoi($doi);
-
-  public function request();
+  public function request($doi);
 }
