@@ -9,6 +9,13 @@ use Drupal\elife_article\ElifeArticleVersion;
 include_once 'elife_article_reference.features.inc';
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_article_reference_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
  * Implements hook_node_view_alter().
  */
 function elife_article_reference_node_view_alter(&$build) {

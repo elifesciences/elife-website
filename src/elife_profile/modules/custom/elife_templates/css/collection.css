@@ -59,3 +59,62 @@ a {
     float: right;
   }
 }
+
+.elife-searchlist-pagerbar .pager li {
+  font-size: 0.86em;
+}
+
+.pager li a,
+.pager li.pager-current {
+  padding: 1px 4px 0;
+}
+
+.item-list .pager li,
+.item-list .pager ul li {
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a,
+.pager li.pager-last a {
+  background: url('../images/icons-pager_arrows.png') no-repeat;
+  display: inline-block;
+  height: 14px;
+  text-indent: -9999em;
+  padding: 0;
+  width: 14px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-first a:hover,
+.pager li.pager-previous a,
+.pager li.pager-previous a:hover,
+.pager li.pager-next a,
+.pager li.pager-next a:hover,
+.pager li.pager-last a,
+.pager li.pager-last a:hover {
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.pager li.pager-first a {
+  background-color: #22a0d8;
+  background-position: -1px -1px;
+}
+
+.pager li.pager-previous a {
+  background-color: #74c9ea;
+  background-position: -1px -15px;
+}
+
+.pager li.pager-next a {
+  background-color: #74c9ea;
+  background-position: 0 -29px;
+}
+
+.pager li.pager-last a {
+  background-color: #22a0d8;
+  background-position: 0 -43px;
+}

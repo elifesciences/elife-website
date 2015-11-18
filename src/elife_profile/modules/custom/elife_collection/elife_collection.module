@@ -111,6 +111,19 @@ function elife_collection_tokens($type, $tokens, array $data = [], array $option
 
           $replacements[$original] = $full_title;
           break;
+        case 'field-elife-c-articles:ids-with-collection':
+          if ('elife_collection' !== $data['node']->type) {
+            break;
+          }
+          $ids = [];
+          if (!empty($data['node']->field_elife_c_articles[LANGUAGE_NONE])) {
+            foreach ($data['node']->field_elife_c_articles[LANGUAGE_NONE] as $article) {
+              $ids[] = $article['target_id'];
+            }
+          }
+          $ids[] = $data['node']->nid;
+          $replacements[$original] = implode(',', $ids);
+          break;
       }
     }
   }

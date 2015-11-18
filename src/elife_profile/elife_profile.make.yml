@@ -92,6 +92,10 @@ projects:
       - 'https://www.drupal.org/files/issues/insert-fix_image_label-2170455-4.patch'
   jquery_update:
     version: '3.0-alpha3'
+  label_help:
+    version: '1.2'
+    patch:
+      - 'https://www.drupal.org/files/issues/label_help-inline-entity-form-support-2513488-1.patch'
   lagotto_services:
     version: '1.2'
   libraries:

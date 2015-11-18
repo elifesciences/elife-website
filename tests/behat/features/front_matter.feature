@@ -39,22 +39,22 @@ Feature: Front Matter
   @api
   Scenario: Load cover item to homepage referencing a podcast
     Given "elife_podcast" content:
-      | title |
-      | Podcast 1 |
+      | field_elife_p_episode_number | field_elife_p_title |
+      | 1 | Podcast 1 |
     And "elife_cover" content:
       | title | field_elife_fm_reference |
-      | Podcast 1 | Podcast 1 |
+      | Podcast 1 | Episode 1: Podcast 1 |
     And I add "elife_cover" with title "Podcast 1" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Podcast 1" in the "front_matter_cover" region
     And I follow "Podcast 1" in the "front_matter_cover" region
-    And I should be on "content/podcast-1"
+    And I should be on "podcast/episode1"
 
   @api
   Scenario: Load front matter items to homepage
     Given "elife_podcast" content:
-      | title |
-      | Podcast 1 |
+      | field_elife_p_episode_number | field_elife_p_title |
+      | 1 | Podcast 1 |
     And "elife_collection" content:
       | title |
       | Collection 1 |
@@ -125,7 +125,7 @@ Feature: Front Matter
       | Check out 05225 | 05225: VOR 05225 |
       | Check out 05226 | 05226: VOR 05226 |
       | Check out 05227 | 05227: VOR 05227 |
-      | Podcast 1 | Podcast 1 |
+      | Podcast 1 | Episode 1: Podcast 1 |
       | Collection 1 | Collection 1 |
     And I add "elife_front_matter" with title "Check out 05224" to entityqueue "elife_front_matter_col_1"
     And I add "elife_front_matter" with title "Check out 05225" to entityqueue "elife_front_matter_col_1"

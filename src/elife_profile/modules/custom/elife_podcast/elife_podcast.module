@@ -4,13 +4,388 @@
  * Code for the eLife: Podcast feature.
  */
 
+use Drupal\elife_article\ElifeArticleVersion;
+use eLife\EIF\ArticleVersion\Contributor\CollabContributor;
+use eLife\EIF\ArticleVersion\Contributor\OnBehalfOfContributor;
+use eLife\EIF\ArticleVersion\Contributor\PersonContributor\BylineContributor;
+
 include_once 'elife_podcast.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_podcast_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function elife_podcast_token_info() {
+  return [
+    'tokens' => [
+      'node' => [
+        'podcast' => [
+          'name' => t('Podcast'),
+          'description' => t('Podcast for a chapter.'),
+        ],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function elife_podcast_tokens($type, $tokens, array $data = [], array $options = []) {
+  $replacements = [];
+
+  if ($type == 'node' && !empty($data['node'])) {
+    $node = $data['node'];
+
+    if ($podcast_tokens = token_find_with_prefix($tokens, 'podcast')) {
+      if ('elife_podcast_chapter' === $node->type && !empty($node->nid)) {
+        $podcast = elife_podcast_podcast_for_chapter($node->nid);
+
+        if (!empty($podcast)) {
+          $replacements += token_generate('node', $podcast_tokens, ['node' => $podcast], $options);
+        }
+      }
+    }
+  }
+
+  return $replacements;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_podcast_theme($existing, $type, $theme, $path) {
+  if ('module' === $type) {
+    $path = drupal_get_path('module', 'elife_podcast');
+    $templates = [
+      'elife_podcast_sidebar' => [
+        'template' => 'elife_podcast_sidebar',
+        'path' => $path . '/templates',
+      ],
+    ];
+    return $templates;
+  }
+}
+
+/**
+ * Implements template_preprocess_html().
+ */
+function elife_podcast_preprocess_html(&$variables) {
+  if (in_array('node-type-elife-podcast', $variables['classes_array'])) {
+    drupal_add_css(drupal_get_path('module', 'elife_podcast') . '/css/podcast.css');
+  }
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function elife_podcast_menu_alter(&$items) {
+  // Disable add podcast chapter menu item.
+  $items['node/add/elife-podcast-chapter']['access callback'] = FALSE;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function elife_podcast_form_node_form_alter(&$form, &$form_state) {
+  if ('elife_podcast' === $form['#node']->type && empty($form['#node']->field_elife_p_episode_number[LANGUAGE_NONE])) {
+    // If this is a new podcast, pre-populate the episode number.
+    $form['field_elife_p_episode_number'][LANGUAGE_NONE][0]['value']['#default_value'] = elife_podcast_latest_episode_number() + 1;
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_table_fields_alter().
+ */
+function elife_podcast_inline_entity_form_table_fields_alter(&$fields, $context) {
+  $fields = [
+    'chapter' => [
+      'type' => 'callback',
+      'label' => 'Chapter',
+      'sanitized' => TRUE,
+      'render_callback' => 'elife_podcast_inline_entity_form_podcast_chapter',
+    ],
+  ];
+}
+
+/**
+ * Callback for the inline entity form podcast chapter.
+ */
+function elife_podcast_inline_entity_form_podcast_chapter($entity_type, $entity) {
+  // Allows us to use view modes prior to the entity being persisted, and also
+  // removes contextual links.
+  $entity = clone($entity);
+  $entity->nid = 0;
+
+  return node_view($entity, 'teaser');
+}
 
 /**
  * Implements template_preprocess_node().
  */
 function elife_podcast_preprocess_node(&$variables) {
-  if ('elife_podcast' === $variables['type'] && 'elife_teaser_compact' === $variables['view_mode']) {
-    drupal_add_css(drupal_get_path('module', 'elife_podcast') . '/css/podcast-compact.css');
+  if (
+    in_array($variables['type'], ['elife_podcast', 'elife_podcast_chapter'])
+    &&
+    in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])
+  ) {
+    drupal_add_css(drupal_get_path('module', 'elife_podcast') . '/css/podcast-teaser.css');
   }
+
+  if ('elife_podcast' === $variables['type']) {
+    $variables['elife_p_actions'] = theme('item_list', [
+      'items' => [
+        l('Listen', 'node/' . $variables['elements']['#node']->nid, [
+          'attributes' => [
+            'class' => [
+              'podcast-teaser__action',
+              'podcast-teaser__action--listen',
+            ],
+          ],
+          'query' => ['autoplay' => TRUE],
+        ]),
+        l('Download', $variables['elements']['#node']->field_elife_p_url[LANGUAGE_NONE][0]['url'], [
+          'attributes' => [
+            'class' => [
+              'podcast-teaser__action',
+              'podcast-teaser__action--download',
+            ],
+            'download' => 'download',
+          ],
+        ]),
+        l('Subscribe', 'http://www.thenakedscientists.com/rss/eLife_podcast.xml', [
+          'attributes' => [
+            'class' => [
+              'podcast-teaser__action',
+              'podcast-teaser__action--subscribe',
+            ],
+          ],
+        ]),
+      ],
+      'attributes' => [
+        'class' => [
+          'podcast-teaser__actions',
+        ],
+      ],
+    ]);
+  }
+  elseif ('elife_podcast_chapter' === $variables['type']) {
+    $podcast = elife_podcast_podcast_for_chapter($variables['elements']['#node']->nid);
+
+    if ($podcast && !empty($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE])) {
+      $variables['elife_pc_inverse_text'] = l($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE][0]['safe_value'], 'node/' . $podcast->nid, ['attributes' => ['class' => ['podcast-compact__text']]]);
+    }
+
+    $display_subjects = [];
+
+    $subjects = [];
+    foreach ($variables['elements']['#node']->field_elife_pc_subject[LANGUAGE_NONE] as $subject) {
+      $subjects[] = $subject['target_id'];
+    }
+
+    $subjects = node_load_multiple($subjects);
+
+    foreach ($subjects as $subject) {
+      switch ($subject->type) {
+        case 'elife_article_reference':
+          $article_version = ElifeArticleVersion::fromId($subject->field_elife_a_article_id[LANGUAGE_NONE][0]['value'], TRUE, 'elife_article_ver', [], 1);
+
+          if (empty($article_version)
+          ) {
+            break;
+          }
+
+          $dto = elife_article_version_to_dto($article_version);
+
+          $contributors = $dto->getContributors();
+          $contributor_items = [];
+          foreach ($contributors as $contributor) {
+            if ($contributor instanceof BylineContributor) {
+              if ('author' !== $contributor->getType()) {
+                continue;
+              }
+              // Ok.
+            }
+            elseif ($contributor instanceof CollabContributor) {
+              // Ok.
+            }
+            elseif ($contributor instanceof OnBehalfOfContributor) {
+              // Ok.
+            }
+            else {
+              continue;
+            }
+
+            $contributor_items[] = $contributor;
+          }
+
+          if (empty($contributor_items)) {
+            break;
+          }
+
+          $more = FALSE;
+          if (count($contributor_items) > 2) {
+            $contributors = [$contributor_items[0]];
+            $more = TRUE;
+          }
+          else {
+            $contributors = $contributor_items;
+          }
+
+          $by = [];
+          foreach ($contributors as $contributor) {
+            $by[] = $contributor->getSurname();
+          }
+
+          $display_channel = $dto->getCategoriesOfType('display-channel');
+          $type = reset($display_channel);
+          if (empty($type)) {
+            $type = 'Research article';
+          }
+
+          $display_subjects[] = [
+            'type' => $type,
+            'by' => $by,
+            'more' => $more,
+            'url' => 'node/' . $article_version->nid,
+          ];
+          break;
+        case 'elife_collection':
+          $curators = [];
+          $more = FALSE;
+
+          if (count($subject->field_elife_c_curators[LANGUAGE_NONE]) > 2) {
+            $curators[] = $subject->field_elife_c_curators[LANGUAGE_NONE][0]['target_id'];
+            $more = TRUE;
+          }
+          else {
+            foreach ($subject->field_elife_c_curators[LANGUAGE_NONE] as $curator) {
+              $curators[] = $curator['target_id'];
+            }
+          }
+
+          $curators = node_load_multiple($curators);
+
+          $by = [];
+          foreach ($curators as $curator) {
+            $by[] = $curator->field_elife_pp_last_name[LANGUAGE_NONE][0]['safe_value'];
+          }
+
+          $display_subjects[] = [
+            'type' => 'Collection',
+            'by' => $by,
+            'more' => $more,
+            'url' => 'node/' . $subject->nid,
+          ];
+          break;
+      }
+    }
+
+    if (!empty($display_subjects)) {
+      $variables['elife_pc_subject'] = '<ol>';
+      foreach ($display_subjects as $subject) {
+        $by = implode(' and ', $subject['by']);
+
+        if ($subject['more']) {
+          $by .= ' et al';
+        }
+
+        $variables['elife_pc_subject'] .= sprintf('<li>%s by %s.</li>', $subject['type'], l($by, $subject['url']));
+      }
+      $variables['elife_pc_subject'] .= '</ol>';
+    }
+  }
+}
+
+/**
+ * Implements hook_elife_hero_block_alter().
+ */
+function elife_podcast_elife_hero_block_alter(&$content) {
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $nid = arg(1);
+    if ($nid) {
+      $node = node_load($nid);
+
+      if ($node && 'elife_podcast' === $node->type) {
+        /** @var EntityDrupalWrapper $node */
+        $node = entity_metadata_wrapper('node', $node);
+
+        $variables = [
+          'image_colour' => 'dark',
+          'image_path' => base_path() . drupal_get_path('module', 'elife_podcast') . '/images/podcasts.png',
+          'credit' => 'Image by Smith et al, subject to CC-BY 4.0',
+          'title' => $node->field_elife_p_title->value(),
+          'sub_title' => t('Episode @number', ['@number' => $node->field_elife_p_episode_number->value()]),
+          'player' => $node->field_elife_p_url->value()['url'],
+          'player_autoplay' => !empty(drupal_get_query_parameters()['autoplay']),
+        ];
+        $content = theme('elife_hero_block', $variables);
+      }
+    }
+  }
+  elseif ('podcast' === current_path()) {
+    $variables = [
+      'title' => t('eLife Podcast'),
+      'image_colour' => 'dark',
+      'image_path' => base_path() . drupal_get_path('module', 'elife_podcast') . '/images/podcasts.png',
+      'credit' => 'Image by Smith et al, subject to CC-BY 4.0',
+    ];
+
+    $content = theme('elife_hero_block', $variables);
+  }
+}
+
+/**
+ * Get podcast entity for podcast chapter entity.
+ *
+ * @param int $chapter_nid
+ *   Podcast chapter NID.
+ *
+ * @return stdClass|bool
+ *   Podcast entity, or FALSE.
+ */
+function elife_podcast_podcast_for_chapter($chapter_nid) {
+  $query = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_podcast')
+    ->fieldCondition('field_elife_p_chapters', 'target_id', $chapter_nid)
+    ->range(0, 10); //do not forget the semicolon at the end of the query conditions
+  $result = $query->execute();
+
+  if (!empty($result['node'])) {
+    return node_load('node', key($result['node']));
+  }
+
+  return FALSE;
+}
+
+/**
+ * Get highest episode number.
+ *
+ * @return int|bool
+ *   Highest episode number, or FALSE.
+ */
+function elife_podcast_latest_episode_number() {
+  $query = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_podcast')
+    ->fieldOrderBy('field_elife_p_episode_number', 'value', 'DESC')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (!empty($result['node'])) {
+    $item = node_load('node', key($result['node']));
+
+    if (!empty($item->field_elife_p_episode_number[LANGUAGE_NONE])) {
+      return (int) $item->field_elife_p_episode_number[LANGUAGE_NONE][0]['value'];
+    }
+  }
+
+  return FALSE;
 }

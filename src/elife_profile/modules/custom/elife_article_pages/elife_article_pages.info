@@ -4,6 +4,7 @@ package = eLife
 version = 7.x-1.0
 project = elife_article_pages
 dependencies[] = ctools
+dependencies[] = elife_podcast
 dependencies[] = page_manager
 dependencies[] = panels_mini
 dependencies[] = strongarm

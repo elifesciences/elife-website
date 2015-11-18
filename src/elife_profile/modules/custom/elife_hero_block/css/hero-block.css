@@ -305,3 +305,43 @@ a.cta__link {
         max-width: 20%;
     }
 }
+
+/* player */
+
+.player__player {
+    vertical-align: middle;
+}
+
+.player__download {
+    background: url(../images/download-white.svg) no-repeat left center;
+    background-size: 20px;
+    font-size: 0.75em;
+    margin-left: 1em;
+    padding-left: 25px;
+}
+
+/* player when inside a hero-block */
+
+.hero-block__player {
+    margin: 1em auto 0;
+    text-align: center;
+}
+
+@media only all and (min-width: 768px) {
+    .hero-block__player {
+        bottom: 1.25em;
+        position: absolute;
+        width: calc(100% - 3em - 3em);
+    }
+}
+
+@media only all and (min-width: 1220px) {
+  .hero-block__player {
+    bottom: 3.25em;
+  }
+}
+
+.hero-block__player .player__download:link,
+.hero-block__player .player__download:visited {
+    color: inherit;
+}
