@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg id="Layer_1" style="enable-background:new -385 262.4 70.9 70.9" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="-385 262.4 70.9 70.9" version="1.1" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style type="text/css">
+    .st0{clip-path:url(#SVGID_2_);fill:#ffffff;}
+  </style>
+  <defs>
+    <path id="SVGID_1_" d="m-367.2 314.3v5.1h35.4v-5.1h-35.4zm35.3-22.8h-10.1v-15.2h-15.2v15.2h-10.1l17.7 17.7 17.7-17.7z"/>
+  </defs>
+  <use fill-rule="evenodd" xlink:href="#SVGID_1_" clip-rule="evenodd" fill="#229FD8"/>
+    <clipPath id="SVGID_2_">
+  <use xlink:href="#SVGID_1_"/>
+  </clipPath>
+  <rect y="263.7" x="-379.9" height="68.2" class="st0" width="60.6"/>
+</svg>

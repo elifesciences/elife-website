@@ -218,7 +218,9 @@ function elife_templates_preprocess_semanticviews_view_unformatted(&$variables) 
 function elife_templates_preprocess_html(&$variables) {
   if (count(array_intersect([
     'node-type-elife-collection',
+    'node-type-elife-podcast',
     'page-collections',
+    'page-podcast',
   ], $variables['classes_array']))) {
     drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/collection.css');
   }

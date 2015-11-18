@@ -34,6 +34,8 @@ function elife_hero_block_theme($existing, $type, $theme, $path) {
           'cta_text' => ELIFE_HERO_BLOCK_CTA_TEXT_DEFAULT,
           'cta_link_text' => ELIFE_HERO_BLOCK_CTA_LINK_TEXT_DEFAULT,
           'cta_link_url' => ELIFE_HERO_BLOCK_CTA_LINK_TEXT_URL_DEFAULT,
+          'player' => NULL,
+          'player_autoplay' => FALSE,
           'content_column_items' => [],
         ],
         'template' => 'elife_hero_block',

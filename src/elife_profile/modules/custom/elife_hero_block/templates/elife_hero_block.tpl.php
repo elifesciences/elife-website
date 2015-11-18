@@ -47,6 +47,15 @@ if (empty($image_colour)) {
         </a>
       </div>
     <?php endif; ?>
+
+    <?php if (!empty($player)): ?>
+      <div class="hero-block__player player">
+        <audio controls <?php if ($player_autoplay): ?>autoplay<?php endif; ?> class="player__player">
+          <source src="<?php print $player; ?>" type="audio/mpeg; codecs=mp3"/>
+        </audio>
+        <a href="<?php print $player; ?>" class="player__download">Download</a>
+      </div>
+    <?php endif; ?>
   </div>
 
   <?php if (!empty($content_column_items)): ?>

@@ -532,6 +532,17 @@ JS;
   }
 
   /**
+   * Check that an element has an attribute.
+   *
+   * This can be used for value-less attributes, such as 'download'.
+   *
+   * @Then /^the "(?P<elem>(?:[^"]|\\")*)" element should have the "(?P<attr>(?:[^"]|\\")*)" attribute$/
+   */
+  public function theElementShouldHaveTheAttribute($elem, $attr) {
+    $this->returnValueOfAttribute($elem, $attr);
+  }
+
+  /**
    * Check for the value of a metatag.
    *
    * @Then /^the metatag attribute "(?P<attribute>[^"]*)" should have the value "(?P<value>[^"]*)"$/
@@ -615,6 +626,10 @@ JS;
     if (!$element) {
       throw new Exception('Expected element ' . $elem . ' not found on page.');
     }
+    if (!$element->hasAttribute($attr)) {
+      throw new Exception('Expected element ' . $elem . ' to have attribute ' . $attr . ', but it does not.');
+    }
+
     $current_value = $element->getAttribute($attr);
 
     if ($url_flag) {

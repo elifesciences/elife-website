@@ -795,6 +795,15 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create elife_podcast_chapter content'.
+  $permissions['create elife_podcast_chapter content'] = array(
+    'name' => 'create elife_podcast_chapter content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create elife_term_reference content'.
   $permissions['create elife_term_reference content'] = array(
     'name' => 'create elife_term_reference content',
@@ -957,6 +966,15 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any elife_podcast_chapter content'.
+  $permissions['delete any elife_podcast_chapter content'] = array(
+    'name' => 'delete any elife_podcast_chapter content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any elife_term_reference content'.
   $permissions['delete any elife_term_reference content'] = array(
     'name' => 'delete any elife_term_reference content',
@@ -1077,6 +1095,15 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete own elife_podcast content'.
   $permissions['delete own elife_podcast content'] = array(
     'name' => 'delete own elife_podcast content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own elife_podcast_chapter content'.
+  $permissions['delete own elife_podcast_chapter content'] = array(
+    'name' => 'delete own elife_podcast_chapter content',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -1308,6 +1335,15 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any elife_podcast_chapter content'.
+  $permissions['edit any elife_podcast_chapter content'] = array(
+    'name' => 'edit any elife_podcast_chapter content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any elife_term_reference content'.
   $permissions['edit any elife_term_reference content'] = array(
     'name' => 'edit any elife_term_reference content',
@@ -1437,6 +1473,15 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit own elife_podcast content'.
   $permissions['edit own elife_podcast content'] = array(
     'name' => 'edit own elife_podcast content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own elife_podcast_chapter content'.
+  $permissions['edit own elife_podcast_chapter content'] = array(
+    'name' => 'edit own elife_podcast_chapter content',
     'roles' => array(
       'administrator' => 'administrator',
     ),
@@ -2004,6 +2049,15 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_podcast content'.
   $permissions['view any unpublished elife_podcast content'] = array(
     'name' => 'view any unpublished elife_podcast content',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view any unpublished elife_podcast_chapter content'.
+  $permissions['view any unpublished elife_podcast_chapter content'] = array(
+    'name' => 'view any unpublished elife_podcast_chapter content',
     'roles' => array(
       'administrator' => 'administrator',
     ),

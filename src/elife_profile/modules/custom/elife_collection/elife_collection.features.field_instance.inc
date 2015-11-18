@@ -274,51 +274,6 @@ function elife_collection_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_collection-field_elife_c_podcast'.
-  $field_instances['node-elife_collection-field_elife_c_podcast'] = array(
-    'bundle' => 'elife_collection',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => 1,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 7,
-      ),
-      'elife_teaser_compact' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 10,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 12,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_c_podcast',
-    'label' => 'Podcast',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'node-elife_collection-field_elife_c_related'.
   $field_instances['node-elife_collection-field_elife_c_related'] = array(
     'bundle' => 'elife_collection',
@@ -535,7 +490,6 @@ function elife_collection_field_default_field_instances() {
   t('Introduction');
   t('Is this image dark or light?');
   t('Link to other content that is related to this collection. To link to a page outside of the eLife website, create content of the type \'eLife External Link\' first, then attach it here alongside as with pages on this website.');
-  t('Podcast');
   t('Related content');
   t('Sub-title');
   t('Title');

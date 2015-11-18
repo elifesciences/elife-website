@@ -67,6 +67,7 @@ dependencies[] = imce
 dependencies[] = inline_entity_form
 dependencies[] = insert
 dependencies[] = jquery_update
+dependencies[] = label_help
 dependencies[] = lagotto_services
 dependencies[] = libraries
 dependencies[] = link
