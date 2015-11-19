@@ -70,6 +70,23 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @Then /^I should be redirected to "(?P<page>[^"]+)"(?: with a (?P<status>\d+))?$/
+   */
+  public function redirectionShouldPointTo($page, $status = NULL) {
+    $location = $this->getSession()->getResponseHeader('Location');
+
+    if (empty($location)) {
+      throw new \RuntimeException('The response should contain a "Location" header');
+    }
+
+    Assertions::assertEquals($location, $this->locatePath($page), 'The "Location" header points to the correct URI');
+
+    if ($status !== NULL) {
+      $this->assertSession()->statusCodeEquals($status);
+    }
+  }
+
+  /**
    * Set up an article.
    *
    * @param PyStringNode $string
