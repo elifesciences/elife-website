@@ -273,15 +273,6 @@ function elife_users_user_default_permissions() {
     'module' => 'filter',
   );
 
-  // Exported permission: 'administer google analytics'.
-  $permissions['administer google analytics'] = array(
-    'name' => 'administer google analytics',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'googleanalytics',
-  );
-
   // Exported permission: 'administer image styles'.
   $permissions['administer image styles'] = array(
     'name' => 'administer image styles',
@@ -327,24 +318,6 @@ function elife_users_user_default_permissions() {
     'module' => 'menu',
   );
 
-  // Exported permission: 'administer menu attributes'.
-  $permissions['administer menu attributes'] = array(
-    'name' => 'administer menu attributes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'menu_attributes',
-  );
-
-  // Exported permission: 'administer menu_token'.
-  $permissions['administer menu_token'] = array(
-    'name' => 'administer menu_token',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'menu_token',
-  );
-
   // Exported permission: 'administer meta tags'.
   $permissions['administer meta tags'] = array(
     'name' => 'administer meta tags',
@@ -361,15 +334,6 @@ function elife_users_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'panels_mini',
-  );
-
-  // Exported permission: 'administer module filter'.
-  $permissions['administer module filter'] = array(
-    'name' => 'administer module filter',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'module_filter',
   );
 
   // Exported permission: 'administer modules'.
@@ -667,24 +631,6 @@ function elife_users_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'clone node'.
-  $permissions['clone node'] = array(
-    'name' => 'clone node',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'clone',
-  );
-
-  // Exported permission: 'clone own nodes'.
-  $permissions['clone own nodes'] = array(
-    'name' => 'clone own nodes',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'clone',
   );
 
   // Exported permission: 'create elife_article content'.
@@ -1695,15 +1641,6 @@ function elife_users_user_default_permissions() {
     'module' => 'pathauto',
   );
 
-  // Exported permission: 'opt-in or out of tracking'.
-  $permissions['opt-in or out of tracking'] = array(
-    'name' => 'opt-in or out of tracking',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'googleanalytics',
-  );
-
   // Exported permission: 'perform unlimited index queries'.
   $permissions['perform unlimited index queries'] = array(
     'name' => 'perform unlimited index queries',
@@ -1846,15 +1783,6 @@ function elife_users_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'auto_entitylabel',
-  );
-
-  // Exported permission: 'use PHP for tracking visibility'.
-  $permissions['use PHP for tracking visibility'] = array(
-    'name' => 'use PHP for tracking visibility',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'googleanalytics',
   );
 
   // Exported permission: 'use ctools import'.
