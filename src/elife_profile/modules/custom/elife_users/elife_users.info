@@ -13,6 +13,7 @@ dependencies[] = ctools
 dependencies[] = ds
 dependencies[] = elife_article
 dependencies[] = elife_front_matter
+dependencies[] = elife_person_profile
 dependencies[] = elife_resources
 dependencies[] = elysia_cron
 dependencies[] = entityqueue

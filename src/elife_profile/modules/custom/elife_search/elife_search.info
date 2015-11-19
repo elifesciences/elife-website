@@ -12,6 +12,7 @@ dependencies[] = search_api_solr
 dependencies[] = search_api_views
 dependencies[] = views
 dependencies[] = views_content
+dependencies[] = webform
 features[ctools][] = elysia_cron:default_elysia_cron_rules:1
 features[ctools][] = facetapi:facetapi_defaults:1
 features[ctools][] = page_manager:pages_default:1
