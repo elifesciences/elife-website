@@ -91,6 +91,23 @@ install:
 
   # Configure Behat
   - cp ./tests/build/travis.behat.yml ./tests/behat/behat.yml
+  
+  # Get phantomjs (sticking with 1.9 series for now: there is no stable 2.x
+  # series binary for Linux atm, and as it takes ~ 30 mins to build, so we won't
+  # do that. DM 23/11/2015)
+  - if [[ ! -e "$HOME/custom/phantomjs-1.9.2-linux-x86_64" ]]; then wget --directory-prefix="$HOME/custom" https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-x86_64.tar.bz2; fi;
+  - cwd=$(pwd)
+  - cd $HOME/custom
+  - tar xjf ./phantomjs-1.9.2-linux-x86_64.tar.bz2
+  - cd $cwd
+
+  # Get Galen
+  - if [[ ! -e "$HOME/custom/galen-bin-2.1.3" ]]; then wget --directory-prefix="$HOME/custom" https://github.com/galenframework/galen/releases/download/galen-2.1.3/galen-bin-2.1.3.zip; fi;
+  - cd $HOME/custom/
+  - unzip -o ./galen-bin-2.1.3.zip
+  - cd $HOME/custom/galen-bin-2.1.3
+  - sudo ./install.sh
+  - cd $cwd
 
 script:
   - ./run-tests.sh

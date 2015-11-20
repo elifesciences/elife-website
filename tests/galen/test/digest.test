@@ -1,0 +1,22 @@
+@@ import _base_url.test
+@@ import _sizes.test
+
+@@ set
+  base_url  ${base_url} 
+
+@@ parameterized
+    | viewport   | tags      | size            |
+    | Narrow     | narrow    | ${size_narrow}  |
+    | Medium     | medium    | ${size_medium}  |
+    | Wide       | wide      | ${size_wide}    |
+
+@@ parameterized
+    | browser   |
+    | firefox   |
+    | phantomjs |
+
+@@ groups article, digest
+Digest at ${viewport} width viewport in ${browser}
+  selenium ${browser} ${base_url}/content/2/e00288v1 ${size}
+    check spec/digest/digest-none.gspec --include ${tags}
+    check spec/digest/digest-visible.gspec --include ${tags}
