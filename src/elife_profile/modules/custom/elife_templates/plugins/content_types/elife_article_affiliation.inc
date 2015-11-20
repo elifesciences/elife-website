@@ -67,7 +67,7 @@ function _elife_article_affiliation_list_cache(ArticleVersion $dto) {
             if (!empty($references['affiliation'])) {
               foreach ($references['affiliation'] as $aff_id) {
                 if (isset($referenced_affs[$aff_id])) {
-                  _elife_article_affiliation_list_process_item($affiliations, $referenced_affs[$aff_id], 'item-' . $co);
+                  _elife_article_affiliation_list_process_item($affiliations, $referenced_affs[$aff_id], $co);
                 }
               }
             }
@@ -87,6 +87,7 @@ function _elife_article_affiliation_list_cache(ArticleVersion $dto) {
 }
 
 function _elife_article_affiliation_list_process_item(&$affiliations, Affiliation $affiliation, $pos) {
+  $item_pos = 'item-' . $pos;
   $aff_name = [];
   $aff_str = '';
   if ($institution = $affiliation->getInstitution()) {
@@ -108,8 +109,8 @@ function _elife_article_affiliation_list_process_item(&$affiliations, Affiliatio
     if (empty($affiliations[$aff_str])) {
       $affiliations[$aff_str]['markup'] = implode(', ', $aff);
     }
-    if (empty($affiliations[$aff_str]['positions']) || !in_array($pos, $affiliations[$aff_str]['positions'])) {
-      $affiliations[$aff_str]['positions'][] = $pos;
+    if (empty($affiliations[$aff_str]['positions']) || !in_array($item_pos, $affiliations[$aff_str]['positions'])) {
+      $affiliations[$aff_str]['positions'][] = $item_pos;
     }
   }
 }
