@@ -26,7 +26,7 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
       $sections = ElifeMarkupService::getSectionLabels();
       // We want to catch titles in all sections apart from author and article info.
       foreach ($sections as $section_id => $section_name) {
-        if (preg_match('/^(author|article)\-info/', $section_id)) {
+        if (preg_match('/^(datasets|author\-info|article\-)/', $section_id)) {
           unset($sections[$section_id]);
         }
       }
