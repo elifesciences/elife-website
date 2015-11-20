@@ -650,3 +650,73 @@ Feature: Affiliations
     And I go to "content/2/e00288v1"
     Then I should see an ".elife-institution" element
     Then I should see "University of Texas Southwestern Medical Center, United States" in the ".elife-institutions-list" element
+
+  Scenario: An affiliation should not appear in the listing if there is no institution
+    Given there is an article:
+      """
+        {
+          "article-type": "research-article",
+          "title": "New opportunities at the wild frontier",
+          "status": "VOR",
+          "publish": "1",
+          "doi": "10.7554/eLife.06956",
+          "pub-date": "2015-03-25",
+          "volume": "4",
+          "elocation-id": "e06956",
+          "path": "content/4/e06956v1",
+          "article-id": "06956",
+          "categories": {
+            "display-channel": [
+              "Feature Article"
+            ]
+          },
+          "contributors": [
+            {
+              "type": "author",
+              "surname": "Alfred",
+              "given-names": "Jane",
+              "id": "author-17393",
+              "role": "Consultant Editor",
+              "corresp": "yes",
+              "orcid": "http://orcid.org/0000-0001-6798-0064",
+              "references": {
+                "affiliation": [
+                  "aff1"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Baldwin",
+              "given-names": "Ian T",
+              "id": "author-1013",
+              "role": "Senior Editor",
+              "corresp": "yes",
+              "orcid": "http://orcid.org/0000-0001-5371-2974",
+              "references": {
+                "affiliation": [
+                  "aff2"
+                ]
+              }
+            }
+          ],
+          "referenced": {
+            "affiliation": {
+              "aff1": {
+                "city": "Cambridge",
+                "country": "United Kingdom"
+              },
+              "aff2": {
+                "institution": "Max Planck Institute for Chemical Ecology",
+                "city": "Jena",
+                "country": "Germany"
+              }
+            }
+          },
+          "version": "1",
+          "article-version-id": "06956.1"
+        }
+      """
+    And I go to "content/4/e06956v1"
+    Then I should see an ".elife-institution" element
+    Then I should see "Max Planck Institute for Chemical Ecology, Germany" in the ".elife-institutions-list" element
