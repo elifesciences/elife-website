@@ -47,25 +47,25 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
             $related_dto = elife_article_version_to_dto($related);
             $variables = [];
             if ($critical_relation_type == 'builds') {
-              if ($related_to->display_channel == 'Research article') {
+              if (strtolower($related_to->display_channel) == 'research article') {
                 $variables['reln_title'] = t('Builds upon');
                 $variables['reln_type'] = 'research-article';
                 $variables['reln_type_id'] = 'researchArticle';
               }
-              elseif ($related_to->display_channel == 'Research advance') {
+              elseif (strtolower($related_to->display_channel) == 'research advance') {
                 $variables['reln_title'] = t('Built upon by');
                 $variables['reln_type'] = 'research-advance';
                 $variables['reln_type_id'] = 'researchAdvance';
               }
             }
             elseif ($critical_relation_type == 'replicates') {
-              if ($related_to->display_channel == 'Registered report') {
-                $variables['reln_title'] = t('Registered report');
+              if (strtolower($related_to->display_channel) == 'registered report') {
+                $variables['reln_title'] = $related_to->display_channel;
                 $variables['reln_type'] = 'registered-report';
                 $variables['reln_type_id'] = 'registeredReport';
               }
-              elseif ($related_to->display_channel == 'Replication study') {
-                $variables['reln_title'] = t('Replication study');
+              elseif (strtolower($related_to->display_channel) == 'replication study') {
+                $variables['reln_title'] = $related_to->display_channel;
                 $variables['reln_type'] = 'replication-study';
                 $variables['reln_type_id'] = 'replicationStudy';
               }

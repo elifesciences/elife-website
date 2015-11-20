@@ -792,7 +792,4 @@ Feature: Article Resource - Related articles (API)
     Then I should see "Replication study" in the ".pane-elife-article-criticalrelation" element
     And I should see 1 "#replicationStudy h3" elements
     And I should see "VOR 05225" in the "#replicationStudy" element
-    And I should see "Built upon by" in the ".pane-elife-article-criticalrelation" element
-    And I should see 2 "#researchAdvance h3" elements
-    And I should see "VOR 05226" in the "#researchAdvance" element
-    And I should see "VOR 05227" in the "#researchAdvance" element
+    And I should see 0 "#researchAdvance" elements
