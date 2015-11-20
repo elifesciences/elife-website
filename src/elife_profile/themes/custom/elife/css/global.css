@@ -1671,27 +1671,27 @@ div.highwire-markup p {
 .highwire-markup img.highwire-embed { max-width: 100%; }
 
   /* boxed-text */
-  div.highwire-markup .boxed-text {
+  .boxed-text {
     background: #e9f5fb;
     font-size: 0.86em;
     padding: 15px 20px;
     margin-bottom: 15px;
   }
 
-  div.highwire-markup .boxed-text p {
+  .boxed-text p {
     line-height: 1.2em;
   }
-  div.highwire-markup .boxed-text > p:last-child {
+  .boxed-text > p:last-child {
     margin-bottom: 0;
   }
 
     /* Insight articles - position boxed-text images to left */
-    div.highwire-markup .boxed-text.insight-image {
+    .boxed-text.insight-image {
       min-height: 103px;
       position: relative;
     }
 
-    div.highwire-markup .boxed-text.insight-image img {
+    .boxed-text.insight-image img {
       border: 1px solid #929497;
       height: auto;
       position: absolute;
@@ -1701,7 +1701,7 @@ div.highwire-markup p {
       width: 100px;
     }
 
-    div.highwire-markup .boxed-text.insight-image > p {
+    .boxed-text.insight-image > p {
       padding-left: 115px;
     }
 
