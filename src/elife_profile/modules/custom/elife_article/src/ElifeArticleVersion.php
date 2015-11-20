@@ -1132,10 +1132,10 @@ class ElifeArticleVersion {
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
         $relation_ordered = "CONCAT($least(td_1.name, td_2.name), '|', $greatest(td_1.name, td_2.name))";
         $query->addExpression($relation_ordered, 'relation_ordered');
-        $relation_ordered = "CONCAT('|', " . $relation_ordered . ", '|')";
+        $relation_ordered = "LOWER(CONCAT('|', " . $relation_ordered . ", '|'))";
         $criticals = [
-          'builds' => '%|Research advance|%',
-          'replicates' => '|Registered report|Replication study|',
+          'builds' => strtolower('|research advance|research article|'),
+          'replicates' => strtolower('|registered report|replication study|'),
         ];
         if ($critical === 0) {
           $ands = [];
