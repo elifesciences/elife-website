@@ -67,3 +67,586 @@ Feature: Affiliations
     And I go to "content/2/e00288v1"
     Then I should see "Boris" in the ".given-names" element
     And I should see "Fred Hutchinson Cancer Research Center, United States; Cancer Research Center, United States" in the ".elife-institutions-list" element
+
+  Scenario: Duplicate affiliations are avoided in the affiliation list under the list of authors
+    Given there is an article:
+    """
+      {
+        "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
+        "status":"VOR",
+        "article-type":"research-article",
+        "pub-date":"2013-08-20",
+        "version":"1",
+        "volume":"2",
+        "elocation-id":"e00288",
+        "doi":"10.7554/eLife.00288",
+        "article-id":"10.7554/eLife.00288",
+        "article-version-id":"00288.1",
+        "pub-date":"2014-10-14",
+        "path":"content/2/e00288v1",
+        "article-type":"research-article",
+        "status":"VOR",
+        "publish":"1",
+        "contributors":[
+          {
+            "surname":"Choi",
+            "given-names":"Hong Y",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            },
+            "equal-contrib":"yes",
+            "type":"author",
+            "id":"author-2174"
+          },
+          {
+            "surname":"Liu",
+            "given-names":"Yun",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            },
+            "equal-contrib":"yes",
+            "type":"author",
+            "id":"author-2175"
+          },
+          {
+            "type":"author",
+            "given-names":"Christian",
+            "surname":"Tennert",
+            "id":"author-2176",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Yoshie",
+            "surname":"Sugiura",
+            "id":"author-2177",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Andromachi",
+            "surname":"Karakatsani",
+            "id":"author-5751",
+            "references":{
+              "affiliation":[
+                "aff3"
+              ],
+              "contribution":[
+                "con6"
+              ],
+              "competing-interest":[
+                "conf1"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Stephan",
+            "surname":"Kr\u00f6ger",
+            "id":"author-5752",
+            "references":{
+              "affiliation":[
+                "aff3"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Eric B",
+            "surname":"Johnson",
+            "id":"author-6539",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Robert E",
+            "surname":"Hammer",
+            "id":"author-2179",
+            "references":{
+              "affiliation":[
+                "aff4"
+              ]
+            }
+          },
+          {
+            "surname":"Lin",
+            "corresp":"yes",
+            "given-names":"Weichun",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            },
+            "type":"author",
+            "id":"author-2180"
+          },
+          {
+            "surname":"Herz",
+            "corresp":"yes",
+            "given-names":"Joachim",
+            "references":{
+              "affiliation":[
+                "aff1",
+                "aff2",
+                "aff5",
+                "aff6"
+              ]
+            },
+            "affiliations":[
+              {
+                "country":"France",
+                "institution":"Institut Pasteur"
+              }
+            ],
+            "type":"author",
+            "id":"author-1351"
+          },
+          {
+            "surname":"Buckingham",
+            "given-names":"Margaret",
+            "role":"Reviewing editor",
+            "affiliations":[
+              {
+                "country":"France",
+                "institution":"Institut Pasteur"
+              }
+            ],
+            "type":"editor"
+          }
+        ],
+        "referenced":{
+          "affiliation":{
+            "aff6":{
+              "dept":"Center for Neuroscience",
+              "city":"Freiburg",
+              "institution":"Albert-Ludwigs-Universit\u00e4t Freiburg",
+              "country":"Germany"
+            },
+            "aff5":{
+              "dept":"Department of Neurology and Neurotherapeutics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff4":{
+              "dept":"Department of Biochemistry",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff3":{
+              "dept":"Department of Physiological Genomics",
+              "city":"M\u00fcnchen",
+              "institution":"Ludwig-Maximilians-Universit\u00e4t M\u00fcnchen",
+              "country":"Germany"
+            },
+            "aff2":{
+              "dept":"Department of Neuroscience",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff1":{
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          }
+        }
+      }
+    """
+    And I go to "content/2/e00288v1"
+    Then I should see 4 ".elife-institution" elements
+    Then I should see "University of Texas Southwestern Medical Center, United States; Ludwig-Maximilians-Universität München, Germany; Institut Pasteur, France; Albert-Ludwigs-Universität Freiburg, Germany" in the ".elife-institutions-list" element
+
+  Scenario: Duplicate affiliations are avoided even when afiliations are both referenced and associated directly to author
+    Given there is an article:
+    """
+      {
+        "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
+        "status":"VOR",
+        "article-type":"research-article",
+        "pub-date":"2013-08-20",
+        "version":"1",
+        "volume":"2",
+        "elocation-id":"e00288",
+        "doi":"10.7554/eLife.00288",
+        "article-id":"10.7554/eLife.00288",
+        "article-version-id":"00288.1",
+        "pub-date":"2014-10-14",
+        "path":"content/2/e00288v1",
+        "article-type":"research-article",
+        "status":"VOR",
+        "publish":"1",
+        "contributors":[
+          {
+            "surname":"Choi",
+            "given-names":"Hong Y",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            },
+            "equal-contrib":"yes",
+            "type":"author",
+            "id":"author-2174"
+          },
+          {
+            "surname":"Liu",
+            "given-names":"Yun",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            },
+            "equal-contrib":"yes",
+            "type":"author",
+            "id":"author-2175"
+          },
+          {
+            "type":"author",
+            "given-names":"Christian",
+            "surname":"Tennert",
+            "id":"author-2176",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Yoshie",
+            "surname":"Sugiura",
+            "id":"author-2177",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Andromachi",
+            "surname":"Karakatsani",
+            "id":"author-5751",
+            "references":{
+              "affiliation":[
+                "aff3"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Stephan",
+            "surname":"Kr\u00f6ger",
+            "id":"author-5752",
+            "references":{
+              "affiliation":[
+                "aff3"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Eric B",
+            "surname":"Johnson",
+            "id":"author-6539",
+            "references":{
+              "affiliation":[
+                "aff1"
+              ]
+            }
+          },
+          {
+            "type":"author",
+            "given-names":"Robert E",
+            "surname":"Hammer",
+            "id":"author-2179",
+            "references":{
+              "affiliation":[
+                "aff4"
+              ]
+            }
+          },
+          {
+            "surname":"Lin",
+            "corresp":"yes",
+            "given-names":"Weichun",
+            "references":{
+              "affiliation":[
+                "aff2"
+              ]
+            },
+            "type":"author",
+            "id":"author-2180"
+          },
+          {
+            "surname":"Herz",
+            "corresp":"yes",
+            "given-names":"Joachim",
+            "references":{
+              "affiliation":[
+                "aff1",
+                "aff2",
+                "aff5",
+                "aff6"
+              ]
+            },
+            "affiliations":[
+              {
+                "dept":"Department of Molecular Genetics",
+                "city":"Dallas",
+                "institution":"University of Texas Southwestern Medical Center",
+                "country":"United States"
+              }
+            ],
+            "type":"author",
+            "id":"author-1351"
+          }
+        ],
+        "referenced":{
+          "affiliation":{
+            "aff6":{
+              "dept":"Center for Neuroscience",
+              "city":"Freiburg",
+              "institution":"Albert-Ludwigs-Universit\u00e4t Freiburg",
+              "country":"Germany"
+            },
+            "aff5":{
+              "dept":"Department of Neurology and Neurotherapeutics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff4":{
+              "dept":"Department of Biochemistry",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff3":{
+              "dept":"Department of Physiological Genomics",
+              "city":"M\u00fcnchen",
+              "institution":"Ludwig-Maximilians-Universit\u00e4t M\u00fcnchen",
+              "country":"Germany"
+            },
+            "aff2":{
+              "dept":"Department of Neuroscience",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            "aff1":{
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          }
+        }
+      }
+    """
+    And I go to "content/2/e00288v1"
+    Then I should see 3 ".elife-institution" elements
+    Then I should see "University of Texas Southwestern Medical Center, United States; Ludwig-Maximilians-Universität München, Germany; Albert-Ludwigs-Universität Freiburg, Germany" in the ".elife-institutions-list" element
+
+  Scenario: Duplicate affiliations are avoided even when afiliations are not referenced and associated directly to author
+    Given there is an article:
+    """
+     {
+      "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
+      "status":"VOR",
+      "article-type":"research-article",
+      "pub-date":"2013-08-20",
+      "version":"1",
+      "volume":"2",
+      "elocation-id":"e00288",
+      "doi":"10.7554/eLife.00288",
+      "article-id":"10.7554/eLife.00288",
+      "article-version-id":"00288.1",
+      "pub-date":"2014-10-14",
+      "path":"content/2/e00288v1",
+      "article-type":"research-article",
+      "status":"VOR",
+      "publish":"1",
+      "contributors":[
+        {
+          "surname":"Choi",
+          "given-names":"Hong Y",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ],
+          "equal-contrib":"yes",
+          "type":"author",
+          "id":"author-2174"
+        },
+        {
+          "surname":"Liu",
+          "given-names":"Yun",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genomics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ],
+          "equal-contrib":"yes",
+          "type":"author",
+          "id":"author-2175"
+        },
+        {
+          "type":"author",
+          "given-names":"Christian",
+          "surname":"Tennert",
+          "id":"author-2176",
+          "affiliations":[
+            {
+              "dept":"Department of Biology",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "type":"author",
+          "given-names":"Yoshie",
+          "surname":"Sugiura",
+          "id":"author-2177",
+          "affiliations":[
+            {
+              "dept":"Department of Physics",
+              "city":"Dallas2",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "type":"author",
+          "given-names":"Andromachi",
+          "surname":"Karakatsani",
+          "id":"author-5751",
+          "affiliations":[
+            {
+              "dept":"Department of Astronomical Sciences",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "type":"author",
+          "given-names":"Stephan",
+          "surname":"Kr\u00f6ger",
+          "id":"author-5752",
+          "affiliations":[
+            {
+              "dept":"Department of Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "type":"author",
+          "given-names":"Eric B",
+          "surname":"Johnson",
+          "id":"author-6539",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "type":"author",
+          "given-names":"Robert E",
+          "surname":"Hammer",
+          "id":"author-2179",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genomics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ]
+        },
+        {
+          "surname":"Lin",
+          "corresp":"yes",
+          "given-names":"Weichun",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ],
+          "type":"author",
+          "id":"author-2180"
+        },
+        {
+          "surname":"Herz",
+          "corresp":"yes",
+          "given-names":"Joachim",
+          "affiliations":[
+            {
+              "dept":"Department of Molecular Genetics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            {
+              "dept":"Department of Molecular Genomics",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            },
+            {
+              "dept":"Department of Molecular Biology",
+              "city":"Dallas",
+              "institution":"University of Texas Southwestern Medical Center",
+              "country":"United States"
+            }
+          ],
+          "type":"author",
+          "id":"author-1351"
+        }
+      ]
+    }
+    """
+    And I go to "content/2/e00288v1"
+    Then I should see an ".elife-institution" element
+    Then I should see "University of Texas Southwestern Medical Center, United States" in the ".elife-institutions-list" element
