@@ -132,3 +132,112 @@ Feature: Contribution
       | Johannes Krause    | 2 |
       | Marco Thines       | 3 |
       | Detlef Weigel      | 4 |
+
+  Scenario Outline: Contribution should be displayed without prefix (text before first colon or comma, if no colon detected, should be deleted)
+    Given there is an article:
+      """
+        {
+          "article-type": "research-article",
+          "title": "Non-canonical TAF complexes regulate active promoters in human embryonic stem cells",
+          "status": "VOR",
+          "publish": "1",
+          "doi": "10.7554/eLife.00068",
+          "pub-date": "2012-11-13",
+          "volume": "1",
+          "elocation-id": "e00068",
+          "path": "content/1/e00068v1",
+          "article-id": "00068",
+          "categories": {
+            "display-channel": [
+              "Research Article"
+            ]
+          },
+          "contributors": [
+            {
+              "type": "author",
+              "surname": "Maston",
+              "given-names": "Glenn A",
+              "id": "author-1629",
+              "references": {
+                "contribution": [
+                  "con1"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Zhu",
+              "given-names": "Lihua Julie",
+              "id": "author-1630",
+              "references": {
+                "contribution": [
+                  "con2"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Chamberlain",
+              "given-names": "Lynn",
+              "id": "author-1631",
+              "references": {
+                "contribution": [
+                  "con3"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Lin",
+              "given-names": "Ling",
+              "id": "author-1632",
+              "references": {
+                "contribution": [
+                  "con3"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Fang",
+              "given-names": "Minggang",
+              "id": "author-2034",
+              "references": {
+                "contribution": [
+                  "con3"
+                ]
+              }
+            },
+            {
+              "type": "author",
+              "surname": "Green",
+              "given-names": "Michael R",
+              "id": "author-1519",
+              "corresp": "yes",
+              "references": {
+                "contribution": [
+                  "con4"
+                ]
+              }
+            }
+          ],
+          "referenced": {
+            "contribution": {
+              "con1": "GAM: Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article",
+              "con2": "LJZ: Analysis and interpretation of data",
+              "con3": "LC, LL, MF: Acquisition of data",
+              "con4": "MRG, Conception and design, Analysis and interpretation of data, Drafting or revising the article"
+            }
+          },
+          "version": "1",
+          "article-version-id": "00068.1"
+        }
+      """
+    When I am on "content/1/e00068v1"
+    Then I should see "Contribution: <contribution>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip-contrib" element
+
+    Examples:
+      | n | contribution                                                                                                      |
+      | 1 | Conception and design, Acquisition of data, Analysis and interpretation of data, Drafting or revising the article |
+      | 4 | Acquisition of data                                                                                               |
+      | 6 | Conception and design, Analysis and interpretation of data, Drafting or revising the article                      |

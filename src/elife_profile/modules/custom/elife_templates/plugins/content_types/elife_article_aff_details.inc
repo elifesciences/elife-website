@@ -37,7 +37,14 @@ function elife_article_aff_details_render($subtype, $conf, $args, $context) {
   if (!empty($contributors)) {
     $contribs = $dto->getReferenced()->getContribution();
     foreach ($contribs as $key => $value) {
-      $contribs[$key] = preg_replace('#^[^\:\,]+(\:|\,) (.*)$#is', '$2', $value);
+      $split = strpos($value, ': ');
+      if (!$split) {
+        $split = strpos($value, ', ');
+      }
+      if ($split) {
+        $value = substr($value, $split + 2);
+      }
+      $contribs[$key] = $value;
     }
 
     $footnotes = [];
