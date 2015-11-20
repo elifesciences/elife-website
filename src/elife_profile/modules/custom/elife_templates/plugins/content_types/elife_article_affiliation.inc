@@ -91,9 +91,9 @@ function _elife_article_affiliation_list_process_item(&$affiliations, Affiliatio
   $aff_str = '';
   if ($institution = $affiliation->getInstitution()) {
     $aff_name['institution'] = $institution;
-  }
-  if ($country = $affiliation->getCountry()) {
-    $aff_name['country'] = $country;
+    if ($country = $affiliation->getCountry()) {
+      $aff_name['country'] = $country;
+    }
   }
 
   if (!empty($aff_name)) {
