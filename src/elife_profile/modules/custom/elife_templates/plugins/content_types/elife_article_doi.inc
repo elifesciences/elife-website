@@ -99,6 +99,7 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
             }
 
             $output .= '<span class="elife-article-correction">';
+            $output .= '<i class="icon-exclamation-sign"></i>';
             $output .= l($label, 'node/' . $related_article->{$related_article->related_to_endpoint . '_article_ver_nid'});
             $output .= '</span>';
           }
