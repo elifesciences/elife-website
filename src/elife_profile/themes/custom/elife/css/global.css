@@ -1607,16 +1607,16 @@ a.logo-wt {
 .pane-elife-article-doi .highwire-doi-epubdate,
 .pane-elife-article-doi .highwire-doi-cite-as,
 .pane-elife-article-doi .elife-article-correction,
-.pane-elife-article-doi .elife-article-retraction
+.pane-elife-article-doi .elife-article-retraction,
 .pane-elife-article-doi .elife-article-addendum {
   display: block;
 }
 
-.pane-elife-article-doi .elife-article-corrections {
+.pane-elife-article-doi .elife-article-correction {
   float: right;
-  font-size: 1.1em;
 }
-.pane-elife-article-doi .elife-article-corrections a {
+
+.pane-elife-article-doi .elife-article-correction a {
   margin-left: 5px;
 }
 
