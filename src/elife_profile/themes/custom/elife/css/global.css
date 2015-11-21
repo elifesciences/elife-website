@@ -1612,11 +1612,12 @@ a.logo-wt {
   display: block;
 }
 
-.pane-elife-article-doi .elife-article-corrections {
+.pane-elife-article-doi .elife-article-correction {
   float: right;
-  font-size: 1.1em;
+  font-size: 13.244px;
+  font-size: 0.82775rem;
 }
-.pane-elife-article-doi .elife-article-corrections a {
+.pane-elife-article-doi .elife-article-correction a {
   margin-left: 5px;
 }
 
