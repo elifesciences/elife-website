@@ -2039,7 +2039,7 @@ function elife_article_pages_default_page_manager_handlers() {
   );
   $pane->css = array(
     'css_id' => '',
-    'css_class' => '',
+    'css_class' => 'article-text',
   );
   $pane->extras = array();
   $pane->position = 7;

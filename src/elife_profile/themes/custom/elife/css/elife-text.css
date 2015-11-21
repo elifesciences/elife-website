@@ -91,6 +91,16 @@ h2, h4, h5, h6 {
 	color: #6d6e70;
 }
 
+.article-text h3 {
+	border: 0;
+	color: #6d6e70;
+	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
+	font-size: 18px;
+	font-size: 1.125rem;
+	line-height: 1.875;
+	margin-top: 0;
+}
+
 /* Page Elements */
 #elife-rotating-tagline .item-list .elife-tagline-list {
 	color: #6d6e70;
