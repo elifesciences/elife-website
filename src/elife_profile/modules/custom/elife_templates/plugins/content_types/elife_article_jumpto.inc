@@ -49,8 +49,8 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
           $xml->preserveWhiteSpace = FALSE;
           $xml->loadHTML('<meta http-equiv="content-type" content="text/html; charset=utf-8"><wrapper>' . implode("\n", $results['main-text']) . '</wrapper>');
           $xpath = new DOMXPath($xml);
-          foreach ($xpath->query('//h2') as $i => $h2) {
-            $links['article']['children']['main-text']['children'][] = elife_article_jumpto_link($h2->nodeValue, $h2->parentNode->getAttribute('id'), 'jnl_elife_article_article');
+          foreach ($xpath->query('//h3') as $i => $h3) {
+            $links['article']['children']['main-text']['children'][] = elife_article_jumpto_link($h3->nodeValue, $h3->parentNode->getAttribute('id'), 'jnl_elife_article_article');
           }
           libxml_clear_errors();
         }
