@@ -226,6 +226,24 @@ function elife_templates_preprocess_html(&$variables) {
   }
 }
 
+/**
+ * Implements hook_libraries_info().
+ */
+function elife_templates_libraries_info() {
+  $libraries['jquery.scrollTo'] = array(
+    'name' => 'jQuery scrollTo plugin',
+    'vendor url' => 'https://github.com/flesler/jquery.scrollTo',
+    'download url' => 'https://github.com/flesler/jquery.scrollTo',
+    'version' => '2.4.2',
+    'files' => array(
+      'js' => array(
+        'jquery.scrollTo.min.js',
+      ),
+    ),
+  );
+  return $libraries;
+}
+
 function elife_templates_article_page_markup_assets() {
   $cache = &drupal_static(__FUNCTION__, FALSE);
   if (!$cache) {
@@ -236,8 +254,12 @@ function elife_templates_article_page_markup_assets() {
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_tables.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_references.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_digest.js');
-
+    if ($scrollTo = libraries_load('jquery.scrollTo') && !empty($scrollTo['loaded'])) {
+      drupal_add_js($scrollTo['files']['js']);
+    }
+    
     $cache = TRUE;
   }
   return $cache;
 }
+
