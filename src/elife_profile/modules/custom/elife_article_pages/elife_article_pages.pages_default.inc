@@ -17,7 +17,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -23;
+  $handler->weight = -24;
   $handler->conf = array(
     'title' => 'eLife Fragment',
     'no_blocks' => 0,
@@ -818,7 +818,7 @@ function elife_article_pages_default_page_manager_handlers() {
   $handler->task = 'node_view';
   $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = -24;
+  $handler->weight = -23;
   $handler->conf = array(
     'title' => 'eLife Fragment (Sub Article)',
     'no_blocks' => 0,
