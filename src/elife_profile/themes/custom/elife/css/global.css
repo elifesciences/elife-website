@@ -3638,6 +3638,19 @@ a.back-to-top:hover {
   font-family: Helvetica, Arial, Verdana, sans-serif;
   line-spacing:normal;
 }
+
+/* Need this selector depth for specificity war. */
+.main-wrapper .visible-small h2.pane-title {
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-size: 0.875rem;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.main-wrapper .visible-small .ctools-toggle {
+  margin-top: 6px;
+}
+
 /**
  * Article Category Color Coding
  */
