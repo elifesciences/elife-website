@@ -187,6 +187,11 @@ function elife_archive_views_default_views() {
   $handler->display->display_options['filters']['name_8']['relationship'] = 'field_elife_a_category_target_id';
   $handler->display->display_options['filters']['name_8']['value'] = 'Tools and resources';
   $handler->display->display_options['filters']['name_8']['group'] = 2;
+  /* Filter criterion: Content: Article versions (field_elife_a_versions:delta) */
+  $handler->display->display_options['filters']['delta']['id'] = 'delta';
+  $handler->display->display_options['filters']['delta']['table'] = 'field_data_field_elife_a_versions';
+  $handler->display->display_options['filters']['delta']['field'] = 'delta';
+  $handler->display->display_options['filters']['delta']['value']['value'] = '0';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
