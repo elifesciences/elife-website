@@ -239,7 +239,7 @@ function _elife_article_almvis_process_results(ArticleVersion $dto, $data, $swit
   $ga_stats = $ga->{$doi};
 
   $daily_stats = [];
-  if ($switch_date->getTimestamp() < $daily_start_date->getTimestamp()) {
+  if ($switch_date->getTimestamp() > $daily_start_date->getTimestamp()) {
     foreach ($hw_stats->daily as $day => $stats) {
       if (strtotime($day) < $switch_date->getTimestamp()) {
         $stats->day = $day;
@@ -247,6 +247,7 @@ function _elife_article_almvis_process_results(ArticleVersion $dto, $data, $swit
       }
     }
   }
+
   foreach ($ga_stats->daily as $day => $stats) {
     if (strtotime($day) >= $switch_date->getTimestamp()) {
       $stats->day = $day;
