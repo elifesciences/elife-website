@@ -35,7 +35,7 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
       $markup->addSectionQuery($article_version_id, array_keys($sections));
       $markup = _elife_article_markup_query($markup);
       $results = $markup->getResult($article_version_id);
-      if (!empty($results) && $dto->getStatus() == 'VOR') {
+      if (!empty($results)) {
         $links = [];
         $links['article']['data'] = elife_article_jumpto_link('Article', 'article', 'jnl_elife_article_article');
         foreach ($results as $section => $data) {
