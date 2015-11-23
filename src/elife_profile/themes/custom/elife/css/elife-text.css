@@ -324,12 +324,11 @@ h2.snippet-title {
 		margin-top: 12px;
 	}
 
-.pane-elife-doi,
-.elife-doi-epubdate,
-.elife-doi-cite-as {
-	font-size: 0.86rem;
-	line-height: 1.125rem;
+.pane-elife-article-doi {
+	font-size: 0.86em;
+	line-height: 1.5;
 }
+
 .label.elife-doi-pre-label,
 .label.elife-doi-epubdate-label,
 .label.elife-doi-cite-as-label {
