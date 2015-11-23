@@ -365,7 +365,7 @@ div.highwire-markup .table-foot .table-footnotes li > p {
 	line-height: 1.5em; /* ~16px */
 }
 
-div.highwire-markup .table-inline .callout {
+.table-inline .callout {
 	font-size: 0.79em;
 	line-height: 1em;
 }

@@ -1710,7 +1710,7 @@ div.highwire-markup .fig-caption,
 div.highwire-markup .table-caption,
 div.highwire-markup .table-caption .table-caption,
 #colorbox .table-expansion .table-caption,
-div.highwire-markup .table-inline .callout-links {
+.table-inline .callout-links {
   background: transparent;
   border: 0;
   margin: 0;
@@ -1798,7 +1798,7 @@ div.highwire-markup .table-inline table tr td {
   margin-bottom: 0;
 }
 
-div.highwire-markup .table-inline .callout {
+.table-inline .callout {
   margin: 0;
   position: absolute;
   right: 0;
@@ -1809,7 +1809,7 @@ div.highwire-markup p:empty + div.table .table-inline .callout {
   top: 0;
 }
 
-  div.highwire-markup .table-inline .callout > span {
+  .table-inline .callout > span {
     position: absolute;
     clip: rect(0,0,0,0);
   }
@@ -1859,28 +1859,32 @@ div.highwire-markup .table-expansion ul.table-footnotes {
  * Figure links
  */
 .fig-inline-img-set .fig-caption .elife-figure-links > span,
-div.highwire-markup .table-inline ul.callout-links,
-div.highwire-markup .table-inline .callout-links li {
+.table-inline ul.callout-links,
+.table-inline .callout-links li {
   display: block;
   width:auto;
   text-align:center;
 }
 
 .fig-inline-img-set .fig-caption .elife-figure-links > span,
-div.highwire-markup .table-inline .callout-links li {
+.table-inline .callout-links li {
   border: 1px solid #dfdddd;
   margin-bottom: 10px;
   padding: 10px;
-
 }
-div.highwire-markup .table-inline .callout-links li {
+
+.table-inline {
+  position: relative;
+}
+ 
+.table-inline .callout-links li {
   float:left;
   margin-left:10px;
   margin-bottom:15px;
 }
 
 .fig-inline-img-set .fig-caption .elife-figure-links > span:first-child,
-div.highwire-markup .table-inline .callout-links li:first-child {
+.table-inline .callout-links li:first-child {
   /*border-left: 0;
   margin-left: 0;
   */

@@ -210,13 +210,13 @@ ul.panels-ajax-tab li.active a {
 /**
  * FIGURES & TABLES
  */
-div.highwire-markup .table-inline .callout {
+.table-inline .callout {
   margin: 8px 0;
   position: absolute;
   right: 0;
   top: 15px;
 }
-div.highwire-markup .table-inline .callout-links li {
+.table-inline .callout-links li {
   float:none;
   margin-bottom:0px
 }
@@ -393,22 +393,22 @@ img.elife-embed-fragment-image {
  * Figure links
  */
 .fig-inline-img-set .fig-caption .elife-figure-links > span,
-div.highwire-markup .table-inline ul.callout-links,
-div.highwire-markup .table-inline .callout-links li {
+.table-inline ul.callout-links,
+.table-inline .callout-links li {
   display: inline-block;
   width:auto;
   text-align:left;
 }
 
 .fig-inline-img-set .fig-caption .elife-figure-links > span,
-div.highwire-markup .table-inline .callout-links li {
+.table-inline .callout-links li {
   border-width:0px 0px 0px 1px;
   margin:0 0 0 10px;
   padding:0 0 0 10px;
 }
 
 .fig-inline-img-set .fig-caption .elife-figure-links > span:first-child,
-div.highwire-markup .table-inline .callout-links li:first-child {
+.table-inline .callout-links li:first-child {
   border-left: 0;
   margin-left: 0;
 
