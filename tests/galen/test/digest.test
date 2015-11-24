@@ -1,0 +1,23 @@
+@@ set
+  domain    elifesciences.org
+  base_url  http://${domain}
+  size_narrow    320x533
+  size_medium    768x800
+  size_wide      1250x750
+  
+
+@@ parameterized
+    | viewport   | tags      | size            |
+    | Narrow     | narrow    | ${size_narrow}  |
+    | Medium     | medium    | ${size_medium}  |
+    | Wide       | wide      | ${size_wide}    |
+
+@@ parameterized
+    | browser   |
+    | phantomjs |
+
+@@ groups article, digest
+Digest at ${viewport} width viewport in ${browser}
+  selenium ${browser} ${base_url}/content/4/e06956/ ${size}
+    check spec/digest/digest-none.gspec --include ${tags}
+    check spec/digest/digest-visible.gspec --include ${tags}
