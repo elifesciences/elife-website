@@ -31,7 +31,7 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
   $ewrapper = entity_metadata_wrapper('node', $context->data);
   $reference = $ewrapper->field_elife_fm_reference->value();
 
-  if('elife_article_reference' === $reference->type) {
+  if ('elife_article_reference' === $reference->type) {
     $reference = elife_article_reference_get_article_version($reference);
   }
 
@@ -55,6 +55,9 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
       $variables['caption'] = $ewrapper->field_elife_image->title->value();
     }
     $variables['additional_classes'][] = 'headline-first--has-image';
+    $variables['image_path'] = image_style_url('elife_cover', $ewrapper->field_elife_image->value()['uri']);
+    $variables['image_path_mcr'] = image_style_url('elife_cover_mcr', $ewrapper->field_elife_image->value()['uri']);
+    $variables['image_path_sml'] = image_style_url('elife_cover_sml', $ewrapper->field_elife_image->value()['uri']);
   }
 
   // If there's no action label, use a default, otherwise use the one supplied.

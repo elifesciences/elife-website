@@ -186,6 +186,8 @@ projects:
     version: '1.2'
   views:
     version: '3.11'
+    patch:
+      - 'https://www.drupal.org/files/issues/views-row-class-underscores-1371118-16.patch'
   views_bulk_operations:
     version: '3.3'
   views_ctools_field:

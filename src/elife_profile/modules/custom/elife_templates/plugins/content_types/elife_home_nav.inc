@@ -36,24 +36,9 @@ function _elife_homepage_termcomp($obja, $objb) {
  * @see ctools_plugin_examples()
  */
 function _elife_homepage_subjects() {
-  $vocab = taxonomy_vocabulary_machine_name_load('elife_categories');
-  // Fetch the terms in the DB, but only those with cat_type of 'heading'
-  // i.e. Subject Headings.
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'taxonomy_term')
-    ->propertyCondition('vid', $vocab->vid)
-    ->fieldCondition('field_elife_category_type', 'value', 'heading');
-  $results = $query->execute();
+  $vocab = taxonomy_vocabulary_machine_name_load('elife_headings');
 
-  // Fetch the term information from the DB; we want the term names.
-  $terms = array();
-  if (count($results['taxonomy_term'])) {
-    foreach ($results['taxonomy_term'] as $item) {
-      $term = taxonomy_term_load($item->tid);
-      $term->link = 'taxonomy/term/' . $term->tid;
-      $terms[$item->tid] = $term;
-    }
-  }
+  $terms = taxonomy_get_tree($vocab->vid);
 
   $ol_classes = array('class' => array('home-subject-listing__list'));
   $li_classes = array('home-subject-listing__list_item');
@@ -64,7 +49,7 @@ function _elife_homepage_subjects() {
   $cellbio_term->tid = '0';
   $cellbio_term->name = 'Cancer biology';
   $cellbio_term->link = 'collections/reproducibility-project-cancer-biology';
-  $terms[$cellbio_term->tid] = $cellbio_term;
+  $terms[] = $cellbio_term;
 
   // Repro items are not wanted in the homepage nav list.
   $hidden_terms = array(
@@ -79,8 +64,15 @@ function _elife_homepage_subjects() {
   $items = array();
   foreach ($terms as $term) {
     if (!in_array($term->name, $hidden_terms)) {
+      if (!empty($term->link)) {
+        $link = $term->link;
+      }
+      else {
+        $link = 'taxonomy/term/' . $term->tid;
+      }
+
       $items[] = array(
-        'data' => l($term->name, $term->link, array('attributes' => $a_classes)),
+        'data' => l($term->name, $link, array('attributes' => $a_classes)),
         'class' => $li_classes,
       );
     }
