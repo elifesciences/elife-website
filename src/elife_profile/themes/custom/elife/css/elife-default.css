@@ -550,7 +550,7 @@ ul.elife-article-categories li a {
   margin-bottom:0;
 }
 .elife-reflink-main .elife-reflink-authors,
-.highwire-article-citation .highwire-cite-authors {
+.elife-article-citation .highwire-cite-authors {
 	line-height: 1.3em;
 }
 .elife-reflink-author a {

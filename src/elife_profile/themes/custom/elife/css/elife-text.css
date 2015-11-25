@@ -595,19 +595,19 @@ div.highwire-markup .fig-caption p .supplementary-material .supplementary-materi
 
 /* eLife Citations, Reflinks Citations */
 .elife-reflink-main .elife-reflink-title,
-.highwire-article-citation .highwire-cite-title {
+.elife-article-citation .elife-cite-title {
 	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
 	font-size: 1.15em; /* ~16px */
 	line-height: 1.13em; /* ~18px */
 }
 
 .elife-reflink-main .elife-reflink-authors,
-.highwire-article-citation .highwire-cite-authors {
+.elife-article-citation .highwire-cite-authors {
 	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
 	/*line-height: 1.3em; */ /* Moved to media queries*/
 }
 
-.highwire-article-citation .highwire-cite-impact-statement {
+.elife-article-citation .highwire-cite-impact-statement {
 	line-height: 1.4em;
 }
 
@@ -616,30 +616,31 @@ div.highwire-markup .fig-caption p .supplementary-material .supplementary-materi
 	line-height: 1.45em; /* 16px */
 }
 
-.highwire-article-citation .highwire-cite-doi,
-.highwire-article-citation .highwire-cite-categories-date,
-.highwire-article-citation .elife-citation-elife-small .highwire-cite-categories {
+.elife-article-citation .highwire-cite-doi,
+.elife-article-citation .highwire-cite-categories-date,
+.elife-article-citation .elife-citation-elife-small .elife-cite-categories {
 	font-size: 0.86em; /* ~12px */
 	line-height: 1.33em;
 }
 
-.highwire-article-citation .elife-citation-elife-large .highwire-cite-categories-date { 
+.elife-article-citation .elife-citation-elife-large .highwire-cite-categories-date { 
 	line-height: 1.5em; 
 }
 
-.highwire-article-citation .highwire-cite-doi,
-.highwire-article-citation .highwire-cite-categories li.active,
-.highwire-article-citation .highwire-cite-date {
+.elife-article-citation .highwire-cite-doi,
+.elife-article-citation .elife-cite-categories li.active,
+.elife-article-citation .highwire-cite-date {
 	font-style: italic;
 }
 
 /* Small style citations */
-.highwire-article-citation .elife-citation-elife-small .highwire-cite-title {
+.elife-article-citation .elife-citation-elife-small .elife-cite-title {
 	font-size: 1em;
 	line-height: 1.29em; 
 }
 
-.highwire-article-citation .elife-citation-elife-small .highwire-cite-authors {
+.elife-article-citation .elife-citation-elife-small .elife-cite-authors {
+	font-family: 'Avenir LT W01 35 Light',Helvetica,Arial,Verdana,sans-serif;
 	font-size: 0.93em; /* 13px */
 	line-height: 1.23em;
 }
@@ -688,8 +689,8 @@ ul.panels-ajax-tab .nlm-italic,
 .elife-searchlist-pagerbar-count .nlm-italic,
 .elife-reflink-main .elife-reflink-authors em,
 .elife-reflink-main .elife-reflink-authors .nlm-italic,
-.highwire-article-citation .highwire-cite-authors em,
-.highwire-article-citation .highwire-cite-authors .nlm-italic {
+.elife-article-citation .highwire-cite-authors em,
+.elife-article-citation .highwire-cite-authors .nlm-italic {
 	font-family: 'AvenirLTW01-35LightObli', sans-serif;
 	font-style: normal;
 }
@@ -717,8 +718,8 @@ div.highwire-markup .table-caption span.table-label .nlm-italic,
 .elife-searchlist-sortby .elife-searchlist-label .nlm-italic,
 .elife-reflink-main .elife-reflink-title em, 
 .elife-reflink-main .elife-reflink-title .nlm-italic,
-.highwire-article-citation .highwire-cite-title em, 
-.highwire-article-citation .highwire-cite-title .nlm-italic {
+.elife-article-citation .elife-cite-title em, 
+.elife-article-citation .elife-cite-title .nlm-italic {
 	font-family: 'AvenirLTW01-85HeavyObli', sans-serif;
 	font-style: normal;
 }
