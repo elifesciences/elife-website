@@ -41,8 +41,8 @@ function elife_article_related_content_render($subtype, $conf, $args, &$context)
           $variables = [
             'title' => l($related_dto->getTitle(), 'node/' . $related->nid, ['attributes' => ['class' => ['elife-cite-linked-title']], 'html' => TRUE]),
           ];
-          $display_channel_links = _elife_article_display_channel_links($dto);
-          $heading_links = _elife_article_heading_links($dto);
+          $display_channel_links = _elife_article_display_channel_links($related_dto);
+          $heading_links = _elife_article_heading_links($related_dto);
           $cats_and_heads = array_merge($display_channel_links, $heading_links);
           $variables['cats_and_heads'] = theme('item_list', ['items' => $cats_and_heads, 'attributes' => ['class' => ['elife-citation-categories', 'inline']], 'nowrap' => TRUE]);
           $authors = [];
