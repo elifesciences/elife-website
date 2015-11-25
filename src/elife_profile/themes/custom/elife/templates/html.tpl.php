@@ -26,6 +26,7 @@
     <meta name="google-site-verification" content="KSTQVnD47CpQpWBPPa2KeJ1K6iBYsegIttZmDPJiGPY" />
   <?php endif; ?>
   <?php print $head; ?>
+  <?php print (isset($post_head)) ? $post_head : ''; ?>
   <title><?php print $head_title; ?></title>  
   <?php print $styles; ?>
   <link rel="stylesheet" type="text/css" href="http://fast.fonts.com/cssapi/c10f70b9-7e7a-4f33-9361-d43022ae343e.css"/>

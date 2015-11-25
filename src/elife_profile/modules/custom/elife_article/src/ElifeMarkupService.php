@@ -15,6 +15,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'acknowledgements' => 'Acknowledgements',
     'decision-letter' => 'Decision letter',
     'author-response' => 'Author response',
+    'metatags' => 'Metatags',
     'datasets' => 'Major datasets',
     'author-info-group-authors' => 'Other contributors',
     'author-info-equal-contrib' => 'Equal contributions',
@@ -31,12 +32,30 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'article-info-license' => 'Copyright',
   ];
 
+  private static $section_filters = [
+    'main' => '/^(abstract|digest|main\-text|references|acknowledgements|decision\-letter|author\-response)$/',
+    'author-info' => '/^author\-info\-/',
+    'article-info' => '/^article\-info\-/',
+  ];
+
   /**
+   * @param null|string $filter
+   *
    * @return array
    *   Array of available section labels.
    */
-  public static function getSectionLabels() {
-    return self::$sections;
+  public static function getSectionLabels($filter = NULL) {
+    if (is_null($filter) || !isset(self::$section_filters[$filter])) {
+      $sections = self::$sections;
+    }
+    else {
+      $sections = [];
+      foreach (self::$sections as $section => $section_name) {
+        if (preg_match(self::$section_filters[$filter], $section)) {
+          $sections[$section] = $section_name;
+        }
+      }
+    }
+    return $sections;
   }
 }
-

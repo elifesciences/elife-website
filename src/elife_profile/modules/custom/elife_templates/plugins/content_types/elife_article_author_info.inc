@@ -34,18 +34,10 @@ function elife_article_author_info_render($subtype, $conf, $args, $context) {
   if ($conf_author_info_section) {
     foreach ($conf_author_info_section as $k => $conf_author_info_s) {
       if (!empty($conf_author_info_s)) {
-        $author_info_sections[$conf_author_info_s] = [];
+        $author_info_sections[$conf_author_info_s] = array_keys(ElifeMarkupService::getSectionLabels($conf_author_info_s));
       }
       else {
         unset($conf_author_info_section[$k]);
-      }
-    }
-  }
-
-  foreach (array_keys($sections) as $section) {
-    foreach (array_keys($author_info_sections) as $author_info_section) {
-      if (strpos($section, $author_info_section) === 0) {
-        $author_info_sections[$author_info_section][] = $section;
       }
     }
   }
