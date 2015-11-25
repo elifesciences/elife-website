@@ -18,6 +18,26 @@ use eLife\EIF\JsonSchemaErrors;
 // @todo - elife - nlisgo - move volume value to article from article version.
 
 /**
+ * Gets a lock, if possible.
+ *
+ * @return string
+ *   Lock name.
+ *
+ * @throws ServicesException
+ */
+function _elife_services_get_lock() {
+  for ($i = 1; $i <= variable_get('elife_services_locks', 2); $i++) {
+    $lock = 'elife_services_locks_' . $i;
+
+    if (lock_acquire($lock, variable_get('elife_services_lock_timeout', 60))) {
+      return $lock;
+    }
+  }
+
+  throw new ServicesException('Too Many Requests', 429);
+}
+
+/**
  * Determines an API user's access to retrieve a given article.
  *
  * @param string $article_version_id
@@ -138,6 +158,8 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
  *   Return JSON.
  */
 function _elife_services_article_create($data) {
+  $lock = _elife_services_get_lock();
+
   try {
     elife_article_validator()->validate($data);
   } catch (JsonSchemaErrors $e) {
@@ -150,8 +172,10 @@ function _elife_services_article_create($data) {
       ];
     }
 
+    lock_release($lock);
     throw new ServicesException(NULL, 400, json_encode($errors));
   } catch (InvalidJson $e) {
+    lock_release($lock);
     throw new ServicesException(NULL, 400, print_r($e, TRUE));
   }
 
@@ -192,10 +216,14 @@ function _elife_services_article_create($data) {
   try {
     elife_article_validator()->validate($json);
   } catch (JsonSchemaErrors $e) {
+    lock_release($lock);
     throw new ServicesException('Doh', 500);
   } catch (InvalidJson $e) {
+    lock_release($lock);
     throw new ServicesException('Doh', 500);
   }
+
+  lock_release($lock);
 
   return $json;
 }
