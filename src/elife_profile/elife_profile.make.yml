@@ -226,6 +226,11 @@ libraries:
       type: 'git'
       url: 'ssh://git@github.com/elifesciences/elife-eif-schema.git'
       revision: 'bb22de58a5cfb975df9a0ca64a4dbed11debd207'
+  jquery.scrollTo:
+    download:
+      type: 'git'
+      url: 'https://github.com/flesler/jquery.scrollTo'
+      tag: '2.1.2'
   spyc:
     download:
       type: 'git'
