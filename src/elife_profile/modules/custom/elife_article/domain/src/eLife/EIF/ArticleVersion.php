@@ -423,7 +423,8 @@ final class ArticleVersion {
   }
 
   public function getCiteAs() {
-    $cite_as = ($this->getPubDate()) ? $this->getPubDate()->format('Y') : date('Y');
+    $cite_as = 'eLife ';
+    $cite_as .= ($this->getPubDate()) ? $this->getPubDate()->format('Y') : date('Y');
     if ($this->getStatus() == 'POA') {
       $cite_as .= ';' . $this->getDoi();
     }
