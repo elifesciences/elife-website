@@ -345,7 +345,7 @@ div.highwire-markup .table-caption span {
 }
 
 /* inline figures & tables, video, cbox link text */
-div.highwire-markup .table-inline table,
+.table-inline table,
 div.highwire-markup span.disp-formula .disp-formula-label,
 #fig-data-additional-files .supplementary-material > p,
 div.highwire-markup .supplementary-material-expansion > p,

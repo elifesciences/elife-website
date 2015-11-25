@@ -1679,7 +1679,7 @@ div.highwire-markup p {
   }
 
   .boxed-text p {
-    line-height: 1.2em;
+    line-height: 1.125rem;
   }
   .boxed-text > p:last-child {
     margin-bottom: 0;
@@ -1773,7 +1773,7 @@ div.highwire-markup .media .media-inline,
 
 
 /* Tables */
-div.highwire-markup div.article .table {
+.article .table {
   margin: 20px 0;
   position: relative;
 }
@@ -1802,8 +1802,21 @@ div.highwire-markup .table-inline table tr td {
   margin: 0;
   position: absolute;
   right: 0;
-  top: 15px;
+  top: 13px;
 }
+
+.appendix .table-caption p {
+  margin-bottom: 10px;
+}
+
+.appendix .table-caption {
+  border: 1px solid #dfdddd;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+}
+
 div.highwire-markup .fig-inline-img-set + div.table .table-inline .callout,
 div.highwire-markup p:empty + div.table .table-inline .callout {
   top: 0;
