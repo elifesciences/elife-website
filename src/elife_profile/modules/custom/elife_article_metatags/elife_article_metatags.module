@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * elife_article_metatags.module.
+ */
+
+use eLife\EIF\ArticleVersion;
+
+function _elife_article_metatags_prepare(ArticleVersion $dto) {
+  $markup = elife_article_markup_service();
+  $markup->addSectionQuery($dto->getArticleVersionId(), 'metatags');
+  $markup = _elife_article_markup_query($markup);
+  $metatags = $markup->output();
+
+  return $metatags;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function elife_article_metatags_preprocess_html(&$variables) {
+  if ($node = menu_get_object()) {
+    if ($dto = elife_article_version_to_dto($node)) {
+      $variables['post_head'] = _elife_article_metatags_prepare($dto) . "\n";
+    }
+  }
+}

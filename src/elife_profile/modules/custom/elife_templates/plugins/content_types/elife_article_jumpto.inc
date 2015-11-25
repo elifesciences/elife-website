@@ -23,13 +23,7 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
     if ($ewrapper->getBundle() == 'elife_article_ver' && !$ewrapper->field_elife_a_subarticle->value()) {
       $dto = elife_article_version_to_dto($article_version);
       $article_version_id = $dto->getArticleVersionId();
-      $sections = ElifeMarkupService::getSectionLabels();
-      // We want to catch titles in all sections apart from author and article info.
-      foreach ($sections as $section_id => $section_name) {
-        if (preg_match('/^(datasets|author\-info|article\-)/', $section_id)) {
-          unset($sections[$section_id]);
-        }
-      }
+      $sections = ElifeMarkupService::getSectionLabels('main');
 
       $markup = elife_article_markup_service();
       $markup->addSectionQuery($article_version_id, array_keys($sections));
