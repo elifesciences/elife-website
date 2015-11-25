@@ -20,6 +20,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'aff' => 'getAffiliation',
     'author-aff' => 'getAuthorAffiliation',
     'doi' => 'getDoi',
+    'dc-description' => 'getDcDescription',
     'main-text' => 'getMainText',
     'abstract' => 'getAbstract',
     'digest' => 'getDigest',
@@ -27,6 +28,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'acknowledgements' => 'getAcknowledgements',
     'decision-letter' => 'getDecisionLetter',
     'author-response' => 'getAuthorResponse',
+    'metatags' => 'getMetatags',
     'datasets' => 'getDatasets',
     'author-info-group-authors' => 'getAuthorInfoGroupAuthors',
     'author-info-contributions' => 'getAuthorInfoContributions',
@@ -99,6 +101,14 @@ class ElifeXslMarkupService extends ElifeMarkupService {
    */
   public function addDoiQuery($article_version_id, $doi) {
     $this->addQuery($article_version_id, 'doi', $doi);
+  }
+
+  /**
+   * @param string $article_version_id
+   * @param string|null $doi
+   */
+  public function addDcDescriptionQuery($article_version_id, $doi = NULL) {
+    $this->addQuery($article_version_id, 'dc-description', $doi);
   }
 
   /**

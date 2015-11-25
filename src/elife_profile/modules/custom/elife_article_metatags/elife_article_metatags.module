@@ -1,0 +1,129 @@
+<?php
+
+/**
+ * @file
+ * elife_article_metatags.module.
+ */
+
+use eLife\EIF\ArticleVersion;
+
+function _elife_article_metatags_prepare(ArticleVersion $dto) {
+  $markup = elife_article_markup_service();
+  $markup->addSectionQuery($dto->getArticleVersionId(), 'metatags');
+  $markup = _elife_article_markup_query($markup);
+  $metatags = $markup->output();
+
+  return $metatags;
+}
+
+/**
+ * Add meta headers for each item in the supplied array.
+ *
+ * @param array $metatags
+ *   Array of metatag name and content values.
+ */
+function _elife_article_metatags_add($metatags, $key_prefix = '') {
+  foreach ($metatags as $name => $content) {
+    if (!is_null($content)) {
+      $meta = array(
+        '#tag' => 'meta',
+        '#attributes' => array(
+          'name' => $name,
+          'content' => $content,
+        ),
+      );
+
+      $key_prefix = (!empty($key_prefix)) ? $key_prefix . ':' : '';
+
+      drupal_add_html_head($meta, 'elife_article_metatags:' . $key_prefix . $name);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function elife_article_metatags_node_view($node, $view_mode, $langcode) {
+  if (in_array($node->type, array('elife_article_ver', 'elife_fragment')) && $view_mode === 'full') {
+    $ewrapper = entity_metadata_wrapper('node', $node);
+    if ($ewrapper->field_elife_a_parent->raw()) {
+      $article_version = elife_article_version_to_dto($ewrapper->field_elife_a_parent->value());
+      $fragment = $article_version->getFragment($ewrapper->field_elife_a_doi->value());
+    }
+    else {
+      $article_version = elife_article_version_to_dto($node);
+      $fragment = FALSE;
+    }
+
+    $global_metatags = array(
+      'DC.Format' => 'text/html',
+      'DC.Language' => 'en',
+      'DC.Publisher' => 'eLife Sciences Publications Limited',
+      'citation_journal_title' => 'eLife',
+      'citation_publisher' => 'eLife Sciences Publications Limited',
+      'citation_journal_abbrev' => 'eLife Sciences',
+      'citation_issn' => '2050-084X',
+      'citation_fulltext_world_readable' => '',
+      'citation_language' => 'en',
+    );
+    _elife_article_metatags_add($global_metatags);
+
+    $version_doi_metatags = array(
+      'DC.Title' => $node->title,
+      'DC.Identifier' => $ewrapper->field_elife_a_doi->value(),
+      'DC.Date' => $article_version->getPubDate()->format('Y-m-d'),
+      'citation_title' => $node->title,
+      'citation_doi' => $ewrapper->field_elife_a_doi->value(),
+      'citation_publication_date' => $article_version->getPubDate()->format('Y/m/d'),
+    );
+    $version_doi_key = $article_version->getArticleVersionId() . ':' . $ewrapper->field_elife_a_doi->value();
+    _elife_article_metatags_add($version_doi_metatags, $version_doi_key);
+
+    if (!$fragment) {
+      $categories = $article_version->getCategories();
+      $citation_section = (!empty($categories['heading'])) ? $categories['heading'] : array();
+
+      $keywords = $article_version->getKeywords();
+      $citation_keywords = array();
+      foreach ($keywords as $group => $group_kewyords) {
+        foreach ($group_kewyords as $group_kewyord) {
+          $kwd = check_plain($group_kewyord);
+          if (!in_array(strtolower($kwd), array('other', 'none'))) {
+            $citation_keywords[] = $kwd;
+          }
+        }
+      }
+
+      // @todo - elife - nlisgo - use elife bot assets for xml and pdf.
+      $metatags = array(
+        'citation_public_url' => url($article_version->getPath(), array('absolute' => TRUE)),
+        'citation_abstract_url' => url($article_version->getPath() . '/abstract', array('absolute' => TRUE)),
+        'citation_firstpage' => $article_version->getElocationId(),
+        'citation_volume' => $article_version->getVolume(),
+        'citation_keywords' => !empty($citation_keywords) ? implode(', ', $citation_keywords) : NULL,
+        'citation_section' => !empty($citation_section) ? implode(', ', $citation_section) : NULL,
+        'citation_xml_url' => elife_article_version_source_xml_path($article_version->getArticleVersionId()),
+      );
+      $resources = new elifeResources();
+      $resources->getArticle($article_version->getDoi(), 'article');
+      if ($pdf_urls = $resources->getUrls()) {
+        $metatags['citation_pdf_url'] = $pdf_urls['article'][0]['url'];
+      }
+
+      _elife_article_metatags_add($metatags, $article_version->getArticleVersionId());
+
+      $markup_metatags = array(
+        '#type' => 'markup',
+        '#markup' => _elife_article_metatags_prepare($article_version),
+      );
+      drupal_add_html_head($markup_metatags, 'elife_article_metatags:markup:' . $article_version->getArticleVersionId());
+    }
+
+    $markup = elife_article_markup_service();
+    $markup->addDCDescriptionQuery($article_version->getArticleVersionId(), ($fragment) ? $fragment->getDoi() : NULL);
+    $markup = _elife_article_markup_query($markup);
+    if ($dc_description = $markup->output()) {
+      _elife_article_metatags_add(array('DC.Description' => $dc_description), $article_version->getArticleVersionId() . ($fragment ? ':' . $fragment->getDoi() : ''));
+    }
+  }
+}
