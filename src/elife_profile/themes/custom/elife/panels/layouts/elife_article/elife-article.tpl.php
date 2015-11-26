@@ -52,7 +52,7 @@
 				  </div>
 				<?php endif; ?>
 				<?php if ($content['side_bottom']): ?>
-					<div class="panel-panel panel-region-sidebar-bottom" id="article-jumplinks-anchor-region">
+					<div class="panel-panel panel-region-sidebar-bottom article-jumplinks-anchor-region" id="article-jumplinks-anchor-region">
 				    <div class="inside"><?php print $content['side_bottom']; ?></div>
 				  </div>
 			  <?php endif; ?>

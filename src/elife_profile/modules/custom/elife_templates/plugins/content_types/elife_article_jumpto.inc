@@ -17,6 +17,7 @@ $plugin = array(
  */
 function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
   $article_version = $context->data;
+  $block = new stdClass();
 
   /* @var EntityDrupalWrapper $ewrapper */
   if ($ewrapper = entity_metadata_wrapper('node', $article_version)) {
@@ -47,17 +48,17 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
             $links['article']['children']['main-text']['children'][] = elife_article_jumpto_link($h3->nodeValue, $h3->parentNode->getAttribute('id'), 'jnl_elife_article_article');
           }
           libxml_clear_errors();
-        }
-        $block = new stdClass();
-        $block->content = '<div class="elife-jumpto">';
-        $block->content .= theme('item_list', array('items' => $links));
-        $block->content .= '</div>';
 
-        drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_jumpto.js');
-        return $block;
+          $block->content = '<div class="elife-jumpto">';
+          $block->content .= theme('item_list', array('items' => $links));
+          $block->content .= '</div>';
+  
+          drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_jumpto.js');
+        }
       }
     }
   }
+  return $block;
 }
 
 function elife_article_jumpto_link($name, $anchor, $tab, $class = NULL, $path = '', $attributes = array()) {
