@@ -8,6 +8,7 @@ dependencies[] = elife_article
 dependencies[] = features
 dependencies[] = field_validation
 dependencies[] = image
+dependencies[] = imagecache_external
 dependencies[] = rabbit_hole
 dependencies[] = rh_node
 dependencies[] = strongarm
