@@ -9,31 +9,17 @@ include_once 'elife_front_matter.features.inc';
 define('ELIFE_FRONT_MATTER_PREVIEW_ITEMS', 4);
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_front_matter_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
  * Implements hook_menu().
  */
 function elife_front_matter_menu() {
   $items = array();
-  $items['front-matter/cover-big.jpg'] = array(
-    'title' => 'Return the large cover image',
-    'description' => 'Return the image for the most recent published and promoted cover item',
-    'page callback' => 'elife_front_matter_cover_big',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  $items['front-matter/cover-sml.jpg'] = array(
-    'title' => 'Return the small cover image',
-    'description' => 'Return the image for the most recent published and promoted cover item',
-    'page callback' => 'elife_front_matter_cover_sml',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
-  $items['front-matter/cover-mcr.jpg'] = array(
-    'title' => 'Return the micro cover image',
-    'description' => 'Return the image for the most recent published and promoted cover item',
-    'page callback' => 'elife_front_matter_cover_mcr',
-    'access callback' => TRUE,
-    'type' => MENU_NORMAL_ITEM,
-  );
   $items['front-matter/preview2live/%/%/%'] = array(
     'title' => 'Front matter preview to live',
     'description' => 'Transfer entityqueue nodes from preview to live',
@@ -75,6 +61,34 @@ function elife_front_matter_menu() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function elife_front_matter_theme($existing, $type, $theme, $path) {
+  if ('module' === $type) {
+    $path = drupal_get_path('module', 'elife_front_matter');
+
+    return [
+      'elife_front_matter_action' => [
+        'variables' => [
+          'imagedir' => NULL,
+          'title' => NULL,
+          'imagealt' => NULL,
+          'choosetopic' => NULL,
+          'address' => NULL,
+          'caption' => NULL,
+          'read_more' => NULL,
+          'getelife_text' => NULL,
+          'getelife_title' => NULL,
+          'sign_up_form' => NULL,
+        ],
+        'template' => 'elife_front_matter_action',
+        'path' => $path . '/templates',
+      ],
+    ];
+  }
+}
+
+/**
  * Access front matter preview.
  */
 function elife_front_matter_preview_goto() {
@@ -94,65 +108,6 @@ function elife_front_matter_preview_entityqueue($entityqueue_name) {
 }
 
 /**
- * Output large cover image.
- */
-function elife_front_matter_cover_big() {
-  elife_front_matter_cover_image('elife_cover');
-}
-
-/**
- * Output small cover image.
- */
-function elife_front_matter_cover_sml() {
-  elife_front_matter_cover_image('elife_cover_sml');
-}
-
-/**
- * Output micro cover image.
- */
-function elife_front_matter_cover_mcr() {
-  elife_front_matter_cover_image('elife_cover_mcr');
-}
-
-/**
- * Return cover image with a specific image style preset.
- *
- * @param string $image_style
- *   Image style.
- *
- * @return \stdClass|NULL
- *   An image object or NULL
- */
-function elife_front_matter_cover_image($image_style) {
-  $image = NULL;
-  $view = views_get_view('elife_cover');
-  $view->execute_display('cover_article');
-  if ($view->result) {
-    $result = reset($view->result);
-    $cover = node_load($result->nid);
-
-    /* @var EntityDrupalWrapper $ewrapper */
-    $ewrapper = entity_metadata_wrapper('node', $cover);
-    $image_properties = $ewrapper->field_elife_image->value();
-    $image_uri = $image_properties['uri'];
-
-    if ($image_style = image_style_load($image_style)) {
-      $image_style_path = image_style_path($image_style['name'], $image_uri);
-      $success = file_exists($image_style_path) || image_style_create_derivative($image_style, $image_uri, $image_style_path);
-      if ($success) {
-        $image = image_load($image_style_path);
-        file_transfer($image->source, array(
-          'Content-Type' => $image->info['mime_type'],
-          'Content-Length' => $image->info['file_size'],
-        ));
-      }
-    }
-  }
-
-  return $image;
-}
-
-/**
  * Implements hook_init().
  *
  * Include on the coverpage the css files needed by this module.
@@ -162,22 +117,24 @@ function elife_front_matter_cover_image($image_style) {
 function elife_front_matter_init() {
   if (drupal_is_front_page()) {
     $path = drupal_get_path('module', 'elife_front_matter');
+    drupal_add_js($path . '/js/elife_coverpage.js', array('scope' => 'footer'));
+    drupal_add_js(['elifeFrontMatter' => ['path' => base_path() . $path]], 'setting');
     drupal_add_css($path . '/css/cover.css');
     drupal_add_css($path . '/css/front-matter.css');
-    $img_query_str = '';
-    $img_query_arr = array();
-    // Add update parameter to create unique path to images.
-    if ($update = variable_get('elife_front_matter_update')) {
-      $img_query_arr[] = 'update=' . $update;
-    }
-    // Add preview parameter to call of cover images so view can be altered.
-    if (!empty($_GET['preview']) && $_GET['preview'] == 1) {
-      $img_query_arr[] = 'preview=1';
-    }
-    if (!empty($img_query_arr)) {
-      $img_query_str = '?' . implode('&', $img_query_arr);
-    }
-    drupal_add_css(".headline-first--has-image {background-image:url('/front-matter/cover-mcr.jpg" . $img_query_str . "');} @media only all and (min-width: 26em) {.headline-first--has-image {background-image:url('/front-matter/cover-sml.jpg" . $img_query_str . "');}} @media only all and (min-width: 55em) {.headline-first--has-image {background-image:url('/front-matter/cover-big.jpg" . $img_query_str . "');}}", array('type' => 'inline'));
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function elife_front_matter_form_alter(&$form, &$form_state, $form_id) {
+  if ('elife_content_alerts_sign_up_form' === $form_id && drupal_is_front_page()) {
+    // @todo - elife - nlisgo - consider putting this label on the default form
+    $form['email-3']['#title'] = t('Email address');
+    $form['email-3']['#attributes']['class'][] = 'home-cta__sign_up_form_field';
+    $form['email-3']['#attributes']['placeholder'] = t('type your e-mail address');
+    $form['submit']['#attributes']['class'][] = 'home-cta__link home-cta__sign_up_form_button';
+    $form['submit']['#value'] = t('Sign up');
   }
 }
 
@@ -269,7 +226,6 @@ function elife_front_matter_preview_to_live($items_cover = NULL, $items_col_1 = 
     elife_front_matter_copy_paste_eq_items($preview_cover, $live_cover, $items_cover);
     $args = array('@items' => $items_cover);
     $messages[] = t('@items item(s) transferred to cover from preview.', $args);
-    variable_set('elife_front_matter_update', REQUEST_TIME);
   }
 
   if ($items_col_1 === NULL) {
@@ -382,10 +338,16 @@ function elife_front_matter_block_info() {
 function elife_front_matter_block_view($delta = '') {
   switch ($delta) {
     case 'elife_front_matter':
-      return array(
+      $content = elife_front_matter_load();
+
+      if (empty($content)) {
+        return;
+      }
+
+      return [
         'subject' => NULL,
-        'content' => elife_front_matter_load(),
-      );
+        'content' => $content,
+      ];
   }
 }
 
@@ -393,10 +355,30 @@ function elife_front_matter_block_view($delta = '') {
  * Load the front matter content.
  */
 function elife_front_matter_load() {
-  $variables = array();
-  $variables['cover'] = views_embed_view('elife_cover', 'cover_article');
-  $variables['front_matter_col_1'] = views_embed_view('elife_front_matter', 'front_matter_col_1');
-  $variables['front_matter_col_2'] = views_embed_view('elife_front_matter', 'front_matter_col_2');
+  $variables = [];
+
+  $view = views_get_view('elife_cover');
+  $result = $view->preview('cover_article');
+  if (!empty($view->result)) {
+    $variables['cover'] = $result;
+  }
+
+  $view = views_get_view('elife_front_matter');
+  $result = $view->preview('front_matter_col_1');
+  if (!empty($view->result)) {
+    $variables['front_matter_col_1'] = $result;
+  }
+
+  $view = views_get_view('elife_front_matter');
+  $result = $view->preview('front_matter_col_2');
+  if (!empty($view->result)) {
+    $variables['front_matter_col_2'] = $result;
+  }
+
+  if (empty($variables)) {
+    return '';
+  }
+
   return theme('elife_front_matter_wrapper', $variables);
 }
 
@@ -408,7 +390,8 @@ function elife_front_matter_views_query_alter(&$view, &$query) {
   if (user_access('front matter preview')
     && $view->name == 'elife_front_matter'
     && !empty($_GET['preview'])
-    && $_GET['preview'] == 1) {
+    && $_GET['preview'] == 1
+  ) {
     elife_front_matter_preview_setup();
 
     // Retrieve entityqueue relationship for view.
@@ -430,7 +413,8 @@ function elife_front_matter_views_query_alter(&$view, &$query) {
   if (user_access('front matter preview')
     && $view->name == 'elife_cover'
     && !empty($_GET['preview'])
-    && $_GET['preview'] == 1) {
+    && $_GET['preview'] == 1
+  ) {
     elife_front_matter_preview_setup();
 
     // Set preview entityqueue.
