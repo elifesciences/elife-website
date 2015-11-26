@@ -2039,15 +2039,16 @@ img.elife-embed-fragment-image {
 
 
 	/* Math equations */
-	div.highwire-markup span.disp-formula {
+	span.disp-formula {
 		display: block;
-		text-align: center;
+    font-size: smaller;
 		margin: 10px 0;
 		padding-right: 15px;
 		position: relative;
+    text-align: center;
 	}
 
-	div.highwire-markup span.disp-formula .disp-formula-label {
+	span.disp-formula .disp-formula-label {
 		position: absolute;
 		 right: -8px;
 		 top: 0;
