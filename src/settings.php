@@ -22,10 +22,10 @@ $conf['site_403'] = 'm4032404';
 // Set up Pathologic.
 $conf['pathologic_protocol_style'] = 'full';
 $conf['pathologic_local_paths'] = [
-  'http://elifesciences.org',
-  'https://elifesciences.org',
-  'http://www.elifesciences.org',
-  'https://www.elifesciences.org',
+  'http://elifesciences.org/',
+  'https://elifesciences.org/',
+  'http://www.elifesciences.org/',
+  'https://www.elifesciences.org/',
   '/',
 ];
 
