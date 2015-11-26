@@ -365,13 +365,21 @@ function elife_front_matter_load() {
 
   $view = views_get_view('elife_front_matter');
   $result = $view->preview('front_matter_col_1');
-  if (!empty($view->result)) {
+  $items = count($view->result);
+  $view = views_get_view('elife_front_matter');
+  $view->preview('front_matter_col_1_head');
+  $items += count($view->result);
+  if ($items > 0) {
     $variables['front_matter_col_1'] = $result;
   }
 
   $view = views_get_view('elife_front_matter');
   $result = $view->preview('front_matter_col_2');
-  if (!empty($view->result)) {
+  $items = count($view->result);
+  $view = views_get_view('elife_front_matter');
+  $view->preview('front_matter_col_2_head');
+  $items += count($view->result);
+  if ($items > 0) {
     $variables['front_matter_col_2'] = $result;
   }
 
