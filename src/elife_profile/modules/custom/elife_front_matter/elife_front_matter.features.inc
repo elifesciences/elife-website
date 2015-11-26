@@ -40,114 +40,78 @@ function elife_front_matter_image_default_styles() {
 
   // Exported image style: elife_cover.
   $styles['elife_cover'] = array(
+    'label' => 'elife_cover',
     'effects' => array(
-      2 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/jpeg',
-          'quality' => 100,
-        ),
-        'weight' => -10,
-      ),
       1 => array(
-        'name' => 'image_scale_and_crop',
+        'name' => 'focal_point_scale_and_crop',
         'data' => array(
           'width' => 1200,
           'height' => 600,
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
         ),
-        'weight' => -9,
+        'weight' => 1,
       ),
     ),
-    'label' => 'elife_cover',
   );
 
   // Exported image style: elife_cover_mcr.
   $styles['elife_cover_mcr'] = array(
+    'label' => 'elife_cover_mcr',
     'effects' => array(
       1 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/jpeg',
-          'quality' => 75,
-        ),
-        'weight' => 1,
-      ),
-      2 => array(
-        'name' => 'image_scale',
-        'data' => array(
-          'width' => 400,
-          'height' => '',
-          'upscale' => 0,
-        ),
-        'weight' => 2,
-      ),
-      3 => array(
-        'name' => 'image_crop',
+        'name' => 'focal_point_scale_and_crop',
         'data' => array(
           'width' => 400,
           'height' => 200,
-          'anchor' => 'left-center',
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
         ),
-        'weight' => 3,
+        'weight' => 1,
       ),
     ),
-    'label' => 'elife_cover_mcr',
   );
 
   // Exported image style: elife_cover_sml.
   $styles['elife_cover_sml'] = array(
+    'label' => 'elife_cover_sml',
     'effects' => array(
-      5 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/jpeg',
-          'quality' => 75,
-        ),
-        'weight' => 1,
-      ),
-      6 => array(
-        'name' => 'image_scale',
-        'data' => array(
-          'width' => 880,
-          'height' => '',
-          'upscale' => 0,
-        ),
-        'weight' => 2,
-      ),
-      7 => array(
-        'name' => 'image_crop',
+      1 => array(
+        'name' => 'focal_point_scale_and_crop',
         'data' => array(
           'width' => 880,
           'height' => 260,
-          'anchor' => 'left-center',
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
         ),
-        'weight' => 3,
+        'weight' => 4,
       ),
     ),
-    'label' => 'elife_cover_sml',
   );
 
   // Exported image style: elife_front_matter.
   $styles['elife_front_matter'] = array(
+    'label' => 'elife_front_matter',
     'effects' => array(
-      2 => array(
-        'name' => 'coloractions_convert',
-        'data' => array(
-          'format' => 'image/jpeg',
-          'quality' => 100,
-        ),
-        'weight' => -10,
-      ),
       1 => array(
-        'name' => 'image_scale_and_crop',
+        'name' => 'focal_point_scale_and_crop',
         'data' => array(
           'width' => 240,
           'height' => 134,
+          'focal_point_advanced' => array(
+            'shift_x' => '',
+            'shift_y' => '',
+          ),
         ),
-        'weight' => -9,
+        'weight' => 3,
       ),
     ),
-    'label' => 'elife_front_matter',
   );
 
   return $styles;

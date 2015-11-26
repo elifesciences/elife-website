@@ -12,3 +12,5 @@ projects:
       type: 'git'
       url: 'http://git.drupal.org/project/module_builder.git'
       revision: 'f0b3b384e592adee3c07aefbb1a318539cdb48f8'
+  module_filter:
+    version: '2.0'

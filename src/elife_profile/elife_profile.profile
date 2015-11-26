@@ -24,17 +24,20 @@ function elife_environment() {
 function elife_profile_environment_modules($environment, $inverse = FALSE) {
   static $modules = [
     ELIFE_ENVIRONMENT_PRODUCTION => [
+      'elife_users_prod',
+      'googleanalytics',
     ],
     ELIFE_ENVIRONMENT_DEVELOPMENT => [
       'admin_devel',
-      'context_ui',
-      'delta_ui',
       'devel',
+      'diff',
       'ds_ui',
       'elife_users_dev',
       'field_ui',
       'field_validation_ui',
       'module_builder',
+      'module_filter',
+      'omega_tools',
       'rules_admin',
       'update',
       'views_ui',

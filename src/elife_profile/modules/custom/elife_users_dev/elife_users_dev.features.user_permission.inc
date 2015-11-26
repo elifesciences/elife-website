@@ -55,31 +55,13 @@ function elife_users_dev_user_default_permissions() {
     'module' => 'ds_ui',
   );
 
-  // Exported permission: 'administer contexts'.
-  $permissions['administer contexts'] = array(
-    'name' => 'administer contexts',
+  // Exported permission: 'administer module filter'.
+  $permissions['administer module filter'] = array(
+    'name' => 'administer module filter',
     'roles' => array(
       'administrator' => 'administrator',
     ),
-    'module' => 'context_ui',
-  );
-
-  // Exported permission: 'administer delta'.
-  $permissions['administer delta'] = array(
-    'name' => 'administer delta',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'delta_ui',
-  );
-
-  // Exported permission: 'context ajax block access'.
-  $permissions['context ajax block access'] = array(
-    'name' => 'context ajax block access',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'context_ui',
+    'module' => 'module_filter',
   );
 
   // Exported permission: 'execute php code'.

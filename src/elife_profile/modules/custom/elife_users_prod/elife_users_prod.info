@@ -1,0 +1,12 @@
+name = eLife: Users (production)
+core = 7.x
+package = eLife
+version = 7.x-1.0
+dependencies[] = elife_users
+dependencies[] = features
+dependencies[] = googleanalytics
+features[features_api][] = api:2
+features[user_permission][] = administer google analytics
+features[user_permission][] = opt-in or out of tracking
+features[user_permission][] = use PHP for tracking visibility
+project path = profiles/elife_profile/modules/custom

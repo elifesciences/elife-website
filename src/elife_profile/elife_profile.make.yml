@@ -20,16 +20,12 @@ projects:
       revision: '3681d551971ae3e9e2d826b9e5e66d8cde1e13da'
   colorbox:
     version: '2.10'
-  context:
-    version: '3.6'
   countries:
     version: '2.3'
   ctools:
     version: '1.9'
   date:
     version: '2.9'
-  delta:
-    version: '3.0-beta11'
   diff:
     version: '3.2'
   ds:
@@ -106,20 +102,12 @@ projects:
     version: '1.0-beta2'
   mathjax:
     version: '2.4'
-  menu_attributes:
-    version: '1.0-rc3'
-  menu_token:
-    version: '1.0-beta5'
   metatag:
     version: '1.7'
   migrate:
     version: '2.8'
   migrate_extras:
     version: '2.5'
-  module_filter:
-    version: '2.0'
-  node_clone:
-    version: '1.0-rc2'
   omega:
     type: 'theme'
     version: '3.1'
@@ -174,8 +162,6 @@ projects:
     patch:
       - 'https://www.drupal.org/files/issues/smart_trim_remove_punctuation_from_end_of_truncated_output-2169583-7.patch'
       - 'https://www.drupal.org/files/issues/smart-trim-adds-wrapper-and-class-2489312-1.patch'
-  special_menu_items:
-    version: '2.0'
   strongarm:
     version: '2.0'
   token:
@@ -186,6 +172,8 @@ projects:
     version: '1.2'
   views:
     version: '3.11'
+    patch:
+      - 'https://www.drupal.org/files/issues/views-row-class-underscores-1371118-16.patch'
   views_bulk_operations:
     version: '3.3'
   views_ctools_field:

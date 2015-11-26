@@ -44,7 +44,7 @@ function elife_environment_disable_environment_modules() {
   }
 
   if (!empty($disable)) {
-    module_disable($disable, TRUE);
+    module_disable($disable, FALSE);
   }
 
   return $disable;
