@@ -232,3 +232,51 @@ Feature: Front Matter
     Then I should see "VOR 05225" in the ".home-article-listing__list-item:nth-child(1)" element
     Then I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
     Then I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element
+
+  Scenario: Unpublished covers don't appear when their referenced content isn't published
+    Given "elife_podcast" content:
+      | field_elife_p_episode_number | field_elife_p_title | status |
+      | 1                            | Podcast 1           | 0      |
+    And "elife_cover" content:
+      | title | field_elife_fm_reference |
+      | Cover | Episode 1: Podcast 1     |
+    And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
+    When I go to the homepage
+    Then I should not see the "front_matter_cover" region
+
+  Scenario: Unpublished front matters don't appear when their referenced content isn't published
+    Given "elife_podcast" content:
+      | field_elife_p_episode_number | field_elife_p_title | status |
+      | 1                            | Podcast 1           | 1      |
+      | 2                            | Podcast 2           | 0      |
+    And "elife_cover" content:
+      | title | field_elife_fm_reference |
+      | Cover | Episode 1: Podcast 1     |
+    And "elife_front_matter" content:
+      | title        | field_elife_fm_reference |
+      | Front Matter | Episode 2: Podcast 2     |
+    And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
+    And I add "elife_front_matter" with title "Front Matter" to entityqueue "elife_front_matter_col_1"
+    When I go to the homepage
+    Then I should see the text "Cover" in the "front_matter_cover" region
+    And I should not see the "front_matter_col_1" region
+
+  Scenario: Deleting items removes covers/front matters
+    Given "elife_podcast" content:
+      | field_elife_p_episode_number | field_elife_p_title |
+      | 1                            | Podcast 1           |
+    And "elife_cover" content:
+      | title | field_elife_fm_reference |
+      | Cover | Episode 1: Podcast 1     |
+    And "elife_front_matter" content:
+      | title        | field_elife_fm_reference |
+      | Front Matter | Episode 1: Podcast 1     |
+    And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
+    And I add "elife_front_matter" with title "Front Matter" to entityqueue "elife_front_matter_col_1"
+    When I go to the homepage
+    Then I should see the text "Cover" in the "front_matter_cover" region
+    And I should see the text "Front Matter" in the "front_matter_col_1" region
+    When I delete the "elife_podcast" with title "Episode 1: Podcast 1"
+    And I go to the homepage
+    Then I should not see the "front_matter_cover" region
+    And I should not see the "front_matter_col_1" region

@@ -89,6 +89,64 @@ function elife_front_matter_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_node_presave().
+ */
+function elife_front_matter_node_presave($node) {
+  if (!empty($node->field_elife_fm_reference)) {
+    if (!empty($node->elife_autogenerating)) {
+      return; // Avoid superfluous query.
+    }
+    else {
+      $origin = node_load($node->field_elife_fm_reference[LANGUAGE_NONE][0]['target_id']);
+      $node->status = $origin->status;
+      return;
+    }
+  }
+  elseif (empty($node->nid)) {
+    return;
+  }
+
+  foreach (elife_front_matter_find_targets($node) as $target) {
+    // Make the published status match the target.
+    $target->status = $node->status;
+    $target->elife_autogenerating = TRUE; // Hack to stop recursion.
+    node_save($target);
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ */
+function elife_front_matter_node_delete($node) {
+  if (!empty($node->field_elife_fm_reference)) {
+    return;
+  }
+
+  // Cover/front matter no longer reference anything, so delete them.
+  node_delete_multiple(array_keys(elife_front_matter_find_targets($node)));
+}
+
+/**
+ * @param object $node
+ *   Referenced node.
+ *
+ * @return array
+ *   Referring nodes, indexed by their NID.
+ */
+function elife_front_matter_find_targets($node) {
+  $targets = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->fieldCondition('field_elife_fm_reference', 'target_id', $node->nid)
+    ->execute();
+
+  if (empty($targets['node'])) {
+    return [];
+  }
+
+  return node_load_multiple(array_keys($targets['node']));
+}
+
+/**
  * Access front matter preview.
  */
 function elife_front_matter_preview_goto() {
