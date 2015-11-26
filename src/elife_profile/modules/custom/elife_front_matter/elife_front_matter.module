@@ -417,9 +417,10 @@ function elife_front_matter_load() {
 
   $view = views_get_view('elife_cover');
   $result = $view->preview('cover_article');
-  if (!empty($view->result)) {
-    $variables['cover'] = $result;
+  if (empty($view->result)) {
+    return '';
   }
+  $variables['cover'] = $result;
 
   $view = views_get_view('elife_front_matter');
   $result = $view->preview('front_matter_col_1');
@@ -439,10 +440,6 @@ function elife_front_matter_load() {
   $items += count($view->result);
   if ($items > 0) {
     $variables['front_matter_col_2'] = $result;
-  }
-
-  if (empty($variables)) {
-    return '';
   }
 
   return theme('elife_front_matter_wrapper', $variables);
