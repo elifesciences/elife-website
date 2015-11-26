@@ -21,6 +21,12 @@ interface ElifeMarkupServiceInterface {
 
   /**
    * @param string $article_id
+   * @param string|null $doi
+   */
+  public function addDCDescriptionQuery($article_id, $doi = NULL);
+
+  /**
+   * @param string $article_id
    * @param string $aff_id
    */
   public function addAffiliationQuery($article_id, $aff_id);

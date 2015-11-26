@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "d3f949d0d5e4247fa02ab688728750638ba9060c"
+                "reference": "28843733286a85482f8fd0abd5ce8d01a5601564"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/d3f949d0d5e4247fa02ab688728750638ba9060c",
-                "reference": "d3f949d0d5e4247fa02ab688728750638ba9060c",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/28843733286a85482f8fd0abd5ce8d01a5601564",
+                "reference": "28843733286a85482f8fd0abd5ce8d01a5601564",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +278,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
             },
-            "time": "2015-11-23 09:30:23"
+            "time": "2015-11-26 18:18:51"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1021,7 +1021,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/f770a4dd9771041f713f5ba3d8e4ba702015653d",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/4664e1d9e4a59c2626d9c118ec79abe4ee8dc226",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },

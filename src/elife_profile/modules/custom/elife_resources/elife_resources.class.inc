@@ -39,6 +39,9 @@ class elifeResources {
   }
 
   function getArticle($doi, $types = array('article', 'figures')) {
+    if (!is_array($types)) {
+      $types = array($types);
+    }
     foreach ($types as $type) {
       $this->prepareArticleQuery($doi, $type);
       $this->execute();

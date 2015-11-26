@@ -22,7 +22,7 @@ final class MockMarkupService extends ElifeMarkupService {
    */
   private function addQuery($article_id, $section, $value = NULL) {
     $query_id = [$article_id, $section];
-    $this->queries[implode('::', $query_id)] = (!empty($value)) ? $value : $section;
+    $this->queries[implode('::', $query_id)] = (!is_null($value)) ? $value : $section;
   }
 
   private function arrangeQuery() {
@@ -49,7 +49,8 @@ final class MockMarkupService extends ElifeMarkupService {
   public function addSectionQuery($article_id, $section) {
     $sections = (!is_array($section)) ? [$section] : $section;
     foreach ($sections as $section) {
-      $this->addQuery($article_id, $section);
+      $value = (in_array($section, ['metatags'])) ? '' : NULL;
+      $this->addQuery($article_id, $section, $value);
     }
   }
 
@@ -58,6 +59,14 @@ final class MockMarkupService extends ElifeMarkupService {
    * @param string $doi
    */
   public function addDoiQuery($article_id, $doi) {
+    $this->addQuery($article_id, 'doi', $doi);
+  }
+
+  /**
+   * @param string $article_id
+   * @param string|null $doi
+   */
+  public function addDcDescriptionQuery($article_id, $doi = NULL) {
     $this->addQuery($article_id, 'doi', $doi);
   }
 

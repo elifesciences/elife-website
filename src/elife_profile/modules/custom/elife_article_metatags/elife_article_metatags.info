@@ -1,0 +1,5 @@
+name = eLife - Article metatags
+description = Set the metatags for the eLife article page.
+core = 7.x
+version = 7.x-1.0
+package = eLife
