@@ -69,7 +69,7 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
         'class' => 'fig-data-list clearfix',
         'id' => 'fragments-' . $type,
       ];
-      $output .= '<div id="fig-data-' . $type . '" class="group frag-' . $type . '">';
+      $output .= '<div id="fig-data-' . $type . '" class="group frag-' . $type . ' fragment-type--' . $type . '">';
       $output .= _elife_article_fig_data_title($type);
       $output .= theme('item_list', $item_list);
       $output .= '</div>';
