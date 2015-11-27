@@ -1661,7 +1661,7 @@ div.highwire-markup .article div.section h4 {
   line-height: 1.5em;
 }
 
-div.highwire-markup p {
+p {
   line-height: 1.75em; /* ~24px */
   margin-bottom: 10px;
   /* Fix for very wide or unbreakable text. TODO: Target long unbreakable strings and use word-wrap:break-word;*/

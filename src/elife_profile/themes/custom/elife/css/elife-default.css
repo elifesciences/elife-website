@@ -30,7 +30,7 @@ body.front .block-jnl-elife-responsive-bar {
   display:none;
 }
 
-div.highwire-markup p {
+p {
   line-height: 1.75em; /* ~24px */
   margin-bottom: 10px;
 }
