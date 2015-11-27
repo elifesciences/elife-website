@@ -2833,13 +2833,17 @@ img.elife-embed-fragment-image {
   .article-tools__link--pdf-figures {
     background-position: 0 -120px;
   }
-    .sharethis-wrapper .stButton, .elife-share-wrapper .stButton, #article-jumplinks-anchor-region .stButton {
+    .sharethis-wrapper .stButton, .elife-share-wrapper .stButton, .article-jumplinks-anchor-region .stButton {
         margin: 0;
     }
 
-    #article-jumplinks-anchor-region .pane-elife-article-share .pane-title {
+    .article-jumplinks-anchor-region .pane-elife-article-share .pane-title {
         display: none;
     }
+  /* TODO - dm - introduce Modernizr so can use no-js class instead for better legacy support */
+  html:not(.js) .article-jumplinks-anchor-region {
+    display: none;
+  }
 
 	/* API expanded content */
 	#api_box {
