@@ -3749,3 +3749,7 @@ ul.links.hidden-small {
     max-width: 100%;
     height: auto;
 }
+
+.list-simple {
+  list-style: none;
+}
