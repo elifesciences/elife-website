@@ -4,7 +4,14 @@
 (function ($) {
   Drupal.behaviors.eLifeArticleTables = {
     attach: function(context, settings) {
-      if ($('.table-expansion').length > 1) {
+      var $tables = $('.table-expansion');
+      var $tablesToCollapse = $();
+      $tables.each(function () {
+        if (!$(this).parents('.fragment-type--table-wrap').length) {
+          $tablesToCollapse = $tablesToCollapse.add(this);
+        }
+      });
+      if ($tablesToCollapse.length) {
         var setupTableColorbox = function () {
           var $fragment_tables = $('a[rel="gallery-fragment-tables"]', context);
           $fragment_tables.once(function () {
@@ -22,8 +29,8 @@
         });
         $('a.table-expand-inline', context).once('eLifeArticleTablesMarkup', function() {
           $(this, context).each(function() {
-            var $inlineToggler = $(this),
-              $table = $('table, .table-foot', $inlineToggler.closest('.table-expansion'));
+            var $inlineToggler = $(this);
+            var $table = $('table, .table-foot', $inlineToggler.closest('.table-expansion'));
 
             $table.hide();
             
@@ -40,7 +47,6 @@
             });
           });
         });
-
         setupTableColorbox();
       }
     }
