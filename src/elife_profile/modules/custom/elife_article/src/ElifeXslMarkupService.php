@@ -28,6 +28,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'acknowledgements' => 'getAcknowledgements',
     'decision-letter' => 'getDecisionLetter',
     'author-response' => 'getAuthorResponse',
+    'original-article' => 'getOriginalArticle',
     'metatags' => 'getMetatags',
     'datasets' => 'getDatasets',
     'author-info-group-authors' => 'getAuthorInfoGroupAuthors',
@@ -436,4 +437,3 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     return $output;
   }
 }
-
