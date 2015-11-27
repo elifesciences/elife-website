@@ -49,7 +49,7 @@ final class MockMarkupService extends ElifeMarkupService {
   public function addSectionQuery($article_id, $section) {
     $sections = (!is_array($section)) ? [$section] : $section;
     foreach ($sections as $section) {
-      $value = (in_array($section, ['metatags'])) ? '' : NULL;
+      $value = (in_array($section, ['metatags', 'original-article'])) ? '' : NULL;
       $this->addQuery($article_id, $section, $value);
     }
   }

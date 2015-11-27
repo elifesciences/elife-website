@@ -36,16 +36,41 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
         foreach ($related_articles as $related_article) {
           $critical_relations[$related_article->criticalrelation_type][] = $related_article;
         }
+        if ($original_article = elife_article_original_article($dto->getArticleVersionId())) {
+          $related_to = array(
+            'related_to' => array(
+              'display_channel' => 'original article',
+            ),
+            'related' => $original_article,
+          );
+          $critical_relations['original'][] = json_decode(json_encode($related_to), FALSE);
+        }
         $content = '';
         foreach ($critical_relations as $critical_relation_type => $criticals) {
           $cri_blocks = [];
           $variables = [];
 
           foreach ($criticals as $cri) {
-            $related_to = $cri->endpoints->related_to;
-            $related = node_load($cri->endpoints->related_to->article_ver_nid);
-            $related_dto = elife_article_version_to_dto($related);
             $variables = [];
+            if ($critical_relation_type != 'original') {
+              $related_to = $cri->endpoints->related_to;
+              $related = node_load($cri->endpoints->related_to->article_ver_nid);
+              $related_dto = elife_article_version_to_dto($related);
+              $impact_statement = $related_dto->getImpactStatement();
+              $cite_as = $related_dto->getCiteAs();
+              $doi_link = l($related_dto->getDoi(), $related_dto->getDoiUrl());
+              $title = l($related_dto->getTitle(), 'node/' . $related->nid);
+              $authors = $related_dto->getSimpleAuthorList();
+            }
+            else {
+              $related_to = $cri->related_to;
+              $related = $cri->related;
+              $impact_statement = NULL;
+              $cite_as = $related->citeas;
+              $doi_link = l($related->doi, 'http://dx.doi.org/' . $related->doi);
+              $title = l($related->title, 'http://dx.doi.org/' . $related->doi);
+              $authors = $related->author;
+            }
             if ($critical_relation_type == 'builds') {
               if (strtolower($related_to->display_channel) == 'research article') {
                 $variables['reln_title'] = t('Builds upon');
@@ -70,9 +95,13 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
                 $variables['reln_type_id'] = 'replicationStudy';
               }
             }
+            elseif ($critical_relation_type == 'original') {
+              $variables['reln_title'] = 'Original article';
+              $variables['reln_type'] = 'original-article';
+              $variables['reln_type_id'] = 'originalArticle';
+            }
             if (!empty($variables)) {
-              $variables['other_title'] = l($related_dto->getTitle(), 'node/' . $related->nid);
-              $authors = $related_dto->getSimpleAuthorList();
+              $variables['other_title'] = $title;
               $author_limit = 10;
               $list_classes = ['critical-relation__bib_details__author_list'];
               if (!empty($authors) && count($authors) > $author_limit) {
@@ -92,9 +121,9 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
                 }
                 $variables['other_authors'] = theme('item_list', ['type' => 'ol', 'div_class' => 'no', 'items' => $author_list, 'attributes' => ['class' => $list_classes]]);
               }
-              $variables['other_impact_statement'] = $related_dto->getImpactStatement();
-              $variables['other_citeas'] = $related_dto->getCiteAs();
-              $variables['other_doi_link'] = l($related_dto->getDoi(), $related_dto->getDoiUrl());
+              $variables['other_impact_statement'] = $impact_statement;
+              $variables['other_citeas'] = $cite_as;
+              $variables['other_doi_link'] = $doi_link;
               $cri_blocks[] = ['data' => theme('elife_article_criticalrelation', $variables), 'class' => ['critical-relation']];
             }
           }

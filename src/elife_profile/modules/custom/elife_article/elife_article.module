@@ -564,6 +564,35 @@ function _elife_article_mock_markup_service() {
 }
 
 /**
+ * Get original article info for registered report or replication study.
+ *
+ * @param $article_version_id
+ *   Article version id.
+ *
+ * @return array|null
+ */
+function elife_article_original_article($article_version_id) {
+  $markup = elife_article_markup_service();
+  $markup->addSectionQuery($article_version_id, 'original-article');
+  $markup = _elife_article_markup_query($markup, FALSE);
+  $original_article = $markup->output();
+  $values = array();
+  foreach (explode("\n", $original_article) as $value) {
+    if (preg_match('/^(?P<key>[A-z]+)=(?P<value>.*)$/', $value, $match)) {
+      $values[$match['key']] = $match['value'];
+    }
+  }
+
+  if (!empty($values)) {
+    if (isset($values['author'])) {
+      $values['author'] = explode('|', $values['author']);
+    }
+
+    return $values;
+  }
+}
+
+/**
  * @return ElifeCitationService
  */
 function elife_article_citation_service() {
