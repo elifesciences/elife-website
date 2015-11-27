@@ -59,6 +59,22 @@ body {
   float: left;
 }
 
+/* Specific definitions for the article impact statement. Uses generic sup/sub. */
+/* Avenir italic styles -- em & nlm-italic */
+/* Light weight */
+.author-impact-statement em,
+.author-impact-statement .nlm-italic {
+  font-family: 'AvenirLTW01-35LightObli', 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
+  font-style: normal;
+}
+
+/* Specific definitions for the article title */
+.elife-article-citation .elife-cite-title em,
+.elife-article-citation .elife-cite-title .nlm-italic {
+  font-family: 'AvenirLTW01-45BookObliq', 'Avenir LT W01 45 Book', Helvetica, Arial, Verdana, sans-serif;
+  font-style: normal;
+}
+
 /* Utility styles */
 .off-screen {
   /* Conceal, but don't remove from DOM */
@@ -624,6 +640,33 @@ a.home-article-listing__list-item__display-channel {
   border-radius: 0.5em;
   background-color: #273b81;
   color: #fff;
+}
+
+/* a.home-article-listing__list-item__title not easily injected into markup so targeting link using existing markup. */
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title {
+  display: block;
+  margin-bottom: 0.6em;
+  padding: 0.1em 0 0.2em 0;
+  -webkit-transition: color 75ms linear;
+  -moz-transition: color 75ms linear;
+  -o-transition: color 75ms linear;
+  transition: color 75ms linear;
+  color: #273b81;
+  font-size: 1.375em;
+  line-height: 1.25em;
+  font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
+}
+
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title:link,
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title:visited {
+  color: #273b81;
+}
+
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title:hover,
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title:focus,
+.home-article-listing__list-item__text_wrapper .elife-cite-linked-title:active {
+  text-decoration: none;
+  color: #6d6e70;
 }
 
 .home-article-listing__list-item__about {
