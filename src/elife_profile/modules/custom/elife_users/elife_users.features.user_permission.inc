@@ -1848,18 +1848,9 @@ function elife_users_user_default_permissions() {
     'module' => 'panels',
   );
 
-  // Exported permission: 'use text format filtered_html'.
-  $permissions['use text format filtered_html'] = array(
-    'name' => 'use text format filtered_html',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'filter',
-  );
-
-  // Exported permission: 'use text format full_html'.
-  $permissions['use text format full_html'] = array(
-    'name' => 'use text format full_html',
+  // Exported permission: 'use text format elife_full_html'.
+  $permissions['use text format elife_full_html'] = array(
+    'name' => 'use text format elife_full_html',
     'roles' => array(
       'administrator' => 'administrator',
     ),

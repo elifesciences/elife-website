@@ -399,7 +399,7 @@ function elife_news_default_page_manager_pages() {
     'title' => '',
     'body' => '<h1>eLife News</h1>
 ',
-    'format' => 'full_html',
+    'format' => 'elife_full_html',
     'substitute' => TRUE,
   );
   $pane->cache = array();

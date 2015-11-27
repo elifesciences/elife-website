@@ -8,6 +8,7 @@ dependencies[] = ctools
 dependencies[] = ds
 dependencies[] = elife_article
 dependencies[] = elife_article_reference
+dependencies[] = elife_config
 dependencies[] = elife_hero_block
 dependencies[] = entity
 dependencies[] = entityreference

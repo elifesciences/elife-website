@@ -1089,12 +1089,12 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity->title->set($article_version->getTitle());
   $entity->field_elife_a_full_title->set([
     'value' => $article_version->getTitle(),
-    'format' => 'full_html',
+    'format' => 'elife_full_html',
   ]);
   if ($article_version->getImpactStatement()) {
     $entity->field_elife_a_author_imp->set([
       'value' => $article_version->getImpactStatement(),
-      'format' => 'full_html',
+      'format' => 'elife_full_html',
     ]);
   }
   $entity->field_elife_a_version->set($article_version->getVersion());
@@ -1143,7 +1143,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       $keyword_fields = [
         'field_elife_a_full_title' => [
           'value' => $keyword,
-          'format' => 'full_html',
+          'format' => 'elife_full_html',
         ],
         'field_elife_a_kwd_type' => $group,
       ];
@@ -1468,14 +1468,14 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       $entity_fragment->title->set($fragment->getTitle());
       $entity_fragment->field_elife_a_full_title->set([
         'value' => $fragment->getTitle(),
-        'format' => 'full_html',
+        'format' => 'elife_full_html',
       ]);
 
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 
       $entity_fragment->field_elife_a_full_title->set([
         'value' => $fragment->getTitle(),
-        'format' => 'full_html'
+        'format' => 'elife_full_html'
       ]);
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 

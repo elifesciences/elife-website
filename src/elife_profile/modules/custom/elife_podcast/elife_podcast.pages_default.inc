@@ -199,7 +199,7 @@ function elife_podcast_default_page_manager_handlers() {
     'admin_title' => 'Listen to other episodes of the eLife Podcast',
     'title' => '',
     'body' => '<a href="/podcast">Listen to other episodes of the eLife Podcast</a>',
-    'format' => 'full_html',
+    'format' => 'elife_full_html',
     'substitute' => 1,
   );
   $pane->cache = array();
