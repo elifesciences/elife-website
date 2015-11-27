@@ -6,7 +6,7 @@ default:
         - ContentAlertsContext: ~
         - IsolatedDrupalContext: ~
         - IsolatedPropeopleContext: ~
-        - Drupal\DrupalExtension\Context\MinkContext: ~
+        - MinkContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
         - Behat\WebApiExtension\Context\WebApiContext: ~
   extensions:

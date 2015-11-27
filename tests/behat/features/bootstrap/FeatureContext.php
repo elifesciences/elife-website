@@ -337,16 +337,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iAddToEntityqueue($type, $title, $queue) {
     Assertions::assertTrue(module_exists('entityqueue'), 'Entityqueue module is enabled');
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node');
-    $query->propertyCondition('type', $type);
-    $query->propertyCondition('title', $title);
-    $query->propertyCondition('status', 1);
-    $query->range(0, 1);
-    $entities = $query->execute();
-    Assertions::assertNotEmpty($entities['node'], 'node with type and title found');
-    $nodes = array_keys($entities['node']);
-    $node = node_load(array_shift($nodes));
+    $node = $this->getEntityByTypeAndProperty('node', $type, 'title', $title);
     $subqueue = entityqueue_subqueue_load($queue);
     Assertions::assertNotNull($subqueue, 'Entityqueue with supplied title not found');
     $eq_node = array(array('target_id' => $node->nid));
@@ -355,6 +346,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
     $subqueue->eq_node[LANGUAGE_NONE] = $eq_node;
     entityqueue_subqueue_save($subqueue);
+  }
+
+  /**
+   * @When I delete the :type with title :title
+   */
+  public function iDeleteTheNodeWithTitle($type, $title) {
+    node_delete($this->getEntityByTypeAndProperty('node', $type, 'title', $title)->nid);
   }
 
   /**
@@ -760,5 +758,28 @@ JS;
     $expectedRegexp = '/' . preg_quote($text) . '/i';
     $actual = (string) $this->getSession()->getPage()->getContent();
     Assertions::assertRegExp($expectedRegexp, $actual);
+  }
+
+  /**
+   * Get an entity by a property value.
+   *
+   * @param string $entity_type
+   * @param string $bundle
+   * @param string $property
+   * @param string $value
+   *
+   * @return object|bool
+   *   Entity, or FALSE.
+   */
+  protected function getEntityByTypeAndProperty($entity_type, $bundle, $property, $value) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type);
+    $query->propertyCondition('type', $bundle);
+    $query->propertyCondition($property, $value);
+    $entities = $query->execute();
+    Assertions::assertTrue(isset($entities['node']), 'node not found');
+    Assertions::assertCount(1, $entities['node'], 'more than one node found');
+
+    return node_load(key($entities['node']));
   }
 }
