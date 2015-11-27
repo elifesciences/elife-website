@@ -335,9 +335,9 @@ h2.snippet-title {
 	font-weight: bold;
 }
 
-div.highwire-markup .fig-caption p, 
+.fig-caption p, 
 div.highwire-markup .table-caption p, 
-div.highwire-markup .fig-caption span, 
+.fig-caption span, 
 div.highwire-markup .table-caption span {
 	font-size: inherit;
 	font-weight: lighter;
@@ -352,9 +352,9 @@ div.highwire-markup .supplementary-material-expansion > p,
 div.highwire-markup .supplementary-material-expansion > span,
 div.highwire-markup .media-caption > p,
 div.highwire-markup .media-caption > span,
-div.highwire-markup .fig-caption > q,
-div.highwire-markup .fig-caption > p, 
-div.highwire-markup .fig-caption > span, 
+.fig-caption > q,
+.fig-caption > p, 
+.fig-caption > span, 
 div.highwire-markup .table-caption > p,
 div.highwire-markup .table-caption > span,
 div.highwire-markup .table-expansion table,
@@ -371,7 +371,7 @@ div.highwire-markup .table-foot .table-footnotes li > p {
 }
 
 .fig-inline-img-set .fig-caption .elife-figure-links,
-div.highwire-markup .fig-caption > .attrib {
+.fig-caption > .attrib {
 	color: #929497;
 	font-size: 0.79em;
 }
@@ -383,23 +383,23 @@ div.highwire-markup .fig-caption > .attrib {
 
 div.highwire-markup .supplementary-material .caption-title,
 div.highwire-markup .supplementary-material-expansion .caption-title,
-div.highwire-markup .media-caption .caption-title,
-div.highwire-markup .fig-caption .caption-title {
+.media-caption .caption-title,
+.fig-caption .caption-title {
 	font-weight: bold;
 	margin-bottom: 5px;
 }
 
-div.highwire-markup .supplementary-material .supplementary-material-label,
+.supplementary-material .supplementary-material-label,
 div.highwire-markup .supplementary-material-expansion .supplementary-material-label,
 div.highwire-markup .media-caption .media-label,
-div.highwire-markup .fig-caption span.fig-label, 
+.fig-caption span.fig-label, 
 div.highwire-markup .table-caption span.table-label {
 	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
 	font-size: 1.15em; /* ~16px */	
 	line-height: 1.88em; /* ~30px */
 }
 
-div.highwire-markup .fig-caption p .supplementary-material .supplementary-material-label {
+.fig-caption p .supplementary-material .supplementary-material-label {
 	font-size: 1.33em;
 	line-height: 1.88em;
 }
@@ -702,8 +702,8 @@ h2 em,
 h2 .nlm-italic,
 .author-tooltip .author-tooltip-name em, 
 .author-tooltip .author-tooltip-name .nlm-italic,
-div.highwire-markup .fig-caption span.fig-label em, 
-div.highwire-markup .fig-caption span.fig-label .nlm-italic, 
+.fig-caption span.fig-label em, 
+.fig-caption span.fig-label .nlm-italic, 
 div.highwire-markup .table-caption span.table-label em, 
 div.highwire-markup .table-caption span.table-label .nlm-italic,
 .elife-article-editors h3 em, 
