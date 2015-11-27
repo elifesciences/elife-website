@@ -160,6 +160,45 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
 function _elife_services_article_create($data) {
   $lock = _elife_services_get_lock();
 
+  $transaction = db_transaction();
+
+  try {
+    return _elife_services_persist_article($data);
+  } catch (Exception $e) {
+    $transaction->rollback();
+    throw $e;
+  } finally {
+    lock_release($lock);
+  }
+}
+
+/**
+ * Callback function for elife_article_ver update.
+ *
+ * @param string $article_version_id
+ *   Article version id.
+ * @param array $data
+ *   Article data submitted in the request.
+ *
+ * @return mixed
+ *   Return array to be output as json.
+ */
+function _elife_services_article_update($article_version_id, $data) {
+  return _elife_services_article_create($data);
+}
+
+/**
+ * Persist an article.
+ *
+ * @param string $data
+ *   JSON input.
+ *
+ * @return string
+ *   JSON response.
+ *
+ * @throws Exception
+ */
+function _elife_services_persist_article($data) {
   try {
     elife_article_validator()->validate($data);
   } catch (JsonSchemaErrors $e) {
@@ -171,11 +210,8 @@ function _elife_services_article_create($data) {
         'value' => $error->getValue(),
       ];
     }
-
-    lock_release($lock);
     throw new ServicesException(NULL, 400, json_encode($errors));
   } catch (InvalidJson $e) {
-    lock_release($lock);
     throw new ServicesException(NULL, 400, print_r($e, TRUE));
   }
 
@@ -216,31 +252,12 @@ function _elife_services_article_create($data) {
   try {
     elife_article_validator()->validate($json);
   } catch (JsonSchemaErrors $e) {
-    lock_release($lock);
     throw new ServicesException('Doh', 500);
   } catch (InvalidJson $e) {
-    lock_release($lock);
     throw new ServicesException('Doh', 500);
   }
 
-  lock_release($lock);
-
   return $json;
-}
-
-/**
- * Callback function for elife_article_ver update.
- *
- * @param string $article_version_id
- *   Article version id.
- * @param array $data
- *   Article data submitted in the request.
- *
- * @return mixed
- *   Return array to be output as json.
- */
-function _elife_services_article_update($article_version_id, $data) {
-  return _elife_services_article_create($data);
 }
 
 /**
