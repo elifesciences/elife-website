@@ -25,7 +25,7 @@ function elife_article_markup_doi_render($subtype, $conf, $args, $context) {
 
       $markup = elife_article_markup_service();
       $markup->addDoiQuery($article_version_id, $doi);
-      $markup = _elife_article_markup_query($markup, TRUE, TRUE);
+      $markup = _elife_article_markup_query($markup);
       $html = $markup->output();
 
       if ($html) {

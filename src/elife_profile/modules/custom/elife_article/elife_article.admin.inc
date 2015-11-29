@@ -124,13 +124,13 @@ function elife_article_markup_prepopulate_process_finished($success, $results, $
 /**
  * Implements hook_admin_settings().
  */
-function elife_article_xml_source_settings_form($form, &$form_state) {
-  $form['source_xml'] = array(
-    '#title' => t('Settings for the retrieval of Article Version XML'),
+function elife_article_assets_source_settings_form($form, &$form_state) {
+  $form['source_assets'] = array(
+    '#title' => t('Settings for the retrieval of Article Version assets'),
     '#type' => 'fieldset',
   );
 
-  if (!empty(variable_get('elife_article_source_xml_base_path')) && !empty(variable_get('elife_article_source_xml_file_pattern'))) {
+  if (!empty(variable_get('elife_article_source_assets_base_path')) && !empty(variable_get('elife_article_source_assets_xml_file_pattern')) && !empty(variable_get('elife_article_source_assets_pdf_file_pattern'))) {
     $query = new EntityFieldQueryExtraFields();
 
     $entities = $query->entityCondition('entity_type', 'node')
@@ -145,42 +145,41 @@ function elife_article_xml_source_settings_form($form, &$form_state) {
       $nids = array_keys($entities['node']);
       $node = node_load(array_shift($nids));
       $example_xml_path = elife_article_version_source_xml_path($node);
-      $form['source_xml']['elife_article_source_xml_example'] = array(
+      $example_pdf_path = elife_article_version_source_pdf_path($node);
+      $example_pdf_download_path = elife_article_version_source_pdf_path($node, TRUE);
+      $form['source_assets']['elife_article_source_assets_xml_example'] = array(
         '#type' => 'item',
         '#title' => t('Example source xml path'),
         '#markup' => $example_xml_path,
       );
+      $form['source_assets']['elife_article_source_assets_pdf_example'] = array(
+        '#type' => 'item',
+        '#title' => t('Example source pdf path'),
+        '#markup' => $example_pdf_path,
+      );
+      $form['source_assets']['elife_article_source_assets_pdf_download_example'] = array(
+        '#type' => 'item',
+        '#title' => t('Example source pdf download path'),
+        '#markup' => $example_pdf_download_path,
+      );
     }
   }
 
-  $form['source_xml']['elife_article_source_xml_base_path'] = array(
+  $form['source_assets']['elife_article_source_assets_base_path'] = array(
     '#type' => 'textfield',
-    '#title' => t('Source XML base path'),
-    '#default_value' => variable_get('elife_article_source_xml_base_path'),
+    '#title' => t('Source assets base path'),
+    '#default_value' => variable_get('elife_article_source_assets_base_path'),
   );
-  $form['source_xml']['elife_article_source_xml_file_pattern'] = array(
+  $form['source_assets']['elife_article_source_assets_xml_file_pattern'] = array(
     '#type' => 'textfield',
     '#title' => t('Source XML file pattern'),
-    '#default_value' => variable_get('elife_article_source_xml_file_pattern'),
+    '#default_value' => variable_get('elife_article_source_assets_xml_file_pattern'),
+  );
+  $form['source_assets']['elife_article_source_assets_pdf_file_pattern'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Source PDF file pattern'),
+    '#default_value' => variable_get('elife_article_source_assets_pdf_file_pattern'),
   );
 
-  if (module_exists('token')) {
-    $form['source_xml']['elife_article_source_xml_file_pattern']['#description'] = t('Token replacement will be performed on this value.');
-    $form['source_xml']['tokens'] = array(
-      '#title' => t('Tokens'),
-      '#type' => 'fieldset',
-      '#states' => array(
-        'visible' => array(
-          ':input[name="source_xml[elife_article_source_xml_file_pattern]"]' => array("value" => "tokens"),
-        ),
-      ),
-    );
-    $form['source_xml']['tokens']['help'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => 'all',
-      '#global_types' => FALSE,
-      '#dialog' => TRUE,
-    );
-  }
   return system_settings_form($form);
 }

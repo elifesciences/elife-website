@@ -52,6 +52,7 @@ function theme_elife_article_toolbox($variables) {
     'external' => TRUE,
     'html' => TRUE,
     'attributes' => [
+      'download' => NULL,
       'title' => t('Article PDF'),
       'type' => 'application/pdf',
       'rel' => 'alternate',
@@ -63,27 +64,31 @@ function theme_elife_article_toolbox($variables) {
   ];
 
   $article_tools_links = [];
-  $tools_list_item_class_names = [
-    'article-tools__list_item',
-  ];
+
+  $add_pdf_link = function($type, $pdf_url, $default_options) {
+    $options = $default_options;
+    $options['attributes']['class'][] = 'article-tools__link--pdf-' . $type;
+    $options['attributes']['data-download-type'] = 'pdf-' . $type;
+    $options['attributes']['title'] = t('@type PDF', ['@type' => drupal_ucfirst($type)]);
+    $link_title = t('@type', ['@type' => drupal_ucfirst($type)]);
+    return [
+      'data' => l($link_title, $pdf_url, $options),
+      'classes' => ['article-tools__list_item'],
+    ];
+  };
+
+  if ($pdf_url = elife_article_version_source_pdf_path($article_version, TRUE)) {
+    $article_tools_links[] = $add_pdf_link('article', $pdf_url, $article_tools_options);
+  }
+
   if (module_exists('elife_resources')) {
-    // @todo - elife - nlisgo - may need to introduce the pdf in different way.
     $resources = new elifeResources();
-    $resources->getArticle($dto->getDoi());
+    $resources->getArticle($dto->getDoi(), 'figures');
     $pdf_urls = $resources->getUrls();
     if (!empty($pdf_urls)) {
       foreach ($pdf_urls as $type => $pdfs) {
-        $options = $article_tools_options;
-        $options['attributes']['download'] = NULL;
-        $options['attributes']['class'][] = 'article-tools__link--pdf-' . $type;
-        $options['attributes']['data-download-type'] = 'pdf-' . $type;
-        $options['attributes']['title'] = t('@type PDF', ['@type' => drupal_ucfirst($type)]);
         foreach ($pdfs as $pdf) {
-          $link_title = t('@type', ['@type' => drupal_ucfirst($type)]);
-          $article_tools_links[] = [
-            'data' => l($link_title, $pdf['url'], $options),
-            'classes' => $tools_list_item_class_names,
-          ];
+          $article_tools_links[] = $add_pdf_link($type, $pdf['url'], $article_tools_options);
         }
       }
     }
