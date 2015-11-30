@@ -1736,8 +1736,8 @@ div.highwire-markup .supplementary-material > p,
 .fig-inline-img-set .fig-caption .fig-label,
 .fig-inline-img-set .fig-caption .caption-title,
 .fig-caption p > .supplementary-material,
-div.highwire-markup .supplementary-material-expansion .supplementary-material-label,
-div.highwire-markup .supplementary-material-expansion .caption-title,
+.supplementary-material-expansion label,
+.supplementary-material-expansion .caption-title,
 div.highwire-markup span.inline-linked-media-wrapper {
   display: block;
 }
@@ -1746,8 +1746,9 @@ div.highwire-markup span.inline-linked-media-wrapper {
   margin-bottom: -10px;
 }
 
-div.highwire-markup .supplementary-material-expansion p + .inline-linked-media-wrapper,
+.supplementary-material-expansion p + .inline-linked-media-wrapper,
 .fig-caption p + .inline-linked-media-wrapper {
+  display: block;
   margin-top: -10px;
 }
 
