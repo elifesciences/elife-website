@@ -451,29 +451,34 @@ div.highwire-markup .table-caption span.table-label {
 	line-height: 1em;
 }
 
-#fig-data .section > p,
-#fig-data .section > .related-object {
+#fig-data > p,
+#fig-data > .related-object {
 	font-size: 0.86em; /* 12px */
 	line-height: 1.5em; /* 18px */
 }
 	
-#fig-data .section .related-object .name,
-#fig-data .section .related-object .name + .x,
-#fig-data .section .related-object .collab,
-#fig-data .section .related-object .collab + .x,
-#fig-data .section .related-object .year {
+#fig-data .related-object .name,
+#fig-data .related-object .name + .x,
+#fig-data .related-object .collab,
+#fig-data .related-object .collab + .x,
+#fig-data .related-object .year {
 	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
-	font-size: 1.17em;
+	/*font-size: 1.17em;*/
+	font-size: 1.3689em;
 	line-height: 1.71em;
 }
+#fig-data .related-object .year {
+	font-size: 0.875em;
+}
 
-#fig-data .section .related-object > span.source,
-#fig-data .section .related-object > span.ext-link {
+#fig-data .related-object > span.source,
+#fig-data .related-object > a[href^="http"],
+#fig-data .related-object > a[href^="//"] {
 	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
 }
 
-#fig-data .section span.source {
-	font-size: 1.33em; /* 14 * 0.86 * 1.33 = 16px */
+#fig-data .related-object span.source {
+	font-size: 1.33em /* Equivalent to 16px */;
 	line-height: 1.13em;	
 }
 
