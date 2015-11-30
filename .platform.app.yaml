@@ -1,0 +1,52 @@
+name: drupal
+
+type: php:5.6
+
+build:
+    flavor: drupal
+
+dependencies:
+    php:
+        drush/drush: "~7.0"
+
+relationships:
+    database: "mysql:mysql"
+    solr: "solr:solr"
+    redis: "redis:redis"
+
+runtime:
+    extensions:
+        - redis
+        - xsl
+    disabled_extensions:
+        - sqlite3
+        - pdo_sqlite
+
+web:
+    document_root: "/web"
+    passthru: "/index.php"
+
+disk: 2048
+
+mounts:
+    "/platform/files": "shared:files/files"
+    "/platform/private": "shared:files/private"
+
+hooks:
+    build: |
+        set -e
+        drush pm-download registry_rebuild
+        wget -qO- https://github.com/dafeder/node_access_rebuild/archive/c7d7b0ddb244f317752cdcf883682ecb8b76335d.tar.gz | tar xvz -C /app/out/.drush
+        drush cache-clear drush
+        ./setup.sh
+        cp platform/local.settings.php .
+        ln -s "../../../platform/files" "web/sites/default/files"
+        ln -s "../../../platform/private" "web/sites/default/private"
+    deploy: |
+        set -e
+        ./update.sh
+
+crons:
+    drupal:
+        spec: "*/10 * * * *"
+        cmd: "./run-cron.sh"
