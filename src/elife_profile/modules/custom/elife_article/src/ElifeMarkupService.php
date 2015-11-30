@@ -15,6 +15,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'acknowledgements' => 'Acknowledgements',
     'decision-letter' => 'Decision letter',
     'author-response' => 'Author response',
+    'cc-link' => 'Creative commons',
     'original-article' => 'Original article',
     'metatags' => 'Metatags',
     'dc-description' => 'DC.Description',
