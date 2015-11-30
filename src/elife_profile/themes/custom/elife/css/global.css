@@ -2185,7 +2185,7 @@ img.elife-embed-fragment-image {
     vertical-align: middle;
   }
 
-  #fig-data .section span.ext-link a,
+  #fig-data span.ext-link a,
 	.elife-reflinks-reflink .elife-reflink-link.life-reflink-link-uri a {
 		word-wrap: break-word;
 	}
@@ -2371,25 +2371,37 @@ img.elife-embed-fragment-image {
 	}
 
 	/* Adjusments to additional files layout */
-	#fig-data .section .related-object,
-	#fig-data .section .related-object > span.comment,
-	#fig-data .section .related-object > span.source,
-	#fig-data .section .related-object > span.ext-link {
+  #fig-data .related-object {
+    font-size: 0.875em;
+  }	
+  
+  #fig-data .related-object,
+	#fig-data .related-object > span.comment,
+	#fig-data .related-object > span.source,
+  #fig-data .related-object > a[href^="http"],
+  #fig-data .related-object > a[href^="//"] {
   	display: block;
+    line-height: 1.5;
   	margin-bottom: 3px;
 	}
 
-	#fig-data .section .related-object {
+#fig-data .related-object > a[href^="http"],
+#fig-data .related-object > a[href^="//"],
+#fig-data .related-object > span.comment {
+}
+
+#fig-data .related-object {
 		margin-bottom: 15px;
 	}
 
-	#fig-data .section .related-object .name .surname + .given-names {
+	#fig-data .related-object .name .surname + .given-names {
 		padding-left: 4px;
 	}
 
 	/* This crazy CSS removes commas from before and after elements we have designated as block */
   #fig-data span.comment + .x,
-  #fig-data span.ext-link + .x,
+  #fig-data a[href^="http"] + .x,
+  #fig-data a[href^="//"] + .x,
   #fig-data span.year + .x,
   #fig-data span.source + .x {
       display: none;
