@@ -35,6 +35,11 @@ function elife_config_filter_default_formats() {
         'status' => 1,
         'settings' => array(),
       ),
+      'caption_filter' => array(
+        'weight' => 20,
+        'status' => 1,
+        'settings' => array(),
+      ),
       'pathologic' => array(
         'weight' => 50,
         'status' => 1,

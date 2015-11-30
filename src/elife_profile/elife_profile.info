@@ -21,6 +21,7 @@ dependencies[] = taxonomy
 
 ; Contrib modules.
 dependencies[] = auto_entitylabel
+dependencies[] = caption_filter
 dependencies[] = ckeditor
 dependencies[] = cluetip
 dependencies[] = colorbox

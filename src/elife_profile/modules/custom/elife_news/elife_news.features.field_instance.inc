@@ -47,6 +47,7 @@ function elife_news_field_default_field_instances() {
       'active' => 1,
       'module' => 'file',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 1,
         'insert_absolute' => 0,
         'insert_class' => '',
@@ -160,6 +161,7 @@ function elife_news_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 1,
         'insert_absolute' => 0,
         'insert_class' => '',

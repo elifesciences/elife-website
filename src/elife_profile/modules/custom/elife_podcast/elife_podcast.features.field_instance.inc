@@ -182,6 +182,7 @@ function elife_podcast_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 0,
         'insert_absolute' => 0,
         'insert_class' => '',

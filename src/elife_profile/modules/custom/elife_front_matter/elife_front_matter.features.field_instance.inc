@@ -178,6 +178,7 @@ function elife_front_matter_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 0,
         'insert_absolute' => FALSE,
         'insert_class' => '',
@@ -324,6 +325,7 @@ function elife_front_matter_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 0,
         'insert_absolute' => FALSE,
         'insert_class' => '',
