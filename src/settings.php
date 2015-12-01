@@ -10,6 +10,10 @@ const ELIFE_ENVIRONMENT_TESTING = 'testing';
 require_once __DIR__ . '/../vendor/autoload.php';
 $conf['elife_composer_vendor_path'] = __DIR__ . '/../vendor';
 
+// Set up Drupal.
+$conf['install_profile'] = 'elife_profile';
+$conf['maintenance_theme'] = 'elife_maintenance';
+
 // Don't allow modules to be added/updated through the UI.
 $conf['allow_authorize_operations'] = FALSE;
 
