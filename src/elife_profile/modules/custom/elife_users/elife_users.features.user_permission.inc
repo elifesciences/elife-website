@@ -192,9 +192,9 @@ function elife_users_user_default_permissions() {
     'module' => 'elife_article',
   );
 
-  // Exported permission: 'administer elife_article xml source'.
-  $permissions['administer elife_article xml source'] = array(
-    'name' => 'administer elife_article xml source',
+  // Exported permission: 'administer elife_article assets source'.
+  $permissions['administer elife_article assets source'] = array(
+    'name' => 'administer elife_article assets source',
     'roles' => array(
       'administrator' => 'administrator',
     ),
