@@ -1714,7 +1714,7 @@ p {
     }
 
 /* Figures, Tables, Video, Supplementary Data in markup */
-div.highwire-markup .fig-caption,
+.fig-caption,
 div.highwire-markup .table-caption,
 div.highwire-markup .table-caption .table-caption,
 #colorbox .table-expansion .table-caption,
@@ -1727,7 +1727,7 @@ div.highwire-markup .table-caption .table-caption,
 
 /* Supplementary Data */
 div.highwire-markup .supplementary-material > p,
-div.highwire-markup .fig-caption .supplementary-material .caption-title {
+.fig-caption .supplementary-material .caption-title {
   margin-bottom: 0;
 }
 
@@ -1735,19 +1735,19 @@ div.highwire-markup .fig-caption .supplementary-material .caption-title {
 .highwire-markup .media-caption .caption-title,
 .fig-inline-img-set .fig-caption .fig-label,
 .fig-inline-img-set .fig-caption .caption-title,
-div.highwire-markup .fig-caption p > .supplementary-material,
+.fig-caption p > .supplementary-material,
 div.highwire-markup .supplementary-material-expansion .supplementary-material-label,
 div.highwire-markup .supplementary-material-expansion .caption-title,
 div.highwire-markup span.inline-linked-media-wrapper {
   display: block;
 }
 
-div.highwire-markup .fig-caption p > .supplementary-material {
+.fig-caption p > .supplementary-material {
   margin-bottom: -10px;
 }
 
 div.highwire-markup .supplementary-material-expansion p + .inline-linked-media-wrapper,
-div.highwire-markup .fig-caption p + .inline-linked-media-wrapper {
+.fig-caption p + .inline-linked-media-wrapper {
   margin-top: -10px;
 }
 
