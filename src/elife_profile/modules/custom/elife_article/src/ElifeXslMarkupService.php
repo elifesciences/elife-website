@@ -150,29 +150,6 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     }
   }
 
-  public function preloadReplacements() {
-    $queries = $this->getQuery();
-    foreach (array_keys($queries) as $article_version_id) {
-      $preload_query = new ElifeXslMarkupService();
-      $preload_query->addQuery($article_version_id, 'main-text');
-      $preload_query->addQuery($article_version_id, 'author-response');
-      $preload_query->submitQuery();
-      foreach ($queries[$article_version_id] as $key => $query) {
-        $replacement_key = str_replace($article_version_id . '::', '', $key);
-        $this->replacements[$article_version_id][$replacement_key] = $preload_query->getReplacements($article_version_id);
-      }
-    }
-  }
-
-  public function getReplacements($article_version_id) {
-    $replacements = $this->replacements[$article_version_id];
-    $aggregate = [];
-    foreach ($replacements as $query => $reps) {
-      $aggregate = array_merge($aggregate, $reps);
-    }
-    return $aggregate;
-  }
-
   /**
    * @param string $markup
    * @param string $article_version_id
@@ -180,128 +157,61 @@ class ElifeXslMarkupService extends ElifeMarkupService {
    * @return string mixed
    */
   protected function postQueryProcess($markup, $article_version_id, $query_id) {
-    // @todo - elife - nlisgo - Introduce post process steps here.
-    // For example substitute paths to files.
     $found = preg_match_all('/\[(?:graphic|inline\-graphic|animation|media|video)\-(?:[^\]]+)\]/', $markup, $matches);
     if ($found) {
       $replacements = $this->processPlaceHolders($matches[0], $article_version_id, $query_id);
       $markup = str_replace(array_keys($replacements), array_values($replacements), $markup);
     }
+
     return $markup;
   }
 
   protected function processPlaceHolders($placeholders, $article_version_id, $query_id) {
-    if (empty($this->replacements[$article_version_id][$query_id])) {
-      $placeholders = array_unique($placeholders);
+    $placeholders = array_unique($placeholders);
+    $replacements = array();
+    $cdn = variable_get('elife_article_source_assets_base_path') . ':manuscript-id/:file';
+    foreach ($placeholders as $placeholder) {
+      if (preg_match('/^\[(?P<type>graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)\-(?P<variant>small|medium|large|download)\]$/', $placeholder, $match)) {
+        $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'];
+        switch ($match['variant']) {
+          case 'small':
+            $file .= '-300w.jpg';
+            break;
 
-      $positions = [];
-      foreach ($placeholders as $placeholder) {
-        if (preg_match('/^\[(?P<type>animation|graphic|media)\-elife\-[0-9]{5}\-?(?P<resp>resp)?\-fig(?P<fig_id>[0-9]+)\-(?P<subtype>[a-z]+)(?P<subtype_id>[0-9]+)/', $placeholder, $match)) {
-          $key = ($match['subtype'] == 'figsupp') ? $match['subtype'] : $match['type'];
-          $value = ($match['subtype'] != 'v') ? $match['fig_id'] . '.' . $match['subtype'] . $match['subtype_id'] : $match['fig_id'];
-          if (empty($positions[$key]) || !in_array($value, $positions[$key])) {
-            $positions[$key][] = $value;
-          }
+          case 'medium':
+            $file .= '-480w.jpg';
+            break;
+
+          case 'large':
+            $file .= '.jpg';
+            break;
+
+          case 'download':
+            $file .= '-download.jpg';
+            break;
+
+          default:
+            $file = '';
         }
+
+        $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }
-
-      $replacements = array();
-      $author_response_first_fig = 0;
-      foreach ($placeholders as $placeholder) {
-        $details = explode('-', trim($placeholder, '[]'));
-        $group = array_shift($details);
-        if ($group == 'inline') {
-          $group .= '-' . array_shift($details);
-        }
-        if ($group == 'graphic') {
-          $prefix = array_shift($details);
-          $variant = array_pop($details);
-          $version = ltrim(array_pop($details), 'v');
-          $manuscript_id = array_shift($details);
-          $fig_id = $subarticle = array_shift($details);
-          if (strpos($subarticle, 'fig') === 0) {
-            $fig_id = str_replace('fig', '', $fig_id);
-            $subarticle = NULL;
-          }
-          else {
-            if ($author_response_first_fig !== FALSE || $author_response_first_fig > 0) {
-              $author_response_query = new ElifeXslMarkupService();
-              $author_response_query->addQuery($article_version_id, 'author-response');
-              $author_response_query->submitQuery(FALSE);
-              $author_response = $author_response_query->output();
-              if (preg_match('/<div id=\"fig(?P<author_response_first_fig>[0-9]+)/', $author_response, $match)) {
-                $author_response_first_fig = $match['author_response_first_fig'] - 1;
-              }
-              else {
-                $author_response_first_fig = FALSE;
-              }
-            }
-            $fig_id = str_replace('fig', '', array_shift($details)) + $author_response_first_fig;
-          }
-          $fig_supp_id = (!empty($details)) ? str_replace('figsupp', '', array_shift($details)) : NULL;
-
-          $replacement = 'http://cdn.elifesciences.org/elife-articles/' . $manuscript_id . '/jpg/' . $prefix . $manuscript_id;
-
-          if ($fig_supp_id) {
-            $fs_pos = $fig_id . '.figsupp' . $fig_supp_id;
-            $replacement .= 'fs' . str_pad(array_search($fs_pos, $positions['figsupp']) + 1, 3, "0", STR_PAD_LEFT);
-          }
-          else {
-            $replacement .= 'f' . str_pad(array_search($fig_id, $positions['graphic']) + 1 + $author_response_first_fig, 3, "0", STR_PAD_LEFT);
-          }
-
-          $replacement .= '.jpg';
-        }
-        elseif ($group == 'animation') {
-          $prefix = array_shift($details);
-          $variant = array_pop($details);
-          $version = ltrim(array_pop($details), 'v');
-          $manuscript_id = array_shift($details);
-          $fig_id = str_replace('fig', '', array_shift($details));
-
-          $replacement = 'http://cdn.elifesciences.org/elife-articles/' . $manuscript_id . '/jpg/' . $prefix . $manuscript_id;
-
-          $replacement .= 'f' . str_pad(count($positions['graphic']) + array_search($fig_id, $positions['animation']) + 1, 3, "0", STR_PAD_LEFT);
-
-          $replacement .= '.gif';
-        }
-        elseif ($group == 'inline-graphic') {
-          $prefix = array_shift($details);
-          $parent_fragment = array_pop($details);
-          $article_type = array_pop($details);
-          $version = ltrim(array_pop($details), 'v');
-          $manuscript_id = array_shift($details);
-          $inf_id = str_replace('inf', '', array_shift($details));
-          $inf = 'inf' . str_pad($inf_id, 3, "0", STR_PAD_LEFT);
-          $file = sprintf('http://cdn.elifesciences.org/elife-articles/%s/jpg/%s.jpg', $manuscript_id, $prefix . $manuscript_id . $inf);
-
-          $replacement = sprintf('<img src="%s"/>', $file);
-          if ($article_type == 'nonresearch' && $parent_fragment == 'box') {
-            $replacement = sprintf('<a href="%s" class="colorbox">' . $replacement . '</a>', $file);
-          }
-        }
-        elseif ($group == 'media') {
-          $prefix = array_shift($details);
-          list($version, $ext) = explode('.', array_pop($details));
-          $version = ltrim($version, 'v');
-          $manuscript_id = array_shift($details);
-          $fig_id = str_replace('fig', '', array_shift($details));
-          $fig_supp_id = array_shift($details);
-
-          $replacement = sprintf('http://cdn.elifesciences.org/elife-articles/%s/suppl/%s', $manuscript_id, $prefix . $manuscript_id);
-
-          $fs_pos = $fig_id . '.' . $fig_supp_id;
-          $replacement .= 's' . str_pad(array_search($fs_pos, $positions['media']) + 1, 3, "0", STR_PAD_LEFT);
-
-          $replacement .= '.' . $ext;
-        }
-        else {
-          $replacement = '{{' . $group . '-' . implode('-', $details) . '}}';
+      elseif (preg_match('/^\[(?P<type>inline\-graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)\-(?P<article_type>research|nonresearch)\-(?P<fragment_type>box|fig|table|other)\]$/', $placeholder, $match)) {
+        $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . '.jpg';
+        $file = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
+        $replacement = sprintf('<img src="%s"/>', $file);
+        if ($match['article_type'] == 'nonresearch' && $match['fragment_type'] == 'box') {
+          $replacement = sprintf('<a href="%s" class="colorbox">' . $replacement . '</a>', $file);
         }
         $replacements[$placeholder] = $replacement;
       }
-      $this->replacements[$article_version_id][$query_id] = $replacements;
+      elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)(?P<ext>\.[a-z]+)\]$/', $placeholder, $match)) {
+        $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . $match['ext'];
+        $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
+      }
     }
+
+    $this->replacements[$article_version_id][$query_id] = $replacements;
     return $this->replacements[$article_version_id][$query_id];
   }
 

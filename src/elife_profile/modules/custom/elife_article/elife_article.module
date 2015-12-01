@@ -58,12 +58,12 @@ function elife_article_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
-  $items['admin/config/services/elife-article-xml-source'] = array(
-    'title' => 'eLife XML Source',
-    'description' => 'Configuration options for eLife XML source.',
-    'access arguments' => array('administer elife_article xml source'),
+  $items['admin/config/services/elife-article-assets-source'] = array(
+    'title' => 'eLife Assets Source',
+    'description' => 'Configuration options for eLife assets source.',
+    'access arguments' => array('administer elife_article assets source'),
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('elife_article_xml_source_settings_form'),
+    'page arguments' => array('elife_article_assets_source_settings_form'),
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
@@ -202,8 +202,8 @@ function elife_article_permission() {
     'administer elife_article' => array(
       'title' => t('Administer eLife - Article'),
     ),
-    'administer elife_article xml source' => array(
-      'title' => t('Administer eLife - Article xml source'),
+    'administer elife_article assets source' => array(
+      'title' => t('Administer eLife - Article assets source'),
     ),
   );
 }
@@ -509,15 +509,24 @@ function elife_article_validator() {
   return $validator;
 }
 
+/**
+ * Get the path to the article version XML.
+ *
+ * @param string|object $article_version
+ *   Article version id or article version node.
+ *
+ * @return bool|string
+ *   Path to XML.
+ */
 function elife_article_version_source_xml_path($article_version) {
   if (!is_object($article_version)) {
     $article_version = ElifeArticleVersion::fromIdentifier($article_version);
   }
 
-  $source_xml_base_path = variable_get('elife_article_source_xml_base_path');
-  $source_xml_file_pattern = variable_get('elife_article_source_xml_file_pattern');
+  $source_assets_base_path = variable_get('elife_article_source_assets_base_path');
+  $source_xml_file_pattern = variable_get('elife_article_source_assets_xml_file_pattern');
 
-  if (empty($source_xml_base_path) || empty($source_xml_file_pattern)) {
+  if (empty($source_assets_base_path) || empty($source_xml_file_pattern)) {
     return FALSE;
   }
   else {
@@ -525,7 +534,42 @@ function elife_article_version_source_xml_path($article_version) {
       $source_xml_file_pattern = token_replace($source_xml_file_pattern, array('node' => $article_version));
     }
 
-    return $source_xml_base_path . $source_xml_file_pattern;
+    return $source_assets_base_path . $source_xml_file_pattern;
+  }
+}
+
+/**
+ * Get the path to the article version PDF.
+ *
+ * @param string|object $article_version
+ *   Article version id or article version node.
+ * @param bool $download
+ *   Set to TRUE to request a file path prepared for download.
+ *
+ * @return bool|string
+ *   Path to PDF.
+ */
+function elife_article_version_source_pdf_path($article_version, $download = FALSE) {
+  if (!is_object($article_version)) {
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version);
+  }
+
+  $source_assets_base_path = variable_get('elife_article_source_assets_base_path');
+  $source_pdf_file_pattern = variable_get('elife_article_source_assets_pdf_file_pattern');
+
+  if (empty($source_assets_base_path) || empty($source_pdf_file_pattern)) {
+    return FALSE;
+  }
+  else {
+    if (module_exists('token')) {
+      $source_pdf_file_pattern = token_replace($source_pdf_file_pattern, array('node' => $article_version));
+    }
+
+    if ($download) {
+      $source_pdf_file_pattern = preg_replace('/(?!\-download)(.+)(\.pdf)$/', '$1-download$2', $source_pdf_file_pattern);
+    }
+
+    return $source_assets_base_path . $source_pdf_file_pattern;
   }
 }
 
@@ -2016,24 +2060,19 @@ function _elife_article_markup_query_key(ElifeMarkupService $markup) {
  *   Markup service container
  * @param bool $from_store
  *   Set to false if you don't want to try to retrieve from cache
- * @param bool $preload_replacements
- *   Set to true if you want to try to build up replacements before submission
  *
  * @return ElifeMarkupService
  *   Markup service container
  */
-function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = TRUE, $preload_replacements = FALSE) {
+function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = TRUE) {
   if ($from_store) {
-    $cache = _elife_article_markup_query_cache($markup, $preload_replacements);
+    $cache = _elife_article_markup_query_cache($markup);
     $key = _elife_article_markup_query_key($markup);
     if (!empty($cache[$key])) {
       $markup = $cache[$key];
     }
   }
   else {
-    if ($preload_replacements) {
-      $markup->preloadReplacements();
-    }
     $markup->submitQuery();
   }
 
@@ -2045,15 +2084,13 @@ function _elife_article_markup_query(ElifeMarkupService $markup, $from_store = T
  *
  * @param ElifeMarkupService $markup
  *   Markup service container
- * @param bool $preload_replacements
- *   Set to true if you want to try to build up replacements before submission
  *
  * @return ElifeMarkupService[]
  *   Array of markup service containers that have been queried
  *
  * @throws Exception
  */
-function _elife_article_markup_query_cache(ElifeMarkupService $markup, $preload_replacements = FALSE) {
+function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
   $cache = &drupal_static(__FUNCTION__, []);
   if (!empty($markup->getQuery())) {
     $key = _elife_article_markup_query_key($markup);
@@ -2064,7 +2101,7 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup, $preload_
         $markup = unserialize($result['markup']);
       }
       else {
-        _elife_article_markup_cache_merge($markup, $preload_replacements);
+        _elife_article_markup_cache_merge($markup);
       }
       $cache[$key] = $markup;
     }
@@ -2078,18 +2115,13 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup, $preload_
  *
  * @param ElifeMarkupService $markup
  *   Markup service container
- * @param bool $preload_replacements
- *   Set to true if you want to try to build up replacements before submission
  *
  * @throws Exception
  * @throws InvalidMergeQueryException
  */
-function _elife_article_markup_cache_merge(ElifeMarkupService $markup, $preload_replacements = FALSE) {
+function _elife_article_markup_cache_merge(ElifeMarkupService $markup) {
   $key = _elife_article_markup_query_key($markup);
   $article_version_id = '::' . implode('::', array_keys($markup->getQuery())) . '::';
-  if ($preload_replacements) {
-    $markup->preloadReplacements();
-  }
   $markup->submitQuery();
   db_merge('elife_markup')
     ->key(array('id' => $key))

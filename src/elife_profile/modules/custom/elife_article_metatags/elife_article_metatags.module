@@ -94,7 +94,6 @@ function elife_article_metatags_node_view($node, $view_mode, $langcode) {
         }
       }
 
-      // @todo - elife - nlisgo - use elife bot assets for xml and pdf.
       $metatags = array(
         'citation_public_url' => url($article_version->getPath(), array('absolute' => TRUE)),
         'citation_abstract_url' => url($article_version->getPath() . '/abstract', array('absolute' => TRUE)),
@@ -102,13 +101,10 @@ function elife_article_metatags_node_view($node, $view_mode, $langcode) {
         'citation_volume' => $article_version->getVolume(),
         'citation_keywords' => !empty($citation_keywords) ? implode(', ', $citation_keywords) : NULL,
         'citation_section' => !empty($citation_section) ? implode(', ', $citation_section) : NULL,
-        'citation_xml_url' => elife_article_version_source_xml_path($article_version->getArticleVersionId()),
+        'citation_xml_url' => elife_article_version_source_xml_path($node),
       );
-      $resources = new elifeResources();
-      $resources->getArticle($article_version->getDoi(), 'article');
-      if ($pdf_urls = $resources->getUrls()) {
-        $metatags['citation_pdf_url'] = $pdf_urls['article'][0]['url'];
-      }
+
+      $metatags['citation_pdf_url'] = elife_article_version_source_pdf_path($node);
 
       _elife_article_metatags_add($metatags, $article_version->getArticleVersionId());
 
