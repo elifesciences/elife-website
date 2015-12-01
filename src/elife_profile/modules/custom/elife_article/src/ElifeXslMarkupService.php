@@ -28,6 +28,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'acknowledgements' => 'getAcknowledgements',
     'decision-letter' => 'getDecisionLetter',
     'author-response' => 'getAuthorResponse',
+    'cc-link' => 'getCcLink',
     'original-article' => 'getOriginalArticle',
     'metatags' => 'getMetatags',
     'datasets' => 'getDatasets',
