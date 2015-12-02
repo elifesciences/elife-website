@@ -1722,6 +1722,87 @@ function elife_users_user_default_permissions() {
     'module' => 'services',
   );
 
+  // Exported permission: 'show format selection for country'.
+  $permissions['show format selection for country'] = array(
+    'name' => 'show format selection for country',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for entityqueue_subqueue'.
+  $permissions['show format selection for entityqueue_subqueue'] = array(
+    'name' => 'show format selection for entityqueue_subqueue',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for field_collection_item'.
+  $permissions['show format selection for field_collection_item'] = array(
+    'name' => 'show format selection for field_collection_item',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for node'.
+  $permissions['show format selection for node'] = array(
+    'name' => 'show format selection for node',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for rules_config'.
+  $permissions['show format selection for rules_config'] = array(
+    'name' => 'show format selection for rules_config',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for taxonomy_term'.
+  $permissions['show format selection for taxonomy_term'] = array(
+    'name' => 'show format selection for taxonomy_term',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format selection for user'.
+  $permissions['show format selection for user'] = array(
+    'name' => 'show format selection for user',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show format tips'.
+  $permissions['show format tips'] = array(
+    'name' => 'show format tips',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
+  // Exported permission: 'show more format tips link'.
+  $permissions['show more format tips link'] = array(
+    'name' => 'show more format tips link',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'better_formats',
+  );
+
   // Exported permission: 'update elife_cover entityqueue'.
   $permissions['update elife_cover entityqueue'] = array(
     'name' => 'update elife_cover entityqueue',
