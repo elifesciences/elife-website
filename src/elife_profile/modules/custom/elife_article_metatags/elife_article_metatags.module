@@ -5,6 +5,7 @@
  * elife_article_metatags.module.
  */
 
+use Drupal\elife_article\ElifeArticleVersion;
 use eLife\EIF\ArticleVersion;
 
 function _elife_article_metatags_prepare(ArticleVersion $dto) {
@@ -113,6 +114,20 @@ function elife_article_metatags_node_view($node, $view_mode, $langcode) {
         '#markup' => _elife_article_metatags_prepare($article_version),
       );
       drupal_add_html_head($markup_metatags, 'elife_article_metatags:markup:' . $article_version->getArticleVersionId());
+
+      $article = ElifeArticleVersion::getArticle($article_version->getArticleId());
+      $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+      if (!empty($related_articles)) {
+        $related_nids = array();
+        foreach ($related_articles as $related_article) {
+          $related_nids[] = $related_article->endpoints->related_to->article_ver_nid;
+        }
+        $related_nodes = node_load_multiple($related_nids);
+        foreach ($related_nodes as $related) {
+          $related_dto = elife_article_version_to_dto($related);
+          _elife_article_metatags_add(array('DC.Relation' => $related_dto->getDoi()), $article_version->getArticleVersionId() . ':' . $related_dto->getDoi());
+        }
+      }
     }
 
     $markup = elife_article_markup_service();

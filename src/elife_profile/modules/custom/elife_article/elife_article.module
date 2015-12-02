@@ -490,7 +490,7 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
         case 'ancestor-title':
           if ($ewrapper = entity_metadata_wrapper('node', $node)) {
             if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
-              if ($ewrapper->field_elife_a_parent_sub->raw()) {
+              if ($ewrapper->getBundle() == 'elife_fragment' && $ewrapper->field_elife_a_parent_sub->raw()) {
                 $parent = $ewrapper->field_elife_a_parent_sub->value();
               }
               elseif ($ewrapper->field_elife_a_parent->raw()) {
