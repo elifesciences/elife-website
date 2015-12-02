@@ -42,7 +42,7 @@ function elife_config_ckeditor_profile_defaults() {
 ]',
         'expand' => 't',
         'default' => 't',
-        'show_toggle' => 't',
+        'show_toggle' => 'f',
         'uicolor' => 'default',
         'uicolor_user' => 'default',
         'width' => '100%',
