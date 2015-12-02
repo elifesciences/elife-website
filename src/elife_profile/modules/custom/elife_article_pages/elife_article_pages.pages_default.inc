@@ -53,6 +53,17 @@ function elife_article_pages_default_page_manager_handlers() {
       ),
       'logic' => 'and',
     ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [node:ancestor-title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
+        ),
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_article';
@@ -327,6 +338,17 @@ function elife_article_pages_default_page_manager_handlers() {
           ),
           'context' => 'empty',
           'not' => FALSE,
+        ),
+      ),
+    ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [node:ancestor-title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
         ),
       ),
     ),
@@ -607,6 +629,17 @@ function elife_article_pages_default_page_manager_handlers() {
       ),
       'logic' => 'and',
     ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [node:ancestor-title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
+        ),
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_article';
@@ -872,6 +905,17 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
       ),
       'logic' => 'and',
+    ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [node:ancestor-title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
+        ),
+      ),
     ),
   );
   $display = new panels_display();
@@ -1150,6 +1194,17 @@ function elife_article_pages_default_page_manager_handlers() {
           ),
           'context' => 'argument_entity_id:node_1',
           'not' => TRUE,
+        ),
+      ),
+    ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
         ),
       ),
     ),
@@ -1781,6 +1836,17 @@ function elife_article_pages_default_page_manager_handlers() {
       ),
       'logic' => 'and',
     ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
+        ),
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_article';
@@ -2390,6 +2456,17 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
       ),
       'logic' => 'and',
+    ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'title' => array(
+          'value' => '[node:title] | [node:ancestor-title] | [site:name]',
+        ),
+        'description' => array(
+          'value' => '[node:title] | [node:impact]',
+        ),
+      ),
     ),
   );
   $display = new panels_display();

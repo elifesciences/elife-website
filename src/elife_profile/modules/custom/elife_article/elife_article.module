@@ -399,6 +399,14 @@ function elife_article_token_info() {
     'name' => t('Manuscript ID of article'),
     'description' => t('The identifier of an article as a string of 5 digits (e.g. 00001).'),
   );
+  $info['tokens']['node']['impact'] = array(
+    'name' => t('Impact statement'),
+    'description' => t('Impact statement of article node.'),
+  );
+  $info['tokens']['node']['ancestor-title'] = array(
+    'name' => t('Ancestor title'),
+    'description' => t('Title of ancestor article node.'),
+  );
   return $info;
 }
 
@@ -455,6 +463,47 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
             $manuscript_id = $original;
           }
           $replacements[$original] = $sanitize ? check_plain($manuscript_id) : $manuscript_id;
+          break;
+
+        case 'impact':
+          if ($ewrapper = entity_metadata_wrapper('node', $node)) {
+            if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
+              if ($ewrapper->field_elife_a_parent->raw()) {
+                $article_version = elife_article_version_to_dto($ewrapper->field_elife_a_parent->value());
+              }
+              else {
+                $article_version = elife_article_version_to_dto($node);
+              }
+
+              $impact = $article_version->getImpactStatement();
+              if (empty($impact)) {
+                $markup = elife_article_markup_service();
+                $markup->addDCDescriptionQuery($article_version->getArticleVersionId());
+                $markup = _elife_article_markup_query($markup);
+                $impact = $markup->output();
+              }
+              $replacements[$original] = $sanitize ? check_plain($impact) : $impact;
+            }
+          }
+          break;
+
+        case 'ancestor-title':
+          if ($ewrapper = entity_metadata_wrapper('node', $node)) {
+            if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
+              if ($ewrapper->field_elife_a_parent_sub->raw()) {
+                $parent = $ewrapper->field_elife_a_parent_sub->value();
+              }
+              elseif ($ewrapper->field_elife_a_parent->raw()) {
+                $parent = $ewrapper->field_elife_a_parent->value();
+              }
+              else {
+                $parent = $node;
+              }
+
+              $ancestor_title = $parent->title;
+              $replacements[$original] = $sanitize ? check_plain($ancestor_title) : $ancestor_title;
+            }
+          }
           break;
       }
     }
