@@ -113,7 +113,8 @@ function theme_elife_article_toolbox($variables) {
   $output .= "<script type='text/javascript'>stLight.options({onhover:false , doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>";
   $output .= '</div>';
 
-  $output .= '<div class="panel-separator"></div>';
+  $output .= '<div class="panel-separator panel-separator--reference-tools hidden"></div>';
+  $output .= '<div class="reference-tools hidden">';
   $output .= '<h2 class="pane-title">' . t('Reference tools:') . '</h2>';
 
   // @todo - elife - nlisgo - these are just placeholder links.
@@ -245,6 +246,7 @@ function theme_elife_article_toolbox($variables) {
     ],
   ]);
 
+  $output .= "</div> <!-- /.reference-tools -->";
   return $output;
 }
 
