@@ -1230,11 +1230,30 @@ function elife_article_field_default_field_instances() {
         'weight' => 1,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_a_author_imp',
     'label' => 'Author Impact Statement',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1242,6 +1261,7 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -1528,11 +1548,30 @@ function elife_article_field_default_field_instances() {
         'weight' => 40,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_a_copyright',
     'label' => 'Copyright Permissions',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1540,6 +1579,7 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -1766,11 +1806,30 @@ function elife_article_field_default_field_instances() {
         'weight' => 37,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_a_full_title',
     'label' => 'Full Title',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1778,6 +1837,7 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 5,
       ),
       'type' => 'text_textarea',
@@ -3516,11 +3576,30 @@ function elife_article_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_a_full_title',
     'label' => 'Full Title',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -3528,6 +3607,7 @@ function elife_article_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 5,
       ),
       'type' => 'text_textarea',

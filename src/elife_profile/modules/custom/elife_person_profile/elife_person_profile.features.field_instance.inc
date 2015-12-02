@@ -239,11 +239,30 @@ function elife_person_profile_field_default_field_instances() {
         'weight' => 0,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_pp_interest',
     'label' => 'Competing interests statement',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -251,6 +270,7 @@ function elife_person_profile_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 10,
       ),
       'type' => 'text_textarea',
@@ -504,6 +524,7 @@ function elife_person_profile_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 0,
         'insert_absolute' => FALSE,
         'insert_class' => '',
@@ -557,11 +578,30 @@ function elife_person_profile_field_default_field_instances() {
         'weight' => 2,
       ),
     ),
+    'ds_extras_field_template' => '',
     'entity_type' => 'node',
     'field_name' => 'field_elife_pp_profile',
     'label' => 'Profile',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
@@ -569,6 +609,7 @@ function elife_person_profile_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 10,
       ),
       'type' => 'text_textarea',

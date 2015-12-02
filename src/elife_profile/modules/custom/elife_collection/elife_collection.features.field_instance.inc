@@ -163,6 +163,7 @@ function elife_collection_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
+        'caption_from_title' => 1,
         'insert' => 0,
         'insert_absolute' => FALSE,
         'insert_class' => '',
@@ -418,6 +419,24 @@ function elife_collection_field_default_field_instances() {
     'label' => 'Introduction',
     'required' => 1,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 0,
+        ),
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
       'display_summary' => 1,
       'text_processing' => 1,
       'user_register_form' => FALSE,
@@ -426,6 +445,7 @@ function elife_collection_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
+        'label_help_description' => '',
         'rows' => 20,
         'summary_rows' => 5,
       ),

@@ -23,4 +23,9 @@ function elife_config_install() {
       ->fields($field)
       ->execute();
   }
+
+  // Clear out CKEditor profiles. elife_full will be created by Features.
+  db_delete('ckeditor_settings')
+    ->condition('name', 'CKEditor Global Profile', '!=')
+    ->execute();
 }
