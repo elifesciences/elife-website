@@ -3744,6 +3744,11 @@ a.back-to-top:hover {
 .visible-small {
   display:block;
 }
+
+.hidden {
+  display: none;
+}
+
 .hidden-small,
 ul.links.hidden-small {
   display:none;

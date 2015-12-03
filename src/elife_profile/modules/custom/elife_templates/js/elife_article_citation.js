@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
   var url = Drupal.settings.elife_article_toolbox.url;
+  $('.panel-separator--reference-tools, .reference-tools', '.sidebar-wrapper').removeClass('hidden');
   $('.st_reddit').after('<span class="st-mendeley"><a class="stButton" target="_blank" href="http://www.mendeley.com/import/?' + url + '"><span class="chicklets mendeley">Mendeley</span></a></span>');
   
   $('.api_button').click(function(){
