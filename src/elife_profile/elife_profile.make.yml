@@ -16,6 +16,8 @@ projects:
       - 'http://cgit.drupalcode.org/better_formats/patch/?id=ca0822a94fc79a3b3b69ae96d1e3cb43c61aaa15'
   caption_filter:
     version: '1.2'
+  cer:
+    version: '3.0-alpha7'
   ckeditor:
     version: '1.16'
   cluetip:
@@ -170,6 +172,8 @@ projects:
       - 'https://www.drupal.org/files/issues/smart-trim-adds-wrapper-and-class-2489312-1.patch'
   strongarm:
     version: '2.0'
+  table_element:
+    version: '1.0-beta3'
   token:
     version: '1.6'
   transliteration:

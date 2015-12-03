@@ -417,6 +417,58 @@ function elife_podcast_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'node-elife_podcast_chapter-field_elife_pc_podcast'.
+  $field_instances['node-elife_podcast_chapter-field_elife_pc_podcast'] = array(
+    'bundle' => 'elife_podcast_chapter',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 1,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => -1,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_pc_podcast',
+    'label' => 'Podcast',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'label_help_description' => '',
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => -1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'node-elife_podcast_chapter-field_elife_pc_subject'.
   $field_instances['node-elife_podcast_chapter-field_elife_pc_subject'] = array(
     'bundle' => 'elife_podcast_chapter',
@@ -428,7 +480,7 @@ function elife_podcast_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
-          'link' => FALSE,
+          'link' => 0,
         ),
         'type' => 'entityreference_label',
         'weight' => 2,
@@ -656,6 +708,7 @@ function elife_podcast_field_default_field_instances() {
   t('Episode number');
   t('Introduction');
   t('MP3 URL');
+  t('Podcast');
   t('Sidebar text');
   t('Subjects');
   t('Thumbnail');

@@ -165,6 +165,15 @@ function elife_users_user_default_permissions() {
     'module' => 'block',
   );
 
+  // Exported permission: 'administer cer settings'.
+  $permissions['administer cer settings'] = array(
+    'name' => 'administer cer settings',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'cer',
+  );
+
   // Exported permission: 'administer ckeditor'.
   $permissions['administer ckeditor'] = array(
     'name' => 'administer ckeditor',
@@ -1720,6 +1729,13 @@ function elife_users_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'services',
+  );
+
+  // Exported permission: 'show format selection for cer'.
+  $permissions['show format selection for cer'] = array(
+    'name' => 'show format selection for cer',
+    'roles' => array(),
+    'module' => 'better_formats',
   );
 
   // Exported permission: 'show format selection for country'.
