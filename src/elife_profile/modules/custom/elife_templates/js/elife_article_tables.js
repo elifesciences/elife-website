@@ -7,7 +7,8 @@
       var $tables = $('.table-expansion');
       var $tablesToCollapse = $();
       $tables.each(function () {
-        if (!$(this).parents('.fragment-type--table-wrap').length) {
+        if (!$(this).parents('.fragment-type--table-wrap').length &&
+            !!$(this).find('.table-caption').length) {
           $tablesToCollapse = $tablesToCollapse.add(this);
         }
       });
