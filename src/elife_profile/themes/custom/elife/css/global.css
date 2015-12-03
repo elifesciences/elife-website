@@ -1749,6 +1749,7 @@ div.highwire-markup span.inline-linked-media-wrapper {
 .supplementary-material-expansion p + .inline-linked-media-wrapper,
 .fig-caption p + .inline-linked-media-wrapper {
   display: block;
+  font-size: 0.86em;
   margin-top: -10px;
 }
 
