@@ -2235,3 +2235,49 @@ function _elife_article_markup_cache_clear($article_version_ids) {
 function _elife_article_markup_cache_clear_all() {
   db_truncate('elife_markup')->execute();
 }
+
+/**
+ * Get pmid from doi.
+ *
+ * @param string $doi
+ * @return string|null
+ */
+function elife_article_doi_to_pmid($doi) {
+  $cache = elife_article_doi_to_pmid_cache($doi);
+  $data = $cache[$doi];
+
+  if (!empty($data)) {
+    return $data->records[0]->pmid;
+  }
+}
+
+/**
+ * Get cached results for pmid queries.
+ *
+ * @param string $doi
+ * @return array
+ */
+function elife_article_doi_to_pmid_cache($doi) {
+  $doi_to_pmid_cache = &drupal_static(__FUNCTION__, array());
+
+  if (!isset($cache[$doi])) {
+    $cache_bin = 'cache_elife_article_pmid';
+    $data = FALSE;
+    if ($cache = cache_get($doi, $cache_bin)) {
+      if (!empty($cache->data)) {
+        $data = $cache->data;
+      }
+    }
+
+    if (empty($data)) {
+      $request_uri = 'http://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?format=json&ids=' . $doi;
+      if ($result = drupal_http_request($request_uri)) {
+        $data = $result->data;
+        cache_set($doi, $result->data, $cache_bin);
+      }
+    }
+    $doi_to_pmid_cache[$doi] = json_decode($data);
+  }
+
+  return $doi_to_pmid_cache;
+}

@@ -90,6 +90,7 @@ function elife_article_schema() {
     ),
     'primary key' => array('id'),
   );
+  $schema['cache_elife_article_pmid'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
 }
 
