@@ -36,7 +36,14 @@ function elife_news_ds_field_settings_info() {
       'format' => 'ds_post_date_elife_date_only',
       'formatter_settings' => array(
         'ft' => array(
-          'func' => 'theme_ds_field_reset',
+          'func' => 'theme_ds_field_expert',
+          'fi' => TRUE,
+          'fi-el' => 'span',
+          'fi-cl' => 'news-teaser__date',
+          'fi-at' => '',
+          'fi-def-at' => FALSE,
+          'fi-odd-even' => FALSE,
+          'fi-first-last' => FALSE,
         ),
       ),
     ),
@@ -83,7 +90,7 @@ function elife_news_ds_layout_settings_info() {
     ),
     'classes' => array(
       'layout_class' => array(
-        '' => '',
+        'news-teaser' => 'news-teaser',
       ),
     ),
     'wrappers' => array(
