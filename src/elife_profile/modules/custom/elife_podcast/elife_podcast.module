@@ -19,45 +19,6 @@ function elife_podcast_ctools_plugin_directory($owner, $plugin_type) {
 }
 
 /**
- * Implements hook_token_info().
- */
-function elife_podcast_token_info() {
-  return [
-    'tokens' => [
-      'node' => [
-        'podcast' => [
-          'name' => t('Podcast'),
-          'description' => t('Podcast for a chapter.'),
-        ],
-      ],
-    ],
-  ];
-}
-
-/**
- * Implements hook_tokens().
- */
-function elife_podcast_tokens($type, $tokens, array $data = [], array $options = []) {
-  $replacements = [];
-
-  if ($type == 'node' && !empty($data['node'])) {
-    $node = $data['node'];
-
-    if ($podcast_tokens = token_find_with_prefix($tokens, 'podcast')) {
-      if ('elife_podcast_chapter' === $node->type && !empty($node->nid)) {
-        $podcast = elife_podcast_podcast_for_chapter($node->nid);
-
-        if (!empty($podcast)) {
-          $replacements += token_generate('node', $podcast_tokens, ['node' => $podcast], $options);
-        }
-      }
-    }
-  }
-
-  return $replacements;
-}
-
-/**
  * Implements hook_theme().
  */
 function elife_podcast_theme($existing, $type, $theme, $path) {
@@ -94,9 +55,27 @@ function elife_podcast_menu_alter(&$items) {
  * Implements hook_form_BASE_FORM_ID_alter().
  */
 function elife_podcast_form_node_form_alter(&$form, &$form_state) {
-  if ('elife_podcast' === $form['#node']->type && empty($form['#node']->field_elife_p_episode_number[LANGUAGE_NONE])) {
-    // If this is a new podcast, pre-populate the episode number.
-    $form['field_elife_p_episode_number'][LANGUAGE_NONE][0]['value']['#default_value'] = elife_podcast_latest_episode_number() + 1;
+  switch ($form['#node']->type) {
+    case 'elife_podcast':
+      if (empty($form['#node']->field_elife_p_episode_number[LANGUAGE_NONE])) {
+        // If this is a new podcast, pre-populate the episode number.
+        $form['field_elife_p_episode_number'][LANGUAGE_NONE][0]['value']['#default_value'] = elife_podcast_latest_episode_number() + 1;
+      }
+      break;
+    case 'elife_podcast_chapter':
+      $form['field_elife_pc_podcast']['#access'] = FALSE;
+      break;
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function elife_podcast_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  switch ($entity_form['#entity']->type) {
+    case 'elife_podcast_chapter':
+      $entity_form['field_elife_pc_podcast']['#access'] = FALSE;
+      break;
   }
 }
 
@@ -176,10 +155,12 @@ function elife_podcast_preprocess_node(&$variables) {
     ]);
   }
   elseif ('elife_podcast_chapter' === $variables['type']) {
-    $podcast = elife_podcast_podcast_for_chapter($variables['elements']['#node']->nid);
+    if (!empty($variables['field_elife_pc_podcast'][LANGUAGE_NONE][0]['target_id'])) {
+      $podcast_nid = $variables['field_elife_pc_podcast'][LANGUAGE_NONE][0]['target_id'];
+    }
 
-    if ($podcast && !empty($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE])) {
-      $variables['elife_pc_inverse_text'] = l($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE][0]['safe_value'], 'node/' . $podcast->nid, ['attributes' => ['class' => ['podcast-compact__text']]]);
+    if (!empty($podcast_nid) && !empty($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE])) {
+      $variables['elife_pc_inverse_text'] = l($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE][0]['safe_value'], 'node/' . $podcast_nid, ['attributes' => ['class' => ['podcast-compact__text']]]);
     }
 
     $display_subjects = [];
@@ -339,30 +320,6 @@ function elife_podcast_elife_hero_block_alter(&$content) {
 
     $content = theme('elife_hero_block', $variables);
   }
-}
-
-/**
- * Get podcast entity for podcast chapter entity.
- *
- * @param int $chapter_nid
- *   Podcast chapter NID.
- *
- * @return stdClass|bool
- *   Podcast entity, or FALSE.
- */
-function elife_podcast_podcast_for_chapter($chapter_nid) {
-  $query = (new EntityFieldQuery())
-    ->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'elife_podcast')
-    ->fieldCondition('field_elife_p_chapters', 'target_id', $chapter_nid)
-    ->range(0, 10); //do not forget the semicolon at the end of the query conditions
-  $result = $query->execute();
-
-  if (!empty($result['node'])) {
-    return node_load('node', key($result['node']));
-  }
-
-  return FALSE;
 }
 
 /**

@@ -5,6 +5,22 @@
  */
 
 /**
+ * Implements hook_default_cer().
+ */
+function elife_podcast_default_cer() {
+  $items = array();
+  $items['node:elife_podcast:field_elife_p_chapters*node:elife_podcast_chapter:field_elife_pc_podcast'] = entity_import('cer', '{
+    "identifier" : "node:elife_podcast:field_elife_p_chapters*node:elife_podcast_chapter:field_elife_pc_podcast",
+    "cer_bidirectional" : { "und" : [ { "value" : "1" } ] },
+    "cer_enabled" : { "und" : [ { "value" : "1" } ] },
+    "cer_weight" : { "und" : [ { "value" : "0" } ] },
+    "cer_left" : { "und" : [ { "path" : "node:elife_podcast:field_elife_p_chapters" } ] },
+    "cer_right" : { "und" : [ { "path" : "node:elife_podcast_chapter:field_elife_pc_podcast" } ] }
+  }');
+  return $items;
+}
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function elife_podcast_ctools_plugin_api($module = NULL, $api = NULL) {
