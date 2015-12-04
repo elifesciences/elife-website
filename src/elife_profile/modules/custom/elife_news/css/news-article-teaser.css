@@ -1,0 +1,11 @@
+.news-teaser, div.panel-pane div.node.news-teaser {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+.news-teaser__date {
+  display: block;
+  font-style: italic;
+  margin-bottom: 10px;
+}

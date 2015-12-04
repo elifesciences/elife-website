@@ -5,3 +5,12 @@
  */
 
 include_once 'elife_news.features.inc';
+
+/**
+ * Implements template_preprocess_node().
+ */
+function elife_news_preprocess_node(&$variables) {
+  if ('elife_news_article' === $variables['type'] && 'teaser' === $variables['view_mode']) {
+    drupal_add_css(drupal_get_path('module', 'elife_news') . '/css/news-article-teaser.css');
+  }
+}
