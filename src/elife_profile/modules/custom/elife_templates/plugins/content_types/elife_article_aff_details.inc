@@ -169,7 +169,7 @@ function elife_article_aff_details_render($subtype, $conf, $args, $context) {
             }
           }
         }
-        $variables['equal_contrib_group'] = implode('; ', $ecgs);
+        $variables['equal_contrib_group'] = implode('; ', array_unique($ecgs));
       }
 
       if ($contributor instanceof Contributor) {
