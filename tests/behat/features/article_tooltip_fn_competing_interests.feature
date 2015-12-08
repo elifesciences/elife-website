@@ -9,20 +9,20 @@ Feature: Competing Interests in Footnotes
       """
         {
           "title": "VOR 05003",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05003",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05003",
           "article-id": "10.7554/eLife.05003",
           "article-version-id": "05003",
-          "pub-date": "2015-04-02",
+          "pub-date": "2015-04-02T00:00:00+00:00",
           "path": "content/4/e05003",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "author-15",
               "surname": "Alegado",
@@ -61,20 +61,20 @@ Feature: Competing Interests in Footnotes
       """
         {
           "title": "VOR 00007",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00007",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00007",
           "article-id": "10.7554/eLife.00007",
           "article-version-id": "00007",
-          "pub-date": "2012-10-15",
+          "pub-date": "2012-10-15T00:00:00+00:00",
           "path": "content/1/e00007",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "author-13",
               "surname": "Alegado",

@@ -37,17 +37,17 @@ Feature: Search
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "Algoriphagus"
@@ -56,17 +56,17 @@ Feature: Search
           },
           {
             "title": "VOR 05225",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05225",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05225",
             "article-id": "05225",
             "article-version-id": "05225",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05225",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "Algoriphagus"
@@ -75,17 +75,17 @@ Feature: Search
           },
           {
             "title": "VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "Algoriphagus",
@@ -95,17 +95,17 @@ Feature: Search
           },
           {
             "title": "VOR 05229",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05229",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05229",
             "article-id": "05229",
             "article-version-id": "05229",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05229",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "bacterial sulfonolipid"

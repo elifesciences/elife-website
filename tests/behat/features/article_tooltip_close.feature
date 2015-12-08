@@ -10,17 +10,17 @@ Feature: Footnote
       """
         {
           "title": "VOR 05003",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05003",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05003",
           "article-id": "10.7554/eLife.05003",
           "article-version-id": "05003",
-          "pub-date": "2015-04-02",
+          "pub-date": "2015-04-02T00:00:00+00:00",
           "path": "content/4/e05003",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And I go to "content/4/e05003"

@@ -12,17 +12,17 @@ Feature: Article Resource - Related articles (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -76,17 +76,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -113,17 +113,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -164,17 +164,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -193,17 +193,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05224v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -230,17 +230,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227v1",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -255,17 +255,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05227",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227v2",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -311,17 +311,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -340,17 +340,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05224v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -369,17 +369,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227v1",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -407,17 +407,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224v2",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "related-articles": [
               {
                 "type": "commentary",
@@ -431,17 +431,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05224v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224v1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "related-articles": [
               {
                 "type": "commentary-article",
@@ -459,17 +459,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227v1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227v1",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "related-articles": [
               {
                 "type": "article-reference",
@@ -479,17 +479,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05227v2",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227v2",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "related-articles": [
               {
                 "type": "article-reference",
@@ -518,17 +518,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "<display_channel1>"
@@ -537,17 +537,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "Correction VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "correction",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "<display_channel2>"
@@ -579,17 +579,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "<display_channel1>"
@@ -598,17 +598,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "<display_channel2>"
@@ -644,17 +644,17 @@ Feature: Article Resource - Related articles (API)
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Registered report"
@@ -663,17 +663,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05225",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05225",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05225",
             "article-id": "05225",
             "article-version-id": "05225.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05225",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Replication study"
@@ -688,17 +688,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research advance"
@@ -713,17 +713,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05227",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Tools and resources"
@@ -732,17 +732,17 @@ Feature: Article Resource - Related articles (API)
           },
           {
             "title": "VOR 05228",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05228",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05228",
             "article-id": "05228",
             "article-version-id": "05228.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05228",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research advance"

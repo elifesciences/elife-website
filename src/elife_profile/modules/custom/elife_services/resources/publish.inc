@@ -46,18 +46,19 @@ function _elife_services_publish($article_version_id, $data) {
     // Set publish state of entity.
     $ewrapper->status->set((int) $json['publish']);
     $ewrapper->save();
-    $response = [
-      'publish' => (string) $ewrapper->status->value(),
-    ];
 
     $dto = elife_article_version_to_dto($ewrapper->raw());
 
+    $response = [
+      'publish' => $dto->getPublish(),
+    ];
+
     if ($dto->getPubDate()) {
-      $response['pub-date'] = $dto->getPubDate()->format('Y-m-d');
+      $response['pub-date'] = $dto->getPubDate()->format(DATE_RFC3339);
     }
 
     if ($dto->getUpdate()) {
-      $response['update'] = $dto->getUpdate()->format('Y-m-d');
+      $response['update'] = $dto->getUpdate()->format(DATE_RFC3339);
     }
 
     return json_encode($response);

@@ -9,23 +9,23 @@ Feature: Deceased
       """
         {
           "title": "VOR 01861",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.01861",
-          "volume": "3",
+          "volume": 3,
           "elocation-id": "e01861",
           "article-id": "10.7554/eLife.01861",
           "article-version-id": "01861",
-          "pub-date": "2014-04-15",
+          "pub-date": "2014-04-15T00:00:00+00:00",
           "path": "content/3/e01861",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
-              "deceased": "yes",
+              "deceased": true,
               "surname": "Widom",
               "given-names": "Jonathan",
               "references": {
@@ -65,21 +65,21 @@ Feature: Deceased
       """
         {
           "title": "VOR 01861",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.01861",
-          "volume": "3",
+          "volume": 3,
           "elocation-id": "e01861",
           "article-id": "10.7554/eLife.01861",
           "article-version-id": "01861",
-          "pub-date": "2014-04-15",
+          "pub-date": "2014-04-15T00:00:00+00:00",
           "path": "content/3/e01861",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Widom",
               "given-names": "Jonathan",

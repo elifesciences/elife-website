@@ -9,21 +9,21 @@ Feature: Contribution
       """
         {
           "title": "VOR 03895",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.03895",
-          "volume": "3",
+          "volume": 3,
           "elocation-id": "e03895",
           "article-id": "10.7554/eLife.03895",
           "article-version-id": "05227",
-          "pub-date": "2014-11-13",
+          "pub-date": "2014-11-13T00:00:00+00:00",
           "path": "content/3/e03895",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Kamoun",
               "given-names": "Sophien",
@@ -42,7 +42,7 @@ Feature: Contribution
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Krause",
               "given-names": "Johannes",
@@ -140,10 +140,10 @@ Feature: Contribution
           "article-type": "research-article",
           "title": "Non-canonical TAF complexes regulate active promoters in human embryonic stem cells",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "doi": "10.7554/eLife.00068",
-          "pub-date": "2012-11-13",
-          "volume": "1",
+          "pub-date": "2012-11-13T00:00:00+00:00",
+          "volume": 1,
           "elocation-id": "e00068",
           "path": "content/1/e00068v1",
           "article-id": "00068",
@@ -213,7 +213,7 @@ Feature: Contribution
               "surname": "Green",
               "given-names": "Michael R",
               "id": "author-1519",
-              "corresp": "yes",
+              "corresp": true,
               "references": {
                 "contribution": [
                   "con4"
@@ -229,7 +229,7 @@ Feature: Contribution
               "con4": "MRG, Conception and design, Analysis and interpretation of data, Drafting or revising the article"
             }
           },
-          "version": "1",
+          "version": 1,
           "article-version-id": "00068.1"
         }
       """

@@ -13,17 +13,17 @@ Feature: Archive
       """
         {
           "title": "Article 01/10/2012",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00001",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00001",
           "article-id": "00001",
           "article-version-id": "00001.1",
-          "pub-date": "2012-10-01",
+          "pub-date": "2012-10-01T00:00:00+00:00",
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -41,9 +41,9 @@ Feature: Archive
       """
         {
           "title": "Article <pubdate>",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00001",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00001",
           "article-id": "00001",
           "article-version-id": "00001.1",
@@ -51,7 +51,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -63,18 +63,18 @@ Feature: Archive
     Then I should see "Article archive, <date>" in the "h1" element
 
     Examples:
-      | pubdate | url | date |
-      | 2012-10-01 | 2012/10 | October 2012 |
-      | 2013-05-01 | 2013/05 | May 2013 |
+      | pubdate                   | url     | date         |
+      | 2012-10-01T00:00:00+00:00 | 2012/10 | October 2012 |
+      | 2013-05-01T00:00:00+00:00 | 2013/05 | May 2013     |
 
   Scenario Outline: Use the archive jump to dropdown
     Given there is an article:
       """
         {
           "title": "Article <pubdate>",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00001",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00001",
           "article-id": "00001",
           "article-version-id": "00001.1",
@@ -82,7 +82,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -96,9 +96,9 @@ Feature: Archive
     Then the url should match "/archive/<dest_url>"
 
     Examples:
-      | pubdate | option | dest_url |
-      | 2013-02-01 | February 2013 | 2013/02 |
-      | 2012-11-01 | November 2012 | 2012/11 |
+      | pubdate                   | option        | dest_url |
+      | 2013-02-01T00:00:00+00:00 | February 2013 | 2013/02  |
+      | 2012-11-01T00:00:00+00:00 | November 2012 | 2012/11  |
 
   @javascript
   Scenario Outline: Use the archive jump to dropdown (javascript)
@@ -106,9 +106,9 @@ Feature: Archive
       """
         {
           "title": "Article <pubdate>",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00001",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00001",
           "article-id": "00001",
           "article-version-id": "00001.1",
@@ -116,7 +116,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -129,9 +129,9 @@ Feature: Archive
     Then the url should match "/archive/<dest_url>"
 
     Examples:
-      | pubdate | option | dest_url |
-      | 2013-02-01 | February 2013 | 2013/02 |
-      | 2012-11-01 | November 2012 | 2012/11 |
+      | pubdate                   | option        | dest_url |
+      | 2013-02-01T00:00:00+00:00 | February 2013 | 2013/02  |
+      | 2012-11-01T00:00:00+00:00 | November 2012 | 2012/11  |
 
   Scenario Outline: Correct number of articles for month
     Given there are articles:
@@ -139,17 +139,17 @@ Feature: Archive
         [
           {
             "title": "Article 2013-02-01",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00001",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00001",
             "article-id": "00001",
             "article-version-id": "00001.1",
-            "pub-date": "2013-02-01",
+            "pub-date": "2013-02-01T00:00:00+00:00",
             "path": "content/1/00001",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -158,17 +158,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-02-02",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00002",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00002",
             "article-id": "00002",
             "article-version-id": "00002.1",
-            "pub-date": "2013-02-02",
+            "pub-date": "2013-02-02T00:00:00+00:00",
             "path": "content/1/00002",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -177,17 +177,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-02-03",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00003",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00003",
             "article-id": "00003",
             "article-version-id": "00003.1",
-            "pub-date": "2013-02-03",
+            "pub-date": "2013-02-03T00:00:00+00:00",
             "path": "content/1/00003",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -196,17 +196,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-02-04",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00004",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00004",
             "article-id": "00004",
             "article-version-id": "00004.1",
-            "pub-date": "2013-02-04",
+            "pub-date": "2013-02-04T00:00:00+00:00",
             "path": "content/1/00004",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -215,17 +215,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-02-05",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00005",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00005",
             "article-id": "00005",
             "article-version-id": "00005.1",
-            "pub-date": "2013-02-05",
+            "pub-date": "2013-02-05T00:00:00+00:00",
             "path": "content/1/00005",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -234,17 +234,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-01",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00011",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00011",
             "article-id": "00011",
             "article-version-id": "00011.1",
-            "pub-date": "2013-01-01",
+            "pub-date": "2013-01-01T00:00:00+00:00",
             "path": "content/1/00011",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -253,17 +253,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-02",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00012",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00012",
             "article-id": "00012",
             "article-version-id": "00012.1",
-            "pub-date": "2013-01-02",
+            "pub-date": "2013-01-02T00:00:00+00:00",
             "path": "content/1/00012",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -272,17 +272,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-03",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00013",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00013",
             "article-id": "00013",
             "article-version-id": "00013.1",
-            "pub-date": "2013-01-03",
+            "pub-date": "2013-01-03T00:00:00+00:00",
             "path": "content/1/00013",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -291,17 +291,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-04",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00014",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00014",
             "article-id": "00014",
             "article-version-id": "00014.1",
-            "pub-date": "2013-01-04",
+            "pub-date": "2013-01-04T00:00:00+00:00",
             "path": "content/1/00014",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -310,17 +310,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-05",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00015",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00015",
             "article-id": "00015",
             "article-version-id": "00015.1",
-            "pub-date": "2013-01-05",
+            "pub-date": "2013-01-05T00:00:00+00:00",
             "path": "content/1/00015",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -329,17 +329,17 @@ Feature: Archive
           },
           {
             "title": "Article 2013-01-06",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00016",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00016",
             "article-id": "00016",
             "article-version-id": "00016.1",
-            "pub-date": "2013-01-06",
+            "pub-date": "2013-01-06T00:00:00+00:00",
             "path": "content/1/00016",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -352,18 +352,18 @@ Feature: Archive
     Then I should see <num> ".article-teaser" elements
 
     Examples:
-      | url | num |
-      | 2013/02 | 5 |
-      | 2013/01 | 6 |
+      | url     | num |
+      | 2013/02 | 5   |
+      | 2013/01 | 6   |
 
   Scenario Outline: Redirect if month does not have leading zero in url
     Given there is an article:
       """
         {
           "title": "Article <pubdate>",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00001",
-          "volume": "1",
+          "volume": 1,
           "elocation-id": "e00001",
           "article-id": "00001",
           "article-version-id": "00001.1",
@@ -371,7 +371,7 @@ Feature: Archive
           "path": "content/1/00001",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -383,10 +383,10 @@ Feature: Archive
     Then the url should match "/archive/<new_url>"
 
     Examples:
-      | pubdate | url | new_url |
-      | 2013-09-01 | 2013/9 | 2013/09 |
-      | 2013-01-01 | 2013/1 | 2013/01 |
-      | 2012-10-01 | 2012/10 | 2012/10 |
+      | pubdate                   | url     | new_url |
+      | 2013-09-01T00:00:00+00:00 | 2013/9  | 2013/09 |
+      | 2013-01-01T00:00:00+00:00 | 2013/1  | 2013/01 |
+      | 2012-10-01T00:00:00+00:00 | 2012/10 | 2012/10 |
 
   Scenario: Correct set of article types in the archive listing
     Given I set variable "elife_category_reference_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
@@ -395,17 +395,17 @@ Feature: Archive
         [
           {
             "title": "Article 2015-03-01",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00001",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00001",
             "article-id": "00001",
             "article-version-id": "00001.1",
-            "pub-date": "2015-03-01",
+            "pub-date": "2015-03-01T00:00:00+00:00",
             "path": "content/1/00001",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Tools and resources"
@@ -414,17 +414,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-02",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00002",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00002",
             "article-id": "00002",
             "article-version-id": "00002.1",
-            "pub-date": "2015-03-02",
+            "pub-date": "2015-03-02T00:00:00+00:00",
             "path": "content/1/00002",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Registered report"
@@ -433,17 +433,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-03",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00003",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00003",
             "article-id": "00003",
             "article-version-id": "00003.1",
-            "pub-date": "2015-03-03",
+            "pub-date": "2015-03-03T00:00:00+00:00",
             "path": "content/1/00003",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research advance"
@@ -452,17 +452,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-04",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00004",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00004",
             "article-id": "00004",
             "article-version-id": "00004.1",
-            "pub-date": "2015-03-04",
+            "pub-date": "2015-03-04T00:00:00+00:00",
             "path": "content/1/00004",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Insight"
@@ -471,17 +471,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-05",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00005",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00005",
             "article-id": "00005",
             "article-version-id": "00005.1",
-            "pub-date": "2015-03-05",
+            "pub-date": "2015-03-05T00:00:00+00:00",
             "path": "content/1/00005",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -490,17 +490,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-06",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00006",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00006",
             "article-id": "00006",
             "article-version-id": "00006.1",
-            "pub-date": "2015-03-06",
+            "pub-date": "2015-03-06T00:00:00+00:00",
             "path": "content/1/00006",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Feature article"
@@ -509,17 +509,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-07",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00007",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00007",
             "article-id": "00007",
             "article-version-id": "00007.1",
-            "pub-date": "2015-03-07",
+            "pub-date": "2015-03-07T00:00:00+00:00",
             "path": "content/1/00007",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Short report"
@@ -528,17 +528,17 @@ Feature: Archive
           },
           {
             "title": "Article 2015-03-08",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00008",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e00008",
             "article-id": "00008",
             "article-version-id": "00008.1",
-            "pub-date": "2015-03-08",
+            "pub-date": "2015-03-08T00:00:00+00:00",
             "path": "content/1/00008",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Editorial"

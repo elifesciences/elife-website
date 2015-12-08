@@ -8,21 +8,21 @@ Feature: Article Header
     """
         {
           "title": "VOR 00013",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00013",
-          "publish": "1",
-          "volume": "3",
+          "publish": true,
+          "volume": 3,
           "elocation-id": "e00013",
           "article-id": "10.7554/eLife.00013",
           "article-version-id": "00013.1",
-          "pub-date": "2014-02-28",
+          "pub-date": "2014-02-28T00:00:00+00:00",
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -35,7 +35,7 @@ Feature: Article Header
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -165,23 +165,23 @@ Feature: Article Header
     """
         {
           "title": "VOR 07091",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.07091",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e07091",
           "article-id": "10.7554/eLife.07091",
           "article-version-id": "07091",
-          "pub-date": "2015-06-30",
+          "pub-date": "2015-06-30T00:00:00+00:00",
           "path": "content/4/e07091",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
-              "corresp": "yes",
+              "corresp": true,
               "surname": "Garcia-Marcos",
               "given-names": "Mikel",
               "references": {
@@ -201,9 +201,9 @@ Feature: Article Header
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
-              "corresp": "yes",
+              "corresp": true,
               "surname": "Ghosh",
               "given-names": "Pradipta",
               "references": {
@@ -308,17 +308,17 @@ Feature: Article Header
     """
       {
         "title": "VOR 05224 v2",
-        "version": "2",
+        "version": 2,
         "doi": "10.7554/eLife.05224",
-        "volume": "4",
+        "volume": 4,
         "elocation-id": "e05224",
         "article-id": "05224",
         "article-version-id": "05224.2",
-        "pub-date": "2015-08-17",
+        "pub-date": "2015-08-17T00:00:00+00:00",
         "path": "content/4/e05224v2",
         "article-type": "research-article",
         "status": "VOR",
-        "publish": "1",
+        "publish": true,
         "keywords": {
         "author-keywords": [
         "Algoriphagus"

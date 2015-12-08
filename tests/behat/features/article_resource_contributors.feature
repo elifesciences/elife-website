@@ -14,21 +14,21 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-1",
               "surname": "Surname",
               "given-names": "First A"
@@ -50,21 +50,21 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -102,7 +102,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -177,7 +177,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -215,7 +215,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -240,7 +240,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -268,7 +268,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -291,7 +291,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group"
             },
@@ -480,7 +480,7 @@ Feature: Article Resource - Contributors (API)
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -518,7 +518,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -593,7 +593,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -631,7 +631,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -656,7 +656,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -684,7 +684,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -707,7 +707,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group"
             },
@@ -895,17 +895,17 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "referenced": {
             "equal-contrib": {
               "equal-contrib": "These authors contributed equally to this work",
@@ -1014,21 +1014,21 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -1062,7 +1062,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -1134,7 +1134,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -1172,7 +1172,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -1197,7 +1197,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -1225,7 +1225,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -1248,7 +1248,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group",
               "affiliations": [
@@ -1425,7 +1425,7 @@ Feature: Article Resource - Contributors (API)
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -1459,7 +1459,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -1531,7 +1531,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -1569,7 +1569,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -1594,7 +1594,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -1622,7 +1622,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -1645,7 +1645,7 @@ Feature: Article Resource - Contributors (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group",
               "affiliations": [
@@ -1828,21 +1828,21 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-1",
               "surname": "Surname",
               "given-names": "First A"
@@ -1865,21 +1865,21 @@ Feature: Article Resource - Contributors (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-1",
               "surname": "Surname",
               "given-names": "First A"
