@@ -9,7 +9,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "eLife\\Behat\\": "src/"
+      "eLife\\Behat\\": "src/eLife/",
+      "Drupal\\Driver\\Fields\\Drupal7\\": "src/Drupal/"
     }
   }
 }
