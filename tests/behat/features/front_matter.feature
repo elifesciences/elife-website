@@ -233,6 +233,62 @@ Feature: Front Matter
     Then I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
     Then I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element
 
+  Scenario: Updated date is not shown when it's the same as the publish date
+    Given there is an article:
+      """
+        {
+          "title": "VOR 05224v1",
+          "version": "1",
+          "doi": "10.7554/eLife.05224.1",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "05224",
+          "article-version-id": "05224.1",
+          "pub-date": "2000-01-01",
+          "update": "2000-01-01",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "categories": {
+            "display-channel": [
+              "Research article"
+            ]
+          }
+        }
+      """
+    When I go to the homepage
+    Then I should see "Published on January 1, 2000" in the ".home-article-listing__list-item" element
+    And I should not see "Updated on" in the ".home-article-listing__list-item" element
+
+  Scenario: Updated data is shown when it's different to the publish date
+    Given there is an article:
+      """
+        {
+          "title": "VOR 05224v1",
+          "version": "1",
+          "doi": "10.7554/eLife.05224.1",
+          "volume": "4",
+          "elocation-id": "e05224",
+          "article-id": "05224",
+          "article-version-id": "05224.1",
+          "pub-date": "2000-01-01",
+          "update": "2001-01-01",
+          "path": "content/4/e05224",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": "1",
+          "categories": {
+            "display-channel": [
+              "Research article"
+            ]
+          }
+        }
+      """
+    When I go to the homepage
+    Then I should see "Published on January 1, 2000" in the ".home-article-listing__list-item" element
+    And I should see "Updated on January 1, 2001" in the ".home-article-listing__list-item" element
+
   Scenario: Unpublished covers don't appear when their referenced content isn't published
     Given "elife_podcast" content:
       | field_elife_p_episode_number | field_elife_p_title | status |
