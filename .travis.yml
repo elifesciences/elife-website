@@ -19,7 +19,7 @@ services:
 cache:
   apt: true
   directories:
-    - $HOME/.composer/cache
+    - $HOME/.composer/cache/files
     - $HOME/.drush/cache
     - $HOME/.npm
     - $HOME/custom
