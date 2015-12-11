@@ -83,14 +83,16 @@ function elife_podcast_inline_entity_form_entity_form_alter(&$entity_form, &$for
  * Implements hook_inline_entity_form_table_fields_alter().
  */
 function elife_podcast_inline_entity_form_table_fields_alter(&$fields, $context) {
-  $fields = [
-    'chapter' => [
-      'type' => 'callback',
-      'label' => 'Chapter',
-      'sanitized' => TRUE,
-      'render_callback' => 'elife_podcast_inline_entity_form_podcast_chapter',
-    ],
-  ];
+  if ('field_elife_p_chapters' === $context['field_name']) {
+    $fields = [
+      'chapter' => [
+        'type' => 'callback',
+        'label' => 'Chapter',
+        'sanitized' => TRUE,
+        'render_callback' => 'elife_podcast_inline_entity_form_podcast_chapter',
+      ],
+    ];
+  }
 }
 
 /**
