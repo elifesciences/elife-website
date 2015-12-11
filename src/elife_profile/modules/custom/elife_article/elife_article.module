@@ -357,13 +357,10 @@ function elife_article_preprocess_node(&$variables) {
     }
 
     if (!empty($dto->getPubDate())) {
-      $meta_parts[] = 'Published on ' .
-        $dto->getPubDate()->format('F j, Y');
-    }
-
-    if (!empty($dto->getUpdate())) {
-      $meta_parts[] = 'Updated on ' .
-        $dto->getUpdate()->format('F j, Y');
+      $meta_parts[] = 'Published on ' . $dto->getPubDate()->format('F j, Y');
+      if (!empty($dto->getUpdate()) && $dto->getPubDate()->format('Y-m-d') !== $dto->getUpdate()->format('Y-m-d')) {
+        $meta_parts[] = 'Updated on ' . $dto->getUpdate()->format('F j, Y');
+      }
     }
 
     if (!empty($meta_parts)) {
