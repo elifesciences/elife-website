@@ -9,7 +9,7 @@ namespace Drupal\elife_article;
 interface ElifeMarkupServiceInterface {
   /**
    * @param string $article_id
-   * @param string $section
+   * @param string|array $section
    */
   public function addSectionQuery($article_id, $section);
 

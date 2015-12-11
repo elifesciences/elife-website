@@ -23,6 +23,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'dc-description' => 'getDcDescription',
     'main-text' => 'getMainText',
     'abstract' => 'getAbstract',
+    'fig' => 'getMainFigures',
     'digest' => 'getDigest',
     'references' => 'getReferences',
     'acknowledgements' => 'getAcknowledgements',
