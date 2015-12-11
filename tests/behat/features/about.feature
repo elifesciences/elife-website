@@ -179,3 +179,28 @@ Feature: Navigate to editorial board
     When I go to "/about"
     Then I should see "Aims & scope"
     And I should see "Our 2 Senior editors and 3-member Board of Reviewing Editors"
+
+  @api
+  Scenario: Reviewing editors show details
+    Given "elife_organisation" content:
+      | field_elife_o_name | field_elife_o_country |
+      | Organisation       | GB                    |
+    And "elife_pp_experimental_organism" terms:
+      | name         |
+      | Organism Foo |
+    And "elife_pp_expertise" terms:
+      | name          |
+      | Expertise Bar |
+    And "elife_pp_research_focus" terms:
+      | name      |
+      | Focus Baz |
+    And "elife_person_profile" content:
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_affiliation    | field_elife_pp_organism | field_elife_pp_expertise | field_elife_pp_research_focus |
+      | First Name                | Last Name                | Reviewing Editor    | Organisation (United Kingdom) | Organism Foo            | Expertise Bar            | Focus Baz                     |
+    When I go to "/about"
+    Then I should see "Expertise Bar" in the ".aims-scope__subject_list_item:nth-child(2)" element
+    And I should see "Expertise Bar" in the "#expertise-bar .aims-scope__people_heading" element
+    And I should see "First Name Last Name" in the ".person-profile.vcard .fn" element
+    And I should see "Organisation (United Kingdom)" in the ".person-profile.vcard .org" element
+    And I should see "Organism Foo" in the ".person-profile__list-title:contains('Experimental organism') + ul" element
+    And I should see "Focus Baz" in the ".person-profile__list-title:contains('Research focus') + ul" element

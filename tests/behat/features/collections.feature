@@ -212,9 +212,12 @@ Feature: Collections
           }
         ]
       """
+    And "elife_organisation" content:
+      | field_elife_o_name | field_elife_o_country |
+      | Bar                | GB                    |
     And "elife_person_profile" content:
-      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
-      | First Name                | Last Name                | Executive Staff     |
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_title | field_elife_pp_affiliation |
+      | First Name                | Last Name                | Executive Staff     | Foo                  | Bar (United Kingdom)       |
     When I am viewing an "elife_collection" content:
       | field_elife_c_title     | My Collection                          |
       | field_elife_c_sub_title | Sub-title                              |
@@ -225,6 +228,9 @@ Feature: Collections
     And I should see text matching "VOR 05229"
     And I should see text matching "VOR 05252"
     And I should not see text matching "VOR 05262"
+    And I should see "First Name Last Name" in the ".pane-node-field-elife-c-curators .person-profile-compact__name.fn" element
+    And I should see "Foo" in the ".pane-node-field-elife-c-curators .person-profile-compact__title.role" element
+    And I should see "Bar (United Kingdom)" in the ".pane-node-field-elife-c-curators .person-profile-compact__title.org" element
 
   Scenario: Collection of collections page
     When "elife_person_profile" content:
