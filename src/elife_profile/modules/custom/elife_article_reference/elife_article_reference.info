@@ -5,6 +5,7 @@ version = 7.x-1.0
 project = elife_article_reference
 dependencies[] = ctools
 dependencies[] = elife_article
+dependencies[] = entity
 dependencies[] = features
 dependencies[] = field_validation
 dependencies[] = image
