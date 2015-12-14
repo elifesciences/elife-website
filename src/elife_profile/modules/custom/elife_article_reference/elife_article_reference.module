@@ -72,35 +72,39 @@ function elife_article_reference_form_validate($form, &$form_state) {
  * Implements hook_node_presave().
  */
 function elife_article_reference_node_presave($node) {
-  if ('elife_article' === $node->type) {
-    $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+  /* @var EntityDrupalWrapper $node */
+  $node = entity_metadata_wrapper('node', $node);
+
+  if ('elife_article' === $node->getBundle()) {
+    $article_id = $node->field_elife_a_article_id->value();
 
     $article_reference = elife_article_reference_for_article_id($article_id);
 
     if (!$article_reference) {
-      $article_reference = new stdClass();
-      $article_reference->type = 'elife_article_reference';
-      node_object_prepare($article_reference);
-      $article_reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value'] = $article_id;
-      $article_reference->language = LANGUAGE_NONE;
-      $article_reference->uid = 1;
-      node_submit($article_reference);
+      $article_reference = entity_create('node', [
+        'type' => 'elife_article_reference',
+        'uid' => $node->raw()->uid,
+      ]);
     }
 
-    $article_reference->title = sprintf('%s: %s', $article_id, $node->title);
-    $article_reference->status = $node->status;
+    /* @var EntityDrupalWrapper $article_reference */
+    $article_reference = entity_metadata_wrapper('node', $article_reference);
 
-    $article_reference->elife_autogenerating = TRUE; // Hack to stop the below happening.
-    node_save($article_reference);
+    $article_reference->field_elife_a_article_id = $article_id;
+    $article_reference->title = sprintf('%s: %s', $article_id, $node->title->value());
+    $article_reference->status = $node->status->value();
+
+    $article_reference->raw()->elife_autogenerating = TRUE; // Hack to stop the below happening.
+    $article_reference->save();
   }
-  elseif ('elife_article_reference' === $node->type && !isset($node->elife_autogenerating)) {
-    $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+  elseif ('elife_article_reference' === $node->getBundle() && !isset($node->raw()->elife_autogenerating)) {
+    $article_id = $node->field_elife_a_article_id->value()['value'];
 
     $article = ElifeArticleVersion::getArticle($article_id);
 
     if ($article) {
-      $node->title = sprintf('%s: %s', $article_id, $article->title);
-      $node->status = $article->status;
+      $node->title = sprintf('%s: %s', $article_id, $article->title->value());
+      $node->status = $article->status->value();
     }
     else {
       $node->status = NODE_NOT_PUBLISHED;

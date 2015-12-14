@@ -237,12 +237,12 @@ Feature: Collections
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type |
       | FirstName                 | LastName                 | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_title    | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
     And I should see text matching "Article 2 for Collections test"
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                                                                 |
+      | field_elife_c_title    | early-career                                                                 |
       | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
     Then I should see text matching "Article 7 for Collections test"
@@ -262,14 +262,14 @@ Feature: Collections
       | FirstName                 | LastName                 | Executive Staff     |
       | One Two                   | Three                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_title    | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff), One Two Three (Executive Staff)        |
       | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     And I should see text matching "Article 2 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                                                                 |
+      | field_elife_c_title    | early-career                                                                 |
       | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff)                                         |
       | field_elife_c_related  | 00477: Article 8 for Collections test, Algoriphagus                          |
@@ -292,14 +292,14 @@ Feature: Collections
       | FirstName                 | LastName                 | Executive Staff     |
       | FName                     | LName                    | Executive Staff     |
     When I am viewing an "elife_collection" content:
-      | title                  | Algoriphagus                                                                 |
+      | field_elife_c_title    | Algoriphagus                                                                 |
       | field_elife_c_articles | 05224: Article 2 for Collections test, 05225: Article 3 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)          |
       | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
     And I should see text matching "Article 2 for Collections test"
     Then I should see "Related content" in the ".elife-collection__sidebar" element
     When I am viewing an "elife_collection" content:
-      | title                  | early-career                                                                 |
+      | field_elife_c_title    | early-career                                                                 |
       | field_elife_c_articles | 01633: Article 7 for Collections test, 04901: Article 6 for Collections test |
       | field_elife_c_curators | FirstName LastName (Executive Staff), FName LName (Executive Staff)          |
       | field_elife_c_related  | 00477: Article 8 for Collections test                                        |
