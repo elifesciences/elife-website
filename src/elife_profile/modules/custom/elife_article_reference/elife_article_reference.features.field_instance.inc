@@ -53,6 +53,67 @@ function elife_article_reference_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'node-elife_article_reference-field_elife_a_title'.
+  $field_instances['node-elife_article_reference-field_elife_a_title'] = array(
+    'bundle' => 'elife_article_reference',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_a_title',
+    'label' => 'Title',
+    'required' => 1,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'label_help_description' => '',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
   // 'node-elife_article_reference-field_elife_aa_striking_figure'.
   $field_instances['node-elife_article_reference-field_elife_aa_striking_figure'] = array(
     'bundle' => 'elife_article_reference',
@@ -161,6 +222,7 @@ function elife_article_reference_field_default_field_instances() {
   t('Article ID');
   t('Striking Figure');
   t('Striking Image');
+  t('Title');
 
   return $field_instances;
 }

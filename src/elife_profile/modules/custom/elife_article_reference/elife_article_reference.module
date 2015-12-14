@@ -41,11 +41,11 @@ function elife_article_reference_form_node_form_alter(&$form, &$form_state, $for
   }
 
   // Title might not be required.
-  $form['title']['#required'] = FALSE;
+  $form['field_elife_a_title'][LANGUAGE_NONE][0]['value']['#required'] = FALSE;
 
   if (isset($form['#node']->field_elife_a_article_id)) {
     // If the article exists, then disable the title and article ID fields.
-    $form['title']['#attributes']['disabled'] = TRUE;
+    $form['field_elife_a_title'][LANGUAGE_NONE][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#required'] = FALSE;
   }
@@ -60,10 +60,10 @@ function elife_article_reference_form_node_form_alter(&$form, &$form_state, $for
  * Form validation handler for node_form() and elife_article_reference entities.
  */
 function elife_article_reference_form_validate($form, &$form_state) {
-  if (empty($form_state['values']['title']) && !empty($form_state['values']['field_elife_a_article_id'][LANGUAGE_NONE][0]['value'])) {
+  if (empty($form_state['values']['field_elife_a_title'][LANGUAGE_NONE][0]['value']) && !empty($form_state['values']['field_elife_a_article_id'][LANGUAGE_NONE][0]['value'])) {
     $article = ElifeArticleVersion::getArticle($form_state['values']['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']);
     if (!$article) {
-      form_set_error('title', t('A title is required if the article is not yet known by the site.'));
+      form_set_error('field_elife_a_title', t('A title is required if the article is not yet known by the site.'));
     }
   }
 }
@@ -91,7 +91,8 @@ function elife_article_reference_node_presave($node) {
     $article_reference = entity_metadata_wrapper('node', $article_reference);
 
     $article_reference->field_elife_a_article_id = $article_id;
-    $article_reference->title = sprintf('%s: %s', $article_id, $node->title->value());
+    $article_reference->title = AUTO_ENTITYLABEL_PLACEHOLDER; // TODO Not sure why this is needed.
+    $article_reference->field_elife_a_title = $node->title->value();
     $article_reference->status = $node->status->value();
 
     $article_reference->raw()->elife_autogenerating = TRUE; // Hack to stop the below happening.
@@ -103,7 +104,7 @@ function elife_article_reference_node_presave($node) {
     $article = ElifeArticleVersion::getArticle($article_id);
 
     if ($article) {
-      $node->title = sprintf('%s: %s', $article_id, $article->title->value());
+      $node->field_elife_a_title = $article->title->value();
       $node->status = $article->status->value();
     }
     else {
