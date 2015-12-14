@@ -27,9 +27,14 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
   $article_version_id = $dto->getArticleVersionId();
   $markup = elife_article_markup_service();
   foreach ($dto->getFragmentsOfType(array_keys($item_lists)) as $fragment) {
-    $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
-    $markup->addDoiQuery($article_version_id, $fragment->getDoi());
+    if ($fragment->getType() != 'fig') {
+      $item_lists[$fragment->getType()]['items'][] = $fragment->getDoi();
+      $markup->addDoiQuery($article_version_id, $fragment->getDoi());
+    }
   }
+
+  $item_lists['fig']['items'][] = 'fig';
+  $markup->addSectionQuery($article_version_id, 'fig');
 
   $item_lists['datasets']['items'][] = 'datasets';
   $markup->addSectionQuery($article_version_id, 'datasets');
@@ -47,7 +52,6 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
       $items = [];
       if (!empty($item_list['items'])) {
         foreach ($item_list['items'] as $k => $identifier) {
-
           if (!empty($results[$article_version_id][$identifier])) {
             $items[] = implode("\n", $results[$article_version_id][$identifier]);
           }
