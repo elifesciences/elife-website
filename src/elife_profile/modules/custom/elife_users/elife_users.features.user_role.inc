@@ -10,9 +10,15 @@
 function elife_users_user_default_roles() {
   $roles = array();
 
-  // Exported role: administrator.
-  $roles['administrator'] = array(
-    'name' => 'administrator',
+  // Exported role: eLife Administrator.
+  $roles['eLife Administrator'] = array(
+    'name' => 'eLife Administrator',
+    'weight' => 3,
+  );
+
+  // Exported role: eLife Editor.
+  $roles['eLife Editor'] = array(
+    'name' => 'eLife Editor',
     'weight' => 2,
   );
 
