@@ -80,8 +80,8 @@ install:
   - sh -e /etc/init.d/xvfb start
 
   # Get Selenium
-  - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.44.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.44/selenium-server-standalone-2.44.0.jar; fi;
-  - java -jar $HOME/custom/selenium-server-standalone-2.44.0.jar -p 4444 > /dev/null 2>&1 &
+  - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.46.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.46/selenium-server-standalone-2.46.0.jar; fi;
+  - java -jar $HOME/custom/selenium-server-standalone-2.46.0.jar -p 4444 > /dev/null 2>&1 &
 
   # Populate the local settings file
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
