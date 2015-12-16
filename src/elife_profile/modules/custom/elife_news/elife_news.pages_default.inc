@@ -60,26 +60,23 @@ function elife_news_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '';
+  $display->title = '%node:title';
   $display->uuid = 'a50c0ca3-7437-4b16-ab55-0902f5bb9c14';
   $display->content = array();
   $display->panels = array();
   $pane = new stdClass();
-  $pane->pid = 'new-df7b7f9b-0452-4c03-bf57-f8bd5f253a43';
+  $pane->pid = 'new-98c0f7b0-3cd5-4107-a329-9f7253549922';
   $pane->panel = 'main';
-  $pane->type = 'node_title';
-  $pane->subtype = 'node_title';
+  $pane->type = 'custom';
+  $pane->subtype = 'custom';
   $pane->shown = TRUE;
   $pane->access = array();
   $pane->configuration = array(
-    'link' => 0,
-    'markup' => 'h2',
-    'id' => '',
-    'class' => '',
-    'context' => 'argument_entity_id:node_1',
-    'override_title' => 1,
-    'override_title_text' => '',
-    'override_title_heading' => 'h2',
+    'admin_title' => 'Title',
+    'title' => '',
+    'body' => '<h2>%node:field_elife_title</h2>',
+    'format' => 'elife_full_html',
+    'substitute' => 1,
   );
   $pane->cache = array();
   $pane->style = array(
@@ -89,9 +86,9 @@ function elife_news_default_page_manager_handlers() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = 'df7b7f9b-0452-4c03-bf57-f8bd5f253a43';
-  $display->content['new-df7b7f9b-0452-4c03-bf57-f8bd5f253a43'] = $pane;
-  $display->panels['main'][0] = 'new-df7b7f9b-0452-4c03-bf57-f8bd5f253a43';
+  $pane->uuid = '98c0f7b0-3cd5-4107-a329-9f7253549922';
+  $display->content['new-98c0f7b0-3cd5-4107-a329-9f7253549922'] = $pane;
+  $display->panels['main'][0] = 'new-98c0f7b0-3cd5-4107-a329-9f7253549922';
   $pane = new stdClass();
   $pane->pid = 'new-75da6e11-ebd6-40f8-9ed7-d5058ec692a4';
   $pane->panel = 'main';
@@ -177,8 +174,8 @@ function elife_news_default_page_manager_handlers() {
   $pane->uuid = '6f03afda-0c32-4824-9fb4-fb842a5f3a5b';
   $display->content['new-6f03afda-0c32-4824-9fb4-fb842a5f3a5b'] = $pane;
   $display->panels['side_top'][0] = 'new-6f03afda-0c32-4824-9fb4-fb842a5f3a5b';
-  $display->hide_title = PANELS_TITLE_PANE;
-  $display->title_pane = 'new-df7b7f9b-0452-4c03-bf57-f8bd5f253a43';
+  $display->hide_title = PANELS_TITLE_FIXED;
+  $display->title_pane = '0';
   $handler->conf['display'] = $display;
   $export['node_view__panel_context_081ad7e7-75ce-4b78-a933-5b06651f4c97'] = $handler;
 
@@ -232,7 +229,7 @@ function elife_news_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = 'eLife News: %term:name';
+  $display->title = 'eLife News: %term:field_elife_title';
   $display->uuid = '5c2a70c7-3974-4c3a-99af-4a5aa055b05a';
   $display->content = array();
   $display->panels = array();

@@ -23,11 +23,12 @@ Feature: Front Matter
         }
       """
     And "elife_cover" content:
-      | title           | field_elife_fm_reference |
-      | Check out 05224 | 05224: VOR 05224 v1      |
+      | field_elife_title      | field_elife_fm_reference |
+      | Check out <i>05224</i> | 05224: VOR 05224 v1      |
     And I add "elife_cover" with title "Check out 05224" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Check out 05224" in the "front_matter_cover" region
+    And I should see "05224" in the ".headline-first__title_link i" element
     And I follow "Check out 05224" in the "front_matter_cover" region
     And I should be on "content/4/e05224v1"
     And I should see "VOR 05224 v1" in the "h1" element
@@ -41,8 +42,8 @@ Feature: Front Matter
       | field_elife_p_episode_number | field_elife_p_title |
       | 1                            | Podcast 1           |
     And "elife_cover" content:
-      | title     | field_elife_fm_reference |
-      | Podcast 1 | Episode 1: Podcast 1     |
+      | field_elife_title | field_elife_fm_reference |
+      | Podcast 1         | Episode 1: Podcast 1     |
     And I add "elife_cover" with title "Podcast 1" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Podcast 1" in the "front_matter_cover" region
@@ -54,8 +55,8 @@ Feature: Front Matter
       | field_elife_p_episode_number | field_elife_p_title |
       | 1                            | Podcast 1           |
     And "elife_collection" content:
-      | title        |
-      | Collection 1 |
+      | field_elife_c_title |
+      | Collection 1        |
     And there are articles:
       """
         [
@@ -118,16 +119,16 @@ Feature: Front Matter
         ]
       """
     And "elife_front_matter" content:
-      | title           | field_elife_fm_reference |
-      | Check out 05224 | 05224: VOR 05224         |
-      | Check out 05225 | 05225: VOR 05225         |
-      | Check out 05226 | 05226: VOR 05226         |
-      | Check out 05227 | 05227: VOR 05227         |
-      | Podcast 1       | Episode 1: Podcast 1     |
-      | Collection 1    | Collection 1             |
+      | field_elife_title      | field_elife_fm_reference |
+      | Check out <i>05224</i> | 05224: VOR 05224         |
+      | Check out 05225        | 05225: VOR 05225         |
+      | Check out 05226        | 05226: VOR 05226         |
+      | Check out 05227        | 05227: VOR 05227         |
+      | Podcast 1              | Episode 1: Podcast 1     |
+      | Collection 1           | Collection 1             |
     And "elife_cover" content:
-      | title           | field_elife_fm_reference |
-      | Check out 05224 | 05224: VOR 05224         |
+      | field_elife_title | field_elife_fm_reference |
+      | Check out 05224   | 05224: VOR 05224         |
     And I add "elife_front_matter" with title "Check out 05224" to entityqueue "elife_front_matter_col_1"
     And I add "elife_front_matter" with title "Check out 05225" to entityqueue "elife_front_matter_col_1"
     And I add "elife_front_matter" with title "Podcast 1" to entityqueue "elife_front_matter_col_1"
@@ -137,6 +138,7 @@ Feature: Front Matter
     And I add "elife_cover" with title "Check out 05224" to entityqueue "elife_cover"
     When I am on the homepage
     Then I should see the text "Check out 05224" in the "front_matter_col_1" region
+    And I should see "05224" in the ".headlines-secondary__item_title i" element
     And I should see the text "Check out 05225" in the "front_matter_col_1" region
     And I should see the text "Podcast 1" in the "front_matter_col_1" region
     And I should see the text "Check out 05226" in the "front_matter_col_2" region
@@ -170,7 +172,7 @@ Feature: Front Matter
             }
           },
           {
-            "title": "VOR 05225",
+            "title": "VOR <italic>05225</italic>",
             "version": "1",
             "doi": "10.7554/eLife.05225.1",
             "volume": "4",
@@ -230,6 +232,7 @@ Feature: Front Matter
       """
     When I go to the homepage
     Then I should see "VOR 05225" in the ".home-article-listing__list-item:nth-child(1)" element
+    And I should see "05225" in the ".home-article-listing__list-item:nth-child(1) i" element
     Then I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
     Then I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element
 
@@ -294,8 +297,8 @@ Feature: Front Matter
       | field_elife_p_episode_number | field_elife_p_title | status |
       | 1                            | Podcast 1           | 0      |
     And "elife_cover" content:
-      | title | field_elife_fm_reference |
-      | Cover | Episode 1: Podcast 1     |
+      | field_elife_title | field_elife_fm_reference |
+      | Cover             | Episode 1: Podcast 1     |
     And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
     When I go to the homepage
     Then I should not see the "front_matter_cover" region
@@ -306,11 +309,11 @@ Feature: Front Matter
       | 1                            | Podcast 1           | 1      |
       | 2                            | Podcast 2           | 0      |
     And "elife_cover" content:
-      | title | field_elife_fm_reference |
-      | Cover | Episode 1: Podcast 1     |
+      | field_elife_title | field_elife_fm_reference |
+      | Cover             | Episode 1: Podcast 1     |
     And "elife_front_matter" content:
-      | title        | field_elife_fm_reference |
-      | Front Matter | Episode 2: Podcast 2     |
+      | field_elife_title | field_elife_fm_reference |
+      | Front Matter      | Episode 2: Podcast 2     |
     And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
     And I add "elife_front_matter" with title "Front Matter" to entityqueue "elife_front_matter_col_1"
     When I go to the homepage
@@ -322,11 +325,11 @@ Feature: Front Matter
       | field_elife_p_episode_number | field_elife_p_title |
       | 1                            | Podcast 1           |
     And "elife_cover" content:
-      | title | field_elife_fm_reference |
-      | Cover | Episode 1: Podcast 1     |
+      | field_elife_title | field_elife_fm_reference |
+      | Cover             | Episode 1: Podcast 1     |
     And "elife_front_matter" content:
-      | title        | field_elife_fm_reference |
-      | Front Matter | Episode 1: Podcast 1     |
+      | field_elife_title | field_elife_fm_reference |
+      | Front Matter      | Episode 1: Podcast 1     |
     And I add "elife_cover" with title "Cover" to entityqueue "elife_cover"
     And I add "elife_front_matter" with title "Front Matter" to entityqueue "elife_front_matter_col_1"
     When I go to the homepage

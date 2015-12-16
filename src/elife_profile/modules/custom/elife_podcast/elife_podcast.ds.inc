@@ -37,26 +37,25 @@ function elife_podcast_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '0',
+        'wrapper' => 'h2',
+        'class' => '',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
+    ),
     'field_elife_pc_text' => array(
       'formatter_settings' => array(
         'ft' => array(
           'func' => 'theme_ds_field_expert',
           'fi' => TRUE,
           'fi-el' => 'p',
-          'fi-cl' => '',
-          'fi-at' => '',
-          'fi-def-at' => FALSE,
-          'fi-odd-even' => FALSE,
-          'fi-first-last' => FALSE,
-        ),
-      ),
-    ),
-    'field_elife_pc_title' => array(
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_expert',
-          'fi' => TRUE,
-          'fi-el' => 'h2',
           'fi-cl' => '',
           'fi-at' => '',
           'fi-def-at' => FALSE,
@@ -230,13 +229,13 @@ function elife_podcast_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'field_elife_pc_title',
+        0 => 'title',
         1 => 'field_elife_pc_text',
         2 => 'elife_pc_subject',
       ),
     ),
     'fields' => array(
-      'field_elife_pc_title' => 'ds_content',
+      'title' => 'ds_content',
       'field_elife_pc_text' => 'ds_content',
       'elife_pc_subject' => 'ds_content',
     ),

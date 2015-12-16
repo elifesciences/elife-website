@@ -30,7 +30,7 @@ function elife_article_listing_plugin_render($subtype, $conf, $args, $context) {
   $variables = array();
 
   $fields = array(
-    'title' => 'field_elife_a_full_title',
+    'title' => 'field_elife_title',
   );
 
   foreach ($fields as $id => $field) {

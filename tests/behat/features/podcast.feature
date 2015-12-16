@@ -24,14 +24,16 @@ Feature: Podcast
       """
     And "elife_podcast_chapter" content:
       | field_elife_pc_title | field_elife_pc_text | field_elife_pc_text_inverse | field_elife_pc_subject |
-      | Chapter One          | Foo bar.            | Baz Qux                     | 05224: VOR 05224       |
+      | Chapter <i>One</i>   | Foo bar.            | Baz Qux                     | 05224: VOR 05224       |
     When I am viewing a "elife_podcast" content:
       | field_elife_p_episode_number | 1                             |
-      | field_elife_p_title          | Podcast One                   |
+      | field_elife_p_title          | <i>Podcast</i> One            |
       | field_elife_p_chapters       | Episode  Chapter: Chapter One |
     Then I should see "Podcast One" in the ".hero-block__title" element
+    Then I should see "Podcast" in the ".hero-block__title i" element
     And I should see "Episode 1" in the ".hero-block__sub_title" element
-    And I should see "Chapter One"
+    And I should see "Chapter One" in the ".pane-node-field-elife-p-chapters" element
+    And I should see "One" in the ".pane-node-field-elife-p-chapters i" element
 
   Scenario: Podcast can autoplay
     Given "elife_podcast" content:
@@ -42,12 +44,13 @@ Feature: Podcast
 
   Scenario: List of podcasts
     Given "elife_podcast" content:
-      | field_elife_p_episode_number | field_elife_p_title |
-      | 1                            | Podcast One         |
-      | 3                            | Podcast Three       |
-      | 2                            | Podcast Two         |
+      | field_elife_p_episode_number | field_elife_p_title  |
+      | 1                            | Podcast One          |
+      | 3                            | Podcast <i>Three</i> |
+      | 2                            | Podcast Two          |
     When I go to "/podcast"
     Then I should see "Episode 3: Podcast Three" in the ".view-elife-podcasts ol > li:nth-child(1)" element
+    And I should see "Three" in the ".view-elife-podcasts ol > li:nth-child(1) i" element
     And I should see "Episode 2: Podcast Two" in the ".view-elife-podcasts ol > li:nth-child(2)" element
     And I should see "Episode 1: Podcast One" in the ".view-elife-podcasts ol > li:nth-child(3)" element
 
@@ -85,12 +88,14 @@ Feature: Podcast
       """
     And "elife_podcast_chapter" content:
       | field_elife_pc_title | field_elife_pc_text | field_elife_pc_text_inverse | field_elife_pc_subject |
-      | Chapter One          | One Two             | Three Four                  | 05224: VOR 05224       |
+      | Chapter One          | One Two             | Three <i>Four</i>           | 05224: VOR 05224       |
     And "elife_podcast" content:
       | field_elife_p_episode_number | field_elife_p_title | field_elife_p_chapters        |
       | 1                            | Podcast One         | Episode  Chapter: Chapter One |
     When I go to "/content/4/e05224"
-    Then I should see "Multimedia"
+    Then I should see "Multimedia" in the ".pane-elife-subject-podcasts-panel-pane-1 .pane-title" element
+    And I should see "Three Four" in the ".podcast-teaser" element
+    And I should see "Four" in the ".podcast-teaser i" element
     When I click "Three Four"
     Then I should be on "/podcast/episode1"
 

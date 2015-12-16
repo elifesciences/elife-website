@@ -175,7 +175,7 @@ function elife_about_profiles_load() {
   }
 
   $expertises = taxonomy_vocabulary_machine_name_load('elife_pp_expertise');
-  $expertises = taxonomy_get_tree($expertises->vid);
+  $expertises = taxonomy_get_tree($expertises->vid, 0, NULL, TRUE);
 
   foreach ($expertises as $expertise) {
     $senior_editors = elife_person_profile_get_view('senior-editor', FALSE, $expertise->tid);
@@ -189,7 +189,7 @@ function elife_about_profiles_load() {
 
     $regular = [
       'sheet_id' => $key,
-      'sheet_title' => $expertise->name,
+      'sheet_title' => $expertise->field_elife_title[LANGUAGE_NONE][0]['safe_value'],
       'sections' => [
         [
           'title' => t('Senior editors'),
@@ -206,13 +206,14 @@ function elife_about_profiles_load() {
     $profiles['regular'] .= theme('elife_profile_sheet', $regular);
 
     $menu[] = [
-      'data' => l($expertise->name, '', [
+      'data' => l($expertise->field_elife_title[LANGUAGE_NONE][0]['safe_value'], '', [
         'external' => TRUE,
         'fragment' => $key,
         'attributes' => [
           'class' => $menu_a_class,
           'id' => $menu_a_id . $key,
         ],
+        'html' => TRUE,
       ]),
       'class' => $menu_li_class,
     ];

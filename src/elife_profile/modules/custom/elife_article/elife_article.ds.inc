@@ -22,20 +22,23 @@ function elife_article_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'elife_a_full_title_link' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'default',
-      'formatter_settings' => array(
-        'ft' => array(
-          'func' => 'theme_ds_field_reset',
-        ),
-      ),
-    ),
     'elife_a_meta_compact' => array(
       'weight' => '2',
       'label' => 'hidden',
       'format' => 'default',
+    ),
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '1',
+        'wrapper' => 'h2',
+        'class' => 'article-teaser__title',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
     ),
   );
   $export['node|elife_article_ver|elife_teaser_compact'] = $ds_fieldsetting;
@@ -52,30 +55,23 @@ function elife_article_ds_field_settings_info() {
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'elife_a_display_channel' => array(
-      'weight' => '5',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
-    'elife_a_full_title_link' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
     'elife_a_meta' => array(
       'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
-    'elife_a_published_date' => array(
-      'weight' => '6',
+    'title' => array(
+      'weight' => '0',
       'label' => 'hidden',
       'format' => 'default',
-    ),
-    'elife_a_update_date' => array(
-      'weight' => '7',
-      'label' => 'hidden',
-      'format' => 'default',
+      'formatter_settings' => array(
+        'link' => '1',
+        'wrapper' => 'h2',
+        'class' => 'article-teaser__title',
+        'ft' => array(
+          'func' => 'theme_ds_field_reset',
+        ),
+      ),
     ),
     'field_elife_a_author_imp' => array(
       'formatter_settings' => array(
@@ -143,18 +139,6 @@ function elife_article_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
-  $ds_field->field = 'elife_a_full_title_link';
-  $ds_field->label = 'Full title link';
-  $ds_field->field_type = 3;
-  $ds_field->entities = array(
-    'node' => 'node',
-  );
-  $ds_field->ui_limit = 'elife_article_ver|*';
-  $ds_field->properties = array();
-  $export['elife_a_full_title_link'] = $ds_field;
-
-  $ds_field = new stdClass();
-  $ds_field->api_version = 1;
   $ds_field->field = 'elife_a_meta';
   $ds_field->label = 'Meta';
   $ds_field->field_type = 3;
@@ -196,13 +180,13 @@ function elife_article_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'elife_a_full_title_link',
-        1 => 'elife_a_contributors_short',
-        2 => 'elife_a_meta_compact',
+        0 => 'title',
+        2 => 'elife_a_contributors_short',
+        3 => 'elife_a_meta_compact',
       ),
     ),
     'fields' => array(
-      'elife_a_full_title_link' => 'ds_content',
+      'title' => 'ds_content',
       'elife_a_contributors_short' => 'ds_content',
       'elife_a_meta_compact' => 'ds_content',
     ),
@@ -233,25 +217,19 @@ function elife_article_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'regions' => array(
       'ds_content' => array(
-        0 => 'elife_a_full_title_link',
+        0 => 'title',
         1 => 'field_elife_a_author_imp',
         2 => 'elife_a_contributors',
         3 => 'field_elife_a_doi',
         4 => 'elife_a_meta',
-        5 => 'elife_a_display_channel',
-        6 => 'elife_a_published_date',
-        7 => 'elife_a_update_date',
       ),
     ),
     'fields' => array(
-      'elife_a_full_title_link' => 'ds_content',
+      'title' => 'ds_content',
       'field_elife_a_author_imp' => 'ds_content',
       'elife_a_contributors' => 'ds_content',
       'field_elife_a_doi' => 'ds_content',
       'elife_a_meta' => 'ds_content',
-      'elife_a_display_channel' => 'ds_content',
-      'elife_a_published_date' => 'ds_content',
-      'elife_a_update_date' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(

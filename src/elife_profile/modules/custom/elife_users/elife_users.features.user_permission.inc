@@ -1793,6 +1793,16 @@ function elife_users_user_default_permissions() {
     'module' => 'filter',
   );
 
+  // Exported permission: 'use text format elife_house_style'.
+  $permissions['use text format elife_house_style'] = array(
+    'name' => 'use text format elife_house_style',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'filter',
+  );
+
   // Exported permission: 'view any unpublished content'.
   $permissions['view any unpublished content'] = array(
     'name' => 'view any unpublished content',

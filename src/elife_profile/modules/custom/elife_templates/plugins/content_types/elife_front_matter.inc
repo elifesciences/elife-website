@@ -58,7 +58,7 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
 
   $title_classes = array('headlines-secondary__item_title');
   $attribs = array('class' => $title_classes);
-  $variables['title'] = l($ewrapper->title->value(), 'node/' . $reference->nid, array('attributes' => $attribs, 'html' => TRUE));
+  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], 'node/' . $reference->nid, array('attributes' => $attribs, 'html' => TRUE));
 
   $variables['section'] = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
 

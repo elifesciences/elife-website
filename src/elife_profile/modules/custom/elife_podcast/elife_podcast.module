@@ -52,11 +52,13 @@ function elife_podcast_menu_alter(&$items) {
 }
 
 /**
- * Implements hook_form_BASE_FORM_ID_alter().
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form().
  */
 function elife_podcast_form_node_form_alter(&$form, &$form_state) {
   switch ($form['#node']->type) {
     case 'elife_podcast':
+      $form['field_elife_title']['#access'] = FALSE;
+
       if (empty($form['#node']->field_elife_p_episode_number[LANGUAGE_NONE])) {
         // If this is a new podcast, pre-populate the episode number.
         $form['field_elife_p_episode_number'][LANGUAGE_NONE][0]['value']['#default_value'] = elife_podcast_latest_episode_number() + 1;
@@ -64,6 +66,7 @@ function elife_podcast_form_node_form_alter(&$form, &$form_state) {
       break;
     case 'elife_podcast_chapter':
       $form['field_elife_pc_podcast']['#access'] = FALSE;
+      $form['field_elife_title']['#access'] = FALSE;
       break;
   }
 }
@@ -75,6 +78,7 @@ function elife_podcast_inline_entity_form_entity_form_alter(&$entity_form, &$for
   switch ($entity_form['#entity']->type) {
     case 'elife_podcast_chapter':
       $entity_form['field_elife_pc_podcast']['#access'] = FALSE;
+      $entity_form['field_elife_title']['#access'] = FALSE;
       break;
   }
 }
@@ -162,14 +166,16 @@ function elife_podcast_preprocess_node(&$variables) {
     }
 
     if (!empty($podcast_nid) && !empty($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE])) {
-      $variables['elife_pc_inverse_text'] = l($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE][0]['safe_value'], 'node/' . $podcast_nid, ['attributes' => ['class' => ['podcast-compact__text']]]);
+      $variables['elife_pc_inverse_text'] = l($variables['elements']['#node']->field_elife_pc_text_inverse[LANGUAGE_NONE][0]['safe_value'], 'node/' . $podcast_nid, ['attributes' => ['class' => ['podcast-compact__text']], 'html' => TRUE]);
     }
 
     $display_subjects = [];
 
     $subjects = [];
-    foreach ($variables['elements']['#node']->field_elife_pc_subject[LANGUAGE_NONE] as $subject) {
-      $subjects[] = $subject['target_id'];
+    if (!empty($variables['elements']['#node']->field_elife_pc_subject[LANGUAGE_NONE])) {
+      foreach ($variables['elements']['#node']->field_elife_pc_subject[LANGUAGE_NONE] as $subject) {
+        $subjects[] = $subject['target_id'];
+      }
     }
 
     $subjects = node_load_multiple($subjects);
@@ -303,7 +309,7 @@ function elife_podcast_elife_hero_block_alter(&$content) {
           'image_colour' => 'dark',
           'image_path' => base_path() . drupal_get_path('module', 'elife_podcast') . '/images/podcasts.png',
           'credit' => 'Image by Smith et al, subject to CC-BY 4.0',
-          'title' => $node->field_elife_p_title->value(),
+          'title' => $node->field_elife_p_title->value()['safe_value'],
           'sub_title' => t('Episode @number', ['@number' => $node->field_elife_p_episode_number->value()]),
           'player' => $node->field_elife_p_url->value()['url'],
           'player_autoplay' => !empty(drupal_get_query_parameters()['autoplay']),

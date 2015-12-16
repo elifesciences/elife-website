@@ -302,7 +302,7 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $conditio
   $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary);
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'taxonomy_term');
-  $query->propertyCondition('name', $term_name);
+  $query->fieldCondition('field_elife_title', 'value', $term_name);
   $query->propertyCondition('vid', $vocabulary->vid);
 
   if (!empty($conditions)) {
@@ -320,7 +320,6 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $conditio
   else {
     $values = array(
       'vid' => $vocabulary->vid,
-      'name' => $term_name,
     );
 
     $term = entity_create('taxonomy_term', $values);
@@ -340,6 +339,13 @@ function _elife_services_article_prepare_term($vocabulary, $term_name, $conditio
       $term->{$field}[LANGUAGE_NONE] = array($value);
     }
   }
+
+  $term->field_elife_title[LANGUAGE_NONE] = [
+    [
+      'value' => $term_name,
+      'format' => 'elife_house_style',
+    ],
+  ];
 
   entity_save('taxonomy_term', $term);
 

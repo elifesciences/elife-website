@@ -279,6 +279,7 @@ features[user_permission][] = use panels dashboard
 features[user_permission][] = use panels in place editing
 features[user_permission][] = use panels locks
 features[user_permission][] = use text format elife_full_html
+features[user_permission][] = use text format elife_house_style
 features[user_permission][] = view any unpublished content
 features[user_permission][] = view any unpublished elife_article content
 features[user_permission][] = view any unpublished elife_article_reference content

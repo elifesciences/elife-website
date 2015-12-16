@@ -122,14 +122,22 @@ function elife_news_views_default_views() {
   $handler->display->display_options['style_options']['type'] = 'ol';
   $handler->display->display_options['style_options']['wrapper_class'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Field: Taxonomy term: Name */
-  $handler->display->display_options['fields']['name']['id'] = 'name';
-  $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
-  $handler->display->display_options['fields']['name']['field'] = 'name';
-  $handler->display->display_options['fields']['name']['label'] = '';
-  $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
-  $handler->display->display_options['fields']['name']['link_to_taxonomy'] = TRUE;
+  /* Field: Taxonomy term: Term ID */
+  $handler->display->display_options['fields']['tid']['id'] = 'tid';
+  $handler->display->display_options['fields']['tid']['table'] = 'taxonomy_term_data';
+  $handler->display->display_options['fields']['tid']['field'] = 'tid';
+  $handler->display->display_options['fields']['tid']['label'] = '';
+  $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['tid']['separator'] = '';
+  /* Field: Field: Name */
+  $handler->display->display_options['fields']['field_elife_title']['id'] = 'field_elife_title';
+  $handler->display->display_options['fields']['field_elife_title']['table'] = 'field_data_field_elife_title';
+  $handler->display->display_options['fields']['field_elife_title']['field'] = 'field_elife_title';
+  $handler->display->display_options['fields']['field_elife_title']['label'] = '';
+  $handler->display->display_options['fields']['field_elife_title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_elife_title']['alter']['path'] = 'taxonomy/term/[tid]';
+  $handler->display->display_options['fields']['field_elife_title']['element_label_colon'] = FALSE;
   /* Sort criterion: Taxonomy term: Name */
   $handler->display->display_options['sorts']['name']['id'] = 'name';
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';

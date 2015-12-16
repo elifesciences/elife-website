@@ -9,7 +9,7 @@ Feature: Content alerts signup
     Given I set variable "elife_content_alerts_sign_up_ids" to array '{"category/<category-path>": "<id>"}'
     And I set variable "elife_content_alerts_sign_up_gids" to array '{"category/<category-path>": "<gid>"}'
     And "elife_categories" terms:
-      | name | field_elife_category_type |
+      | field_elife_title | field_elife_category_type |
       | <category> | <type> |
     When I go to "category/<category-path>"
     Then I should see a sign up form with id "<id>" and gid "<gid>"
