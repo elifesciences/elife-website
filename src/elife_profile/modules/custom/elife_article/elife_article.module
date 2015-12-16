@@ -2307,7 +2307,7 @@ function elife_article_doi_to_pmid($doi) {
 function elife_article_doi_to_pmid_cache($doi) {
   $doi_to_pmid_cache = &drupal_static(__FUNCTION__, array());
 
-  if (!isset($cache[$doi])) {
+  if (!isset($doi_to_pmid_cache[$doi])) {
     $cache_bin = 'cache_elife_article_pmid';
     $data = FALSE;
     if ($cache = cache_get($doi, $cache_bin)) {
