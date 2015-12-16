@@ -40,12 +40,14 @@ function elife_article_reference_form_node_form_alter(&$form, &$form_state, $for
     return;
   }
 
+  $form['field_elife_title']['#access'] = FALSE;
+
   // Title might not be required.
-  $form['field_elife_a_title'][LANGUAGE_NONE][0]['value']['#required'] = FALSE;
+  $form['field_elife_a_title'][LANGUAGE_NONE][0]['#required'] = FALSE;
 
   if (isset($form['#node']->field_elife_a_article_id)) {
     // If the article exists, then disable the title and article ID fields.
-    $form['field_elife_a_title'][LANGUAGE_NONE][0]['value']['#attributes']['disabled'] = TRUE;
+    $form['field_elife_a_title'][LANGUAGE_NONE][0]['#attributes']['disabled'] = TRUE;
     $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#attributes']['disabled'] = TRUE;
     $form['field_elife_a_article_id'][LANGUAGE_NONE][0]['value']['#required'] = FALSE;
   }
@@ -92,14 +94,14 @@ function elife_article_reference_node_presave($node) {
 
     $article_reference->field_elife_a_article_id = $article_id;
     $article_reference->title = AUTO_ENTITYLABEL_PLACEHOLDER; // TODO Not sure why this is needed.
-    $article_reference->field_elife_a_title = $node->title->value();
+    $article_reference->field_elife_a_title = $node->field_elife_title->value();
     $article_reference->status = $node->status->value();
 
     $article_reference->raw()->elife_autogenerating = TRUE; // Hack to stop the below happening.
     $article_reference->save();
   }
   elseif ('elife_article_reference' === $node->getBundle() && !isset($node->raw()->elife_autogenerating)) {
-    $article_id = $node->field_elife_a_article_id->value()['value'];
+    $article_id = $node->field_elife_a_article_id->value();
 
     $article = ElifeArticleVersion::getArticle($article_id);
 

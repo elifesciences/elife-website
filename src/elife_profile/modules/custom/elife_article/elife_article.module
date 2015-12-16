@@ -100,7 +100,7 @@ function elife_article_lookup_doi() {
     drupal_set_title('DOI Not Found');
     header('HTTP/1.0 404 Not Found');
 
-    $redirection_url_path  = 'http://dx.doi.org/' . $doi;
+    $redirection_url_path = 'http://dx.doi.org/' . $doi;
 
     // Time interval to send on dx.doi.
     $time_interval = variable_get('elife_article_doi_redirect_time_interval', 8);
@@ -136,6 +136,7 @@ function elife_article_lookup_doi() {
  * Get alias for latest article version from doi.
  *
  * @param string $doi
+ *
  * @return null|string
  */
 function _elife_article_lookup_doi_path($doi) {
@@ -235,8 +236,6 @@ function elife_article_preprocess_node(&$variables) {
     $variables['date'] = format_date($variables['node']->created, 'custom', 'j F Y');
     drupal_add_css(drupal_get_path('module', 'elife_article') . '/css/article-teaser.css');
 
-    $variables['elife_a_full_title_link'] = '<h2 class="article-teaser__title">' . l($variables['field_elife_a_full_title'][LANGUAGE_NONE][0]['value'], 'node/' . $variables['nid']) . '</h2>';
-
     $dto = elife_article_version_to_dto($variables['node']);
 
     $contributors = $dto->getContributors();
@@ -328,7 +327,8 @@ function elife_article_preprocess_node(&$variables) {
     }
 
     if (!empty($display_channel)) {
-      $meta_parts[] = l($display_channel->name, 'taxonomy/term/' . $display_channel->tid, [
+      $meta_parts[] = l($display_channel->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $display_channel->tid, [
+        'html' => TRUE,
         'attributes' => [
           'class' => [
             'article-teaser__category',
@@ -342,7 +342,8 @@ function elife_article_preprocess_node(&$variables) {
       foreach ($variables['field_elife_a_heading'][LANGUAGE_NONE] as $i => $term) {
         $term_entity = taxonomy_term_load($term['target_id']);
 
-        $meta_parts[] = l($term_entity->name, 'taxonomy/term/' . $term_entity->tid, [
+        $meta_parts[] = l($term_entity->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $term_entity->tid, [
+          'html' => TRUE,
           'attributes' => [
             'class' => [
               'article-teaser__heading',
@@ -358,7 +359,9 @@ function elife_article_preprocess_node(&$variables) {
 
     if (!empty($dto->getPubDate())) {
       $meta_parts[] = 'Published on ' . $dto->getPubDate()->format('F j, Y');
-      if (!empty($dto->getUpdate()) && $dto->getPubDate()->format('Y-m-d') !== $dto->getUpdate()->format('Y-m-d')) {
+      if (!empty($dto->getUpdate()) && $dto->getPubDate()
+          ->format('Y-m-d') !== $dto->getUpdate()->format('Y-m-d')
+      ) {
         $meta_parts[] = 'Updated on ' . $dto->getUpdate()->format('F j, Y');
       }
     }
@@ -464,7 +467,10 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
 
         case 'impact':
           if ($ewrapper = entity_metadata_wrapper('node', $node)) {
-            if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
+            if (in_array($ewrapper->getBundle(), [
+              'elife_article_ver',
+              'elife_fragment',
+            ])) {
               if ($ewrapper->field_elife_a_parent->raw()) {
                 $article_version = elife_article_version_to_dto($ewrapper->field_elife_a_parent->value());
               }
@@ -486,7 +492,10 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
 
         case 'ancestor-title':
           if ($ewrapper = entity_metadata_wrapper('node', $node)) {
-            if (in_array($ewrapper->getBundle(), ['elife_article_ver', 'elife_fragment'])) {
+            if (in_array($ewrapper->getBundle(), [
+              'elife_article_ver',
+              'elife_fragment',
+            ])) {
               if ($ewrapper->getBundle() == 'elife_fragment' && $ewrapper->field_elife_a_parent_sub->raw()) {
                 $parent = $ewrapper->field_elife_a_parent_sub->value();
               }
@@ -736,20 +745,20 @@ function elife_article_version_to_dto(stdClass $entity) {
   foreach ($entity->field_elife_a_category->value() as $entity_category) {
     /* @var EntityDrupalWrapper $entity_category */
     $entity_category = entity_metadata_wrapper('taxonomy_term', $entity_category);
-    $categories[$entity_category->field_elife_category_type->value()][] = $entity_category->label();
+    $categories[$entity_category->field_elife_category_type->value()][] = $entity_category->field_elife_title->value()['value'];
   }
 
   foreach ($entity->field_elife_a_heading->value() as $entity_heading) {
     /* @var EntityDrupalWrapper $entity_heading */
     $entity_heading = entity_metadata_wrapper('taxonomy_term', $entity_heading);
-    $categories['heading'][] = $entity_heading->label();
+    $categories['heading'][] = $entity_heading->field_elife_title->value()['value'];
   }
 
   $keywords = [];
   foreach ($entity->field_elife_a_keyword->value() as $entity_keyword) {
     /* @var EntityDrupalWrapper $entity_keyword */
     $entity_keyword = entity_metadata_wrapper('taxonomy_term', $entity_keyword);
-    $keywords[$entity_keyword->field_elife_a_kwd_type->value()][] = $entity_keyword->field_elife_a_full_title->value();
+    $keywords[$entity_keyword->field_elife_a_kwd_type->value()][] = $entity_keyword->field_elife_title->value()['value'];
   }
 
   $related_articles = [];
@@ -923,7 +932,7 @@ function elife_article_version_to_dto(stdClass $entity) {
         }
 
         $fragments[] = new SubArticle(
-          $entity_fragment->field_elife_a_full_title->value()['value'],
+          $entity_fragment->field_elife_title->value()['value'],
           $entity_fragment->field_elife_a_doi->value(),
           drupal_get_path_alias('node/' . $entity_fragment->getIdentifier()),
           $get_fragments($entity_fragment),
@@ -933,7 +942,7 @@ function elife_article_version_to_dto(stdClass $entity) {
       else {
         $fragments[] = new Fragment(
           $entity_fragment->field_elife_a_frag_type->value(),
-          $entity_fragment->field_elife_a_full_title->value()['value'],
+          $entity_fragment->field_elife_title->value()['value'],
           $entity_fragment->field_elife_a_doi->value(),
           drupal_get_path_alias('node/' . $entity_fragment->getIdentifier()),
           $get_fragments($entity_fragment)
@@ -973,7 +982,7 @@ function elife_article_version_to_dto(stdClass $entity) {
   }
 
   $article_version = new ArticleVersion(
-    $entity->field_elife_a_full_title->value()['value'],
+    $entity->field_elife_title->value()['value'],
     $impact_statement,
     $entity->field_elife_a_version->value(),
     $entity->field_elife_a_doi->value(),
@@ -1082,7 +1091,10 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_versions->set(array_values($versions));
 
   if ($new) {
-    $entity->title->set($article_version->getTitle());
+    $entity->field_elife_title->set([
+      'value' => $article_version->getTitle(),
+      'format' => 'elife_house_style',
+    ]);
     $entity->field_elife_a_volume->set($article_version->getVolume());
     $entity->field_elife_a_article_id->set($article_version->getArticleId());
     if ($pub_date instanceof DateTimeImmutable) {
@@ -1133,14 +1145,14 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   $entity = entity_metadata_wrapper('node', $entity);
 
   $entity->title->set($article_version->getTitle());
-  $entity->field_elife_a_full_title->set([
+  $entity->field_elife_title->set([
     'value' => $article_version->getTitle(),
-    'format' => 'elife_full_html',
+    'format' => 'elife_house_style',
   ]);
   if ($article_version->getImpactStatement()) {
     $entity->field_elife_a_author_imp->set([
       'value' => $article_version->getImpactStatement(),
-      'format' => 'elife_full_html',
+      'format' => 'elife_house_style',
     ]);
   }
   $entity->field_elife_a_version->set($article_version->getVersion());
@@ -1187,9 +1199,9 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   foreach ($article_version->getKeywords() as $group => $keywords) {
     foreach ($keywords as $keyword) {
       $keyword_fields = [
-        'field_elife_a_full_title' => [
+        'field_elife_title' => [
           'value' => $keyword,
-          'format' => 'elife_full_html',
+          'format' => 'elife_house_style',
         ],
         'field_elife_a_kwd_type' => $group,
       ];
@@ -1512,16 +1524,16 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
       }
 
       $entity_fragment->title->set($fragment->getTitle());
-      $entity_fragment->field_elife_a_full_title->set([
+      $entity_fragment->field_elife_title->set([
         'value' => $fragment->getTitle(),
-        'format' => 'elife_full_html',
+        'format' => 'elife_house_style',
       ]);
 
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 
-      $entity_fragment->field_elife_a_full_title->set([
+      $entity_fragment->field_elife_title->set([
         'value' => $fragment->getTitle(),
-        'format' => 'elife_full_html'
+        'format' => 'elife_house_style',
       ]);
       $entity_fragment->field_elife_a_doi->set($fragment->getDoi());
 
@@ -1677,17 +1689,20 @@ function _elife_article_xmltohtml($string) {
 function _elife_article_display_channel_links(ArticleVersion $article_version) {
   $items = [];
   if (!empty($article_version->getDisplayChannels())) {
-    $query = new EntityFieldQueryExtraFields();
+    $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     $query->entityCondition('bundle', 'elife_categories');
     $query->fieldCondition('field_elife_category_type', 'value', 'display-channel');
-    $query->propertyCondition('name', $article_version->getDisplayChannels(), 'IN');
-    $query->addExtraField('', 'name', 'name', 'taxonomy_term_data');
+    $query->fieldCondition('field_elife_title', 'value', $article_version->getDisplayChannels(), 'IN');
     if ($result = $query->execute()) {
       if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
         foreach ($result['taxonomy_term'] as $tid => $term) {
+          $term = taxonomy_term_load($tid);
           // @todo - elife - nlisgo - add class for specific display channel
-          $items[] = l($term->extraFields->name, 'taxonomy/term/' . $tid, ['attributes' => ['class' => ['category-display-channel']]]);
+          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, [
+            'html' => TRUE,
+            'attributes' => ['class' => ['category-display-channel']],
+          ]);
         }
       }
     }
@@ -1707,15 +1722,18 @@ function _elife_article_display_channel_links(ArticleVersion $article_version) {
 function _elife_article_heading_links(ArticleVersion $article_version) {
   $items = [];
   if (!empty($article_version->getHeadings())) {
-    $query = new EntityFieldQueryExtraFields();
+    $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     $query->entityCondition('bundle', 'elife_headings');
-    $query->propertyCondition('name', $article_version->getHeadings(), 'IN');
-    $query->addExtraField('', 'name', 'name', 'taxonomy_term_data');
+    $query->fieldCondition('field_elife_title', 'value', $article_version->getHeadings(), 'IN');
     if ($result = $query->execute()) {
       if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
         foreach ($result['taxonomy_term'] as $tid => $term) {
-          $items[] = l($term->extraFields->name, 'taxonomy/term/' . $tid, ['attributes' => ['class' => ['category-heading']]]);
+          $term = taxonomy_term_load($tid);
+          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, [
+            'html' => TRUE,
+            'attributes' => ['class' => ['category-heading']],
+          ]);
         }
       }
     }
@@ -1732,7 +1750,10 @@ function _elife_article_heading_links(ArticleVersion $article_version) {
  * @return array
  *   Array of keyword links
  */
-function _elife_article_keyword_links(ArticleVersion $article_version, $excludes = ['Other', 'None']) {
+function _elife_article_keyword_links(ArticleVersion $article_version, $excludes = [
+  'Other',
+  'None',
+]) {
   $items = [];
   $keyword_groups = $article_version->getKeywords();
   if (!empty($keyword_groups)) {
@@ -1745,15 +1766,18 @@ function _elife_article_keyword_links(ArticleVersion $article_version, $excludes
       }
     }
     if (!empty($keywords)) {
-      $query = new EntityFieldQueryExtraFields();
+      $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', 'taxonomy_term');
       $query->entityCondition('bundle', 'elife_keywords');
-      $query->fieldCondition('field_elife_a_full_title', 'value', $keywords, 'IN');
-      $query->addExtraField('field_elife_a_full_title', 'value', 'value');
+      $query->fieldCondition('field_elife_title', 'value', $keywords, 'IN');
       if ($result = $query->execute()) {
-        if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
+        if (!empty($result['taxonomy_term'])) {
           foreach ($result['taxonomy_term'] as $tid => $term) {
-            $items[] = l(_elife_article_xmltohtml($term->extraFields->field_elife_a_full_title_value), 'taxonomy/term/' . $tid, ['html' => TRUE, 'attributes' => ['class' => ['keyword']]]);
+            $term = taxonomy_term_load($tid);
+            $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, [
+              'html' => TRUE,
+              'attributes' => ['class' => ['keyword']],
+            ]);
           }
         }
       }
@@ -1999,7 +2023,12 @@ function _elife_article_citation_query_cache(ElifeCitationService $citation) {
   if (!empty($citation->getId())) {
     $key = $citation->getId();
     if (!isset($cache[$key])) {
-      $result = db_select('elife_citation', 'c')->fields('c', array('citation'))->condition('c.id', $key, '=')->range(0, 1)->execute()->fetchAssoc();
+      $result = db_select('elife_citation', 'c')
+        ->fields('c', array('citation'))
+        ->condition('c.id', $key, '=')
+        ->range(0, 1)
+        ->execute()
+        ->fetchAssoc();
 
       if ($result) {
         $citation = unserialize($result['citation']);
@@ -2047,7 +2076,10 @@ function _elife_article_citation_cache_warm($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    $results = db_select('elife_citation', 'c')->fields('c', array('id', 'citation'))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
+    $results = db_select('elife_citation', 'c')->fields('c', array(
+      'id',
+      'citation',
+    ))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
     if ($results) {
       foreach ($results as $key => $citation) {
         _elife_article_citation_cache_merge(unserialize($citation));
@@ -2075,7 +2107,9 @@ function _elife_article_citation_cache_clear($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    db_delete('elife_citation')->condition('id', $article_version_id)->execute();
+    db_delete('elife_citation')
+      ->condition('id', $article_version_id)
+      ->execute();
   }
 }
 
@@ -2141,7 +2175,12 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
   if (!empty($markup->getQuery())) {
     $key = _elife_article_markup_query_key($markup);
     if (!isset($cache[$key])) {
-      $result = db_select('elife_markup', 'm')->fields('m', array('markup'))->condition('m.id', $key, '=')->range(0, 1)->execute()->fetchAssoc();
+      $result = db_select('elife_markup', 'm')
+        ->fields('m', array('markup'))
+        ->condition('m.id', $key, '=')
+        ->range(0, 1)
+        ->execute()
+        ->fetchAssoc();
 
       if ($result) {
         $markup = unserialize($result['markup']);
@@ -2191,7 +2230,14 @@ function _elife_article_markup_cache_warm($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    $results = db_select('elife_markup', 'm')->fields('m', array('id', 'markup'))->condition('m.article_version_id', '%::' . $article_version_id . '::%', 'LIKE')->execute()->fetchAllKeyed();
+    $results = db_select('elife_markup', 'm')
+      ->fields('m', array(
+        'id',
+        'markup',
+      ))
+      ->condition('m.article_version_id', '%::' . $article_version_id . '::%', 'LIKE')
+      ->execute()
+      ->fetchAllKeyed();
     if ($results) {
       foreach ($results as $key => $markup) {
         _elife_article_markup_cache_merge(unserialize($markup));
@@ -2222,7 +2268,9 @@ function _elife_article_markup_cache_clear($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    db_delete('elife_markup')->condition('article_version_id', '%::' . $article_version_id . '::%', 'LIKE')->execute();
+    db_delete('elife_markup')
+      ->condition('article_version_id', '%::' . $article_version_id . '::%', 'LIKE')
+      ->execute();
   }
 }
 
@@ -2237,6 +2285,7 @@ function _elife_article_markup_cache_clear_all() {
  * Get pmid from doi.
  *
  * @param string $doi
+ *
  * @return string|null
  */
 function elife_article_doi_to_pmid($doi) {
@@ -2252,6 +2301,7 @@ function elife_article_doi_to_pmid($doi) {
  * Get cached results for pmid queries.
  *
  * @param string $doi
+ *
  * @return array
  */
 function elife_article_doi_to_pmid_cache($doi) {

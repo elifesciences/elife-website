@@ -7,14 +7,14 @@ Feature: Display channel types
   Scenario: Determine order of display channels
     Given I set variable "elife_category_reference_weight" to array '["Correction", "Research article"]'
     And "elife_categories" terms:
-      | name | field_elife_category_type |
+      | field_elife_title | field_elife_category_type |
       | Insight | display-channel |
       | Research article | display-channel |
       | Correction | display-channel |
     Then display channels should be arranged "Correction, Research article, Insight"
     And I set variable "elife_category_reference_weight" to array '["Research article", "Insight", "Correction", "Research advance"]'
     And "elife_categories" terms:
-      | name | field_elife_category_type |
+      | field_elife_title | field_elife_category_type |
       | Editorial | display-channel |
     And display channels should be arranged "Research article, Insight, Correction, Editorial"
 

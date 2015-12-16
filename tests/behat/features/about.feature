@@ -40,9 +40,9 @@ Feature: Navigate to editorial board
   @api
   Scenario: All reviewing editors sheet contains all reviewing editors
     Given "elife_pp_expertise" terms:
-      | name        | weight |
-      | Expertise 1 | 2      |
-      | Expertise 2 | 1      |
+      | field_elife_title | weight |
+      | Expertise 1       | 2      |
+      | Expertise 2       | 1      |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise | field_elife_pp_past |
       | First Name 1              | Last Name 1              | Editor-in-Chief     |                          | No                  |
@@ -65,9 +65,9 @@ Feature: Navigate to editorial board
   @javascript @api
   Scenario: All reviewing editors sheet contains all reviewing editors
     Given "elife_pp_expertise" terms:
-      | name        |
-      | Expertise 1 |
-      | Expertise 2 |
+      | field_elife_title |
+      | Expertise 1       |
+      | Expertise 2       |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise |
       | Foo                       | Bar                      | Reviewing Editor    | Expertise 2              |
@@ -84,9 +84,9 @@ Feature: Navigate to editorial board
   @javascript @api
   Scenario: Click on sheet (1/2)
     Given "elife_pp_expertise" terms:
-      | name        |
-      | Expertise 1 |
-      | Expertise 2 |
+      | field_elife_title |
+      | Expertise 1       |
+      | Expertise 2       |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise |
       | Foo                       | Bar                      | Reviewing Editor    | Expertise 2              |
@@ -103,9 +103,9 @@ Feature: Navigate to editorial board
   @javascript @api
   Scenario: Click on sheet (2/2)
     Given "elife_pp_expertise" terms:
-      | name        |
-      | Expertise 1 |
-      | Expertise 2 |
+      | field_elife_title |
+      | Expertise 1       |
+      | Expertise 2       |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise |
       | Foo                       | Bar                      | Reviewing Editor    | Expertise 2              |
@@ -122,9 +122,9 @@ Feature: Navigate to editorial board
   @javascript @api
   Scenario: Past editors sheet
     Given "elife_pp_expertise" terms:
-      | name        |
-      | Expertise 1 |
-      | Expertise 2 |
+      | field_elife_title |
+      | Expertise 1       |
+      | Expertise 2       |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise | field_elife_pp_past |
       | Foo                       | Bar                      | Reviewing Editor    | Expertise 2              | Yes                 |
@@ -143,9 +143,9 @@ Feature: Navigate to editorial board
   @api
   Scenario: Doesn't add sheets for empty lists
     Given "elife_pp_expertise" terms:
-      | name        |
-      | Expertise 1 |
-      | Expertise 2 |
+      | field_elife_title |
+      | Expertise 1       |
+      | Expertise 2       |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise |
       | Foo                       | Bar                      | Reviewing Editor    | Expertise 1              |
@@ -186,21 +186,25 @@ Feature: Navigate to editorial board
       | field_elife_o_name | field_elife_o_country |
       | Organisation       | GB                    |
     And "elife_pp_experimental_organism" terms:
-      | name         |
-      | Organism Foo |
+      | field_elife_title   |
+      | Organism <i>Foo</i> |
     And "elife_pp_expertise" terms:
-      | name          |
-      | Expertise Bar |
+      | field_elife_title    |
+      | Expertise <i>Bar</i> |
     And "elife_pp_research_focus" terms:
-      | name      |
-      | Focus Baz |
+      | field_elife_title |
+      | Focus <i>Baz</i>  |
     And "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_affiliation    | field_elife_pp_organism | field_elife_pp_expertise | field_elife_pp_research_focus |
       | First Name                | Last Name                | Reviewing Editor    | Organisation (United Kingdom) | Organism Foo            | Expertise Bar            | Focus Baz                     |
     When I go to "/about"
     Then I should see "Expertise Bar" in the ".aims-scope__subject_list_item:nth-child(2)" element
+    And I should see "Bar" in the ".aims-scope__subject_list_item:nth-child(2) i" element
     And I should see "Expertise Bar" in the "#expertise-bar .aims-scope__people_heading" element
+    And I should see "Bar" in the "#expertise-bar .aims-scope__people_heading i" element
     And I should see "First Name Last Name" in the ".person-profile.vcard .fn" element
     And I should see "Organisation (United Kingdom)" in the ".person-profile.vcard .org" element
     And I should see "Organism Foo" in the ".person-profile__list-title:contains('Experimental organism') + ul" element
+    And I should see "Foo" in the ".person-profile__list-title:contains('Experimental organism') + ul i" element
     And I should see "Focus Baz" in the ".person-profile__list-title:contains('Research focus') + ul" element
+    And I should see "Baz" in the ".person-profile__list-title:contains('Research focus') + ul i" element

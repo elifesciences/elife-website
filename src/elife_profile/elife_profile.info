@@ -129,6 +129,7 @@ dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header
 dependencies[] = elife_hero_block
+dependencies[] = elife_house_style
 dependencies[] = elife_http_client
 dependencies[] = elife_lens_link
 dependencies[] = elife_monolog

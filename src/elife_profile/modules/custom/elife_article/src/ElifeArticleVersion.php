@@ -347,7 +347,7 @@ class ElifeArticleVersion {
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
       /* @var EntityDrupalWrapper $category */
       foreach ($ewrapper->field_elife_a_category as $category) {
-        $categories[$category->field_elife_category_type->value()][] = $category->name->value();
+        $categories[$category->field_elife_category_type->value()][] = $category->field_elife_title->value()['value'];
       }
     }
 
@@ -393,7 +393,7 @@ class ElifeArticleVersion {
     if ($ewrapper = entity_metadata_wrapper('node', $article)) {
       /* @var EntityDrupalWrapper $keyword */
       foreach ($ewrapper->field_elife_a_keyword as $keyword) {
-        $value = $keyword->field_elife_a_full_title->value();
+        $value = $keyword->field_elife_title->value();
         $keywords[$keyword->field_elife_a_kwd_type->value()][] = $value;
       }
     }
@@ -463,7 +463,7 @@ class ElifeArticleVersion {
    *   Matched values.
    */
   public static function recursiveFind(array $array, $needle, $exclude = array()) {
-    $iterator  = new RecursiveArrayIterator($array);
+    $iterator = new RecursiveArrayIterator($array);
     $recursive = new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::SELF_FIRST);
     $found = array();
     foreach ($recursive as $key => $value) {
@@ -917,7 +917,6 @@ class ElifeArticleVersion {
     $title = self::unicodeFix($title, 'replace');
 
     $title = trim($title);
-    $title = strip_tags($title);
     $title = htmlspecialchars_decode($title);
 
     $title = str_replace("\n", ' ', $title);
@@ -936,7 +935,8 @@ class ElifeArticleVersion {
    * This is useful for drupal titles, which can't store html.
    *
    * Some titles have 4 byte unicode chars. Need to make sure those get removed
-   * because the load will crash because the title field encoding is utf8. For a
+   * because the load will crash because the title field encoding is utf8. For
+   * a
    * thorough explanation see below link.
    *
    * @see https://drupal.org/node/1314214

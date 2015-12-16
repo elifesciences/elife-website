@@ -155,7 +155,7 @@ function elife_article_aff_details_render($subtype, $conf, $args, $context) {
           }
         }
         if (!empty($conflict)) {
-          $variables['conflict'] = _elife_article_xmltohtml(implode(' ', $conflict));
+          $variables['conflict'] = _elife_article_xmltohtml(implode(' ', $conflict)); // TODO sort
         }
       }
       if (!empty($references['equal-contrib'])) {

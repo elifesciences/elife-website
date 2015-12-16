@@ -13,27 +13,6 @@ function elife_collection_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_node_elife_collection';
-  $strongarm->value = '1';
-  $export['auto_entitylabel_node_elife_collection'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_pattern_node_elife_collection';
-  $strongarm->value = '[node:elife-c-full-title]';
-  $export['auto_entitylabel_pattern_node_elife_collection'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_php_node_elife_collection';
-  $strongarm->value = 0;
-  $export['auto_entitylabel_php_node_elife_collection'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_collection';
   $strongarm->value = array(
     'view_modes' => array(
@@ -137,7 +116,7 @@ function elife_collection_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_elife_collection_pattern';
-  $strongarm->value = 'collections/[node:field-elife-c-title]';
+  $strongarm->value = 'collections/[node:field-elife-c-title:value]';
   $export['pathauto_node_elife_collection_pattern'] = $strongarm;
 
   return $export;

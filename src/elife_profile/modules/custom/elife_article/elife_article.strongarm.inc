@@ -30,6 +30,9 @@ function elife_article_strongarm() {
         'redirect' => array(
           'weight' => '6',
         ),
+        'rabbit_hole' => array(
+          'weight' => '0',
+        ),
       ),
       'display' => array(),
     ),

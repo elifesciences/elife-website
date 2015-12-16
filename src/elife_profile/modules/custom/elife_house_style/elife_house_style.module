@@ -1,0 +1,266 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: House Style feature.
+ */
+
+/**
+ * Implements hook_filter_info().
+ */
+function elife_house_style_filter_info() {
+  return [
+    'elife_xml_elements' => [
+      'title' => t('Normalise XML elements (e.g. &lt;italic&gt; to &lt;i&gt;)'),
+      'process callback' => '_elife_house_style_xml_elements_process',
+      'weight' => -20, // Before filter_html
+    ],
+  ];
+}
+
+/**
+ * Normalises XML elements (eg <italic> to <i>).
+ *
+ * @param string $text
+ *   The text to apply the filter on.
+ * @param array $filter
+ *   The options set for this filter.
+ * @param integer $format
+ *   ID if the input format whose settings to use when applying the filters.
+ * @param string $langcode
+ *   The language code of this field.
+ *
+ * @return string
+ *   The filtered text.
+ */
+function _elife_house_style_xml_elements_process($text, $filter, $format, $langcode) {
+  $replacements = [
+    '<italic>' => '<i>',
+    '</italic>' => '</i>',
+    '<em>' => '<i>',
+    '</em>' => '</i>',
+  ];
+
+  return str_replace(array_keys($replacements), array_values($replacements), $text);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for node_admin_content().
+ */
+function elife_house_style_form_node_admin_content_alter(&$form, &$form_state, $form_id) {
+  if (empty($form['admin']['nodes']['#options'])) {
+    return;
+  }
+
+  foreach ($form['admin']['nodes']['#options'] as $key => $value) {
+    if (!is_array($value)) {
+      continue;
+    }
+    $node = node_load($key);
+    if (empty($node->field_elife_title[LANGUAGE_NONE])) {
+      continue;
+    }
+    $form['admin']['nodes']['#options'][$key]['title']['data']['#title'] = $node->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+    $form['admin']['nodes']['#options'][$key]['title']['data']['#options']['html'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for entityqueue_subqueue_edit_form().
+ */
+function elife_house_style_form_entityqueue_subqueue_edit_form_alter(&$form, &$form_state, $form_id) {
+  if (empty($form['eq_node'])) {
+    return;
+  }
+
+  foreach ($form['eq_node'][LANGUAGE_NONE]['items'] as $key => $value) {
+    if (empty($value['target_id'])) {
+      continue;
+    }
+    $node = node_load($value['target_id']['#value']);
+    if (empty($node->field_elife_title[LANGUAGE_NONE]) || FALSE === strpos($value['label']['#markup'], $node->title)) {
+      continue;
+    }
+
+    $label = $node->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+    if ('<a ' === substr($value['label']['#markup'], 0, 3)) {
+      $uri = entity_uri('node', $node);
+      $form['eq_node'][LANGUAGE_NONE]['items'][$key]['label']['#markup'] = l($label, $uri['path'], ['html' => TRUE] + $uri['options']);
+    }
+    else {
+      $form['eq_node'][LANGUAGE_NONE]['items'][$key]['label']['#markup'] = $label;
+    }
+  }
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function elife_house_style_field_widget_form_alter(&$element, &$form_state, $context) {
+  if (
+    'entityreference' === $context['field']['type']
+    &&
+    !empty($element['#type'])
+    &&
+    in_array($element['#type'], ['checkboxes', 'radios'])
+  ) {
+    foreach ($element['#options'] as $id => $value) {
+      $entity = entity_load($context['field']['settings']['target_type'], [$id]);
+      $entity = reset($entity);
+
+      if (empty($entity)) {
+        continue;
+      }
+
+      if (!empty($entity->field_elife_title[LANGUAGE_NONE])) {
+        $element['#options'][$id] = $entity->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function elife_house_style_form_alter(&$form, &$form_state, $form_id) {
+  if (!empty($form['type']['#value']) && $form['type']['#value'] . '_node_form' === $form_id) {
+    if (isset($form['field_elife_title'])) {
+      $form['title']['#access'] = FALSE;
+    }
+  }
+  elseif ('taxonomy_form_term' === $form_id) {
+    if (isset($form['field_elife_title'])) {
+      $form['name']['#access'] = FALSE;
+    }
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function elife_house_style_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if (isset($entity_form['field_elife_title'])) {
+    $entity_form['title']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for taxonomy_overview_terms().
+ */
+function elife_house_style_form_taxonomy_overview_terms_alter(&$form, &$form_state, $form_id) {
+  foreach ($form as $key => $value) {
+    if (!is_array($value) || empty($value['#term']['tid'])) {
+      continue;
+    }
+    $term = taxonomy_term_load($value['#term']['tid']);
+    if (empty($term->field_elife_title[LANGUAGE_NONE])) {
+      continue;
+    }
+    $form[$key]['view']['#title'] = $term->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+    $form[$key]['view']['#options']['html'] = TRUE;
+  }
+}
+
+/**
+ * Implements hook_field_attach_view_alter().
+ */
+function elife_house_style_field_attach_view_alter(&$output, $context) {
+  foreach ($output as $field_name => $field) {
+    if (empty($output[$field_name]['#items'])) {
+      continue;
+    }
+
+    if ('entityreference_label' === $output[$field_name]['#formatter']) {
+      foreach ($output[$field_name]['#items'] as $key => $value) {
+        if (empty($value['entity']->field_elife_title[LANGUAGE_NONE])) {
+          continue;
+        }
+
+        $label = $value['entity']->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+        if ('<a ' === substr($output[$field_name][$key]['#markup'], 0, 3)) {
+          $uri = entity_uri('taxonomy_term', $value['entity']);
+          $output[$field_name][$key]['#markup'] = l($label, $uri['path'], ['html' => TRUE] + $uri['options']);
+        }
+        else {
+          $output[$field_name][$key]['#markup'] = $label;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_node().
+ */
+function elife_house_style_preprocess_node(&$variables) {
+  if (isset($variables['node']) && !empty($variables['node']->field_elife_title[LANGUAGE_NONE])) {
+    $variables['title'] = $variables['node']->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+  }
+}
+
+/**
+ * Implements template_preprocess_taxonomy_term().
+ */
+function elife_house_style_preprocess_taxonomy_term(&$variables) {
+  if (isset($variables['term']) && !empty($variables['term']->field_elife_title[LANGUAGE_NONE])) {
+    $variables['name'] = $variables['term']->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+    $variables['term_name'] = $variables['term']->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+  }
+}
+
+/**
+ * Implements hook_ds_fields_info_alter().
+ */
+function elife_house_style_ds_fields_info_alter(&$fields, $entity_type) {
+  if (isset($fields['title'])) {
+    $fields['title']['elife_original_title_function'] = $fields['title']['function'];
+    $fields['title']['function'] = '_elife_house_style_ds_title_field';
+  }
+}
+
+/**
+ * Display Suite title field renderer.
+ *
+ * Replaces entity title with field_elife_title.
+ *
+ * @param array $field
+ *
+ * @return string
+ */
+function _elife_house_style_ds_title_field($field) {
+  if (empty($field['entity']->field_elife_title[LANGUAGE_NONE])) {
+    return $field['elife_original_title_function']($field);
+  }
+
+  $output = $field['entity']->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
+
+  if (!empty($field['formatter_settings']['link'])) {
+    if (empty($field['entity']->uri)) {
+      $field['entity']->uri = entity_uri($field['entity_type'], $field['entity']);
+    }
+    $field['entity']->uri['options']['html'] = TRUE;
+
+    $output = l($output, $field['entity']->uri['path'], $field['entity']->uri['options']);
+  }
+
+  $output = ds_edit_support('field_elife_title', $output, $field);
+
+  if (!empty($field['formatter_settings']['wrapper'])) {
+    $wrapper = check_plain($field['formatter_settings']['wrapper']);
+    $class = (!empty($field['formatter_settings']['class'])) ? ' class="' . check_plain($field['formatter_settings']['class']) . '"' : '';
+    $output = '<' . $wrapper . $class . '>' . $output . '</' . $wrapper . '>';
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_panels_pane_content_alter().
+ */
+function elife_house_style_panels_pane_content_alter($content, $pane, $args, $contexts) {
+  if ('node_title' === $pane->type) {
+    $context = reset($contexts);
+    if (!empty($context->data->field_elife_title[LANGUAGE_NONE])) {
+      $content->content = sprintf('<%s>%s</%s>', $content->title_heading, $context->data->field_elife_title[LANGUAGE_NONE][0]['safe_value'], $content->title_heading);
+    }
+  }
+}

@@ -42,7 +42,7 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
   );
 
   $variables = array();
-  $variables['title'] = l($ewrapper->title->value(), 'node/' . $reference->nid, $attrs);
+  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], 'node/' . $reference->nid, $attrs);
 
   $text_appearance = $ewrapper->field_elife_c_text_appearance->value();
   $variables['additional_classes'] = array('headline-first--' . $text_appearance . '-text');

@@ -13,48 +13,6 @@ function elife_podcast_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_node_elife_podcast';
-  $strongarm->value = '1';
-  $export['auto_entitylabel_node_elife_podcast'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_node_elife_podcast_chapter';
-  $strongarm->value = '1';
-  $export['auto_entitylabel_node_elife_podcast_chapter'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_pattern_node_elife_podcast';
-  $strongarm->value = 'Episode [node:field-elife-p-episode-number]: [node:field-elife-p-title]';
-  $export['auto_entitylabel_pattern_node_elife_podcast'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_pattern_node_elife_podcast_chapter';
-  $strongarm->value = 'Episode [node:field-elife-pc-podcast:field-elife-p-episode-number] Chapter: [node:field-elife-pc-title]';
-  $export['auto_entitylabel_pattern_node_elife_podcast_chapter'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_php_node_elife_podcast';
-  $strongarm->value = 0;
-  $export['auto_entitylabel_php_node_elife_podcast'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'auto_entitylabel_php_node_elife_podcast_chapter';
-  $strongarm->value = 0;
-  $export['auto_entitylabel_php_node_elife_podcast_chapter'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_podcast';
   $strongarm->value = array(
     'view_modes' => array(

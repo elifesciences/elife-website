@@ -1,0 +1,17 @@
+name = eLife: House Style
+core = 7.x
+package = eLife
+version = 7.x-1.0
+project = elife_house_style
+dependencies[] = entity
+dependencies[] = features
+dependencies[] = filter
+dependencies[] = rules
+dependencies[] = taxonomy
+dependencies[] = text
+features[features_api][] = api:2
+features[field_base][] = field_elife_title
+features[filter][] = elife_house_style
+features[rules_config][] = rules_elife_set_node_title
+features[rules_config][] = rules_set_taxonomy_term_title
+project path = profiles/elife_profile/modules/custom

@@ -83,14 +83,12 @@ function elife_collection_preprocess_node(&$variables) {
 }
 
 /**
- * Implements hook_token_info().
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form().
  */
-function elife_collection_token_info() {
-  $info['tokens']['node']['elife-c-full-title'] = [
-    'name' => t('Full title'),
-    'description' => t('Full collection title.'),
-  ];
-  return $info;
+function elife_collection_form_node_form_alter(&$form, &$form_state) {
+  if ('elife_collection' === $form['#node']->type) {
+    $form['field_elife_title']['#access'] = FALSE;
+  }
 }
 
 /**
@@ -102,15 +100,6 @@ function elife_collection_tokens($type, $tokens, array $data = [], array $option
   if ('node' === $type) {
     foreach ($tokens as $name => $original) {
       switch ($name) {
-        case 'elife-c-full-title':
-          $full_title = $data['node']->field_elife_c_title[LANGUAGE_NONE][0]['value'];
-
-          if (!empty($data['node']->field_elife_c_sub_title[LANGUAGE_NONE][0]['value'])) {
-            $full_title .= ': ' . $data['node']->field_elife_c_sub_title[LANGUAGE_NONE][0]['value'];
-          }
-
-          $replacements[$original] = $full_title;
-          break;
         case 'field-elife-c-articles:ids-with-collection':
           if ('elife_collection' !== $data['node']->type) {
             break;
@@ -148,8 +137,8 @@ function elife_collection_elife_hero_block_alter(&$content) {
           'image_colour' => $node->field_elife_c_image_colour->value(),
           'image_path' => $node->field_elife_c_image->value()['uri'],
           'credit' => $node->field_elife_c_image_credit->value(),
-          'title' => $node->field_elife_c_title->value(),
-          'sub_title' => $node->field_elife_c_sub_title->value(),
+          'title' => $node->field_elife_c_title->value()['safe_value'],
+          'sub_title' => $node->field_elife_c_sub_title->value()['safe_value'],
         ];
         $content = theme('elife_hero_block', $variables);
       }

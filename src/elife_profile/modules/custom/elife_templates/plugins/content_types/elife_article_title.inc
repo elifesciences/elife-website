@@ -35,7 +35,7 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
   drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_title.js');
 
   $block = new stdClass();
-  $block->content  = '<div class="elife-article-indicators clearfix">';
+  $block->content = '<div class="elife-article-indicators clearfix">';
 
   $img_oa = theme('image', array(
       'alt' => t('Open access'),
@@ -159,7 +159,7 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
   }
 
   // Now append the actual title (this version of it can contain HTML).
-  $title_text = $dto->getTitle();
+  $title_text = $article_version->field_elife_title[LANGUAGE_NONE][0]['safe_value'];
 
   $block->content .= '<h1 class="page-title">' . $title_prefix . $title_text . '</h1>';
   return $block;
