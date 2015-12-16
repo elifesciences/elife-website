@@ -15,6 +15,7 @@ function elife_users_user_default_permissions() {
     'name' => 'access administration menu',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
+      'eLife Article Publisher' => 'eLife Article Publisher',
       'eLife Editor' => 'eLife Editor',
     ),
     'module' => 'admin_menu',
@@ -543,7 +544,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'create elife_article content'.
   $permissions['create elife_article content'] = array(
     'name' => 'create elife_article content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -560,7 +563,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'create elife_article_ver content'.
   $permissions['create elife_article_ver content'] = array(
     'name' => 'create elife_article_ver content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -577,7 +582,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'create elife_contributor content'.
   $permissions['create elife_contributor content'] = array(
     'name' => 'create elife_contributor content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -594,7 +601,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'create elife_fragment content'.
   $permissions['create elife_fragment content'] = array(
     'name' => 'create elife_fragment content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -709,7 +718,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete any elife_article content'.
   $permissions['delete any elife_article content'] = array(
     'name' => 'delete any elife_article content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -723,7 +734,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete any elife_article_ver content'.
   $permissions['delete any elife_article_ver content'] = array(
     'name' => 'delete any elife_article_ver content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -740,7 +753,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete any elife_contributor content'.
   $permissions['delete any elife_contributor content'] = array(
     'name' => 'delete any elife_contributor content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -757,7 +772,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete any elife_fragment content'.
   $permissions['delete any elife_fragment content'] = array(
     'name' => 'delete any elife_fragment content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -1068,7 +1085,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit any elife_article content'.
   $permissions['edit any elife_article content'] = array(
     'name' => 'edit any elife_article content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -1085,7 +1104,9 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit any elife_article_ver content'.
   $permissions['edit any elife_article_ver content'] = array(
     'name' => 'edit any elife_article_ver content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Article Publisher' => 'eLife Article Publisher',
+    ),
     'module' => 'node',
   );
 
@@ -1832,6 +1853,7 @@ function elife_users_user_default_permissions() {
     'name' => 'view any unpublished elife_article_ver content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
+      'eLife Article Publisher' => 'eLife Article Publisher',
       'eLife Editor' => 'eLife Editor',
     ),
     'module' => 'view_unpublished',
@@ -1867,7 +1889,11 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_fragment content'.
   $permissions['view any unpublished elife_fragment content'] = array(
     'name' => 'view any unpublished elife_fragment content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Article Publisher' => 'eLife Article Publisher',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'view_unpublished',
   );
 

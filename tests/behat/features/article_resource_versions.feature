@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - Versions (API)
   In order to maintain article content
   As a production system
   I need to be able to post versions of article content via the resource api
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: Post a new version of an article - test case 1
     Given I set header "Content-Type" with value "application/json"
@@ -253,4 +258,3 @@ Feature: Article Resource - Versions (API)
     Then there should be 1 versions of article "05224"
     And there should be 0 published versions of article "05224"
     And there should be 1 unpublished versions of article "05224"
-

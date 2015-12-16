@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - GetUpdateDelete requests (API)
   In order to verify that we get the expected result
   As a production system
   I need to GET, UPDATE and DELETE an article
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: GET, UPDATE and DELETE an article in sequence
     Given I set header "Content-Type" with value "application/json"

@@ -16,7 +16,9 @@ function elife_services_config_default_services_endpoint() {
   $endpoint->name = 'elife_article';
   $endpoint->server = 'rest_server';
   $endpoint->path = 'api';
-  $endpoint->authentication = array();
+  $endpoint->authentication = array(
+    'services_basic_auth' => 'services_basic_auth',
+  );
   $endpoint->server_settings = array(
     'formatters' => array(
       'json' => TRUE,

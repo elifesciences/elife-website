@@ -1,9 +1,13 @@
+@api
 Feature: Article Resource - UPDATE (API)
   In order to maintain article content
   As a production system
   I need to be able to update article content via the resource api
 
-  @api
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
+
   Scenario: Update an article
     Given "elife_article_ver" content:
       | field_elife_title | field_elife_a_article_version_id | field_elife_a_article_id |

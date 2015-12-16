@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - GET (API)
   In order to access article content
   As a production system
   I need to be able to retrieve article content via the resource api
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: Get an article
     Given I set header "Content-Type" with value "application/json"

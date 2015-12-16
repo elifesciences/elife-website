@@ -17,8 +17,8 @@ use Drupal\elife_article\ElifeArticleVersion;
  *   returns TRUE or FALSE
  */
 function _elife_services_publish_access($article_version_id) {
-  // @todo - elife - nlisgo - Implement some access control.
-  return TRUE;
+  $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT'], 1, 'field_elife_a_article_version_id');
+  return empty($node) || node_access('update', $node);
 }
 
 /**

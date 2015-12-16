@@ -47,8 +47,8 @@ function _elife_services_get_lock() {
  *   returns TRUE or FALSE
  */
 function _elife_services_article_retrieve_access($article_version_id) {
-  // @todo - elife - nlisgo - Implement some access control.
-  return TRUE;
+  $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT'], 1, 'field_elife_a_article_version_id');
+  return empty($node) || node_access('view', $node);
 }
 
 /**
@@ -61,7 +61,7 @@ function _elife_services_article_retrieve_access($article_version_id) {
  *   returns TRUE or FALSE.
  */
 function _elife_services_article_create_access($data) {
-  return TRUE;
+  return node_access('create', 'elife_article_ver');
 }
 
 /**
@@ -74,7 +74,8 @@ function _elife_services_article_create_access($data) {
  *   returns TRUE or FALSE
  */
 function _elife_services_article_update_access($article_version_id) {
-  return TRUE;
+  $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT'], 1, 'field_elife_a_article_version_id');
+  return empty($node) || node_access('update', $node);
 }
 
 /**
@@ -87,7 +88,8 @@ function _elife_services_article_update_access($article_version_id) {
  *   returns TRUE or FALSE
  */
 function _elife_services_article_delete_access($article_version_id) {
-  return TRUE;
+  $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', ['DANGEROUS_ACCESS_CHECK_OPT_OUT'], 1, 'field_elife_a_article_version_id');
+  return empty($node) || node_access('delete', $node);
 }
 
 /**

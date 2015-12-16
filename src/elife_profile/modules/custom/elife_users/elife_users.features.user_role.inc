@@ -13,6 +13,12 @@ function elife_users_user_default_roles() {
   // Exported role: eLife Administrator.
   $roles['eLife Administrator'] = array(
     'name' => 'eLife Administrator',
+    'weight' => 4,
+  );
+
+  // Exported role: eLife Article Publisher.
+  $roles['eLife Article Publisher'] = array(
+    'name' => 'eLife Article Publisher',
     'weight' => 3,
   );
 

@@ -4,11 +4,11 @@ default:
       contexts:
         - FeatureContext: ~
         - ContentAlertsContext: ~
+        - DrupalWebApiContext: ~
         - IsolatedDrupalContext: ~
         - IsolatedPropeopleContext: ~
         - MinkContext: ~
         - Drupal\DrupalExtension\Context\MessageContext: ~
-        - Behat\WebApiExtension\Context\WebApiContext: ~
   extensions:
     eLife\IsolatedDrupalBehatExtension:
       profile: 'elife_profile'
