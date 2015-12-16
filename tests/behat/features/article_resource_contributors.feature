@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - Contributors (API)
   In order to maintain article content
   As a production system
   I need to be able to post article content with contributors via the resource api
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: Load an article with contributors
     Given I set header "Content-Type" with value "application/json"

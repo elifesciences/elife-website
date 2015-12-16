@@ -1,8 +1,12 @@
-@negative
+@negative @api
 Feature: Article Resource - GetDelete requests (API)
   In order to verify that we get the expected result
   As a production system
   I need to be able to be able to GET and DELETE an article
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: GET and DELETE an article in sequence
     Given I set header "Content-Type" with value "application/json"

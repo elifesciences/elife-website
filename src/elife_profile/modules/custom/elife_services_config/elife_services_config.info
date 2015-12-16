@@ -8,6 +8,7 @@ dependencies[] = ctools
 dependencies[] = elife_services
 dependencies[] = rest_server
 dependencies[] = services
+dependencies[] = services_basic_auth
 features[ctools][] = services:services:3
 features[features_api][] = api:2
 features[services_endpoint][] = elife_article

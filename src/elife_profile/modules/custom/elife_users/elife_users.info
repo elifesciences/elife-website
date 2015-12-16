@@ -302,6 +302,7 @@ features[user_permission][] = view revisions
 features[user_permission][] = view scheduled content
 features[user_permission][] = view the administration theme
 features[user_role][] = eLife Administrator
+features[user_role][] = eLife Article Publisher
 features[user_role][] = eLife Editor
 features[variable][] = anonymous
 features[variable][] = pathauto_user_pattern

@@ -1,8 +1,12 @@
-@negative
+@negative @api
 Feature: Article Resource - GetPost requests (API)
   In order to verify that we get the expected result
   As a production system
   I need to GET and POST an article
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: GET and POST an article in sequence
     Given I set header "Content-Type" with value "application/json"

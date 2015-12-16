@@ -1,9 +1,13 @@
+@api
 Feature: Article Publish Resource (API)
   In order to maintain article content
   As a production system
   I need to be able to easily publish or unpublish content
 
-  @api
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
+
   Scenario Outline: Post content to site as published or unpublished - check user access
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -133,7 +137,6 @@ Feature: Article Publish Resource (API)
       | 1       | 200      | access administration menu,access content                                                                                            |
       | 0       | 200      | access administration menu,access content,view any unpublished elife_article_ver content,view any unpublished elife_fragment content |
 
-  @api
   Scenario: Make content available for preview then publish
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:
@@ -299,8 +302,7 @@ Feature: Article Publish Resource (API)
     And response should contain "update"
 
   Scenario: Make article available for preview without publication date
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 05224",
@@ -316,15 +318,19 @@ Feature: Article Publish Resource (API)
           "publish": "0"
         }
       """
-    And the response code should be 200
-    When I go to "content/4/e05224"
+    When I am an anonymous user
+    And I go to "content/4/e05224"
     Then I should get a 404 HTTP response
+    And I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
     And I send a GET request to "api/article/05224.1.json"
     And the response code should be 200
     And response should not contain "pub-date"
     And response should not contain "update"
 
-    Given I set header "Content-Type" with value "application/json"
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
+    And I set header "Content-Type" with value "application/json"
     And I send a PUT request to "api/publish/05224.1.json" with body:
       """
         {
@@ -332,7 +338,8 @@ Feature: Article Publish Resource (API)
         }
       """
     And the response code should be 200
-    When I go to "content/4/e05224"
+    When I am an anonymous user
+    And I go to "content/4/e05224"
     And I should get a 200 HTTP response
     And I send a GET request to "api/article/05224.1.json"
     Then the response code should be 200
@@ -340,8 +347,7 @@ Feature: Article Publish Resource (API)
     And response should contain "update"
 
   Scenario: Preview and publish second version of article after first is published
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 05224v1",
@@ -358,9 +364,11 @@ Feature: Article Publish Resource (API)
           "pub-date": "2015-07-26"
         }
       """
-    And the response code should be 200
-    When I go to "content/4/e05224v1"
+    When I am an anonymous user
+    And I go to "content/4/e05224v1"
     And I should get a 200 HTTP response
+    And I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
     And I send a GET request to "api/article/05224.1.json"
     Then the response code should be 200
     And response should contain "update"
@@ -371,8 +379,7 @@ Feature: Article Publish Resource (API)
         }
       """
 
-    Given I set header "Content-Type" with value "application/json"
-    And I send a POST request to "api/article.json" with body:
+    Given there is an article:
       """
         {
           "title": "VOR 05224v2",
@@ -388,9 +395,11 @@ Feature: Article Publish Resource (API)
           "publish": "0"
         }
       """
-    And the response code should be 200
-    When I go to "content/4/e05224v2"
+    When I am an anonymous user
+    And I go to "content/4/e05224v2"
     And I should get a 404 HTTP response
+    And I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
     And I send a GET request to "api/article/05224.2.json"
     Then the response code should be 200
     And response should not contain "update"
@@ -402,7 +411,9 @@ Feature: Article Publish Resource (API)
         }
       """
 
-    Given I set header "Content-Type" with value "application/json"
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
+    And I set header "Content-Type" with value "application/json"
     And I send a PUT request to "api/publish/05224.2.json" with body:
       """
         {
@@ -418,8 +429,11 @@ Feature: Article Publish Resource (API)
         }
       """
     And response should contain "update"
-    When I go to "content/4/e05224v2"
+    When I am an anonymous user
+    And I go to "content/4/e05224v2"
     And I should get a 200 HTTP response
+    And I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
     And I send a GET request to "api/article/05224.2.json"
     Then the response code should be 200
     And response should contain "update"

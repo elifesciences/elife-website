@@ -96,6 +96,7 @@ dependencies[] = search_api_solr
 dependencies[] = search_api_views
 dependencies[] = semanticviews
 dependencies[] = services
+dependencies[] = services_basic_auth
 dependencies[] = sharethis
 dependencies[] = smart_trim
 dependencies[] = strongarm

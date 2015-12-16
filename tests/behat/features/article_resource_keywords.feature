@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - Keywords (API)
   In order to maintain article content
   As a production system
   I need to be able to assign the content to keywords via the resource api
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario Outline: Set keywords
     Given I set header "Content-Type" with value "application/json"

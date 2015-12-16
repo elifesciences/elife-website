@@ -1,7 +1,12 @@
+@api
 Feature: Article Resource - POST (API)
   In order to maintain article content
   As a production system
   I need to be able to post article content via the resource api
+
+  Background:
+    Given I am logged in as a user with the "eLife Article Publisher" role
+    And I am authenticating as the Drupal user
 
   Scenario: Post an article
     Given I set header "Content-Type" with value "application/json"
@@ -62,7 +67,6 @@ Feature: Article Resource - POST (API)
       | invalid doi |
       | 10.7554 /eLife.05224 |
 
-  @api
   Scenario: Post an article with an id that isn't unique
     Given "elife_article_ver" content:
       | field_elife_a_article_version_id | field_elife_a_article_id |
