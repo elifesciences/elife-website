@@ -127,6 +127,7 @@ projects:
     version: '3.5'
     patch:
       - 'https://www.drupal.org/files/issues/panels-export-indentation-2448825-1.patch'
+      - 'http://cgit.drupalcode.org/panels/patch/?id=e8623b704fb2585bbf77f31f06d4a98721556277'
   panels_ajax_tab:
     version: '1.1'
     patch:
