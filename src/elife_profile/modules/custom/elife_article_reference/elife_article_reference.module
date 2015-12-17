@@ -97,21 +97,7 @@ function elife_article_reference_node_presave($node) {
     $article_reference->field_elife_a_title = $node->field_elife_title->value();
     $article_reference->status = $node->status->value();
 
-    $article_reference->raw()->elife_autogenerating = TRUE; // Hack to stop the below happening.
     $article_reference->save();
-  }
-  elseif ('elife_article_reference' === $node->getBundle() && !isset($node->raw()->elife_autogenerating)) {
-    $article_id = $node->field_elife_a_article_id->value();
-
-    $article = ElifeArticleVersion::getArticle($article_id);
-
-    if ($article) {
-      $node->field_elife_a_title = $article->title->value();
-      $node->status = $article->status->value();
-    }
-    else {
-      $node->status = NODE_NOT_PUBLISHED;
-    }
   }
 }
 
@@ -129,7 +115,6 @@ function elife_article_reference_node_delete($node) {
 
   if ($article_reference) {
     $article_reference->status = NODE_NOT_PUBLISHED;
-    $article_reference->elife_autogenerating = TRUE; // Hack to stop elife_article_reference_node_presave() from happening.
     node_save($article_reference);
   }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Behat\Gherkin\Node\PyStringNode;
+use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Driver\GoutteDriver;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
@@ -93,6 +94,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *   JSON article.
    *
    * @Given /^there is an article:$/
+   * @When /^an article is submitted:$/
    */
   public function thereIsAnArticle(PyStringNode $string) {
     module_load_include('inc', 'elife_services', 'resources/article');
@@ -678,6 +680,51 @@ JS;
   }
 
   /**
+   * @Then /^the "([^"]*)" with the "([^"]*)" of "([^"]*)" should be like:$/
+   */
+  public function theWithTheOfShouldBeLike($bundle, $field, $article_id, TableNode $table) {
+    $reference = $this->getEntityByTypeAndField('node', $bundle, $field, 'value', $article_id);
+
+    /* @var EntityDrupalWrapper $entity */
+    $reference = entity_metadata_wrapper('node', $reference);
+
+    foreach ($table as $row) {
+      foreach ($row as $column => $value) {
+        $column = explode(':', $column, 2);
+
+        if (isset($column[1])) {
+          $expected_value = $reference->{$column[0]}->value()[$column[1]];
+        }
+        else {
+          $expected_value = $reference->{$column[0]}->value();
+        }
+
+        if ($expected_value !== $value) {
+          throw new Exception('Expected value ' . $value . ' but found ' . $expected_value);
+        }
+      }
+    }
+  }
+
+  /**
+   * @When /^the article "([^"]*)" is unpublished$/
+   */
+  public function theArticleIsUnpublished($article_version_id) {
+    module_load_include('inc', 'elife_services', 'resources/publish');
+
+    _elife_services_publish($article_version_id, json_encode(['publish' => FALSE]));
+  }
+
+  /**
+   * @When /^the article "([^"]*)" is deleted$/
+   */
+  public function theArticleIsDeleted($article_version_id) {
+    module_load_include('inc', 'elife_services', 'resources/article');
+
+    _elife_services_article_delete($article_version_id);
+  }
+
+  /**
    * Returns fixed step argument (with \\" replaced back to ").
    *
    * @param string $argument
@@ -776,6 +823,30 @@ JS;
     $query->entityCondition('entity_type', $entity_type);
     $query->propertyCondition('type', $bundle);
     $query->propertyCondition($property, $value);
+    $entities = $query->execute();
+    Assertions::assertTrue(isset($entities['node']), 'node not found');
+    Assertions::assertCount(1, $entities['node'], 'more than one node found');
+
+    return node_load(key($entities['node']));
+  }
+
+  /**
+   * Get an entity by a field value.
+   *
+   * @param string $entity_type
+   * @param string $bundle
+   * @param string $field
+   * @param string $column
+   * @param string $value
+   *
+   * @return object|bool
+   *   Entity, or FALSE.
+   */
+  protected function getEntityByTypeAndField($entity_type, $bundle, $field, $column, $value) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', $entity_type);
+    $query->propertyCondition('type', $bundle);
+    $query->fieldCondition($field, $column, $value);
     $entities = $query->execute();
     Assertions::assertTrue(isset($entities['node']), 'node not found');
     Assertions::assertCount(1, $entities['node'], 'more than one node found');
