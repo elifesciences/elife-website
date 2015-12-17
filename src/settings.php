@@ -43,7 +43,7 @@ $conf['elife_cache_dir'] = __DIR__ . '/../cache';
 
 // Uploaded files directories.
 $conf['file_public_path'] = 'sites/default/files';
-$conf['file_private_path'] = 'sites/default/private';
+$conf['file_private_path'] = __DIR__ . '/../private';
 $conf['file_temporary_path'] = sys_get_temp_dir();
 
 // Configure Redis (if the PHP extension is available).
