@@ -46,6 +46,7 @@ class IsolatedDrupalContext extends DrupalContext {
     // TODO the following is a hack to have the text format set correctly.
 
     $house_style_fields = [
+      'field_elife_a_title',
       'field_elife_c_sub_title',
       'field_elife_c_title',
       'field_elife_p_title',
