@@ -1899,7 +1899,7 @@ div.highwire-markup .table-expansion ul.table-footnotes {
 .table-inline {
   position: relative;
 }
- 
+
 .table-inline .callout-links li {
   float:left;
   margin-left:10px;
@@ -2100,13 +2100,13 @@ img.elife-embed-fragment-image {
     font-size: 0.875rem;
     line-height: 1.2;
   }
-  
+
   .ui-cluetip-content .elife-reflinks-reflink .elife-reflink-details {
     font-size: 11px;
     font-size: 0.6875rem;
     line-height: 1.4;
   }
-  
+
   .elife-reflinks-reflink .elife-reflink-indicators {
 		float: left;
 		margin-right: 10px;
@@ -2150,7 +2150,7 @@ img.elife-embed-fragment-image {
  .elife-reflink-title {
 		display: block;
 	}
-	
+
   .elife-reflinks-reflink .elife-reflink-links-wrapper {
 		margin: 2px 0 0;
 	}
@@ -2375,8 +2375,8 @@ img.elife-embed-fragment-image {
 	/* Adjusments to additional files layout */
   #fig-data .related-object {
     font-size: 0.875em;
-  }	
-  
+  }
+
   #fig-data .related-object,
 	#fig-data .related-object > span.comment,
 	#fig-data .related-object > span.source,
