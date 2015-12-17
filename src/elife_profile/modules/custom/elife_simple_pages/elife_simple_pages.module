@@ -8,6 +8,10 @@
  */
 function elife_simple_pages() {
   return [
+    'terms-and-conditions-of-use' => [
+      'title' => 'Terms and conditions of use',
+      'template' => 'terms_and_conditions_of_use',
+    ],
   ];
 }
 
