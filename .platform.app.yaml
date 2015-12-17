@@ -29,7 +29,7 @@ web:
 disk: 2048
 
 mounts:
-    "/web/sites/default/files": "shared:files/files"
+    "/platform/files": "shared:files/files"
     "/private": "shared:files/private"
 
 hooks:
@@ -40,6 +40,7 @@ hooks:
         drush cache-clear drush
         ./setup.sh
         cp platform/local.settings.php .
+        ln -s "../../../platform/files" "web/sites/default/files"
     deploy: |
         set -e
         ./update.sh
