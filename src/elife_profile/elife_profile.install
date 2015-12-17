@@ -9,3 +9,12 @@ function elife_profile_install() {
 
   elife_environment_enable_environment_modules();
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Enable elife_simple_pages.
+ */
+function elife_profile_update_7100() {
+  module_enable(['elife_simple_pages'], FALSE);
+}
