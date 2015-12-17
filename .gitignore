@@ -1,6 +1,7 @@
 /bin/
 /cache/
 /local.settings.php
+/platform/files/
 /private/
 /src/elife_profile/libraries/
 /src/elife_profile/modules/contrib/
