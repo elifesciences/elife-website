@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * Get list of simple pages.
+ *
+ * @return array
+ *   Array of pages, keyed by path, containing 'title' and 'template'.
+ */
+function elife_simple_pages() {
+  return [
+  ];
+}
+
+/**
+ * Implements hook_menu().
+ */
+function elife_simple_pages_menu() {
+  $menu = [];
+
+  foreach (elife_simple_pages() as $path => $details) {
+    if (empty($details['template'])) {
+      continue;
+    }
+
+    $menu[$path] = [
+      'title' => !empty($details['title']) ? $details['title'] : '',
+      'page callback' => 'elife_simple_pages_view',
+      'page arguments' => [$path, $details['template']],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+  }
+
+  return $menu;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_simple_pages_theme($existing, $type, $theme, $path) {
+  if ('module' !== $type) {
+    return NULL;
+  }
+
+  $templates = [];
+
+  $path = drupal_get_path('module', 'elife_simple_pages') . '/templates';
+
+  foreach (elife_simple_pages() as $details) {
+    if (empty($details['template'])) {
+      continue;
+    }
+
+    $templates[$details['template']] = [
+      'template' => $details['template'],
+      'path' => $path,
+    ];
+  }
+
+  return $templates;
+}
+
+/**
+ * eLife Simple Page callback.
+ */
+function elife_simple_pages_view($path, $template) {
+  if (current_path() !== $path) {
+    return MENU_NOT_FOUND;
+  }
+
+  return theme($template);
+}
