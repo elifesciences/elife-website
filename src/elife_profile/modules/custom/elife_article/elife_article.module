@@ -1835,7 +1835,7 @@ function _elife_article_emptys_markup_populate($emptys) {
  * Amend the nodes with the supplied markup in the main text field.
  *
  * @param array $populates
- *   Array of html with nid as key.
+ *   Array of field=>value pairs with nid as key.
  *
  * @throws EntityMetadataWrapperException
  */
@@ -1845,7 +1845,12 @@ function _elife_article_emptys_populate($populates) {
     foreach ($nodes as $nid => $node) {
       /* @var EntityDrupalWrapper $ewrapper */
       $ewrapper = entity_metadata_wrapper('node', $node);
-      $ewrapper->field_elife_a_main_text->set($populates[$nid]);
+      foreach ($populates[$nid] as $field => $value) {
+        if ('field_elife_a_abstract' === $field) {
+          $value = ['value' => $value, 'format' => 'elife_full_html'];
+        }
+        $ewrapper->{$field}->set($value);
+      }
       $ewrapper->save();
     }
   }
@@ -1862,14 +1867,13 @@ function _elife_article_emptys_populate($populates) {
  */
 function _elife_article_emptys_markup($emptys) {
   $markup = elife_article_markup_service();
-  // Sections that we wish to include in the main text field which will be
-  // indexed in search.
+  // Sections that we wish to include in fields.
   $sections = [
-    'abstract',
-    'main-text',
+    'abstract' => 'field_elife_a_abstract',
+    'main-text' => 'field_elife_a_main_text',
   ];
   foreach ($emptys as $key => $article_version_id) {
-    foreach ($sections as $section) {
+    foreach ($sections as $section => $field) {
       $markup->addSectionQuery($article_version_id, $section);
     }
   }
@@ -1879,11 +1883,10 @@ function _elife_article_emptys_markup($emptys) {
   if ($results = $markup->getResults()) {
     foreach ($emptys as $nid => $empty) {
       if (isset($results[$empty])) {
-        $prepare = [];
-        foreach ($results[$empty] as $result) {
-          $prepare = array_merge($prepare, $result);
+        $populates[$nid] = [];
+        foreach ($results[$empty] as $key => $result) {
+          $populates[$nid][$sections[$key]] = implode('', $result);
         }
-        $populates[$nid] = implode('', $prepare);
       }
     }
   }
