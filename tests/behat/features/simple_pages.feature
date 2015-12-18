@@ -10,6 +10,7 @@ Feature: Simple pages
     Examples:
       | path                        | text                         |
       | terms-and-conditions-of-use | Welcome and Consent to Terms |
+      | privacy-policy              | If you have questions about  |
 
   Scenario: Sub-paths don't resolve
     When I go to "terms-and-conditions-of-use/foo"

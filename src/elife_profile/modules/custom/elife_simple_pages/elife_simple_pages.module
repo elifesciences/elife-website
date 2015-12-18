@@ -12,6 +12,10 @@ function elife_simple_pages() {
       'title' => 'Terms and conditions of use',
       'template' => 'terms_and_conditions_of_use',
     ],
+    'privacy-policy' => [
+      'title' => 'Privacy policy',
+      'template' => 'privacy_policy',
+    ],
   ];
 }
 
