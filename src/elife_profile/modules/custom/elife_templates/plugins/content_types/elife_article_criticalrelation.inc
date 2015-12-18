@@ -72,7 +72,7 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
               $authors = $related->author;
             }
             if ($critical_relation_type == 'builds') {
-              if (strtolower($related_to->display_channel) == 'research article') {
+              if (strtolower($related_to->display_channel) != 'research advance') {
                 $variables['reln_title'] = t('Builds upon');
                 $variables['reln_type'] = 'research-article';
                 $variables['reln_type_id'] = 'researchArticle';

@@ -1132,28 +1132,6 @@ class ElifeArticleVersion {
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
         $relation_ordered = "CONCAT($least(td_1.name, td_2.name), '|', $greatest(td_1.name, td_2.name))";
         $query->addExpression($relation_ordered, 'relation_ordered');
-        $relation_ordered = "LOWER(CONCAT('|', " . $relation_ordered . ", '|'))";
-        $criticals = [
-          'builds' => strtolower('|research advance|research article|'),
-          'replicates' => strtolower('|registered report|replication study|'),
-        ];
-        if ($critical === 0) {
-          $ands = [];
-          foreach (array_values($criticals) as $cri) {
-            $ands[] = $relation_ordered . " NOT LIKE '" . $cri . "'";
-          }
-          $query->where(implode(' AND ', $ands));
-        }
-        elseif ($critical === 1) {
-          $ors = [];
-          $cases = [];
-          foreach ($criticals as $type => $cri) {
-            $cases[] = "WHEN " . $relation_ordered . " LIKE '" . $cri . "' THEN '" . $type . "'";
-            $ors[] = $relation_ordered . " LIKE '" . $cri . "'";
-          }
-          $query->addExpression('CASE ' . implode(' ', $cases) . ' ELSE NULL END', 'criticalrelation_type');
-          $query->where(implode(' OR ', $ors));
-        }
       }
     }
 
@@ -1177,6 +1155,35 @@ class ElifeArticleVersion {
           }
         }
         $results = array_intersect_key($results, array_flip(array_values($accept)));
+      }
+
+      $criticals = [
+        'builds' => [
+          'research advance|research article',
+          'research advance|tools and resources',
+          'research advance|short report',
+        ],
+        'replicates' => [
+          'registered report|replication study',
+        ],
+      ];
+
+      if (!is_null($critical)) {
+        foreach ($results as $nid => $result) {
+          $critical_found = FALSE;
+          foreach ($criticals as $type => $ords) {
+            if (in_array(strtolower($results[$nid]->relation_ordered), $ords)) {
+              $critical_found = $type;
+              break;
+            }
+          }
+          if ((!$critical_found && $critical === 1) || ($critical_found && $critical === 0)) {
+            unset($results[$nid]);
+          }
+          elseif ($critical_found) {
+            $results[$nid]->criticalrelation_type = $critical_found;
+          }
+        }
       }
 
       if ($entity_id) {
