@@ -778,3 +778,89 @@ input:-moz-placeholder {
 	font-family: 'AvenirLTW01-35LightObli', Helvetica, Arial, Verdana, sans-serif;
 	font-style: normal;
 }
+
+/* Info tab. */
+.article-info,
+.author-info {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 0.75rem;
+	line-height: 1.2;
+}
+
+.article-info p,
+.author-info p {
+	line-height: 1.2;
+}
+
+.article-info ul,
+.author-info ul {
+	margin-bottom: 0;
+	list-style: none;
+	padding-left: 0;
+}
+
+.article-info h3,
+.author-info h3 {
+	color: #0560ab;
+	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
+	margin-bottom: 0;
+	margin-top: 1.5635rem;
+}
+
+.article-info h3:first-of-type,
+.author-info h3:first-of-type {
+	margin-top: -10px;
+}
+
+.funding-group {
+	padding-left: 0;
+}
+
+.funding-group .award-id {
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+
+.funding-group .funding-source,
+.article-info .info-label {
+	color: rgb(0, 0, 15);
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 0.75rem;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.funding-group .principal-award-recipient {
+	line-height: 1.2;
+	margin-bottom: 1rem;
+	padding-left: 0.5rem;
+	padding-top: 0;
+}
+
+.funding-group .principal-award-recipient .name:before {
+	color: #ccc;
+	content: '\2022';
+	display: inline-block;
+	width: 1em;
+}
+
+.funding-statement {
+	line-height: 1.2;
+}
+
+.additional-address-items,
+.fn-con,
+.fn-corresp,
+.fn-conflict {
+	padding-left: 0;
+}
+
+.additional-address-items li,
+.fn-con li,
+.fn-corresp li,
+.fn-conflict li {
+	margin-bottom: 10px;
+}
+
+.info-content {
+	margin-bottom: 0.625rem;
+}
