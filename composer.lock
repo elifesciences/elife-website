@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "31789af6c668049f907e7505c93a3335e52b5d50"
+                "reference": "7a37ae3882e0ec6224df62b63c3500e8d6ab10a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/31789af6c668049f907e7505c93a3335e52b5d50",
-                "reference": "31789af6c668049f907e7505c93a3335e52b5d50",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/7a37ae3882e0ec6224df62b63c3500e8d6ab10a6",
+                "reference": "7a37ae3882e0ec6224df62b63c3500e8d6ab10a6",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +278,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
             },
-            "time": "2015-12-11 11:34:06"
+            "time": "2015-12-21 17:19:04"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1588,7 +1588,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/WebApiExtension/zipball/1a7c9d76f7af1a69479c22ade5e4985efea6151f",
+                "url": "https://api.github.com/repos/Behat/WebApiExtension/zipball/5d8bccbde229c415253bf72451f7e1d1042c176d",
                 "reference": "1a7c9d76f7af1a69479c22ade5e4985efea6151f",
                 "shasum": ""
             },

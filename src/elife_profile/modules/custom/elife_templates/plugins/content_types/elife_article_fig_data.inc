@@ -44,6 +44,8 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
     $markup->addDoiQuery($article_version_id, $fragment->getDoi());
   }
 
+  $markup->addSectionQuery($article_version_id, 'supplementary-material');
+
   $markup = _elife_article_markup_query($markup);
   $results = $markup->getResults();
 
@@ -76,6 +78,13 @@ function elife_article_fig_data_render($subtype, $conf, $args, $context) {
       $output .= '<div id="fig-data-' . $type . '" class="group frag-' . $type . ' fragment-type--' . $type . '">';
       $output .= _elife_article_fig_data_title($type);
       $output .= theme('item_list', $item_list);
+      $output .= '</div>';
+    }
+
+    if (!empty($results[$article_version_id]['supplementary-material'])) {
+      $type = 'supplementary-material';
+      $output .= '<div id="fig-data-' . $type . '" class="group frag-' . $type . ' fragment-type--' . $type . '">';
+      $output .= implode("\n", $results[$article_version_id]['supplementary-material']);
       $output .= '</div>';
     }
   }

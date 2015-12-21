@@ -12,6 +12,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'digest' => 'eLife digest',
     'main-text' => 'Main text',
     'fig' => 'Main figures',
+    'supplementary-material' => 'Supplementary Material',
     'references' => 'References',
     'acknowledgements' => 'Acknowledgements',
     'decision-letter' => 'Decision letter',

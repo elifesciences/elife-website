@@ -24,6 +24,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'main-text' => 'getMainText',
     'abstract' => 'getAbstract',
     'fig' => 'getMainFigures',
+    'supplementary-material' => 'getSupplementaryMaterial',
     'digest' => 'getDigest',
     'references' => 'getReferences',
     'acknowledgements' => 'getAcknowledgements',
@@ -159,7 +160,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
    * @return string mixed
    */
   protected function postQueryProcess($markup, $article_version_id, $query_id) {
-    $found = preg_match_all('/\[(?:graphic|inline\-graphic|animation|media|video)\-(?:[^\]]+)\]/', $markup, $matches);
+    $found = preg_match_all('/\[(?:(?:graphic|inline\-graphic|animation|media|video)\-(?:[^\]]+)|[^\.]+\.zip)\]/', $markup, $matches);
     if ($found) {
       $replacements = $this->processPlaceHolders($matches[0], $article_version_id, $query_id);
       $markup = str_replace(array_keys($replacements), array_values($replacements), $markup);
@@ -169,6 +170,8 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   }
 
   protected function processPlaceHolders($placeholders, $article_version_id, $query_id) {
+    $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', array(), 1, 'field_elife_a_article_version_id');
+    $dto = elife_article_version_to_dto($node);
     $placeholders = array_unique($placeholders);
     $replacements = array();
     $cdn = variable_get('elife_article_source_assets_base_path') . ':manuscript-id/:file';
@@ -210,6 +213,10 @@ class ElifeXslMarkupService extends ElifeMarkupService {
       elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)(?P<ext>\.[a-z]+)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . $match['ext'];
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
+      }
+      elseif (preg_match('/^\[(?P<file>[^\.]+\.zip)\]$/', $placeholder, $match)) {
+        $file = $match['file'];
+        $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $dto->getManuscriptId(), ':file' => $file));
       }
     }
 
