@@ -16,6 +16,10 @@ function elife_simple_pages() {
       'title' => 'Privacy policy',
       'template' => 'privacy_policy',
     ],
+    'contact' => [
+      'title' => 'Contact',
+      'template' => 'contact',
+    ],
   ];
 }
 
