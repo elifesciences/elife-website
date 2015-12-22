@@ -4,7 +4,7 @@ imports:
 default:
   extensions:
     eLife\IsolatedDrupalBehatExtension:
-      db_url: 'mysql://root:@localhost/elife_profile'
+      db_url: '%DB_URI%'
     Zalas\Behat\NoExtension:
       parameters:
-        elife.solr_uri: 'http://localhost:8983/solr/drupal'
+        elife.solr_uri: '%SOLR_URI%'
