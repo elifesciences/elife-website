@@ -214,6 +214,22 @@ class ElifeXslMarkupService extends ElifeMarkupService {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . $match['ext'];
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }
+      elseif (preg_match('/^\[(?P<type>video)\-(?P<video>.+)\-(?P<variant>inline|download)\]$/', $placeholder, $match)) {
+        if ($glencoe = elife_article_doi_to_glencoe_data($dto->getDoi())) {
+          $video_data = $glencoe->{$match['video']};
+          if ($match['variant'] == 'download') {
+            $replacements[$placeholder] = $video_data->mp4_href;
+          }
+          elseif ($match['variant'] == 'inline') {
+            $variables = array(
+              'poster' => $video_data->jpg_href,
+              'mp4' => $video_data->mp4_href,
+              'ogv' => $video_data->ogv_href,
+            );
+            $replacements[$placeholder] = theme('elife_video', $variables);
+          }
+        }
+      }
       elseif (preg_match('/^\[(?P<file>[^\.]+\.zip)\]$/', $placeholder, $match)) {
         $file = $match['file'];
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $dto->getManuscriptId(), ':file' => $file));

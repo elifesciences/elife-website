@@ -2331,3 +2331,51 @@ function elife_article_doi_to_pmid_cache($doi) {
 
   return $doi_to_pmid_cache;
 }
+
+/**
+ * Get glencoe API data from doi.
+ *
+ * @param string $doi
+ *
+ * @return object|null
+ */
+function elife_article_doi_to_glencoe_data($doi) {
+  $cache = elife_article_doi_to_glencoe_data_cache($doi);
+  $data = $cache[$doi];
+
+  if (!empty($data)) {
+    return $data;
+  }
+}
+
+/**
+ * Get cached results for glencoe API queries.
+ *
+ * @param string $doi
+ *
+ * @return array
+ */
+function elife_article_doi_to_glencoe_data_cache($doi) {
+  $doi_to_glencoe_api_cache = &drupal_static(__FUNCTION__, array());
+
+  if (!isset($doi_to_glencoe_api_cache[$doi])) {
+    $cache_bin = 'cache_elife_article_glencoe';
+    $data = FALSE;
+    if ($cache = cache_get($doi, $cache_bin)) {
+      if (!empty($cache->data)) {
+        $data = $cache->data;
+      }
+    }
+
+    if (empty($data)) {
+      $request_uri = 'http://movie-usa.glencoesoftware.com/metadata/' . $doi;
+      if ($result = drupal_http_request($request_uri)) {
+        $data = $result->data;
+        cache_set($doi, $result->data, $cache_bin);
+      }
+    }
+    $doi_to_glencoe_api_cache[$doi] = json_decode($data);
+  }
+
+  return $doi_to_glencoe_api_cache;
+}

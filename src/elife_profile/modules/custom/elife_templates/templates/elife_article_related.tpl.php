@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_templates/templates/elife_article_related.tpl.php
+ * templates/elife_article_related.tpl.php
  */
 ?>
 <div class="elife-article-citation elife-citation-type-elife-article">

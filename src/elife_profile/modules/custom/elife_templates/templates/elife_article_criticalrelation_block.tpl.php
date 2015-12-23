@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_article_criticalrelation_block.tpl.php
+ * templates/elife_article_criticalrelation_block.tpl.php
  *
  * Variables:
  *  reln_type_id : relation type CSS id

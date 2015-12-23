@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_article_criticalrelation.tpl.php
+ * templates/elife_article_criticalrelation.tpl.php
  *
  * Variables:
  *  other_title : the title of the article linked to, with any prefix.

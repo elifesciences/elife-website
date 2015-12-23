@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_templates/templates/elife_article.tpl.php
+ * templates/elife_article.tpl.php
  */
 ?>
 <article class="<?php print $identifier; ?><?php print ($section_id) ? ' ' . $identifier . '--' . $section_id : ''; ?>">
