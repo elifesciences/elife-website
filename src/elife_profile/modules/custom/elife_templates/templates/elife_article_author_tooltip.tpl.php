@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_templates/templates/elife_article_author_tooltip.tpl.php
+ * templates/elife_article_author_tooltip.tpl.php
  */
 ?>
 <div class="author-tooltip elife-article-author-affiliation-item ">

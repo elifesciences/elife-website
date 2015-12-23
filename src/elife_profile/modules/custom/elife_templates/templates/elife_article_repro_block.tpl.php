@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_entities/templates/elife_article_repro_block.tpl.php
+ * templates/elife_article_repro_block.tpl.php
  */
 ?>
 <!-- pattern: repro-study-item -->

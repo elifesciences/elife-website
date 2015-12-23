@@ -13,7 +13,7 @@ function elife_templates_ctools_plugin_directory($owner, $plugin_type) {
  */
 function elife_templates_theme($existing, $type, $theme, $path) {
   if ($type == 'module') {
-    $template_path = drupal_get_path('module', 'elife_templates') . '/templates';
+    $template_path = $path . '/templates';
     $templates = array(
       'elife_hero' => array(
         'variables' => array(
@@ -93,7 +93,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'cats_and_heads' => NULL,
         ),
         'template' => 'elife_article_related',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_article_toolbox' => array(
         'variables' => array('node' => NULL),
@@ -108,7 +108,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'criticalrelations' => NULL,
         ),
         'template' => 'elife_article_criticalrelation_block',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_article_criticalrelation' => array(
         'variables' => array(
@@ -120,7 +120,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'other_doi_link' => NULL,
         ),
         'template' => 'elife_article_criticalrelation',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_cover' => array(
         'variables' => array(
@@ -130,7 +130,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'caption' => NULL,
         ),
         'template' => 'elife_cover',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_front_matter' => array(
         'variables' => array(
@@ -141,7 +141,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'section_name' => NULL,
         ),
         'template' => 'elife_front_matter',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_front_matter_wrapper' => array(
         'variables' => array(
@@ -150,7 +150,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'front_matter_col_2' => NULL,
         ),
         'template' => 'elife_front_matter_wrapper',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_article_metrics_cited' => array(
         'variables' => array(
@@ -159,7 +159,7 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'via' => NULL,
         ),
         'template' => 'elife_article_metrics_cited',
-        'path' => $path . '/templates',
+        'path' => $template_path,
       ),
       'elife_article_metrics_provider_data' => array(
         'variables' => array(
@@ -169,7 +169,16 @@ function elife_templates_theme($existing, $type, $theme, $path) {
           'name_link' => '',
         ),
         'template' => 'elife_article_metrics_provider_data',
-        'path' => $path . '/templates',
+        'path' => $template_path,
+      ),
+      'elife_video' => array(
+        'variables' => array(
+          'poster' => NULL,
+          'mp4' => NULL,
+          'ogv' => NULL,
+        ),
+        'template' => 'elife_video',
+        'path' => $template_path,
       ),
     );
     return $templates;

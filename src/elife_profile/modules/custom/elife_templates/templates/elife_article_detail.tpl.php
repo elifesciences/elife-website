@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_templates/templates/elife_article_detail.tpl.php
+ * templates/elife_article_detail.tpl.php
  */
 ?>
 <?php if ($image): ?>
