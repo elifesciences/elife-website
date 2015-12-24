@@ -211,6 +211,11 @@ Feature: Article Search - Keywords
               "author-keywords": [
                 "Ebola"
               ]
+            },
+            "categories": {
+              "display-channel": [
+                "Insight"
+              ]
             }
           },
           {
@@ -229,6 +234,11 @@ Feature: Article Search - Keywords
             "keywords": {
               "author-keywords": [
                 "Ebola"
+              ]
+            },
+            "categories": {
+              "display-channel": [
+                "Research article"
               ]
             }
           },
@@ -250,6 +260,11 @@ Feature: Article Search - Keywords
                 "Ebola",
                 "bacterial sulfonolipid"
               ]
+            },
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
             }
           },
           {
@@ -270,6 +285,11 @@ Feature: Article Search - Keywords
               "bacterial sulfonolipid",
               "Ebola"
               ]
+            },
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
             }
           }
         ]
@@ -283,9 +303,9 @@ Feature: Article Search - Keywords
     And I should see " Showing results 1–4 of 4 " in the ".main-wrapper" element
     And I should see 4 ".article-teaser__title" elements
     And I should see "Filter by content type" in the ".sidebar-wrapper" element
-    Then I should see " Apply research-article filter" in the ".sidebar-wrapper" element
-    Then I click "research-article (3)"
+    Then I should see " Apply Research article filter" in the ".sidebar-wrapper" element
+    Then I click "Research article (3)"
     And I should see 3 ".article-teaser__title" elements
-    Then I should see " Apply article-commentary filter" in the ".sidebar-wrapper" element
-    Then I click "article-commentary (1)"
+    Then I should see " Apply Insight filter" in the ".sidebar-wrapper" element
+    Then I click "Insight (1)"
     And I should see 1 ".article-teaser__title" element
