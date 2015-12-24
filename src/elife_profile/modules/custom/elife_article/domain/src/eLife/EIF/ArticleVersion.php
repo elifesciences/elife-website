@@ -2,7 +2,9 @@
 
 namespace eLife\EIF;
 
+use DateTime;
 use DateTimeImmutable;
+use DateTimeZone;
 use eLife\EIF\ArticleVersion\BaseContributor;
 use eLife\EIF\ArticleVersion\BaseFragment;
 use eLife\EIF\ArticleVersion\Citation;
@@ -33,9 +35,9 @@ final class ArticleVersion {
   private $impact_statement;
 
   /**
-   * @var string
+   * @var int
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("integer")
    */
   private $version;
 
@@ -47,16 +49,16 @@ final class ArticleVersion {
   private $doi;
 
   /**
-   * @var string
+   * @var bool
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("boolean")
    */
   private $publish;
 
   /**
-   * @var string
+   * @var int
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("integer")
    */
   private $volume;
 
@@ -85,17 +87,17 @@ final class ArticleVersion {
   private $article_version_id;
 
   /**
-   * @var string|null
+   * @var DateTime|null
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
    * @Serializer\SerializedName("pub-date")
    */
   private $pub_date;
 
   /**
-   * @var string|null
+   * @var DateTime|null
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("DateTime<'Y-m-d\TH:i:sP'>")
    */
   private $update;
 
@@ -174,7 +176,7 @@ final class ArticleVersion {
   /**
    * @param string $title
    * @param string|null $impact_statement
-   * @param string $version
+   * @param integer $version
    * @param string $doi
    * @param boolean $publish
    * @param integer $volume
@@ -199,7 +201,7 @@ final class ArticleVersion {
     $impact_statement,
     $version,
     $doi,
-    $publish,
+    $publish = FALSE,
     $volume,
     $elocation_id,
     $article_id,
@@ -219,18 +221,18 @@ final class ArticleVersion {
   ) {
     $this->title = (string) $title;
     $this->impact_statement = $impact_statement;
-    $this->version = (string) $version;
+    $this->version = (int) $version;
     $this->doi = (string) $doi;
-    $this->publish = (string) $publish;
-    $this->volume = (string) $volume;
+    $this->publish = (bool) $publish;
+    $this->volume = (int) $volume;
     $this->elocation_id = (string) $elocation_id;
     $this->article_id = (string) $article_id;
     $this->article_version_id = (string) $article_version_id;
     if ($pub_date) {
-      $this->pub_date = $pub_date->format('Y-m-d');
+      $this->pub_date = DateTime::createFromFormat(DATE_RFC3339, $pub_date->setTimezone(new DateTimeZone('UTC'))->format(DATE_RFC3339));
     }
     if ($update) {
-      $this->update = $update->format('Y-m-d');
+      $this->update = DateTime::createFromFormat(DATE_RFC3339, $update->setTimezone(new DateTimeZone('UTC'))->format(DATE_RFC3339));
     }
     $this->path = (string) $path;
     $this->article_type = (string) $article_type;
@@ -296,7 +298,7 @@ final class ArticleVersion {
   }
 
   public function getVolume() {
-    return (int) $this->volume;
+    return $this->volume;
   }
 
   public function getElocationId() {
@@ -310,7 +312,7 @@ final class ArticleVersion {
   public function getManuscriptId() {
     return ltrim($this->getElocationId(), 'e');
   }
-  
+
   public function getArticleVersionId() {
     return $this->article_version_id;
   }
@@ -319,7 +321,7 @@ final class ArticleVersion {
     if (NULL === $this->pub_date) {
       return NULL;
     }
-    return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->pub_date . ' 00:00:00');
+    return DateTimeImmutable::createFromFormat(DATE_RFC3339, $this->pub_date->setTimezone(new DateTimeZone('UTC'))->format(DATE_RFC3339));
   }
 
   public function getUpdate() {
@@ -327,7 +329,7 @@ final class ArticleVersion {
       return NULL;
     }
 
-    return DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $this->update . ' 00:00:00');
+    return DateTimeImmutable::createFromFormat(DATE_RFC3339, $this->update->setTimezone(new DateTimeZone('UTC'))->format(DATE_RFC3339));
   }
 
   public function getPath() {

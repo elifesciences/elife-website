@@ -10,31 +10,31 @@ Feature: Article Resource - Authenticate (API)
         [
           {
             "title": "VOR 05224 v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "VOR 05224 v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224.2",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "0"
+            "publish": false
           }
         ]
       """
@@ -50,7 +50,7 @@ Feature: Article Resource - Authenticate (API)
     When I send a PUT request to "api/publish/05224.2.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     Then the response code should be 403
@@ -62,17 +62,17 @@ Feature: Article Resource - Authenticate (API)
       """
         {
           "title": "VOR 05224 v2",
-          "version": "2",
+          "version": 2,
           "doi": "10.7554/eLife.05224.2",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.2",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     Then the response code should be 403
@@ -89,7 +89,7 @@ Feature: Article Resource - Authenticate (API)
     When I send a PUT request to "api/publish/05224.2.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     Then the response code should be 200
@@ -103,17 +103,17 @@ Feature: Article Resource - Authenticate (API)
       """
         {
           "title": "VOR 05224 v2",
-          "version": "2",
+          "version": 2,
           "doi": "10.7554/eLife.05224.2",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.2",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     Then the response code should be 200

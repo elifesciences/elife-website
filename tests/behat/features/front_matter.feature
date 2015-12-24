@@ -9,17 +9,17 @@ Feature: Front Matter
       """
         {
           "title": "VOR 05224 v1",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224.1",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And "elife_cover" content:
@@ -62,59 +62,59 @@ Feature: Front Matter
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "VOR 05225",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05225.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05225",
             "article-id": "05225",
             "article-version-id": "05225.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05225",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "VOR 05227",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           }
         ]
       """
@@ -154,17 +154,17 @@ Feature: Front Matter
         [
           {
             "title": "VOR 05224",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "2000-01-01",
+            "pub-date": "2000-01-01T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -173,17 +173,17 @@ Feature: Front Matter
           },
           {
             "title": "VOR <italic>05225</italic>",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05225.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05225",
             "article-id": "05225",
             "article-version-id": "05225.1",
-            "pub-date": "2001-01-01",
+            "pub-date": "2001-01-01T00:00:00+00:00",
             "path": "content/4/e05225",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -192,17 +192,17 @@ Feature: Front Matter
           },
           {
             "title": "VOR 05226",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05226.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05226",
             "article-id": "05226",
             "article-version-id": "05226.1",
-            "pub-date": "1999-01-01",
+            "pub-date": "1999-01-01T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Research article"
@@ -211,17 +211,17 @@ Feature: Front Matter
           },
           {
             "title": "VOR 05227",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05227.1",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05227",
             "article-id": "05227",
             "article-version-id": "05227.1",
-            "pub-date": "2000-01-01",
+            "pub-date": "2000-01-01T00:00:00+00:00",
             "path": "content/4/e05227",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "categories": {
               "display-channel": [
                 "Something else"
@@ -241,18 +241,18 @@ Feature: Front Matter
       """
         {
           "title": "VOR 05224v1",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224.1",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "2000-01-01",
-          "update": "2000-01-01",
+          "pub-date": "2000-01-01T00:00:00+00:00",
+          "update": "2000-01-01T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -269,18 +269,18 @@ Feature: Front Matter
       """
         {
           "title": "VOR 05224v1",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224.1",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "2000-01-01",
-          "update": "2001-01-01",
+          "pub-date": "2000-01-01T00:00:00+00:00",
+          "update": "2001-01-01T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"

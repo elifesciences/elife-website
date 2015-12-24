@@ -14,17 +14,17 @@ Feature: Article Resource - GetDelete requests (API)
       """
         {
           "title": "VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05227",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And I send a GET request to "api/article/05227.1.json"

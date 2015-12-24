@@ -9,19 +9,19 @@ use JMS\Serializer\Annotation as Serializer;
 
 final class BylineContributor extends PersonContributor {
   /**
-   * @var string
+   * @var bool
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("boolean")
    * @Serializer\SerializedName("equal-contrib")
    */
-  private $equal_contrib = 'no';
+  private $equal_contrib = FALSE;
 
   /**
-   * @var string
+   * @var bool
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("boolean")
    */
-  private $deceased = 'no';
+  private $deceased = FALSE;
 
   /**
    * @var string|null
@@ -71,18 +71,18 @@ final class BylineContributor extends PersonContributor {
   ) {
     parent::__construct($type, $corresp, $id, $group_author_key, $references,
       (string) $surname, (string) $given_names, $suffix, $email, $affiliations);
-    $this->equal_contrib = ($equal_contrib ? 'yes' : 'no');
-    $this->deceased = ($deceased ? 'yes' : 'no');
+    $this->equal_contrib = (bool) $equal_contrib;
+    $this->deceased = (bool) $deceased;
     $this->orcid = $orcid;
     $this->role = $role;
   }
 
   public function isEqualContrib() {
-    return 'yes' === $this->equal_contrib;
+    return $this->equal_contrib;
   }
 
   public function isDeceased() {
-    return 'yes' === $this->deceased;
+    return $this->deceased;
   }
 
   public function getOrcId() {

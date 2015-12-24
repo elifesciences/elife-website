@@ -9,21 +9,21 @@ Feature: Footnote
       """
         {
           "title": "VOR 00013",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00013",
-          "publish": "1",
-          "volume": "3",
+          "publish": true,
+          "volume": 3,
           "elocation-id": "e00013",
           "article-id": "10.7554/eLife.00013",
           "article-version-id": "00013.1",
-          "pub-date": "2014-02-28",
+          "pub-date": "2014-02-28T00:00:00+00:00",
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -36,7 +36,7 @@ Feature: Footnote
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",

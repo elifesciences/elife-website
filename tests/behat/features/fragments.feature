@@ -8,13 +8,13 @@ Feature: Navigate to fragment pages
     """
       {
         "title":"Social networks predict gut microbiome composition in wild baboons",
-        "version":"2",
+        "version":2,
         "doi":"10.7554/eLife.05224",
-        "volume":"4",
+        "volume":4,
         "elocation-id":"e05224",
         "article-id":"05224",
         "article-version-id":"05224.2",
-        "pub-date":"1979-08-17",
+        "pub-date":"1979-08-17T00:00:00+00:00",
         "path":"content/4/e05224v2",
         "fragments":[
           {
@@ -133,7 +133,7 @@ Feature: Navigate to fragment pages
         ],
         "article-type":"research-article",
         "status":"VOR",
-        "publish":"1",
+        "publish":true,
         "keywords":{
           "author-keywords":[
             "Algoriphagus"
@@ -223,7 +223,7 @@ Feature: Navigate to fragment pages
           },
           {
             "surname": "Patterson",
-            "corresp": "yes",
+            "corresp": true,
             "id": "author-1002",
             "given-names": "Mark",
             "role": "Executive Director",
@@ -236,12 +236,12 @@ Feature: Navigate to fragment pages
             "email": "editorial@elifesciences.org"
           }
         ],
-        "pub-date": "2013-05-16",
+        "pub-date": "2013-05-16T00:00:00+00:00",
         "title": "Reforming research assessment",
         "elocation-id": "e00855",
-        "publish": "1",
+        "publish": true,
         "article-version-id": "00855.1",
-        "volume": "2",
+        "volume": 2,
         "keywords": {
           "author-keywords": [
             "research assessment",
@@ -252,7 +252,7 @@ Feature: Navigate to fragment pages
           ]
         },
         "doi": "10.7554/eLife.00855",
-        "version": "1",
+        "version": 1,
         "referenced": {
           "competing-interest": {
             "conf1": "RS and MP attended the initial meeting at the ASCB annual meeting in San Francisco that led to the creation of the Declaration on Research Assessment and participated in its drafting."
@@ -291,14 +291,14 @@ Feature: Navigate to fragment pages
         {
           "surname": "Descostes",
           "given-names": "Nicolas",
-          "equal-contrib": "yes",
+          "equal-contrib": true,
           "type": "author",
           "id": "author-9814"
         },
         {
           "surname": "Heidemann",
           "given-names": "Martin",
-          "equal-contrib": "yes",
+          "equal-contrib": true,
           "type": "author",
           "id": "author-9994"
         },
@@ -315,12 +315,12 @@ Feature: Navigate to fragment pages
           "id": "author-10007"
         }
       ],
-      "pub-date": "2014-05-09",
+      "pub-date": "2014-05-09T00:00:00+00:00",
       "title": "Tyrosine phosphorylation of RNA polymerase II CTD is associated with antisense promoter transcription and active enhancers in mammalian cells",
       "elocation-id": "e02105",
-      "publish": "1",
+      "publish": true,
       "article-version-id": "02105.1",
-      "volume": "3",
+      "volume": 3,
       "keywords": {
         "author-keywords": [
           "RNA polymerase II",
@@ -335,7 +335,7 @@ Feature: Navigate to fragment pages
         ]
       },
       "doi": "10.7554/eLife.02105",
-      "version": "1",
+      "version": 1,
       "path": "content/3/e02105v1",
       "fragments": [
         {
@@ -401,15 +401,15 @@ Feature: Navigate to fragment pages
       {
       "status": "VOR",
       "article-type": "article-commentary",
-      "pub-date": "2013-08-08",
+      "pub-date": "2013-08-08T00:00:00+00:00",
       "title": "Caught in the act",
       "impact-statement": "",
       "elocation-id": "e01127",
-      "publish": "1",
+      "publish": true,
       "article-version-id": "01127.1",
-      "volume": "2",
+      "volume": 2,
       "doi": "10.7554/eLife.01127",
-      "version": "1",
+      "version": 1,
       "path": "content/2/e01127v1",
       "fragments": [
         {
@@ -440,15 +440,15 @@ Feature: Navigate to fragment pages
       {
       "status": "VOR",
       "article-type": "article-commentary",
-      "pub-date": "2013-08-08",
+      "pub-date": "2013-08-08T00:00:00+00:00",
       "title": "Caught in the act",
       "impact-statement": "",
       "elocation-id": "e01128",
-      "publish": "1",
+      "publish": true,
       "article-version-id": "01128.1",
-      "volume": "2",
+      "volume": 2,
       "doi": "10.7554/eLife.01128",
-      "version": "1",
+      "version": 1,
       "path": "content/2/e01128v1",
       "fragments": [
         {
@@ -482,7 +482,7 @@ Feature: Navigate to fragment pages
       "contributors": [
         {
           "surname": "Jonas",
-          "corresp": "yes",
+          "corresp": true,
           "given-names": "Eric",
           "type": "author",
           "id": "author-17193"
@@ -507,14 +507,14 @@ Feature: Navigate to fragment pages
           "id": "author-14764"
         }
       ],
-      "pub-date": "2015-04-30",
+      "pub-date": "2015-04-30T00:00:00+00:00",
       "title": "Automatic discovery of cell types and microcircuitry from neural connectomics",
       "elocation-id": "e04250",
-      "publish": "1",
+      "publish": true,
       "article-version-id": "04250.1",
-      "volume": "4",
+      "volume": 4,
       "doi": "10.7554/eLife.04250",
-      "version": "1",
+      "version": 1,
       "path": "content/4/e04250v1",
       "fragments": [
         {
@@ -616,7 +616,7 @@ Feature: Navigate to fragment pages
           },
           {
             "surname": "Schekman",
-            "corresp": "yes",
+            "corresp": true,
             "given-names": "Randy",
             "type": "author",
             "id": "author-1032"
@@ -628,14 +628,14 @@ Feature: Navigate to fragment pages
             "type": "editor"
           }
         ],
-        "pub-date": "2014-11-28",
+        "pub-date": "2014-11-28T00:00:00+00:00",
         "title": "Phosphatidylinositol 3-kinase and COPII generate LC3 lipidation vesicles from the ER-Golgi intermediate compartment",
         "elocation-id": "e04135",
-        "publish": "1",
+        "publish": true,
         "article-version-id": "04135.1",
-        "volume": "3",
+        "volume": 3,
         "doi": "10.7554/eLife.04135",
-        "version": "1",
+        "version": 1,
         "path": "content/3/e04135v1",
         "fragments": [
           {

@@ -7,11 +7,11 @@ use JMS\Serializer\Annotation as Serializer;
 abstract class Contributor extends BaseContributor {
 
   /**
-   * @var string
+   * @var bool
    *
-   * @Serializer\Type("string")
+   * @Serializer\Type("boolean")
    */
-  private $corresp = 'no';
+  private $corresp = FALSE;
 
   /**
    * @var string|null
@@ -50,14 +50,14 @@ abstract class Contributor extends BaseContributor {
     array $references
   ) {
     parent::__construct($type);
-    $this->corresp = ($corresp ? 'yes' : 'no');
+    $this->corresp = (bool) $corresp;
     $this->id = $id;
     $this->group_author_key = $group_author_key;
     $this->references = $references;
   }
 
   final public function isCorresp() {
-    return $this->corresp === 'yes';
+    return $this->corresp;
   }
 
   final public function getId() {
