@@ -20,6 +20,10 @@ function elife_simple_pages() {
       'title' => 'Contact',
       'template' => 'contact',
     ],
+    'alerts-and-feeds' => [
+      'title' => 'Alerts and feeds',
+      'template' => 'alerts_and_feeds',
+    ],
   ];
 }
 
