@@ -26,6 +26,15 @@ function elife_config_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_views_rss_item_elements_alter().
+ */
+function elife_config_views_rss_item_elements_alter(&$elements) {
+  if (!empty($elements['views_rss_core']['guid'])) {
+    $elements['views_rss_core']['guid']['preprocess functions'][] = '_elife_config_views_rss_core_preprocess_item_guid';
+  }
+}
+
+/**
  * Implements hook_imagemagick_arguments_alter().
  */
 function elife_config_imagemagick_arguments_alter(&$args, $context) {
@@ -77,5 +86,18 @@ function elife_config_inline_entity_form_entity_form_alter(&$entity_form, &$form
     if (isset($entity_form[$field])) {
       $entity_form[$field]['#access'] = FALSE;
     }
+  }
+}
+
+/**
+ * Preprocess function for item <guid> element.
+ */
+function _elife_config_views_rss_core_preprocess_item_guid(&$variables) {
+  if (empty($variables['elements'][0]['value'])) {
+    return;
+  }
+
+  if ('http://dx.doi.org/' === substr($variables['elements'][0]['value'], 0, 18)) {
+    $variables['elements'][0]['attributes']['isPermaLink'] = 'true';
   }
 }

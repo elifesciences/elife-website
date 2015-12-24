@@ -100,6 +100,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     module_load_include('inc', 'elife_services', 'resources/article');
 
     _elife_services_article_create($string->getRaw());
+
+    _elife_article_prepare_main_text();
   }
 
   /**
@@ -122,6 +124,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     foreach ($json as $article_json) {
       _elife_services_article_create(json_encode($article_json));
     }
+
+    _elife_article_prepare_main_text();
   }
 
   // the versions should be ordered "05224,05224.early.v1,05224.early.v2"

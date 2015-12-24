@@ -2,10 +2,11 @@
   "require-dev": {
     "sensiolabs/behat-page-object-extension": "~2.0@dev",
     "behat/drupal-propeople-context": "~1.2",
-    "behat/web-api-extension": "~1.0@dev",
+    "codifico/web-api-extension": "~1.0@dev",
     "elife/isolated-drupal-behat-extension": "~0.2",
     "guzzlehttp/guzzle": "~5.0",
-    "zalas/behat-no-extension": "~1.1"
+    "zalas/behat-no-extension": "~1.1",
+    "phpunit/phpunit": "~4.8"
   },
   "autoload-dev": {
     "psr-4": {
