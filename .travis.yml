@@ -5,15 +5,12 @@ php:
   - 7.0
 
 matrix:
+  fast_finish: true
   allow_failures:
-        - php: 7.0
-
-mysql:
-  database: elife_profile
-  username: root
-  encoding: utf8
+    - php: 7.0
 
 services:
+  - mysql
   - redis-server
 
 cache:
@@ -33,64 +30,67 @@ addons:
 env:
   global:
     - DISPLAY=:99.0
+    - PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_install:
-  - composer self-update
+  - travis_retry composer self-update
 
 install:
-  # Create MySQL Database
-  - mysql -e 'create database elife_profile;'
+  # Create MySQL Database.
+  - mysql --execute='CREATE DATABASE website;'
 
-  # Set up Apache
-  - sudo a2enmod rewrite actions fastcgi alias
+  # Configure Apache.
+  - sudo a2enmod rewrite actions
+  - sudo cp --force tests/build/travis-ci-apache /etc/apache2/sites-available/default
+  - sudo sed --expression="s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+
+  # Configure PHP.
   - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - if [[ -f ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ]] ; then sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.d/www.conf ; fi
   - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-
-  # configure apache virtual hosts
-  - sudo cp -f tests/build/travis-ci-apache /etc/apache2/sites-available/default
-  - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-  # restart the server
-  - sudo service apache2 restart
-  - cat /etc/apache2/sites-available/default
-
-  # Install Drush.
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --prefer-dist --no-interaction drush/drush:~8.0
-
-  # Disable sendmail
   - echo sendmail_path=`which true` >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
-  # Set up site
-  - ./setup.sh
+  # Install Drush.
+  - travis_retry composer global require --prefer-dist --no-interaction drush/drush:~8.0
 
-  # Get Solr
-  - if [[ ! -d "$HOME/custom/solr-4.10.4" ]]; then mkdir -p $HOME/custom; wget -qO- https://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz | tar xz --directory $HOME/custom; fi;
-  - cp -r $HOME/custom/solr-4.10.4 $HOME # We don't want to cache the changes we make, so use a copy.
-  - mkdir -p $HOME/solr-4.10.4/example/solr/drupal
-  - echo "name=drupal" > $HOME/solr-4.10.4/example/solr/drupal/core.properties
-  - cp -r src/elife_profile/modules/contrib/search_api_solr/solr-conf/4.x $HOME/solr-4.10.4/example/solr/drupal
-  - mv $HOME/solr-4.10.4/example/solr/drupal/4.x $HOME/solr-4.10.4/example/solr/drupal/conf
-  - sed -i -e "s?solr.autoSoftCommit.MaxTime=[0-9]\+?solr.autoSoftCommit.MaxTime=500?g" $HOME/solr-4.10.4/example/solr/drupal/conf/solrcore.properties
-  - $HOME/solr-4.10.4/bin/solr start
+  # Install Solr.
+  - if [[ ! -d "$HOME/custom/solr-4.10.4" ]]; then mkdir --parents $HOME/custom; travis_retry wget --quiet --output-document=- https://archive.apache.org/dist/lucene/solr/4.10.4/solr-4.10.4.tgz | tar --extract --gunzip --directory $HOME/custom; fi;
+  - cp --recursive $HOME/custom/solr-4.10.4 $HOME # We don't want to cache the changes we make, so use a copy.
 
-  # Setup display for selenium
-  - sh -e /etc/init.d/xvfb start
+  # Install Selenium.
+  - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.46.0.jar" ]]; then travis_retry wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.46/selenium-server-standalone-2.46.0.jar; fi;
 
-  # Get Selenium
-  - if [[ ! -e "$HOME/custom/selenium-server-standalone-2.46.0.jar" ]]; then wget --directory-prefix="$HOME/custom" http://selenium-release.storage.googleapis.com/2.46/selenium-server-standalone-2.46.0.jar; fi;
-  - java -jar $HOME/custom/selenium-server-standalone-2.46.0.jar -p 4444 > /dev/null 2>&1 &
-
-  # Populate the local settings file
+  # Install the site.
+  - travis_retry ./setup.sh
   - cp ./tests/build/travis.local.settings.php ./local.settings.php
-  - sed -i -e "s?%NODE_BIN%?$(which node)?g" ./local.settings.php
-  - sed -i -e "s?%REDIS_HOST%?127.0.0.1?g" ./local.settings.php
-  - sed -i -e "s?%REDIS_PORT%?6379?g" ./local.settings.php
+  - sed --expression="s?%NODE_BIN%?$(which node)?g" --in-place ./local.settings.php
+  - sed --expression="s?%REDIS_HOST%?127.0.0.1?g" --in-place ./local.settings.php
+  - sed --expression="s?%REDIS_PORT%?6379?g" --in-place ./local.settings.php
 
-  # Configure Behat
+  # Configure Solr.
+  - mkdir --parents $HOME/solr-4.10.4/example/solr/drupal
+  - echo "name=drupal" > $HOME/solr-4.10.4/example/solr/drupal/core.properties
+  - cp --recursive src/elife_profile/modules/contrib/search_api_solr/solr-conf/4.x $HOME/solr-4.10.4/example/solr/drupal
+  - mv $HOME/solr-4.10.4/example/solr/drupal/4.x $HOME/solr-4.10.4/example/solr/drupal/conf
+  - sed --expression="s?solr.autoSoftCommit.MaxTime=[0-9]\+?solr.autoSoftCommit.MaxTime=500?g" --in-place $HOME/solr-4.10.4/example/solr/drupal/conf/solrcore.properties
+
+  # Configure Behat.
   - cp ./tests/build/travis.behat.yml ./tests/behat/behat.yml
+  - sed --expression="s?%DB_URI%?mysql://root:@localhost/website?g" --in-place ./tests/behat/behat.yml
+  - sed --expression="s?%SOLR_URI%?http://localhost:8983/solr/drupal?g" --in-place ./tests/behat/behat.yml
+
+before_script:
+  # Start PHP-FPM.
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  # Start Apache.
+  - sudo service apache2 restart
+  # Start Solr.
+  - $HOME/solr-4.10.4/bin/solr start
+  # Start Xvfb.
+  - sh -e /etc/init.d/xvfb start
+  # Start Selenium.
+  - java -jar $HOME/custom/selenium-server-standalone-2.46.0.jar --port=4444 > /dev/null 2>&1 &
 
 script:
   - ./run-tests.sh
