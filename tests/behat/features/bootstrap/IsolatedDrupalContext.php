@@ -9,6 +9,7 @@ class IsolatedDrupalContext extends DrupalContext {
   public function isolate() {
     drupal_static_reset();
     drupal_path_alias_whitelist_rebuild();
+    registry_update(); // TODO this is an ugly hack for ELPP-307.
   }
 
   public function cleanNodes() {

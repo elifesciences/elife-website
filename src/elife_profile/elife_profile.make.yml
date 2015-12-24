@@ -201,6 +201,8 @@ projects:
       - 'https://www.drupal.org/files/issues/views_date_format_sql-date_field_support-1830436-42-tag_7.x-3.1_0.patch'
   views_field_view:
     version: '1.2'
+  views_rss:
+    version: '2.0-rc4'
   webform:
     version: '4.11'
   xmlsitemap:

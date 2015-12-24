@@ -4,7 +4,8 @@ default:
       contexts:
         - FeatureContext: ~
         - ContentAlertsContext: ~
-        - DrupalWebApiContext: ~
+        - DrupalWebApiContext:
+            - '%mink.base_url%'
         - IsolatedDrupalContext: ~
         - IsolatedPropeopleContext: ~
         - MinkContext: ~

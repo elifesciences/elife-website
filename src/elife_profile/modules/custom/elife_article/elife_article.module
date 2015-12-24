@@ -1224,6 +1224,7 @@ function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
   }
 
   $referenced = $article_version->getReferenced();
+  $entity->field_elife_a_emails->set(array_values($referenced->getEmail()));
   $entity_references = [
     'equal-contrib' => [],
     'email' => [],

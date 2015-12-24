@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Article RSS feature.
+ */
+
+include_once 'elife_article_rss.features.inc';
+
+/**
+ * Implements hook_views_rss_channel_elements_alter().
+ */
+function elife_article_rss_views_rss_channel_elements_alter(&$elements) {
+  if (!empty($elements['views_rss_core']['pubDate'])) {
+    $elements['views_rss_core']['pubDate']['preprocess functions'][] = '_elife_article_rss_views_rss_core_preprocess_channel_date';
+  }
+  if (!empty($elements['views_rss_core']['lastBuildDate'])) {
+    $elements['views_rss_core']['lastBuildDate']['preprocess functions'][] = '_elife_article_rss_views_rss_core_preprocess_channel_date';
+  }
+}
+
+function _elife_article_rss_views_rss_core_preprocess_channel_date(&$variables) {
+  if ('elife_articles_rss' !== $variables['view']->name) {
+    return;
+  }
+
+  $variables['elements'] = [];
+}

@@ -142,9 +142,9 @@ function _elife_services_article_retrieve($article_version_id, $bundle = 'elife_
   try {
     elife_article_validator()->validate($json);
   } catch (JsonSchemaErrors $e) {
-    throw new ServicesException(NULL, 500, print_r($e, TRUE));
+    throw new ServicesException(print_r($e, TRUE), 500, print_r($e, TRUE));
   } catch (InvalidJson $e) {
-    throw new ServicesException(NULL, 500, print_r($e, TRUE));
+    throw new ServicesException(print_r($e, TRUE), 500, print_r($e, TRUE));
   }
 
   return $json;
