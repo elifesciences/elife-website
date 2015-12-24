@@ -36,14 +36,22 @@ hooks:
     build: |
         set -e
         drush pm-download registry_rebuild
-        wget -qO- https://github.com/dafeder/node_access_rebuild/archive/c7d7b0ddb244f317752cdcf883682ecb8b76335d.tar.gz | tar xvz -C /app/out/.drush
         drush cache-clear drush
-        ./setup.sh
-        cp platform/local.settings.php .
+        drush make ./src/drupal.make.yml ./web
+        drush make --no-core --concurrency=3 --no-recursion --contrib-destination=. ./src/elife_profile/elife_profile.make.yml ./src/elife_profile
+        npm install --prefix ./src/elife_profile/libraries/elife-eif-schema/
+        composer install --prefer-dist --no-interaction --no-dev --optimize-autoloader
+        ln -s "../../src/elife_profile" "./web/profiles/"
+        ln -s "../../../src/settings.php" "./web/sites/default/"
         ln -s "../../../platform/files" "web/sites/default/files"
+        cp platform/local.settings.php .
     deploy: |
         set -e
-        ./update.sh
+        cd web
+        drush registry-rebuild
+        drush updatedb --yes
+        drush features-revert-all --yes
+        drush elife-environment-modules
 
 crons:
     drupal:
