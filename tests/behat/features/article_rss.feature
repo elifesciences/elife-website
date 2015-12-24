@@ -1,4 +1,4 @@
-@api @wip
+@api
 Feature: Article RSS
   As a something
   I want to something
@@ -9,7 +9,7 @@ Feature: Article RSS
     Then the response should be XML:
       """
         <?xml version="1.0" encoding="utf-8" ?>
-        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <channel>
         <title>eLife</title>
         <description>Articles published in eLife</description>
@@ -92,7 +92,7 @@ Feature: Article RSS
     Then the response should be XML:
       """
         <?xml version="1.0" encoding="utf-8" ?>
-        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <channel>
         <title>eLife</title>
         <description>Articles published in eLife</description>
@@ -112,6 +112,7 @@ Feature: Article RSS
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
         <pubDate>Fri, 17 Aug 1979 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>
+        <dc:date>1979-08-17T00:00:00+00:00</dc:date>
         </item>
         </channel>
         </rss>
@@ -187,7 +188,7 @@ Feature: Article RSS
     Then the response should be XML:
       """
         <?xml version="1.0" encoding="utf-8" ?>
-        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <channel>
         <title>eLife</title>
         <description>Articles published in eLife</description>
@@ -200,6 +201,7 @@ Feature: Article RSS
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
         <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>
+        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
         </item>
         <item>
         <title>VOR 05225 v2</title>
@@ -207,6 +209,7 @@ Feature: Article RSS
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05225</guid>
         <pubDate>Fri, 01 Jan 1999 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>
+        <dc:date>1999-01-01T00:00:00+00:00</dc:date>
         </item>
         </channel>
         </rss>
@@ -217,7 +220,7 @@ Feature: Article RSS
     Then the response should be XML:
       """
         <?xml version="1.0" encoding="utf-8" ?>
-        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <channel>
         <title>eLife</title>
         <description>eLife PAP articles</description>
@@ -298,7 +301,7 @@ Feature: Article RSS
     Then the response should be XML:
       """
         <?xml version="1.0" encoding="utf-8" ?>
-        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <rss version="2.0" xml:base="%BASE_URL%/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
         <channel>
         <title>eLife</title>
         <description>eLife PAP articles</description>
@@ -311,6 +314,7 @@ Feature: Article RSS
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
         <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/ahead.xml">eLife</source>
+        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
         </item>
         <item>
         <title>Early 05225 v2</title>
@@ -318,6 +322,7 @@ Feature: Article RSS
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05225</guid>
         <pubDate>Fri, 01 Jan 1999 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/ahead.xml">eLife</source>
+        <dc:date>1999-01-01T00:00:00+00:00</dc:date>
         </item>
         </channel>
         </rss>

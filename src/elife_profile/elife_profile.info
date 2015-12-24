@@ -112,6 +112,7 @@ dependencies[] = views_date_format_sql
 dependencies[] = views_field_view
 dependencies[] = views_rss
 dependencies[] = views_rss_core
+dependencies[] = views_rss_dc
 dependencies[] = webform
 dependencies[] = xmlsitemap
 

@@ -56,10 +56,11 @@ function elife_article_rss_views_default_views() {
   $handler->display->display_options['fields']['field_elife_title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_elife_title']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_elife_title']['group_column'] = 'entity_id';
-  /* Field: Content: First Publication Date */
+  /* Field: First Publication Date (RFC 822) */
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate']['ui_name'] = 'First Publication Date (RFC 822)';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['label'] = '';
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['alter']['strip_tags'] = TRUE;
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['element_label_colon'] = FALSE;
@@ -73,6 +74,24 @@ function elife_article_rss_views_default_views() {
     'show_remaining_days' => 0,
   );
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['format_date_sql'] = 0;
+  /* Field: First Publication Date (ISO 8601) */
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['id'] = 'field_elife_a_fpubdate_1';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['table'] = 'field_data_field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['field'] = 'field_elife_a_fpubdate';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['ui_name'] = 'First Publication Date (ISO 8601)';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['label'] = '';
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['alter']['strip_tags'] = TRUE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['settings'] = array(
+    'format_type' => 'elife_iso8601',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+    'show_remaining_days' => 0,
+  );
+  $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['format_date_sql'] = 0;
   /* Field: Field: DOI */
   $handler->display->display_options['fields']['field_elife_a_doi']['id'] = 'field_elife_a_doi';
   $handler->display->display_options['fields']['field_elife_a_doi']['table'] = 'field_data_field_elife_a_doi';
@@ -194,6 +213,25 @@ function elife_article_rss_views_default_views() {
         'pubDate' => 'field_elife_a_fpubdate',
       ),
     ),
+    'dc' => array(
+      'views_rss_dc' => array(
+        'title' => '',
+        'creator' => '',
+        'subject' => '',
+        'description' => '',
+        'publisher' => '',
+        'contributor' => '',
+        'date' => 'field_elife_a_fpubdate_1',
+        'type' => '',
+        'format' => '',
+        'identifier' => '',
+        'source' => '',
+        'language' => '',
+        'relation' => '',
+        'coverage' => '',
+        'rights' => '',
+      ),
+    ),
   );
   $handler->display->display_options['style_options']['feed_settings'] = array(
     'absolute_paths' => 1,
@@ -237,6 +275,25 @@ function elife_article_rss_views_default_views() {
         'enclosure' => '',
         'guid' => 'field_elife_a_doi',
         'pubDate' => 'field_elife_a_fpubdate',
+      ),
+    ),
+    'dc' => array(
+      'views_rss_dc' => array(
+        'title' => '',
+        'creator' => '',
+        'subject' => '',
+        'description' => '',
+        'publisher' => '',
+        'contributor' => '',
+        'date' => 'field_elife_a_fpubdate_1',
+        'type' => '',
+        'format' => '',
+        'identifier' => '',
+        'source' => '',
+        'language' => '',
+        'relation' => '',
+        'coverage' => '',
+        'rights' => '',
       ),
     ),
   );
