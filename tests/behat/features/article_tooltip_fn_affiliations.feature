@@ -9,20 +9,20 @@ Feature: Footnote
       """
         {
           "title": "VOR <eloc>",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.<eloc>",
-          "volume": "<volume>",
+          "volume": <volume>,
           "elocation-id": "e<eloc>",
           "article-id": "10.7554/eLife.<eloc>",
           "article-version-id": "<eloc>.1",
-          "pub-date": "2014-10-14",
+          "pub-date": "2014-10-14T00:00:00+00:00",
           "path": "content/<volume>/e<eloc>v1",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "<id>",
               "surname": "Alegado",

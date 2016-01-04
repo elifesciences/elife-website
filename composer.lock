@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "31789af6c668049f907e7505c93a3335e52b5d50"
+                "reference": "7a37ae3882e0ec6224df62b63c3500e8d6ab10a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/31789af6c668049f907e7505c93a3335e52b5d50",
-                "reference": "31789af6c668049f907e7505c93a3335e52b5d50",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/7a37ae3882e0ec6224df62b63c3500e8d6ab10a6",
+                "reference": "7a37ae3882e0ec6224df62b63c3500e8d6ab10a6",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +278,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
             },
-            "time": "2015-12-11 11:34:06"
+            "time": "2015-12-21 17:19:04"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1579,17 +1579,17 @@
             "time": "2015-09-28 16:26:35"
         },
         {
-            "name": "behat/web-api-extension",
+            "name": "codifico/web-api-extension",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/WebApiExtension.git",
-                "reference": "1a7c9d76f7af1a69479c22ade5e4985efea6151f"
+                "url": "https://github.com/Codifico/WebApiExtension.git",
+                "reference": "f68fb290821f4a0cff8fd6927b7ff6e8a5ee62c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/WebApiExtension/zipball/1a7c9d76f7af1a69479c22ade5e4985efea6151f",
-                "reference": "1a7c9d76f7af1a69479c22ade5e4985efea6151f",
+                "url": "https://api.github.com/repos/Codifico/WebApiExtension/zipball/f68fb290821f4a0cff8fd6927b7ff6e8a5ee62c9",
+                "reference": "f68fb290821f4a0cff8fd6927b7ff6e8a5ee62c9",
                 "shasum": ""
             },
             "require": {
@@ -1627,13 +1627,13 @@
                     "homepage": "https://github.com/Behat/WebApiExtension/graphs/contributors"
                 }
             ],
-            "description": "Web API extension for Behat",
+            "description": "Web API extension for Behat. Web API extension with protected request and response access.",
             "homepage": "http://extensions.behat.org",
             "keywords": [
                 "api",
                 "test"
             ],
-            "time": "2015-10-06 17:15:24"
+            "time": "2015-08-30 18:25:28"
         },
         {
             "name": "drupal/drupal-driver",
@@ -3477,9 +3477,10 @@
         "monolog/monolog": 0,
         "sensiolabs/behat-page-object-extension": 20,
         "behat/drupal-propeople-context": 0,
-        "behat/web-api-extension": 20,
+        "codifico/web-api-extension": 20,
         "elife/isolated-drupal-behat-extension": 0,
-        "zalas/behat-no-extension": 0
+        "zalas/behat-no-extension": 0,
+        "phpunit/phpunit": 0
     },
     "prefer-stable": false,
     "prefer-lowest": false,

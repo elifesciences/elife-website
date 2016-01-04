@@ -9,20 +9,20 @@ Feature: Affiliations
     """
         {
           "title": "VOR 00288",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00288",
-          "volume": "2",
+          "volume": 2,
           "elocation-id": "e00288",
           "article-id": "10.7554/eLife.00288",
           "article-version-id": "00288.1",
-          "pub-date": "2014-10-14",
+          "pub-date": "2014-10-14T00:00:00+00:00",
           "path": "content/2/e00288v1",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "author-23",
               "surname": "Alegado",
@@ -34,7 +34,7 @@ Feature: Affiliations
               }
             },
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "author-24",
               "surname": "Alegado",
@@ -75,18 +75,18 @@ Feature: Affiliations
         "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
         "status":"VOR",
         "article-type":"research-article",
-        "pub-date":"2013-08-20",
-        "version":"1",
-        "volume":"2",
+        "pub-date":"2013-08-20T00:00:00+00:00",
+        "version":1,
+        "volume":2,
         "elocation-id":"e00288",
         "doi":"10.7554/eLife.00288",
         "article-id":"10.7554/eLife.00288",
         "article-version-id":"00288.1",
-        "pub-date":"2014-10-14",
+        "pub-date":"2014-10-14T00:00:00+00:00",
         "path":"content/2/e00288v1",
         "article-type":"research-article",
         "status":"VOR",
-        "publish":"1",
+        "publish":true,
         "contributors":[
           {
             "surname":"Choi",
@@ -96,7 +96,7 @@ Feature: Affiliations
                 "aff1"
               ]
             },
-            "equal-contrib":"yes",
+            "equal-contrib":true,
             "type":"author",
             "id":"author-2174"
           },
@@ -108,7 +108,7 @@ Feature: Affiliations
                 "aff2"
               ]
             },
-            "equal-contrib":"yes",
+            "equal-contrib":true,
             "type":"author",
             "id":"author-2175"
           },
@@ -186,7 +186,7 @@ Feature: Affiliations
           },
           {
             "surname":"Lin",
-            "corresp":"yes",
+            "corresp":true,
             "given-names":"Weichun",
             "references":{
               "affiliation":[
@@ -198,7 +198,7 @@ Feature: Affiliations
           },
           {
             "surname":"Herz",
-            "corresp":"yes",
+            "corresp":true,
             "given-names":"Joachim",
             "references":{
               "affiliation":[
@@ -283,18 +283,18 @@ Feature: Affiliations
         "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
         "status":"VOR",
         "article-type":"research-article",
-        "pub-date":"2013-08-20",
-        "version":"1",
-        "volume":"2",
+        "pub-date":"2013-08-20T00:00:00+00:00",
+        "version":1,
+        "volume":2,
         "elocation-id":"e00288",
         "doi":"10.7554/eLife.00288",
         "article-id":"10.7554/eLife.00288",
         "article-version-id":"00288.1",
-        "pub-date":"2014-10-14",
+        "pub-date":"2014-10-14T00:00:00+00:00",
         "path":"content/2/e00288v1",
         "article-type":"research-article",
         "status":"VOR",
-        "publish":"1",
+        "publish":true,
         "contributors":[
           {
             "surname":"Choi",
@@ -304,7 +304,7 @@ Feature: Affiliations
                 "aff1"
               ]
             },
-            "equal-contrib":"yes",
+            "equal-contrib":true,
             "type":"author",
             "id":"author-2174"
           },
@@ -316,7 +316,7 @@ Feature: Affiliations
                 "aff2"
               ]
             },
-            "equal-contrib":"yes",
+            "equal-contrib":true,
             "type":"author",
             "id":"author-2175"
           },
@@ -388,7 +388,7 @@ Feature: Affiliations
           },
           {
             "surname":"Lin",
-            "corresp":"yes",
+            "corresp":true,
             "given-names":"Weichun",
             "references":{
               "affiliation":[
@@ -400,7 +400,7 @@ Feature: Affiliations
           },
           {
             "surname":"Herz",
-            "corresp":"yes",
+            "corresp":true,
             "given-names":"Joachim",
             "references":{
               "affiliation":[
@@ -475,18 +475,18 @@ Feature: Affiliations
       "title":"APP interacts with LRP4 and agrin to coordinate the development of the neuromuscular junction in mice",
       "status":"VOR",
       "article-type":"research-article",
-      "pub-date":"2013-08-20",
-      "version":"1",
-      "volume":"2",
+      "pub-date":"2013-08-20T00:00:00+00:00",
+      "version":1,
+      "volume":2,
       "elocation-id":"e00288",
       "doi":"10.7554/eLife.00288",
       "article-id":"10.7554/eLife.00288",
       "article-version-id":"00288.1",
-      "pub-date":"2014-10-14",
+      "pub-date":"2014-10-14T00:00:00+00:00",
       "path":"content/2/e00288v1",
       "article-type":"research-article",
       "status":"VOR",
-      "publish":"1",
+      "publish":true,
       "contributors":[
         {
           "surname":"Choi",
@@ -499,7 +499,7 @@ Feature: Affiliations
               "country":"United States"
             }
           ],
-          "equal-contrib":"yes",
+          "equal-contrib":true,
           "type":"author",
           "id":"author-2174"
         },
@@ -514,7 +514,7 @@ Feature: Affiliations
               "country":"United States"
             }
           ],
-          "equal-contrib":"yes",
+          "equal-contrib":true,
           "type":"author",
           "id":"author-2175"
         },
@@ -604,7 +604,7 @@ Feature: Affiliations
         },
         {
           "surname":"Lin",
-          "corresp":"yes",
+          "corresp":true,
           "given-names":"Weichun",
           "affiliations":[
             {
@@ -619,7 +619,7 @@ Feature: Affiliations
         },
         {
           "surname":"Herz",
-          "corresp":"yes",
+          "corresp":true,
           "given-names":"Joachim",
           "affiliations":[
             {
@@ -658,10 +658,10 @@ Feature: Affiliations
           "article-type": "research-article",
           "title": "New opportunities at the wild frontier",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "doi": "10.7554/eLife.06956",
-          "pub-date": "2015-03-25",
-          "volume": "4",
+          "pub-date": "2015-03-25T00:00:00+00:00",
+          "volume": 4,
           "elocation-id": "e06956",
           "path": "content/4/e06956v1",
           "article-id": "06956",
@@ -677,7 +677,7 @@ Feature: Affiliations
               "given-names": "Jane",
               "id": "author-17393",
               "role": "Consultant Editor",
-              "corresp": "yes",
+              "corresp": true,
               "orcid": "http://orcid.org/0000-0001-6798-0064",
               "references": {
                 "affiliation": [
@@ -691,7 +691,7 @@ Feature: Affiliations
               "given-names": "Ian T",
               "id": "author-1013",
               "role": "Senior Editor",
-              "corresp": "yes",
+              "corresp": true,
               "orcid": "http://orcid.org/0000-0001-5371-2974",
               "references": {
                 "affiliation": [
@@ -713,7 +713,7 @@ Feature: Affiliations
               }
             }
           },
-          "version": "1",
+          "version": 1,
           "article-version-id": "06956.1"
         }
       """

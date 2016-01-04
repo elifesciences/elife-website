@@ -47,4 +47,18 @@ class ContentAlertsSignupForm extends Element {
       throw new Exception('Expected value ' . $gid . ' not found');
     }
   }
+
+  public function hasButton($button) {
+    if (!parent::hasButton($button)) {
+      throw new Exception('Could not find button ' . $button);
+    }
+  }
+
+  public function hasAction($uri) {
+    $action_url = $this->getAttribute('action');
+
+    if ($action_url !== $uri) {
+      throw new Exception('Expected value ' . $uri . ' but found ' . $action_url);
+    }
+  }
 }

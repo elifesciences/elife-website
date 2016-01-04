@@ -9,23 +9,23 @@ Feature: Footnote
       """
         {
           "title": "VOR 07091",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.07091",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e07091",
           "article-id": "10.7554/eLife.07091",
           "article-version-id": "07091",
-          "pub-date": "2015-06-30",
+          "pub-date": "2015-06-30T00:00:00+00:00",
           "path": "content/4/e07091",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
-              "corresp": "yes",
+              "corresp": true,
               "surname": "Garcia-Marcos",
               "given-names": "Mikel",
               "references": {
@@ -45,9 +45,9 @@ Feature: Footnote
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
-              "corresp": "yes",
+              "corresp": true,
               "surname": "Ghosh",
               "given-names": "Pradipta",
               "references": {
@@ -151,20 +151,20 @@ Feature: Footnote
       """
         {
           "title": "VOR 07091",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.07091",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e07091",
           "article-id": "10.7554/eLife.07091",
           "article-version-id": "07091",
-          "pub-date": "2015-06-30",
+          "pub-date": "2015-06-30T00:00:00+00:00",
           "path": "content/4/e07091",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "type": "author",
               "id": "author-14",
               "surname": "Abal",
@@ -204,11 +204,11 @@ Feature: Footnote
             {
               "status": "VOR",
               "article-type": "editorial",
-              "force": "1",
+              "force": true,
               "contributors": [
                 {
                   "surname": "Morrison",
-                  "corresp": "yes",
+                  "corresp": true,
                   "given-names": "Sean J",
                   "role": " Senior Editor",
                   "references": {
@@ -223,12 +223,12 @@ Feature: Footnote
                   "id": "author-1146"
                 }
               ],
-              "pub-date": "2014-12-10",
+              "pub-date": "2014-12-10T00:00:00+00:00",
               "title": "Time to do something about reproducibility",
               "elocation-id": "e03981",
-              "publish": "1",
+              "publish": true,
               "article-version-id": "03981.1",
-              "volume": "3",
+              "volume": 3,
               "keywords": {
                 "author-keywords": [
                   "reproducibility project: cancer biology",
@@ -240,7 +240,7 @@ Feature: Footnote
                 ]
               },
               "doi": "10.7554/eLife.03981",
-              "version": "1",
+              "version": 1,
               "referenced": {
                 "competing-interest": {
                   "conf1": "The author declares that no competing interests exist."

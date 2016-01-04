@@ -2,7 +2,7 @@
 
 /**
  * @file
- * elife_entities/templates/elife_hero.tpl.php
+ * templates/elife_hero.tpl.php
  */
 ?>
 <section class="hero-image-page-intro<?php print ($identifier) ? ' hero-image-page-intro--' . $identifier : ''; ?>">

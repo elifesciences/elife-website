@@ -14,17 +14,17 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05227",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
@@ -37,17 +37,17 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "<invalid_doi>",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     Then response code should be 400
@@ -79,17 +79,17 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05227",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     Then response code should be 200
@@ -122,17 +122,17 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05227",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
@@ -140,17 +140,17 @@ Feature: Article Resource - POST (API)
       """
         {
           "title": "Updated VOR 05227",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05227",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05227",
           "article-id": "10.7554/eLife.05227",
           "article-version-id": "05227",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05227",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200

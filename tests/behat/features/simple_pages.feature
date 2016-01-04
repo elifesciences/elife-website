@@ -11,6 +11,8 @@ Feature: Simple pages
       | path                        | text                         |
       | terms-and-conditions-of-use | Welcome and Consent to Terms |
       | privacy-policy              | If you have questions about  |
+      | contact                     | Questions? Comments?         |
+      | alerts-and-feeds            | Stay up-to-date on new paper |
 
   Scenario: Sub-paths don't resolve
     When I go to "terms-and-conditions-of-use/foo"

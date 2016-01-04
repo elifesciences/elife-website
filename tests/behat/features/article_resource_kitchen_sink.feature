@@ -15,18 +15,18 @@ Feature: Article Resource - Kitchen sink (API)
         {
           "title": "Bacterial regulation of colony development in the closest living relatives of animals",
           "impact-statement": "The chemical nature of RIF-1 may reveal a new class of bacterial signaling molecules.",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00013",
-          "publish": "1",
-          "volume": "3",
+          "publish": true,
+          "volume": 3,
           "elocation-id": "e00013",
           "article-id": "10.7554/eLife.00013",
           "article-version-id": "00013.1",
-          "pub-date": "2014-02-28",
+          "pub-date": "2014-02-28T00:00:00+00:00",
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "categories": {
             "display-channel": [
               "Research article"
@@ -58,7 +58,7 @@ Feature: Article Resource - Kitchen sink (API)
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -92,7 +92,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -164,7 +164,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -202,7 +202,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -227,7 +227,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -259,7 +259,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -282,7 +282,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group"
             },
@@ -3996,14 +3996,14 @@ Feature: Article Resource - Kitchen sink (API)
         {
           "title": "Bacterial regulation of colony development in the closest living relatives of animals",
           "impact-statement": "The chemical nature of RIF-1 may reveal a new class of bacterial signaling molecules.",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00013",
-          "publish": "1",
-          "volume": "3",
+          "publish": true,
+          "volume": 3,
           "elocation-id": "e00013",
           "article-id": "10.7554/eLife.00013",
           "article-version-id": "00013.1",
-          "pub-date": "2014-02-28",
+          "pub-date": "2014-02-28T00:00:00+00:00",
           "path": "content/3/e00013",
           "article-type": "research-article",
           "status": "VOR",
@@ -4038,7 +4038,7 @@ Feature: Article Resource - Kitchen sink (API)
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Alegado",
               "given-names": "Rosanna A",
@@ -4072,7 +4072,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Brown",
               "given-names": "Laura W",
@@ -4144,7 +4144,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "deceased": "yes",
+              "deceased": true,
               "id": "author-5",
               "surname": "Zuzow",
               "given-names": "Richard",
@@ -4182,7 +4182,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-7",
               "surname": "Clardy",
               "given-names": "Jon",
@@ -4207,7 +4207,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "id": "author-8",
               "surname": "King",
               "given-names": "Nicole",
@@ -4239,7 +4239,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id1",
               "collab": "NISC Comparative Sequencing Program",
               "references": {
@@ -4262,7 +4262,7 @@ Feature: Article Resource - Kitchen sink (API)
             },
             {
               "type": "author",
-              "corresp": "yes",
+              "corresp": true,
               "group-author-key": "group-author-id2",
               "collab": "eLife staff group"
             },

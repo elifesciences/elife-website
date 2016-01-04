@@ -12,48 +12,48 @@ Feature: Article Resource - DOI Lookup
         [
           {
             "title": "05224 POA v1",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.1",
-            "pub-date": "1979-08-15",
-            "update": "1979-08-15",
+            "pub-date": "1979-08-15T00:00:00+00:00",
+            "update": "1979-08-15T00:00:00+00:00",
             "path": "content/4/e05224v1",
             "article-type": "research-article",
             "status": "POA",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "05224 VOR v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-15",
-            "update": "1979-08-16",
+            "pub-date": "1979-08-15T00:00:00+00:00",
+            "update": "1979-08-16T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           },
           {
             "title": "05224 VOR v3",
-            "version": "3",
+            "version": 3,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.3",
-            "pub-date": "1979-08-15",
-            "update": "1979-08-17",
+            "pub-date": "1979-08-15T00:00:00+00:00",
+            "update": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v3",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "0"
+            "publish": false
           }
         ]
       """
@@ -64,18 +64,18 @@ Feature: Article Resource - DOI Lookup
       """
         {
           "title": "05224 VOR v3",
-          "version": "3",
+          "version": 3,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.3",
-          "pub-date": "1979-08-15",
-          "update": "1979-08-17",
+          "pub-date": "1979-08-15T00:00:00+00:00",
+          "update": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224v3",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     When I go to "lookup/doi/10.7554/eLife.05224"
@@ -87,15 +87,15 @@ Feature: Article Resource - DOI Lookup
       [
         {
           "title":"VOR 05224 v1",
-          "version":"1",
+          "version":1,
           "doi":"10.7554/eLife.05224",
-          "volume":"4",
+          "volume":4,
           "elocation-id":"e05224",
           "article-id":"05224",
           "article-version-id":"05224.1",
-          "pub-date":"1979-08-17",
+          "pub-date":"1979-08-17T00:00:00+00:00",
           "path":"content/4/e05224v1",
-          "publish": "1",
+          "publish": true,
           "fragments":[
             {
               "path":"content/4/e05224v1/abstract",
@@ -205,7 +205,7 @@ Feature: Article Resource - DOI Lookup
           ],
           "article-type":"research-article",
           "status":"VOR",
-          "publish":"1",
+          "publish":true,
           "keywords":{
             "author-keywords":[
               "Algoriphagus"
@@ -214,15 +214,15 @@ Feature: Article Resource - DOI Lookup
         },
         {
           "title":"VOR 05224 v2",
-          "version":"2",
+          "version":2,
           "doi":"10.7554/eLife.05224",
-          "volume":"4",
+          "volume":4,
           "elocation-id":"e05224",
           "article-id":"05224",
           "article-version-id":"05224.2",
-          "pub-date":"1979-08-17",
+          "pub-date":"1979-08-17T00:00:00+00:00",
           "path":"content/4/e05224v2",
-          "publish": "1",
+          "publish": true,
           "fragments":[
             {
               "path":"content/4/e05224v2/abstract",
@@ -332,7 +332,7 @@ Feature: Article Resource - DOI Lookup
           ],
           "article-type":"research-article",
           "status":"VOR",
-          "publish":"1",
+          "publish":true,
           "keywords":{
             "author-keywords":[
               "Algoriphagus"
@@ -341,15 +341,15 @@ Feature: Article Resource - DOI Lookup
         },
         {
           "title":"VOR 05224 v3",
-          "version":"3",
+          "version":3,
           "doi":"10.7554/eLife.05224v3",
-          "volume":"4",
+          "volume":4,
           "elocation-id":"e05224",
           "article-id":"05224",
           "article-version-id":"05224.3",
-          "pub-date":"1979-08-17",
+          "pub-date":"1979-08-17T00:00:00+00:00",
           "path":"content/4/e05224v3",
-          "publish": "0",
+          "publish": false,
           "fragments":[
             {
               "path":"content/4/e05224v3/abstract",
@@ -459,7 +459,7 @@ Feature: Article Resource - DOI Lookup
           ],
           "article-type":"research-article",
           "status":"VOR",
-          "publish":"1",
+          "publish":true,
           "keywords":{
             "author-keywords":[
               "Algoriphagus"

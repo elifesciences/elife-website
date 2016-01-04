@@ -8,21 +8,21 @@ Feature: Alphabetical
       """
         {
           "title": "VOR 00731",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00731",
-          "volume": "2",
+          "volume": 2,
           "elocation-id": "e00731",
           "article-id": "10.7554/eLife.00731",
           "article-version-id": "00731",
-          "pub-date": "2013-05-28",
+          "pub-date": "2013-05-28T00:00:00+00:00",
           "path": "content/2/e00731",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-23",
               "surname": "Kamoun",
               "given-names": "Sophien",
@@ -44,7 +44,7 @@ Feature: Alphabetical
             },
             {
               "type": "author",
-              "equal-contrib": "yes",
+              "equal-contrib": true,
               "id": "author-17",
               "surname": "Krause",
               "given-names": "Johannes",
@@ -154,21 +154,21 @@ Feature: Alphabetical
       """
         {
           "title": "VOR 00731",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.00731",
-          "volume": "2",
+          "volume": 2,
           "elocation-id": "e00731",
           "article-id": "10.7554/eLife.00731",
           "article-version-id": "00731",
-          "pub-date": "2013-05-28",
+          "pub-date": "2013-05-28T00:00:00+00:00",
           "path": "content/2/e00731",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
+          "publish": true,
           "contributors": [
             {
               "type": "author",
-              "equal-contrib": "no",
+              "equal-contrib": false,
               "id": "author-23",
               "surname": "Martin",
               "given-names": "Frank N",

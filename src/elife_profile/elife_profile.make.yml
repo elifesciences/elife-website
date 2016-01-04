@@ -201,6 +201,8 @@ projects:
       - 'https://www.drupal.org/files/issues/views_date_format_sql-date_field_support-1830436-42-tag_7.x-3.1_0.patch'
   views_field_view:
     version: '1.2'
+  views_rss:
+    version: '2.0-rc4'
   webform:
     version: '4.11'
   xmlsitemap:
@@ -226,7 +228,7 @@ libraries:
     download:
       type: 'git'
       url: 'ssh://git@github.com/elifesciences/elife-eif-schema.git'
-      revision: 'bb22de58a5cfb975df9a0ca64a4dbed11debd207'
+      revision: 'f9caf52d5b53d011613ca18822976ec011359d71'
   jquery.scrollTo:
     download:
       type: 'git'

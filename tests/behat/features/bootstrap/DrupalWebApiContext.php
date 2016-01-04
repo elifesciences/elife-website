@@ -1,10 +1,13 @@
 <?php
 
+use Behat\Gherkin\Node\PyStringNode;
 use Behat\Testwork\Hook\HookDispatcher;
 use Behat\WebApiExtension\Context\WebApiContext;
 use Drupal\DrupalDriverManager;
 use Drupal\DrupalExtension\Context\DrupalAwareInterface;
 use Drupal\DrupalExtension\Hook\Scope\EntityScope;
+use GuzzleHttp\Url;
+use PHPUnit_Framework_Assert as Assert;
 
 class DrupalWebApiContext extends WebApiContext implements DrupalAwareInterface {
 
@@ -49,6 +52,13 @@ class DrupalWebApiContext extends WebApiContext implements DrupalAwareInterface 
    * @var string
    */
   private $authorization;
+
+  /**
+   * @param string $baseUrl
+   */
+  public function __construct($baseUrl) {
+    $this->setPlaceHolder('%BASE_URL%', rtrim(Url::fromString($baseUrl), '/'));
+  }
 
   /**
    * {@inheritDoc}
@@ -96,5 +106,15 @@ class DrupalWebApiContext extends WebApiContext implements DrupalAwareInterface 
     $this->removeHeader('Authorization');
     $this->authorization = base64_encode($this->user->name . ':' . $this->user->pass);
     $this->addHeader('Authorization', 'Basic ' . $this->authorization);
+  }
+
+  /**
+   * @Then /^the response should be XML:$/
+   */
+  public function theResponseShouldBeXML(PyStringNode $xml) {
+    Assert::assertXmlStringEqualsXmlString(
+      trim($this->replacePlaceHolder($xml->getRaw())),
+      $this->response->getBody()->getContents()
+    );
   }
 }

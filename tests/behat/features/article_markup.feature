@@ -11,17 +11,17 @@ Feature: Markup
         [
           {
             "title": "VOR 05224 v2",
-            "version": "2",
+            "version": 2,
             "doi": "10.7554/eLife.05224",
-            "volume": "4",
+            "volume": 4,
             "elocation-id": "e05224",
             "article-id": "05224",
             "article-version-id": "05224.2",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224v2",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "Algoriphagus"
@@ -30,17 +30,17 @@ Feature: Markup
           },
           {
             "title": "The genome sequence of the colonial chordate, <italic>Botryllus schlosseri</italic>",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.03981",
-            "volume": "3",
+            "volume": 3,
             "elocation-id": "e03981",
             "article-id": "03981",
             "article-version-id": "03981.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/3/e03981v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "social behavior",
@@ -54,17 +54,17 @@ Feature: Markup
             ,
             {
             "title": "Rapid localized spread and immunologic containment define Herpes simplex virus-2 reactivation in the human genital tract",
-            "version": "1",
+            "version": 1,
             "doi": "10.7554/eLife.00288",
-            "volume": "2",
+            "volume": 2,
             "elocation-id": "e00288",
             "article-id": "00288",
             "article-version-id": "00288.1",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/2/e00288v1",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1",
+            "publish": true,
             "keywords": {
               "author-keywords": [
                 "Xenopus",

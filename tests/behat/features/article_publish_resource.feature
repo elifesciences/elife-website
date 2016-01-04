@@ -14,17 +14,17 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "<publish>",
+          "publish": <publish>,
           "fragments": [
             {
               "type": "abstract",
@@ -133,9 +133,9 @@ Feature: Article Publish Resource (API)
 
     Examples:
       | publish | response | permissions                                                                                                                          |
-      | 0       | 404      | access administration menu,access content                                                                                            |
-      | 1       | 200      | access administration menu,access content                                                                                            |
-      | 0       | 200      | access administration menu,access content,view any unpublished elife_article_ver content,view any unpublished elife_fragment content |
+      | false   | 404      | access administration menu,access content                                                                                            |
+      | true    | 200      | access administration menu,access content                                                                                            |
+      | false   | 200      | access administration menu,access content,view any unpublished elife_article_ver content,view any unpublished elife_fragment content |
 
   Scenario: Make content available for preview then publish
     Given I set header "Content-Type" with value "application/json"
@@ -143,17 +143,17 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "05224",
           "article-version-id": "05224.1",
-          "pub-date": "1979-08-17",
+          "pub-date": "1979-08-17T00:00:00+00:00",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "0",
+          "publish": false,
           "fragments": [
             {
               "type": "abstract",
@@ -267,7 +267,7 @@ Feature: Article Publish Resource (API)
     When I send a PUT request to "api/publish/05224.1.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
@@ -281,16 +281,16 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
@@ -306,16 +306,16 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
           "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "0"
+          "publish": false
         }
       """
     When I am an anonymous user
@@ -334,7 +334,7 @@ Feature: Article Publish Resource (API)
     And I send a PUT request to "api/publish/05224.1.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
@@ -351,17 +351,17 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224v1",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
           "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
-          "pub-date": "2015-07-26"
+          "publish": true,
+          "pub-date": "2015-07-26T00:00:00+00:00"
         }
       """
     When I am an anonymous user
@@ -375,7 +375,7 @@ Feature: Article Publish Resource (API)
     And the response should contain json:
       """
         {
-          "pub-date": "2015-07-26"
+          "pub-date": "2015-07-26T00:00:00+00:00"
         }
       """
 
@@ -383,16 +383,16 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224v2",
-          "version": "2",
+          "version": 2,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.2",
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "0"
+          "publish": false
         }
       """
     When I am an anonymous user
@@ -406,8 +406,8 @@ Feature: Article Publish Resource (API)
     And the response should contain json:
       """
         {
-          "pub-date": "2015-07-26",
-          "publish": "0"
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "publish": false
         }
       """
 
@@ -417,15 +417,15 @@ Feature: Article Publish Resource (API)
     And I send a PUT request to "api/publish/05224.2.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
     And the response should contain json:
       """
         {
-          "pub-date": "2015-07-26",
-          "publish": "1"
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "publish": true
         }
       """
     And response should contain "update"
@@ -440,8 +440,8 @@ Feature: Article Publish Resource (API)
     And the response should contain json:
       """
         {
-          "pub-date": "2015-07-26",
-          "publish": "1"
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "publish": true
         }
       """
 
@@ -451,18 +451,18 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224v1",
-          "version": "1",
+          "version": 1,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
           "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "1",
-          "pub-date": "2015-07-26",
-          "update": "2015-07-26"
+          "publish": true,
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "update": "2015-07-26T00:00:00+00:00"
         }
       """
     And the response code should be 200
@@ -470,33 +470,33 @@ Feature: Article Publish Resource (API)
       """
         {
           "title": "VOR 05224v2",
-          "version": "2",
+          "version": 2,
           "doi": "10.7554/eLife.05224",
-          "volume": "4",
+          "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.2",
           "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "VOR",
-          "publish": "0",
-          "pub-date": "2015-07-26",
-          "update": "2015-07-27"
+          "publish": false,
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "update": "2015-07-27T00:00:00+00:00"
         }
       """
     And the response code should be 200
     When I send a PUT request to "api/publish/05224.2.json" with body:
       """
         {
-          "publish": "1"
+          "publish": true
         }
       """
     And the response code should be 200
     Then the response should contain json:
       """
         {
-          "publish": "1",
-          "pub-date": "2015-07-26",
-          "update": "2015-07-27"
+          "publish": true,
+          "pub-date": "2015-07-26T00:00:00+00:00",
+          "update": "2015-07-27T00:00:00+00:00"
         }
       """

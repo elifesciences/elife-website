@@ -11,17 +11,17 @@ Feature: Article Version Source Assets
         [
           {
             "title": "<manuscript_id>",
-            "version": "<version_no>",
+            "version": <version_no>,
             "doi": "10.7554/eLife.<manuscript_id>",
-            "volume": "1",
+            "volume": 1,
             "elocation-id": "e<manuscript_id>",
             "article-id": "<manuscript_id>",
             "article-version-id": "<manuscript_id>.<version_no>",
-            "pub-date": "1979-08-17",
+            "pub-date": "1979-08-17T00:00:00+00:00",
             "path": "content/1/e<manuscript_id>",
             "article-type": "research-article",
             "status": "VOR",
-            "publish": "1"
+            "publish": true
           }
         ]
       """
