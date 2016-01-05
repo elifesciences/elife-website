@@ -44,7 +44,6 @@ function elife_search_default_search_api_index() {
       "fields" : {
         "field_elife_a_fpubdate" : { "type" : "date" },
         "field_elife_a_versions:field_elife_a_abstract:value" : { "type" : "list\\u003Ctext\\u003E" },
-        "field_elife_a_versions:field_elife_a_article_type" : { "type" : "list\\u003Cstring\\u003E" },
         "field_elife_a_versions:field_elife_a_category" : {
           "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
           "entity_type" : "taxonomy_term"
@@ -77,6 +76,7 @@ function elife_search_default_search_api_index() {
           "weight" : "0",
           "settings" : { "fields" : {
               "field_elife_a_versions:title" : true,
+              "field_elife_a_versions:field_elife_a_category" : true,
               "field_elife_a_versions:field_elife_a_keyword:name" : true
             }
           }
