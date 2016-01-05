@@ -598,6 +598,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create elife_early_careers_interview content'.
+  $permissions['create elife_early_careers_interview content'] = array(
+    'name' => 'create elife_early_careers_interview content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create elife_fragment content'.
   $permissions['create elife_fragment content'] = array(
     'name' => 'create elife_fragment content',
@@ -769,6 +779,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any elife_early_careers_interview content'.
+  $permissions['delete any elife_early_careers_interview content'] = array(
+    'name' => 'delete any elife_early_careers_interview content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any elife_fragment content'.
   $permissions['delete any elife_fragment content'] = array(
     'name' => 'delete any elife_fragment content',
@@ -896,6 +916,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete own elife_cover content'.
   $permissions['delete own elife_cover content'] = array(
     'name' => 'delete own elife_cover content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own elife_early_careers_interview content'.
+  $permissions['delete own elife_early_careers_interview content'] = array(
+    'name' => 'delete own elife_early_careers_interview content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -1137,6 +1167,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any elife_early_careers_interview content'.
+  $permissions['edit any elife_early_careers_interview content'] = array(
+    'name' => 'edit any elife_early_careers_interview content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any elife_fragment content'.
   $permissions['edit any elife_fragment content'] = array(
     'name' => 'edit any elife_fragment content',
@@ -1275,6 +1315,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit own elife_cover content'.
   $permissions['edit own elife_cover content'] = array(
     'name' => 'edit own elife_cover content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own elife_early_careers_interview content'.
+  $permissions['edit own elife_early_careers_interview content'] = array(
+    'name' => 'edit own elife_early_careers_interview content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -1879,6 +1929,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_cover content'.
   $permissions['view any unpublished elife_cover content'] = array(
     'name' => 'view any unpublished elife_cover content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view any unpublished elife_early_careers_interview content'.
+  $permissions['view any unpublished elife_early_careers_interview content'] = array(
+    'name' => 'view any unpublished elife_early_careers_interview content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',

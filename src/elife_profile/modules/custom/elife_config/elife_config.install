@@ -16,7 +16,7 @@ function elife_config_install() {
   if ((db_query("SELECT ptid FROM {page_theme} WHERE theme = 'elife_newlook' AND status = '1'")->fetchField()) == 0) {
     $field = array();
     $field['theme'] = 'elife_newlook';
-    $field['pages'] = "<front>\nabout\ncareers\ncollections\ncollections/*\nextra\nlabs\npodcast\npodcast/*";
+    $field['pages'] = "<front>\nabout\ncareers\ncollections\ncollections/*\nearly-careers-interviews\nextra\nlabs\npodcast\npodcast/*";
     $field['status'] = 1;
     $field['weight'] = 0;
     db_insert('page_theme')
