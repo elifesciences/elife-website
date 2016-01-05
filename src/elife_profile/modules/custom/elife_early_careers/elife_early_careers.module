@@ -153,6 +153,7 @@ function elife_early_careers_nav_load() {
 function elife_early_careers_page_alter(&$page) {
   if (current_path() === 'careers') {
     $page['page_top']['elife_early_careers_nav'] = [
+      '#weight' => 10,
       '#markup' => elife_early_careers_nav_load(),
     ];
   }

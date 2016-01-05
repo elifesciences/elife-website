@@ -92,6 +92,7 @@ function elife_about_nav_load() {
 function elife_about_page_alter(&$page) {
   if (current_path() === 'about') {
     $page['page_top']['elife_about_nav'] = array(
+      '#weight' => 10,
       '#markup' => elife_about_nav_load(),
     );
   }
