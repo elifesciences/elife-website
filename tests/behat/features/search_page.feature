@@ -20,7 +20,7 @@ Feature: Search
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Algoriphagus"
+    And I fill in "Search for..." with "Algoriphagus"
     And I press the Search button
     And I should see "Your search yielded no results."
 
@@ -123,7 +123,7 @@ Feature: Search
     And I should see "VOR 05226"
     And I should see "VOR 05229"
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Algoriphagus"
+    And I fill in "Search for..." with "Algoriphagus"
     And I press the Search button
     And I should see "VOR 05224"
     And I should see "VOR 05225"

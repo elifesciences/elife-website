@@ -111,32 +111,32 @@ Feature: Markup
   Scenario: Searching articles with text available in abstract section
     When the search index is updated
     Given I am on "/elife/search"
-    And I fill in "Keyword" with "scientific communities and scientific journals"
+    And I fill in "Search for..." with "scientific communities and scientific journals"
     And I press the Search button
     And I should see "The genome sequence of the colonial chordate,"
-    And I fill in "Keyword" with "diet, kinship, and shared environments"
+    And I fill in "Search for..." with "diet, kinship, and shared environments"
     And I press the Search button
     And I should see "VOR 05224 v2"
     And I should not see "the genome sequence"
-    And I fill in "Keyword" with "sampling from blood may reflect true host–pathogen dynamics"
+    And I fill in "Search for..." with "sampling from blood may reflect true host–pathogen dynamics"
     And I press the Search button
     And I should not see "VOR 05224 v2"
     And I should not see "the genome sequence"
-    And I fill in "Keyword" with "££$%^&"
+    And I fill in "Search for..." with "££$%^&"
     And I press the Search button
     And I should see "Your search yielded no results."
 
   Scenario: Searching articles with text available in main section
     When the search index is updated
     Given I am on "/elife/search"
-    And I fill in "Keyword" with " dynamics of most chronic viral infections"
+    And I fill in "Search for..." with " dynamics of most chronic viral infections"
     And I press the Search button
     And I should see "Rapid localized spread and immunologic containment define Herpes simplex virus-2 reactivation in the human genital tract"
-    And I fill in "Keyword" with "Irreproducible studies that side-track fields"
+    And I fill in "Search for..." with "Irreproducible studies that side-track fields"
     And I press the Search button
     And I should see "The genome sequence of the colonial chordate"
     And I should not see "VOR 05224 v2"
-    And I fill in "Keyword" with "sampling from blood may reflect true host–pathogen dynamics"
+    And I fill in "Search for..." with "sampling from blood may reflect true host–pathogen dynamics"
     And I press the Search button
     And I should not see "VOR 05224 v2"
     And I should not see "the genome sequence"
