@@ -1731,8 +1731,8 @@ div.highwire-markup .supplementary-material > p,
   margin-bottom: 0;
 }
 
-.highwire-markup .media-caption .media-label,
-.highwire-markup .media-caption .caption-title,
+.media-caption .media-label,
+.media-caption .caption-title,
 .fig-inline-img-set .fig-caption .fig-label,
 .fig-inline-img-set .fig-caption .caption-title,
 .fig-caption p > .supplementary-material,
@@ -1766,21 +1766,24 @@ div.highwire-markup .inline-linked-media-wrapper a .inline-linked-media-filename
 }
 
 /* Video */
-div.highwire-markup .media,
-div.highwire-markup .media .media-caption {
+.media,
+.media .media-caption {
   margin-top: 15px;
 }
 
-div.highwire-markup .media .media-inline,
-.highwire-markup .video-content .video-callout {
+.media .media-inline,
+.video-content .video-callout {
   text-align: center;
 }
 
-.highwire-markup .video-content object,
-.highwire-markup .video-content video {
+.video-content object,
+.video-content video {
   max-width: 100%;
 }
 
+.video-content video {
+  background-color: black;
+}
 
 /* Tables */
 .article .table {
@@ -1837,27 +1840,25 @@ div.highwire-markup p:empty + div.table .table-inline .callout {
     clip: rect(0,0,0,0);
   }
 
-div.highwire-markup .media,
-div.highwire-markup .table-caption {
-  border-bottom: 1px solid #dfdddd;
-  padding-bottom: 15px;
-}
-
-div.highwire-markup .media,
-div.highwire-markup .table-inline + .table-caption {
+.media,
+.table-caption,
+.table-inline + .table-caption {
   border-top: 1px solid #dfdddd;
   padding-top: 15px;
 }
 
-div.highwire-markup .media {
+.media {
+  border-bottom: 1px solid #dfdddd;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
   padding-top: 20px;
 }
 
-div.highwire-markup .media + .media,
-div.highwire-markup .fig-inline-img-set + .media,
-div.highwire-markup .table + .media,
-div.highwire-markup .fig-inline-img-set + div.table .table-inline + .table-caption,
-div.highwire-markup p:empty + div.table .table-inline + .table-caption {
+.media + .media,
+.fig-inline-img-set + .media,
+.table + .media,
+.fig-inline-img-set + div.table .table-inline + .table-caption,
+p:empty + div.table .table-inline + .table-caption {
   border-top: 0;
   padding-top: 0;
 }

@@ -350,8 +350,8 @@ span.disp-formula .disp-formula-label,
 #fig-data-additional-files .supplementary-material > p,
 .supplementary-material-expansion > p,
 .supplementary-material-expansion > span,
-div.highwire-markup .media-caption > p,
-div.highwire-markup .media-caption > span,
+.media-caption > p,
+.media-caption > span,
 .fig-caption > q,
 .fig-caption > p, 
 .fig-caption > span, 
@@ -381,8 +381,8 @@ div.highwire-markup .table-foot .table-footnotes li > p {
 	font-size: 0.79em;
 }
 
-div.highwire-markup .supplementary-material .caption-title,
-div.highwire-markup .supplementary-material-expansion .caption-title,
+.supplementary-material .caption-title,
+.supplementary-material-expansion .caption-title,
 .media-caption .caption-title,
 .fig-caption .caption-title {
 	font-weight: bold;
@@ -391,7 +391,7 @@ div.highwire-markup .supplementary-material-expansion .caption-title,
 
 .supplementary-material .supplementary-material-label,
 .supplementary-material-expansion label,
-div.highwire-markup .media-caption .media-label,
+.media-caption .media-label,
 .fig-caption span.fig-label, 
 div.highwire-markup .table-caption span.table-label {
 	font-family: 'Avenir LT W01 85 Heavy', sans-serif;
