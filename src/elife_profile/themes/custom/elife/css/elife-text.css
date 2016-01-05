@@ -812,6 +812,26 @@ input:-moz-placeholder {
 	margin-top: -10px;
 }
 
+.author-info .equal-contrib {
+	margin-bottom: 1em;
+}
+
+.equal-contributor {
+	display: inline;
+}
+
+.equal-contributor:after {
+	content: ', ';
+}
+
+.equal-contrib-list {
+	display: inline;
+}
+
+.equal-contributor:last-child:after {
+	content: '.';
+}
+
 .funding-group {
 	padding-left: 0;
 }
