@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Early Careers Interviews feature.
+ */
+
+include_once 'elife_early_careers_interviews.features.inc';
+
+/**
+ * Implements template_preprocess_node().
+ */
+function elife_early_careers_interviews_preprocess_node(&$variables) {
+  if ('elife_early_careers_interview' === $variables['type']) {
+    if (in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])) {
+      drupal_add_css(drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css');
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form().
+ */
+function elife_early_careers_interviews_form_node_form_alter(&$form, &$form_state) {
+  switch ($form['#node']->type) {
+    case 'elife_early_careers_interview':
+      $form['field_elife_title']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_elife_hero_block_alter().
+ */
+function elife_early_careers_interviews_elife_hero_block_alter(&$content) {
+  if ('early-careers-interviews' === current_path()) {
+    $variables = [
+      'title' => t('Early-career researchers'),
+      'sub_title' => t('A collection of interviews'),
+      'image_colour' => 'dark',
+      'image_path' => base_path() . drupal_get_path('module', 'elife_early_careers_interviews') . '/images/early-careers-interviews.jpg',
+      'credit' => 'CCBY 3.0 Katja Kornysheva',
+    ];
+
+    $content = theme('elife_hero_block', $variables);
+  }
+}

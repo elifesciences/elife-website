@@ -50,6 +50,7 @@ class IsolatedDrupalContext extends DrupalContext {
       'field_elife_a_title',
       'field_elife_c_sub_title',
       'field_elife_c_title',
+      'field_elife_i_title',
       'field_elife_p_title',
       'field_elife_pc_text_inverse',
       'field_elife_pc_title',
