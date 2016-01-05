@@ -44,7 +44,15 @@ Feature: Article Search - Keywords
                 "author-keywords": [
                   "Algoriphagus"
                 ]
-              }
+              },
+              "contributors": [
+                {
+                  "type": "author",
+                  "id": "author-1",
+                  "surname": "Surname",
+                  "given-names": "First A"
+                }
+              ]
             },
             {
               "title": "Article 3 for Search test",
@@ -176,6 +184,14 @@ Feature: Article Search - Keywords
     And I should see "Article 3 for Search test"
     And I should not see "Article 8 for Search test"
     And I should not see "Article 7 for Search test"
+
+  Scenario: Contributor names are indexed
+    Given the search index is updated
+    When I go to "/elife/search"
+    And I fill in "Keyword" with "surname"
+    And I press the Search button
+    Then I should see 1 ".article-teaser__title" elements
+    And I should see "Article 2 for Search test"
 
   Scenario: No articles with searched keyword
     When the search index is updated
