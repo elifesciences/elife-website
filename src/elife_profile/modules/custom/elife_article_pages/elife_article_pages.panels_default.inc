@@ -408,7 +408,10 @@ function elife_article_pages_default_panels_mini() {
     ),
     'style' => 'collapsible',
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'author-info',
+  );
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
@@ -447,7 +450,10 @@ function elife_article_pages_default_panels_mini() {
     ),
     'style' => 'collapsible',
   );
-  $pane->css = array();
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'article-info',
+  );
   $pane->extras = array();
   $pane->position = 1;
   $pane->locks = array();
