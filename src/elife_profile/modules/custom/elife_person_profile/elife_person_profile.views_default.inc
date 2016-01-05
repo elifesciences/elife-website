@@ -83,6 +83,10 @@ function elife_person_profile_views_default_views() {
   $handler->display->display_options['sorts']['sticky']['table'] = 'node';
   $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
   $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
+  /* Sort criterion: Content: Type (field_elife_pp_type) */
+  $handler->display->display_options['sorts']['field_elife_pp_type_value']['id'] = 'field_elife_pp_type_value';
+  $handler->display->display_options['sorts']['field_elife_pp_type_value']['table'] = 'field_data_field_elife_pp_type';
+  $handler->display->display_options['sorts']['field_elife_pp_type_value']['field'] = 'field_elife_pp_type_value';
   /* Sort criterion: Content: Last name (field_elife_pp_last_name) */
   $handler->display->display_options['sorts']['field_elife_pp_last_name_value']['id'] = 'field_elife_pp_last_name_value';
   $handler->display->display_options['sorts']['field_elife_pp_last_name_value']['table'] = 'field_data_field_elife_pp_last_name';

@@ -34,6 +34,23 @@ Feature: Navigate to editorial board
     Then I should see "First Name 2" in the ".aims-scope__people li:nth-of-type(3)" element
 
   @api
+  Scenario: Senior leadership included in senior editors
+    Given "elife_pp_expertise" terms:
+      | field_elife_title |
+      | Expertise         |
+    Given "elife_person_profile" content:
+      | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type | field_elife_pp_expertise | sticky |
+      | First Name 2              | Last Name 2              | Senior Editor       | Expertise                | 0      |
+      | First Name 1              | Last Name 1              | Senior Editor       | Expertise                | 0      |
+      | First Name 3              | Last Name 3              | Senior Editor       | Expertise                | 1      |
+      | First Name 4              | Last Name 4              | Deputy Editor       | Expertise                | 0      |
+    When I go to "/about"
+    Then I should see "First Name 3" in the ".aims-scope__people--expertise li:nth-of-type(1)" element
+    Then I should see "First Name 4" in the ".aims-scope__people--expertise li:nth-of-type(2)" element
+    Then I should see "First Name 1" in the ".aims-scope__people--expertise li:nth-of-type(3)" element
+    Then I should see "First Name 2" in the ".aims-scope__people--expertise li:nth-of-type(4)" element
+
+  @api
   Scenario: Early Careers Advisory Group are excluded
     Given "elife_person_profile" content:
       | field_elife_pp_first_name | field_elife_pp_last_name | field_elife_pp_type          |
