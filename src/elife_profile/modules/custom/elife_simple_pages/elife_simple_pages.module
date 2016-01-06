@@ -27,6 +27,10 @@ function elife_simple_pages() {
     'received-thanks' => [
       'title' => 'Received, thanks!',
       'template' => 'received_thanks',
+      ],
+    'who-we-work-with' => [
+      'title' => 'Who we work with',
+      'template' => 'who_we_work_with',
     ],
   ];
 }
