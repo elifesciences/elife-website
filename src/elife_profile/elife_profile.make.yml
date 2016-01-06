@@ -54,6 +54,8 @@ projects:
     version: '1.1'
   facetapi:
     version: '1.5'
+  facetapi_taxonomy_sort:
+    version: '1.0-beta1'
   features:
     version: '2.7'
   features_extra:

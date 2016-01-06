@@ -27,3 +27,12 @@ function elife_profile_update_7100() {
 function elife_profile_update_7101() {
   module_enable(['views_rss', 'views_rss_core', 'elife_article_rss'], FALSE);
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Enable facetapi_taxonomy_sort, new dependency for elife_search.
+ */
+function elife_profile_update_7102() {
+  module_enable(['facetapi_taxonomy_sort'], FALSE);
+}

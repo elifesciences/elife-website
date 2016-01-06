@@ -43,6 +43,7 @@ dependencies[] = entity_token
 dependencies[] = entityqueue
 dependencies[] = entityreference
 dependencies[] = facetapi
+dependencies[] = facetapi_taxonomy_sort
 dependencies[] = fe_block
 dependencies[] = fe_date
 dependencies[] = features
