@@ -230,6 +230,9 @@ Feature: Search
             "categories": {
               "display-channel": [
                 "Baz"
+              ],
+              "sub-display-channel": [
+                "Qux"
               ]
             }
           }
@@ -237,6 +240,7 @@ Feature: Search
       """
     And the search index is updated
     When I go to "/elife/search"
-    Then I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
+    Then I should see 3 ".sidebar-wrapper h2:contains('Filter by content type') + div li" elements
+    And I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
     And I should see "Foo (2)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(2)" element
     And I should see "Baz (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(3)" element

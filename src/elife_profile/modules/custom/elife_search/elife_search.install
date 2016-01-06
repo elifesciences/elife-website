@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Implements hook_update_N().
+ *
+ * Mark all items as needing reindexing due to the addition of
+ * elife_search_search_api_solr_documents_alter().
+ */
+function elife_search_update_7100() {
+  search_api_index_reindex('elife_articles_index');
+}
