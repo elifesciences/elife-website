@@ -283,6 +283,7 @@ a.cta__link {
         left: 3em;
         position: absolute;
         width: calc(75% - 50px - 5px);
+        z-index: 1;
     }
 
     .hero-block__cta {
