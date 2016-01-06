@@ -23,6 +23,10 @@ function elife_simple_pages() {
     'alerts-and-feeds' => [
       'title' => 'Alerts and feeds',
       'template' => 'alerts_and_feeds',
+      ],
+    'received-thanks' => [
+      'title' => 'Received, thanks!',
+      'template' => 'received_thanks',
     ],
   ];
 }

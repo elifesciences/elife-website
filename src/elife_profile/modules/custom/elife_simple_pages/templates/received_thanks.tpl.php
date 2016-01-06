@@ -1,0 +1,1 @@
+<p>Thanks for subscribing to the eLife news stream. We&#39;ll be sure you receive the notifications you&#39;ve asked for. If you ever have any questions, please contact media@elifesciences.org.</p>
