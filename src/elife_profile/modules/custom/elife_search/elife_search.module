@@ -5,3 +5,31 @@
  */
 
 include_once 'elife_search.features.inc';
+
+/**
+ * Implements hook_search_api_solr_documents_alter().
+ */
+function elife_search_search_api_solr_documents_alter(array &$documents, SearchApiIndex $index, array $items) {
+  foreach ($documents as $document) {
+    // Remove all categories that aren't display channels.
+    $field = $document->getField('im_field_elife_a_versions$field_elife_a_category');
+
+    if (!$field) {
+      continue;
+    }
+
+    foreach ($field['value'] as $i => $category_id) {
+      $term = taxonomy_term_load($category_id);
+
+      if ('elife_categories' !== $term->vocabulary_machine_name) {
+        continue;
+      }
+
+      if ('display-channel' !== $term->field_elife_category_type[LANGUAGE_NONE][0]['value']) {
+        unset($field['value'][$i]);
+      }
+
+      $document->setField('im_field_elife_a_versions$field_elife_a_category', $field['value'], $field['boost']);
+    }
+  }
+}

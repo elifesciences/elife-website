@@ -44,7 +44,15 @@ Feature: Article Search - Keywords
                 "author-keywords": [
                   "Algoriphagus"
                 ]
-              }
+              },
+              "contributors": [
+                {
+                  "type": "author",
+                  "id": "author-1",
+                  "surname": "Surname",
+                  "given-names": "First A"
+                }
+              ]
             },
             {
               "title": "Article 3 for Search test",
@@ -169,7 +177,7 @@ Feature: Article Search - Keywords
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Algoriphagus"
+    And I fill in "Search for..." with "Algoriphagus"
     And I press the Search button
     And I should see 2 ".article-teaser__title" elements
     And I should see "Article 2 for Search test"
@@ -177,15 +185,23 @@ Feature: Article Search - Keywords
     And I should not see "Article 8 for Search test"
     And I should not see "Article 7 for Search test"
 
+  Scenario: Contributor names are indexed
+    Given the search index is updated
+    When I go to "/elife/search"
+    And I fill in "Search for..." with "surname"
+    And I press the Search button
+    Then I should see 1 ".article-teaser__title" elements
+    And I should see "Article 2 for Search test"
+
   Scenario: No articles with searched keyword
     When the search index is updated
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Applw"
+    And I fill in "Search for..." with "Applw"
     And I press the Search button
     And I should see "Your search yielded no results."
-    And I fill in "Keyword" with "££$%^&"
+    And I fill in "Search for..." with "££$%^&"
     And I press the Search button
     And I should not see an ".article-teaser__title" element
     And I should see "Your search yielded no results."
@@ -298,7 +314,7 @@ Feature: Article Search - Keywords
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Ebola"
+    And I fill in "Search for..." with "Ebola"
     And I press the Search button
     And I should see " Showing results 1–4 of 4 " in the ".main-wrapper" element
     And I should see 4 ".article-teaser__title" elements

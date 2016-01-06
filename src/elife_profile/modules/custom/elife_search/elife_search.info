@@ -6,6 +6,7 @@ project = elife_search
 dependencies[] = elife_article
 dependencies[] = elife_config
 dependencies[] = elysia_cron
+dependencies[] = facetapi_taxonomy_sort
 dependencies[] = page_manager
 dependencies[] = search_api_facetapi
 dependencies[] = search_api_solr

@@ -20,7 +20,7 @@ Feature: Search
     Given I am on "/elife/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Algoriphagus"
+    And I fill in "Search for..." with "Algoriphagus"
     And I press the Search button
     And I should see "Your search yielded no results."
 
@@ -123,15 +123,15 @@ Feature: Search
     And I should see "VOR 05226"
     And I should see "VOR 05229"
     And I should see "Browse articles" in the "h1.pane-title" element
-    And I fill in "Keyword" with "Algoriphagus"
+    And I fill in "Search for..." with "Algoriphagus"
     And I press the Search button
     And I should see "VOR 05224"
     And I should see "VOR 05225"
     And I should see "VOR 05226"
     And I should not see "VOR 05229"
 
-  Scenario: Something
-    Given I set variable "elife_category_reference_weight" to array '["Bar", "Foo"]'
+  Scenario: Content types are ordered
+    Given I set variable "elife_category_reference_weight" to array '["Bar", "Foo", "Baz"]'
     And there are articles:
     """
         [
@@ -207,10 +207,40 @@ Feature: Search
                 "Foo"
               ]
             }
+          },
+          {
+            "title": "VOR 05227",
+            "version": 1,
+            "doi": "10.7554/eLife.05227",
+            "volume": 4,
+            "elocation-id": "e05227",
+            "article-id": "05227",
+            "article-version-id": "05227",
+            "pub-date": "1979-08-17T00:00:00+00:00",
+            "path": "content/4/e05227",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": true,
+            "keywords": {
+              "author-keywords": [
+                "Algoriphagus",
+                "bacterial sulfonolipid"
+              ]
+            },
+            "categories": {
+              "display-channel": [
+                "Baz"
+              ],
+              "sub-display-channel": [
+                "Qux"
+              ]
+            }
           }
         ]
       """
     And the search index is updated
     When I go to "/elife/search"
-    Then I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
+    Then I should see 3 ".sidebar-wrapper h2:contains('Filter by content type') + div li" elements
+    And I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
     And I should see "Foo (2)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(2)" element
+    And I should see "Baz (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(3)" element

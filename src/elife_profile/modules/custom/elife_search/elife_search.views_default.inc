@@ -100,7 +100,7 @@ Showing results @start&ndash;@end of @total';
   $handler->display->display_options['filters']['search_api_views_fulltext']['field'] = 'search_api_views_fulltext';
   $handler->display->display_options['filters']['search_api_views_fulltext']['exposed'] = TRUE;
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'Keyword';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'Search for...';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'keyword';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
