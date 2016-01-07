@@ -171,8 +171,7 @@
         <li>
           <h3 class="about-review-process__list_term">Decisions and responses are available for all to read</h3>
           <div class="about-review-process__list_definition">In the interests of openness and transparency we publish
-            the most substantive parts of the decision letter after review and the associated author responses, subject
-            to author agreement.</div>
+            the most substantive parts of the decision letter after review and the associated author responses.</div>
         </li>
       </ol>
     </div> <!-- /.about-review-process__text_wrapper -->
