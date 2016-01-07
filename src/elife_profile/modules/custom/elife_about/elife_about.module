@@ -133,7 +133,7 @@ function elife_about_profiles_load() {
     $profiles['regular'] .= theme('elife_profile_sheet', $regular);
 
     $menu[] = [
-      'data' => l(t('Leadership team'), '', [
+      'data' => l(t('Editorial leadership'), '', [
         'external' => TRUE,
         'fragment' => 'leadership',
         'attributes' => [
@@ -179,7 +179,7 @@ function elife_about_profiles_load() {
   $expertises = taxonomy_get_tree($expertises->vid, 0, NULL, TRUE);
 
   foreach ($expertises as $expertise) {
-    $senior_editors = elife_person_profile_get_view('senior-editor', FALSE, $expertise->tid);
+    $senior_editors = elife_person_profile_get_view(['senior-editor', 'editor-in-chief', 'deputy-editor'], FALSE, $expertise->tid);
     $reviewing_editors = elife_person_profile_get_view('reviewing-editor', FALSE, $expertise->tid);
 
     if (empty($senior_editors) && empty($reviewing_editors)) {
