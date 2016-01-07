@@ -100,9 +100,10 @@ function elife_article_schema() {
  */
 function elife_article_install() {
   // @todo - elife - nlisgo - set assets path and patterns into environment settings.
-  variable_set('elife_article_source_assets_base_path', 'http://nlisgo-backup-exp-elife-publishing-cdn.s3.amazonaws.com/');
+  variable_set('elife_article_source_assets_base_path', 'http://parallel-elife-publishing-cdn.s3.amazonaws.com/');
   variable_set('elife_article_source_assets_xml_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-v[node:version_no].xml');
   variable_set('elife_article_source_assets_pdf_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-v[node:version_no].pdf');
+  variable_set('elife_article_source_assets_glencoe_api', 'http://elife-dev.glencoesoftware.com/api/v1/metadata/');
 }
 
 /**
@@ -124,4 +125,12 @@ function elife_article_uninstall() {
 function elife_article_update_7100() {
   $schema = elife_article_schema();
   db_create_table('cache_elife_article_glencoe', $schema['cache_elife_article_glencoe']);
+}
+
+/**
+ * Set assets base path and Glencoe API url.
+ */
+function elife_article_update_7101() {
+  variable_set('elife_article_source_assets_base_path', 'http://parallel-elife-publishing-cdn.s3.amazonaws.com/');
+  variable_set('elife_article_source_assets_glencoe_api', 'http://elife-dev.glencoesoftware.com/api/v1/metadata/');
 }

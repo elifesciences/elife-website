@@ -181,5 +181,11 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
     '#default_value' => variable_get('elife_article_source_assets_pdf_file_pattern'),
   );
 
+  $form['source_assets']['elife_article_source_assets_glencoe_api'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Glencoe API'),
+    '#default_value' => variable_get('elife_article_source_assets_glencoe_api'),
+  );
+
   return system_settings_form($form);
 }
