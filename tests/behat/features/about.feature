@@ -75,7 +75,7 @@ Feature: Navigate to editorial board
       | First Name 7              | Last Name 7              | Executive Staff     |                          | No                  |
     When I go to "/about"
     Then I should see 7 ".aims-scope__subject_list_item" elements
-    And I should see "Leadership team" in the ".aims-scope__subject_list_item:nth-child(1)" element
+    And I should see "Editorial leadership" in the ".aims-scope__subject_list_item:nth-child(1)" element
     And I should see "All reviewing editors" in the ".aims-scope__subject_list_item:nth-child(2)" element
     And I should see "Expertise 2" in the ".aims-scope__subject_list_item:nth-child(3)" element
     And I should see "Expertise 1" in the ".aims-scope__subject_list_item:nth-child(4)" element

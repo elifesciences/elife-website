@@ -133,7 +133,7 @@ function elife_about_profiles_load() {
     $profiles['regular'] .= theme('elife_profile_sheet', $regular);
 
     $menu[] = [
-      'data' => l(t('Leadership team'), '', [
+      'data' => l(t('Editorial leadership'), '', [
         'external' => TRUE,
         'fragment' => 'leadership',
         'attributes' => [
