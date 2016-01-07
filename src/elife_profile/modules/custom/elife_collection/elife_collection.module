@@ -14,6 +14,15 @@ function elife_collection_ctools_plugin_directory($owner, $plugin_type) {
 }
 
 /**
+ * Implements hook_elife_body_field().
+ */
+function elife_collection_elife_body_field() {
+  return [
+    'elife_collection' => 'field_elife_c_text',
+  ];
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function elife_collection_preprocess_node(&$variables) {

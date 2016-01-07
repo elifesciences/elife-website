@@ -14,3 +14,12 @@ function elife_news_preprocess_node(&$variables) {
     drupal_add_css(drupal_get_path('module', 'elife_news') . '/css/news-article-teaser.css');
   }
 }
+
+/**
+ * Implements hook_elife_body_field().
+ */
+function elife_news_elife_body_field() {
+  return [
+    'elife_news_article' => 'field_elife_n_text',
+  ];
+}

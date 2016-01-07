@@ -4,6 +4,7 @@ package = eLife
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = ds
+dependencies[] = elife_body_field
 dependencies[] = elife_config
 dependencies[] = elife_house_style
 dependencies[] = entity
