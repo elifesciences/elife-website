@@ -306,6 +306,14 @@ function elife_podcast_default_page_manager_pages() {
       ),
       'logic' => 'and',
     ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'description' => array(
+          'value' => 'The eLife Podcast is produced for eLife by The Naked Scientists',
+        ),
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_collection';

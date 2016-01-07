@@ -313,3 +313,9 @@ Feature: Collections
     Then I should see text matching "FirstName LastName"
     Then I should see text matching "FName LName"
     Then I should see 2 "h2.collection-teaser__title" element
+
+  Scenario: Collection metadata
+    When I am viewing an "elife_collection":
+      | field_elife_c_title | Collection |
+      | field_elife_c_text  | Foo bar.   |
+    Then the metatag attribute "description" should have the value "Foo bar."

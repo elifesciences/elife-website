@@ -126,6 +126,7 @@ dependencies[] = elife_article_metatags
 dependencies[] = elife_article_pages
 dependencies[] = elife_article_reference
 dependencies[] = elife_article_rss
+dependencies[] = elife_body_field
 dependencies[] = elife_collection
 dependencies[] = elife_config
 dependencies[] = elife_content_alerts

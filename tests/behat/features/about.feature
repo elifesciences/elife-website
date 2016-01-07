@@ -3,6 +3,10 @@ Feature: Navigate to editorial board
   As a reader of the site
   I need easy navigation to the editorial board
 
+  Scenario: About page metadata
+    When I go to "/about"
+    Then the metatag attribute "description" should have the value "eLife - Open access to the most promising advances in science"
+
   @javascript @api
   Scenario Outline: First sheet is open
     Given "elife_person_profile" content:

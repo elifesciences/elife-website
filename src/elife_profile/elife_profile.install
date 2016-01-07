@@ -36,3 +36,12 @@ function elife_profile_update_7101() {
 function elife_profile_update_7102() {
   module_enable(['facetapi_taxonomy_sort'], FALSE);
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Enable elife_body_field.
+ */
+function elife_profile_update_7103() {
+  module_enable(['elife_body_field'], FALSE);
+}

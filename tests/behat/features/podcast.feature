@@ -4,6 +4,13 @@ Feature: Podcast
   I want to easily find the latest podcast
   So I can review the latest research when I am away from my computer
 
+  Scenario: Podcast metadata
+    When I am viewing an "elife_podcast":
+      | field_elife_p_episode_number | 1           |
+      | field_elife_p_title          | Podcast One |
+      | field_elife_p_text           | Foo bar.    |
+    Then the metatag attribute "description" should have the value "Foo bar."
+
   Scenario: Podcast contains chapters
     Given there is an article:
       """
@@ -53,6 +60,10 @@ Feature: Podcast
     And I should see "Three" in the ".view-elife-podcasts ol > li:nth-child(1) i" element
     And I should see "Episode 2: Podcast Two" in the ".view-elife-podcasts ol > li:nth-child(2)" element
     And I should see "Episode 1: Podcast One" in the ".view-elife-podcasts ol > li:nth-child(3)" element
+
+  Scenario: Podcast list metadata
+    When I go to "/podcast"
+    Then the metatag attribute "description" should have the value "The eLife Podcast is produced for eLife by The Naked Scientists"
 
   Scenario: Sub-paths aren't accessible
     When I go to "/podcast/foo"

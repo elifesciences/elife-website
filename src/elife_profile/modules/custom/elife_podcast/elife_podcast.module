@@ -112,6 +112,15 @@ function elife_podcast_inline_entity_form_podcast_chapter($entity_type, $entity)
 }
 
 /**
+ * Implements hook_elife_body_field().
+ */
+function elife_podcast_elife_body_field() {
+  return [
+    'elife_podcast' => 'field_elife_p_text',
+  ];
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function elife_podcast_preprocess_node(&$variables) {

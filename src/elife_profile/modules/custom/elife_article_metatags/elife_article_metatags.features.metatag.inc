@@ -288,6 +288,9 @@ function elife_article_metatags_metatag_export_default() {
   $config['node'] = array(
     'instance' => 'node',
     'config' => array(
+      'description' => array(
+        'value' => '[node:summary]',
+      ),
       'og:type' => array(
         'value' => 'article',
       ),

@@ -10,6 +10,10 @@ Feature: News
     And I should see "No news articles are currently available." in the ".content .main-wrapper" element
     And I should not see a ".content .sidebar-wrapper" element
 
+  Scenario: News list metadata
+    When I go to "/elife-news"
+    Then the metatag attribute "description" should have the value "eLife - Open access to the most promising advances in science"
+
   Scenario: Sub-paths aren't accessible
     When I go to "/elife-news/foo"
     Then the response status code should be 404
@@ -36,6 +40,12 @@ Feature: News
     And I should see "Bar" in the ".content .main-wrapper" element
     And I should see "Categories" in the ".content .sidebar-wrapper" element
     And I should see "foo" in the ".content .sidebar-wrapper" element
+
+  Scenario: News article metadata
+    When I am viewing an "elife_news_article":
+      | field_elife_title  | Foo            |
+      | field_elife_n_text | One Two Three. |
+    Then the metatag attribute "description" should have the value "One Two Three."
 
   Scenario: Follow category sidebar link
     Given "elife_n_category" terms:
