@@ -244,3 +244,7 @@ Feature: Search
     And I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
     And I should see "Foo (2)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(2)" element
     And I should see "Baz (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(3)" element
+
+  Scenario: Browse redirects
+    When I go to "/browse"
+    Then I should be on "/elife/search"
