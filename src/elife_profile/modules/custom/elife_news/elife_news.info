@@ -12,6 +12,7 @@ dependencies[] = features
 dependencies[] = file
 dependencies[] = image
 dependencies[] = insert
+dependencies[] = metatag_panels
 dependencies[] = options
 dependencies[] = page_manager
 dependencies[] = smart_trim

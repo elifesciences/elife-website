@@ -316,6 +316,17 @@ function elife_about_preprocess_html(&$vars) {
     $vars['head_title'] = implode(' | ', $title_vars);
     $vars['head_title_array']['name'] = $title_vars[1];
     $vars['head_title_array']['slogan'] = $title_vars[0];
+
+    drupal_add_html_head(
+      [
+        '#tag' => 'meta',
+        '#attributes' => [
+          'name' => 'description',
+          'content' => 'eLife - Open access to the most promising advances in science',
+        ],
+      ],
+      'description'
+    );
   }
 }
 

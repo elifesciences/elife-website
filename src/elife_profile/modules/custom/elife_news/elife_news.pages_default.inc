@@ -364,6 +364,14 @@ function elife_news_default_page_manager_pages() {
       ),
       'logic' => 'and',
     ),
+    'metatag_panels' => array(
+      'enabled' => 1,
+      'metatags' => array(
+        'description' => array(
+          'value' => 'eLife - Open access to the most promising advances in science',
+        ),
+      ),
+    ),
   );
   $display = new panels_display();
   $display->layout = 'elife_article';

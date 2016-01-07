@@ -47,17 +47,20 @@ class IsolatedDrupalContext extends DrupalContext {
     // TODO the following is a hack to have the text format set correctly.
 
     $house_style_fields = [
-      'field_elife_a_title',
-      'field_elife_c_sub_title',
-      'field_elife_c_title',
-      'field_elife_i_title',
-      'field_elife_p_title',
-      'field_elife_pc_text_inverse',
-      'field_elife_pc_title',
-      'field_elife_title',
+      'field_elife_a_title' => 'elife_house_style',
+      'field_elife_c_sub_title' => 'elife_house_style',
+      'field_elife_c_text' => 'elife_full_html',
+      'field_elife_c_title' => 'elife_house_style',
+      'field_elife_i_title' => 'elife_house_style',
+      'field_elife_n_text' => 'elife_full_html',
+      'field_elife_p_text' => 'elife_full_html',
+      'field_elife_p_title' => 'elife_house_style',
+      'field_elife_pc_text_inverse' => 'elife_house_style',
+      'field_elife_pc_title' => 'elife_house_style',
+      'field_elife_title' => 'elife_house_style',
     ];
 
-    foreach ($house_style_fields as $field) {
+    foreach ($house_style_fields as $field => $format) {
       if (empty($entity->{$field})) {
         continue;
       }
@@ -68,7 +71,7 @@ class IsolatedDrupalContext extends DrupalContext {
         }
 
         $entity->{$field}[$key] = [
-          'format' => 'elife_house_style',
+          'format' => $format,
           'value' => $value,
         ];
       }

@@ -21,6 +21,7 @@ dependencies[] = image
 dependencies[] = inline_entity_form
 dependencies[] = label_help
 dependencies[] = link
+dependencies[] = metatag_panels
 dependencies[] = number
 dependencies[] = page_manager
 dependencies[] = rules
