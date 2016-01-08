@@ -119,11 +119,6 @@ function elife_collection_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_collection';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
-    'elife_c_curators' => array(
-      'weight' => '2',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
     'title' => array(
       'weight' => '1',
       'label' => 'hidden',
@@ -283,14 +278,12 @@ function elife_collection_ds_layout_settings_info() {
       'ds_content' => array(
         0 => 'field_elife_c_image',
         1 => 'title',
-        2 => 'elife_c_curators',
-        3 => 'field_elife_c_text',
+        2 => 'field_elife_c_text',
       ),
     ),
     'fields' => array(
       'field_elife_c_image' => 'ds_content',
       'title' => 'ds_content',
-      'elife_c_curators' => 'ds_content',
       'field_elife_c_text' => 'ds_content',
     ),
     'classes' => array(
