@@ -579,8 +579,15 @@ div.highwire-markup .table-caption span.table-label {
 
 .elife-searchlist-pagerbar-rows,
 .elife-searchlist-pagerbar-count {
-	font-size: 0.86em; /* ~12px */
 	line-height: 1.33em; /* ~15px */
+}
+
+.elife-searchlist-pagerbar-count {
+	text-align: right;
+}
+
+.elife-searchlist-pagerbar-rows {
+	font-size: 0.86em; /* ~12px */
 }
 
 /* Search list quicksearch form */

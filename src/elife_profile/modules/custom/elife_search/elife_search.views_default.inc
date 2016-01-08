@@ -23,6 +23,7 @@ function elife_search_views_default_views() {
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Search';
+  $handler->display->display_options['css_class'] = 'search-form';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'none';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -45,14 +46,14 @@ function elife_search_views_default_views() {
   $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
   $handler->display->display_options['header']['webform_result']['table'] = 'views';
   $handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
-  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links<br/>
-Showing results @start&ndash;@end of @total';
+  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links
+<div class="elife-searchlist-pagerbar-count">Showing results @start&ndash;@end of @total</div>';
   /* Footer: Global: Result summary with an additional token to change the items/page */
   $handler->display->display_options['footer']['webform_result']['id'] = 'webform_result';
   $handler->display->display_options['footer']['webform_result']['table'] = 'views';
   $handler->display->display_options['footer']['webform_result']['field'] = 'webform_result';
-  $handler->display->display_options['footer']['webform_result']['content'] = '@items_per_page_links<br/>
-Showing results @start&ndash;@end of @total';
+  $handler->display->display_options['footer']['webform_result']['content'] = '@items_per_page_links
+<div class="elife-searchlist-pagerbar-count">Showing results @start&ndash;@end of @total</div>';
   /* No results behavior: Global: Unfiltered text */
   $handler->display->display_options['empty']['area_text_custom']['id'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['table'] = 'views';
@@ -145,8 +146,8 @@ Showing results @start&ndash;@end of @total';
   $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
   $handler->display->display_options['header']['webform_result']['table'] = 'views';
   $handler->display->display_options['header']['webform_result']['field'] = 'webform_result';
-  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links<br/>
-Showing results @start&ndash;@end of @total';
+  $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links
+<div class="elife-searchlist-pagerbar-count">Showing results @start&ndash;@end of @total</div>';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   /* Sort criterion: Indexed Node: First Publication Date */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
