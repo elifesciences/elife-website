@@ -31,3 +31,11 @@ Feature: Early Careers Interviews
     And I should see "Baz Qux: an interview with Foo Bar" in the ".content .main-wrapper h2" element
     And I should see "Qux" in the ".content .main-wrapper h2 i" element
     And I should see "Lorem ipsum." in the ".content .main-wrapper" element
+
+  Scenario: Interview metadata
+    When I am viewing an "elife_early_careers_interview":
+      | field_elife_i_first_name | Foo            |
+      | field_elife_i_last_name  | Bar            |
+      | field_elife_i_title      | Baz <i>Qux</i> |
+      | field_elife_i_text       | Lorem ipsum.   |
+    Then the metatag attribute "description" should have the value "Lorem ipsum."
