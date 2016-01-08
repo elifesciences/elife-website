@@ -239,13 +239,13 @@ a {
   font-size: 1.625em;
 }
 
-.ec-section--latest__item_title {
+.ec-section--latest__item-title {
   font-family: 'Avenir LT W01 85 Heavy', 'Avenir LT 95 Black', Helvetica, Arial, Verdana, sans-serif;
   line-height: 1.2em;
 }
 
-.ec-section--latest__item_text,
-.ec-section--latest__more_link {
+.ec-section--latest__item-text,
+.ec-section--latest__more-link {
   font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
   font-size: 0.875em;
   line-height: 1.4em;
@@ -353,20 +353,20 @@ a {
   padding: 1em 7%;
   text-align: center;
 }
-.ec-section--latest__item_text,
-.ec-section--showcase__item_text {
+.ec-section--latest__item-text,
+.ec-section--showcase__item-text {
   margin: 1em 0;
 }
 
-.ec-section--latest__item_text p {
+.ec-section--latest__item-text p {
   margin-bottom: 1em;
 }
 
-.ec-section--latest__item_title {
+.ec-section--latest__item-title {
   padding-bottom: 1em;
 }
 
-.ec-section--latest__more_link {
+.ec-section--latest__more-link {
   text-transform: uppercase;
   padding-left: 20px;
   background: url(../images/arrow-blue-right-sml.png) 0 3px no-repeat no-repeat;
@@ -434,7 +434,7 @@ a {
     -webkit-flex-direction: column;
     flex-direction: column;
   }
-  .ec-section--latest__item_body {
+  .ec-section--latest__item-body {
     -ms-flex: 1 1 auto;
     -webkit-flex: 1 1 auto;
     flex: 1 1 auto;

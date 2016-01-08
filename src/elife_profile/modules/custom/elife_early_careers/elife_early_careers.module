@@ -4,6 +4,8 @@
  * Code for the eLife - Early careers.
  */
 
+use Drupal\elife_article\ElifeArticleVersion;
+
 include_once 'elife_early_careers.features.inc';
 
 /**
@@ -84,6 +86,67 @@ function elife_early_careers_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements template_preprocess_node().
+ */
+function elife_early_careers_preprocess_node(&$variables) {
+  if ('elife_early_careers_spotlight' === $variables['type'] && 'teaser' === $variables['view_mode']) {
+    $node = $variables['node'];
+    $reference = node_load($node->field_elife_s_reference[LANGUAGE_NONE][0]['target_id']);
+
+    $path = 'node/' . $reference->nid;
+
+    switch ($reference->type) {
+      case 'elife_article_reference':
+        $article_version = elife_article_reference_get_article_version($reference);
+        if (!$article_version) {
+          break;
+        }
+
+        $categories = ElifeArticleVersion::getCategories($article_version->field_elife_a_article_version_id[LANGUAGE_NONE][0]['value']);
+
+        if (!empty($categories['display-channel'])) {
+          $heading = $categories['display-channel'][0];
+        }
+
+        $path = 'node/' . $article_version->nid;
+
+        break;
+      case 'elife_collection':
+        $heading = t('Collections');
+        $view_more_text = 'View more collections';
+        $view_more_path = 'collections';
+        break;
+      case 'elife_early_careers_interview':
+        $heading = t('Interviews');
+        $view_more_text = 'View more interviews';
+        $view_more_path = 'early-careers-interviews';
+        break;
+      case 'elife_news_article':
+        $heading = t('News');
+        $view_more_text = 'View more news';
+        $view_more_path = 'news';
+        break;
+      case 'elife_podcast':
+        $heading = t('Podcasts');
+        $view_more_text = 'View more podcasts';
+        $view_more_path = 'podcast';
+        break;
+      default:
+        // This is a bug if reached.
+        return;
+    }
+
+    $variables['elife_s_heading'] = '<h2 class="ec-section__heading">' . $heading . '</h2>';
+
+    $variables['elife_s_title'] = '<h3 class="ec-section--latest__item-title">' . l($node->field_elife_title[LANGUAGE_NONE][0]['safe_value'], $path, ['html' => TRUE]) . '</h3>';
+
+    if (!empty($view_more_text)) {
+      $variables['elife_s_view_more'] = l(t($view_more_text), $view_more_path, ['attributes' => ['class' => ['ec-section--latest__more-link']]]);
+    }
+  }
+}
+
+/**
  * Return the content for the early careers page.
  *
  * @return string
@@ -95,7 +158,7 @@ function elife_early_careers_page_load() {
   drupal_add_js(['elifeEarlyCareers' => ['moduleFolder' => drupal_get_path('module', 'elife_early_careers')]], 'setting');
   drupal_add_css($path . '/css/early_careers.css');
   $variables = [];
-  // TODO $variables['spotlight'] = elife_early_careers_spotlight();
+  $variables['spotlight'] = elife_early_careers_spotlight();
   $variables['profiles'] = elife_early_careers_profiles_load();
 
   $presentation_menu_name = 'menu-elife-career-pres-links';
@@ -136,6 +199,16 @@ function elife_early_careers_profiles_load() {
   }
 
   return theme('elife_early_careers_profile_wrapper', $variables);
+}
+
+/**
+ * Return the early careers spotlight items.
+ *
+ * @return string|bool
+ *   Spotlights output.
+ */
+function elife_early_careers_spotlight() {
+  return elife_person_profile_views_embed_view('elife_early_careers_spotlight');
 }
 
 /**

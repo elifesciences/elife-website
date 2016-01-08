@@ -4,3 +4,5 @@ core: 7.x
 projects:
   drupal:
     version: 7.41
+    patch:
+      - 'https://www.drupal.org/files/issues/allow_double-2009584-37.patch'
