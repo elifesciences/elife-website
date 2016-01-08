@@ -21,6 +21,15 @@ function elife_config_install() {
 }
 
 /**
+ * Implements hook_update_N().
+ *
+ * Add 'early-careers-interviews' page theme.
+ */
+function elife_config_update_7100() {
+  _elife_config_set_page_theme();
+}
+
+/**
  * Reset the page_theme table.
  */
 function _elife_config_set_page_theme() {
@@ -30,6 +39,7 @@ function _elife_config_set_page_theme() {
     'careers',
     'collections',
     'collections/*',
+    'early-careers-interviews',
     'extra',
     'labs',
     'podcast',

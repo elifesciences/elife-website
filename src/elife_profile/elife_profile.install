@@ -45,3 +45,10 @@ function elife_profile_update_7102() {
 function elife_profile_update_7103() {
   module_enable(['elife_body_field'], FALSE);
 }
+
+/**
+ * * Enable elife_early_careers_interviews.
+ */
+function elife_profile_update_7104() {
+  module_enable(['elife_early_careers_interviews'], FALSE);
+}
