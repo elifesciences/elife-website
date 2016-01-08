@@ -615,6 +615,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create elife_event content'.
+  $permissions['create elife_event content'] = array(
+    'name' => 'create elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create elife_fragment content'.
   $permissions['create elife_fragment content'] = array(
     'name' => 'create elife_fragment content',
@@ -803,6 +813,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any elife_event content'.
+  $permissions['delete any elife_event content'] = array(
+    'name' => 'delete any elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any elife_fragment content'.
   $permissions['delete any elife_fragment content'] = array(
     'name' => 'delete any elife_fragment content',
@@ -951,6 +971,16 @@ function elife_users_user_default_permissions() {
   $permissions['delete own elife_early_careers_spotlight content'] = array(
     'name' => 'delete own elife_early_careers_spotlight content',
     'roles' => array(),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own elife_event content'.
+  $permissions['delete own elife_event content'] = array(
+    'name' => 'delete own elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -1205,6 +1235,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any elife_event content'.
+  $permissions['edit any elife_event content'] = array(
+    'name' => 'edit any elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any elife_fragment content'.
   $permissions['edit any elife_fragment content'] = array(
     'name' => 'edit any elife_fragment content',
@@ -1364,6 +1404,16 @@ function elife_users_user_default_permissions() {
   $permissions['edit own elife_early_careers_spotlight content'] = array(
     'name' => 'edit own elife_early_careers_spotlight content',
     'roles' => array(),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own elife_event content'.
+  $permissions['edit own elife_event content'] = array(
+    'name' => 'edit own elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -1985,6 +2035,16 @@ function elife_users_user_default_permissions() {
   $permissions['view any unpublished elife_early_careers_spotlight content'] = array(
     'name' => 'view any unpublished elife_early_careers_spotlight content',
     'roles' => array(),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view any unpublished elife_event content'.
+  $permissions['view any unpublished elife_event content'] = array(
+    'name' => 'view any unpublished elife_event content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'view_unpublished',
   );
 

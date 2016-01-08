@@ -171,6 +171,21 @@ Feature: Navigate to editorial board
     Then I should be on "/early-careers-interviews/foo-bar"
 
   @api
+  Scenario: Event spotlight
+    Given "elife_event" content:
+      | field_elife_title | field_elife_e_date  |
+      | Foo               | 2000-01-01T00:00:00 |
+    And "elife_early_careers_spotlight" content:
+      | field_elife_title | field_elife_s_reference |
+      | Bar               | Foo                     |
+    When I go to "/careers"
+    Then I should see "Events" in the ".ec-section--latest__item .ec-section__heading" element
+    And I should see "Bar" in the ".ec-section--latest__item .ec-section--latest__item-title" element
+    And I should see "View more events" in the ".ec-section--latest__item .ec-section--latest__more-link" element
+    When I follow "Bar"
+    Then I should be on "/events/foo"
+
+  @api
   Scenario: News article spotlight
     Given "elife_news_article" content:
       | field_elife_title |

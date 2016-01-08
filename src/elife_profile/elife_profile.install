@@ -52,3 +52,12 @@ function elife_profile_update_7103() {
 function elife_profile_update_7104() {
   module_enable(['elife_early_careers_interviews'], FALSE);
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Enable elife_events.
+ */
+function elife_profile_update_7105() {
+  module_enable(['elife_events'], FALSE);
+}

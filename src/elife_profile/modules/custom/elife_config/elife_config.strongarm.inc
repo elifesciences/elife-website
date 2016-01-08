@@ -39,6 +39,8 @@ function elife_config_strongarm() {
 article-teaser--compact
 collection-teaser
 collection-teaser--compact
+event-teaser
+event-teaser--compact
 news-teaser
 person-profile
 person-profile--extended
