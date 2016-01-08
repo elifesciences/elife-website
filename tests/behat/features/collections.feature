@@ -310,8 +310,6 @@ Feature: Collections
     Then I should see an ".elife-collection__content" element
     Then I should see text matching "early-career"
     Then I should see text matching "Algoriphagus"
-    Then I should see text matching "FirstName LastName"
-    Then I should see text matching "FName LName"
     Then I should see 2 "h2.collection-teaser__title" element
 
   Scenario: Collection metadata
