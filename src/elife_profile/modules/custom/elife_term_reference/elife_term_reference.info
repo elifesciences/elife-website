@@ -4,6 +4,7 @@ package = eLife
 version = 7.x-1.0
 project = elife_term_reference
 dependencies[] = elife_article
+dependencies[] = elife_config
 dependencies[] = rabbit_hole
 dependencies[] = rh_node
 dependencies[] = semanticviews
