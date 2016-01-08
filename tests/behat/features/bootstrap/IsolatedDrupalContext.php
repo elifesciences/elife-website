@@ -57,6 +57,7 @@ class IsolatedDrupalContext extends DrupalContext {
       'field_elife_p_title' => 'elife_house_style',
       'field_elife_pc_text_inverse' => 'elife_house_style',
       'field_elife_pc_title' => 'elife_house_style',
+      'field_elife_s_text' => 'elife_house_style',
       'field_elife_title' => 'elife_house_style',
     ];
 
