@@ -18,6 +18,15 @@ function elife_early_careers_interviews_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements hook_elife_body_field().
+ */
+function elife_early_careers_interviews_elife_body_field() {
+  return [
+    'elife_early_careers_interview' => 'field_elife_i_text',
+  ];
+}
+
+/**
  * Implements hook_form_BASE_FORM_ID_alter() for node_form().
  */
 function elife_early_careers_interviews_form_node_form_alter(&$form, &$form_state) {

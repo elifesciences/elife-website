@@ -12,20 +12,46 @@
 function elife_config_install() {
   theme_enable(['elife', 'elife_newlook', 'seven']);
 
-  // Only do db_insert if the row doesn't exist already.
-  if ((db_query("SELECT ptid FROM {page_theme} WHERE theme = 'elife_newlook' AND status = '1'")->fetchField()) == 0) {
-    $field = array();
-    $field['theme'] = 'elife_newlook';
-    $field['pages'] = "<front>\nabout\ncareers\ncollections\ncollections/*\nearly-careers-interviews\nextra\nlabs\npodcast\npodcast/*";
-    $field['status'] = 1;
-    $field['weight'] = 0;
-    db_insert('page_theme')
-      ->fields($field)
-      ->execute();
-  }
+  _elife_config_set_page_theme();
 
   // Clear out CKEditor profiles. elife_full will be created by Features.
   db_delete('ckeditor_settings')
     ->condition('name', 'CKEditor Global Profile', '!=')
+    ->execute();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Add 'early-careers-interviews' page theme.
+ */
+function elife_config_update_7100() {
+  _elife_config_set_page_theme();
+}
+
+/**
+ * Reset the page_theme table.
+ */
+function _elife_config_set_page_theme() {
+  $pages = [
+    '<front>',
+    'about',
+    'careers',
+    'collections',
+    'collections/*',
+    'early-careers-interviews',
+    'extra',
+    'labs',
+    'podcast',
+    'podcast/*',
+  ];
+
+  db_merge('page_theme')
+    ->key(['theme' => 'elife_newlook'])
+    ->fields([
+      'pages' => implode("\n", $pages),
+      'status' => 1,
+      'weight' => 0,
+    ])
     ->execute();
 }
