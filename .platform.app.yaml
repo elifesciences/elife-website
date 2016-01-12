@@ -26,7 +26,7 @@ web:
     document_root: "/web"
     passthru: "/index.php"
 
-disk: 2048
+disk: 10240
 
 mounts:
     "/platform/files": "shared:files/files"
