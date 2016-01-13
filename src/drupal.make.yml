@@ -6,3 +6,4 @@ projects:
     version: 7.41
     patch:
       - 'https://www.drupal.org/files/issues/allow_double-2009584-37.patch'
+      - 'https://www.drupal.org/files/issues/add_static_cache_to-1443308-106.patch'
