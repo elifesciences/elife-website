@@ -121,6 +121,11 @@ function elife_early_careers_preprocess_node(&$variables) {
         $view_more_text = 'View more interviews';
         $view_more_path = 'early-careers-interviews';
         break;
+      case 'elife_event':
+        $heading = t('Events');
+        $view_more_text = 'View more events';
+        $view_more_path = 'events';
+        break;
       case 'elife_news_article':
         $heading = t('News');
         $view_more_text = 'View more news';

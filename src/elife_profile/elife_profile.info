@@ -133,6 +133,7 @@ dependencies[] = elife_content_alerts
 dependencies[] = elife_early_careers
 dependencies[] = elife_early_careers_interviews
 dependencies[] = elife_environment
+dependencies[] = elife_events
 dependencies[] = elife_footer
 dependencies[] = elife_front_matter
 dependencies[] = elife_header
