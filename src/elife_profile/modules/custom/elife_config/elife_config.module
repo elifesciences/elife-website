@@ -47,6 +47,9 @@ function elife_config_imagemagick_arguments_alter(&$args, $context) {
  * Implements hook_form_FORM_ID_alter() for node_form().
  */
 function elife_config_form_node_form_alter(&$form, &$form_state, $form_id) {
+  // Will be made redundant by https://www.drupal.org/node/2505235.
+  $form['revision_information']['#access'] = FALSE;
+
   if (RABBIT_HOLE_DISPLAY_CONTENT == rabbit_hole_get_action_bundle('node', $form['#bundle'])) {
     return;
   }
@@ -58,7 +61,6 @@ function elife_config_form_node_form_alter(&$form, &$form_state, $form_id) {
     'options',
     'path',
     'redirect',
-    'revision_information',
   ];
 
   foreach ($fields as $field) {

@@ -63,6 +63,7 @@ features[variable][] = elysia_cron_alert_interval
 features[variable][] = elysia_cron_default_rules
 features[variable][] = elysia_cron_stuck_time
 features[variable][] = elysia_cron_time_limit
+features[variable][] = field_sql_norevisions_entities
 features[variable][] = jquery_update_jquery_version
 features[variable][] = node_admin_theme
 features[variable][] = page_manager_node_view_disabled
