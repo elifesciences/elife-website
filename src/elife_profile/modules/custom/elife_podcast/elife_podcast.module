@@ -329,7 +329,7 @@ function elife_podcast_elife_hero_block_alter(&$content) {
   }
   elseif ('podcast' === current_path()) {
     $variables = [
-      'title' => t('eLife Podcast'),
+      'title' => t('The eLife Podcast'),
       'image_colour' => 'dark',
       'image_path' => base_path() . drupal_get_path('module', 'elife_podcast') . '/images/podcasts.png',
       'credit' => 'Image by Smith et al, subject to CC-BY 4.0',

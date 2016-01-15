@@ -64,6 +64,7 @@ Feature: Podcast
   Scenario: Podcast list metadata
     When I go to "/podcast"
     Then the metatag attribute "description" should have the value "The eLife Podcast is produced for eLife by The Naked Scientists"
+    And I should see "The eLife Podcast" in the ".hero-block__title" element
 
   Scenario: Sub-paths aren't accessible
     When I go to "/podcast/foo"
