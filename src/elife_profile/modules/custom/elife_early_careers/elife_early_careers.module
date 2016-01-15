@@ -166,15 +166,21 @@ function elife_early_careers_page_load() {
   $variables['spotlight'] = elife_early_careers_spotlight();
   $variables['profiles'] = elife_early_careers_profiles_load();
 
-  $presentation_menu_name = 'menu-elife-career-pres-links';
-  $presentation_menu_links = menu_load_links($presentation_menu_name);
-  if (!empty($presentation_menu_links)) {
-    $presentation_menu = menu_load($presentation_menu_name);
-    $variables['presentation_links_title'] = $presentation_menu['description'];
+  $presentation_menu_links = [
+    'eLife-news/Early-career-researchers-Hangout-On-Air-with-eLife' => 'Early-career researchers Hangout On Air with eLife (December 22, 2014)',
+    'eLife-news/Four-more-early-career-authors-invited-to-participate-in-a-meeting-at-one-of-eLifes-founders' => 'Four more early-career authors invited to participate in a meeting hosted by one of eLife’s founders (December 17, 2014)',
+    'elife-news/Junior-scientists-in-Hawaii-California-and-Beijing-Hangout-On-Air-with-eLife' => 'Junior scientists in Hawaii, California and Beijing Hangout On Air with eLife (June 1, 2014)',
+    'eLife-recognises-early-career-researchers' => 'eLife recognises early-career researchers; Academic editors showcase five outstanding studies (May 22, 2014)',
+    'Early-career-authors-present-their-eLife-works-at-HHMI' => 'Early career authors present their eLife works at HHMI (May 16, 2014)',
+    'elife-news/elife-selects-four-outstanding-papers-showcases-early-career-investigators' => 'eLife selects four outstanding papers, showcases early-career investigators (October 23, 2013)',
+  ];
 
-    foreach ($presentation_menu_links as $k => $link) {
-      $presentation_menu_links[$k] = [
-        'data' => l($link['link_title'], $link['link_path'], ['external' => !empty($link['external']) ? TRUE : FALSE]),
+  if (!empty($presentation_menu_links)) {
+    $variables['presentation_links_title'] = 'Read more about the eLife-sponsored presentation series';
+
+    foreach ($presentation_menu_links as $path => $text) {
+      $presentation_menu_links[$path] = [
+        'data' => l($text, $path),
         'class' => ['ec-section--presentations__list_item'],
       ];
     }
