@@ -847,7 +847,7 @@ function elife_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 0,
+      'weight' => -5,
     ),
   );
 
@@ -905,7 +905,7 @@ function elife_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 0,
+      'weight' => -5,
     ),
   );
 
