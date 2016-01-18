@@ -204,6 +204,10 @@ function elife_templates_theme_registry_alter(&$theme_registry) {
  * Implements hook_preprocess_semanticviews_view_unformatted().
  */
 function elife_templates_preprocess_semanticviews_view_unformatted(&$variables) {
+  if (!empty($variables['view']->hide_admin_links)) {
+    return;
+  }
+
   $view = $variables['view'];
   foreach ($view->result as $delta => $item) {
     if (isset($item->nid)) {
@@ -259,7 +263,7 @@ function elife_templates_article_page_markup_assets() {
   if (!$cache) {
     // Add js and css needed to help render the markup once it's in place.
     drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/elife-article-tables.css');
-    
+
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_figures.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_tables.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_references.js');
@@ -267,7 +271,7 @@ function elife_templates_article_page_markup_assets() {
     if ($scrollTo = libraries_load('jquery.scrollTo') && !empty($scrollTo['loaded'])) {
       drupal_add_js($scrollTo['files']['js']);
     }
-    
+
     $cache = TRUE;
   }
   return $cache;

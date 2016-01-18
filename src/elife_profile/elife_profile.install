@@ -68,3 +68,10 @@ function elife_profile_update_7105() {
 function elife_profile_update_7106() {
   module_enable(['elife_annual_reports'], FALSE);
 }
+
+/**
+ * Enable elife_labs.
+ */
+function elife_profile_update_7107() {
+  module_enable(['elife_labs'], FALSE);
+}
