@@ -463,9 +463,10 @@ div.highwire-markup .table-caption span.table-label {
 #fig-data .related-object .collab + .x,
 #fig-data .related-object .year {
 	font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
-	font-size: 1.3689em;
+	font-size: 1.17em;
 	line-height: 1.71em;
 }
+
 #fig-data .related-object .year {
 	font-size: 0.875em;
 }
