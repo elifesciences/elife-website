@@ -58,11 +58,9 @@ div.panel-pane div.node.article-teaser--compact {
   margin-bottom: 0.5em;
 }
 
-.article-teaser__author-list {
-  margin-bottom: 0.5em;
-}
-
+.article-teaser__author-list,
 .item-list ul.article-teaser__author-list {
+  font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
   margin-bottom: 0.5em;
 }
 
@@ -74,9 +72,11 @@ div.panel-pane div.node.article-teaser--compact {
 }
 
 .article-teaser__meta {
+  clear: left;
   color: rgb(170, 170, 170);
-  font-style: italic;
   font-size: 0.9em;
+  font-style: italic;
+  line-height: 1.8;
 }
 
 .article-teaser__heading:link, .article-teaser__heading:visited, .article-teaser__heading:hover, .article-teaser__heading:active {
@@ -95,10 +95,6 @@ div.panel-pane div.node.article-teaser--compact {
 
 .article-teaser__category:link, .article-teaser__category:visited, .article-teaser__category:hover, .article-teaser__category:active {
   color: rgb(255, 255, 255);
-}
-
-.article-teaser__category--insight {
-  background-color: rgb(251, 12, 87);
 }
 
 .article-teaser__category--news {
@@ -122,29 +118,29 @@ div.panel-pane div.node.article-teaser--compact {
 }
 
 .article-teaser__category--feature-article {
-  background-color: rgb(251, 12, 87);
+  background-color: rgb(207, 12, 78);
 }
 
 .article-teaser__category--research-article {
-  background-color: rgb(9, 114, 200);
+  background-color: rgb(39, 59, 129);
 }
 
 .article-teaser__category--advance {
-  background-color: rgb(9, 114, 200);
+  background-color: rgb(39, 59, 129);
 }
 
 .article-teaser__category--registered-report {
-  background-color: rgb(9, 114, 200);
+  background-color: rgb(39, 59, 129);
 }
 
 .article-teaser__category--replication-study {
-  background-color: rgb(9, 114, 200);
+  background-color: rgb(39, 59, 129);
 }
 
-.article-teaser__category--tools {
-  background-color: rgb(9, 114, 200);
+.article-teaser__category--tools-and-resources {
+  background-color: rgb(39, 59, 129);
 }
 
-.article-teaser__category--short {
-  background-color: rgb(9, 114, 200);
+.article-teaser__category--short-report {
+  background-color: rgb(39, 59, 129);
 }
