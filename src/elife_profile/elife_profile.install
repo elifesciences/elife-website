@@ -61,3 +61,10 @@ function elife_profile_update_7104() {
 function elife_profile_update_7105() {
   module_enable(['elife_events'], FALSE);
 }
+
+/**
+ * Enable elife_annual_reports.
+ */
+function elife_profile_update_7106() {
+  module_enable(['elife_annual_reports'], FALSE);
+}
