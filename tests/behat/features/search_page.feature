@@ -130,6 +130,47 @@ Feature: Search
     And I should see "VOR 05226"
     And I should not see "VOR 05229"
 
+  Scenario: Lens link for VOR articles
+    Given there are articles:
+    """
+        [
+          {
+            "title": "VOR 05224",
+            "version": 1,
+            "doi": "10.7554/eLife.05224",
+            "volume": 4,
+            "elocation-id": "e05224",
+            "article-id": "05224",
+            "article-version-id": "05224",
+            "pub-date": "1979-08-17T00:00:00+00:00",
+            "path": "content/4/e05224",
+            "article-type": "research-article",
+            "status": "VOR",
+            "publish": true
+          },
+          {
+            "title": "POA 05225",
+            "version": 1,
+            "doi": "10.7554/eLife.05225",
+            "volume": 4,
+            "elocation-id": "e05225",
+            "article-id": "05225",
+            "article-version-id": "05225",
+            "pub-date": "1979-08-17T00:00:00+00:00",
+            "path": "content/4/e05225",
+            "article-type": "research-article",
+            "status": "POA",
+            "publish": true
+          }
+        ]
+      """
+    And the search index is updated
+    Given I am on "/elife/search"
+    Then the response status code should be 200
+    And I should see "View in eLife Lens" in the ".article-teaser:contains('VOR 05224')" element
+    And I should see the url "http://lens.elifesciences.org/05224/index.html" in the "href" attribute of the ".article-teaser:contains('VOR 05224') .article-teaser__lens_link a" element
+    And I should not see "View in eLife Lens" in the ".article-teaser:contains('POA 05225')" element
+
   Scenario: Content types are ordered
     Given I set variable "elife_category_reference_weight" to array '["Bar", "Foo", "Baz"]'
     And there are articles:

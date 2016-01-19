@@ -33,6 +33,7 @@ features[ds_field_settings][] = node|elife_article_ver|elife_teaser_compact
 features[ds_field_settings][] = node|elife_article_ver|teaser
 features[ds_fields][] = elife_a_contributors
 features[ds_fields][] = elife_a_contributors_short
+features[ds_fields][] = elife_a_lens_link
 features[ds_fields][] = elife_a_meta
 features[ds_fields][] = elife_a_meta_compact
 features[ds_layout_settings][] = node|elife_article_ver|elife_teaser_compact

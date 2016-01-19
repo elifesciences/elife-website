@@ -148,3 +148,7 @@ div.panel-pane div.node.article-teaser--compact {
 .article-teaser__category--short {
   background-color: rgb(9, 114, 200);
 }
+
+.article-teaser__lens_link {
+  margin-top: 0.5em;
+}

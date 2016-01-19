@@ -50,6 +50,11 @@ function elife_article_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_article_ver';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
+    'elife_a_lens_link' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'elife_a_contributors' => array(
       'weight' => '2',
       'label' => 'hidden',
@@ -139,6 +144,18 @@ function elife_article_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'elife_a_lens_link';
+  $ds_field->label = 'Lens link';
+  $ds_field->field_type = 3;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'elife_article_ver|*';
+  $ds_field->properties = array();
+  $export['elife_a_lens_link'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'elife_a_meta';
   $ds_field->label = 'Meta';
   $ds_field->field_type = 3;
@@ -222,6 +239,7 @@ function elife_article_ds_layout_settings_info() {
         2 => 'elife_a_contributors',
         3 => 'field_elife_a_doi',
         4 => 'elife_a_meta',
+        5 => 'elife_a_lens_link',
       ),
     ),
     'fields' => array(
@@ -230,6 +248,7 @@ function elife_article_ds_layout_settings_info() {
       'elife_a_contributors' => 'ds_content',
       'field_elife_a_doi' => 'ds_content',
       'elife_a_meta' => 'ds_content',
+      'elife_a_lens_link' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(
