@@ -23,14 +23,34 @@ function elife_simple_pages() {
     'alerts-and-feeds' => [
       'title' => 'Alerts and feeds',
       'template' => 'alerts_and_feeds',
-      ],
+    ],
     'received-thanks' => [
       'title' => 'Received, thanks!',
       'template' => 'received_thanks',
-      ],
+    ],
     'who-we-work-with' => [
       'title' => 'Who we work with',
       'template' => 'who_we_work_with',
+    ],
+    'highlights' => [
+      'title' => 'Highlights of the journal',
+      'template' => 'highlights',
+    ],
+    'highlights-confirmation' => [
+      'title' => 'Order confirmed, thanks!',
+      'template' => 'highlights_confirmation',
+    ],
+    'for-the-press' => [
+      'title' => 'For the press',
+      'template' => 'for_the_press',
+    ],
+    'resources' => [
+      'title' => 'Resources',
+      'template' => 'resources',
+    ],
+    'major-subject-areas' => [
+      'title' => 'Major subject areas',
+      'template' => 'major_subject_areas',
     ],
   ];
 }
