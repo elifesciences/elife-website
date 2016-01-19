@@ -324,13 +324,15 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['filters']['delta']['field'] = 'delta';
   $handler->display->display_options['filters']['delta']['value']['value'] = '0';
   $handler->display->display_options['filters']['delta']['group'] = 1;
-  /* Filter criterion: Taxonomy term: Type (field_elife_category_type) */
-  $handler->display->display_options['filters']['field_elife_category_type_value']['id'] = 'field_elife_category_type_value';
-  $handler->display->display_options['filters']['field_elife_category_type_value']['table'] = 'field_data_field_elife_category_type';
-  $handler->display->display_options['filters']['field_elife_category_type_value']['field'] = 'field_elife_category_type_value';
-  $handler->display->display_options['filters']['field_elife_category_type_value']['relationship'] = 'field_elife_a_category_target_id';
-  $handler->display->display_options['filters']['field_elife_category_type_value']['value'] = 'display-channel';
-  $handler->display->display_options['filters']['field_elife_category_type_value']['group'] = 1;
+  /* Filter criterion: Content: Status (field_elife_a_status) */
+  $handler->display->display_options['filters']['field_elife_a_status_value']['id'] = 'field_elife_a_status_value';
+  $handler->display->display_options['filters']['field_elife_a_status_value']['table'] = 'field_data_field_elife_a_status';
+  $handler->display->display_options['filters']['field_elife_a_status_value']['field'] = 'field_elife_a_status_value';
+  $handler->display->display_options['filters']['field_elife_a_status_value']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['filters']['field_elife_a_status_value']['value'] = array(
+    'VOR' => 'VOR',
+  );
+  $handler->display->display_options['filters']['field_elife_a_status_value']['group'] = 1;
   /* Filter criterion: Taxonomy term: Name */
   $handler->display->display_options['filters']['name_3']['id'] = 'name_3';
   $handler->display->display_options['filters']['name_3']['table'] = 'taxonomy_term_data';
@@ -338,6 +340,13 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['filters']['name_3']['relationship'] = 'field_elife_a_category_target_id';
   $handler->display->display_options['filters']['name_3']['value'] = 'Replication study';
   $handler->display->display_options['filters']['name_3']['group'] = 2;
+  /* Filter criterion: Taxonomy term: Type (field_elife_category_type) */
+  $handler->display->display_options['filters']['field_elife_category_type_value']['id'] = 'field_elife_category_type_value';
+  $handler->display->display_options['filters']['field_elife_category_type_value']['table'] = 'field_data_field_elife_category_type';
+  $handler->display->display_options['filters']['field_elife_category_type_value']['field'] = 'field_elife_category_type_value';
+  $handler->display->display_options['filters']['field_elife_category_type_value']['relationship'] = 'field_elife_a_category_target_id';
+  $handler->display->display_options['filters']['field_elife_category_type_value']['value'] = 'display-channel';
+  $handler->display->display_options['filters']['field_elife_category_type_value']['group'] = 1;
   /* Filter criterion: Taxonomy term: Name */
   $handler->display->display_options['filters']['name_2']['id'] = 'name_2';
   $handler->display->display_options['filters']['name_2']['table'] = 'taxonomy_term_data';

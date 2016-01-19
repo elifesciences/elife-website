@@ -227,14 +227,36 @@ Feature: Front Matter
                 "Something else"
               ]
             }
+          },
+          {
+            "title": "POA 05228",
+            "version": 1,
+            "doi": "10.7554/eLife.05228.1",
+            "volume": 4,
+            "elocation-id": "e05228",
+            "article-id": "05228",
+            "article-version-id": "05228.1",
+            "pub-date": "2000-01-01T00:00:00+00:00",
+            "path": "content/4/e05228",
+            "article-type": "research-article",
+            "status": "POA",
+            "publish": true,
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            }
           }
         ]
       """
     When I go to the homepage
-    Then I should see "VOR 05225" in the ".home-article-listing__list-item:nth-child(1)" element
+    Then I should see 3 ".home-article-listing__list-item" elements
+    And I should see "VOR 05225" in the ".home-article-listing__list-item:nth-child(1)" element
     And I should see "05225" in the ".home-article-listing__list-item:nth-child(1) i" element
-    Then I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
-    Then I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element
+    And I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
+    And I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element
+    And I should not see "VOR 05227"
+    And I should not see "POA 05228"
 
   Scenario: Updated date is not shown when it's the same as the publish date
     Given there is an article:
