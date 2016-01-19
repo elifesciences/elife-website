@@ -141,6 +141,7 @@ dependencies[] = elife_header
 dependencies[] = elife_hero_block
 dependencies[] = elife_house_style
 dependencies[] = elife_http_client
+dependencies[] = elife_labs
 dependencies[] = elife_lens_link
 dependencies[] = elife_monolog
 dependencies[] = elife_news

@@ -1,0 +1,193 @@
+/* Override float: left from global.css */
+#page #section-content {
+  float: none;
+}
+
+body {
+  background-color: #e6e6e6;
+}
+
+.page-labs h1 {
+  margin-top: -9999px;
+  overflow: hidden;
+  height: 1px;
+  clear: both;
+}
+
+/* For sanity. */
+.elife-labs-list,
+.elife-labs-list * {
+  box-sizing: border-box;
+}
+
+/* Container within which to center the list. */
+.view-elife-labs .view-content {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.elife-labs-list {
+  width: auto;
+  min-width: 268px;
+  padding: 0;
+  margin: 0 auto;
+  /* Stop collapse when all children out of document flow: */
+  overflow: auto;
+}
+
+.view-elife-labs .view-empty {
+  text-align: center;
+  font-family: 'Avenir LT W01 85 Heavy', sans-serif;
+  font-size: 1.75rem;
+  font-weight: normal;
+  line-height: 6rem;
+  color: #273b81;
+}
+
+.elife-labs-tile {
+  width: 280px;
+  height:280px;
+  margin: 20px auto;
+  display: block;
+  font-family: 'Avenir LT W01 45 Book', Helvetica,Arial,Verdana,sans-serif, sans-serif;
+  background-color: #fff;
+  /* to provide a positioning context for descendants: */
+  position: relative;
+}
+
+.elife-labs-tile--description {
+  /* we don't want a positioning context for the --description variant: */
+  position: static;
+  overflow: hidden;
+}
+
+.elife-labs-tile--description {
+  box-shadow: none;
+}
+
+.elife-labs-tile__link {
+  display: block;
+  width: 280px;
+  height:280px;
+  padding: 20px;
+  text-decoration: none;
+  -webkit-box-shadow: 0 1px 2px 2px #BDBDBD;
+  -moz-box-shadow: 0 1px 2px 2px #BDBDBD;
+  -o-box-shadow: 0 1px 2px 2px #BDBDBD;
+  box-shadow: 0 1px 2px 2px #BDBDBD;
+}
+
+.elife-labs-tile__link:hover {
+  -webkit-box-shadow: 0 1px 2px 2px ;
+  /* 15% darker than non-hover state: */
+  -moz-box-shadow: 0 1px 2px 2px #979797;
+  -o-box-shadow: 0 1px 2px 2px #979797;
+  box-shadow: 0 1px 2px 2px #979797;
+}
+
+.elife-labs-tile--notlinked,
+.elife-labs-tile--description {
+  background-color: inherit;
+  /* If the tile lacks an immediate <a> element child to hold the dimensions,
+      apply the dimensions to the tile instead. */
+  width: 280px;
+  height: 280px;
+}
+
+.elife-labs-tile--notlinked:hover,
+.elife-labs-tile--description .elife-labs-tile__link,
+.elife-labs-tile--description .elife-labs-tile__link:hover{
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+}
+
+.elife-labs-tile__title {
+  font-family: 'Avenir LT W01 85 Heavy', sans-serif;
+  text-align: left;
+  padding: 0 10px;
+  margin-bottom: 1.75rem;
+  font-size: 1.75rem;
+  font-weight: normal;
+  line-height: 1.9rem;
+  color: #273b81;
+  background-color: transparent;
+}
+
+.elife-labs-tile--description .elife-labs-tile__title {
+  color: #cf0c4e;
+  padding-left: 0;
+}
+
+.elife-labs-tile--wide-image .elife-labs-tile__title {
+  color: #0560ab;
+}
+
+.elife-labs-tile--tall-image .elife-labs-tile__title {
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.elife-labs-tile--tall-image.colour-override .elife-labs-tile__title {
+  color: #0560ab;
+}
+
+.elife-labs-tile__description {
+  color: #383838;
+  font-size: 1.125rem;
+  line-height: 1.3888888;
+  margin: 0;
+}
+
+.elife-labs-tile__image {
+  display: block;
+  width: 240px;
+  position: absolute;
+}
+
+.elife-labs-tile--tall-image .elife-labs-tile__image {
+  height: 240px;
+  top: 20px;
+}
+
+.elife-labs-tile--wide-image .elife-labs-tile__image {
+  height: 140px;
+  bottom: 20px;
+}
+
+@media only all and (min-width: 608px) {
+  .elife-labs-list {
+    display: block;
+    max-width: 608px;
+    padding: 0 5px;
+    margin: 64px auto 85px auto;
+  }
+
+  .elife-labs-tile {
+    float: left;
+
+    margin: 12px 24px 12px 0;
+  }
+
+  /* Eliminate right margin from those tiles in right-most column. */
+  .elife-labs-tile:nth-of-type(2n+2) {
+    margin-right: 0;
+  }
+
+}
+
+@media only all and (min-width: 898px) {
+  .elife-labs-list {
+    max-width: 898px;
+  }
+
+  /* Eliminate right margin from those tiles in right-most column (only). */
+  li.elife-labs-tile:nth-of-type(2n+2) {
+    margin-right: 24px;
+  }
+  li.elife-labs-tile:nth-of-type(3n+3) {
+    margin-right: 0;
+  }
+}

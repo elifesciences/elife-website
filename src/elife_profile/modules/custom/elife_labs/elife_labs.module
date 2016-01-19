@@ -1,0 +1,27 @@
+<?php
+/**
+ * @file
+ * Code for the eLife Labs feature.
+ */
+
+include_once 'elife_labs.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_labs_ctools_plugin_directory($owner, $plugin_type) {
+  return 'plugins/' . $plugin_type;
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function elife_labs_page_alter(&$page) {
+  if ('labs' === current_path()) {
+    $path = drupal_get_path('module', 'elife_labs');
+    drupal_add_css($path . '/css/labs.css', [
+      'type' => 'file',
+      'group' => CSS_DEFAULT,
+    ]);
+  }
+}

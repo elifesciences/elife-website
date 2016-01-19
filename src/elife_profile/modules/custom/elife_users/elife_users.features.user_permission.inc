@@ -654,6 +654,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'create elife_labs_entry content'.
+  $permissions['create elife_labs_entry content'] = array(
+    'name' => 'create elife_labs_entry content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'create elife_news_article content'.
   $permissions['create elife_news_article content'] = array(
     'name' => 'create elife_news_article content',
@@ -862,6 +872,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'delete any elife_labs_entry content'.
+  $permissions['delete any elife_labs_entry content'] = array(
+    'name' => 'delete any elife_labs_entry content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'delete any elife_news_article content'.
   $permissions['delete any elife_news_article content'] = array(
     'name' => 'delete any elife_news_article content',
@@ -1024,6 +1044,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete own elife_front_matter content'.
   $permissions['delete own elife_front_matter content'] = array(
     'name' => 'delete own elife_front_matter content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'delete own elife_labs_entry content'.
+  $permissions['delete own elife_labs_entry content'] = array(
+    'name' => 'delete own elife_labs_entry content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -1302,6 +1332,16 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'edit any elife_labs_entry content'.
+  $permissions['edit any elife_labs_entry content'] = array(
+    'name' => 'edit any elife_labs_entry content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
   // Exported permission: 'edit any elife_news_article content'.
   $permissions['edit any elife_news_article content'] = array(
     'name' => 'edit any elife_news_article content',
@@ -1477,6 +1517,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit own elife_front_matter content'.
   $permissions['edit own elife_front_matter content'] = array(
     'name' => 'edit own elife_front_matter content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'node',
+  );
+
+  // Exported permission: 'edit own elife_labs_entry content'.
+  $permissions['edit own elife_labs_entry content'] = array(
+    'name' => 'edit own elife_labs_entry content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -2122,6 +2172,16 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_front_matter content'.
   $permissions['view any unpublished elife_front_matter content'] = array(
     'name' => 'view any unpublished elife_front_matter content',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view any unpublished elife_labs_entry content'.
+  $permissions['view any unpublished elife_labs_entry content'] = array(
+    'name' => 'view any unpublished elife_labs_entry content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
