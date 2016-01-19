@@ -374,9 +374,16 @@ function elife_article_preprocess_node(&$variables) {
 
   $node = $variables['node'];
 
-  if ('elife_article_ver' === $variables['type'] && 'VOR' === $node->field_elife_a_status[LANGUAGE_NONE][0]['value']) {
-    $lens_url = sprintf('http://lens.elifesciences.org/%s/index.html', $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
-    $variables['elife_a_lens_link'] = '<div class="article-teaser__lens_link">' . l('View in eLife Lens', $lens_url) . '</div>';
+  if ('elife_article_ver' === $variables['type']) {
+    switch ($node->field_elife_a_status[LANGUAGE_NONE][0]['value']) {
+      case 'POA':
+        $variables['elife_a_status_text'] = '<span class="article-teaser__status_text">Accepted manuscript</span>';
+        break;
+      case 'VOR':
+        $lens_url = sprintf('http://lens.elifesciences.org/%s/index.html', $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
+        $variables['elife_a_lens_link'] = '<div class="article-teaser__lens_link">' . l('View in eLife Lens', $lens_url) . '</div>';
+        break;
+    }
   }
 
   $variables['submitted'] = t('Created !created-date and last modified on !changed-date', array(
