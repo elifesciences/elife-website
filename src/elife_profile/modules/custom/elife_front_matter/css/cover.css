@@ -331,24 +331,22 @@ a {
 .home-article-listing__more_articles {
   display: inline-block;
   font-family: 'Avenir LT W01 55 Roman', 'Avenir LT 55 Roman', Helvetica, Arial, Verdana, sans-serif;
-  background-color: #273b81;
-  color: #fff;
-  -webkit-transition: color 75ms linear;
-  -moz-transition: color 75ms linear;
-  -o-transition: color 75ms linear;
   transition: color 75ms linear;
   padding: 1em;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
   border-radius: 10px;
   margin: -1em 0 0 1em;
 }
 
-.home-article-listing__more_articles:hover,
-.home-article-listing__more_articles:active,
-.home-article-listing__more_articles:focus {
+/* Need .home-article-listing-wrapper to win specificity war :-( */
+.home-article-listing-wrapper a.home-article-listing__more_articles {
+  background-color: #273b81;
+  color: #fff;
+}
+
+/* Need .home-article-listing-wrapper to win specificity war :-( */
+.home-article-listing-wrapper .home-article-listing__more_articles:hover,
+.home-article-listing-wrapper .home-article-listing__more_articles:active,
+.home-article-listing-wrapper .home-article-listing__more_articles:focus {
   color: #fff;
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
