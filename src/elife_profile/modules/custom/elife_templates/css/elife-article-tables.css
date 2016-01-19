@@ -8,6 +8,10 @@
   font-size: 1rem;
 }
 
+.table-expansion .table-label p {
+  font-size: 0.7525rem;
+}
+
 .table-expansion .table-caption {
   font-size: 12.04px;
   font-size: 0.7525rem;

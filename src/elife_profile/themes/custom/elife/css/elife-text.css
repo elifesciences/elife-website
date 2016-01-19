@@ -354,15 +354,20 @@ span.disp-formula .disp-formula-label,
 .media-caption > span,
 .fig-caption > q,
 .fig-caption > p, 
-.fig-caption > span, 
-div.highwire-markup .table-caption > p,
-div.highwire-markup .table-caption > span,
-div.highwire-markup .table-expansion table,
-div.highwire-markup .table-foot .table-footnotes li > p {
+.fig-caption > span,
+.table-caption > span,
+.table-expansion table,
+.table-foot .table-footnotes li > p {
 	font-family: Helvetica, Arial, Verdana, sans-serif;
 	font-size: 0.86em; /* ~12px */
 	font-weight: lighter;
 	line-height: 1.5em; /* ~16px */
+}
+
+.table-foot .table-footnotes {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
 }
 
 .table-inline .callout {
