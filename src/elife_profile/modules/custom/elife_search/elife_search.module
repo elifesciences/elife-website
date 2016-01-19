@@ -51,3 +51,12 @@ function elife_search_search_api_solr_documents_alter(array &$documents, SearchA
 function _elife_search_redirect() {
   drupal_goto('elife/search');
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function elife_search_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
+  if ('elife_search' === $form_state['view']->name) {
+    $form['keyword']['#attributes'] = ['placeholder' => t('Search for...')];
+  }
+}

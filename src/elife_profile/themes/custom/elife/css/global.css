@@ -68,6 +68,84 @@ table {
   margin-bottom: 10px;
 }
 
+/*
+ * SEARCH FORM
+ * Some of the selectors below to target parts of the search for are really horrible,
+ * due to the difficulty of amending the markup of some search page elements. */
+.search-form {
+  position: relative;
+}
+
+.search-form label[for="edit-keyword"],
+.screenreader-only {
+  height: 1px;
+  left: -10000px;
+  overflow: hidden;
+  position: absolute;
+  top: auto;
+  width: 1px;
+}
+
+#edit-keyword-wrapper,
+.search-form .views-widget,
+.search-form .form-text {
+  width: 100%;
+}
+
+.search-form [type="submit"] {
+  background: url('../i/button-search.png') center center no-repeat #dfdddd;
+  color: #fff;
+  height: 19px;
+  position: absolute;
+  right: 3px;
+  text-indent: -9999px;
+  top: 4.1em;
+  width: 19px;
+  z-index: 5;
+}
+
+.pager li,
+.pager li.pager-current {
+  font-weight: normal;
+}
+
+/* Overriding views.css */
+.views-exposed-form .views-exposed-widget [type="submit"] {
+  margin-top: 0;
+}
+
+.search-form [type="submit"]:hover {
+  background-color: #22a0d8;
+}
+
+.search-form .view-footer,
+.search-form .view-header {
+  font-family: 'Avenir LT W01 35 Light', Helvetica, Arial, Verdana, sans-serif;
+}
+
+@media (min-width:768px) {
+  .search-form [type="submit"] {
+    margin-top: 0;
+    top: 4.05em;
+  }
+
+  .search-form .item-list {
+    float: left;
+  }
+
+  .search-form .view-footer,
+  .search-form .view-header {
+    float: right;
+    font-size: 0.8571428571em; /* 12px / 14px */
+  }
+}
+
+.search-form:after {
+  clear: both;
+  content: '';
+  display: block;
+  float:none;
+}
 /* Lists */
 ul {
   list-style: disc outside;
@@ -218,7 +296,7 @@ hr {
   background: #929497;
   color: #fff;
   position: relative;
-  top: 1px;
+  top: 0;
 }
 
 .pager li.pager-first a,
