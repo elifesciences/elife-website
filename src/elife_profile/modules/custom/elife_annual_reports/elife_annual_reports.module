@@ -5,3 +5,49 @@
  */
 
 include_once 'elife_annual_reports.features.inc';
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for node_form().
+ */
+function elife_annual_reports_form_node_form_alter(&$form, &$form_state) {
+  if ('elife_annual_report' !== $form['#node']->type) {
+    return;
+  }
+
+  if (empty($form['#node']->field_elife_ar_year[LANGUAGE_NONE])) {
+    // If this is a new annual report, pre-populate the year.
+    if ($year = elife_annual_reports_latest_year()) {
+      $year++;
+    }
+    else {
+      $year = date('Y') - 1;
+    }
+
+    $form['field_elife_ar_year'][LANGUAGE_NONE][0]['value']['#default_value'] = $year;
+  }
+}
+
+/**
+ * Get latest year.
+ *
+ * @return int|bool
+ *   Latest year, or FALSE.
+ */
+function elife_annual_reports_latest_year() {
+  $query = (new EntityFieldQuery())
+    ->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_annual_report')
+    ->fieldOrderBy('field_elife_ar_year', 'value', 'DESC')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (!empty($result['node'])) {
+    $item = node_load('node', key($result['node']));
+
+    if (!empty($item->field_elife_ar_year[LANGUAGE_NONE])) {
+      return (int) $item->field_elife_ar_year[LANGUAGE_NONE][0]['value'];
+    }
+  }
+
+  return FALSE;
+}
