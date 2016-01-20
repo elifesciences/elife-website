@@ -744,6 +744,11 @@ a.home-article-listing__list-item__display-channel {
   text-decoration: none;
 }
 
+.home-cta__link:link,
+.home-cta__link:visited {
+  color: #fff;
+}
+
 .home-cta__link:hover,
 .home-cta__link:focus,
 .home-cta__link:active {
