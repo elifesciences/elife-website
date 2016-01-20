@@ -101,3 +101,6 @@ $conf['elife_article_almvis_ga_switch_date'] = '2015-11-11';
 
 // See https://www.drupal.org/node/2009584.
 $conf['preserve_css_double_underscores'] = TRUE;
+
+// Due to concurrency issues we can't currently process more than one article at a time.
+$conf['elife_services_locks'] = 1;
