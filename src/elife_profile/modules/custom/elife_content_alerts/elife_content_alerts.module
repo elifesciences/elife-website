@@ -1,12 +1,252 @@
 <?php
-
 /**
  * @file
- * Code for the eLife: Content Alerts module.
+ * Code for the eLife: Content Alerts feature.
  */
+
+include_once 'elife_content_alerts.features.inc';
 
 const ELIFE_CONTENT_ALERT_DEFAULT_ID = 'article_rev140402';
 const ELIFE_CONTENT_ALERT_DEFAULT_GID = '18';
+
+/**
+ * Implements hook_menu().
+ */
+function elife_content_alerts_menu() {
+  $items = [];
+  $items['admin/config/content/elife_article'] = [
+    'title' => 'Journal Articles',
+    'description' => 'Configuration options for Articles, such as Alerts.',
+    'access callback' => '_elife_content_alerts_admin_settings_access',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_content_alerts_admin_settings_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_content_alerts.admin.inc',
+  ];
+  $items['elife/content_alerts_json'] = [
+    'title' => 'eLife content alerts as JSON',
+    'page callback' => '_elife_content_alerts_as_json',
+    'access arguments' => ['access elife content alerts json'],
+  ];
+  return $items;
+}
+
+/**
+ * Return a JSON array of download data within a specific interval.
+ *
+ * AJAX function: return a JSON array of download data within a specific
+ * interval for the indicated DOI, split into abstract, full, pdf and XML
+ * downloads.
+ *
+ * Callback function from the ALM menu, set in elife_article_almvis_menu()
+ *
+ * Get the DOI.
+ * Convert the output array to JSON and set in drupal cache
+ * Return the JSON array.
+ */
+function _elife_content_alerts_as_json() {
+  $args = func_get_args();
+
+  $type = 'content_alerts_vor';
+  // Retrieve display type from first argument if present.
+  if (!empty($args[0]) && strpos($args[0], 'content_alerts_') === 0) {
+    $type = $args[0];
+    // Drop the type arg as _alerts_args doesn't understand it.
+    array_shift($args);
+  }
+
+  // Parse the dates in the url into start and end values and fetch the rest of
+  // the configured values.
+  $args = _elife_content_alerts_json_args($args);
+  $name = variable_get('elife_content_alerts_mail_template_name', t('Alerts Mailing List'));
+  $creatorid = variable_get('elife_content_alerts_mail_creator_user', '1');
+  $fromemail = variable_get('elife_content_alerts_mail_email', '');
+  $fromdisplay = variable_get('elife_content_alerts_mail_email_displayname', '');
+  $action = variable_get('elife_content_alerts_mail_action', '0');
+
+  switch ($type) {
+    case 'content_alerts_poa':
+      $recipient = variable_get('elife_content_alerts_mail_recipient_poa', 'UPCOMING - Content notifications');
+      $subject = variable_get('elife_content_alerts_mail_subject_poa', t('News from eLife'));
+      $alert_type = t('Publish on Accept');
+      $alert_type_short = t('PoA');
+      break;
+
+    case 'content_alerts_vor':
+      $recipient = variable_get('elife_content_alerts_mail_recipient_vor', 'Content notifications');
+      $subject = variable_get('elife_content_alerts_mail_subject_vor', t('News from eLife'));
+      $alert_type = t('Version of Record');
+      $alert_type_short = t('VoR');
+      break;
+
+    default:
+      $subject = '';
+      $alert_type = '';
+      break;
+  }
+
+  $startdate = new DateTime($args['start']);
+  $enddate = new DateTime($args['end']);
+  $translations = [
+    '@alert-type-short' => $alert_type_short,
+    '@alert-type-long' => $alert_type,
+    '@alert-from-date' => $startdate->format('d F, Y'),
+    '@alert-from-month' => $startdate->format('F Y'),
+    '@alert-to-date' => $enddate->format('d F, Y'),
+    '@alert-to-month' => $enddate->format('F Y'),
+  ];
+  $name = str_replace(array_keys($translations), array_values($translations), $name);
+  $subject = str_replace(array_keys($translations), array_values($translations), $subject);
+
+  switch ($action) {
+    case '1':
+      $action_str = 'create';
+      break;
+    case '2':
+      $action_str = 'send';
+      break;
+
+    case '0':
+    default:
+      $action_str = 'disable';
+      break;
+  }
+
+  $data = _elife_content_alerts_output_array($type, $args);
+  $output = [
+    'name' => $name,
+    'action' => $action_str,
+    'subject' => $subject,
+    'creator_id' => $creatorid,
+    'from_email' => $fromemail,
+    'from_name' => $fromdisplay,
+    'recipient' => $recipient,
+    'html' => $data['html'],
+    'plain' => $data['plain'],
+  ];
+
+  header('Content-Type: application/json');
+  $content = json_encode($output);
+  header('Content-Length: ' . strlen($content));
+  print $content;
+}
+
+/**
+ * Prepare plain and html version of the content alerts for use by JSON or HTML.
+ *
+ * @param string $type
+ *   Either content_alerts_vor or content_alerts_poa
+ * @param array|null $args
+ *   Provide arguments or the will be prepared
+ *
+ * @return string
+ *   Output of interface
+ */
+function _elife_content_alerts_output_array($type = 'content_alerts_vor', $args = NULL) {
+  if (empty($args)) {
+    $args = _elife_content_alerts_json_args($args);
+  }
+
+  $status = ($type == 'content_alerts_poa') ? 'POA' : 'VOR';
+
+  if ($http = drupal_http_request(url(sprintf('elife/content_alerts/%s/%s', $status, implode('--', [$args['start'], $args['end']])), ['absolute' => TRUE]))) {
+    libxml_use_internal_errors(TRUE);
+    $doc = new DOMDocument();
+    $doc->loadHTML($http->data);
+    $html = $doc->saveHTML($doc->getElementById('email'));
+    libxml_clear_errors();
+    $plain = drupal_html_to_text($html);
+
+    return [
+      'html' => $html,
+      'plain' => $plain,
+    ];
+  }
+}
+
+/**
+ * Process the arguments to return a start and end date.
+ *
+ * @param array $args
+ *   Array of arguments normally retrieved from the the url.
+ * Example:
+ * $args = array(
+ *   '2014-07-01',
+ *   '2014-06-24',
+ *   10,
+ * );
+ * @param int $history
+ *   Number of days history to return.
+ * This is only needed if valid start date not provided.
+ *
+ * @return array
+ *   Start and end date based on arguments supplied
+ */
+function _elife_content_alerts_json_args($args = array(), $history = 7) {
+  if (!empty($args[2])) {
+    $history = (int) $args[2];
+  }
+
+  // Convert days to seconds.
+  // Take 1 from history because we want x days history including end date.
+  $default_seconds = ($history - 1) * 60 * 60 * 24;
+
+  // Convert date strings to time.
+  $end = (!empty($args[0])) ? strtotime($args[0]) : time();
+  $start = (!empty($args[1])) ? strtotime($args[1]) : NULL;
+
+  // Set start date if not defined.
+  if (empty($start) || $start > $end) {
+    $start = $end - $default_seconds;
+  }
+
+  // Return array of arguments.
+  return array(
+    'end' => date('Y-m-d', $end),
+    'start' => date('Y-m-d', $start),
+  );
+}
+
+/**
+ * Return the access permission for admin settings form.
+ *
+ * @return bool
+ *   return TRUE if user has permission to access admin settings.
+ */
+function _elife_content_alerts_admin_settings_access() {
+  return user_access('administer elife content alerts')
+  || user_access('edit elife content alerts headline');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function elife_content_alerts_permission() {
+  return array(
+    'administer elife content alerts' => array(
+      'title' => t('Administer content alerts'),
+      'description' => t('Set up eLife content alert mailing Subject, From etc.'),
+    ),
+    'edit elife content alerts headline' => array(
+      'title' => t('Edit content alerts headline'),
+    ),
+    'access elife content alerts' => array(
+      'title' => t('Access content alerts interface'),
+      'description' => t('Retrieve the markup needed to introduce the eLife content alerts.'),
+    ),
+    'access elife content alerts json' => array(
+      'title' => t('Access content alerts as JSON'),
+      'description' => t('Retrieve the JSON coded version of the eLife content alerts.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_content_alerts_ctools_plugin_directory($owner, $plugin_type) {
+  return "plugins/$plugin_type";
+}
 
 /**
  * Sign up form.
@@ -54,13 +294,45 @@ function elife_content_alerts_sign_up_form($form, &$form_state, $custom_6 = NULL
 }
 
 /**
+ * Get query values for content alert links.
+ *
+ * @return array
+ */
+function _elife_content_alerts_query() {
+  return [
+    'utm_source' => 'content_alert',
+    'utm_medium' => 'email',
+    'utm_content' => 'fulltext',
+    'utm_campaign' => 'elife-alerts',
+  ];
+}
+
+/**
  * Implements hook_block_info().
  */
 function elife_content_alerts_block_info() {
-  $blocks['elife_content_alerts_sign_up'] = array(
-    'info' => t('eLife: Content alerts signup'),
-    'cache' => DRUPAL_CACHE_GLOBAL,
-  );
+  $blocks = [
+    'elife_content_alerts_sign_up' => [
+      'info' => t('eLife: Content alerts signup'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ],
+    'elife_content_alerts_header' => [
+      'info' => t('eLife: Content alerts header'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ],
+    'elife_content_alerts_logo' => [
+      'info' => t('eLife: Content alerts logo'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ],
+    'elife_content_alerts_intro' => [
+      'info' => t('eLife: Content alerts intro'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ],
+    'elife_content_alerts_date' => [
+      'info' => t('eLife: Content alerts date'),
+      'cache' => DRUPAL_CACHE_GLOBAL,
+    ],
+  ];
   return $blocks;
 }
 
@@ -71,9 +343,187 @@ function elife_content_alerts_block_view($delta = '') {
   switch ($delta) {
     case 'elife_content_alerts_sign_up':
       $sign_up_form = drupal_get_form('elife_content_alerts_sign_up_form');
-      return array(
+      return [
         'subject' => NULL,
         'content' => drupal_render($sign_up_form),
-      );
+      ];
+
+    case 'elife_content_alerts_logo':
+      $status = arg(2);
+      if ($status == 'POA') {
+        $image_src = 'http://cdn.elifesciences.org/mailing/images/elife-full-color-poa.jpg';
+      }
+      else {
+        $image_src = 'http://cdn.elifesciences.org/mailing/images/elife-full-color-vor.jpg';
+      }
+
+      $image = sprintf('<img align="left" alt="eLife" height="85" src="%s" style="float: left; border: 0px; margin-left: -10px;">', $image_src);
+      $logo = l($image, '/', ['html' => TRUE, 'absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none;']]);
+      return [
+        'subject' => NULL,
+        'content' => $logo,
+      ];
+
+    case 'elife_content_alerts_header':
+      $messages = elife_content_alerts_messages();
+      $status = arg(2);
+      return [
+        'subject' => NULL,
+        'content' => !empty($messages[$status]) ? '<p style="font-size: 12px; text-align:center;">[' . $messages[$status] . ']</p>' : NULL,
+      ];
+
+    case 'elife_content_alerts_intro':
+      $status = arg(2);
+      if ($status == 'POA') {
+        $args = [
+          '!here' => l(t('here'), 'alerts-and-feeds', ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
+        ];
+        $intro = t('<p style="font-size: 12px;">New articles this week accepted for publication in the following subject areas. <br>Manage your alert preferences !here.</p>', $args);
+      }
+      else {
+        $args = [
+          '!here' => l(t('here'), 'alerts-and-feeds', ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
+        ];
+        $intro = t('<p style="font-size: 12px;">New articles this week in the following subject areas. Manage your alert preferences !here.</p>', $args);
+      }
+
+      return [
+        'subject' => NULL,
+        'content' => $intro,
+      ];
+
+    case 'elife_content_alerts_date':
+      $dates = explode('--', arg(3));
+      $end_date = array_pop($dates);
+      return [
+        'subject' => NULL,
+        'content' => date('F j, Y', strtotime($end_date)),
+      ];
+  }
+}
+
+/**
+ * Prepare content alert marketing messages from defaults or overrides.
+ *
+ * @param array $options
+ *   Array to set the link options.
+ * @param array $values
+ *   Array to override the defaults.
+ *
+ * @return array
+ *   Array of messages for poa and vor content alerts.
+ */
+function elife_content_alerts_messages($options = [], $values = []) {
+  $options += [
+    'query' => _elife_content_alerts_query(),
+    'absolute' => TRUE,
+    'attributes' => [],
+  ];
+
+  $options['attributes'] += [
+    'style' => 'color: #0961AB; text-decoration: none;',
+  ];
+
+  $prefix = 'elife_content_alerts_mail_';
+  $out = [];
+  foreach (['POA', 'VOR'] as $type) {
+    $values += [
+      $type => [],
+    ];
+    $values[$type] += [
+      'message' => variable_get($prefix . strtolower($type) . '_mess'),
+      'link' => variable_get($prefix . strtolower($type) . '_mess_link'),
+      'date' => variable_get($prefix . strtolower($type) . '_mess_exp'),
+    ];
+
+    $output = '';
+
+    if (!empty($values[$type]['message']) || !empty($values[$type]['link'])) {
+      if (empty($values[$type]['date'])
+        || !_elife_content_alerts_messages_exp($values[$type]['date'])
+      ) {
+        if (!empty($values[$type]['message'])) {
+          $output = $values[$type]['message'];
+        }
+        if (!empty($values[$type]['link'])) {
+          if (empty($output)) {
+            $output = url($values[$type]['link'], ['absolute' => TRUE]);
+          }
+          $output = l($output, $values[$type]['link'], $options);
+        }
+      }
+    }
+
+    $out[$type] = $output;
+  }
+
+  return $out;
+}
+
+/**
+ * Check if the date has expired for content alert headline.
+ *
+ * @param string $date
+ *   Date to check as human readable string.
+ * @param string $exp_check
+ *   Date to check against as human readable string.
+ *   It can be relative e.g 'yesterday 23:59'
+ *
+ * @return bool
+ *   Has the date expired (TRUE) or not (FALSE)?
+ */
+function _elife_content_alerts_messages_exp($date, $exp_check = 'today') {
+  // Check against just before midnight on the previous day.
+  $relative_date = date('Y-m-d', strtotime($exp_check) - 24 * 60 * 60) . ' 23:59';
+
+  return strtotime($date) < strtotime($relative_date);
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function elife_content_alerts_theme_registry_alter(&$registry) {
+  $path = drupal_get_path('module', 'elife_content_alerts') . '/templates';
+  $templates = drupal_find_theme_templates($registry, '.tpl.php', $path);
+
+  foreach ($templates as $key => $value) {
+    $templates[$key]['type'] = 'module';
+    $templates[$key] += array(
+      'theme path' => drupal_get_path('module', 'elife_content_alerts'),
+    );
+  }
+
+  $registry += $templates;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function elife_content_alerts_theme($existing, $type, $theme, $path) {
+  if ($type == 'module') {
+    $template_path = $path . '/templates';
+    $templates = array(
+      'elife_content_alert' => array(
+        'variables' => array(
+          'url' => NULL,
+          'title' => NULL,
+          'contributors' => NULL,
+          'impact_statement' => NULL,
+          'related' => NULL,
+        ),
+        'template' => 'elife_content_alert',
+        'path' => $template_path,
+      ),
+    );
+    return $templates;
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function elife_content_alerts_preprocess_page(&$variables) {
+  if (in_array('page__elife__content_alerts', $variables['theme_hook_suggestions'])) {
+    drupal_add_js(drupal_get_path('module', 'elife_content_alerts') . '/js/elife_content_alerts_ui.js');
   }
 }

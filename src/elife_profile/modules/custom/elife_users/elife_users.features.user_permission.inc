@@ -76,6 +76,26 @@ function elife_users_user_default_permissions() {
     'module' => 'contextual',
   );
 
+  // Exported permission: 'access elife content alerts'.
+  $permissions['access elife content alerts'] = array(
+    'name' => 'access elife content alerts',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'elife_content_alerts',
+  );
+
+  // Exported permission: 'access elife content alerts json'.
+  $permissions['access elife content alerts json'] = array(
+    'name' => 'access elife content alerts json',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'elife_content_alerts',
+  );
+
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
@@ -171,6 +191,16 @@ function elife_users_user_default_permissions() {
       'eLife Administrator' => 'eLife Administrator',
     ),
     'module' => 'node',
+  );
+
+  // Exported permission: 'administer elife content alerts'.
+  $permissions['administer elife content alerts'] = array(
+    'name' => 'administer elife content alerts',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'elife_content_alerts',
   );
 
   // Exported permission: 'administer elife_article'.
@@ -1367,6 +1397,16 @@ function elife_users_user_default_permissions() {
     'name' => 'edit any webform content',
     'roles' => array(),
     'module' => 'node',
+  );
+
+  // Exported permission: 'edit elife content alerts headline'.
+  $permissions['edit elife content alerts headline'] = array(
+    'name' => 'edit elife content alerts headline',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'elife_content_alerts',
   );
 
   // Exported permission: 'edit meta tags'.
