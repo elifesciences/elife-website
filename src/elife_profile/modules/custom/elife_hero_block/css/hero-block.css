@@ -321,6 +321,13 @@ a.cta__link {
     padding-left: 25px;
 }
 
+.player__subscribe {
+    background: url(../images/subscribe-white.svg) no-repeat left center;
+    font-size: 0.75em;
+    margin-left: 1em;
+    padding-left: 20px;
+}
+
 /* player when inside a hero-block */
 
 .hero-block__player {
@@ -343,6 +350,8 @@ a.cta__link {
 }
 
 .hero-block__player .player__download:link,
-.hero-block__player .player__download:visited {
+.hero-block__player .player__download:visited,
+.hero-block__player .player__subscribe:link,
+.hero-block__player .player__subscribe:visited {
     color: inherit;
 }
