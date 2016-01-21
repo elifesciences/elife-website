@@ -50,13 +50,23 @@ function elife_article_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'elife_article_ver';
   $ds_fieldsetting->view_mode = 'teaser';
   $ds_fieldsetting->settings = array(
+    'elife_a_lens_link' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'elife_a_status_text' => array(
+      'weight' => '1',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'elife_a_contributors' => array(
-      'weight' => '2',
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'elife_a_meta' => array(
-      'weight' => '4',
+      'weight' => '5',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -139,6 +149,18 @@ function elife_article_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'elife_a_lens_link';
+  $ds_field->label = 'Lens link';
+  $ds_field->field_type = 3;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'elife_article_ver|*';
+  $ds_field->properties = array();
+  $export['elife_a_lens_link'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'elife_a_meta';
   $ds_field->label = 'Meta';
   $ds_field->field_type = 3;
@@ -160,6 +182,18 @@ function elife_article_ds_custom_fields_info() {
   $ds_field->ui_limit = 'elife_article_ver|*';
   $ds_field->properties = array();
   $export['elife_a_meta_compact'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'elife_a_status_text';
+  $ds_field->label = 'Status text';
+  $ds_field->field_type = 3;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = 'elife_article_ver|*';
+  $ds_field->properties = array();
+  $export['elife_a_status_text'] = $ds_field;
 
   return $export;
 }
@@ -218,18 +252,22 @@ function elife_article_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'title',
-        1 => 'field_elife_a_author_imp',
-        2 => 'elife_a_contributors',
-        3 => 'field_elife_a_doi',
-        4 => 'elife_a_meta',
+        1 => 'elife_a_status_text',
+        2 => 'field_elife_a_author_imp',
+        3 => 'elife_a_contributors',
+        4 => 'field_elife_a_doi',
+        5 => 'elife_a_meta',
+        6 => 'elife_a_lens_link',
       ),
     ),
     'fields' => array(
       'title' => 'ds_content',
+      'elife_a_status_text' => 'ds_content',
       'field_elife_a_author_imp' => 'ds_content',
       'elife_a_contributors' => 'ds_content',
       'field_elife_a_doi' => 'ds_content',
       'elife_a_meta' => 'ds_content',
+      'elife_a_lens_link' => 'ds_content',
     ),
     'classes' => array(
       'layout_class' => array(

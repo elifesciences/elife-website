@@ -252,6 +252,7 @@ Feature: Front Matter
     When I go to the homepage
     Then I should see 3 ".home-article-listing__list-item" elements
     And I should see "VOR 05225" in the ".home-article-listing__list-item:nth-child(1)" element
+    And I should see the url "http://lens.elifesciences.org/05225/index.html" in the "href" attribute of the ".home-article-listing__list-item:nth-child(1) a:contains('View in eLife Lens')" element
     And I should see "05225" in the ".home-article-listing__list-item:nth-child(1) i" element
     And I should see "VOR 05224" in the ".home-article-listing__list-item:nth-child(2)" element
     And I should see "VOR 05226" in the ".home-article-listing__list-item:nth-child(3)" element

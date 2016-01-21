@@ -53,6 +53,13 @@ div.panel-pane div.node.article-teaser--compact {
   font-size: 1.25em;
 }
 
+.article-teaser__status_text {
+  display: block;
+  color: rgb(34, 160, 216);
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
 .article-teaser__impact-statement {
   display: block;
   margin-bottom: 0.5em;
@@ -147,4 +154,8 @@ div.panel-pane div.node.article-teaser--compact {
 
 .article-teaser__category--short {
   background-color: rgb(9, 114, 200);
+}
+
+.article-teaser__lens_link {
+  margin-top: 0.5em;
 }
