@@ -29,6 +29,20 @@ function elife_header_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_menu().
+ */
+function elife_header_menu() {
+  return [
+    'major-subject-areas' => [
+      'title' => 'Major subject areas',
+      'page callback' => 'elife_header_major_subject_areas',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ],
+  ];
+}
+
+/**
  * Function to prepare the header output.
  *
  * @return string
@@ -183,66 +197,14 @@ function elife_header_header_load() {
     'data' => l(t('All categories'), 'major-subject-areas', array('attributes' => array('class' => $header_li_category_a_class))),
     'class' => $header_li_category_class,
   );
-  $header_li_category[] = array(
-    'data' => l(t('Biochemistry'), 'category/biochemistry', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Biophysics and structural biology'), 'category/biophysics-and-structural-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Cancer biology'), 'collections/reproducibility-project-cancer-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Cell biology'), 'category/cell-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Computational and systems biology'), 'category/computational-and-systems-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Developmental biology and stem cells'), 'category/developmental-biology-and-stem-cells', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Ecology'), 'category/ecology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Epidemiology and global health'), 'category/epidemiology-and-global-health', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Genes and chromosomes'), 'category/genes-and-chromosomes', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Genomics and evolutionary biology'), 'category/genomics-and-evolutionary-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Human biology and medicine'), 'category/human-biology-and-medicine', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Immunology'), 'category/immunology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Microbiology and infectious disease'), 'category/microbiology-and-infectious-disease', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Neuroscience'), 'category/neuroscience', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
-  $header_li_category[] = array(
-    'data' => l(t('Plant biology'), 'category/plant-biology', array('attributes' => array('class' => $header_li_category_a_class))),
-    'class' => array_merge($header_li_category_class, array('hidden')),
-  );
+
+  foreach (taxonomy_get_tree(taxonomy_vocabulary_machine_name_load('elife_headings')->vid) as $term) {
+    $header_li_category[] = array(
+      'data' => l($term->name, 'taxonomy/term/' . $term->tid, ['attributes' => ['class' => $header_li_category_a_class]]),
+      'class' => array_merge($header_li_category_class, ['hidden']),
+    );
+  }
+
   $variables['header_li_category'] = theme('item_list', array(
     'type' => 'ol',
     'items' => $header_li_category,
@@ -289,4 +251,24 @@ function elife_header_page_alter(&$page) {
       '#markup' => elife_header_header_load(),
     );
   }
+}
+
+/**
+ * /major-subject-areas page callback.
+ */
+function elife_header_major_subject_areas() {
+  $items = [];
+  foreach (taxonomy_get_tree(taxonomy_vocabulary_machine_name_load('elife_headings')->vid) as $term) {
+    $items[] = [
+      'data' => l($term->name, 'taxonomy/term/' . $term->tid),
+    ];
+  }
+
+  return [
+    'list' => [
+      '#theme' => 'item_list',
+      '#type' => 'ol',
+      '#items' => $items,
+    ],
+  ];
 }
