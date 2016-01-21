@@ -75,3 +75,25 @@ function elife_profile_update_7106() {
 function elife_profile_update_7107() {
   module_enable(['elife_labs'], FALSE);
 }
+
+/**
+ * Enable field_sql_norevisions.
+ */
+function elife_profile_update_7108() {
+  module_enable(['field_sql_norevisions'], FALSE);
+
+  // Remove all existing revision data.
+  module_load_include('inc', 'field_sql_norevisions', 'field_sql_norevisions.admin');
+  foreach (entity_get_info() as $entity_name => $entity) {
+    if (empty($entity['fieldable'])) {
+      continue;
+    }
+
+    foreach (array_keys($entity['bundles']) as $bundle) {
+      foreach (array_keys(field_info_instances($entity_name, $bundle)) as $field) {
+        $context = [];
+        field_sql_norevisions_batch_delete_revisions($field, $entity_name, $bundle, $context);
+      }
+    }
+  }
+}
