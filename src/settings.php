@@ -102,3 +102,6 @@ $conf['preserve_css_double_underscores'] = TRUE;
 
 // Due to concurrency issues we can't currently process more than one article at a time.
 $conf['elife_services_locks'] = 1;
+
+// Hide error messages in production, otherwise show all.
+$conf['error_level'] = (ELIFE_ENVIRONMENT_PRODUCTION === $conf['elife_environment'] ? ERROR_REPORTING_HIDE : ERROR_REPORTING_DISPLAY_ALL);
