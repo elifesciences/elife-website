@@ -3,7 +3,6 @@ description = About section of the journal site
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_about
 dependencies[] = elife_person_profile
 dependencies[] = transliteration
 files[] = elife_about.module

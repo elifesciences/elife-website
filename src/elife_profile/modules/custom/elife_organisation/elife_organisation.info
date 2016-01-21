@@ -2,7 +2,6 @@ name = eLife: Organisation
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_organisation
 dependencies[] = countries
 dependencies[] = ctools
 dependencies[] = features

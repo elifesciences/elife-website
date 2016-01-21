@@ -2,7 +2,6 @@ name = eLife: Front matter
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_front_matter
 dependencies[] = ctools
 dependencies[] = elife_article_reference
 dependencies[] = elife_content_alerts

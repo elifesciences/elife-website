@@ -2,7 +2,6 @@ name = eLife: Person Profile
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_article
 dependencies[] = auto_entitylabel
 dependencies[] = ctools
 dependencies[] = ds
