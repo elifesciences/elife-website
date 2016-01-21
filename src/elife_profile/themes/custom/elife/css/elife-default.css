@@ -309,6 +309,15 @@ img.elife-embed-fragment-image {
   width: 100%;
 }
 
+.fig-inline-img-set-carousel {
+  border-bottom: 1px solid #dfdddd;
+  margin-bottom: 10px;
+}
+
+.fig-inline-img-set-carousel .fig-inline-img-set {
+  border-bottom: none;
+}
+
 .fig-inline-img-set-carousel .elife-fig-slider-wrapper,
 .fig-inline-img-set-carousel .elife-fig-image-caption-wrapper {
   display: table-cell;
