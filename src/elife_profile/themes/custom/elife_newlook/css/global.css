@@ -1,6 +1,19 @@
 /* This file will hold styles for the mobile version of your website (mobile first). */
 /* This also can include ANY global CSS that applies site-wide. Unless overwritten by a more specific style rule, CSS declarations in global.css will apply site-wide. */
 
+a,
+a:link,
+a:visited {
+  color: #22a0d8;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+a:hover, a:active {
+  color: #6D6E70;
+  text-decoration: none;
+}
+
 #page {
     max-width: 1200px;
     margin: 0 auto;
@@ -36,3 +49,9 @@ ol.inline li {
   color: #00f;
 }
 
+h1,
+h2 {
+  font-family: 'Avenir LT W01 85 Heavy', sans-serif;
+  font-weight: normal;
+  line-height: 1.07em; /* ~30px */
+}

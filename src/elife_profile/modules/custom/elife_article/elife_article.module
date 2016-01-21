@@ -332,6 +332,7 @@ function elife_article_preprocess_node(&$variables) {
         'html' => TRUE,
         'attributes' => [
           'class' => [
+            'article-teaser__meta_part',
             'article-teaser__category',
             'article-teaser__category--' . preg_replace('/[^a-z]+/', '-', strtolower($display_channel->name)),
           ],
@@ -347,6 +348,7 @@ function elife_article_preprocess_node(&$variables) {
           'html' => TRUE,
           'attributes' => [
             'class' => [
+              'article-teaser__meta_part',
               'article-teaser__heading',
             ],
           ],
@@ -355,20 +357,20 @@ function elife_article_preprocess_node(&$variables) {
     }
 
     if (!empty($meta_parts)) {
-      $variables['elife_a_meta_compact'] = '<div class="article-teaser__meta">' . implode(' &mdash; ', $meta_parts) . '</div>';
+      $variables['elife_a_meta_compact'] = '<div class="article-teaser__meta">' . implode(' ', $meta_parts) . '</div>';
     }
 
     if (!empty($dto->getPubDate())) {
-      $meta_parts[] = 'Published on ' . $dto->getPubDate()->format('F j, Y');
+      $meta_parts[] = '<time class="article-teaser__meta_part article-teaser__datestamp" datetime="' . $dto->getPubDate()->format('Y-m-d') . '">Published on ' . $dto->getPubDate()->format('F j, Y') . '</time>';
       if (!empty($dto->getUpdate()) && $dto->getPubDate()
           ->format('Y-m-d') !== $dto->getUpdate()->format('Y-m-d')
       ) {
-        $meta_parts[] = 'Updated on ' . $dto->getUpdate()->format('F j, Y');
+        $meta_parts[] = '<time class="article-teaser__meta_part article-teaser__datestamp" datetime="' . $dto->getUpdate()->format('Y-m-d') . '">Updated on ' . $dto->getUpdate()->format('F j, Y') . '</time>';
       }
     }
 
     if (!empty($meta_parts)) {
-      $variables['elife_a_meta'] = '<div class="article-teaser__meta">' . implode(' &mdash; ', $meta_parts) . '</div>';
+      $variables['elife_a_meta'] = '<div class="article-teaser__meta">' . implode(' ', $meta_parts) . '</div>';
     }
   }
 
