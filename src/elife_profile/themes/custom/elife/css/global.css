@@ -3860,3 +3860,28 @@ ul.links.hidden-small {
 .list-simple {
   list-style: none;
 }
+
+/* TODO: dm - delete selector using id value once class value selector has been added to markup */
+#article-info-license,
+.article-info-license,
+#article-info-license *,
+.article-info-license * {
+  font-size: 0.7525rem;
+  line-height: 1.5;
+}
+
+#article-info-license *,
+.article-info-license * {
+  display: inline;
+}
+
+#article-info-license .copyright-statement,
+.article-info-license .copyright-statement {
+  list-style: none;
+  padding-left: 0;
+}
+
+#article-info-license .copyright-statement li:after,
+.article-info-license .copyright-statement li:after {
+  content: ' ';
+}
