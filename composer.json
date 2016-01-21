@@ -3,6 +3,7 @@
     "description": "The open-access eLife journal.",
     "license": "proprietary",
     "require": {
+        "predis/predis": "~1.0",
         "wikimedia/composer-merge-plugin": "~1.3@dev"
     },
     "extra": {
