@@ -3,7 +3,6 @@ Feature: Competing Interests in Footnotes
   As a reader
   I should be able to see the competing interests are declared or not by the author
 
-  @hover
   Scenario: Author has not declared competing interests
     Given there is an article:
       """
@@ -54,61 +53,87 @@ Feature: Competing Interests in Footnotes
       """
     And I go to "content/4/e05003"
     Then I should see "No competing interests declared" in the ".author-tooltip-conflict" element
-    # And I should see "No competing interests declared" in the ".author-info-title" element
 
   Scenario Outline: Author has declared competing interests
     Given there is an article:
-      """
-        {
-          "title": "VOR 00007",
-          "version": 1,
-          "doi": "10.7554/eLife.00007",
-          "volume": 1,
-          "elocation-id": "e00007",
-          "article-id": "10.7554/eLife.00007",
-          "article-version-id": "00007",
-          "pub-date": "2012-10-15T00:00:00+00:00",
-          "path": "content/1/e00007",
-          "article-type": "research-article",
-          "status": "VOR",
-          "publish": true,
-          "contributors": [
-            {
-              "equal-contrib": true,
-              "type": "author",
-              "id": "author-13",
-              "surname": "Alegado",
-              "given-names": "Rosaine",
-              "references": {
-                "affiliation": [
-                  "aff1"
-                ],
-                "competing-interest": [
-                  "conf2"
-                ]
-              }
-            }
+    """
+      {
+        "article-type": "correction",
+        "title": "Correction: A novel GTP-binding protein–adaptor protein complex responsible for export of Vangl2 from the <italic>trans</italic> Golgi network",
+        "status": "VOR",
+        "publish": true,
+        "doi": "10.7554/eLife.01328",
+        "pub-date": "2013-08-28T00:00:00+00:00",
+        "volume": 2,
+        "elocation-id": "e01328",
+        "path": "content/2/e01328v1",
+        "article-id": "01328",
+        "categories": {
+          "display-channel": [
+            "Correction"
           ],
-          "referenced": {
-            "affiliation": {
-              "aff1": {
-                "dept": "dept1",
-                "institution": "inst1",
-                "city": "city1",
-                "country": "country1"
-              }
-            },
-            "competing-interest": {
-              "conf2": "JC: Reviewing editor, <italic>eLife</italic>."
+          "heading": [
+            "Biochemistry",
+            "Cell Biology"
+          ]
+        },
+        "contributors": [
+          {
+            "type": "author",
+            "surname": "Guo",
+            "given-names": "Yusong",
+            "id": "author-1916",
+            "references": {
+              "competing-interest": [
+                "conf2"
+              ]
+            }
+          },
+          {
+            "type": "author",
+            "surname": "Zanetti",
+            "given-names": "Giulia",
+            "id": "author-2244",
+            "references": {
+              "competing-interest": [
+                "conf2"
+              ]
+            }
+          },
+          {
+            "type": "author",
+            "surname": "Schekman",
+            "given-names": "Randy",
+            "id": "author-1032",
+            "references": {
+              "competing-interest": [
+                "conf1"
+              ]
             }
           }
-        }
-      """
-    And I go to "content/1/e00007"
+        ],
+        "referenced": {
+          "competing-interest": {
+            "conf1": "RS: Editor-in-Chief, <italic>eLife</italic>.",
+            "conf2": "The other authors have declared that no competing interests exist."
+          }
+        },
+        "related-articles": [
+          {
+            "type": "corrected-article",
+            "href": "10.7554/eLife.00160"
+          }
+        ],
+        "version": 1,
+        "article-version-id": "01328.1"
+      }
+    """
+    And I go to "content/2/e01328v1"
     Then I should see "<author>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-name" element
-    And I should see "Competing Interests:" in the ".author-tooltip-label" element
-    # And I should see "Competing Interests" in the ".author-info-title" element
+    Then I should see "<competinginterest>" in the ".author-list-full li:nth-of-type(<n>) .author-tooltip .author-tooltip-conflict" element
 
     Examples:
-      | author          | n |
-      | Rosaine Alegado | 1 |
+      | author          | n | competinginterest                                |
+      | Yusong Guo      | 1 | No competing interests declared                  |
+      | Giulia Zanetti  | 2 | No competing interests declared                  |
+      | Randy Schekman  | 3 | Competing Interests: RS: Editor-in-Chief, eLife. |
