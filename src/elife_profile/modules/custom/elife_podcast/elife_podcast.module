@@ -322,6 +322,7 @@ function elife_podcast_elife_hero_block_alter(&$content) {
           'sub_title' => t('Episode @number', ['@number' => $node->field_elife_p_episode_number->value()]),
           'player' => $node->field_elife_p_url->value()['url'],
           'player_autoplay' => !empty(drupal_get_query_parameters()['autoplay']),
+          'player_subscribe' => 'http://www.thenakedscientists.com/rss/eLife_podcast.xml',
         ];
         $content = theme('elife_hero_block', $variables);
       }

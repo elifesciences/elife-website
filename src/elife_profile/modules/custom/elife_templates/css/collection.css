@@ -64,9 +64,14 @@ a {
   font-size: 0.86em;
 }
 
-.pager li a,
+.pager {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.pager li.pager-item,
 .pager li.pager-current {
-  padding: 1px 4px 0;
+  padding: 0 4px;
 }
 
 .item-list .pager li,

@@ -54,6 +54,9 @@ if (empty($image_colour)) {
           <source src="<?php print $player; ?>" type="audio/mpeg; codecs=mp3"/>
         </audio>
         <a href="<?php print $player; ?>" class="player__download">Download</a>
+        <?php if (!empty($player_subscribe)): ?>
+          <a href="<?php print $player_subscribe; ?>" class="player__subscribe">Subscribe</a>
+        <?php endif; ?>
       </div>
     <?php endif; ?>
   </div>
