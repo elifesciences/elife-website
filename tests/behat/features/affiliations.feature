@@ -720,3 +720,57 @@ Feature: Affiliations
     And I go to "content/4/e06956v1"
     Then I should see an ".elife-institution" element
     Then I should see "Max Planck Institute for Chemical Ecology, Germany" in the ".elife-institutions-list" element
+
+  Scenario: 'On behalf of' statement should be displayed in the author-list
+    Given there is an article:
+    """
+      {
+        "status": "VOR",
+        "article-type": "research-article",
+        "contributors": [
+          {
+            "type": "author",
+            "given-names": "John",
+            "surname": "Blangero",
+            "id": "author-18716"
+          },
+          {
+            "type": "author",
+            "given-names": "David",
+            "surname": "Reich",
+            "id": "author-18717"
+          },
+          {
+            "type": "author",
+            "given-names": "Molly",
+            "surname": "Przeworski",
+            "id": "author-1167"
+          },
+          {
+            "type": "on-behalf-of",
+            "on-behalf-of": "on behalf of the T2D-GENES Consortium"
+          }
+        ],
+        "pub-date": "2015-03-25T00:00:00Z",
+        "title": "Non-crossover gene conversions show strong GC bias and unexpected clustering in humans",
+        "elocation-id": "e04637",
+        "publish": true,
+        "article-version-id": "04637.1",
+        "volume": 4,
+        "doi": "10.7554/eLife.04637",
+        "version": 1,
+        "path": "content/4/e04637v1",
+        "article-id": "04637",
+        "categories": {
+          "heading": [
+            "Genes and chromosomes",
+            "Genomics and evolutionary biology"
+          ],
+          "display-channel": [
+            "Research article"
+          ]
+        }
+      }
+    """
+    And I go to "content/4/e04637v1"
+    Then I should see "John Blangero David Reich Molly Przeworski on behalf of the T2D-GENES Consortium" in the ".author-list" element
