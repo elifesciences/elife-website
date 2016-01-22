@@ -97,3 +97,10 @@ function elife_profile_update_7108() {
     }
   }
 }
+
+/**
+ * Enable elife_upcoming_articles.
+ */
+function elife_profile_update_7109() {
+  module_enable(['elife_upcoming_articles'], FALSE);
+}

@@ -22,3 +22,7 @@ Feature: Content alerts signup
   Scenario: Verify that the content alert signup form is available on the home page
     When I go to the homepage
     Then I should see a sign up form with id "homepage_rev140402" and gid "18"
+
+  Scenario: Verify that the content alert signup form is available on the upcoming articles page
+    When I go to "/upcoming"
+    Then I should see a sign up form with id "poa_rev141013" and gid "24"
