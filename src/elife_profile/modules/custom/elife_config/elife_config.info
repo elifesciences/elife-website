@@ -3,7 +3,6 @@ description = Configuration for the site
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_config
 dependencies[] = caption_filter
 dependencies[] = ckeditor
 dependencies[] = ctools

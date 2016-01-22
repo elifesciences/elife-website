@@ -2,7 +2,6 @@ name = eLife: Users
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_users
 dependencies[] = admin_menu
 dependencies[] = auto_entitylabel
 dependencies[] = better_formats

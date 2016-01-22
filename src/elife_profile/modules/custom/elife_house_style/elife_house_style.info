@@ -2,7 +2,6 @@ name = eLife: House Style
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_house_style
 dependencies[] = entity
 dependencies[] = features
 dependencies[] = filter

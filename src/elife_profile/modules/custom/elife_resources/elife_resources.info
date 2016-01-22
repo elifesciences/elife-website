@@ -3,6 +3,5 @@ description = Access resources for articles such as PDF.
 core = 7.x
 package = eLife
 version = 7.x-1.0
-project = elife_resources
 
 files[] = elife_resources.class.inc
