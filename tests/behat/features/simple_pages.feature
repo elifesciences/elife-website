@@ -19,7 +19,6 @@ Feature: Simple pages
       | highlights-confirmation     | Thank you for your order of  |
       | for-the-press               | Inquiries about published    |
       | resources                   | On the web, please link the  |
-      | major-subject-areas         | Biophysics and structural    |
 
   Scenario: Sub-paths don't resolve
     When I go to "terms-and-conditions-of-use/foo"

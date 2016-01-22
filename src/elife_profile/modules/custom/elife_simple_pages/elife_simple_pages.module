@@ -48,10 +48,6 @@ function elife_simple_pages() {
       'title' => 'Resources',
       'template' => 'resources',
     ],
-    'major-subject-areas' => [
-      'title' => 'Major subject areas',
-      'template' => 'major_subject_areas',
-    ],
   ];
 }
 

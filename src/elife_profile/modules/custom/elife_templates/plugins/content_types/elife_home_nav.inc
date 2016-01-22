@@ -44,13 +44,6 @@ function _elife_homepage_subjects() {
   $li_classes = array('home-subject-listing__list_item');
   $a_classes = array('class' => array('home-subject-listing__link'));
 
-  // Repro project wants a fake 'Cancer Biology' entry.
-  $cellbio_term = new stdClass();
-  $cellbio_term->tid = '0';
-  $cellbio_term->name = 'Cancer biology';
-  $cellbio_term->link = 'collections/reproducibility-project-cancer-biology';
-  $terms[] = $cellbio_term;
-
   // Repro items are not wanted in the homepage nav list.
   $hidden_terms = array(
     'Replication study',
