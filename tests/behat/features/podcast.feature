@@ -39,6 +39,7 @@ Feature: Podcast
     Then I should see "Podcast One" in the ".hero-block__title" element
     Then I should see "Podcast" in the ".hero-block__title i" element
     And I should see "Episode 1" in the ".hero-block__sub_title" element
+    And I should not see "Episode" in the ".pane-node-field-elife-p-chapters" element
     And I should see "Chapter One" in the ".pane-node-field-elife-p-chapters" element
     And I should see "One" in the ".pane-node-field-elife-p-chapters i" element
 
