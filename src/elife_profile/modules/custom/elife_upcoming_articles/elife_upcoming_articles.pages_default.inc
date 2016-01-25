@@ -160,7 +160,7 @@ function elife_upcoming_articles_default_page_manager_pages() {
   $display->title_pane = 'new-6c195b3d-5923-4eb4-ba14-7831df78c5b9';
   $handler->conf['display'] = $display;
   $page->default_handlers[$handler->name] = $handler;
-  $pages[''] = $page;
+  $pages['elife_upcoming_articles'] = $page;
 
   return $pages;
 
