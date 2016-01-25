@@ -8,7 +8,7 @@ Feature: News
     When I visit "/elife-news"
     Then I should see "eLife News" in the ".content .main-wrapper h1" element
     And I should see "No news articles are currently available." in the ".content .main-wrapper" element
-    And I should not see a ".content .sidebar-wrapper" element
+    And I should not see "Categories" in the ".content .sidebar-wrapper" element
 
   Scenario: News list metadata
     When I go to "/elife-news"
@@ -26,7 +26,7 @@ Feature: News
     Then I should see "eLife News" in the ".content .main-wrapper h1" element
     And I should see "Foo Bar" in the ".content .main-wrapper" element
     And I should see "Bar" in the ".content .main-wrapper i" element
-    And I should not see a ".content .sidebar-wrapper" element
+    And I should not see "Categories" in the ".content .sidebar-wrapper" element
 
   Scenario: News article with categories
     Given "elife_n_category" terms:

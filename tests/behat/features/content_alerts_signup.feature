@@ -26,3 +26,12 @@ Feature: Content alerts signup
   Scenario: Verify that the content alert signup form is available on the upcoming articles page
     When I go to "/upcoming"
     Then I should see a sign up form with id "poa_rev141013" and gid "24"
+
+  Scenario: Verify that the content alert signup form is available on the news list
+    When I go to "/elife-news"
+    Then I should see a sign up form with id "elife-news_rev140402" and gid "18"
+
+  Scenario: Verify that the content alert signup form is available on news articles
+    When I am viewing an "elife_news_article":
+      | field_elife_title | Foo |
+    Then I should see a sign up form with id "elife-news_rev140402" and gid "18"
