@@ -32,6 +32,9 @@ projects:
     version: '2.3'
   ctools:
     version: '1.9'
+    patch:
+      - 'http://cgit.drupalcode.org/ctools/patch/?id=96e56f523ce3d9609e677fcc6263cfc3e798b0ab'
+      - 'https://www.drupal.org/files/issues/ctools-php_7_undefined-2640404-2.patch'
   date:
     version: '2.9'
   diff:
@@ -44,6 +47,8 @@ projects:
       - 'https://www.drupal.org/files/issues/param_datatypes_are-2561603-2.patch'
   elysia_cron:
     version: '2.1'
+    patch:
+      - 'https://www.drupal.org/files/issues/elysia_cron-php_7-2655980-2.patch'
   entity:
     version: '1.6'
   entityreference:
@@ -194,7 +199,7 @@ projects:
   view_unpublished:
     version: '1.2'
   views:
-    version: '3.11'
+    version: '3.13'
     patch:
       - 'https://www.drupal.org/files/issues/views-row-class-underscores-1371118-16.patch'
   views_bulk_operations:
