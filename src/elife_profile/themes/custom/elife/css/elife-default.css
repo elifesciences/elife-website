@@ -566,6 +566,10 @@ ul.elife-article-categories li a {
   padding-left:0;
 }
 
+.nlm-article-title {
+  font-weight: 400;
+}
+
 /**
  * Article Title Icons
  */
