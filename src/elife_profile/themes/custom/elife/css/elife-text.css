@@ -55,6 +55,10 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 0 0.5em 0;
 }
 
+h4 {
+	line-height: 1.2;
+}
+
 #breadcrumb bold, #breadcrumb strong,
 h1 bold, h1 strong, 
 h2 bold, h2 strong, 
