@@ -60,7 +60,7 @@ function elife_search_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '%term:plural';
+  $display->title = '%term:field_elife_category_plural';
   $display->uuid = '371b13fb-282f-49d9-91a5-f5d3fb3542e0';
   $display->content = array();
   $display->panels = array();
@@ -74,7 +74,7 @@ function elife_search_default_page_manager_handlers() {
   $pane->configuration = array(
     'admin_title' => '',
     'title' => '',
-    'body' => '<h1>%term:plural</h1>',
+    'body' => '<h1>%term:field_elife_category_plural</h1>',
     'format' => 'elife_full_html',
     'substitute' => 1,
   );
@@ -253,7 +253,7 @@ function elife_search_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '%term:plural';
+  $display->title = '%term:title';
   $display->uuid = '01aab8f0-b714-4224-aed8-7d1ea27f1d7c';
   $display->content = array();
   $display->panels = array();
@@ -267,7 +267,7 @@ function elife_search_default_page_manager_handlers() {
   $pane->configuration = array(
     'admin_title' => '',
     'title' => '',
-    'body' => '<h1>%term:plural</h1>',
+    'body' => '<h1>%term:field_elife_title</h1>',
     'format' => 'elife_full_html',
     'substitute' => 1,
   );
