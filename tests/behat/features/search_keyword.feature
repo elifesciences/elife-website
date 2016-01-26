@@ -171,7 +171,7 @@ Feature: Article Search - Keywords
             }
           ]
      """
-    
+
   Scenario: Set keywords
     When the search index is updated
     Given I am on "/elife/search"
@@ -207,7 +207,11 @@ Feature: Article Search - Keywords
     And I should see "Your search yielded no results."
 
   Scenario: Filter search results on category
-    Given there are articles:
+    Given "elife_categories" terms:
+      | field_elife_title | weight |
+      | Insight           | 1      |
+      | Research article  | 0      |
+    And there are articles:
     """
         [
           {
@@ -319,9 +323,9 @@ Feature: Article Search - Keywords
     And I should see " Showing results 1–4 of 4 " in the ".main-wrapper" element
     And I should see 4 ".article-teaser__title" elements
     And I should see "Filter by content type" in the ".sidebar-wrapper" element
-    Then I should see " Apply Research article filter" in the ".sidebar-wrapper" element
+    And I should see " Apply Research article filter" in the ".sidebar-wrapper li:nth-of-type(1)" element
+    And I should see " Apply Insight filter" in the ".sidebar-wrapper li:nth-of-type(2)" element
     Then I click "Research article (3)"
     And I should see 3 ".article-teaser__title" elements
-    Then I should see " Apply Insight filter" in the ".sidebar-wrapper" element
     Then I click "Insight (1)"
     And I should see 1 ".article-teaser__title" element

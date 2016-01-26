@@ -128,20 +128,6 @@ function elife_search_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Category';
   $handler->display->display_options['defaults']['header'] = FALSE;
-  /* Header: Global: View (Views field view) */
-  $handler->display->display_options['header']['view_field']['id'] = 'view_field';
-  $handler->display->display_options['header']['view_field']['table'] = 'views';
-  $handler->display->display_options['header']['view_field']['field'] = 'view_field';
-  $handler->display->display_options['header']['view_field']['label'] = '';
-  $handler->display->display_options['header']['view_field']['element_type'] = '0';
-  $handler->display->display_options['header']['view_field']['element_label_type'] = '0';
-  $handler->display->display_options['header']['view_field']['element_label_colon'] = FALSE;
-  $handler->display->display_options['header']['view_field']['element_wrapper_type'] = '0';
-  $handler->display->display_options['header']['view_field']['element_default_classes'] = FALSE;
-  $handler->display->display_options['header']['view_field']['hide_empty'] = TRUE;
-  $handler->display->display_options['header']['view_field']['view'] = 'elife_term_description';
-  $handler->display->display_options['header']['view_field']['display'] = 'elife_term_description';
-  $handler->display->display_options['header']['view_field']['arguments'] = '%1';
   /* Header: Global: Result summary with an additional token to change the items/page */
   $handler->display->display_options['header']['webform_result']['id'] = 'webform_result';
   $handler->display->display_options['header']['webform_result']['table'] = 'views';
@@ -174,6 +160,15 @@ function elife_search_views_default_views() {
   );
   $handler->display->display_options['arguments']['search_api_views_taxonomy_term']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['search_api_views_taxonomy_term']['not'] = 0;
+  $handler->display->display_options['allow']['use_pager'] = 0;
+  $handler->display->display_options['allow']['items_per_page'] = 0;
+  $handler->display->display_options['allow']['offset'] = 0;
+  $handler->display->display_options['allow']['link_to_view'] = 0;
+  $handler->display->display_options['allow']['more_link'] = 0;
+  $handler->display->display_options['allow']['path_override'] = 0;
+  $handler->display->display_options['allow']['title_override'] = 'title_override';
+  $handler->display->display_options['allow']['exposed_form'] = 0;
+  $handler->display->display_options['allow']['fields_override'] = 0;
   $handler->display->display_options['inherit_panels_path'] = '1';
   $export['elife_search'] = $view;
 

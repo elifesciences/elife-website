@@ -104,3 +104,60 @@ function elife_profile_update_7108() {
 function elife_profile_update_7109() {
   module_enable(['elife_upcoming_articles'], FALSE);
 }
+
+/**
+ * Remove elife_term_reference.
+ */
+function elife_profile_update_7110() {
+  module_disable(['elife_term_reference'], FALSE);
+  drupal_uninstall_modules(['elife_term_reference'], FALSE);
+
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_term_reference')
+    ->execute();
+
+  if (!empty($result['node'])) {
+    foreach (node_load_multiple($nids = array_keys($result['node'])) as $existing_term_reference) {
+      /* @var EntityDrupalWrapper $existing_term_reference */
+      $existing_term_reference = entity_metadata_wrapper('node', $existing_term_reference);
+
+      $query = new EntityFieldQuery();
+      $result = $query->entityCondition('entity_type', 'taxonomy_term')
+        ->propertyCondition('vid', taxonomy_vocabulary_machine_name_load('elife_categories')->vid)
+        ->propertyCondition('name', $existing_term_reference->field_elife_ta_term->value())
+        ->execute();
+
+      if (empty($result['taxonomy_term'])) {
+        continue;
+      }
+
+      $taxonomy_term = taxonomy_term_load(key($result['taxonomy_term']));
+
+      $taxonomy_term->description = $existing_term_reference->field_elife_ta_body->value()['value'];
+      $taxonomy_term->format = 'elife_full_html';
+
+      taxonomy_term_save($taxonomy_term);
+    }
+
+    node_delete_multiple($nids);
+  }
+
+  node_type_delete('elife_term_reference');
+
+  foreach (
+    [
+      'elife_category_reference_weight',
+      'field_bundle_settings_node__elife_term_reference',
+      'menu_options_elife_term_reference',
+      'menu_parent_elife_term_reference',
+      'node_options_elife_term_reference',
+      'node_preview_elife_term_reference',
+      'node_submitted_elife_term_reference',
+      'pathauto_node_elife_term_reference_pattern',
+      'rh_module_elife_term_reference',
+      'rh_node_action_elife_term_reference',
+    ] as $variable) {
+    variable_del($variable);
+  }
+}
