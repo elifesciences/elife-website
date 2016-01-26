@@ -35,7 +35,7 @@ function elife_news_strongarm() {
         'custom_settings' => FALSE,
       ),
       'elife_teaser_compact' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'revision' => array(
         'custom_settings' => FALSE,
@@ -68,6 +68,10 @@ function elife_news_strongarm() {
           'teaser' => array(
             'weight' => '3',
             'visible' => TRUE,
+          ),
+          'elife_teaser_compact' => array(
+            'weight' => '10',
+            'visible' => FALSE,
           ),
         ),
       ),

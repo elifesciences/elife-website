@@ -42,6 +42,7 @@ collection-teaser--compact
 event-teaser
 event-teaser--compact
 news-teaser
+news-teaser--compact
 person-profile
 person-profile--extended
 person-profile-compact
