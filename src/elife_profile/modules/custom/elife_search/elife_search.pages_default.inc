@@ -182,9 +182,9 @@ function elife_search_default_page_manager_handlers() {
     'aligner_stop' => NULL,
     'override_title_markup' => NULL,
     'gid' => '',
-    'custom_6' => '',
-    'form_build_id' => 'form-gJhH0zjDOliwAQnjhbDchbL-asFTe5tx8ZvcH0s1Q_A',
-    'form_token' => 'LX2PNcfCCP-I87ynTh9XGfrugxeX_UNIHzoEWa6O7vM',
+    'custom_6' => '%term:field_elife_category_sign_up_id',
+    'form_build_id' => 'form-I0B2iD2q79MpBlHGMHrK99CpPXWeAilevApbBeN4VHg',
+    'form_token' => 'IVjU0yChch4ALGGFHf044k1x7UFouowWEiae-3eQBzU',
     'form_id' => 'elife_content_alerts_sign_up_edit',
   );
   $pane->cache = array();

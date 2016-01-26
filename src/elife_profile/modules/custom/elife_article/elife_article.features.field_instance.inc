@@ -4024,6 +4024,69 @@ function elife_article_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-elife_categories-field_elife_category_sign_up_id'.
+  $field_instances['taxonomy_term-elife_categories-field_elife_category_sign_up_id'] = array(
+    'bundle' => 'elife_categories',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_elife_category_sign_up_id',
+    'label' => 'Sign up ID',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'elife_house_style' => 'elife_house_style',
+          'elife_labs_tile' => 'elife_labs_tile',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'elife_house_style' => array(
+              'weight' => 0,
+            ),
+            'elife_labs_tile' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'label_help_description' => '',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-elife_categories-field_elife_category_type'.
   $field_instances['taxonomy_term-elife_categories-field_elife_category_type'] = array(
     'bundle' => 'elife_categories',
@@ -4321,6 +4384,7 @@ function elife_article_field_default_field_instances() {
   t('Related articles');
   t('Related object references');
   t('Role');
+  t('Sign up ID');
   t('Status');
   t('Sub article');
   t('Sub article parent');

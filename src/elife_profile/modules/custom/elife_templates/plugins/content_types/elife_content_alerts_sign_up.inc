@@ -10,6 +10,7 @@ $plugin = array(
   'category' => array('eLife'),
   'edit form' => 'elife_content_alerts_sign_up_edit',
   'render callback' => 'elife_content_alerts_sign_up_render',
+  'all contexts' => TRUE,
 );
 
 /**
@@ -21,8 +22,8 @@ function elife_content_alerts_sign_up_render($subtype, $conf, $args, $context) {
   $block = new stdClass();
   $sign_up_form = drupal_get_form(
     'elife_content_alerts_sign_up_form',
-    !empty($conf['custom_6']) ? $conf['custom_6'] : NULL,
-    !empty($conf['gid']) ? $conf['gid'] : NULL
+    !empty($conf['custom_6']) ? ctools_context_keyword_substitute($conf['custom_6'], [], $context) : NULL,
+    !empty($conf['gid']) ? ctools_context_keyword_substitute($conf['gid'], [], $context) : NULL
   );
   $block->content = drupal_render($sign_up_form);
   return $block;
@@ -37,14 +38,14 @@ function elife_content_alerts_sign_up_edit($form, &$form_state) {
   $form['gid'] = array(
     '#type' => 'textfield',
     '#title' => t('gid'),
-    '#description' => t('If left blank the gid :gid will be used', array(':id' => elife_content_alerts_sign_up_gid(FALSE))),
+    '#description' => t('If left blank the gid :gid will be used', array(':gid' => ELIFE_CONTENT_ALERT_DEFAULT_GID)),
     '#default_value' => $conf['gid'],
   );
 
   $form['custom_6'] = array(
     '#type' => 'textfield',
     '#title' => t('Sign up ID'),
-    '#description' => t('If left blank the id :id will be used', array(':id' => elife_content_alerts_sign_up_id(FALSE))),
+    '#description' => t('If left blank the id :id will be used', array(':id' => ELIFE_CONTENT_ALERT_DEFAULT_ID)),
     '#default_value' => $conf['custom_6'],
   );
 
