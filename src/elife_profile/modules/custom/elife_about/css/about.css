@@ -47,11 +47,19 @@ a {
 .about-nav {
   width: 100%;
   padding: 1em 0;
-  background-color: #000;
-  background-color: rgba(0, 0, 0, 0.4);
+  /* To prevent bleed through from a lower layer before any scrolling has occurred
+   * the background colour #8a8a8a is the non-transparent equivalent to the
+   * semi-transparent colour that is used when this element becomes fixed and overlays content
+   * (rgba(0, 0, 0, 0.4), see selector .about-nav[style*="position: fixed;"]) */
+  background-color: #8a8a8a;
   font-family: 'Avenir LT W01 35 Light', 'Avenir LT 35 Light', Helvetica, Arial, Verdana, sans-serif;
   float: left;
   z-index: 10;
+}
+
+.about-nav[style*="position: fixed;"] {
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .about-nav__list {
