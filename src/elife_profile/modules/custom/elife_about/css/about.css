@@ -806,6 +806,13 @@ a {
   font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
 }
 
+.about-submit-cta_link:link,
+.about-submit-cta_link:visited {
+  background-color: #009ade;
+  color: #fff;
+}
+
+
 @media only all and (min-width: 46.9375em) {
   .about-review-process {
     padding: 0;
