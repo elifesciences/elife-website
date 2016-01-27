@@ -482,6 +482,12 @@ a {
   font-family: 'Avenir LT W01 45 Book', 'Avenir LT 45 Book', Helvetica, Arial, Verdana, sans-serif;
 }
 
+.ec-section--cta__link:link,
+.ec-section--cta__link:visited {
+  color: #fff;
+  background-color: #009ade;
+}
+
 @media only all and (min-width: 46.9375em) {
   .ec-section--cta {
     padding: 3.75em 1em;
