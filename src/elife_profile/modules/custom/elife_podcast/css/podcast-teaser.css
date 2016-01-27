@@ -45,6 +45,10 @@ div.panel-pane div.node.podcast-teaser--compact {
     padding-left: 170px;
   }
 
+  div.panel-pane div.node.podcast-teaser--compact {
+    padding-left: 35px;
+  }
+
   .podcast-teaser__image {
     margin-left: -170px;
     width: 150px;
