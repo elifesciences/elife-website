@@ -212,7 +212,11 @@ Feature: Search
     And I should see "Accepted manuscript" in the ".article-teaser:contains('POA 05225') .article-teaser__status_text" element
 
   Scenario: Content types are ordered
-    Given I set variable "elife_category_reference_weight" to array '["Bar", "Foo", "Baz"]'
+    Given "elife_categories" terms:
+      | field_elife_title | weight |
+      | Bar               | 0      |
+      | Foo               | 1      |
+      | Baz               | 2      |
     And there are articles:
     """
         [

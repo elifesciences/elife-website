@@ -60,10 +60,66 @@ function elife_search_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '%term:plural';
+  $display->title = '%term:field_elife_category_plural';
   $display->uuid = '371b13fb-282f-49d9-91a5-f5d3fb3542e0';
   $display->content = array();
   $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-91a0e273-01f9-44e4-8449-b83237b6cfde';
+  $pane->panel = 'main';
+  $pane->type = 'custom';
+  $pane->subtype = 'custom';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'admin_title' => '',
+    'title' => '',
+    'body' => '<h1>%term:field_elife_category_plural</h1>',
+    'format' => 'elife_full_html',
+    'substitute' => 1,
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'elife-search-title',
+  );
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = '91a0e273-01f9-44e4-8449-b83237b6cfde';
+  $display->content['new-91a0e273-01f9-44e4-8449-b83237b6cfde'] = $pane;
+  $display->panels['main'][0] = 'new-91a0e273-01f9-44e4-8449-b83237b6cfde';
+  $pane = new stdClass();
+  $pane->pid = 'new-51c87d30-0223-47a9-93dc-727352751f0c';
+  $pane->panel = 'main';
+  $pane->type = 'entity_field_extra';
+  $pane->subtype = 'taxonomy_term:description';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'view_mode' => 'full',
+    'context' => 'argument_term_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'elife-search-description',
+  );
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '51c87d30-0223-47a9-93dc-727352751f0c';
+  $display->content['new-51c87d30-0223-47a9-93dc-727352751f0c'] = $pane;
+  $display->panels['main'][1] = 'new-51c87d30-0223-47a9-93dc-727352751f0c';
   $pane = new stdClass();
   $pane->pid = 'new-4113cfc8-b041-4717-bcf7-f819f1ecc0d1';
   $pane->panel = 'main';
@@ -71,18 +127,22 @@ function elife_search_default_page_manager_handlers() {
   $pane->subtype = 'elife_search-elife_search_taxonomy';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 2;
   $pane->locks = array();
   $pane->uuid = '4113cfc8-b041-4717-bcf7-f819f1ecc0d1';
   $display->content['new-4113cfc8-b041-4717-bcf7-f819f1ecc0d1'] = $pane;
-  $display->panels['main'][0] = 'new-4113cfc8-b041-4717-bcf7-f819f1ecc0d1';
+  $display->panels['main'][2] = 'new-4113cfc8-b041-4717-bcf7-f819f1ecc0d1';
   $pane = new stdClass();
   $pane->pid = 'new-56faff60-2c62-4143-a8be-7d93328137c1';
   $pane->panel = 'side_top';
@@ -122,9 +182,9 @@ function elife_search_default_page_manager_handlers() {
     'aligner_stop' => NULL,
     'override_title_markup' => NULL,
     'gid' => '',
-    'custom_6' => '',
-    'form_build_id' => 'form-gJhH0zjDOliwAQnjhbDchbL-asFTe5tx8ZvcH0s1Q_A',
-    'form_token' => 'LX2PNcfCCP-I87ynTh9XGfrugxeX_UNIHzoEWa6O7vM',
+    'custom_6' => '%term:field_elife_category_sign_up_id',
+    'form_build_id' => 'form-I0B2iD2q79MpBlHGMHrK99CpPXWeAilevApbBeN4VHg',
+    'form_token' => 'IVjU0yChch4ALGGFHf044k1x7UFouowWEiae-3eQBzU',
     'form_id' => 'elife_content_alerts_sign_up_edit',
   );
   $pane->cache = array();
@@ -193,10 +253,66 @@ function elife_search_default_page_manager_handlers() {
     ),
   );
   $display->cache = array();
-  $display->title = '%term:plural';
+  $display->title = '%term:title';
   $display->uuid = '01aab8f0-b714-4224-aed8-7d1ea27f1d7c';
   $display->content = array();
   $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-b0978c45-cd7a-44c9-8c91-ad346eb86ff2';
+  $pane->panel = 'main';
+  $pane->type = 'custom';
+  $pane->subtype = 'custom';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'admin_title' => '',
+    'title' => '',
+    'body' => '<h1>%term:field_elife_title</h1>',
+    'format' => 'elife_full_html',
+    'substitute' => 1,
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'elife-search-title',
+  );
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'b0978c45-cd7a-44c9-8c91-ad346eb86ff2';
+  $display->content['new-b0978c45-cd7a-44c9-8c91-ad346eb86ff2'] = $pane;
+  $display->panels['main'][0] = 'new-b0978c45-cd7a-44c9-8c91-ad346eb86ff2';
+  $pane = new stdClass();
+  $pane->pid = 'new-3eb79288-4886-4656-baca-286f56ea3166';
+  $pane->panel = 'main';
+  $pane->type = 'entity_field_extra';
+  $pane->subtype = 'taxonomy_term:description';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'view_mode' => 'full',
+    'context' => 'argument_term_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array(
+    'css_id' => '',
+    'css_class' => 'elife-search-description',
+  );
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '3eb79288-4886-4656-baca-286f56ea3166';
+  $display->content['new-3eb79288-4886-4656-baca-286f56ea3166'] = $pane;
+  $display->panels['main'][1] = 'new-3eb79288-4886-4656-baca-286f56ea3166';
   $pane = new stdClass();
   $pane->pid = 'new-dc205b54-fefd-4b87-8a33-389a3632062f';
   $pane->panel = 'main';
@@ -204,18 +320,22 @@ function elife_search_default_page_manager_handlers() {
   $pane->subtype = 'elife_search-elife_search_taxonomy';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array();
+  $pane->configuration = array(
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
   );
   $pane->css = array();
   $pane->extras = array();
-  $pane->position = 0;
+  $pane->position = 2;
   $pane->locks = array();
   $pane->uuid = 'dc205b54-fefd-4b87-8a33-389a3632062f';
   $display->content['new-dc205b54-fefd-4b87-8a33-389a3632062f'] = $pane;
-  $display->panels['main'][0] = 'new-dc205b54-fefd-4b87-8a33-389a3632062f';
+  $display->panels['main'][2] = 'new-dc205b54-fefd-4b87-8a33-389a3632062f';
   $pane = new stdClass();
   $pane->pid = 'new-3748b5be-6627-4119-bca9-d09aeddcbc6f';
   $pane->panel = 'side_top';

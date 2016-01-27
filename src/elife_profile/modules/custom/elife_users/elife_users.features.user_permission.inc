@@ -714,16 +714,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create elife_term_reference content'.
-  $permissions['create elife_term_reference content'] = array(
-    'name' => 'create elife_term_reference content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create mini panels'.
   $permissions['create mini panels'] = array(
     'name' => 'create mini panels',
@@ -932,16 +922,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any elife_term_reference content'.
-  $permissions['delete any elife_term_reference content'] = array(
-    'name' => 'delete any elife_term_reference content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any webform content'.
   $permissions['delete any webform content'] = array(
     'name' => 'delete any webform content',
@@ -1104,16 +1084,6 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete own elife_podcast_chapter content'.
   $permissions['delete own elife_podcast_chapter content'] = array(
     'name' => 'delete own elife_podcast_chapter content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own elife_term_reference content'.
-  $permissions['delete own elife_term_reference content'] = array(
-    'name' => 'delete own elife_term_reference content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -1392,16 +1362,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any elife_term_reference content'.
-  $permissions['edit any elife_term_reference content'] = array(
-    'name' => 'edit any elife_term_reference content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any webform content'.
   $permissions['edit any webform content'] = array(
     'name' => 'edit any webform content',
@@ -1577,16 +1537,6 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit own elife_podcast_chapter content'.
   $permissions['edit own elife_podcast_chapter content'] = array(
     'name' => 'edit own elife_podcast_chapter content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own elife_term_reference content'.
-  $permissions['edit own elife_term_reference content'] = array(
-    'name' => 'edit own elife_term_reference content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
@@ -2229,16 +2179,6 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_podcast_chapter content'.
   $permissions['view any unpublished elife_podcast_chapter content'] = array(
     'name' => 'view any unpublished elife_podcast_chapter content',
-    'roles' => array(
-      'eLife Administrator' => 'eLife Administrator',
-      'eLife Editor' => 'eLife Editor',
-    ),
-    'module' => 'view_unpublished',
-  );
-
-  // Exported permission: 'view any unpublished elife_term_reference content'.
-  $permissions['view any unpublished elife_term_reference content'] = array(
-    'name' => 'view any unpublished elife_term_reference content',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',

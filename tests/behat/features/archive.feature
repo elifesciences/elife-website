@@ -388,8 +388,18 @@ Feature: Archive
       | 2013-01-01T00:00:00+00:00 | 2013/1  | 2013/01 |
       | 2012-10-01T00:00:00+00:00 | 2012/10 | 2012/10 |
 
+  @api
   Scenario: Correct set of article types in the archive listing
-    Given I set variable "elife_category_reference_weight" to array '["Editorial", "Feature article", "Insight", "Research article", "Short report", "Tools and resources", "Research advance", "Registered report"]'
+    Given "elife_categories" terms:
+      | field_elife_title   | weight |
+      | Editorial           | 0      |
+      | Feature article     | 1      |
+      | Insight             | 2      |
+      | Research article    | 3      |
+      | Short report        | 4      |
+      | Tools and resources | 5      |
+      | Research advance    | 6      |
+      | Registered report   | 7      |
     And there are articles:
       """
         [

@@ -153,6 +153,5 @@ dependencies[] = elife_services
 dependencies[] = elife_services_config
 dependencies[] = elife_simple_pages
 dependencies[] = elife_templates
-dependencies[] = elife_term_reference
 dependencies[] = elife_upcoming_articles
 dependencies[] = elife_users

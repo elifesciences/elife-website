@@ -210,7 +210,6 @@ vcard';
       'elife_person_profile' => 1,
       'elife_podcast' => 1,
       'elife_podcast_chapter' => 1,
-      'elife_term_reference' => 1,
     ),
     'taxonomy_term' => array(
       'elife_pp_experimental_organism' => 1,

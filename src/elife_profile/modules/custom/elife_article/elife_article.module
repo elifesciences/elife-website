@@ -398,10 +398,6 @@ function elife_article_preprocess_node(&$variables) {
  * Implements hook_token_info().
  */
 function elife_article_token_info() {
-  $info['tokens']['term']['plural'] = array(
-    'name' => t('Plural name'),
-    'description' => t('Plural name, if available.'),
-  );
   $info['tokens']['node']['version_no'] = array(
     'name' => t('Version number'),
     'description' => t('Version number of article as integer.'),
@@ -431,19 +427,6 @@ function elife_article_token_info() {
 function elife_article_tokens($type, $tokens, array $data = array(), array $options = array()) {
   $replacements = array();
   $sanitize = !empty($options['sanitize']);
-
-  if ($type == 'term' && !empty($data['term'])) {
-    $term = $data['term'];
-
-    foreach ($tokens as $name => $original) {
-      switch ($name) {
-        case 'plural':
-          $plural = ElifeArticleVersion::getCategoryPlural($term->name);
-          $replacements[$original] = $sanitize ? check_plain($plural) : $plural;
-          break;
-      }
-    }
-  }
 
   if ($type == 'node' && !empty($data['node'])) {
     $node = $data['node'];
@@ -531,6 +514,29 @@ function elife_article_tokens($type, $tokens, array $data = array(), array $opti
   }
 
   return $replacements;
+}
+
+/**
+ * Implements hook_tokens_alter().
+ */
+function elife_article_tokens_alter(array &$replacements, array $context) {
+  if (
+    'entity' === $context['type']
+    &&
+    'taxonomy_term' === $context['data']['entity_type']
+    &&
+    isset($context['data']['entity']->field_elife_category_plural)
+    &&
+    (
+      empty($context['data']['entity']->field_elife_category_plural[LANGUAGE_NONE])
+      ||
+      '' === trim($context['data']['entity']->field_elife_category_plural[LANGUAGE_NONE][0]['value'])
+    )
+    &&
+    isset($context['tokens']['field_elife_category_plural'])
+  ) {
+    $replacements[$context['tokens']['field_elife_category_plural']] = $context['data']['entity']->field_elife_title[LANGUAGE_NONE][0]['value'];
+  }
 }
 
 /**

@@ -381,28 +381,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Then /^display channels should be arranged "([^"]+)"$/
-   */
-  public function displayChannelsShouldBeArranged($expected) {
-    $expected = explode(', ', $expected);
-    $actual = array();
-    $categories_vocabulary = taxonomy_vocabulary_machine_name_load('elife_categories');
-    $efq = new EntityFieldQuery();
-    $result = $efq->entityCondition('entity_type', 'taxonomy_term')
-      ->propertyCondition('vid', $categories_vocabulary->vid)
-      ->fieldCondition('field_elife_category_type', 'value', 'display-channel', '=')
-      ->propertyOrderBy('weight')
-      ->execute();
-    if (!empty($result['taxonomy_term'])) {
-      $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
-      foreach ($terms as $term) {
-        $actual[] = $term->name;
-      }
-    }
-    Assertions::assertSame($expected, $actual);
-  }
-
-  /**
    * @Given /^the "([^"]*)" hidden field should contain "([^"]*)"$/
    */
   public function theHiddenFieldShouldContain($field, $value) {

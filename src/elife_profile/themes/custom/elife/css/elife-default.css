@@ -661,7 +661,7 @@ ul.elife-article-categories li a {
   margin: 9px 0 10px 0;
 }
 
-#zone-content	.pane-elife-searchlist-title + .panel-separator {
+#zone-content	.elife-search-title + .panel-separator, #zone-content .elife-search-description + .panel-separator {
   background: transparent;
   margin: 0;
 }

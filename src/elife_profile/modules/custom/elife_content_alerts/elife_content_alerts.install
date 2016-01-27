@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Remove redundant variables.
+ */
+function elife_content_alerts_update_7100() {
+  variable_del('elife_content_alerts_sign_up_gids');
+  variable_del('elife_content_alerts_sign_up_ids');
+}

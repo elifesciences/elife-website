@@ -110,7 +110,6 @@ function elife_article_install() {
  * Implements hook_uninstall().
  */
 function elife_article_uninstall() {
-  variable_del('elife_article_category_plural');
   variable_del('elife_article_citation_service_factory');
   variable_del('elife_article_markup_service_factory');
   variable_del('elife_article_sections_available');
@@ -133,4 +132,36 @@ function elife_article_update_7100() {
 function elife_article_update_7101() {
   variable_set('elife_article_source_assets_base_path', 'http://parallel-elife-publishing-cdn.s3.amazonaws.com/');
   variable_set('elife_article_source_assets_glencoe_api', 'http://elife-dev.glencoesoftware.com/api/v1/metadata/');
+}
+
+/**
+ * Remove elife_article_category_plural variable.
+ */
+function elife_article_update_7102() {
+  $plural_terms = variable_get('elife_article_category_plural', []);
+
+  if (!empty($plural_terms)) {
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition('entity_type', 'taxonomy_term')
+      ->propertyCondition('vid', taxonomy_vocabulary_machine_name_load('elife_categories')->vid)
+      ->propertyCondition('name', array_keys($plural_terms), 'IN')
+      ->execute();
+
+    if (!empty($result['taxonomy_term'])) {
+      foreach (taxonomy_term_load_multiple(array_keys($result['taxonomy_term'])) as $term) {
+        $term->field_elife_category_plural = [
+          LANGUAGE_NONE => [
+            0 => [
+              'value' => $plural_terms[$term->name],
+              'format' => 'elife_house_style',
+            ],
+          ],
+        ];
+
+        taxonomy_term_save($term);
+      }
+    }
+  }
+
+  variable_del('elife_article_category_plural');
 }

@@ -355,28 +355,6 @@ class ElifeArticleVersion {
   }
 
   /**
-   * Return the pluralised term for category.
-   *
-   * @param string $category
-   *   Category you wish to pluralise.
-   * @param bool $force
-   *   Force the return of the singular term if plural not available.
-   *
-   * @return string|bool
-   *   Return plural string or FALSE.
-   */
-  public static function getCategoryPlural($category, $force = TRUE) {
-    $plural = ($force) ? $category : FALSE;
-    if ($plural_terms = variable_get('elife_article_category_plural', FALSE)) {
-      if (isset($plural_terms[$category])) {
-        $plural = $plural_terms[$category];
-      }
-    }
-
-    return $plural;
-  }
-
-  /**
    * Get keywords for supplied article version id.
    *
    * @param string $article_version_id

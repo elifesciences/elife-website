@@ -5,15 +5,18 @@
  * Code for the eLife: Content Alerts module.
  */
 
+const ELIFE_CONTENT_ALERT_DEFAULT_ID = 'article_rev140402';
+const ELIFE_CONTENT_ALERT_DEFAULT_GID = '18';
+
 /**
  * Sign up form.
  */
 function elife_content_alerts_sign_up_form($form, &$form_state, $custom_6 = NULL, $gid = NULL) {
   if (empty($custom_6)) {
-    $custom_6 = elife_content_alerts_sign_up_id();
+    $custom_6 = ELIFE_CONTENT_ALERT_DEFAULT_ID;
   }
   if (empty($gid)) {
-    $gid = elife_content_alerts_sign_up_gid();
+    $gid = ELIFE_CONTENT_ALERT_DEFAULT_GID;
   }
 
   $form['#attributes'] = array('class' => 'elife-sign-up-form');
@@ -48,50 +51,6 @@ function elife_content_alerts_sign_up_form($form, &$form_state, $custom_6 = NULL
     '#value' => t('SIGN UP'),
   );
   return $form;
-}
-
-/**
- * Return sign up id.
- *
- * @param bool $override_default
- *   Set to TRUE to allow default to be overridden.
- *
- * @return string
- *   Sign up form id.
- */
-function elife_content_alerts_sign_up_id($override_default = TRUE) {
-  // @todo - elife - nlisgo - add admin screen to maintain custom settings
-  $custom_ids = variable_get('elife_content_alerts_sign_up_ids', array());
-  $current_path = drupal_get_path_alias();
-  if ($override_default && is_array($custom_ids) && isset($custom_ids[$current_path])) {
-    $id = $custom_ids[$current_path];
-  }
-  else {
-    $id = variable_get('elife_content_alerts_sign_up_default_id', 'article_rev140402');
-  }
-  return $id;
-}
-
-/**
- * Return gid for sign up form.
- *
- * @param bool $override_default
- *   Set to TRUE to allow default to be overridden.
- *
- * @return string
- *   Sign up gid.
- */
-function elife_content_alerts_sign_up_gid($override_default = TRUE) {
-  // @todo - elife - nlisgo - add admin screen to maintain custom settings
-  $custom_gids = variable_get('elife_content_alerts_sign_up_gids', array());
-  $current_path = drupal_get_path_alias();
-  if ($override_default && is_array($custom_gids) && isset($custom_gids[$current_path])) {
-    $gid = $custom_gids[$current_path];
-  }
-  else {
-    $gid = variable_get('elife_content_alerts_sign_up_gid', '18');
-  }
-  return $gid;
 }
 
 /**
