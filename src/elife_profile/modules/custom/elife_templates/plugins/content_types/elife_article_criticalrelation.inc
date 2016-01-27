@@ -96,7 +96,7 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
               }
             }
             elseif ($critical_relation_type == 'original') {
-              $variables['reln_title'] = 'Original article';
+              $variables['reln_title'] = 'Original Article';
               $variables['reln_type'] = 'original-article';
               $variables['reln_type_id'] = 'originalArticle';
             }

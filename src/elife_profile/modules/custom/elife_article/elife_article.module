@@ -1705,13 +1705,23 @@ function _elife_article_xmltohtml($string) {
  *
  * @param ArticleVersion $article_version
  *   Article Object.
+ * @param array $options
+ *   Default options.
  *
  * @return array
  *   Array of display channel links
  */
-function _elife_article_display_channel_links(ArticleVersion $article_version) {
+function _elife_article_display_channel_links(ArticleVersion $article_version, $options = []) {
   $items = [];
   if (!empty($article_version->getDisplayChannels())) {
+    $options += [
+      'html' => TRUE,
+      'attributes' => [
+        'class' => [
+          'category-display-channel',
+        ],
+      ],
+    ];
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     $query->entityCondition('bundle', 'elife_categories');
@@ -1722,10 +1732,7 @@ function _elife_article_display_channel_links(ArticleVersion $article_version) {
         foreach ($result['taxonomy_term'] as $tid => $term) {
           $term = taxonomy_term_load($tid);
           // @todo - elife - nlisgo - add class for specific display channel
-          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, [
-            'html' => TRUE,
-            'attributes' => ['class' => ['category-display-channel']],
-          ]);
+          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, $options);
         }
       }
     }
@@ -1738,13 +1745,23 @@ function _elife_article_display_channel_links(ArticleVersion $article_version) {
  *
  * @param ArticleVersion $article_version
  *   Article Object.
+ * @param array $options
+ *   Default options.
  *
  * @return array
  *   Array of heading links
  */
-function _elife_article_heading_links(ArticleVersion $article_version) {
+function _elife_article_heading_links(ArticleVersion $article_version, $options = []) {
   $items = [];
   if (!empty($article_version->getHeadings())) {
+    $options += [
+      'html' => TRUE,
+      'attributes' => [
+        'class' => [
+          'category-heading',
+        ],
+      ],
+    ];
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     $query->entityCondition('bundle', 'elife_headings');
@@ -1753,10 +1770,7 @@ function _elife_article_heading_links(ArticleVersion $article_version) {
       if (isset($result['taxonomy_term']) && !empty($result['taxonomy_term'])) {
         foreach ($result['taxonomy_term'] as $tid => $term) {
           $term = taxonomy_term_load($tid);
-          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, [
-            'html' => TRUE,
-            'attributes' => ['class' => ['category-heading']],
-          ]);
+          $items[] = l($term->field_elife_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $tid, $options);
         }
       }
     }

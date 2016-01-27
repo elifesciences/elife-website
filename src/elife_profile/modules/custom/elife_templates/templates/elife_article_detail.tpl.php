@@ -18,7 +18,7 @@
 <div class="<?php print $identifier; ?>__doi">
   <?php print $doi; ?>
   <?php if ($date): ?>
-    <time class="<?php print $identifier; ?>__date"<?php print ($date_machine) ? ' datetime="' . $date_machine . '"' : ''; ?>"><?php print $date; ?></time>
+    <time class="<?php print $identifier; ?>__date"<?php print ($date_machine) ? ' datetime="' . $date_machine . '"' : ''; ?>><?php print $date; ?></time>
   <?php endif; ?>
 </div>
 <?php endif; ?>

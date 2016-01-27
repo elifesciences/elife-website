@@ -1,0 +1,117 @@
+/* Pattern: repro-study-item */
+.repro-study-item__inner {
+  display: block;
+  min-height: calc(74px + 0.5rem);
+  margin-top: 0.75rem;
+  padding: 0.5rem 0;
+  padding-top: -webkit-calc(0.5rem + 5px);
+  padding-top: calc(0.5rem + 5px);
+  background-position: 0 0.5rem;
+  background-size: 53px;
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+@media only all and (-webkit-device-pixel-ratio: 1), /* Webkit */
+(max-resolution: 1.999dppx) {
+  /* Everything else */
+  .repro-study-item--original-article .repro-study-item__inner {
+    background-image: url(../images/icon-original-article-53x74.png);
+  }
+  .repro-study-item--registered-report .repro-study-item__inner {
+    background-image: url(../images/icon-registered-report-53x74.png);
+  }
+  .repro-study-item--repln-study-pending .repro-study-item__inner {
+    background-image: url(../images/icon-replication-study-pending-53x74.png);
+  }
+  .repro-study-item--repln-study-done .repro-study-item__inner {
+    background-image: url(../images/icon-replication-study-53x74.png);
+  }
+}
+@media only all and (-webkit-device-pixel-ratio: 2), /* Webkit */
+(min-resolution: 2dppx) { /* Everything else */
+  .repro-study-item--original-article .repro-study-item__inner {
+    background-image: url(../images/icon-original-article-53x74-2x.png);
+  }
+  .repro-study-item--registered-report .repro-study-item__inner {
+    background-image: url(../images/icon-registered-report-53x74-2x.png);
+  }
+  .repro-study-item--repln-study-pending .repro-study-item__inner {
+    background-image: url(../images/icon-replication-study-pending-53x74-2x.png);
+  }
+  .repro-study-item--repln-study-done .repro-study-item__inner {
+    background-image: url(../images/icon-replication-study-53x74-2x.png);
+  }
+}
+.repro-study-item {
+  /* icon width + icon right padding + text width
+   * (Text wide enough to fit 'The Reproducibility Project: Cancer Biology' on one line.)
+   */
+  width: calc(53px + 1.125rem + 15.8rem);
+}
+.repro-study-item .repro-study-item__inner {
+  padding-left: calc(53px + 1.125rem);
+}
+.repro-study-item__type {
+  color: #0a9dd9;
+  font-family: "Avenir LT W01 85 Heavy", sans-serif;
+  text-transform: uppercase;
+  padding-bottom: 0.5rem;
+}
+.repro-study-item__type a {
+  color: #0a9dd9;
+}
+.repro-study-item__type a:hover {
+  color: #6d6e70;
+}
+.repro-study-item--repln-study-pending .repro-study-item__type {
+  color: #6d6e70;
+}
+.repro-study-item__date,
+.repro-study-item__bib_details {
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+.repro-study-item__date {
+  display: block;
+  color: #929497;
+  font-style: oblique;
+  padding-bottom: 1.2rem;
+}
+/* duplicated iin elife-article__bib_details_author_list (no sass, grrr...) */
+.repro-study-item__bib_details__author_list {
+  padding-bottom: 1.2rem;
+}
+.repro-study-item__bib_details__author_list::after {
+  content: '';
+  display: block;
+  clear: both;
+  float: none;
+}
+.repro-study-item__bib_details__author {
+  font-size: 0.8rem;
+  color: #787878;
+  display: block;
+  float: left;
+}
+.repro-study-item__bib_details__author::after {
+  content: ',\00a0';
+}
+.repro-study-item__bib_details__author:last-of-type::after {
+  content: '';
+}
+/* don't use a trailing comma before 'et al' */
+.repro-study-item__bib_details__author_list--truncated .repro-study-item__bib_details__author:nth-last-child(2)::after {
+  content: '\00a0';
+}
+.repro-study-item__bib_details__source {
+  padding-bottom: 0.4em;
+}
+.repro-study-item {
+  float: left;
+}
+@media only all and (min-width: 58.5625em) {
+  .repro-study-item:not(:first-of-type) {
+    margin-left: 2rem;
+  }
+}
+/* End: repro-study-item */

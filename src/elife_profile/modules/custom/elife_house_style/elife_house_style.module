@@ -264,3 +264,16 @@ function elife_house_style_panels_pane_content_alter($content, $pane, $args, $co
     }
   }
 }
+
+/**
+ * Apply elife_house_style filter to text string
+ *
+ * @param string $text
+ *   The text to be filtered.
+ *
+ * @return string
+ *   The text with the filter applied.
+ */
+function elife_house_style_check_markup($text) {
+  return check_markup($text, 'elife_house_style');
+}

@@ -180,6 +180,19 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'template' => 'elife_video',
         'path' => $template_path,
       ),
+      'elife_article_repro_hero' => array(
+        'variables' => array(
+          'sticky_list' => NULL,
+        ),
+        'template' => 'elife_article_repro_hero',
+        'path' => $template_path,
+      ),
+      'elife_article_repro_belongs_to' => array(
+        'variables' => array(
+        ),
+        'template' => 'elife_article_repro_belongs_to',
+        'path' => $template_path,
+      ),
     );
     return $templates;
   }
@@ -188,16 +201,18 @@ function elife_templates_theme($existing, $type, $theme, $path) {
 /**
  * Implements hook_theme_registry_alter().
  */
-function elife_templates_theme_registry_alter(&$theme_registry) {
-  $theme_registries = array(
-    'views_view_unformatted',
-    'semanticviews_view_unformatted',
-  );
-  foreach ($theme_registries as $tr) {
-    if (isset($theme_registry[$tr])) {
-      $theme_registry[$tr]['path'] = drupal_get_path('module', 'elife_templates') . '/templates';
-    }
+function elife_templates_theme_registry_alter(&$registry) {
+  $path = drupal_get_path('module', 'elife_templates') . '/templates';
+  $templates = drupal_find_theme_templates($registry, '.tpl.php', $path);
+
+  foreach ($templates as $key => $value) {
+    $templates[$key]['type'] = 'module';
+    $templates[$key] += array(
+      'theme path' => drupal_get_path('module', 'elife_templates'),
+    );
   }
+
+  $registry += $templates;
 }
 
 /**

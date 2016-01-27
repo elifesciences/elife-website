@@ -1,0 +1,97 @@
+/* Pattern: sticky-list */
+.sticky-list {
+  box-sizing: border-box;
+}
+.sticky-list * {
+  box-sizing: inherit;
+}
+.sticky-list__item {
+  font-size: 0.9rem;
+  padding: 1em 0;
+}
+.sticky-list__item__type {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding-bottom: 1rem;
+}
+.sticky-list__item__title {
+  color: #0a9dd9;
+  line-height: 1.3;
+}
+a .sticky-list__item__title:hover {
+  color: #6d6e70;
+}
+.sticky-list__item--feature-article .sticky-list__item__type {
+  color: #cf0c4e;
+}
+.sticky-list__item--editorial .sticky-list__item__type {
+  color: #0961ab;
+}
+.sticky-list__item--insight .sticky-list__item__type {
+  color: #629f43;
+}
+.sticky-list__item--research-article .sticky-list__item__type {
+  color: #273b81;
+}
+.sticky-list__item--registered-report .sticky-list__item__type {
+  color: #273b81;
+}
+.sticky-list__item--replication-study .sticky-list__item__type {
+  color: #273b81;
+}
+.sticky-list__item--research-advance .sticky-list__item__type {
+  color: #273b81;
+}
+.sticky-list__item--short-report .sticky-list__item__type {
+  color: #273b81;
+}
+.sticky-list__item--podcast .sticky-list__item__type {
+  color: #732060;;
+}
+.sticky-list__item--news .sticky-list__item__type {
+  color: #0a9dd9;
+}
+/* N.B. When used with the hero pattern, this break point must be the same as that patterns' */
+@media only all and (min-width: 64em) {
+  .sticky-list {
+    padding-left: 1em;
+    float: right;
+    max-width: 16.8em;
+  }
+  li.sticky-list__item:first-of-type {
+    border-top-width: 9px;
+    border-top-style: solid;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  li.sticky-list__item--feature-article:first-of-type {
+    border-top-color: #cf0c4e;
+  }
+  li.sticky-list__item--editorial:first-of-type {
+    border-top-color: #0961ab;
+  }
+  li.sticky-list__item--insight:first-of-type {
+    border-top-color: #629f43;
+  }
+  li.sticky-list__item--research-article:first-of-type {
+    border-top-color: #273b81;
+  }
+  li.sticky-list__item--registered-report:first-of-type {
+    border-top-color: #273b81;
+  }
+  li.sticky-list__item--replication-study:first-of-type {
+    border-top-color: #273b81;
+  }
+  li.sticky-list__item--research-advance:first-of-type {
+    border-top-color: #273b81;
+  }
+  li.sticky-list__item--short-report:first-of-type {
+    border-top-color: #273b81;
+  }
+  li.sticky-list__item--podcast:first-of-type {
+    border-top-color: #732060;
+  }
+  li.sticky-list__item--news:first-of-type {
+    border-top-color: #0a9dd9;
+  }
+}
+/* End: sticky-list */

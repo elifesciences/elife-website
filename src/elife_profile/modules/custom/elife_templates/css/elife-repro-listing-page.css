@@ -1,0 +1,38 @@
+/* Non-pattern-specific styles */
+body.reproducibility-project {
+  background-color: rgb(230, 230, 230);
+}
+.reproducibility-project .page_header {
+  margin-bottom: 0;
+}
+.reproducibility-project .region-content-inner {
+  width: 100vw;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.left {
+  float: left;
+}
+
+.article-listing {
+  background-color: #fff;
+  max-width: 1100px;
+  /* min 50px image to left and right of box */
+  min-height: 500px;
+  box-sizing: border-box;
+  padding: 0 0.5em 1em;
+  border-top: 9px solid #0961ab;
+}
+.article-listing-heading {
+  font-family: "Avenir LT W01 45 Book", sans-serif;
+  color: #929497;
+  font-size: 1.4rem;
+  padding: 1.4rem 0;
+}
+@media only all and (min-width: 62em) {
+  .article-listing {
+    margin: 0 auto;
+    padding: 0 2em 1em;
+  }
+}
