@@ -27,10 +27,10 @@ div.panel-pane div.node.podcast-teaser--compact {
 }
 
 .podcast-teaser__title {
-  font-size: 1.5em;
-  line-height: 1.25;
+  font-size: 1.15625rem;
+  line-height: 1.1351351351;
   font-weight: bold;
-  margin-bottom: 0.5em;
+  margin-bottom: 5px;
 }
 
 .podcast-teaser__image {
