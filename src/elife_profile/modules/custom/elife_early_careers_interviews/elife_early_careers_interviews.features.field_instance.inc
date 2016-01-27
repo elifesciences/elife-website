@@ -149,6 +149,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'type' => 'field_collection_view',
         'weight' => 4,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -188,6 +194,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 6,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 6,
       ),
       'teaser' => array(
@@ -256,6 +268,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
+        'weight' => 2,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -352,6 +370,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 7,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -416,6 +440,27 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'settings' => array(),
         'type' => 'text_default',
         'weight' => 3,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'hidden',
+        'module' => 'smart_trim',
+        'settings' => array(
+          'more_link' => 0,
+          'more_text' => 'Read more',
+          'summary_handler' => 'full',
+          'trim_class' => 'collection-teaser__text',
+          'trim_length' => 150,
+          'trim_link' => 0,
+          'trim_options' => array(
+            'text' => 'text',
+          ),
+          'trim_preserve_tags' => '',
+          'trim_style' => 'p',
+          'trim_suffix' => '...',
+          'trim_type' => 'chars',
+        ),
+        'type' => 'smart_trim_format',
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'hidden',
@@ -499,6 +544,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 5,
       ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -562,6 +613,12 @@ function elife_early_careers_interviews_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'hidden',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 1,
       ),
       'teaser' => array(
