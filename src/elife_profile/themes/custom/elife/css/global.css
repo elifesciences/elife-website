@@ -3885,3 +3885,12 @@ ul.links.hidden-small {
 .article-info-license .copyright-statement li:after {
   content: ' ';
 }
+
+/* Stop line length getting out of hand on 'simple pages'
+ * e.g.: /terms-and-conditions-of-use */
+@media only all and (min-width: 768px) {
+  .simple-content-wrapper {
+    max-width: 588px;
+    width: 70%;
+  }
+}
