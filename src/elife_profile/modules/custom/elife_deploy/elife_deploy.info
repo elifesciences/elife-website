@@ -1,5 +1,0 @@
-name = eLife: Deploy
-description = Steps that need to be done to configure site for launch
-core = 7.x
-package = eLife
-version = 7.x-1.0
