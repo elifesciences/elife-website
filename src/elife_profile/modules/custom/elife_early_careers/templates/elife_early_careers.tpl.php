@@ -39,10 +39,10 @@
     </article>
     <article class="ec-section--showcase__item ec-section--showcase__item--interview">
       <div class="ec-section--showcase__item_body">
-        <h3 class="ec-section--showcase__item_title"><a href="<?php print url('Discovery-drivers-eLife-interviews-early-stage-researchers'); ?>">Early-career researchers speak out</a></h3>
+        <h3 class="ec-section--showcase__item_title"><a href="<?php print url('early-careers-interviews'); ?>">Early-career researchers speak out</a></h3>
         <p class="ec-section--showcase__item_text">In a series of interviews with early-career researchers, eLife explores how they became interested in science, what they are working on at present, and what they hope to achieve in the future.</p>
       </div>
-      <a class="ec-section--showcase__more_link" href="<?php print url('Discovery-drivers-eLife-interviews-early-stage-researchers'); ?>">Learn more</a>
+      <a class="ec-section--showcase__more_link" href="<?php print url('early-careers-interviews'); ?>">Learn more</a>
     </article>
     <article class="ec-section--showcase__item ec-section--showcase__item--lab">
       <div class="ec-section--showcase__item_body">
