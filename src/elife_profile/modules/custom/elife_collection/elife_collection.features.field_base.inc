@@ -40,6 +40,9 @@ function elife_collection_field_default_field_bases() {
         ),
         'target_bundles' => array(
           'elife_article_reference' => 'elife_article_reference',
+          'elife_early_careers_interview' => 'elife_early_careers_interview',
+          'elife_news_article' => 'elife_news_article',
+          'elife_podcast' => 'elife_podcast',
         ),
       ),
       'target_type' => 'node',
@@ -185,7 +188,9 @@ function elife_collection_field_default_field_bases() {
         'target_bundles' => array(
           'elife_article_reference' => 'elife_article_reference',
           'elife_collection' => 'elife_collection',
-          'page' => 'page',
+          'elife_early_careers_interview' => 'elife_early_careers_interview',
+          'elife_news_article' => 'elife_news_article',
+          'elife_podcast' => 'elife_podcast',
           'webform' => 'webform',
         ),
       ),

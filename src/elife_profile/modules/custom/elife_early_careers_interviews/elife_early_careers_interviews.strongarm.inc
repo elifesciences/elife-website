@@ -35,7 +35,7 @@ function elife_early_careers_interviews_strongarm() {
         'custom_settings' => FALSE,
       ),
       'elife_teaser_compact' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'revision' => array(
         'custom_settings' => FALSE,
@@ -67,6 +67,10 @@ function elife_early_careers_interviews_strongarm() {
           ),
           'teaser' => array(
             'weight' => '15',
+            'visible' => FALSE,
+          ),
+          'elife_teaser_compact' => array(
+            'weight' => '10',
             'visible' => FALSE,
           ),
         ),
