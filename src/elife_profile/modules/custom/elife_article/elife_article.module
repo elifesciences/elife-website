@@ -1814,13 +1814,7 @@ function _elife_article_keyword_links(ArticleVersion $article_version, $excludes
  */
 function elife_article_cron() {
   // Populate empty main text fields for elife_article_ver nodes.
-  $emptys = _elife_article_prepare_main_text();
-
-  // Allow the number of markup requests per cron run to be limited.
-  $per_cron = variable_get('elife_markup_pre_cron', 100);
-  if ($per_cron > 0) {
-    $emptys = array_slice($emptys, 0, $per_cron, TRUE);
-  }
+  $emptys = _elife_article_prepare_main_text(variable_get('elife_markup_pre_cron', 100));
 
   foreach (array_values($emptys) as $article_version_id) {
     // Warm the markup query cache for this article version.
@@ -1833,11 +1827,17 @@ function elife_article_cron() {
 /**
  * Prepare and populate all empty main text fields.
  *
+ * @param int $limit
+ *   Number to limit to.
+ *
  * @return array
  *   Array of empty article versions that were populated.
  */
-function _elife_article_prepare_main_text() {
+function _elife_article_prepare_main_text($limit = NULL) {
   $emptys = _elife_article_empty_main_text();
+  if (NULL !== $limit) {
+    $emptys = array_slice($emptys, 0, $limit, TRUE);
+  }
   _elife_article_emptys_markup_populate($emptys);
 
   return $emptys;
