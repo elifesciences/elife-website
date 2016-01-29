@@ -108,5 +108,5 @@ function elife_simple_pages_view($path, $template) {
     return MENU_NOT_FOUND;
   }
 
-  return theme($template);
+  return '<div class="simple-content-wrapper">' . theme($template) . '</div>';
 }
