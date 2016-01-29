@@ -53,6 +53,10 @@ function elife_search_facetapi_default_facet_settings() {
     'dependencies' => array(
       'bundle' => 'none',
       'bundle_selected' => array(),
+      'roles' => array(),
+      'facets' => array(),
+      'force_deactivation' => TRUE,
+      'regex' => FALSE,
     ),
     'facet_mincount' => '0',
     'facet_missing' => '0',
@@ -60,7 +64,7 @@ function elife_search_facetapi_default_facet_settings() {
     'individual_parent' => '0',
     'query_type' => 'term',
     'limit_active_items' => 1,
-    'default_true' => TRUE,
+    'default_true' => '1',
     'facet_search_ids' => array(),
     'exclude' => 0,
   );
@@ -80,6 +84,7 @@ function elife_search_facetapi_default_facet_settings() {
     'dependencies' => array(
       'bundle' => 'none',
       'bundle_selected' => array(),
+      'roles' => array(),
     ),
     'facet_mincount' => '0',
     'facet_missing' => '0',
@@ -199,28 +204,60 @@ function elife_search_facetapi_default_facet_settings() {
   $facet->enabled = TRUE;
   $facet->settings = array(
     'weight' => 0,
-    'widget' => 'facetapi_links',
-    'filters' => array(),
+    'widget' => 'facetapi_radio_links',
+    'filters' => array(
+      'active_items' => array(
+        'status' => 0,
+        'weight' => '-50',
+      ),
+      'current_depth' => array(
+        'status' => 0,
+        'weight' => '-49',
+      ),
+      'exclude_items' => array(
+        'status' => 0,
+        'weight' => '-48',
+      ),
+      'rewrite_items' => array(
+        'status' => 1,
+        'weight' => '-47',
+      ),
+      'narrow_results' => array(
+        'status' => 0,
+        'weight' => '-46',
+      ),
+      'show_if_minimum_items' => array(
+        'status' => 0,
+        'weight' => '-45',
+      ),
+      'deepest_level_items' => array(
+        'status' => 0,
+        'weight' => '-44',
+      ),
+    ),
     'active_sorts' => array(
       'taxonomy_weight' => 'taxonomy_weight',
       'active' => 0,
       'count' => 0,
       'display' => 0,
       'indexed' => 0,
+      'natural' => 0,
     ),
     'sort_weight' => array(
       'active' => '-50',
       'count' => '-49',
       'display' => '-48',
-      'taxonomy_weight' => '0',
       'indexed' => '0',
+      'natural' => '0',
+      'taxonomy_weight' => '0',
     ),
     'sort_order' => array(
       'active' => '3',
       'count' => '3',
       'display' => '4',
-      'taxonomy_weight' => '4',
       'indexed' => '4',
+      'natural' => '4',
+      'taxonomy_weight' => '4',
     ),
     'empty_behavior' => 'none',
     'facet_more_text' => 'Show more',
@@ -232,6 +269,10 @@ function elife_search_facetapi_default_facet_settings() {
       'value' => '',
       'format' => 'elife_full_html',
     ),
+    'exclude' => '',
+    'regex' => 0,
+    'show_minimum_items' => 2,
+    'rewrite_items' => 1,
   );
   $export['search_api@elife_articles_index:block:field_elife_a_versions:field_elife_a_category'] = $facet;
 
@@ -245,25 +286,28 @@ function elife_search_facetapi_default_facet_settings() {
   $facet->enabled = TRUE;
   $facet->settings = array(
     'weight' => 0,
-    'widget' => 'facetapi_links',
+    'widget' => 'facetapi_checkbox_links',
     'filters' => array(),
     'active_sorts' => array(
       'display' => 'display',
       'active' => 0,
       'count' => 0,
       'indexed' => 0,
+      'taxonomy_weight' => 0,
     ),
     'sort_weight' => array(
       'active' => '-50',
       'count' => '-49',
       'display' => '-48',
       'indexed' => '0',
+      'taxonomy_weight' => '0',
     ),
     'sort_order' => array(
       'active' => '3',
       'count' => '3',
       'display' => '4',
       'indexed' => '4',
+      'taxonomy_weight' => '4',
     ),
     'empty_behavior' => 'none',
     'facet_more_text' => 'Show more',
@@ -338,7 +382,7 @@ function elife_search_facetapi_default_facet_settings() {
     ),
     'empty_text' => array(
       'value' => '',
-      'format' => 'filtered_html',
+      'format' => '',
     ),
   );
   $export['search_api@elife_articles_index:block:field_elife_a_versions:field_elife_a_heading'] = $facet;

@@ -5,7 +5,7 @@
  * This file is empty by default because the base theme chain (Alpha & Omega) provides
  * all the basic functionality. However, in case you wish to customize the output that Drupal
  * generates through Alpha & Omega this file is a good place to do so.
- * 
+ *
  * Alpha comes with a neat solution for keeping this file as clean as possible while the code
  * for your subtheme grows. Please read the README.txt in the /preprocess and /process subfolders
  * for more information on this topic.
@@ -15,14 +15,14 @@
  * The full license is available in the LICENSE.TXT file at the root of this repository
  */
 
- 
+
 function elife_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
     // add a login link to the horizontal login bar block
     case 'user_login_block':
       if(theme_get_setting('user_login_form')) {
         $form['links']['#markup'] = "";
-        
+
         $items = array();
         $items[] = l(t('Login'), 'user/login', array('attributes' => array('title' => t('Log in.'), 'class' => 'login-submit-link')));
         if (variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)) {
@@ -31,20 +31,20 @@ function elife_form_alter(&$form, &$form_state, $form_id) {
         $items[] = l(t('Password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
         $form['links']['#markup'] = theme('item_list', array('items' => $items));
       }
-    
+
       // HTML5 placeholder attribute
       $form['name']['#attributes']['placeholder'] = theme_get_setting('user_login_name_placeholder');
       $form['pass']['#attributes']['placeholder'] = theme_get_setting('user_login_pass_placeholder');
       // Make labels invisible
 	  	$form['name']['#title_display'] = 'invisible';
 	  	$form['pass']['#title_display'] = 'invisible';
-	  
+
       break;
-      
+
     case 'search_block_form':
       // HTML5 placeholder attribute
       $form['search_block_form']['#attributes']['placeholder'] = theme_get_setting('custom_search_default_text');
-      
+
       break;
   }
 }
@@ -56,10 +56,10 @@ function elife_form_alter(&$form, &$form_state, $form_id) {
 function elife_menu_link(array $variables) {
   $element = $variables['element'];
   $sub_menu = '';
-  
-	//create class from menu title 
+
+	//create class from menu title
 	$menu_title_class = 'menu-' . drupal_html_class($element['#original_link']['link_title']);
-	
+
 	//add extra classes for menu items
   $element['#attributes']['class'][] = 'menu-' . $element['#original_link']['mlid'];
   $element['#attributes']['class'][] = $menu_title_class;
@@ -74,20 +74,20 @@ function elife_menu_link(array $variables) {
   switch($element['#original_link']['menu_name']) {
   	case 'menu-elife-bar-menu':
   		$element['#localized_options']['html'] = true;
-	  
+
 		  if ($element['#href'] == '<front>') {
 		  	$element['#attributes']['class'][] = 'active';
 		  }
-		  
+
 		  break;
-		  
-		case 'main-menu': 
+
+		case 'main-menu':
 			$element['#localized_options']['html'] = true;
-			
+
 			break;
-			 	
+
   }
-	
+
   if ($element['#below']) {
     $sub_menu = drupal_render($element['#below']);
   }
@@ -419,4 +419,11 @@ function elife_css_alter(&$css) {
       unset($css[$key]);
     }
   }
+}
+
+/**
+ * Implements theme_facetapi_count().
+ */
+function elife_facetapi_count($variables) {
+  return '<span class="searchlist-count">(' . (int) $variables['count'] . ')</span>';
 }

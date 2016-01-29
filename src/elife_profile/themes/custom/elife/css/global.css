@@ -3366,6 +3366,19 @@ img.elife-embed-fragment-image {
 		display: none;
 	}
 
+  .elife-searchlist-filter .facetapi-facetapi-checkbox-links, .elife-searchlist-filter .facetapi-facetapi-radio-links {
+    list-style: none;
+  }
+
+  .elife-searchlist-filter li.leaf {
+    list-style: none none;
+    margin: 0 0 0.4em;
+  }
+
+  .elife-searchlist-filter .facetapi-radio {
+    margin-right: 0.5em;
+  }
+
 	/* Searchlist Filters */
 	.elife-searchlist-filter .searchlist-count {
 		color: #929497;

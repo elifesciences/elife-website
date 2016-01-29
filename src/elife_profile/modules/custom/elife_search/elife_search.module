@@ -60,3 +60,39 @@ function elife_search_form_views_exposed_form_alter(&$form, &$form_state, $form_
     $form['keyword']['#attributes'] = ['placeholder' => t('Search for...')];
   }
 }
+
+/**
+ * Implements hook_facet_items_alter().
+ */
+function elife_search_facet_items_alter(&$build, &$settings) {
+  if ('field_elife_a_versions:field_elife_a_category' !== $settings->facet) {
+    return;
+  }
+
+  $adapter = facetapi_adapter_load($settings->searcher);
+  $facet = facetapi_facet_load($settings->facet, $settings->searcher);
+  $items = $adapter->getActiveItems($facet);
+
+  $item_values = array();
+
+  foreach ($items as $item) {
+    $item_values[] = $item['value'];
+  }
+
+  $is_all_link_active = count($items) == 0;
+  $all_link_path = $adapter->getFacetPath($facet, $item_values, TRUE);
+  $all_link_query = $adapter->getQueryString($facet, $item_values, TRUE);
+
+  $build['All'] = array(
+    '#markup' => t('All'),
+    '#path' => $all_link_path,
+    '#html' => FALSE,
+    '#count' => NULL,
+    '#indexed_value' => 'All',
+    '#active' => $is_all_link_active,
+    '#item_parents' => array(),
+    '#item_children' => array(),
+    '#taxonomy_weight' => 1000,
+    '#query' => $all_link_query,
+  );
+}

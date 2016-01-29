@@ -161,3 +161,10 @@ function elife_profile_update_7110() {
     variable_del($variable);
   }
 }
+
+/**
+ * Enable facetapi_bonus.
+ */
+function elife_profile_update_7111() {
+  module_enable(['facetapi_bonus'], FALSE);
+}

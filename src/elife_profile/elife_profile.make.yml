@@ -59,6 +59,10 @@ projects:
     version: '1.1'
   facetapi:
     version: '1.5'
+  facetapi_bonus:
+    version: '1.1'
+    patch:
+      - 'https://www.drupal.org/files/issues/facetapi_bonus-radio-widget-2034777-15.patch'
   facetapi_taxonomy_sort:
     version: '1.0-beta1'
   features:
