@@ -80,3 +80,51 @@ div.panel-pane div.node.podcast-teaser--compact {
   background: url(../images/rss.svg) no-repeat 2px center;
   background-size: 16px;
 }
+
+.podcast-teaser__link:link, .podcast-teaser__link:visited {
+  color: inherit;
+}
+
+.podcast-teaser__link--editorial:link, .podcast-teaser__link--editorial:visited {
+  color: rgb(7, 113, 214);
+}
+
+.podcast-teaser__link--insight:link, .podcast-teaser__link--insight:visited {
+  color: rgb(98, 159, 67);
+}
+
+.podcast-teaser__link--feature-article:link, .podcast-teaser__link--feature-article:visited {
+  color: rgb(207, 12, 78)
+}
+
+.podcast-teaser__link--research-article:link, .podcast-teaser__link--research-article:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--advance:link, .podcast-teaser__link--advance:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--registered-report:link, .podcast-teaser__link--registered-report:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--replication-study:link, .podcast-teaser__link--replication-study:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--tools-and-resources:link, .podcast-teaser__link--tools-and-resources:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--short-report:link, .podcast-teaser__link--short-report:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--correction:link, .podcast-teaser__link--correction:visited {
+  color: rgb(39, 59, 129);
+}
+
+.podcast-teaser__link--research-advance:link, .podcast-teaser__link--research-advance:visited {
+  color: rgb(39, 59, 129);
+}
