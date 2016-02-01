@@ -58,11 +58,13 @@
     background-image: url(../images/icon-research-advance-53x74-2x.png);
   }
 }
-.critical-relation__title {
-  font-family: "Avenir LT W01 85 Heavy", sans-serif;
-  font-weight: normal;
+.critical-relation__title,
+/* To win a specificity war: */
+.article-text h3.critical-relation__title {
   color: #0a9dd9;
+  font-family: "Avenir LT W01 85 Heavy", sans-serif;
   font-size: 1.0rem;
+  font-weight: normal;
   line-height: 1.2;
   margin-bottom: 0;
 }
