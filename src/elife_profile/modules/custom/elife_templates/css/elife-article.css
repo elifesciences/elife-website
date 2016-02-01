@@ -49,7 +49,7 @@
 .elife-article__subject:last-of-type::after {
   content: '';
 }
-.elife-article--feature .elife-article__subject a {
+.elife-article--feature-article .elife-article__subject a {
   color: #cf0c4e;
 }
 .elife-article--editorial .elife-article__subject a {

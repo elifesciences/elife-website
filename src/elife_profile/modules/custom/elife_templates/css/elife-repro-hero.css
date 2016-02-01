@@ -1,0 +1,119 @@
+/* Pattern: hero-image-page-intro */
+.hero-image-page-intro {
+  font-family: "Avenir LT W01 45 Book", sans-serif;
+  min-height: 5em;
+  margin: 0 auto;
+}
+.hero-image-page-intro__inner {
+  background-color: #fff;
+  padding: 0 0.5rem;
+}
+.hero-image-page-intro__heading {
+  font-size: 2.4em;
+  line-height: 1.3;
+  padding: 1rem 0.5rem;
+  color: #fff;
+  background-position: top left;
+  background-color: #0961ab;
+  text-align: center;
+}
+/* Images by variant */
+.hero-image-page-intro--repro-cancer-biology .hero-image-page-intro__heading {
+  background-image: url(../images/test-tubes-blue-short.png);
+}
+.hero-image-page-intro__heading_detail {
+  display: block;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  font-family: "Avenir LT W01 35 Light", sans-serif;
+}
+.hero-image-page-intro__text {
+  padding-top: 0.5rem;
+}
+.hero-image-page-intro__text p {
+  background-color: #fff;
+  font-size: 1em;
+  line-height: 1.4;
+  padding-bottom: 1em;
+  max-width: 43em;
+}
+.hero-image-page-intro a {
+  color: #00000f;
+}
+.hero-image-page-intro__text a {
+  text-decoration: none;
+}
+.hero-image-page-intro__text a:link,
+.hero-image-page-intro__text a:visited {
+  color: #0a9dd9;
+}
+.hero-image-page-intro__text a:hover {
+  color: #6d6e70;
+}
+@media only all and (min-width: 47.5rem) {
+  .hero-image-page-intro__heading {
+    text-align: left;
+  }
+}
+@media only all and (min-width: 64rem) {
+  .hero-image-page-intro {
+    margin-bottom: 0.7rem;
+  }
+
+  .hero-image-page-intro::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  .hero-image-page-intro--repro-cancer-biology .hero-image-page-intro__heading {
+    background-image: none;
+  }
+  .hero-image-page-intro__image_container {
+    background-position: top left;
+    background-color: #0961ab;
+    height: 322px;
+    width: 80vw;
+    min-width: 100%;
+    max-width: 1200px;
+  }
+  .hero-image-page-intro--repro-cancer-biology .hero-image-page-intro__image_container {
+    background-image: url(../images/test-tubes-blue-large.png);
+  }
+
+  .hero-image-page-intro__heading,
+  .hero-image-page-intro__outer {
+    background: none;
+    margin: 0 auto;
+    max-width: 1100px;
+    /* min 50px image to left and right of box */
+  }
+
+  .hero-image-page-intro__heading {
+    padding-left: 2rem;
+  }
+
+  .hero-image-page-intro__outer {
+    margin-top: -8.75rem;
+  }
+
+  .hero-image-page-intro__inner {
+    padding: 2rem;
+    -webkit-box-shadow: 1px 1px 1px gainsboro, -1px -1px 1px gainsboro;
+    -moz-box-shadow: 1px 1px 1px gainsboro, -1px -1px 1px gainsboro;
+    box-shadow: 1px 1px 1px gainsboro, -1px -1px 1px gainsboro;
+  }
+
+  .hero-image-page-intro__inner::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  .hero-image-page-intro__text {
+    padding-top: 0;
+  }
+  .hero-image-page-intro__text p {
+    float: left;
+  }
+}
+/* End: hero-image-page-intro */

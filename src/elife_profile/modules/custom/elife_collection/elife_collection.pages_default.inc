@@ -407,6 +407,130 @@ function elife_collection_default_page_manager_pages() {
   $page->default_handlers[$handler->name] = $handler;
   $pages['elife_collections'] = $page;
 
+  $page = new stdClass();
+  $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
+  $page->api_version = 1;
+  $page->name = 'elife_reproducibility_project_cancer_biology';
+  $page->task = 'page';
+  $page->admin_title = 'Reproducibility Project: Cancer Biology';
+  $page->admin_description = '';
+  $page->path = 'collections/reproducibility-project-cancer-biology';
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
+  $page->menu = array();
+  $page->arguments = array();
+  $page->conf = array(
+    'admin_paths' => FALSE,
+  );
+  $page->default_handlers = array();
+  $handler = new stdClass();
+  $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
+  $handler->api_version = 1;
+  $handler->name = 'page_elife_reproducibility_project_cancer_biology__panel';
+  $handler->task = 'page';
+  $handler->subtask = 'elife_reproducibility_project_cancer_biology';
+  $handler->handler = 'panel_context';
+  $handler->weight = 0;
+  $handler->conf = array(
+    'title' => 'Reproducibility Project: Cancer Biology',
+    'no_blocks' => 0,
+    'pipeline' => 'standard',
+    'body_classes_to_remove' => '',
+    'body_classes_to_add' => 'reproducibility-project',
+    'css_id' => '',
+    'css' => '',
+    'contexts' => array(),
+    'relationships' => array(),
+    'name' => 'panel',
+  );
+  $display = new panels_display();
+  $display->layout = 'elife_clean';
+  $display->layout_settings = array();
+  $display->panel_settings = array(
+    'style_settings' => array(
+      'default' => NULL,
+      'content' => NULL,
+    ),
+  );
+  $display->cache = array();
+  $display->title = '';
+  $display->uuid = 'c793a6bd-b270-4272-896f-36a98958e8ee';
+  $display->content = array();
+  $display->panels = array();
+  $pane = new stdClass();
+  $pane->pid = 'new-d7e63172-3188-49b3-a6c0-3af957e7b926';
+  $pane->panel = 'content';
+  $pane->type = 'elife_article_repro_hero';
+  $pane->subtype = 'elife_article_repro_hero';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'buttons' => NULL,
+    'aligner_start' => NULL,
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+    'aligner_stop' => NULL,
+    'override_title_markup' => NULL,
+    'article_ids' => '04333,03981',
+    'form_build_id' => 'form-NSwghztS6fvvIBUrIM6fvkORbfkAa0Ot2p-uoJSK-ho',
+    'form_token' => '7L-5RicRRmBFKyWTergbcv6UAEvVQbLAbtEJylThz_8',
+    'form_id' => 'elife_article_repro_hero_edit',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'd7e63172-3188-49b3-a6c0-3af957e7b926';
+  $display->content['new-d7e63172-3188-49b3-a6c0-3af957e7b926'] = $pane;
+  $display->panels['content'][0] = 'new-d7e63172-3188-49b3-a6c0-3af957e7b926';
+  $pane = new stdClass();
+  $pane->pid = 'new-97ba67d1-1cc5-470e-87f9-b29ead5c9373';
+  $pane->panel = 'content';
+  $pane->type = 'views';
+  $pane->subtype = 'elife_reproducibility_articles';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'override_pager_settings' => 0,
+    'use_pager' => 0,
+    'nodes_per_page' => '0',
+    'pager_id' => '0',
+    'offset' => '0',
+    'more_link' => 0,
+    'feed_icons' => 0,
+    'panel_args' => 0,
+    'link_to_view' => 0,
+    'args' => 'Reproducibility Project: Cancer Biology',
+    'url' => '',
+    'display' => 'reproducibility_articles',
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '97ba67d1-1cc5-470e-87f9-b29ead5c9373';
+  $display->content['new-97ba67d1-1cc5-470e-87f9-b29ead5c9373'] = $pane;
+  $display->panels['content'][1] = 'new-97ba67d1-1cc5-470e-87f9-b29ead5c9373';
+  $display->hide_title = PANELS_TITLE_NONE;
+  $display->title_pane = 'new-97ba67d1-1cc5-470e-87f9-b29ead5c9373';
+  $handler->conf['display'] = $display;
+  $page->default_handlers[$handler->name] = $handler;
+  $pages['elife_reproducibility_project_cancer_biology'] = $page;
+
   return $pages;
 
 }

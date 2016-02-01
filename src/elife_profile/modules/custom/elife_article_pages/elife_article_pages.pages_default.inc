@@ -1531,6 +1531,30 @@ function elife_article_pages_default_page_manager_handlers() {
   $display->content['new-75f75966-fa5e-4410-b4c1-1f9dd987d2a1'] = $pane;
   $display->panels['side_lens'][0] = 'new-75f75966-fa5e-4410-b4c1-1f9dd987d2a1';
   $pane = new stdClass();
+  $pane->pid = 'new-d620c6d7-36bb-4ce9-aa9a-18cbd8f5708f';
+  $pane->panel = 'side_link';
+  $pane->type = 'elife_article_repro_belongs_to';
+  $pane->subtype = 'elife_article_repro_belongs_to';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => 'argument_entity_id:node_1',
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'd620c6d7-36bb-4ce9-aa9a-18cbd8f5708f';
+  $display->content['new-d620c6d7-36bb-4ce9-aa9a-18cbd8f5708f'] = $pane;
+  $display->panels['side_link'][0] = 'new-d620c6d7-36bb-4ce9-aa9a-18cbd8f5708f';
+  $pane = new stdClass();
   $pane->pid = 'new-8bbd0ae9-474a-4ebe-9fe3-40e5cec3339f';
   $pane->panel = 'side_top';
   $pane->type = 'elife_article_toolbox';
@@ -2172,6 +2196,30 @@ function elife_article_pages_default_page_manager_handlers() {
   $pane->uuid = '5aa44b1d-408e-444f-ac50-98ecec1fc3bd';
   $display->content['new-5aa44b1d-408e-444f-ac50-98ecec1fc3bd'] = $pane;
   $display->panels['side_lens'][0] = 'new-5aa44b1d-408e-444f-ac50-98ecec1fc3bd';
+  $pane = new stdClass();
+  $pane->pid = 'new-bdde5886-02c1-4979-8096-b6b1af48e2b4';
+  $pane->panel = 'side_link';
+  $pane->type = 'elife_article_repro_belongs_to';
+  $pane->subtype = 'elife_article_repro_belongs_to';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => 'argument_entity_id:node_1',
+    'override_title' => 1,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 0;
+  $pane->locks = array();
+  $pane->uuid = 'bdde5886-02c1-4979-8096-b6b1af48e2b4';
+  $display->content['new-bdde5886-02c1-4979-8096-b6b1af48e2b4'] = $pane;
+  $display->panels['side_link'][0] = 'new-bdde5886-02c1-4979-8096-b6b1af48e2b4';
   $pane = new stdClass();
   $pane->pid = 'new-c3a4cd7c-d61d-429f-96d9-db367a359e26';
   $pane->panel = 'side_top';
