@@ -95,6 +95,10 @@ h2, h4, h5, h6 {
 	color: #6d6e70;
 }
 
+.italic {
+	font-style: italic;
+}
+
 .article-text h3 {
 	border: 0;
 	color: #6d6e70;
