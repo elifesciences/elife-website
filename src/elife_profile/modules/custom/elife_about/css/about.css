@@ -644,6 +644,10 @@ a {
     border-left: 32px solid #0A9DD9;
     border-left: 32px solid rgba(10, 157, 217, 0.8);
   }
+
+  .aims-scope__people_sub_heading--reviewing + .view-elife-person-profiles li:nth-child(3n + 4) {
+    clear: left;
+  }
 }
 
 @media only all and (min-width: 46.9375em) {
