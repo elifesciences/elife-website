@@ -264,6 +264,15 @@ function elife_users_user_default_permissions() {
     'module' => 'imce',
   );
 
+  // Exported permission: 'administer lagotto services'.
+  $permissions['administer lagotto services'] = array(
+    'name' => 'administer lagotto services',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'lagotto_services',
+  );
+
   // Exported permission: 'administer mathjax'.
   $permissions['administer mathjax'] = array(
     'name' => 'administer mathjax',
@@ -1685,6 +1694,15 @@ function elife_users_user_default_permissions() {
       'eLife Editor' => 'eLife Editor',
     ),
     'module' => 'elife_front_matter',
+  );
+
+  // Exported permission: 'make doi requests'.
+  $permissions['make doi requests'] = array(
+    'name' => 'make doi requests',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+    ),
+    'module' => 'lagotto_services',
   );
 
   // Exported permission: 'manage features'.
