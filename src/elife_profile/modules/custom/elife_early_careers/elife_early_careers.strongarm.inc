@@ -119,5 +119,19 @@ function elife_early_careers_strongarm() {
   $strongarm->value = '';
   $export['pathauto_node_elife_early_careers_spotlight_pattern'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rh_module_elife_early_careers_spotlight';
+  $strongarm->value = 'rh_node';
+  $export['rh_module_elife_early_careers_spotlight'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'rh_node_action_elife_early_careers_spotlight';
+  $strongarm->value = '2';
+  $export['rh_node_action_elife_early_careers_spotlight'] = $strongarm;
+
   return $export;
 }
