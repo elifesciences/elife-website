@@ -294,7 +294,14 @@ function elife_podcast_preprocess_node(&$variables) {
           $by .= ' et al';
         }
 
-        $variables['elife_pc_subject'] .= sprintf('<li>%s by %s.</li>', $subject['type'], l($by, $subject['url']));
+        $variables['elife_pc_subject'] .= sprintf('<li>%s by %s.</li>', $subject['type'], l($by, $subject['url'], [
+          'attributes' => [
+            'class' => [
+              'podcast-teaser__link',
+              'podcast-teaser__link--' . strtolower(drupal_clean_css_identifier($subject['type'])),
+            ],
+          ],
+        ]));
       }
       $variables['elife_pc_subject'] .= '</ol>';
     }
