@@ -161,3 +161,10 @@ function elife_profile_update_7110() {
     variable_del($variable);
   }
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7111() {
+  db_truncate('elife_markup')->execute();
+}
