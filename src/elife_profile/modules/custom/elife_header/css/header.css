@@ -244,6 +244,10 @@
   background-color: #732060;
 }
 
+.header__list_secondary--section .header__list_secondary_item_link.interviews::before {
+  background-color: #273b81;
+}
+
 .header__list_secondary--section .header__list_secondary_item_link.news::before {
   background-color: #0a9dd9;
 }
