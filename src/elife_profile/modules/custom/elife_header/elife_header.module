@@ -126,7 +126,7 @@ function elife_header_header_load() {
     'class' => $header_li_class,
   );
   $header_li[] = array(
-    'data' => l(t('Search'), 'elife/search', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--search'))))),
+    'data' => l(t('Search'), 'search', array('attributes' => array('class' => array_merge($header_li_a_class, array('header__list_link--search'))))),
     'class' => $header_li_class,
   );
   $variables['header_li'] = theme('item_list', array(

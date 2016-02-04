@@ -8,16 +8,16 @@ Feature: Search
     Given I am on the homepage
     Then the response status code should be 200
     Then I should see "Search" in the ".header__list" element
-    Then I should see the url "/elife/search" in the "href" attribute of the ".header__list li a.header__list_link.header__list_link--search" element
+    Then I should see the url "/search" in the "href" attribute of the ".header__list li a.header__list_link.header__list_link--search" element
     When I click the ".header__list li a.header__list_link.header__list_link--search" element
-    Then the url should match "/elife/search"
+    Then the url should match "/search"
 
   Scenario: Sub-paths aren't accessible
-    When I go to "/elife/search/foo"
+    When I go to "/search/foo"
     Then the response status code should be 404
 
   Scenario: Appropriate title and input box for the Search page
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Search for..." with "Algoriphagus"
@@ -25,7 +25,7 @@ Feature: Search
     And I should see "Your search yielded no results."
 
   Scenario: Default Search page when the journal has no articles
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should not see an "div.view-content" element
     And I should see an ".view-empty" element
@@ -115,7 +115,7 @@ Feature: Search
         ]
       """
     And the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see an "div.view-content" element
     And I should see "VOR 05224"
@@ -165,7 +165,7 @@ Feature: Search
         ]
       """
     And the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see "View in eLife Lens" in the ".article-teaser:contains('VOR 05224')" element
     And I should see the url "http://lens.elifesciences.org/05224/index.html" in the "href" attribute of the ".article-teaser:contains('VOR 05224') .article-teaser__lens_link a" element
@@ -206,7 +206,7 @@ Feature: Search
         ]
       """
     And the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should not see a ".article-teaser:contains('VOR 05224') .article-teaser__status_text" element
     And I should see "Accepted manuscript" in the ".article-teaser:contains('POA 05225') .article-teaser__status_text" element
@@ -324,7 +324,7 @@ Feature: Search
         ]
       """
     And the search index is updated
-    When I go to "/elife/search"
+    When I go to "/search"
     Then I should see 4 ".sidebar-wrapper h2:contains('Filter by content type') + div li" elements
     And I should see "Bar (1)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(1)" element
     And I should see "Foo (2)" in the ".sidebar-wrapper h2:contains('Filter by content type') + div li:nth-child(2)" element
@@ -333,4 +333,8 @@ Feature: Search
 
   Scenario: Browse redirects
     When I go to "/browse"
-    Then I should be on "/elife/search"
+    Then I should be on "/search"
+
+  Scenario: Old path redirects
+    When I go to "/elife/search"
+    Then I should be on "/search"
