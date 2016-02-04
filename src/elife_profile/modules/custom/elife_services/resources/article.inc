@@ -29,7 +29,9 @@ function _elife_services_get_lock() {
   for ($i = 1; $i <= variable_get('elife_services_locks', 2); $i++) {
     $lock = 'elife_services_locks_' . $i;
 
-    if (lock_acquire($lock, variable_get('elife_services_lock_timeout', 60))) {
+    // Lock timeout should exceed the length of time to process a single
+    // article.
+    if (lock_acquire($lock, variable_get('elife_services_lock_timeout', 1800))) {
       return $lock;
     }
   }
