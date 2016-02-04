@@ -43,6 +43,7 @@ features[variable][] = node_submitted_elife_annual_report
 features[variable][] = pathauto_node_elife_annual_report_pattern
 features[variable][] = rh_module_elife_annual_report
 features[variable][] = rh_node_action_elife_annual_report
+features[variable][] = xmlsitemap_settings_node_elife_annual_report
 features[views_view][] = elife_annual_reports
 features_exclude[dependencies][view_unpublished] = view_unpublished
 project path = profiles/elife_profile/modules/custom

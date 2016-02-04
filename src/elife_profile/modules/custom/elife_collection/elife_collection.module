@@ -164,3 +164,14 @@ function elife_collection_elife_hero_block_alter(&$content) {
     $content = theme('elife_hero_block', $variables);
   }
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_collection_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_collection' => [
+      'collections',
+    ],
+  ];
+}

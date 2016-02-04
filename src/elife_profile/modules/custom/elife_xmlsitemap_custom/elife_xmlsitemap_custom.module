@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function elife_xmlsitemap_custom_cron() {
+  $existing_links = xmlsitemap_link_load_multiple(['type' => 'elife_custom']);
+
+  foreach (module_invoke_all('elife_xmlsitemap_custom_links') as $module => $links) {
+    foreach ($links as $path) {
+      foreach ($existing_links as $key => $existing_link) {
+        if ($module === $existing_link['subtype'] && $path === $existing_link['loc']) {
+          unset($existing_links[$key]);
+          continue 2;
+        }
+      }
+
+      xmlsitemap_link_save([
+        'id' => db_query('SELECT MAX(id) FROM {xmlsitemap} WHERE type = :type', [':type' => 'elife_custom'])->fetchField() + 1,
+        'type' => 'elife_custom',
+        'subtype' => $module,
+        'loc' => $path,
+      ]);
+    }
+  }
+
+  if (!empty($existing_links)) {
+    $ids = [];
+    foreach ($existing_links as $existing_link) {
+      $ids[] = $existing_link['id'];
+    }
+
+    variable_get('xmlsitemap_regenerate_needed', TRUE);
+    db_delete('xmlsitemap')
+      ->condition('type', 'elife_custom')
+      ->condition('id', $ids, 'IN')
+      ->execute();
+  }
+}

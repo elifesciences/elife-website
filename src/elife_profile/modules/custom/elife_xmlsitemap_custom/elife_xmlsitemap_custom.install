@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function elife_xmlsitemap_custom_uninstall() {
+  drupal_load('module', 'node');
+  drupal_load('module', 'xmlsitemap');
+  $node_types = array_keys(node_type_get_names());
+  foreach ($node_types as $node_type) {
+    xmlsitemap_link_bundle_delete('node', $node_type);
+  }
+}

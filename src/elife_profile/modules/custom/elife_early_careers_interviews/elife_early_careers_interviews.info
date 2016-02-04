@@ -63,5 +63,6 @@ features[variable][] = node_options_elife_early_careers_interview
 features[variable][] = node_preview_elife_early_careers_interview
 features[variable][] = node_submitted_elife_early_careers_interview
 features[variable][] = pathauto_node_elife_early_careers_interview_pattern
+features[variable][] = xmlsitemap_settings_node_elife_early_careers_interview
 features[views_view][] = elife_early_careers_interviews
 project path = profiles/elife_profile/modules/custom

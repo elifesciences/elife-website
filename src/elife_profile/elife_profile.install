@@ -175,3 +175,14 @@ function elife_profile_update_7111() {
 function elife_profile_update_7112() {
   db_truncate('elife_markup')->execute();
 }
+
+/**
+ * Enable XML Sitemap modules.
+ */
+function elife_profile_update_7113() {
+  module_enable([
+    'elife_xmlsitemap_custom',
+    'xmlsitemap_node',
+    'xmlsitemap_taxonomy',
+  ], FALSE);
+}

@@ -33,6 +33,16 @@ function elife_config_default_elysia_cron_rules() {
   $cron_rule = new stdClass;
   $cron_rule->disabled = FALSE; /* Edit this to true to make a default cron_rule disabled initially */
   $cron_rule->api_version = 1;
+  $cron_rule->name = 'elife_xmlsitemap_custom_cron';
+  $cron_rule->disable = NULL;
+  $cron_rule->rule = '4 0 * * *';
+  $cron_rule->weight = -1;
+  $cron_rule->context = NULL;
+  $cron_rules['elife_xmlsitemap_custom_cron'] = $cron_rule;
+
+  $cron_rule = new stdClass;
+  $cron_rule->disabled = FALSE; /* Edit this to true to make a default cron_rule disabled initially */
+  $cron_rule->api_version = 1;
   $cron_rule->name = 'field_cron';
   $cron_rule->disable = NULL;
   $cron_rule->rule = '4 0 * * *';
@@ -129,6 +139,26 @@ function elife_config_default_elysia_cron_rules() {
   $cron_rule->weight = 1;
   $cron_rule->context = NULL;
   $cron_rules['xmlsitemap_cron'] = $cron_rule;
+
+  $cron_rule = new stdClass;
+  $cron_rule->disabled = FALSE; /* Edit this to true to make a default cron_rule disabled initially */
+  $cron_rule->api_version = 1;
+  $cron_rule->name = 'xmlsitemap_node_cron';
+  $cron_rule->disable = NULL;
+  $cron_rule->rule = '0 */6 * * *';
+  $cron_rule->weight = 0;
+  $cron_rule->context = NULL;
+  $cron_rules['xmlsitemap_node_cron'] = $cron_rule;
+
+  $cron_rule = new stdClass;
+  $cron_rule->disabled = FALSE; /* Edit this to true to make a default cron_rule disabled initially */
+  $cron_rule->api_version = 1;
+  $cron_rule->name = 'xmlsitemap_taxonomy_cron';
+  $cron_rule->disable = NULL;
+  $cron_rule->rule = '0 */6 * * *';
+  $cron_rule->weight = 0;
+  $cron_rule->context = NULL;
+  $cron_rules['xmlsitemap_taxonomy_cron'] = $cron_rule;
 
   return $cron_rules;
 

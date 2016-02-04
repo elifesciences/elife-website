@@ -14,3 +14,14 @@ function elife_events_preprocess_node(&$variables) {
     drupal_add_css(drupal_get_path('module', 'elife_events') . '/css/event-teaser.css');
   }
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_events_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_events' => [
+      'events',
+    ],
+  ];
+}

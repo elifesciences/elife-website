@@ -72,6 +72,7 @@ features[variable][] = node_options_elife_collection
 features[variable][] = node_preview_elife_collection
 features[variable][] = node_submitted_elife_collection
 features[variable][] = pathauto_node_elife_collection_pattern
+features[variable][] = xmlsitemap_settings_node_elife_collection
 features[views_view][] = elife_collections
 features[views_view][] = elife_reproducibility_articles
 project path = profiles/elife_profile/modules/custom

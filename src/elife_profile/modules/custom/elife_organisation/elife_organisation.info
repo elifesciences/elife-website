@@ -30,4 +30,5 @@ features[variable][] = rh_node_action_elife_organisation
 features[variable][] = rh_node_override_elife_organisation
 features[variable][] = rh_node_redirect_elife_organisation
 features[variable][] = rh_node_redirect_response_elife_organisation
+features[variable][] = xmlsitemap_settings_node_elife_organisation
 project path = profiles/elife_profile/modules/custom

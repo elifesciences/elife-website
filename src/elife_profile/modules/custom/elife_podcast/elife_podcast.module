@@ -371,3 +371,14 @@ function elife_podcast_latest_episode_number() {
 
   return FALSE;
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_podcast_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_podcast' => [
+      'podcast',
+    ],
+  ];
+}

@@ -102,3 +102,14 @@ function elife_search_facet_items_alter(&$build, &$settings) {
     '#query' => $all_link_query,
   );
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_search_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_search' => [
+      'elife/search',
+    ],
+  ];
+}
