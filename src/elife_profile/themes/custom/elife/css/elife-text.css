@@ -803,19 +803,22 @@ input:-moz-placeholder {
 
 /* Info tab. */
 .article-info,
-.author-info {
+.author-info,
+.other-versions {
 	font-family: Helvetica, Arial, Verdana, sans-serif;
 	font-size: 0.75rem;
 	line-height: 1.2;
 }
 
 .article-info p,
-.author-info p {
+.author-info p,
+.other-versions p {
 	line-height: 1.2;
 }
 
 .article-info ul,
-.author-info ul {
+.author-info ul,
+.other-versions ul {
 	margin-bottom: 0;
 	list-style: none;
 	padding-left: 0;
