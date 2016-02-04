@@ -105,3 +105,26 @@ $conf['elife_services_locks'] = 1;
 
 // Hide error messages in production, otherwise show all.
 $conf['error_level'] = (ELIFE_ENVIRONMENT_PRODUCTION === $conf['elife_environment'] ? ERROR_REPORTING_HIDE : ERROR_REPORTING_DISPLAY_ALL);
+
+if (ELIFE_ENVIRONMENT_PRODUCTION === $conf['elife_environment']) {
+  // Enable caching in production.
+  $conf['cache'] = TRUE;
+  $conf['page_cache_maximum_age'] = 3600;
+
+  // Let a higher level handle page compression.
+  $conf['page_compression'] = FALSE;
+
+  // Let Drupal aggregate assets.
+  $conf['preprocess_css'] = TRUE;
+  $conf['preprocess_js'] = TRUE;
+
+  // Let Drupal compress generated assets (since they only happen once).
+  $conf['css_gzip_compression'] = TRUE;
+  $conf['js_gzip_compression'] = TRUE;
+
+  // No need for Drupal to cache the response.
+  if (!class_exists('DrupalFakeCache')) {
+    $conf['cache_backends'][] = 'includes/cache-install.inc';
+  }
+  $conf['cache_class_cache_page'] = 'DrupalFakeCache';
+}
