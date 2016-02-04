@@ -230,21 +230,33 @@ function _elife_services_persist_article($data) {
   $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
 
   $json = json_decode($data, TRUE);
+  $reload_entity = FALSE;
+
   // Set citations as json.
   if (!empty($json['citations'])) {
-    /* @var EntityDrupalWrapper $wrapper */
-    $wrapper = entity_metadata_wrapper('node', $entity);
-    $wrapper->field_elife_a_citations_json->set(json_encode($json['citations']));
-    $wrapper->save();
-    $entity = $wrapper->raw();
+    $node_field = new stdClass();
+    $node_field->nid = $entity->nid;
+    $node_field->type = $entity->type;
+    $node_field->field_elife_a_citations_json[LANGUAGE_NONE][0]['value'] = json_encode($json['citations']);
+    field_attach_presave('node', $node_field);
+    field_attach_update('node', $node_field);
+    $reload_entity = TRUE;
   }
   // Set contributors as json.
   if (!empty($json['contributors'])) {
-    /* @var EntityDrupalWrapper $wrapper */
-    $wrapper = entity_metadata_wrapper('node', $entity);
-    $wrapper->field_elife_a_contributors_json->set(json_encode($json['contributors']));
-    $wrapper->save();
-    $entity = $wrapper->raw();
+    $node_field = new stdClass();
+    $node_field->nid = $entity->nid;
+    $node_field->type = $entity->type;
+    $node_field->field_elife_a_contributors_json[LANGUAGE_NONE][0]['value'] = json_encode($json['contributors']);
+    field_attach_presave('node', $node_field);
+    field_attach_update('node', $node_field);
+    $reload_entity = TRUE;
+  }
+
+  // Reload the entity if citations or contributors json has been saved directly
+  // to the appropriate field tables.
+  if ($reload_entity) {
+    $entity = node_load($entity->nid);
   }
 
   $dto = elife_article_version_to_dto($entity);
