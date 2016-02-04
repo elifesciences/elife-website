@@ -174,7 +174,7 @@ Feature: Article Search - Keywords
 
   Scenario: Set keywords
     When the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Search for..." with "Algoriphagus"
@@ -187,7 +187,7 @@ Feature: Article Search - Keywords
 
   Scenario: Contributor names are indexed
     Given the search index is updated
-    When I go to "/elife/search"
+    When I go to "/search"
     And I fill in "Search for..." with "surname"
     And I press the Search button
     Then I should see 1 ".article-teaser__title" elements
@@ -195,7 +195,7 @@ Feature: Article Search - Keywords
 
   Scenario: No articles with searched keyword
     When the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Search for..." with "Applw"
@@ -315,7 +315,7 @@ Feature: Article Search - Keywords
         ]
       """
     And the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     Then the response status code should be 200
     And I should see "Browse articles" in the "h1.pane-title" element
     And I fill in "Search for..." with "Ebola"

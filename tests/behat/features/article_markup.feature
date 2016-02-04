@@ -110,7 +110,7 @@ Feature: Markup
 
   Scenario: Searching articles with text available in abstract section
     When the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     And I fill in "Search for..." with "scientific communities and scientific journals"
     And I press the Search button
     And I should see "The genome sequence of the colonial chordate,"
@@ -128,7 +128,7 @@ Feature: Markup
 
   Scenario: Searching articles with text available in main section
     When the search index is updated
-    Given I am on "/elife/search"
+    Given I am on "/search"
     And I fill in "Search for..." with " dynamics of most chronic viral infections"
     And I press the Search button
     And I should see "Rapid localized spread and immunologic containment define Herpes simplex virus-2 reactivation in the human genital tract"

@@ -17,6 +17,12 @@ function elife_search_menu() {
       'page callback' => '_elife_search_redirect',
       'type' => MENU_CALLBACK,
     ],
+    'elife/search' => [
+      'title' => 'Browse articles',
+      'access callback' => TRUE,
+      'page callback' => '_elife_search_redirect',
+      'type' => MENU_CALLBACK,
+    ],
   ];
 }
 
@@ -49,7 +55,7 @@ function elife_search_search_api_solr_documents_alter(array &$documents, SearchA
 }
 
 function _elife_search_redirect() {
-  drupal_goto('elife/search');
+  drupal_goto('search');
 }
 
 /**

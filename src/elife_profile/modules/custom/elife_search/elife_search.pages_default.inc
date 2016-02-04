@@ -409,7 +409,7 @@ function elife_search_default_page_manager_handlers() {
     'contexts' => array(),
     'relationships' => array(),
     'code' => '301',
-    'destination' => 'elife/search?keyword="%term:name"',
+    'destination' => 'search?keyword="%term:name"',
     'name' => 'elife_keyword',
     'access' => array(
       'plugins' => array(
@@ -443,7 +443,7 @@ function elife_search_default_page_manager_pages() {
   $page->task = 'page';
   $page->admin_title = 'Search';
   $page->admin_description = '';
-  $page->path = 'elife/search';
+  $page->path = 'search';
   $page->access = array(
     'type' => 'none',
     'settings' => NULL,
@@ -478,7 +478,7 @@ function elife_search_default_page_manager_pages() {
           'name' => 'path_visibility',
           'settings' => array(
             'visibility_setting' => '1',
-            'paths' => 'elife/search',
+            'paths' => 'search',
           ),
           'context' => 'empty',
           'not' => FALSE,
