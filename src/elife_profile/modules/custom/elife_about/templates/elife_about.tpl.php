@@ -177,18 +177,18 @@
     </div> <!-- /.about-review-process__text_wrapper -->
     <div class="about-review-process__facets">
       <div class="about-review-process__facet">
-        <div class="about-review-process__facet_datum">3</div>
+        <div class="about-review-process__facet_datum">4</div>
         <div class="about-review-process__facet_unit">days to initial decision&nbsp;<sup>*</sup></div>
       </div>
       <div class="about-review-process__facet">
-        <div class="about-review-process__facet_datum">29</div>
+        <div class="about-review-process__facet_datum">33</div>
         <div class="about-review-process__facet_unit">days to post-review decision&nbsp;<sup>*</sup></div>
       </div>
       <div class="about-review-process__facet">
-        <div class="about-review-process__facet_datum">90</div>
+        <div class="about-review-process__facet_datum">116</div>
         <div class="about-review-process__facet_unit">days submission to acceptance&nbsp;<sup>*</sup></div>
       </div>
-      <div class="about-review-process__facets_qualifier">* median times, through the end of April 2014</div>
+      <div class="about-review-process__facets_qualifier">* median times, 2015</div>
     </div> <!-- /.about-review-process__facets -->
   </div>
   <div class="clear"></div>
