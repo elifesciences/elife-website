@@ -51,8 +51,11 @@
 }
 
 .person-profile__figure-caption-name {
-    color: #0a9dd9;
     line-height: 1.25em;
+}
+
+.person-profile__link .person-profile__figure-caption-name {
+    color: #0a9dd9;
 }
 
 .person-profile__figure-caption-suppl {

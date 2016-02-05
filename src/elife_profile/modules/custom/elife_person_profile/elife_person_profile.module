@@ -55,6 +55,20 @@ function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comme
 }
 
 /**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function elife_person_profile_field_group_build_pre_render_alter(&$element) {
+  if ('node' !== $element['#entity_type'] || 'elife_person_profile' !== $element['#bundle']) {
+    return;
+  }
+
+  if ('teaser' === $element['#view_mode'] && !empty($element['#node']->field_elife_pp_past[LANGUAGE_NONE][0]['value'])) {
+    // Make past editors non-clickable.
+    $element['group_elife_pp_link']['#prefix'] = '<figure>';
+  }
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function elife_person_profile_preprocess_node(&$variables) {
