@@ -39,7 +39,7 @@ function elife_article_related_content_render($subtype, $conf, $args, &$context)
           $related = node_load($related_article->endpoints->related_to->article_ver_nid);
           $related_dto = elife_article_version_to_dto($related);
           $variables = [
-            'title' => l($related_dto->getTitle(), 'node/' . $related->nid, ['attributes' => ['class' => ['elife-cite-linked-title']], 'html' => TRUE]),
+            'title' => l(check_markup($related_dto->getTitle(), 'elife_house_style'), 'node/' . $related->nid, ['attributes' => ['class' => ['elife-cite-linked-title']], 'html' => TRUE]),
           ];
           $display_channel_links = _elife_article_display_channel_links($related_dto);
           $heading_links = _elife_article_heading_links($related_dto);
