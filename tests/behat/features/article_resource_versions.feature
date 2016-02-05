@@ -61,10 +61,10 @@ Feature: Article Resource - Versions (API)
           "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
-          "article-version-id": "05224.early.v1",
+          "article-version-id": "05224.1",
           "pub-date": "1979-08-15T00:00:00+00:00",
           "update": "1979-08-15T00:00:00+00:00",
-          "path": "content/4/e05224.early.v1",
+          "path": "content/4/e05224v1",
           "article-type": "research-article",
           "status": "POA",
           "publish": true
@@ -80,10 +80,10 @@ Feature: Article Resource - Versions (API)
           "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
-          "article-version-id": "05224.early.v2",
+          "article-version-id": "05224.2",
           "pub-date": "1979-08-15T00:00:00+00:00",
           "update": "1979-08-16T00:00:00+00:00",
-          "path": "content/4/e05224.early.v2",
+          "path": "content/4/e05224v2",
           "article-type": "research-article",
           "status": "POA",
           "publish": true
@@ -99,10 +99,10 @@ Feature: Article Resource - Versions (API)
           "volume": 4,
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
-          "article-version-id": "05224",
+          "article-version-id": "05224.3",
           "pub-date": "1979-08-15T00:00:00+00:00",
           "update": "1979-08-17T00:00:00+00:00",
-          "path": "content/4/e05224",
+          "path": "content/4/e05224v3",
           "article-type": "research-article",
           "status": "VOR",
           "publish": true
@@ -110,6 +110,9 @@ Feature: Article Resource - Versions (API)
       """
     And the response code should be 200
     Then there should be 3 versions of article "10.7554/eLife.05224"
+    Given redirects are not followed
+    When I go to "content/4/e05224"
+    Then I should be redirected to "content/4/e05224v3" with a 302
 
   Scenario: Post a new version of an article - correct order with mixture of published and unpublished
     Given I set header "Content-Type" with value "application/json"
