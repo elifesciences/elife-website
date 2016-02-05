@@ -22,7 +22,7 @@ $databases = [
     ],
 ];
 
-$conf['elife_cache_dir'] = sys_get_temp_dir() . '/elife';
+$conf['elife_cache_dir'] = sprintf('%s/%s-%s-%s', sys_get_temp_dir(), 'elife', $_SERVER['PLATFORM_PROJECT'], $_SERVER['PLATFORM_ENVIRONMENT']);
 $conf['elife_environment'] = ELIFE_ENVIRONMENT_PRODUCTION;
 
 $conf['search_api_override_mode'] = 'default';
