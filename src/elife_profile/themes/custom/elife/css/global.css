@@ -1740,7 +1740,7 @@ div.highwire-markup .article div.section h4 {
   padding: 0;
 }
 
-div.highwire-markup .article div.section h4 {
+.article .subsection h5 {
   font-family: 'AvenirLTW01-35LightObli', sans-serif;
   font-size: 1.14em;
   font-style: normal;
