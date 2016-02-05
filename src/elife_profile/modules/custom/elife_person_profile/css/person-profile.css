@@ -93,6 +93,19 @@
     line-height: 1.25em;
 }
 
+.person-profile__biog-name {
+    font-size: 2rem;
+}
+
+.person-profile__biog-expertise {
+    margin: 1em 0;
+}
+
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-expertise ul {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .person-profile__competing {
     background-color: #2e2e2e;
     font-size: 0.8em;
