@@ -640,13 +640,13 @@ Feature: Article Resource - Fragments (API)
               "type": "abstract",
               "title": "Abstract",
               "doi": "10.7554/eLife.00013.001",
-              "path": "content/3/e00013/abstract-1"
+              "path": "content/4/e05224/abstract-1"
             },
             {
               "type": "abstract",
               "title": "eLife digest",
               "doi": "10.7554/eLife.00013.002",
-              "path": "content/3/e00013/abstract-2"
+              "path": "content/4/e05224/abstract-2"
             }
           ]
         }
@@ -670,13 +670,13 @@ Feature: Article Resource - Fragments (API)
             {
               "type": "abstract",
               "doi": "10.7554/eLife.00013.001",
-              "path": "content/3/e00013/abstract-1"
+              "path": "content/4/e05224/abstract-1"
             },
             {
               "type": "abstract",
               "title": "eLife digest",
               "doi": "10.7554/eLife.00013.002",
-              "path": "content/3/e00013/abstract-2"
+              "path": "content/4/e05224/abstract-2"
             }
           ]
         }
@@ -691,13 +691,13 @@ Feature: Article Resource - Fragments (API)
               "type": "abstract",
               "title": "Abstract",
               "doi": "10.7554/eLife.00013.001",
-              "path": "content/3/e00013/abstract-1"
+              "path": "content/4/e05224/abstract-1"
             },
             {
               "type": "abstract",
               "title": "eLife digest",
               "doi": "10.7554/eLife.00013.002",
-              "path": "content/3/e00013/abstract-2"
+              "path": "content/4/e05224/abstract-2"
             }
           ]
         }

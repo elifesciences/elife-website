@@ -211,6 +211,19 @@ function elife_article_permission() {
 }
 
 /**
+ * Implements hook_node_delete().
+ */
+function elife_article_node_delete($node) {
+  if ('elife_article_ver' === $node->type) {
+    db_delete('field_data_field_elife_a_versions')
+      ->condition('entity_type', 'node', '=')
+      ->condition('bundle', 'elife_article', '=')
+      ->condition('field_elife_a_versions_target_id', $node->nid, '=')
+      ->execute();
+  }
+}
+
+/**
  * Implements hook_node_view_alter().
  */
 function elife_article_node_view_alter(&$build) {
