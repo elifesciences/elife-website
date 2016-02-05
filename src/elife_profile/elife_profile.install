@@ -168,3 +168,10 @@ function elife_profile_update_7110() {
 function elife_profile_update_7111() {
   module_enable(['facetapi_bonus'], FALSE);
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7112() {
+  db_truncate('elife_markup')->execute();
+}
