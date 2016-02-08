@@ -51,8 +51,11 @@
 }
 
 .person-profile__figure-caption-name {
-    color: #0a9dd9;
     line-height: 1.25em;
+}
+
+.person-profile__link .person-profile__figure-caption-name {
+    color: #0a9dd9;
 }
 
 .person-profile__figure-caption-suppl {
@@ -91,6 +94,19 @@
     background-color: #383838;
     font-size: 0.86em;
     line-height: 1.25em;
+}
+
+.person-profile__biog-name {
+    font-size: 2rem;
+}
+
+.person-profile__biog-expertise {
+    margin: 1em 0;
+}
+
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-expertise ul {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .person-profile__competing {
