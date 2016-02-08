@@ -16,6 +16,7 @@
   background-position: top left;
   background-color: #0961ab;
   text-align: center;
+  font-family: "Avenir LT W01 35 Light", sans-serif;
 }
 /* Images by variant */
 .hero-image-page-intro--repro-cancer-biology .hero-image-page-intro__heading {
@@ -25,7 +26,6 @@
   display: block;
   font-size: 1.3rem;
   text-transform: uppercase;
-  font-family: "Avenir LT W01 35 Light", sans-serif;
 }
 .hero-image-page-intro__text {
   padding-top: 0.5rem;
