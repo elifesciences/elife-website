@@ -8,7 +8,7 @@ include_once 'elife_hero_block.features.inc';
 
 const ELIFE_HERO_BLOCK_CTA_TEXT_DEFAULT = 'Sign up to receive weekly alerts on new content from eLife';
 const ELIFE_HERO_BLOCK_CTA_LINK_TEXT_DEFAULT = 'Sign up';
-const ELIFE_HERO_BLOCK_CTA_LINK_TEXT_URL_DEFAULT = 'http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=18';
+const ELIFE_HERO_BLOCK_CTA_LINK_TEXT_URL_DEFAULT = 'https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=18';
 
 /**
  * Implements hook_ctools_plugin_directory().

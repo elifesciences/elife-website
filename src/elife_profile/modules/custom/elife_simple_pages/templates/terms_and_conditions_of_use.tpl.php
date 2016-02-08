@@ -151,7 +151,7 @@
 
 <p>eLife respects the privacy of its users and is committed to the protection of
   personal information as described in our Privacy Policy. You confirm that you
-  have read and accept our <a href="http://elifesciences.org/privacy-policy">Privacy
+  have read and accept our <a href="https://elifesciences.org/privacy-policy">Privacy
     Policy</a>.</p>
 
 <h3>Interactive Features</h3>

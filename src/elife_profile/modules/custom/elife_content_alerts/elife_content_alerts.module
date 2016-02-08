@@ -260,7 +260,7 @@ function elife_content_alerts_sign_up_form($form, &$form_state, $custom_6 = NULL
   }
 
   $form['#attributes'] = array('class' => 'elife-sign-up-form');
-  $form['#action'] = 'http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid;
+  $form['#action'] = 'https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid;
 
   $form['#method'] = 'post';
   $form['reset'] = array(
