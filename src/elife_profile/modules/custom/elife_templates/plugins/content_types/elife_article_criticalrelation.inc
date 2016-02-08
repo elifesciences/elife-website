@@ -59,7 +59,7 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
               $impact_statement = $related_dto->getImpactStatement();
               $cite_as = $related_dto->getCiteAs();
               $doi_link = l($related_dto->getDoi(), $related_dto->getDoiUrl());
-              $title = l($related_dto->getTitle(), 'node/' . $related->nid);
+              $title = l(check_markup($related_dto->getTitle(), 'elife_house_style'), 'node/' . $related->nid, ['html' => TRUE]);
               $authors = $related_dto->getSimpleAuthorList();
             }
             else {
@@ -68,7 +68,7 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
               $impact_statement = NULL;
               $cite_as = $related->citeas;
               $doi_link = l($related->doi, 'http://dx.doi.org/' . $related->doi);
-              $title = l($related->title, 'http://dx.doi.org/' . $related->doi);
+              $title = l(check_markup($related->title, 'elife_house_style'), 'http://dx.doi.org/' . $related->doi, ['html' => TRUE]);
               $authors = $related->author;
             }
             if ($critical_relation_type == 'builds') {
