@@ -793,7 +793,7 @@ function _elife_article_mock_markup_service() {
 function elife_article_original_article($article_version_id) {
   $markup = elife_article_markup_service();
   $markup->addSectionQuery($article_version_id, 'original-article');
-  $markup = _elife_article_markup_query($markup, FALSE);
+  $markup = _elife_article_markup_query($markup);
   $original_article = $markup->output();
   $values = array();
   foreach (explode("\n", $original_article) as $value) {
