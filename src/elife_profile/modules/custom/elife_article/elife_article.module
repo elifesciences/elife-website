@@ -1735,12 +1735,14 @@ function _elife_article_xmltohtml($string) {
  */
 function _elife_article_display_channel_links(ArticleVersion $article_version, $options = []) {
   $items = [];
-  if (!empty($article_version->getDisplayChannels())) {
+  $display_channels = $article_version->getDisplayChannels();
+  if (!empty($display_channels)) {
     $options += [
       'html' => TRUE,
       'attributes' => [
         'class' => [
           'category-display-channel',
+          strtolower(preg_replace('/[^a-zA-Z0-9-]+/', '-', $display_channels[0])),
         ],
       ],
     ];
