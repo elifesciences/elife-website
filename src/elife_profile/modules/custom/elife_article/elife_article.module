@@ -875,12 +875,6 @@ function elife_article_version_to_dto(stdClass $entity) {
     $referenced['foot-note']
   );
 
-  $contributors = [];
-  if ($contributors_json = $entity->field_elife_a_contributors_json->value()) {
-    $contributors = elife_article_serializer()->deserialize('{"contributors":' . $contributors_json . '}');
-    $contributors = $contributors->getContributors();
-  }
-
   $get_fragments = function ($entity) use (&$get_fragments) {
     $fragments = [];
     /* @var EntityDrupalWrapper $entity_fragment */
@@ -989,10 +983,25 @@ function elife_article_version_to_dto(stdClass $entity) {
 
   $fragments = $get_fragments($entity);
 
+  $contributors = [];
   $citations = [];
+
+  $parts = [];
+  if ($contributors_json = $entity->field_elife_a_contributors_json->value()) {
+    $parts[] = '"contributors":' . $contributors_json;
+  }
   if ($citations_json = $entity->field_elife_a_citations_json->value()) {
-    $citations = elife_article_serializer()->deserialize('{"citations":' . $citations_json . '}');
-    $citations = $citations->getCitations();
+    $parts[] = '"citations":' . $citations_json;
+  }
+
+  if (!empty($parts)) {
+    $parts = elife_article_serializer()->deserialize('{' . implode(',', $parts) . '}');
+    if ($contributors_json) {
+      $contributors = $parts->getContributors();
+    }
+    if ($citations_json) {
+      $citations = $parts->getCitations();
+    }
   }
 
   if ($entity->field_elife_a_author_imp->value()) {
