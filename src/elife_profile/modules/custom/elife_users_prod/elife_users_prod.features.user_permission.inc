@@ -17,6 +17,13 @@ function elife_users_prod_user_default_permissions() {
     'module' => 'googleanalytics',
   );
 
+  // Exported permission: 'administer google tag manager'.
+  $permissions['administer google tag manager'] = array(
+    'name' => 'administer google tag manager',
+    'roles' => array(),
+    'module' => 'google_tag',
+  );
+
   // Exported permission: 'opt-in or out of tracking'.
   $permissions['opt-in or out of tracking'] = array(
     'name' => 'opt-in or out of tracking',
