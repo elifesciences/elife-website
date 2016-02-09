@@ -25,6 +25,12 @@ $databases = [
 $conf['elife_cache_dir'] = sprintf('%s/%s-%s-%s', sys_get_temp_dir(), 'elife', $_SERVER['PLATFORM_PROJECT'], $_SERVER['PLATFORM_ENVIRONMENT']);
 $conf['elife_environment'] = ELIFE_ENVIRONMENT_PRODUCTION;
 
+if (!empty($_SERVER['PLATFORM_MODE']) && 'enterprise' === $_SERVER['PLATFORM_MODE'] && 'elifesciences' === $_SERVER['PLATFORM_PROJECT']) {
+  // Production instance.
+  $conf['googleanalytics_account'] = 'UA-30290146-1';
+  $conf['google_tag_container_id'] = 'GTM-WVM8KG';
+}
+
 $conf['search_api_override_mode'] = 'default';
 $conf['search_api_override_servers']['elife_solr']['options']['host'] = $platform_solr['host'];
 $conf['search_api_override_servers']['elife_solr']['options']['port'] = $platform_solr['port'];

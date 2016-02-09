@@ -91,6 +91,8 @@ projects:
     version: '1.5'
   google_analytics:
     version: '2.1'
+  google_tag:
+    version: '1.0'
   image_class:
     version: '1.x-dev'
     download:

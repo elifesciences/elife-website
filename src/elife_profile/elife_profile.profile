@@ -26,6 +26,7 @@ function elife_profile_environment_modules($environment, $inverse = FALSE) {
     ELIFE_ENVIRONMENT_PRODUCTION => [
       'elife_users_prod',
       'googleanalytics',
+      'google_tag',
     ],
     ELIFE_ENVIRONMENT_DEVELOPMENT => [
       'admin_devel',
