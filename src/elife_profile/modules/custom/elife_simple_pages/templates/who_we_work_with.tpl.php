@@ -6,8 +6,8 @@
 	<li><a href="http://www.alpsp.org/Ebusiness/Home.aspx" target="_blank">ALPSP</a></li>
 	<li><a href="http://publicationethics.org/">COPE</a></li>
 	<li><a href="http://www.crossref.org/">CrossRef</a></li>
-	<li><a href="http://orcid.org/">ORCID</a></li>
 	<li><a href="http://oaspa.org/">OASPA</a></li>
+	<li><a href="http://orcid.org/">ORCID</a></li>
 </ul>
 
 <div>
@@ -20,7 +20,6 @@
 	<li><a href="http://www.ejournalpress.com/">eJournal Press</a></li>
 	<li><a href="http://www.exeterpremedia.com/">ExeterPremedia</a></li>
 	<li><a href="http://www.glencoe.com/">Glencoe&nbsp;Software</a></li>
-	<li><a href="http://highwire.stanford.edu/">HighWire</a></li>
 	<li><a href="http://www.thenakedscientists.com/">Naked Scientists</a></li>
 	<li><a href="https://publons.com/">Publons</a></li>
 	<li><a href="http://ripe.com/">ripe</a></li>
