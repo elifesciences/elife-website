@@ -793,7 +793,7 @@ function _elife_article_mock_markup_service() {
 function elife_article_original_article($article_version_id) {
   $markup = elife_article_markup_service();
   $markup->addSectionQuery($article_version_id, 'original-article');
-  $markup = _elife_article_markup_query($markup, FALSE);
+  $markup = _elife_article_markup_query($markup);
   $original_article = $markup->output();
   $values = array();
   foreach (explode("\n", $original_article) as $value) {
@@ -847,16 +847,23 @@ function _elife_article_mock_citation_service() {
 }
 
 function elife_article_version_to_dto(stdClass $entity) {
-  // @todo - elife - nlisgo - consider adding drupal_static cache to this function.
+  static $cache = [];
+
   if ($entity->type != 'elife_article_ver') {
     return FALSE;
   }
+
   /* @var EntityDrupalWrapper $entity */
   $entity = entity_metadata_wrapper('node', $entity);
 
   if ($entity->field_elife_a_subarticle->value() == 1) {
     return FALSE;
   }
+
+  if (isset($cache[$entity->field_elife_a_article_version_id->value()])) {
+    return $cache[$entity->field_elife_a_article_version_id->value()];
+  }
+
   $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE);
   /* @var EntityDrupalWrapper $entity_article */
   $entity_article = entity_metadata_wrapper('node', $entity_article);
@@ -1133,6 +1140,8 @@ function elife_article_version_to_dto(stdClass $entity) {
     $fragments,
     $citations
   );
+
+  $cache[$entity->field_elife_a_article_version_id->value()] = $article_version;
 
   return $article_version;
 }
