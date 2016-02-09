@@ -80,7 +80,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new \RuntimeException('The response should contain a "Location" header');
     }
 
-    Assertions::assertEquals($location, $this->locatePath($page), 'The "Location" header points to the correct URI');
+    Assertions::assertEquals($this->locatePath($page), $location, 'The "Location" header points to the correct URI');
 
     if ($status !== NULL) {
       $this->assertSession()->statusCodeEquals($status);

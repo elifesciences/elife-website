@@ -62,6 +62,9 @@ function elife_article_pages_default_page_manager_handlers() {
         'description' => array(
           'value' => '[node:title] | [node:impact]',
         ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
+        ),
       ),
     ),
   );
@@ -349,6 +352,9 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
         'description' => array(
           'value' => '[node:title] | [node:impact]',
+        ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
         ),
       ),
     ),
@@ -638,6 +644,9 @@ function elife_article_pages_default_page_manager_handlers() {
         'description' => array(
           'value' => '[node:title] | [node:impact]',
         ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
+        ),
       ),
     ),
   );
@@ -914,6 +923,9 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
         'description' => array(
           'value' => '[node:title] | [node:impact]',
+        ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
         ),
       ),
     ),
@@ -1205,6 +1217,9 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
         'description' => array(
           'value' => '[node:title] | [node:impact]',
+        ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
         ),
       ),
     ),
@@ -1869,6 +1884,9 @@ function elife_article_pages_default_page_manager_handlers() {
         'description' => array(
           'value' => '[node:title] | [node:impact]',
         ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
+        ),
       ),
     ),
   );
@@ -2513,6 +2531,9 @@ function elife_article_pages_default_page_manager_handlers() {
         ),
         'description' => array(
           'value' => '[node:title] | [node:impact]',
+        ),
+        'canonical' => array(
+          'value' => '[node:canonical_url]',
         ),
       ),
     ),
