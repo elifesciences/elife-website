@@ -168,7 +168,11 @@ projects:
     patch:
       - 'https://www.drupal.org/files/issues/status_page_exception-2648148-1.patch'
   reference_delete:
-    version: '1.3'
+    version: '1.x-dev'
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/reference_delete.git'
+      revision: '67b25c6ef3180166a264f025be15da48b3b15425' # Includes fix for https://www.drupal.org/node/2487277.
   rules:
     version: '2.9'
   scheduler:
