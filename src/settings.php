@@ -94,8 +94,8 @@ $conf['lagotto_services_url'] = 'http://alm.svr.elifesciences.org';
 $conf['lagotto_services_apikey'] = '5pVvShVqAJ9Ch3tFzori';
 
 // Setup elife_article_almvis.
-$conf['elife_article_almvis_metrics_url'] = 'https://master.api.elifesciences.org/proxy/metrics/api/v1/article/hw,ga/';
-$conf['elife_article_almvis_ga_switch_date'] = '2015-11-11';
+$conf['elife_article_almvis_metrics_url'] = 'https://master.metrics.elifesciences.org/api/v1/article/hw,ga/';
+$conf['elife_article_almvis_ga_switch_date'] = '2016-02-10';
 
 // See https://www.drupal.org/node/2009584.
 $conf['preserve_css_double_underscores'] = TRUE;

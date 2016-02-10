@@ -6,7 +6,7 @@
  */
 
 class elifeResources {
-  const RESOURCES_API = 'http://api.elifesciences.org/';
+  const RESOURCES_API = 'https://master.api.elifesciences.org/';
   const RESOURCES_VERSION = 'v2';
   const RESOURCES_OK = 200;
   const CACHE_ENABLED = TRUE;

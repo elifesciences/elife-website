@@ -103,7 +103,7 @@ function elife_article_install() {
   variable_set('elife_article_source_assets_base_path', 'http://parallel-elife-publishing-cdn.s3.amazonaws.com/');
   variable_set('elife_article_source_assets_xml_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-v[node:version_no].xml');
   variable_set('elife_article_source_assets_pdf_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-v[node:version_no].pdf');
-  variable_set('elife_article_source_assets_glencoe_api', 'http://elife-dev.glencoesoftware.com/api/v1/metadata/');
+  variable_set('elife_article_source_assets_glencoe_api', 'http://movie-usa.glencoesoftware.com/metadata/');
 }
 
 /**
@@ -164,4 +164,11 @@ function elife_article_update_7102() {
   }
 
   variable_del('elife_article_category_plural');
+}
+
+/**
+ * Set assets Glencoe API url.
+ */
+function elife_article_update_7103() {
+  variable_set('elife_article_source_assets_glencoe_api', 'http://movie-usa.glencoesoftware.com/metadata/');
 }
