@@ -107,13 +107,13 @@
     </article>
     <article class="ec-section--voice__item">
       <ul class="ec-section--voice__item_list">
-        <li class="ec-section--voice__item_list_item ec-section--voice__item_list_item--news"><a href="http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&amp;gid=26">Sign up for news and discussion</a> on our work for early-career scientists</li>
+        <li class="ec-section--voice__item_list_item ec-section--voice__item_list_item--news"><a href="https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&amp;gid=26">Sign up for news and discussion</a> on our work for early-career scientists</li>
       </ul>
     </article>
   </section> <!-- /.ec-section--voice -->
 
   <section class="ec-section ec-section--cta">
     <h2 class="ec-section__heading">You can be part of the eLife initiative</h2>
-    <a href="<?php print url('http://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=26'); ?>" class="ec-section--cta__link">Share your voice</a>
+    <a href="<?php print url('https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=26'); ?>" class="ec-section--cta__link">Share your voice</a>
   </section> <!-- /.ec-section--cta -->
 </section> <!-- /.ec-wrapper -->
