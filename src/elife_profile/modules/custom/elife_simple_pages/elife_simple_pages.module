@@ -108,7 +108,7 @@ function elife_simple_pages_view($path, $template) {
     return MENU_NOT_FOUND;
   }
 
-  return '<div class="simple-content-wrapper">' . theme($template) . '</div>';
+  return '<div class="simple-content-wrapper">' . _pathologic_filter(theme($template), filter_format_load('elife_full_html'), NULL, LANGUAGE_NONE, NULL, NULL) . '</div>';
 }
 
 /**
