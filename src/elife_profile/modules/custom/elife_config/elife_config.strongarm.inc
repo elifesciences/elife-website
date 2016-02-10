@@ -610,5 +610,107 @@ user/*/*';
   $strongarm->value = 1;
   $export['transliteration_file_uploads_display_name'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_base_url';
+  $strongarm->value = 'http://elifesciences.org';
+  $export['xmlsitemap_base_url'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_batch_limit';
+  $strongarm->value = '100';
+  $export['xmlsitemap_batch_limit'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_chunk_size';
+  $strongarm->value = 'auto';
+  $export['xmlsitemap_chunk_size'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_developer_mode';
+  $strongarm->value = 0;
+  $export['xmlsitemap_developer_mode'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_disable_cron_regeneration';
+  $strongarm->value = 0;
+  $export['xmlsitemap_disable_cron_regeneration'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_frontpage_changefreq';
+  $strongarm->value = '86400';
+  $export['xmlsitemap_frontpage_changefreq'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_frontpage_priority';
+  $strongarm->value = '1.0';
+  $export['xmlsitemap_frontpage_priority'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_lastmod_format';
+  $strongarm->value = 'Y-m-d\\TH:i\\Z';
+  $export['xmlsitemap_lastmod_format'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_minimum_lifetime';
+  $strongarm->value = '0';
+  $export['xmlsitemap_minimum_lifetime'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_output_elements';
+  $strongarm->value = array(
+    0 => 'lastmod',
+    1 => 'changefreq',
+    2 => 'priority',
+  );
+  $export['xmlsitemap_output_elements'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_path';
+  $strongarm->value = 'xmlsitemap';
+  $export['xmlsitemap_path'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_prefetch_aliases';
+  $strongarm->value = 1;
+  $export['xmlsitemap_prefetch_aliases'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_settings__active_tab';
+  $strongarm->value = 'edit-frontpage';
+  $export['xmlsitemap_settings__active_tab'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_xsl';
+  $strongarm->value = 1;
+  $export['xmlsitemap_xsl'] = $strongarm;
+
   return $export;
 }

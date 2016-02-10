@@ -110,3 +110,16 @@ function elife_simple_pages_view($path, $template) {
 
   return '<div class="simple-content-wrapper">' . theme($template) . '</div>';
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_simple_pages_elife_xmlsitemap_custom_links() {
+  $links = [];
+
+  foreach (array_keys(elife_simple_pages()) as $path) {
+    $links[] = $path;
+  }
+
+  return ['elife_simple_pages' => $links];
+}

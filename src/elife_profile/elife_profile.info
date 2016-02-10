@@ -116,6 +116,8 @@ dependencies[] = views_rss_core
 dependencies[] = views_rss_dc
 dependencies[] = webform
 dependencies[] = xmlsitemap
+dependencies[] = xmlsitemap_node
+dependencies[] = xmlsitemap_taxonomy
 
 ; Distribution modules.
 dependencies[] = elife_about
@@ -155,3 +157,4 @@ dependencies[] = elife_simple_pages
 dependencies[] = elife_templates
 dependencies[] = elife_upcoming_articles
 dependencies[] = elife_users
+dependencies[] = elife_xmlsitemap_custom

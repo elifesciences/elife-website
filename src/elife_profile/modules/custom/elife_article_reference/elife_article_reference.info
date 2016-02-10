@@ -38,4 +38,5 @@ features[variable][] = node_submitted_elife_article_reference
 features[variable][] = pathauto_node_elife_article_reference_pattern
 features[variable][] = rh_module_elife_article_reference
 features[variable][] = rh_node_action_elife_article_reference
+features[variable][] = xmlsitemap_settings_node_elife_article_reference
 project path = profiles/elife_profile/modules/custom

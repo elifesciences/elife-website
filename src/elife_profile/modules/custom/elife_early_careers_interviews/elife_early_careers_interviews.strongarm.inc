@@ -123,5 +123,15 @@ function elife_early_careers_interviews_strongarm() {
   $strongarm->value = 'early-careers-interviews/[node:field-elife-i-first-name]-[node:field-elife-i-last-name]';
   $export['pathauto_node_elife_early_careers_interview_pattern'] = $strongarm;
 
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'xmlsitemap_settings_node_elife_early_careers_interview';
+  $strongarm->value = array(
+    'status' => '1',
+    'priority' => '0.5',
+  );
+  $export['xmlsitemap_settings_node_elife_early_careers_interview'] = $strongarm;
+
   return $export;
 }

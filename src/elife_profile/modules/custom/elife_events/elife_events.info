@@ -41,5 +41,6 @@ features[variable][] = node_options_elife_event
 features[variable][] = node_preview_elife_event
 features[variable][] = node_submitted_elife_event
 features[variable][] = pathauto_node_elife_event_pattern
+features[variable][] = xmlsitemap_settings_node_elife_event
 features[views_view][] = elife_events
 project path = profiles/elife_profile/modules/custom

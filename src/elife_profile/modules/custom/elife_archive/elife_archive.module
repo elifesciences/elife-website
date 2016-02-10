@@ -304,3 +304,27 @@ function _elife_archive_short() {
   );
   return $render;
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_archive_elife_xmlsitemap_custom_links() {
+  $links = [
+    'archive',
+  ];
+
+  $view = views_get_view('elife_archive_by_month');
+  if (empty($view)) {
+    return [];
+  }
+  $view->execute_display('block_1');
+
+  if (!empty($view->result)) {
+    foreach ($view->result as $result) {
+      $date = strtotime($result->field_elife_a_fpubdate_value_summary . '-01');
+      $links[] = _elife_archive_get_expected_path(date('Y', $date), date('m', $date));
+    }
+  }
+
+  return ['elife_archive' => $links];
+}

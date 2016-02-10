@@ -23,3 +23,14 @@ function elife_news_elife_body_field() {
     'elife_news_article' => 'field_elife_n_text',
   ];
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_news_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_news' => [
+      'elife-news',
+    ],
+  ];
+}

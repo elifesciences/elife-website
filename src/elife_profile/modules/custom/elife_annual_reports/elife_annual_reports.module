@@ -51,3 +51,14 @@ function elife_annual_reports_latest_year() {
 
   return FALSE;
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_annual_reports_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_annual_reports' => [
+      'annual-reports',
+    ],
+  ];
+}

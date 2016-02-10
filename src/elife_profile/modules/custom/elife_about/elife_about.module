@@ -343,3 +343,14 @@ function _elife_about_text_to_html_id($text) {
 
   return $ids[$text];
 }
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_about_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_about' => [
+      'about',
+    ],
+  ];
+}

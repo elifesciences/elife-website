@@ -38,5 +38,6 @@ features[variable][] = node_submitted_elife_labs_entry
 features[variable][] = pathauto_node_elife_labs_entry_pattern
 features[variable][] = rh_module_elife_labs_entry
 features[variable][] = rh_node_action_elife_labs_entry
+features[variable][] = xmlsitemap_settings_node_elife_labs_entry
 features[views_view][] = elife_labs
 project path = profiles/elife_profile/modules/custom

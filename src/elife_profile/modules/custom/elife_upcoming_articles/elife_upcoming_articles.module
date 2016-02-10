@@ -5,3 +5,14 @@
  */
 
 include_once 'elife_upcoming_articles.features.inc';
+
+/**
+ * Implements hook_elife_xmlsitemap_custom_links().
+ */
+function elife_upcoming_articles_elife_xmlsitemap_custom_links() {
+  return [
+    'elife_upcoming_articles' => [
+      'upcoming',
+    ],
+  ];
+}
