@@ -2545,3 +2545,15 @@ function elife_article_doi_to_glencoe_data_cache($doi) {
 
   return $doi_to_glencoe_api_cache;
 }
+
+/**
+ * Implements hook_field_create_field().
+ */
+function elife_article_field_create_field($field) {
+  if ('field_elife_a_doi' === $field['field_name']) {
+    db_add_index('field_data_field_elife_a_doi', 'elife_type_value', [
+      'entity_type',
+      'field_elife_a_doi_value',
+    ]);
+  }
+}
