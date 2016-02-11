@@ -97,11 +97,22 @@ function elife_article_menu() {
  */
 function elife_article_lookup_content() {
   $redirect = FALSE;
+  $raw_path = 'content/' . implode('/', func_get_args());
 
-  if ($path = _elife_article_lookup_content_path('content/' . implode('/', func_get_args()))) {
-    if ($source_path = drupal_lookup_path('source', $path)) {
+  // If the path matches an old pdf link the redirect to the latest pdf.
+  if (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.full\.pdf$/', $raw_path, $match)) {
+    if ($alias = _elife_article_lookup_content_path(sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
+      $source = drupal_lookup_path('source', $alias);
+      $article_version = menu_get_object('node', 1, $source);
+      $redirect = elife_article_version_source_pdf_path($article_version);
+    }
+  }
+  // If the path matchs a path in our database but without a version then
+  // redirect to the same path but with the latest version inserted.
+  elseif ($alias = _elife_article_lookup_content_path($raw_path)) {
+    if ($source_path = drupal_lookup_path('source', $alias)) {
       if (!empty($_GET['panels_ajax_tab_trigger'])) {
-        $redirect = $path . '/' . $_GET['panels_ajax_tab_trigger'];
+        $redirect = $alias . '/' . $_GET['panels_ajax_tab_trigger'];
       }
       else {
         $redirect = $source_path;
