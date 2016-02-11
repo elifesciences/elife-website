@@ -2,4 +2,6 @@ name = eLife: Simple Pages
 core = 7.x
 package = eLife
 version = 7.x-1.0
+dependencies[] = elife_config
+dependencies[] = pathologic
 project path = profiles/elife_profile/modules/custom
