@@ -395,6 +395,7 @@ Feature: Article Publish Resource (API)
           "publish": false
         }
       """
+    And the versions should be ordered "05224.1,05224.2" for "10.7554/eLife.05224"
     When I am an anonymous user
     And I go to "content/4/e05224v2"
     And I should get a 404 HTTP response
@@ -429,6 +430,7 @@ Feature: Article Publish Resource (API)
         }
       """
     And response should contain "update"
+    And the versions should be ordered "05224.2,05224.1" for "10.7554/eLife.05224"
     When I am an anonymous user
     And I go to "content/4/e05224v2"
     And I should get a 200 HTTP response
