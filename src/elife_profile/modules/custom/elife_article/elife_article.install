@@ -53,7 +53,7 @@ function elife_article_schema() {
         'description' => 'Hash of markup queries',
       ),
       'markup' => array(
-        'type' => 'text',
+        'type' => 'blob',
         'size' => 'big',
         'serialize' => TRUE,
         'description' => 'Serialized ElifeMarkupService object',
@@ -77,7 +77,7 @@ function elife_article_schema() {
         'description' => 'Article version id',
       ),
       'citation' => array(
-        'type' => 'text',
+        'type' => 'blob',
         'size' => 'big',
         'serialize' => TRUE,
         'description' => 'Serialized ElifeCitationService object',
@@ -181,5 +181,23 @@ function elife_article_update_7104() {
   db_add_index('field_data_field_elife_a_doi', 'elife_type_value', [
     'entity_type',
     'field_elife_a_doi_value',
+  ]);
+}
+
+/**
+ * Correct field types.
+ */
+function elife_article_update_7105() {
+  db_change_field('elife_markup', 'markup', 'markup', [
+    'type' => 'blob',
+    'size' => 'big',
+    'serialize' => TRUE,
+    'description' => 'Serialized ElifeMarkupService object',
+  ]);
+  db_change_field('elife_citation', 'citation', 'citation', [
+    'type' => 'blob',
+    'size' => 'big',
+    'serialize' => TRUE,
+    'description' => 'Serialized ElifeCitationService object',
   ]);
 }
