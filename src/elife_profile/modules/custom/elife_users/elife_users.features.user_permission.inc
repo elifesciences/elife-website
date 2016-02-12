@@ -580,6 +580,16 @@ function elife_users_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'clear elife_article markup'.
+  $permissions['clear elife_article markup'] = array(
+    'name' => 'clear elife_article markup',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'elife_article',
+  );
+
   // Exported permission: 'create elife_annual_report content'.
   $permissions['create elife_annual_report content'] = array(
     'name' => 'create elife_annual_report content',

@@ -276,6 +276,7 @@ function _elife_services_persist_article($data) {
   }
 
   $dto = elife_article_version_to_dto($entity);
+  elife_article_markup_clear_once($dto->getArticleVersionId());
 
   $json = elife_article_serializer()->serialize($dto);
 
