@@ -229,7 +229,10 @@ function elife_early_careers_interviews_default_page_manager_pages() {
   $page->admin_title = 'eLife Early Careers Interviews';
   $page->admin_description = '';
   $page->path = 'early-careers-interviews';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array();
   $page->conf = array(

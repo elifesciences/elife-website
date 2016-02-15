@@ -16,7 +16,10 @@ function elife_labs_default_page_manager_pages() {
   $page->admin_title = 'eLife Labs';
   $page->admin_description = '';
   $page->path = 'labs';
-  $page->access = array();
+  $page->access = array(
+    'type' => 'none',
+    'settings' => NULL,
+  );
   $page->menu = array();
   $page->arguments = array();
   $page->conf = array(

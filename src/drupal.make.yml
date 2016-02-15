@@ -3,8 +3,7 @@ core: 7.x
 
 projects:
   drupal:
-    version: 7.41
+    version: 7.43
     patch:
       - 'https://www.drupal.org/files/issues/allow_double-2009584-37.patch'
-      - 'https://www.drupal.org/files/issues/add_static_cache_to-1443308-106.patch'
       - 'https://www.drupal.org/files/issues/drupal-session_destroy_return_bool-2460833-3-D7.patch'

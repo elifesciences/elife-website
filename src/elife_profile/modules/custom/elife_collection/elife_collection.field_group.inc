@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function elife_collection_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -39,7 +39,7 @@ function elife_collection_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_c_details|node|elife_collection|form'] = $field_group;
+  $field_groups['group_c_details|node|elife_collection|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -69,7 +69,7 @@ function elife_collection_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_c_content|node|elife_collection|form'] = $field_group;
+  $field_groups['group_elife_c_content|node|elife_collection|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -99,7 +99,13 @@ function elife_collection_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_c_image|node|elife_collection|form'] = $field_group;
+  $field_groups['group_elife_c_image|node|elife_collection|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Content');
+  t('Details');
+  t('Image');
+
+  return $field_groups;
 }

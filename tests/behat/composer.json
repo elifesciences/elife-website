@@ -4,7 +4,7 @@
     "behat/drupal-propeople-context": "~1.2",
     "codifico/web-api-extension": "~1.0@dev",
     "elife/isolated-drupal-behat-extension": "~0.2",
-    "guzzlehttp/guzzle": "~5.0",
+    "guzzlehttp/guzzle": "~5.3",
     "zalas/behat-no-extension": "~1.1",
     "phpunit/phpunit": "~4.8"
   },

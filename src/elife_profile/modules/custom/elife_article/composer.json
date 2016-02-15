@@ -1,8 +1,8 @@
 {
     "require": {
         "php": ">=5.5",
-        "jms/serializer": "~1.0",
-        "symfony/process": "~2.7",
+        "jms/serializer": "~1.1",
+        "symfony/process": "~3.0",
         "elife/elife-ingest-xsl": "dev-master"
     },
     "autoload": {

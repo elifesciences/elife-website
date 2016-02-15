@@ -134,7 +134,7 @@ function elife_news_views_default_views() {
   $handler->display->display_options['fields']['tid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['tid']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['tid']['separator'] = '';
-  /* Field: Field: Name */
+  /* Field: Field: Title */
   $handler->display->display_options['fields']['field_elife_title']['id'] = 'field_elife_title';
   $handler->display->display_options['fields']['field_elife_title']['table'] = 'field_data_field_elife_title';
   $handler->display->display_options['fields']['field_elife_title']['field'] = 'field_elife_title';

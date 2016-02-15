@@ -242,9 +242,6 @@ function elife_article_metatags_metatag_export_default() {
       'book:tag' => array(
         'value' => '',
       ),
-      'og:video' => array(
-        'value' => '',
-      ),
       'og:video:secure_url' => array(
         'value' => '',
       ),
@@ -279,6 +276,9 @@ function elife_article_metatags_metatag_export_default() {
         'value' => '',
       ),
       'video:series' => array(
+        'value' => '',
+      ),
+      'og:video:url' => array(
         'value' => '',
       ),
     ),
