@@ -61,6 +61,7 @@ function elife_config_form_node_form_alter(&$form, &$form_state, $form_id) {
     'options',
     'path',
     'redirect',
+    'xmlsitemap',
   ];
 
   foreach ($fields as $field) {
