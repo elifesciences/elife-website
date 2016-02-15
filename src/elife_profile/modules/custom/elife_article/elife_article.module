@@ -467,8 +467,8 @@ function elife_article_preprocess_node(&$variables) {
 
     if (!empty($dto->getPubDate())) {
       $meta_parts[] = '<time class="article-teaser__meta_part article-teaser__datestamp" datetime="' . $dto->getPubDate()->format('Y-m-d') . '">Published on ' . $dto->getPubDate()->format('F j, Y') . '</time>';
-      if (!empty($dto->getUpdate()) && $dto->getPubDate()
-          ->format('Y-m-d') !== $dto->getUpdate()->format('Y-m-d')
+      if (!empty($dto->getUpdate()) &&
+        $dto->getPubDate()->format('Ymd') < $dto->getUpdate()->format('Ymd')
       ) {
         $meta_parts[] = '<time class="article-teaser__meta_part article-teaser__datestamp" datetime="' . $dto->getUpdate()->format('Y-m-d') . '">Updated on ' . $dto->getUpdate()->format('F j, Y') . '</time>';
       }
