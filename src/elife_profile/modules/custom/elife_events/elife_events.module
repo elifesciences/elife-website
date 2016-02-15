@@ -7,11 +7,11 @@
 include_once 'elife_events.features.inc';
 
 /**
- * Implements template_preprocess_node().
+ * Implements hook_node_view().
  */
-function elife_events_preprocess_node(&$variables) {
-  if ('elife_event' === $variables['type'] && 'teaser' === $variables['view_mode']) {
-    drupal_add_css(drupal_get_path('module', 'elife_events') . '/css/event-teaser.css');
+function elife_events_node_view($node, $view_mode, $langcode) {
+  if ('elife_event' === $node->type && 'teaser' === $view_mode) {
+    $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_events') . '/css/event-teaser.css';
   }
 }
 

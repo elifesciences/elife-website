@@ -23,13 +23,24 @@ function elife_collection_elife_body_field() {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function elife_collection_node_view($node, $view_mode, $langcode) {
+  if (
+    'elife_collection' === $node->type
+    &&
+    in_array($view_mode, ['teaser', 'elife_teaser_compact'])
+  ) {
+    $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css';
+  }
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function elife_collection_preprocess_node(&$variables) {
   if ('elife_collection' === $variables['type']) {
     if (in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])) {
-      drupal_add_css(drupal_get_path('module', 'elife_collection') . '/css/collection-teaser.css');
-
       $curators = [];
       $curators_short = [];
 
