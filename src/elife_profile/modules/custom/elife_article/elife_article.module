@@ -87,6 +87,15 @@ function elife_article_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  $items['node/%node/elife_markup_clear'] = array(
+    'title' => 'Clear markup',
+    'page callback' => '_elife_article_markup_clear',
+    'page arguments' => array(1),
+    'access arguments' => array('clear elife_article markup'),
+    'weight' => 0,
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE,
+  );
   return $items;
 }
 
@@ -286,6 +295,9 @@ function elife_article_permission() {
     ),
     'administer elife_article assets source' => array(
       'title' => t('Administer eLife - Article assets source'),
+    ),
+    'clear elife_article markup' => array(
+      'title' => t('Clear eLife HTML and citation markup'),
     ),
   );
 }
@@ -2286,7 +2298,12 @@ function _elife_article_citation_cache_clear($article_version_ids) {
  * Empty all entries in the citation query cache table.
  */
 function _elife_article_citation_cache_clear_all() {
-  db_truncate('elife_citation')->execute();
+  $cache = &drupal_static(__FUNCTION__, FALSE);
+  if (empty($cache)) {
+    db_truncate('elife_citation')->execute();
+    $cache = TRUE;
+  }
+  return $cache;
 }
 
 /**
@@ -2447,7 +2464,47 @@ function _elife_article_markup_cache_clear($article_version_ids) {
  * Empty all entries in the markup query cache table.
  */
 function _elife_article_markup_cache_clear_all() {
-  db_truncate('elife_markup')->execute();
+  $cache = &drupal_static(__FUNCTION__, FALSE);
+  if (empty($cache)) {
+    db_truncate('elife_markup')->execute();
+    $cache = TRUE;
+  }
+  return $cache;
+}
+
+/**
+ * Clear markup cache if request value found.
+ *
+ * @param $article_version_id
+ * @return array
+ */
+function elife_article_markup_clear_once($article_version_id) {
+  $cache = &drupal_static(__FUNCTION__, []);
+  if (user_access('clear elife_article markup') && !isset($cache[$article_version_id])) {
+    $cache[$article_version_id] = TRUE;
+    _elife_article_markup_cache_clear($article_version_id);
+    _elife_article_citation_cache_clear($article_version_id);
+    drupal_set_message(t('elife_markup cleared for article !article_version_id', ['!article_version_id' => $article_version_id]));
+  }
+  return $cache;
+}
+
+/**
+ * Trigger clear up of article version markup.
+ *
+ * @param $node
+ */
+function _elife_article_markup_clear($node) {
+  $dto = elife_article_version_to_dto($node);
+  elife_article_markup_clear_once($dto->getArticleVersionId());
+  if (!empty($_GET['destination'])) {
+    $path = $_GET['destination'];
+    unset($_GET['destination']);
+  }
+  else {
+    $path = 'node/' . $node->nid;
+  }
+  drupal_goto($path);
 }
 
 /**
