@@ -51,6 +51,8 @@ projects:
       - 'https://www.drupal.org/files/issues/elysia_cron-php_7-2655980-2.patch'
   entity:
     version: '1.6'
+  entitycache:
+    version: '1.5'
   entityreference:
     version: '1.1'
     patch:

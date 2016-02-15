@@ -193,3 +193,10 @@ function elife_profile_update_7113() {
 function elife_profile_update_7114() {
   db_truncate('elife_markup')->execute();
 }
+
+/**
+ * Enable entitycache.
+ */
+function elife_profile_update_7115() {
+  module_enable(['entitycache'], FALSE);
+}
