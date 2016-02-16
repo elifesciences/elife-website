@@ -73,6 +73,11 @@ Feature: Front Matter
             "update": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05224",
             "article-type": "research-article",
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            },
             "status": "VOR",
             "publish": true
           },
@@ -88,6 +93,11 @@ Feature: Front Matter
             "update": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05225",
             "article-type": "research-article",
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            },
             "status": "VOR",
             "publish": true
           },
@@ -103,6 +113,11 @@ Feature: Front Matter
             "update": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05226",
             "article-type": "research-article",
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            },
             "status": "VOR",
             "publish": true
           },
@@ -118,6 +133,11 @@ Feature: Front Matter
             "update": "1979-08-17T00:00:00+00:00",
             "path": "content/4/e05227",
             "article-type": "research-article",
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            },
             "status": "VOR",
             "publish": true
           }
@@ -142,13 +162,19 @@ Feature: Front Matter
     And I add "elife_front_matter" with title "Collection 1" to entityqueue "elife_front_matter_col_2"
     And I add "elife_cover" with title "Check out 05224" to entityqueue "elife_cover"
     When I am on the homepage
-    Then I should see the text "Check out 05224" in the "front_matter_col_1" region
-    And I should see "05224" in the ".headlines-secondary__item_title i" element
-    And I should see the text "Check out 05225" in the "front_matter_col_1" region
-    And I should see the text "Podcast 1" in the "front_matter_col_1" region
-    And I should see the text "Check out 05226" in the "front_matter_col_2" region
-    And I should see the text "Check out 05227" in the "front_matter_col_2" region
-    And I should see the text "Collection 1" in the "front_matter_col_2" region
+    Then I should see "Research article" in the ".view-display-id-front_matter_col_1 > .view-header .headlines-secondary__item_type" element
+    And I should see "Check out 05224" in the ".view-display-id-front_matter_col_1 > .view-header .headlines-secondary__item_title" element
+    And I should see "05224" in the ".view-display-id-front_matter_col_1 > .view-header .headlines-secondary__item_title i" element
+    And I should see "Research article" in the ".view-display-id-front_matter_col_1 > .view-content > div:nth-of-type(1) .headlines-secondary__item_type" element
+    And I should see "Check out 05225" in the ".view-display-id-front_matter_col_1 > .view-content > div:nth-of-type(1) .headlines-secondary__item_title" element
+    And I should see "Podcast" in the ".view-display-id-front_matter_col_1 > .view-content > div:nth-of-type(2) .headlines-secondary__item_type" element
+    And I should see "Podcast 1" in the ".view-display-id-front_matter_col_1 > .view-content > div:nth-of-type(2) .headlines-secondary__item_title" element
+    And I should see "Research article" in the ".view-display-id-front_matter_col_2 > .view-header .headlines-secondary__item_type" element
+    And I should see "Check out 05226" in the ".view-display-id-front_matter_col_2 > .view-header .headlines-secondary__item_title" element
+    And I should see "Research article" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(1) .headlines-secondary__item_type" element
+    And I should see "Check out 05227" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(1) .headlines-secondary__item_title" element
+    And I should see "Supplementary" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(2) .headlines-secondary__item_type" element
+    And I should see "Collection 1" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(2) .headlines-secondary__item_title" element
     And I follow "Check out 05226" in the "front_matter_col_2" region
     And I should be on "content/4/e05226"
     And I should see "VOR 05226" in the "h1" element
