@@ -347,7 +347,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     Assertions::assertNotNull($subqueue, 'Entityqueue with supplied title not found');
     $eq_node = array(array('target_id' => $node->nid));
     if (!empty($subqueue->eq_node)) {
-      $eq_node = array_merge($eq_node, $subqueue->eq_node[LANGUAGE_NONE]);
+      $eq_node = array_merge($subqueue->eq_node[LANGUAGE_NONE], $eq_node);
     }
     $subqueue->eq_node[LANGUAGE_NONE] = $eq_node;
     entityqueue_subqueue_save($subqueue);
