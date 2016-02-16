@@ -121,17 +121,22 @@ function elife_podcast_elife_body_field() {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function elife_podcast_node_view($node, $view_mode, $langcode) {
+  if (
+    in_array($node->type, ['elife_podcast', 'elife_podcast_chapter'])
+    &&
+    in_array($view_mode, ['teaser', 'elife_teaser_compact'])
+  ) {
+    $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_podcast') . '/css/podcast-teaser.css';
+  }
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function elife_podcast_preprocess_node(&$variables) {
-  if (
-    in_array($variables['type'], ['elife_podcast', 'elife_podcast_chapter'])
-    &&
-    in_array($variables['view_mode'], ['teaser', 'elife_teaser_compact'])
-  ) {
-    drupal_add_css(drupal_get_path('module', 'elife_podcast') . '/css/podcast-teaser.css');
-  }
-
   if ('elife_podcast' === $variables['type']) {
     $variables['elife_p_actions'] = theme('item_list', [
       'items' => [

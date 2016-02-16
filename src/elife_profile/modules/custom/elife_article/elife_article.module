@@ -316,6 +316,19 @@ function elife_article_node_delete($node) {
 }
 
 /**
+ * Implements hook_node_view().
+ */
+function elife_article_node_view($node, $view_mode, $langcode) {
+  if (
+    'elife_article_ver' === $node->type
+    &&
+    in_array($view_mode, ['teaser', 'elife_teaser_compact'])
+  ) {
+    $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_article') . '/css/article-teaser.css';
+  }
+}
+
+/**
  * Implements hook_node_view_alter().
  */
 function elife_article_node_view_alter(&$build) {
@@ -340,7 +353,6 @@ function elife_article_preprocess_node(&$variables) {
     ])
   ) {
     $variables['date'] = format_date($variables['node']->created, 'custom', 'j F Y');
-    drupal_add_css(drupal_get_path('module', 'elife_article') . '/css/article-teaser.css');
 
     $dto = elife_article_version_to_dto($variables['node']);
 

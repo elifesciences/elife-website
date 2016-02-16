@@ -69,17 +69,20 @@ function elife_person_profile_field_group_build_pre_render_alter(&$element) {
 }
 
 /**
- * Implements template_preprocess_node().
+ * Implements hook_node_view().
  */
-function elife_person_profile_preprocess_node(&$variables) {
-  if ('elife_person_profile' === $variables['type']) {
-    if ('elife_teaser_compact' === $variables['view_mode']) {
-      drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile-compact.css');
+function elife_person_profile_node_view($node, $view_mode, $langcode) {
+  if ('elife_person_profile' === $node->type) {
+    if ('elife_teaser_compact' === $view_mode) {
+      $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_person_profile') . '/css/person-profile-compact.css';
     }
     else {
-      drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile.css');
-      drupal_add_js(drupal_get_path('module', 'elife_person_profile') . '/js/person-profile.js', ['scope' => 'footer']);
-      drupal_add_js(['elifePersonProfile' => ['moduleFolder' => drupal_get_path('module', 'elife_person_profile')]], 'setting');
+      $node->content['#attached']['css'][] = drupal_get_path('module', 'elife_person_profile') . '/css/person-profile.css';
+      $node->content['#attached']['js'][drupal_get_path('module', 'elife_person_profile') . '/js/person-profile.js'] = ['scope' => 'footer'];
+      $node->content['#attached']['js'][] = [
+        'data' => ['elifePersonProfile' => ['moduleFolder' => drupal_get_path('module', 'elife_person_profile')]],
+        'type' => 'setting',
+      ];
     }
   }
 }
