@@ -173,7 +173,7 @@ Feature: Front Matter
     And I should see "Check out 05226" in the ".view-display-id-front_matter_col_2 > .view-header .headlines-secondary__item_title" element
     And I should see "Research article" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(1) .headlines-secondary__item_type" element
     And I should see "Check out 05227" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(1) .headlines-secondary__item_title" element
-    And I should see "Supplementary" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(2) .headlines-secondary__item_type" element
+    And I should see "Collection" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(2) .headlines-secondary__item_type" element
     And I should see "Collection 1" in the ".view-display-id-front_matter_col_2 > .view-content > div:nth-of-type(2) .headlines-secondary__item_title" element
     And I follow "Check out 05226" in the "front_matter_col_2" region
     And I should be on "content/4/e05226"

@@ -1248,8 +1248,11 @@ class ElifeArticleVersion {
         'short' => 'Short Report',
         'correction' => 'Correction',
         'retraction' => 'Retraction',
-        'news' => 'eLife News',
+        'news_article' => 'eLife News',
         'podcast' => 'Podcast',
+        'event' => 'Event',
+        'early_careers_interview' => 'Early-career researchers',
+        'collection' => 'Collection',
         'other' => 'Supplementary',
       );
 
