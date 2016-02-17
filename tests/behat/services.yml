@@ -1,5 +1,10 @@
 services:
 
+  elife.behat.listener.disable_cache:
+    class: eLife\Behat\DisableCacheListener
+    tags:
+      - { name: event_dispatcher.subscriber }
+
   elife.behat.listener.environment:
     class: eLife\Behat\EnvironmentListener
     tags:

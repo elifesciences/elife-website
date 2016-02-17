@@ -151,7 +151,13 @@ function elife_front_matter_default_page_manager_pages() {
     'override_title_text' => '',
     'override_title_heading' => 'h2',
   );
-  $pane->cache = array();
+  $pane->cache = array(
+    'method' => 'simple',
+    'settings' => array(
+      'lifetime' => '7200',
+      'granularity' => 'none',
+    ),
+  );
   $pane->style = array(
     'settings' => NULL,
   );
