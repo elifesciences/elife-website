@@ -127,6 +127,9 @@ function elife_article_strongarm() {
         'rabbit_hole' => array(
           'weight' => '1',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(
         'sharethis' => array(
