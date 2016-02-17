@@ -13,6 +13,32 @@ function elife_events_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_event_teaser';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_e_date' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_e_text' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_event_teaser'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_event';
   $strongarm->value = array(
     'view_modes' => array(

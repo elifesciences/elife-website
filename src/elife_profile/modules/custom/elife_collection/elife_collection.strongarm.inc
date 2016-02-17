@@ -13,6 +13,46 @@ function elife_collection_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_collection_elife_teaser_compact';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_collection_elife_teaser_compact'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_collection_teaser';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_c_image' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_c_text' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_collection_teaser'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_collection';
   $strongarm->value = array(
     'view_modes' => array(

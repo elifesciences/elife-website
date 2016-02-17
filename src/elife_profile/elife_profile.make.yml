@@ -39,6 +39,8 @@ projects:
     version: '2.9'
   diff:
     version: '3.2'
+  display_cache:
+    version: '1.3'
   ds:
     version: '2.11'
   efq_extra_field:

@@ -27,6 +27,7 @@ features[field_instance][] = node-elife_early_careers_spotlight-field_elife_s_re
 features[field_instance][] = node-elife_early_careers_spotlight-field_elife_s_text
 features[field_instance][] = node-elife_early_careers_spotlight-field_elife_title
 features[node][] = elife_early_careers_spotlight
+features[variable][] = display_cache_node_elife_early_careers_spotlight_teaser
 features[variable][] = field_bundle_settings_node__elife_early_careers_spotlight
 features[variable][] = menu_options_elife_early_careers_spotlight
 features[variable][] = menu_parent_elife_early_careers_spotlight

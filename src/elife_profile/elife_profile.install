@@ -200,3 +200,10 @@ function elife_profile_update_7114() {
 function elife_profile_update_7115() {
   module_enable(['entitycache'], FALSE);
 }
+
+/**
+ * Enable display_cache.
+ */
+function elife_profile_update_7116() {
+  module_enable(['display_cache'], FALSE);
+}

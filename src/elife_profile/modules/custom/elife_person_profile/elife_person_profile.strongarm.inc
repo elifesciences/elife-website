@@ -34,6 +34,132 @@ function elife_person_profile_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_person_profile_elife_teaser_alternative';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_title' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_research_focus' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_organism' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_person_profile_elife_teaser_alternative'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_person_profile_elife_teaser_compact';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_photo' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_first_name' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_last_name' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_title' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_affiliation' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_person_profile_elife_teaser_compact'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'display_cache_node_elife_person_profile_teaser';
+  $strongarm->value = array(
+    'default' => array(
+      'use' => '1',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_photo' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_expertise' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_title' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_affiliation' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_first_name' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+    'field_elife_pp_last_name' => array(
+      'override' => '2',
+      'page_granularity' => '0',
+      'user_granularity' => '1',
+      'granularity' => '1',
+    ),
+  );
+  $export['display_cache_node_elife_person_profile_teaser'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__elife_person_profile';
   $strongarm->value = array(
     'view_modes' => array(
