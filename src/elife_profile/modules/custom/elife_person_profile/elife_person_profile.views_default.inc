@@ -25,7 +25,11 @@ function elife_person_profile_views_default_views() {
   $handler->display->display_options['css_class'] = 'clearfix';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time';
+  $handler->display->display_options['cache']['results_lifespan'] = 'custom';
+  $handler->display->display_options['cache']['results_lifespan_custom'] = '7200';
+  $handler->display->display_options['cache']['output_lifespan'] = 'custom';
+  $handler->display->display_options['cache']['output_lifespan_custom'] = '7200';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';

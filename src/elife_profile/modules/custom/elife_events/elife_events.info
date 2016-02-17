@@ -34,6 +34,7 @@ features[field_instance][] = node-elife_event-field_elife_title
 features[node][] = elife_event
 features[page_manager_handlers][] = node_view__panel_context_853346c8-1d55-4887-be41-676cd1368af5
 features[page_manager_pages][] = elife_events
+features[variable][] = display_cache_node_elife_event_teaser
 features[variable][] = field_bundle_settings_node__elife_event
 features[variable][] = menu_options_elife_event
 features[variable][] = menu_parent_elife_event

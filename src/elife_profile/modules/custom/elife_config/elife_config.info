@@ -48,6 +48,7 @@ features[filter][] = elife_full_html
 features[filter][] = plain_text
 features[variable][] = admin_theme
 features[variable][] = date_format_elife_date_only
+features[variable][] = display_cache_variables
 features[variable][] = ds_classes_fields
 features[variable][] = ds_classes_regions
 features[variable][] = ds_extras_field_permissions

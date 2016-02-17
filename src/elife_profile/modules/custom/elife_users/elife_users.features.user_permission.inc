@@ -193,6 +193,13 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'administer display cache'.
+  $permissions['administer display cache'] = array(
+    'name' => 'administer display cache',
+    'roles' => array(),
+    'module' => 'display_cache',
+  );
+
   // Exported permission: 'administer elife content alerts'.
   $permissions['administer elife content alerts'] = array(
     'name' => 'administer elife content alerts',
