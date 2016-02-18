@@ -178,3 +178,40 @@ function _elife_services_user_uid() {
 
   return $cache;
 }
+
+/**
+ * Convert a json string into a normalised json string.
+ *
+ * @param string $data
+ *
+ * @return string
+ */
+function _elife_services_data_normalise($data) {
+  $json = json_decode($data);
+  $normalise = _elife_services_json_normalise($json);
+  return json_encode($normalise);
+}
+
+/**
+ * Convert an array or object into a normalised array or object.
+ *
+ * @param array|object $element
+ *
+ * @return array|object
+ */
+function _elife_services_json_normalise($element) {
+  if (is_array($element)) {
+    foreach ($element as &$item) {
+      $item = _elife_services_json_normalise($item);
+    }
+  }
+  elseif (is_object($element)) {
+    $element = get_object_vars($element);
+    ksort($element);
+    $element = (object) $element;
+    foreach ($element as &$item) {
+      $item = _elife_services_json_normalise($item);
+    }
+  }
+  return $element;
+}
