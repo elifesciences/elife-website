@@ -15,6 +15,8 @@ function ctools_elife_article_reference_context($context, $conf) {
     empty($context->data)
     ||
     !in_array($context->data->type, ['elife_article', 'elife_article_ver'])
+    ||
+    empty($context->data->field_elife_a_article_id)
   ) {
     return ctools_context_create_empty('node');
   }
