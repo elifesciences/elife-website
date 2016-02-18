@@ -80,14 +80,7 @@ function elife_article_reference_node_presave($node) {
   if ('elife_article' === $node->getBundle()) {
     $article_id = $node->field_elife_a_article_id->value();
 
-    $article_reference = elife_article_reference_for_article_id($article_id);
-
-    if (!$article_reference) {
-      $article_reference = entity_create('node', [
-        'type' => 'elife_article_reference',
-        'uid' => $node->raw()->uid,
-      ]);
-    }
+    $article_reference = elife_article_reference_for_article_id($node->raw());
 
     /* @var EntityDrupalWrapper $article_reference */
     $article_reference = entity_metadata_wrapper('node', $article_reference);
@@ -109,43 +102,61 @@ function elife_article_reference_node_delete($node) {
     return;
   }
 
-  $article_id = $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+  $article_reference = elife_article_reference_for_article_id($node);
 
-  $article_reference = elife_article_reference_for_article_id($article_id);
-
-  if ($article_reference) {
+  if (NODE_NOT_PUBLISHED != $article_reference->status) {
     $article_reference->status = NODE_NOT_PUBLISHED;
     node_save($article_reference);
   }
 }
 
 /**
- * Get article reference entity for an article ID.
+ * Get article reference entity for an article.
  *
- * @param string $article_id
- *   Article ID.
+ * If one doesn't already exist, it's created (but not yet persisted).
  *
- * @return object|bool
- *   Article reference entity, or FALSE.
+ * @param stdClass $article
+ *   Article node.
+ *
+ * @return object
+ *   Article reference entity.
  */
-function elife_article_reference_for_article_id($article_id) {
-  $query = new EntityFieldQuery();
+function elife_article_reference_for_article_id(stdClass $article) {
+  $references = &drupal_static(__FUNCTION__, []);
 
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'elife_article_reference')
-    ->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=')
-    ->range(0, 1);
+  $article_id = $article->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
 
-  $result = $query->execute();
+  if (!isset($references[$article_id])) {
+    $query = new EntityFieldQuery();
 
-  if (isset($result['node'])) {
-    $nids = array_keys($result['node']);
-    $article_versions = entity_load('node', $nids);
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'elife_article_reference')
+      ->fieldCondition('field_elife_a_article_id', 'value', $article_id, '=')
+      ->range(0, 1);
 
-    return reset($article_versions);
+    $result = $query->execute();
+
+    if (empty($result['node'])) {
+      $reference = entity_create('node', [
+        'type' => 'elife_article_reference',
+        'uid' => $article->uid,
+      ]);
+
+      $reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value'] = $article_id;
+      $reference->field_elife_a_title = $article->field_elife_title;
+      $reference->status = $article->status;
+
+      node_save($reference);
+
+      $references[$article_id] = $reference->nid;
+
+      return $reference;
+    }
+
+    $references[$article_id] = key($result['node']);
   }
 
-  return FALSE;
+  return node_load($references[$article_id]);
 }
 
 function elife_article_reference_get_article_version($article_reference) {

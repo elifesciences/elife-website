@@ -21,7 +21,7 @@ function ctools_elife_article_reference_context($context, $conf) {
     return ctools_context_create_empty('node');
   }
 
-  $article_reference = elife_article_reference_for_article_id($context->data->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
+  $article_reference = elife_article_reference_for_article_id($context->data);
 
   return ctools_context_create('node', $article_reference);
 }
