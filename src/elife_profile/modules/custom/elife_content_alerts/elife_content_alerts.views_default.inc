@@ -65,7 +65,7 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['relationships']['field_elife_a_heading_target_id']['relationship'] = 'field_elife_a_versions_target_id';
   $handler->display->display_options['relationships']['field_elife_a_heading_target_id']['label'] = 'Heading';
   $handler->display->display_options['relationships']['field_elife_a_heading_target_id']['required'] = TRUE;
-  /* Field: Panel Pane - Node: Article - Content Alert */
+  /* Field: Panel Pane - Content: Article - Content Alert */
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['id'] = 'ctools_field_elife_content_alert';
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['field'] = 'ctools_field_elife_content_alert';
@@ -86,24 +86,31 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['sorts']['name']['table'] = 'taxonomy_term_data';
   $handler->display->display_options['sorts']['name']['field'] = 'name';
   $handler->display->display_options['sorts']['name']['relationship'] = 'field_elife_a_heading_target_id';
+  /* Sort criterion: Content: Updated Date (field_elife_a_update) */
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['id'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['table'] = 'field_data_field_elife_a_update';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['field'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['order'] = 'DESC';
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['field'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['order'] = 'DESC';
-  /* Contextual filter: Content: First Publication Date (field_elife_a_fpubdate) */
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['field'] = 'field_elife_a_fpubdate_value';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['default_argument_type'] = 'date';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['year_range'] = '2012:+0';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['granularity'] = 'day';
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['granularity_reset'] = 0;
-  $handler->display->display_options['arguments']['field_elife_a_fpubdate_value']['use_fromto'] = 'no';
+  /* Contextual filter: Content: Updated Date (field_elife_a_update) */
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['id'] = 'field_elife_a_update_value';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['table'] = 'field_data_field_elife_a_update';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['field'] = 'field_elife_a_update_value';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['default_argument_type'] = 'date';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['year_range'] = '2012:+0';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['granularity'] = 'day';
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['granularity_reset'] = 0;
+  $handler->display->display_options['arguments']['field_elife_a_update_value']['use_fromto'] = 'no';
   /* Contextual filter: Content: Status (field_elife_a_status) */
   $handler->display->display_options['arguments']['field_elife_a_status_value']['id'] = 'field_elife_a_status_value';
   $handler->display->display_options['arguments']['field_elife_a_status_value']['table'] = 'field_data_field_elife_a_status';
@@ -120,7 +127,8 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
@@ -210,7 +218,7 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['relationships']['field_elife_a_category_target_id']['label'] = 'Category';
   $handler->display->display_options['relationships']['field_elife_a_category_target_id']['required'] = TRUE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Panel Pane - Node: Article - Content Alert */
+  /* Field: Panel Pane - Content: Article - Content Alert */
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['id'] = 'ctools_field_elife_content_alert';
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['field'] = 'ctools_field_elife_content_alert';
@@ -219,6 +227,12 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['ctools_field_elife_content_alert']['element_default_classes'] = FALSE;
   $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated Date (field_elife_a_update) */
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['id'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['table'] = 'field_data_field_elife_a_update';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['field'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['order'] = 'DESC';
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
@@ -230,7 +244,8 @@ function elife_content_alerts_views_default_views() {
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
