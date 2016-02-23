@@ -66,6 +66,7 @@ function elife_content_alert_render($subtype, $conf, $args, $context) {
       $last_contributors = [];
       $last_contributors[] = array_pop($contributor_items);
       $last_contributors[] = array_pop($contributor_items);
+      $last_contributors = array_reverse($last_contributors);
       $contributor_items[] = implode(t(' and '), $last_contributors);
     }
 
