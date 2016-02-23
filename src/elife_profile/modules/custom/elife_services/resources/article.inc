@@ -221,90 +221,64 @@ function _elife_services_persist_article($data) {
 
   $article_version = elife_article_serializer()->deserialize($data);
 
-  $json = FALSE;
-  $existing_eif_query = new EntityFieldQueryExtraFields();
-  $existing_eif_query->entityCondition('entity_type', 'node');
-  $existing_eif_query->entityCondition('bundle', 'elife_article_ver');
-  $existing_eif_query->fieldCondition('field_elife_a_article_version_id', 'value', $article_version->getArticleVersionId(), '=');
-  $existing_eif_query->addExtraField('field_elife_a_eif_json', 'value', 'value');
-  $existing_eif_results = $existing_eif_query->execute();
-  if (!empty($existing_eif_results['node'])) {
-    $existing_eif_result = reset($existing_eif_results['node']);
-    if ($existing_eif_result->extraFields->field_elife_a_eif_json_value == _elife_services_data_normalise($data)) {
-      if ($existing_node = node_load($existing_eif_result->nid)) {
-        $existing_dto = elife_article_version_to_dto($existing_node);
-        $json = elife_article_serializer()->serialize($existing_dto);
+  $existing = ElifeArticleVersion::fromIdentifier($article_version->getArticleVersionId(), FALSE, 'elife_article_ver', 0, 'field_elife_a_article_version_id', TRUE);
+
+  if (!empty($existing)) {
+    $paths = [];
+    foreach ($existing as $nid) {
+      $path = drupal_get_path_alias($source = 'node/' . $nid);
+      if ($source !== $path) {
+        $paths[] = $path;
       }
+    }
+    node_delete_multiple($existing);
+    if (!empty($paths)) {
+      $db_or = db_or();
+      foreach ($paths as $path) {
+        $db_or->condition('alias', $path . '/%', 'LIKE');
+      }
+      db_delete('url_alias')->condition($db_or)->execute(); // Removes aliases for any fragments etc.
     }
   }
 
-  if (!$json) {
-    $existing = ElifeArticleVersion::fromIdentifier($article_version->getArticleVersionId(), FALSE, 'elife_article_ver', 0, 'field_elife_a_article_version_id', TRUE);
-    if (!empty($existing)) {
-      $paths = [];
-      foreach ($existing as $nid) {
-        $path = drupal_get_path_alias($source = 'node/' . $nid);
-        if ($source !== $path) {
-          $paths[] = $path;
-        }
-      }
-      node_delete_multiple($existing);
-      if (!empty($paths)) {
-        $db_or = db_or();
-        foreach ($paths as $path) {
-          $db_or->condition('alias', $path . '/%', 'LIKE');
-        }
-        db_delete('url_alias')->condition($db_or)->execute(); // Removes aliases for any fragments etc.
-      }
-    }
+  $entity = elife_article_version_from_dto($article_version, _elife_services_user_uid());
 
-    $entity = elife_article_version_from_dto($article_version, _elife_services_user_uid());
+  $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
 
-    $article_entity = elife_article_from_dto($article_version, _elife_services_user_uid());
+  $json = json_decode($data, TRUE);
+  $reload_entity = FALSE;
 
+  // Set citations as json.
+  if (!empty($json['citations'])) {
     $node_field = new stdClass();
     $node_field->nid = $entity->nid;
     $node_field->type = $entity->type;
-    $node_field->field_elife_a_eif_json[LANGUAGE_NONE][0]['value'] = _elife_services_data_normalise($data);
+    $node_field->field_elife_a_citations_json[LANGUAGE_NONE][0]['value'] = json_encode($json['citations']);
     field_attach_presave('node', $node_field);
     field_attach_update('node', $node_field);
-
-    $json = json_decode($data, TRUE);
-    $reload_entity = FALSE;
-
-    // Set citations as json.
-    if (!empty($json['citations'])) {
-      $node_field = new stdClass();
-      $node_field->nid = $entity->nid;
-      $node_field->type = $entity->type;
-      $node_field->field_elife_a_citations_json[LANGUAGE_NONE][0]['value'] = json_encode($json['citations']);
-      field_attach_presave('node', $node_field);
-      field_attach_update('node', $node_field);
-      $reload_entity = TRUE;
-    }
-    // Set contributors as json.
-    if (!empty($json['contributors'])) {
-      $node_field = new stdClass();
-      $node_field->nid = $entity->nid;
-      $node_field->type = $entity->type;
-      $node_field->field_elife_a_contributors_json[LANGUAGE_NONE][0]['value'] = json_encode($json['contributors']);
-      field_attach_presave('node', $node_field);
-      field_attach_update('node', $node_field);
-      $reload_entity = TRUE;
-    }
-
-    // Reload the entity if citations or contributors json has been saved directly
-    // to the appropriate field tables.
-    if ($reload_entity) {
-      $entity = node_load($entity->nid);
-    }
-
-    $dto = elife_article_version_to_dto($entity);
-
-    $json = elife_article_serializer()->serialize($dto);
+    $reload_entity = TRUE;
+  }
+  // Set contributors as json.
+  if (!empty($json['contributors'])) {
+    $node_field = new stdClass();
+    $node_field->nid = $entity->nid;
+    $node_field->type = $entity->type;
+    $node_field->field_elife_a_contributors_json[LANGUAGE_NONE][0]['value'] = json_encode($json['contributors']);
+    field_attach_presave('node', $node_field);
+    field_attach_update('node', $node_field);
+    $reload_entity = TRUE;
   }
 
+  // Reload the entity if citations or contributors json has been saved directly
+  // to the appropriate field tables.
+  if ($reload_entity) {
+    $entity = node_load($entity->nid);
+  }
+
+  $dto = elife_article_version_to_dto($entity);
   elife_article_markup_clear_once($dto->getArticleVersionId());
+
+  $json = elife_article_serializer()->serialize($dto);
 
   try {
     elife_article_validator()->validate($json);

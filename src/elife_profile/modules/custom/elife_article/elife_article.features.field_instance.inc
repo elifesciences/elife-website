@@ -1772,80 +1772,6 @@ function elife_article_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-elife_article_ver-field_elife_a_eif_json'.
-  $field_instances['node-elife_article_ver-field_elife_a_eif_json'] = array(
-    'bundle' => 'elife_article_ver',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 31,
-      ),
-      'elife_teaser_compact' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'ds_extras_field_template' => '',
-    'entity_type' => 'node',
-    'field_name' => 'field_elife_a_eif_json',
-    'label' => 'EIF JSON',
-    'required' => 0,
-    'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'elife_full_html' => 'elife_full_html',
-          'elife_house_style' => 'elife_house_style',
-          'elife_labs_tile' => 'elife_labs_tile',
-          'plain_text' => 'plain_text',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'elife_full_html' => array(
-              'weight' => 0,
-            ),
-            'elife_house_style' => array(
-              'weight' => 0,
-            ),
-            'elife_labs_tile' => array(
-              'weight' => 0,
-            ),
-            'plain_text' => array(
-              'weight' => 10,
-            ),
-          ),
-        ),
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'label_help_description' => '',
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 35,
-    ),
-  );
-
   // Exported field_instance:
   // 'node-elife_article_ver-field_elife_a_elocation_id'.
   $field_instances['node-elife_article_ver-field_elife_a_elocation_id'] = array(
@@ -4432,7 +4358,6 @@ function elife_article_field_default_field_instances() {
   t('DOI');
   t('Deceased');
   t('Department');
-  t('EIF JSON');
   t('Email');
   t('Equal contributor');
   t('First Publication Date');

@@ -592,7 +592,6 @@ function elife_users_user_default_permissions() {
     'name' => 'clear elife_article markup',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
-      'eLife Article Publisher' => 'eLife Article Publisher',
       'eLife Editor' => 'eLife Editor',
     ),
     'module' => 'elife_article',
