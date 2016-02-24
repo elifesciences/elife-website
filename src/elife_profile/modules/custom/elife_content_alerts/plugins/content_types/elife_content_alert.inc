@@ -81,7 +81,7 @@ function elife_content_alert_render($subtype, $conf, $args, $context) {
 
   $article = ElifeArticleVersion::getArticle($dto->getArticleId());
   // Get related articles.
-  if ($related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE)) {
+  if ($related_articles = ElifeArticleVersion::retrieveRelatedArticles($dto->getDoi(), TRUE, TRUE)) {
     $related_nids = [];
     foreach ($related_articles as $related_article) {
       $related_nids[] = $related_article->endpoints->related_to->article_ver_nid;

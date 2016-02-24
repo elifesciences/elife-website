@@ -121,7 +121,7 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
   }
 
   $article = ElifeArticleVersion::getArticle($dto->getArticleId());
-  $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, NULL, 0);
+  $related_articles = ElifeArticleVersion::retrieveRelatedArticles($dto->getDoi(), TRUE, TRUE, NULL, 0);
   if (!empty($related_articles)) {
     $img_related = theme('image', array(
         'alt' => t('Related content'),

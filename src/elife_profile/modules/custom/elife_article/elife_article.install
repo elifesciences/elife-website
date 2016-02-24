@@ -90,6 +90,36 @@ function elife_article_schema() {
     ),
     'primary key' => array('id'),
   );
+  $schema['elife_related_articles'] = array(
+    'description' => 'Related articles as recorded in the ingested EIF json.',
+    'fields' => array(
+      'source_doi' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 128,
+        'description' => 'DOI of source article',
+      ),
+      'description' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 128,
+        'description' => 'Description of the nature of the relation between articles',
+      ),
+      'dest_doi' => array(
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'default' => '',
+        'length' => 128,
+        'description' => 'DOI of destination article',
+      ),
+    ),
+    'primary key' => array(
+      'source_doi',
+      'dest_doi',
+    ),
+  );
   $schema['cache_elife_article_pmid'] = drupal_get_schema_unprocessed('system', 'cache');
   $schema['cache_elife_article_glencoe'] = drupal_get_schema_unprocessed('system', 'cache');
   return $schema;
@@ -200,4 +230,31 @@ function elife_article_update_7105() {
     'serialize' => TRUE,
     'description' => 'Serialized ElifeCitationService object',
   ]);
+}
+
+/**
+ * Create table to store related articles.
+ */
+function elife_article_update_7106() {
+  $schema = elife_article_schema();
+  db_create_table('elife_related_articles', $schema['elife_related_articles']);
+
+  $related_articles = "SELECT doi1.field_elife_a_doi_value AS source_doi, doi2.field_elife_a_doi_value AS dest_doi, rft.field_elife_a_rel_article_type_value AS rel_type FROM {field_data_field_elife_a_related_articles} rel INNER JOIN {field_data_field_elife_a_versions} vrs ON vrs.entity_id = rel.entity_id AND vrs.entity_type = rel.entity_type INNER JOIN {field_data_field_elife_a_doi} doi1 ON doi1.entity_id = vrs.field_elife_a_versions_target_id AND doi1.entity_type = 'node' AND vrs.delta = 0 INNER JOIN {field_data_field_elife_a_rel_article_type} rft ON rft.entity_id = rel.field_elife_a_related_articles_value AND rft.entity_type = 'field_collection_item' INNER JOIN {field_data_field_elife_a_doi} doi2 ON doi2.entity_id = rel.field_elife_a_related_articles_value AND doi2.entity_type = 'field_collection_item' WHERE rel.entity_type = 'node' ORDER BY source_doi, dest_doi";
+  $results = db_query($related_articles);
+
+  foreach ($results as $result) {
+    db_merge('elife_related_articles')
+      ->key([
+        'source_doi' => $result->source_doi,
+        'dest_doi' => $result->dest_doi,
+      ])
+      ->fields([
+        'description' => $result->rel_type,
+      ])
+      ->execute();
+  }
+
+  if ($instance = field_info_instance('node', 'field_elife_a_related_articles', 'elife_article')) {
+    field_delete_instance($instance);
+  }
 }
