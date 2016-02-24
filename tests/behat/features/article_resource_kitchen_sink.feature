@@ -4342,47 +4342,40 @@ Feature: Article Resource - Kitchen sink (API)
               "par-1": {
                 "id": "dx.doi.org/10.13039/100000011",
                 "id-type": "FundRef",
-                "institution": "Howard Hughes Medical Institute",
-                "institution-type": "university"
+                "institution": "Howard Hughes Medical Institute"
               },
               "par-2": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM086054"
               },
               "par-3": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "F32 GM089018"
               },
               "par-4": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM086258"
               },
               "par-5": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "R01 GM099533"
               },
               "par-6": {
                 "id": "dx.doi.org/10.13039/100000002",
                 "id-type": "FundRef",
                 "institution": "National Institutes of Health",
-                "institution-type": "university",
                 "award-id": "T32 HG00047"
               },
               "par-7": {
-                "institution": "Laura and John Arnold Foundation",
-                "institution-type": "university"
+                "institution": "Laura and John Arnold Foundation"
               }
             },
             "competing-interest": {

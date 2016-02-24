@@ -13,6 +13,14 @@ use PHPUnit_Framework_Assert as Assertions;
  * Defines application features from the specific context.
  */
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+  /**
+   * Retain the latest node id.
+   *
+   * @var int
+   */
+  protected $latest_nid = 0;
+
+
   public function cleanNodes() {
     $this->nodes = [];
   }
@@ -210,10 +218,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function thereShouldBeContributorsFor($expected, $article_version_id) {
     $expected = intval($expected);
-    $article = ElifeArticleVersion::fromIdentifier($article_version_id);
-    /* @var EntityDrupalWrapper $ewrapper */
-    $ewrapper = entity_metadata_wrapper('node', $article);
-    $actual = $ewrapper->field_elife_a_contributors_pri->count();
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version_id);
+    $dto = elife_article_version_to_dto($article_version);
+    $actual = count($dto->getContributors());
     Assertions::assertSame($expected, $actual);
   }
 
@@ -657,6 +664,33 @@ JS;
     $value_current = $element->getAttribute("src");
     if ($text !== $value_current && $text !== basename($value_current)) {
       throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
+    }
+  }
+
+  /**
+   * Retain the latest node id.
+   *
+   * @Given /^I retain the latest node id$/
+   */
+  public function iRetainTheLatestNid() {
+    $this->latest_nid = $this->getMaxNid();
+  }
+
+  /**
+   * @Then /^the node id should be (?P<increase>\d+) more than the retained node id$/
+   */
+  public function theNodeIdShouldBeMore($increase) {
+    $retained_nid = $this->latest_nid;
+    $this->iRetainTheLatestNid();
+    Assertions::assertEquals($retained_nid + $increase, $this->latest_nid);
+  }
+
+  private function getMaxNid() {
+    if ($result = db_query('SELECT MAX(nid) AS max_nid FROM {node}')->fetchAssoc()) {
+      return (int) $result['max_nid'];
+    }
+    else {
+      return 0;
     }
   }
 

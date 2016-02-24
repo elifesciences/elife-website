@@ -664,6 +664,27 @@ function elife_article_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_elife_a_contributor_names'.
+  $field_bases['field_elife_a_contributor_names'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_contributor_names',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_elife_a_contributors_json'.
   $field_bases['field_elife_a_contributors_json'] = array(
     'active' => 1,
@@ -809,6 +830,25 @@ function elife_article_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_elife_a_eif_json'.
+  $field_bases['field_elife_a_eif_json'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_elife_a_eif_json',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_elife_a_elocation_id'.

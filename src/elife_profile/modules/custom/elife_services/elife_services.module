@@ -178,3 +178,99 @@ function _elife_services_user_uid() {
 
   return $cache;
 }
+
+/**
+ * Convert a json string into a normalised json string.
+ *
+ * @param string $data
+ *
+ * @return string
+ */
+function _elife_services_data_normalise($data) {
+  $json = json_decode($data);
+  $normalise = _elife_services_json_normalise($json);
+  return json_encode($normalise);
+}
+
+/**
+ * Convert an array or object into a normalised array or object.
+ *
+ * @param array|object $element
+ *
+ * @return array|object
+ */
+function _elife_services_json_normalise($element) {
+  if (is_array($element)) {
+    foreach ($element as &$item) {
+      $item = _elife_services_json_normalise($item);
+    }
+  }
+  elseif (is_object($element)) {
+    $element = get_object_vars($element);
+    ksort($element);
+    $element = (object) $element;
+    foreach ($element as &$item) {
+      $item = _elife_services_json_normalise($item);
+    }
+  }
+  return $element;
+}
+
+/**
+ * Get the eif json from article id.
+ *
+ * @param string $article_version_id
+ * @param bool $add_dates
+ * @param array $excludes
+ * @param mixed $result
+ *
+ * @return mixed
+ */
+function elife_services_eif_json($article_version_id, $add_dates = FALSE, $excludes = [], &$result = NULL) {
+  $existing_eif_query = new EntityFieldQueryExtraFields();
+  $existing_eif_query->entityCondition('entity_type', 'node');
+  $existing_eif_query->entityCondition('bundle', 'elife_article_ver');
+  $existing_eif_query->propertyCondition('nid', 0, '>');
+  $existing_eif_query->fieldCondition('field_elife_a_article_version_id', 'value', $article_version_id, '=');
+  $existing_eif_query->addExtraField('field_elife_a_article_id', 'value', 'value');
+  $existing_eif_query->addExtraField('field_elife_a_eif_json', 'value', 'value');
+  $existing_eif_query->addExtraField('', 'status', 'status', 'node');
+  if ($add_dates) {
+    $existing_eif_query->addExtraField('field_elife_a_update', 'value', 'value');
+  }
+  $existing_eif_results = $existing_eif_query->execute();
+  $output = '';
+  if (!empty($existing_eif_results['node'])) {
+    $result = reset($existing_eif_results['node']);
+    $eif_json = json_decode($result->extraFields->field_elife_a_eif_json_value);
+    $eif_json->publish = ($result->extraFields->status) ? TRUE : FALSE;
+    if (($eif_json->publish || $add_dates) && empty($eif_json->{'pub-date'})) {
+      $existing_aid_query = new EntityFieldQueryExtraFields();
+      $existing_aid_query->entityCondition('entity_type', 'node');
+      $existing_aid_query->entityCondition('bundle', 'elife_article');
+      $existing_aid_query->fieldCondition('field_elife_a_article_id', 'value', $result->extraFields->field_elife_a_article_id_value, '=');
+      $existing_aid_query->addExtraField('field_elife_a_fpubdate', 'value', 'value');
+      $existing_aid_results = $existing_aid_query->execute();
+      if (!empty($existing_aid_results['node'])) {
+        $result_aid = reset($existing_aid_results['node']);
+        if (!empty($result_aid->extraFields->field_elife_a_fpubdate_value)) {
+          $eif_json->{'pub-date'} = date(DATE_ATOM, strtotime($result_aid->extraFields->field_elife_a_fpubdate_value));
+        }
+      }
+    }
+    if (empty($eif_json->update) && $add_dates && !empty($result->extraFields->field_elife_a_update_value)) {
+      $eif_json->update = date(DATE_ATOM, strtotime($result->extraFields->field_elife_a_update_value));
+    }
+    $eif_json = _elife_services_json_normalise($eif_json);
+    if (!empty($excludes)) {
+      foreach ($excludes as $exclude) {
+        if (isset($eif_json->{$exclude})) {
+          unset($eif_json->{$exclude});
+        }
+      }
+    }
+    $output = json_encode($eif_json);
+  }
+
+  return $output;
+}
