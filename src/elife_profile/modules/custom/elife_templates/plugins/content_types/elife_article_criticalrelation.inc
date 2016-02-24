@@ -31,7 +31,7 @@ function elife_article_criticalrelation_render($subtype, $conf, $args, $context)
         $dto = elife_article_version_to_dto($node);
         $article = ElifeArticleVersion::getArticle($dto->getArticleId());
         // Get critical related articles.
-        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, NULL, 1);
+        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($dto->getDoi(), TRUE, TRUE, NULL, 1);
         $critical_relations = [];
         foreach ($related_articles as $related_article) {
           $critical_relations[$related_article->criticalrelation_type][] = $related_article;

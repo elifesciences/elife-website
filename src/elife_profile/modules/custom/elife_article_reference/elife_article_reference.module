@@ -82,15 +82,16 @@ function elife_article_reference_node_presave($node) {
 
     $article_reference = elife_article_reference_for_article_id($node->raw());
 
-    /* @var EntityDrupalWrapper $article_reference */
-    $article_reference = entity_metadata_wrapper('node', $article_reference);
+    if (!$article_reference->is_new) {
+      /* @var EntityDrupalWrapper $article_reference */
+      $article_reference = entity_metadata_wrapper('node', $article_reference);
 
-    $article_reference->field_elife_a_article_id = $article_id;
-    $article_reference->title = AUTO_ENTITYLABEL_PLACEHOLDER; // TODO Not sure why this is needed.
-    $article_reference->field_elife_a_title = $node->field_elife_title->value();
-    $article_reference->status = $node->status->value();
+      $article_reference->field_elife_a_article_id = $article_id;
+      $article_reference->field_elife_a_title = $node->field_elife_title->value();
+      $article_reference->status = $node->status->value();
 
-    $article_reference->save();
+      $article_reference->save();
+    }
   }
 }
 

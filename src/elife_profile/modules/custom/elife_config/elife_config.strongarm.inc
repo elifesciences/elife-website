@@ -226,7 +226,6 @@ vcard';
       'field_elife_a_fn_ref' => 1,
       'field_elife_a_fund_ref' => 1,
       'field_elife_a_rel_ref' => 1,
-      'field_elife_a_related_articles' => 1,
       'field_elife_i_cv' => 1,
     ),
     'node' => array(
