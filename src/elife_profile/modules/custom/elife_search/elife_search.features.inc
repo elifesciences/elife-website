@@ -43,20 +43,23 @@ function elife_search_default_search_api_index() {
       "cron_limit" : "50",
       "fields" : {
         "field_elife_a_fpubdate" : { "type" : "date" },
-        "field_elife_a_versions:field_elife_a_abstract:value" : { "type" : "list\\u003Ctext\\u003E" },
+        "field_elife_a_versions:field_elife_a_abstract:value" : { "type" : "list\\u003Ctext\\u003E", "boost" : "2.0" },
+        "field_elife_a_versions:field_elife_a_article_id" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" },
+        "field_elife_a_versions:field_elife_a_article_version_id" : { "type" : "list\\u003Ctext\\u003E", "boost" : "3.0" },
         "field_elife_a_versions:field_elife_a_category" : {
           "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
           "entity_type" : "taxonomy_term"
         },
-        "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_fnames" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
-        "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_surname" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
+        "field_elife_a_versions:field_elife_a_contributors_pri:full_name" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E", "boost" : "5.0" },
+        "field_elife_a_versions:field_elife_a_doi" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" },
+        "field_elife_a_versions:field_elife_a_elocation_id" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" },
         "field_elife_a_versions:field_elife_a_heading" : {
           "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
           "entity_type" : "taxonomy_term"
         },
-        "field_elife_a_versions:field_elife_a_keyword:name" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
+        "field_elife_a_versions:field_elife_a_keyword:name" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E", "boost" : "3.0" },
         "field_elife_a_versions:field_elife_a_main_text" : { "type" : "list\\u003Ctext\\u003E" },
-        "field_elife_a_versions:title" : { "type" : "list\\u003Ctext\\u003E" },
+        "field_elife_a_versions:title" : { "type" : "list\\u003Ctext\\u003E", "boost" : "8.0" },
         "search_api_language" : { "type" : "string" }
       },
       "data_alter_callbacks" : {
@@ -79,8 +82,10 @@ function elife_search_default_search_api_index() {
           "settings" : { "fields" : {
               "field_elife_a_versions:title" : true,
               "field_elife_a_versions:field_elife_a_category" : true,
-              "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_fnames" : true,
-              "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_surname" : true,
+              "field_elife_a_versions:field_elife_a_heading" : true,
+              "field_elife_a_versions:field_elife_a_main_text" : true,
+              "field_elife_a_versions:field_elife_a_abstract:value" : true,
+              "field_elife_a_versions:field_elife_a_contributors_pri:full_name" : true,
               "field_elife_a_versions:field_elife_a_keyword:name" : true
             }
           }
@@ -95,7 +100,7 @@ function elife_search_default_search_api_index() {
             },
             "title" : 0,
             "alt" : 1,
-            "tags" : "h1 = 5\\r\\nh2 = 3\\r\\nh3 = 2\\r\\nstrong = 2\\r\\nb = 2\\r\\nem = 1.5\\r\\nu = 1.5"
+            "tags" : "h1 = 5\\r\\nh2 = 3\\r\\nh3 = 2\\r\\nstrong = 2\\r\\nb = 2\\r\\nem = 1.5\\r\\ni = 1.5\\r\\nu = 1.5"
           }
         },
         "search_api_transliteration" : {
