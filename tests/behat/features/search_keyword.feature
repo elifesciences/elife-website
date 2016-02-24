@@ -193,6 +193,22 @@ Feature: Article Search - Keywords
     Then I should see 1 ".article-teaser__title" elements
     And I should see "Article 2 for Search test"
 
+  Scenario: DOI is indexed
+    Given the search index is updated
+    When I go to "/search"
+    And I fill in "Search for..." with "10.7554/eLife.00477"
+    And I press the Search button
+    Then I should see 1 ".article-teaser__title" elements
+    And I should see "Article 8 for Search test"
+
+  Scenario: eLocation ID is indexed
+    Given the search index is updated
+    When I go to "/search"
+    And I fill in "Search for..." with "e00477"
+    And I press the Search button
+    Then I should see 1 ".article-teaser__title" elements
+    And I should see "Article 8 for Search test"
+
   Scenario: No articles with searched keyword
     When the search index is updated
     Given I am on "/search"
