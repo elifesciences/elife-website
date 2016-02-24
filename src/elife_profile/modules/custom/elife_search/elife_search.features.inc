@@ -48,6 +48,7 @@ function elife_search_default_search_api_index() {
           "type" : "list\\u003Clist\\u003Cinteger\\u003E\\u003E",
           "entity_type" : "taxonomy_term"
         },
+        "field_elife_a_versions:field_elife_a_contributor_names" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
         "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_fnames" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
         "field_elife_a_versions:field_elife_a_contributors_pri:field_elife_a_surname" : { "type" : "list\\u003Clist\\u003Ctext\\u003E\\u003E" },
         "field_elife_a_versions:field_elife_a_heading" : {

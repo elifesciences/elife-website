@@ -242,18 +242,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "a2b85252553fa831f77a72db7da066537a835e96"
+                "reference": "d197866e113130c8c6d6f800c715508310898984"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/a2b85252553fa831f77a72db7da066537a835e96",
-                "reference": "a2b85252553fa831f77a72db7da066537a835e96",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/d197866e113130c8c6d6f800c715508310898984",
+                "reference": "d197866e113130c8c6d6f800c715508310898984",
                 "shasum": ""
             },
             "require": {
                 "beberlei/assert": "~2.3",
                 "php": ">=5.5",
-                "symfony/process": "~2.7"
+                "symfony/process": "~2.7|~3.0"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.2",
@@ -278,7 +278,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
             },
-            "time": "2016-02-09 16:33:40"
+            "time": "2016-02-18 12:35:56"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1071,7 +1071,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/4664e1d9e4a59c2626d9c118ec79abe4ee8dc226",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/35e677c5a53fb68a9a8283c59d7ab4ec5976822a",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },
@@ -2807,7 +2807,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/faf0a08d55cb8179fb66317fc8f66a9896be0332",
                 "reference": "e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "shasum": ""
             },

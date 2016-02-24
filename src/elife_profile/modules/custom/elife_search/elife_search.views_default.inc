@@ -60,12 +60,12 @@ function elife_search_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = '<p>Your search yielded no results.</p>';
-  /* Relationship: Indexed Node: Article versions */
+  /* Relationship: Indexed Content: Article versions */
   $handler->display->display_options['relationships']['field_elife_a_versions']['id'] = 'field_elife_a_versions';
   $handler->display->display_options['relationships']['field_elife_a_versions']['table'] = 'search_api_index_elife_articles_index';
   $handler->display->display_options['relationships']['field_elife_a_versions']['field'] = 'field_elife_a_versions';
   $handler->display->display_options['relationships']['field_elife_a_versions']['label'] = 'Article version';
-  /* Field: Content: Rendered Node */
+  /* Field: Content: Rendered Content */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
@@ -88,7 +88,7 @@ function elife_search_views_default_views() {
   $handler->display->display_options['sorts']['search_api_relevance']['order'] = 'DESC';
   $handler->display->display_options['sorts']['search_api_relevance']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['search_api_relevance']['expose']['label'] = 'Relevance';
-  /* Sort criterion: Indexed Node: First Publication Date */
+  /* Sort criterion: Indexed Content: First Publication Date */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['table'] = 'search_api_index_elife_articles_index';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['field'] = 'field_elife_a_fpubdate';
@@ -135,7 +135,7 @@ function elife_search_views_default_views() {
   $handler->display->display_options['header']['webform_result']['content'] = '@items_per_page_links
 <div class="elife-searchlist-pagerbar-count">Showing results @start&ndash;@end of @total</div>';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Indexed Node: First Publication Date */
+  /* Sort criterion: Indexed Content: First Publication Date */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['id'] = 'field_elife_a_fpubdate';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['table'] = 'search_api_index_elife_articles_index';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate']['field'] = 'field_elife_a_fpubdate';
