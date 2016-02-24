@@ -207,3 +207,10 @@ function elife_profile_update_7115() {
 function elife_profile_update_7116() {
   module_enable(['display_cache'], FALSE);
 }
+
+/**
+ * Enable disqus.
+ */
+function elife_profile_update_7117() {
+  module_enable(['disqus', 'elife_disqus'], FALSE);
+}

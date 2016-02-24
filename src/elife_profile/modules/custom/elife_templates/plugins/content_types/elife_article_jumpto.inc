@@ -49,10 +49,16 @@ function elife_article_jumpto_render($subtype, $conf, $args, &$context) {
           }
           libxml_clear_errors();
 
+          if (user_access('view disqus comments') && !empty($article_version->disqus['domain'])) {
+            drupal_add_js(drupal_get_path('module', 'disqus') . '/disqus.js');
+            drupal_add_js(['disqusComments' => $article_version->disqus['domain']], 'setting');
+            $links['article']['children']['comments']['data'] = elife_article_jumpto_link('Leave a comment', 'disqus_thread', 'jnl_elife_article_article', 'last', '', ['data-disqus-identifier' => $article_version->disqus['identifier']]);
+          }
+
           $block->content = '<div class="elife-jumpto">';
           $block->content .= theme('item_list', array('items' => $links));
           $block->content .= '</div>';
-  
+
           drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_jumpto.js');
         }
       }

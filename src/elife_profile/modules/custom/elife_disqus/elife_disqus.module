@@ -1,0 +1,14 @@
+<?php
+/**
+ * @file
+ * Code for the eLife: Disqus feature.
+ */
+
+include_once 'elife_disqus.features.inc';
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function elife_disqus_ctools_plugin_directory($owner, $plugin) {
+  return 'plugins/' . $plugin;
+}

@@ -47,6 +47,31 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializationContext;
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function elife_article_module_implements_alter(&$implementations, $hook) {
+  if (!isset($implementations['elife_article'])) {
+    return;
+  }
+
+  switch ($hook) {
+    case 'node_load':
+      // Immediately after Disqus.
+      $group = $implementations['elife_article'];
+      unset($implementations['elife_article']);
+      $implementations['elife_article'] = $group;
+      $group = $implementations['elife_article'];
+      unset($implementations['elife_article']);
+      $disqus = array_search('disqus', array_keys($implementations));
+      $old_implementations = $implementations;
+      $implementations = array_slice($old_implementations, 0, $disqus + 1, TRUE) +
+        ['elife_article' => $group] +
+        array_slice($old_implementations, $disqus + 1, NULL, TRUE);
+      break;
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function elife_article_menu() {
@@ -509,6 +534,21 @@ function elife_article_preprocess_node(&$variables) {
     '!created-date' => format_date($node->created),
     '!changed-date' => format_date($node->changed),
   ));
+}
+
+/**
+ * Implements hook_node_load().
+ */
+function elife_article_node_load($nodes, $types) {
+  foreach ($nodes as $node) {
+    if ('elife_article_ver' !== $node->type || empty($node->field_elife_a_article_id[LANGUAGE_NONE]) || empty($node->disqus)) {
+      continue;
+    }
+    if (preg_match('/^(?P<canonical_url>\/content\/[0-9]+\/e[0-9]+)/', url('node/' . $node->nid), $match)) {
+      $node->disqus['url'] = url($match['canonical_url'], ['absolute' => TRUE]);
+    }
+    $node->disqus['identifier'] = 'article:' . $node->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
+  }
 }
 
 /**

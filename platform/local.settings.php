@@ -29,6 +29,7 @@ if (!empty($_SERVER['PLATFORM_MODE']) && 'enterprise' === $_SERVER['PLATFORM_MOD
   // Production instance.
   $conf['googleanalytics_account'] = 'UA-30290146-1';
   $conf['google_tag_container_id'] = 'GTM-WVM8KG';
+  $conf['disqus_domain'] = 'elifesciences';
 }
 
 $conf['search_api_override_mode'] = 'default';

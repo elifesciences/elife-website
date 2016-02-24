@@ -339,6 +339,36 @@ function elife_article_pages_default_panels_mini() {
   $pane->uuid = '21d3bd99-adae-4364-b949-33a4ac312f7d';
   $display->content['new-21d3bd99-adae-4364-b949-33a4ac312f7d'] = $pane;
   $display->panels['middle'][7] = 'new-21d3bd99-adae-4364-b949-33a4ac312f7d';
+  $pane = new stdClass();
+  $pane->pid = 'new-dfa84960-210e-44e7-90dc-f5bd44b1e558';
+  $pane->panel = 'middle';
+  $pane->type = 'elife_disqus';
+  $pane->subtype = 'elife_disqus';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'requiredcontext_entity:node_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => array(
+      'pane_title' => '%title',
+      'pane_collapsed' => 0,
+    ),
+    'style' => 'collapsible',
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 8;
+  $pane->locks = array();
+  $pane->uuid = 'dfa84960-210e-44e7-90dc-f5bd44b1e558';
+  $display->content['new-dfa84960-210e-44e7-90dc-f5bd44b1e558'] = $pane;
+  $display->panels['middle'][8] = 'new-dfa84960-210e-44e7-90dc-f5bd44b1e558';
   $display->hide_title = PANELS_TITLE_FIXED;
   $display->title_pane = '0';
   $mini->display = $display;

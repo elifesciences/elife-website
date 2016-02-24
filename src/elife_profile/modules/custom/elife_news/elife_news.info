@@ -6,6 +6,7 @@ dependencies[] = ctools
 dependencies[] = ds
 dependencies[] = elife_body_field
 dependencies[] = elife_config
+dependencies[] = elife_disqus
 dependencies[] = elife_house_style
 dependencies[] = entity
 dependencies[] = features

@@ -200,6 +200,13 @@ function elife_users_user_default_permissions() {
     'module' => 'display_cache',
   );
 
+  // Exported permission: 'administer disqus'.
+  $permissions['administer disqus'] = array(
+    'name' => 'administer disqus',
+    'roles' => array(),
+    'module' => 'disqus',
+  );
+
   // Exported permission: 'administer elife content alerts'.
   $permissions['administer elife content alerts'] = array(
     'name' => 'administer elife content alerts',
@@ -1235,6 +1242,13 @@ function elife_users_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'display disqus comments on profile'.
+  $permissions['display disqus comments on profile'] = array(
+    'name' => 'display disqus comments on profile',
+    'roles' => array(),
+    'module' => 'disqus',
+  );
+
   // Exported permission: 'display drupal links'.
   $permissions['display drupal links'] = array(
     'name' => 'display drupal links',
@@ -1945,6 +1959,13 @@ function elife_users_user_default_permissions() {
     'module' => 'better_formats',
   );
 
+  // Exported permission: 'toggle disqus comments'.
+  $permissions['toggle disqus comments'] = array(
+    'name' => 'toggle disqus comments',
+    'roles' => array(),
+    'module' => 'disqus',
+  );
+
   // Exported permission: 'update elife_cover entityqueue'.
   $permissions['update elife_cover entityqueue'] = array(
     'name' => 'update elife_cover entityqueue',
@@ -2266,6 +2287,15 @@ function elife_users_user_default_permissions() {
     'name' => 'view any unpublished webform content',
     'roles' => array(),
     'module' => 'view_unpublished',
+  );
+
+  // Exported permission: 'view disqus comments'.
+  $permissions['view disqus comments'] = array(
+    'name' => 'view disqus comments',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+    ),
+    'module' => 'disqus',
   );
 
   // Exported permission: 'view own unpublished content'.
