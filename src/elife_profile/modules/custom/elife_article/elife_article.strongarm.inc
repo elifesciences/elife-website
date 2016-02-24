@@ -113,19 +113,22 @@ function elife_article_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '19',
+          'weight' => '18',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '18',
+          'weight' => '17',
         ),
         'redirect' => array(
-          'weight' => '17',
+          'weight' => '16',
         ),
         'rabbit_hole' => array(
           'weight' => '1',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '29',
         ),
       ),
       'display' => array(
