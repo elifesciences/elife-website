@@ -1025,8 +1025,12 @@ function elife_article_version_to_dto_legacy(stdClass $entity) {
   }
 
   $related_articles = [];
-  foreach ($entity_article->field_elife_a_related_articles as $fc_wrapper) {
-    $related_articles[] = new RelatedArticle($fc_wrapper->field_elife_a_rel_article_type->value(), $fc_wrapper->field_elife_a_doi->value());
+  $related_query = db_select('elife_related_articles', 'era');
+  $related_query->condition('era.source_doi', $entity->field_elife_a_doi->value());
+  $related_query->fields('era');
+  $related_results = $related_query->execute();
+  foreach ($related_results as $related_result) {
+    $related_articles[] = new RelatedArticle($related_result->description, $related_result->dest_doi);
   }
 
   $referenced = [
@@ -1384,27 +1388,25 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
     }
 
     $entity->save();
+
+    db_delete('elife_related_articles')
+      ->condition('source_doi', $article_version->getDoi())
+      ->execute();
+
     foreach ($article_version->getRelatedArticles() as $related_article) {
-      /* @var FieldCollectionItemEntity $fc_item */
-      $fc_item = entity_create('field_collection_item', array('field_name' => 'field_elife_a_related_articles'));
-      $fc_item->setHostEntity('node', $entity->raw());
-
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-
-      $fc_wrapper->field_elife_a_rel_article_type->set($related_article->getType());
-      $fc_wrapper->field_elife_a_doi->set($related_article->getHref());
-
-      $fc_wrapper->save();
+      db_merge('elife_related_articles')
+        ->key([
+          'source_doi' => $article_version->getDoi(),
+          'dest_doi' => $related_article->getHref(),
+        ])
+        ->fields([
+          'description' => $related_article->getType(),
+        ])
+        ->execute();
     }
-
   }
 
   $entity->save();
-
-  // Processing unverified related articles should happen each time a version is
-  // added.
-  ElifeArticleVersion::processUnverifiedRelatedArticles();
 
   return $entity->raw();
 }

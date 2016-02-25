@@ -76,7 +76,7 @@ function elife_ctools_elife_article_repro_detail($dto, &$variables) {
       ],
     ]);
 
-    $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, NULL, 1);
+    $related_articles = ElifeArticleVersion::retrieveRelatedArticles($dto->getDoi(), TRUE, TRUE, NULL, 1);
     $critical_relations = [];
     $repro_vars = [];
     foreach ($related_articles as $related_article) {
