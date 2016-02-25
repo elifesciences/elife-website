@@ -161,7 +161,7 @@ Feature: Article RSS
             "article-id": "10.7554/eLife.05225",
             "article-version-id": "05225.v2",
             "pub-date": "1999-01-01T00:00:00Z",
-            "update": "1999-01-01T00:00:00Z",
+            "update": "2002-01-01T00:00:00Z",
             "path": "content/4/e05225v2",
             "article-type": "research-article",
             "status": "VOR",
@@ -196,20 +196,20 @@ Feature: Article RSS
         <atom:link rel="self" href="%BASE_URL%/rss/recent.xml" />
         <language>en</language>
         <item>
-        <title>VOR 05224 v1</title>
-        <link>%BASE_URL%/content/4/e05224v1</link>
-        <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
-        <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
-        <source url="%BASE_URL%/rss/recent.xml">eLife</source>
-        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
-        </item>
-        <item>
         <title>VOR 05225 v2</title>
         <link>%BASE_URL%/content/4/e05225v2</link>
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05225</guid>
         <pubDate>Fri, 01 Jan 1999 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>
         <dc:date>1999-01-01T00:00:00+00:00</dc:date>
+        </item>
+        <item>
+        <title>VOR 05224 v1</title>
+        <link>%BASE_URL%/content/4/e05224v1</link>
+        <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
+        <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+        <source url="%BASE_URL%/rss/recent.xml">eLife</source>
+        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
         </item>
         </channel>
         </rss>
@@ -274,7 +274,7 @@ Feature: Article RSS
             "article-id": "10.7554/eLife.05225",
             "article-version-id": "05225.early.v2",
             "pub-date": "1999-01-01T00:00:00Z",
-            "update": "1999-01-01T00:00:00Z",
+            "update": "2002-01-01T00:00:00Z",
             "path": "content/4/e05225.early.v2",
             "article-type": "research-article",
             "status": "POA",
@@ -309,20 +309,20 @@ Feature: Article RSS
         <atom:link rel="self" href="%BASE_URL%/rss/ahead.xml" />
         <language>en</language>
         <item>
-        <title>Early 05224 v1</title>
-        <link>%BASE_URL%/content/4/e05224.early.v1</link>
-        <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
-        <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
-        <source url="%BASE_URL%/rss/ahead.xml">eLife</source>
-        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
-        </item>
-        <item>
         <title>Early 05225 v2</title>
         <link>%BASE_URL%/content/4/e05225.early.v2</link>
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05225</guid>
         <pubDate>Fri, 01 Jan 1999 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/ahead.xml">eLife</source>
         <dc:date>1999-01-01T00:00:00+00:00</dc:date>
+        </item>
+        <item>
+        <title>Early 05224 v1</title>
+        <link>%BASE_URL%/content/4/e05224.early.v1</link>
+        <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
+        <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
+        <source url="%BASE_URL%/rss/ahead.xml">eLife</source>
+        <dc:date>2000-01-01T00:00:00+00:00</dc:date>
         </item>
         </channel>
         </rss>
