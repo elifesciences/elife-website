@@ -38,6 +38,9 @@ $conf['image_toolkit'] = 'imagemagick';
 $conf['imagemagick_quality'] = 75;
 $conf['imagemagick_advanced_interlace'] = 'plane';
 
+// Set up Disqus.
+$conf['disqus_domain'] = 'elifesciences-staging'; // Staging by default.
+
 // File cache directory.
 $conf['elife_cache_dir'] = __DIR__ . '/../cache';
 

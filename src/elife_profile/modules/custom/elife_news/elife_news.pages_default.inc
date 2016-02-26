@@ -145,6 +145,32 @@ function elife_news_default_page_manager_handlers() {
   $display->content['new-5bdb9e6f-1356-4faf-9317-9161b3802747'] = $pane;
   $display->panels['main'][2] = 'new-5bdb9e6f-1356-4faf-9317-9161b3802747';
   $pane = new stdClass();
+  $pane->pid = 'new-ef0c0eb2-a752-4ba0-87f8-42b35de945b3';
+  $pane->panel = 'main';
+  $pane->type = 'elife_disqus';
+  $pane->subtype = 'elife_disqus';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'context' => array(
+      0 => 'argument_entity_id:node_1',
+    ),
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 3;
+  $pane->locks = array();
+  $pane->uuid = 'ef0c0eb2-a752-4ba0-87f8-42b35de945b3';
+  $display->content['new-ef0c0eb2-a752-4ba0-87f8-42b35de945b3'] = $pane;
+  $display->panels['main'][3] = 'new-ef0c0eb2-a752-4ba0-87f8-42b35de945b3';
+  $pane = new stdClass();
   $pane->pid = 'new-6f03afda-0c32-4824-9fb4-fb842a5f3a5b';
   $pane->panel = 'side_top';
   $pane->type = 'entity_field';

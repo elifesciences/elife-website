@@ -3,6 +3,7 @@ core = 7.x
 package = eLife
 version = 7.x-1.0
 dependencies[] = ctools
+dependencies[] = elife_disqus
 dependencies[] = elife_podcast
 dependencies[] = page_manager
 dependencies[] = panels_mini
