@@ -146,6 +146,12 @@ function elife_article_rss_views_default_views() {
   $handler->display->display_options['fields']['field_elife_a_emails']['group_column'] = 'entity_id';
   $handler->display->display_options['fields']['field_elife_a_emails']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_elife_a_emails']['delta_offset'] = '0';
+  /* Sort criterion: Content: Updated Date (field_elife_a_update) */
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['id'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['table'] = 'field_data_field_elife_a_update';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['field'] = 'field_elife_a_update_value';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['relationship'] = 'field_elife_a_versions_target_id';
+  $handler->display->display_options['sorts']['field_elife_a_update_value']['order'] = 'DESC';
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
