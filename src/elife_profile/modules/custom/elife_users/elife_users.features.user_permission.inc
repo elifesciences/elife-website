@@ -2294,6 +2294,7 @@ function elife_users_user_default_permissions() {
     'name' => 'view disqus comments',
     'roles' => array(
       'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'disqus',
   );
