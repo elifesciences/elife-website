@@ -708,39 +708,6 @@ class ElifeArticleVersion {
   }
 
   /**
-   * Get related articles for supplied article id.
-   *
-   * @param string $article_id
-   *   Article version id.
-   *
-   * @return array
-   *   Related articles.
-   */
-  public static function getRelatedArticles($article_id) {
-    $article = self::getArticle($article_id);
-    $related_articles = array();
-
-    /* @var EntityDrupalWrapper $ewrapper */
-    if ($ewrapper = entity_metadata_wrapper('node', $article)) {
-      /* @var EntityDrupalWrapper $fc_wrapper */
-      foreach ($ewrapper->field_elife_a_related_articles as $fc_wrapper) {
-        $related_article = array();
-        if ($fc_wrapper->field_elife_a_rel_article_type->value()) {
-          $related_article['type'] = $fc_wrapper->field_elife_a_rel_article_type->value();
-        }
-        if ($fc_wrapper->field_elife_a_doi->value()) {
-          $related_article['href'] = $fc_wrapper->field_elife_a_doi->value();
-        }
-        if (!empty($related_article)) {
-          $related_articles[] = $related_article;
-        }
-      }
-    }
-
-    return $related_articles;
-  }
-
-  /**
    * Get contributor references for supplied article version id.
    *
    * @param string $article_version_id
@@ -964,38 +931,10 @@ class ElifeArticleVersion {
   }
 
   /**
-   * Process all unverified related articles.
-   *
-   * @param int|NULL $entity_id
-   *   Entity id of Article Version.
-   *
-   * @return array
-   *   Results of query
-   *
-   * @throws \EntityMetadataWrapperException
-   */
-  public static function processUnverifiedRelatedArticles($entity_id = NULL) {
-    $results = self::retrieveRelatedArticles($entity_id, FALSE);
-
-    if (!empty($results)) {
-      foreach ($results as $item_id => $result) {
-        if ($fc_item = field_collection_item_load($item_id)) {
-          /* @var EntityDrupalWrapper $fc_wrapper */
-          $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-          $fc_wrapper->field_elife_a_rel_article_ref->set($result->endpoint_2);
-          $fc_wrapper->save();
-        }
-      }
-    }
-
-    return $results;
-  }
-
-  /**
    * Retrieve related articles.
    *
-   * @param int|NULL $entity_id
-   *   Entity id of Article Version.
+   * @param string $doi
+   *   DOI of article.
    * @param bool $verified
    *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
    * @param bool $unique
@@ -1007,97 +946,143 @@ class ElifeArticleVersion {
    *
    * @return array
    *   Results of query
-   *
-   * @throws \EntityMetadataWrapperException
    */
-  public static function retrieveRelatedArticles($entity_id = NULL, $verified = TRUE, $unique = FALSE, $status = NULL, $critical = NULL) {
-    if ('sqlite' === Database::getConnection()->databaseType()) {
-      $greatest = 'MAX';
-      $least = 'MIN';
-    }
-    else {
-      $greatest = 'GREATEST';
-      $least = 'LEAST';
+  public static function retrieveRelatedArticles($doi = NULL, $verified = TRUE, $unique = FALSE, $status = NULL, $critical = NULL) {
+    $results = self::retrieveRelatedArticlesQuery($doi, $verified, $unique);
+
+    if (is_null($status)) {
+      $status = (user_access('view any unpublished elife_article_ver content') || user_access('view any unpublished content')) ? NULL : 1;
     }
 
-    $results = array();
-
-    $query = db_select('field_collection_item', 'fc');
-    $query->condition('fc.field_name', 'field_elife_a_related_articles');
-    $query->addField('fc', 'item_id', 'fc_id');
-    $query->addField('rel', 'entity_id', 'endpoint_1');
-    $query->addField('vers', 'entity_id', 'endpoint_2');
-    $query->addField('typ', 'field_elife_a_rel_article_type_value', 'article_type');
-    $query->addField('ver', 'field_elife_a_version_value', 'article_version');
-    $query->addField('sta', 'field_elife_a_status_value', 'article_status');
-    $query->addField('aid_1', 'field_elife_a_article_id_value', 'endpoint_1_article_id');
-    $query->addField('aid_2', 'field_elife_a_article_id_value', 'endpoint_2_article_id');
-    $query->addField('node_1', 'nid', 'endpoint_1_article_ver_nid');
-    $query->addField('node_2', 'nid', 'endpoint_2_article_ver_nid');
-    $query->addField('node_1', 'status', 'endpoint_1_article_ver_status');
-    $query->addField('node_2', 'status', 'endpoint_2_article_ver_status');
-    $query->leftJoin('field_data_field_elife_a_doi', 'doi', "doi.entity_type = 'field_collection_item' AND doi.entity_id = fc.item_id");
-    $query->leftJoin('field_data_field_elife_a_rel_article_ref', 'ref', "ref.entity_type = 'field_collection_item' AND ref.entity_id = fc.item_id");
-    $query->leftJoin('field_data_field_elife_a_doi', 'doi_dest', "doi_dest.entity_type = 'node' AND doi_dest.field_elife_a_doi_value = doi.field_elife_a_doi_value");
-    $query->leftJoin('field_data_field_elife_a_versions', 'vers', 'vers.field_elife_a_versions_target_id = doi_dest.entity_id');
-    $query->leftJoin('field_data_field_elife_a_related_articles', 'rel', 'rel.field_elife_a_related_articles_value = fc.item_id');
-    $query->leftJoin('field_data_field_elife_a_rel_article_type', 'typ', 'typ.entity_id = fc.item_id');
-    $query->leftJoin('field_data_field_elife_a_version', 'ver', 'ver.entity_id = doi_dest.entity_id');
-    $query->leftJoin('field_data_field_elife_a_status', 'sta', 'sta.entity_id = doi_dest.entity_id');
-    $query->leftJoin('field_data_field_elife_a_article_id', 'aid_1', 'aid_1.entity_id = rel.entity_id');
-    $query->leftJoin('field_data_field_elife_a_article_id', 'aid_2', 'aid_2.entity_id = doi_dest.entity_id');
-    $query->leftJoin('field_data_field_elife_a_versions', 'vers_1', 'vers_1.entity_id = rel.entity_id AND vers_1.delta = 0');
-    $query->leftJoin('field_data_field_elife_a_versions', 'vers_2', 'vers_2.entity_id = vers.entity_id AND vers_2.delta = 0');
-    $query->leftJoin('node', 'node_1', 'node_1.nid = vers_1.field_elife_a_versions_target_id');
-    $query->leftJoin('node', 'node_2', 'node_2.nid = vers_2.field_elife_a_versions_target_id');
-    $query->orderBy('rel.delta');
-
-    if ($verified) {
-      $query->where('ref.field_elife_a_rel_article_ref_target_id = vers.entity_id');
-    }
-    else {
-      $db_or = db_or();
-      $db_or->where('ref.field_elife_a_rel_article_ref_target_id != vers.entity_id');
-      $db_or->isNull('ref.field_elife_a_rel_article_ref_target_id');
-      $query->condition($db_or);
+    foreach ($results as $k => $result) {
+      if (
+        $verified &&
+        (($status === 1 && ($result->node_status_1 == 0 || $result->node_status_2 == 0)) ||
+        ($status === 0 && $result->node_status_1 == 1 && $result->node_status_2 == 1) ||
+        ($critical && empty($result->criticalrelation_type)) ||
+        (!$critical && !empty($result->criticalrelation_type)))
+      ) {
+        unset($results[$k]);
+      }
     }
 
-    if ($entity_id) {
-      $db_or = db_or();
-      $db_or->condition('rel.entity_id', $entity_id, '=');
-      $db_or->condition('vers.entity_id', $entity_id, '=');
-      $query->condition($db_or);
-      $query->addExpression("CASE WHEN rel.entity_id = " . $entity_id . " THEN 'endpoint_2' ELSE 'endpoint_1' END", 'related_to_endpoint');
-    }
+    return $results;
+  }
 
-    if ($unique) {
-      $query->addExpression("CONCAT($greatest(rel.entity_id, vers.entity_id), '.', $least(rel.entity_id, vers.entity_id))", 'group_endpoints_ordered');
-      if ($entity_id) {
-        $query->addExpression("CASE WHEN rel.entity_id = " . $entity_id . " THEN 1 ELSE 0 END", 'endpoints_flag');
+  /**
+   * Query the related articles.
+   *
+   * @param string $doi
+   *   DOI of article.
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
+   * @param bool $unique
+   *   If TRUE only return unique relations.
+   *
+   * @return array
+   *   Results of query
+   */
+  public static function retrieveRelatedArticlesQuery($doi = NULL, $verified = TRUE, $unique = FALSE) {
+    $key = self::retrieveRelatedArticlesQueryKey($doi, $verified, $unique);
+    $cache = self::retrieveRelatedArticlesQueryCache($doi, $verified, $unique);
+    return $cache[$key];
+  }
+
+  /**
+   * Generate key for related articles query.
+   *
+   * @param string $doi
+   *   DOI of article.
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
+   * @param bool $unique
+   *   If TRUE only return unique relations.
+   *
+   * @return string
+   *   String to be used to retrieve related article data.
+   */
+  public static function retrieveRelatedArticlesQueryKey($doi = NULL, $verified = TRUE, $unique = FALSE) {
+    $key = [
+      is_null($doi) ? 'NULL' : $doi,
+      $verified ? '1' : '0',
+      $unique ? '1' : '0',
+    ];
+
+    return implode('|', $key);
+  }
+
+  /**
+   * Cached queries for the related articles.
+   *
+   * @param string $doi
+   *   DOI of article.
+   * @param bool $verified
+   *   Flag set to TRUE if we want verified only, FALSE if we want unverified.
+   * @param bool $unique
+   *   If TRUE only return unique relations.
+   *
+   * @return array
+   *   Results of query
+   */
+  public static function retrieveRelatedArticlesQueryCache($doi = NULL, $verified = TRUE, $unique = FALSE) {
+    $cache = &drupal_static(__FUNCTION__, []);
+    $key = self::retrieveRelatedArticlesQueryKey($doi, $verified, $unique);
+
+    if (!isset($cache[$key])) {
+      $output = [];
+      if ('sqlite' === Database::getConnection()->databaseType()) {
+        $greatest = 'MAX';
+        $least = 'MIN';
       }
       else {
-        $query->addExpression('0', 'endpoints_flag');
+        $greatest = 'GREATEST';
+        $least = 'LEAST';
       }
-      $query->orderBy('endpoints_flag', 'DESC');
-    }
 
-    if ($verified) {
-      // If status is NULL then check permissions of user.
-      if (is_null($status)) {
-        $status = (user_access('view any unpublished elife_article_ver content') || user_access('view any unpublished content')) ? NULL : 1;
+      if (!is_null($doi)) {
+        $args = [':doi' => $doi];
       }
-      if ($status === 1) {
-        $query->condition('node_1.status', $status, '=');
-        $query->condition('node_2.status', $status, '=');
+      else {
+        $args = [];
       }
-      elseif ($status === 0) {
+
+      $query = db_select('elife_related_articles', 'era');
+
+      if (!is_null($doi)) {
         $db_or = db_or();
-        $db_or->condition('node_1.status', $status, '=');
-        $db_or->condition('node_2.status', $status, '=');
+        $db_or->condition('era.source_doi', $doi);
+        $db_or->condition('era.dest_doi', $doi);
         $query->condition($db_or);
+        $source_expression = ':doi';
+        $dest_expression = 'IF(era.dest_doi != :doi, era.dest_doi, era.source_doi)';
+        $query->addExpression('IF(era.dest_doi != :doi, 1, 0)', 'endpoints_flag', $args);
       }
+      else {
+        $source_expression = 'era.source_doi';
+        $dest_expression = 'era.dest_doi';
+      }
+      $query->addExpression($source_expression, 'doi_source', $args);
+      $query->addExpression($dest_expression, 'doi_dest', $args);
+      $query->addField('era', 'description', 'article_type');
 
-      if ($critical === 0 || $critical === 1) {
+      $verify_join = ($verified) ? 'innerJoin' : 'leftJoin';
+      $query->{$verify_join}('field_data_field_elife_a_doi', 'doi_1', "doi_1.field_elife_a_doi_value = " . $source_expression . " AND doi_1.entity_type = 'node'", $args);
+      $query->{$verify_join}('field_data_field_elife_a_doi', 'doi_2', "doi_2.field_elife_a_doi_value = " . $dest_expression . " AND doi_2.entity_type = 'node'", $args);
+      $query->{$verify_join}('field_data_field_elife_a_versions', 'vrs_1', "vrs_1.field_elife_a_versions_target_id = doi_1.entity_id AND vrs_1.entity_type = doi_1.entity_type AND vrs_1.delta = 0");
+      $query->{$verify_join}('field_data_field_elife_a_versions', 'vrs_2', "vrs_2.field_elife_a_versions_target_id = doi_2.entity_id AND vrs_2.entity_type = doi_2.entity_type AND vrs_2.delta = 0");
+      $query->{$verify_join}('field_data_field_elife_a_article_id', 'aid', 'aid.entity_id = doi_2.entity_id AND aid.entity_type = doi_2.entity_type');
+      $group_by = FALSE;
+
+      if ($verified) {
+        $query->addField('aid', 'field_elife_a_article_id_value', 'related_to');
+        $query->innerJoin('node', 'node_1', 'node_1.nid = doi_1.entity_id');
+        $query->innerJoin('node', 'node_2', 'node_2.nid = doi_2.entity_id');
+        $query->addField('node_1', 'nid', 'article_ver_nid_1');
+        $query->addField('node_2', 'nid', 'article_ver_nid_2');
+
+        $query->addField('node_1', 'status', 'node_status_1');
+        $query->addField('node_2', 'status', 'node_status_2');
+
         $query->leftJoin('field_data_field_elife_a_category', 'cat_1', 'cat_1.entity_id = node_1.nid');
         $query->leftJoin('field_data_field_elife_a_category', 'cat_2', 'cat_2.entity_id = node_2.nid');
         $query->leftJoin('taxonomy_term_data', 'td_1', 'td_1.tid = cat_1.field_elife_a_category_target_id');
@@ -1108,87 +1093,78 @@ class ElifeArticleVersion {
         $query->condition('cat_type_2.field_elife_category_type_value', 'display-channel', '=');
         $query->addField('td_1', 'name', 'endpoint_1_display_channel');
         $query->addField('td_2', 'name', 'endpoint_2_display_channel');
-        $relation_ordered = "CONCAT($least(td_1.name, td_2.name), '|', $greatest(td_1.name, td_2.name))";
-        $query->addExpression($relation_ordered, 'relation_ordered');
+        $query->addExpression("CONCAT($least(td_1.name, td_2.name), '|', $greatest(td_1.name, td_2.name))", 'relation_ordered');
       }
-    }
-
-    $query->groupBy('endpoint_1');
-
-    if ($verified) {
-      $query->groupBy('endpoint_2');
-    }
-    else {
-      $query->groupBy('doi.field_elife_a_doi_value');
-    }
-
-    if ($query_results = $query->execute()->fetchAllAssoc('fc_id')) {
-      $results = $query_results;
+      else {
+        $db_or = db_or();
+        $db_or->isNull('doi_1.field_elife_a_doi_value');
+        $db_or->isNull('doi_2.field_elife_a_doi_value');
+        $query->condition($db_or);
+        $group_by = "CONCAT(doi_source, '|', doi_dest)";
+      }
 
       if ($unique) {
-        $accept = [];
-        foreach ($results as $nid => $result) {
-          if (!isset($accept[$result->group_endpoints_ordered]) || $result->endpoints_flag == 1) {
-            $accept[$result->group_endpoints_ordered] = $nid;
-          }
+        if (!is_null($doi)) {
+          $group_by = 'doi_dest';
         }
-        $results = array_intersect_key($results, array_flip(array_values($accept)));
+        else {
+          $group_by = "CONCAT($least(doi_source, doi_dest), '|', $greatest(doi_source, doi_dest))";
+        }
       }
 
-      $criticals = [
-        'builds' => [
-          'research advance|research article',
-          'research advance|tools and resources',
-          'research advance|short report',
-        ],
-        'replicates' => [
-          'registered report|replication study',
-        ],
-      ];
+      if ($group_by) {
+        $query->groupBy($group_by);
+      }
 
-      if (!is_null($critical)) {
-        foreach ($results as $nid => $result) {
-          $critical_found = FALSE;
-          foreach ($criticals as $type => $ords) {
-            if (in_array(strtolower($results[$nid]->relation_ordered), $ords)) {
-              $critical_found = $type;
-              break;
+      if ($results = $query->execute()) {
+        foreach ($results as $prepare_output) {
+          if (!empty($prepare_output->relation_ordered)) {
+            $prepare_output->endpoint_types = explode('|', $prepare_output->relation_ordered);
+          }
+
+          $criticals = [
+            'builds' => [
+              'research advance|research article',
+              'research advance|tools and resources',
+              'research advance|short report',
+            ],
+            'replicates' => [
+              'registered report|replication study',
+            ],
+          ];
+
+          if (!empty($prepare_output->relation_ordered)) {
+            $critical_found = FALSE;
+            foreach ($criticals as $type => $ords) {
+              if (in_array(strtolower($prepare_output->relation_ordered), $ords)) {
+                $critical_found = $type;
+                break;
+              }
+            }
+            if ($critical_found) {
+              $prepare_output->criticalrelation_type = $critical_found;
             }
           }
-          if ((!$critical_found && $critical === 1) || ($critical_found && $critical === 0)) {
-            unset($results[$nid]);
+
+          $related_to = [];
+          if (isset($prepare_output->article_ver_nid_2)) {
+            $related_to['article_ver_nid'] = $prepare_output->article_ver_nid_2;
           }
-          elseif ($critical_found) {
-            $results[$nid]->criticalrelation_type = $critical_found;
+          if (isset($prepare_output->endpoint_2_display_channel)) {
+            $related_to['display_channel'] = $prepare_output->endpoint_2_display_channel;
           }
+          if (!empty($related_to)) {
+            $prepare_output->endpoints = new stdClass();
+            $prepare_output->endpoints->related_to = json_decode(json_encode($related_to));
+          }
+          $output[] = $prepare_output;
         }
       }
 
-      if ($entity_id) {
-        foreach ($results as $nid => $result) {
-          $results[$nid]->related_to = $results[$nid]->{$results[$nid]->related_to_endpoint . '_article_id'};
-        }
-      }
-
-      foreach ($results as $nid => $result) {
-        $endpoints = [];
-        foreach (get_object_vars($result) as $key => $value) {
-          if (preg_match('/^(?<endpoint>endpoint_[1-2])_?(?<type>.*)$/', $key, $matches)) {
-            $type = !empty($matches['type']) ? $matches['type'] : 'nid';
-            $endpoints[$matches['endpoint']][$type] = $value;
-          }
-        }
-        if (isset($result->related_to_endpoint) && !empty($endpoints[$result->related_to_endpoint])) {
-          $endpoints['related_to'] = $endpoints[$result->related_to_endpoint];
-        }
-        $results[$nid]->endpoints = json_decode(json_encode($endpoints));
-        if (isset($result->relation_ordered)) {
-          $results[$nid]->endpoint_types = explode('|', $result->relation_ordered);
-        }
-      }
+      $cache[$key] = $output;
     }
 
-    return $results;
+    return $cache;
   }
 
   /**

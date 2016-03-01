@@ -139,17 +139,17 @@ Feature: Article Resource - Related articles (API)
         ]
       """
     And there should be 3 verified related articles
-    And there should be 3 verified related articles for "05224"
-    And there should be 2 verified related articles for "05227"
+    And there should be 3 verified related articles for "10.7554/eLife.05224"
+    And there should be 2 verified related articles for "10.7554/eLife.05227"
     And there should be 2 unique verified related articles
-    And there should be 2 unique verified related articles for "05224"
-    And there should be 1 unique verified related articles for "05227"
+    And there should be 2 unique verified related articles for "10.7554/eLife.05224"
+    And there should be 1 unique verified related articles for "10.7554/eLife.05227"
     And there should be 2 unverified related articles
-    And there should be 2 unverified related articles for "05224"
-    And there should be 0 unverified related articles for "05227"
-    And article "05224" should be related to "05224,05227"
-    And article "05227" should be related to "05224"
-    And article "05224" should have unverified related articles of "10.7554/eLife.05225, 10.7554/eLife.05226"
+    And there should be 2 unverified related articles for "10.7554/eLife.05224"
+    And there should be 0 unverified related articles for "10.7554/eLife.05227"
+    And article "10.7554/eLife.05224" should be related to "10.7554/eLife.05224,10.7554/eLife.05227"
+    And article "10.7554/eLife.05227" should be related to "10.7554/eLife.05224"
+    And article "10.7554/eLife.05224" should have unverified related articles of "10.7554/eLife.05225,10.7554/eLife.05226"
     And I am on "content/4/e05224"
     And I should see 2 ".elife-related-articles-list > li" elements
     And I should see "VOR 05224" in the ".sidebar-wrapper .elife-related-articles-list" element
@@ -281,17 +281,17 @@ Feature: Article Resource - Related articles (API)
         ]
       """
     Then there should be 2 verified related articles
-    And there should be 2 verified related articles for "05224"
-    And there should be 1 verified related articles for "05227"
+    And there should be 2 verified related articles for "10.7554/eLife.05224"
+    And there should be 1 verified related articles for "10.7554/eLife.05227"
     And there should be 2 unique verified related articles
-    And there should be 2 unique verified related articles for "05224"
-    And there should be 1 unique verified related articles for "05227"
+    And there should be 2 unique verified related articles for "10.7554/eLife.05224"
+    And there should be 1 unique verified related articles for "10.7554/eLife.05227"
     And there should be 1 unverified related articles
-    And there should be 1 unverified related articles for "05224"
-    And there should be 0 unverified related articles for "05227"
-    And article "05224" should be related to "05224,05227"
-    And article "05227" should be related to "05224"
-    And article "05224" should have unverified related articles of "10.7554/eLife.05225"
+    And there should be 1 unverified related articles for "10.7554/eLife.05224"
+    And there should be 0 unverified related articles for "10.7554/eLife.05227"
+    And article "10.7554/eLife.05224" should be related to "10.7554/eLife.05224,10.7554/eLife.05227"
+    And article "10.7554/eLife.05227" should be related to "10.7554/eLife.05224"
+    And article "10.7554/eLife.05224" should have unverified related articles of "10.7554/eLife.05225"
     And I am on "content/4/e05224v1"
     And I should see 2 ".elife-related-articles-list > li" elements
     And I should see "VOR 05227v2" in the ".sidebar-wrapper .elife-related-articles-list" element
@@ -389,128 +389,17 @@ Feature: Article Resource - Related articles (API)
         ]
       """
     Then there should be 1 verified related articles
-    And there should be 1 verified related articles for "05224"
-    And there should be 0 verified related articles for "05227"
+    And there should be 1 verified related articles for "10.7554/eLife.05224"
+    And there should be 0 verified related articles for "10.7554/eLife.05227"
     And there should be 1 unique verified related articles
-    And there should be 1 unique verified related articles for "05224"
-    And there should be 0 unique verified related articles for "05227"
+    And there should be 1 unique verified related articles for "10.7554/eLife.05224"
+    And there should be 0 unique verified related articles for "10.7554/eLife.05227"
     And there should be 1 unverified related articles
-    And there should be 1 unverified related articles for "05224"
-    And there should be 0 unverified related articles for "05227"
-    And article "05224" should be related to "05224"
-    And article "05227" should not be related to "05224"
-    And article "05224" should have unverified related articles of "10.7554/eLife.05225"
-
-  Scenario: Check correct number of articles related when multiple version of the article available with different DOIs
-    Given there are articles:
-      """
-        [
-          {
-            "title": "VOR 05224v2",
-            "version": 2,
-            "doi": "10.7554/eLife.05224v2",
-            "volume": 4,
-            "elocation-id": "e05224",
-            "article-id": "05224",
-            "article-version-id": "05224.2",
-            "pub-date": "1979-08-17T00:00:00+00:00",
-            "path": "content/4/e05224v2",
-            "article-type": "research-article",
-            "status": "VOR",
-            "publish": true,
-            "related-articles": [
-              {
-                "type": "commentary",
-                "href": "10.7554/eLife.05224v1"
-              },
-              {
-                "type": "commentary-article",
-                "href": "10.7554/eLife.05225v1"
-              }
-            ]
-          },
-          {
-            "title": "VOR 05224v1",
-            "version": 1,
-            "doi": "10.7554/eLife.05224v1",
-            "volume": 4,
-            "elocation-id": "e05224",
-            "article-id": "05224",
-            "article-version-id": "05224.1",
-            "pub-date": "1979-08-17T00:00:00+00:00",
-            "path": "content/4/e05224v1",
-            "article-type": "research-article",
-            "status": "VOR",
-            "publish": true,
-            "related-articles": [
-              {
-                "type": "commentary-article",
-                "href": "10.7554/eLife.05225v1"
-              },
-              {
-                "type": "article-reference",
-                "href": "10.7554/eLife.05226v1"
-              },
-              {
-                "type": "article-reference",
-                "href": "10.7554/eLife.05227v2"
-              }
-            ]
-          },
-          {
-            "title": "VOR 05227v1",
-            "version": 1,
-            "doi": "10.7554/eLife.05227v1",
-            "volume": 4,
-            "elocation-id": "e05227",
-            "article-id": "05227",
-            "article-version-id": "05227.1",
-            "pub-date": "1979-08-17T00:00:00+00:00",
-            "path": "content/4/e05227v1",
-            "article-type": "correction",
-            "status": "VOR",
-            "publish": true,
-            "related-articles": [
-              {
-                "type": "article-reference",
-                "href": "10.7554/eLife.05224v1"
-              }
-            ]
-          },
-          {
-            "title": "VOR 05227v2",
-            "version": 2,
-            "doi": "10.7554/eLife.05227v2",
-            "volume": 4,
-            "elocation-id": "e05227",
-            "article-id": "05227",
-            "article-version-id": "05227.2",
-            "pub-date": "1979-08-17T00:00:00+00:00",
-            "path": "content/4/e05227v2",
-            "article-type": "correction",
-            "status": "VOR",
-            "publish": true,
-            "related-articles": [
-              {
-                "type": "article-reference",
-                "href": "10.7554/eLife.05224v2"
-              }
-            ]
-          }
-        ]
-      """
-    And there should be 2 verified related articles
-    And there should be 2 verified related articles for "05224"
-    And there should be 1 verified related articles for "05227"
-    And there should be 2 unique verified related articles
-    And there should be 2 unique verified related articles for "05224"
-    And there should be 1 unique verified related articles for "05227"
-    And there should be 1 unverified related articles
-    And there should be 1 unverified related articles for "05224"
-    And there should be 0 unverified related articles for "05227"
-    And article "05224" should be related to "05224,05227"
-    And article "05227" should be related to "05224"
-    And article "05224" should have unverified related articles of "10.7554/eLife.05225v1"
+    And there should be 1 unverified related articles for "10.7554/eLife.05224"
+    And there should be 0 unverified related articles for "10.7554/eLife.05227"
+    And article "10.7554/eLife.05224" should be related to "10.7554/eLife.05224"
+    And article "10.7554/eLife.05227" should not be related to "10.7554/eLife.05224"
+    And article "10.7554/eLife.05224" should have unverified related articles of "10.7554/eLife.05225"
 
   Scenario Outline: Make it easy to find the correction/retraction from the corrected/retracted article
     Given there are articles:

@@ -161,6 +161,66 @@ Feature: Article Resource - POST (API)
         }
       """
 
+  Scenario: Supplying the same json should skip the delete step
+    Given I set header "Content-Type" with value "application/json"
+    And I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05227",
+          "version": 1,
+          "doi": "10.7554/eLife.05227",
+          "volume": 4,
+          "elocation-id": "e05227",
+          "article-id": "10.7554/eLife.05227",
+          "article-version-id": "05227",
+          "pub-date": "1979-08-17T00:00:00+00:00",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": true
+        }
+      """
+    And the response code should be 200
+    And I retain the latest node id
+    When I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05227",
+          "version": 1,
+          "doi": "10.7554/eLife.05227",
+          "volume": 4,
+          "elocation-id": "e05227",
+          "article-id": "10.7554/eLife.05227",
+          "article-version-id": "05227",
+          "pub-date": "1979-08-17T00:00:00+00:00",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": true
+        }
+      """
+    And the response code should be 200
+    Then the node id should be 0 more than the retained node id
+    When I send a POST request to "api/article.json" with body:
+      """
+        {
+          "title": "VOR 05227 new",
+          "version": 1,
+          "doi": "10.7554/eLife.05227",
+          "volume": 4,
+          "elocation-id": "e05227",
+          "article-id": "10.7554/eLife.05227",
+          "article-version-id": "05227",
+          "pub-date": "1979-08-17T00:00:00+00:00",
+          "path": "content/4/e05227",
+          "article-type": "research-article",
+          "status": "VOR",
+          "publish": true
+        }
+      """
+    And the response code should be 200
+    Then the node id should be 2 more than the retained node id
+
   Scenario: Post an article with invalid JSON
     Given I set header "Content-Type" with value "application/json"
     And I send a POST request to "api/article.json" with body:

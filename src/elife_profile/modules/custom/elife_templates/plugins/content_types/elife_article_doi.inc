@@ -77,7 +77,7 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
       if (!$fragment) {
         $article = ElifeArticleVersion::getArticle($article_version->getArticleId());
-        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE, 1, 0);
+        $related_articles = ElifeArticleVersion::retrieveRelatedArticles($article_version->getDoi(), TRUE, TRUE, 1, 0);
         foreach ($related_articles as $related_article) {
           if ($related_article->article_type == 'corrected-article') {
             // Check if one endpoint has a display channel of Retraction.
@@ -100,7 +100,7 @@ function elife_article_doi_render($subtype, $conf, $args, $context) {
 
             $output .= '<span class="elife-article-correction">';
             $output .= '<i class="icon-exclamation-sign"></i>';
-            $output .= l($label, 'node/' . $related_article->{$related_article->related_to_endpoint . '_article_ver_nid'});
+            $output .= l($label, 'node/' . $related_article->endpoints->related_to->article_ver_nid);
             $output .= '</span>';
           }
         }

@@ -13,6 +13,14 @@ use PHPUnit_Framework_Assert as Assertions;
  * Defines application features from the specific context.
  */
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+  /**
+   * Retain the latest node id.
+   *
+   * @var int
+   */
+  protected $latest_nid = 0;
+
+
   public function cleanNodes() {
     $this->nodes = [];
   }
@@ -210,10 +218,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function thereShouldBeContributorsFor($expected, $article_version_id) {
     $expected = intval($expected);
-    $article = ElifeArticleVersion::fromIdentifier($article_version_id);
-    /* @var EntityDrupalWrapper $ewrapper */
-    $ewrapper = entity_metadata_wrapper('node', $article);
-    $actual = $ewrapper->field_elife_a_contributors_pri->count();
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version_id);
+    $dto = elife_article_version_to_dto($article_version);
+    $actual = count($dto->getContributors());
     Assertions::assertSame($expected, $actual);
   }
 
@@ -248,49 +255,45 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Then there should be :expected verified related articles for :article_id
+   * @Then there should be :expected verified related articles for :doi
    */
-  public function thereShouldBeVerifiedRelatedArticleFor($expected, $article_id) {
-    $article = ElifeArticleVersion::getArticle($article_id);
+  public function thereShouldBeVerifiedRelatedArticleFor($expected, $doi) {
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
 
   /**
-   * @Then there should be :expected unique verified related articles for :article_id
+   * @Then there should be :expected unique verified related articles for :doi
    */
-  public function thereShouldBeUniqueVerifiedRelatedArticleFor($expected, $article_id) {
-    $article = ElifeArticleVersion::getArticle($article_id);
+  public function thereShouldBeUniqueVerifiedRelatedArticleFor($expected, $doi) {
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, TRUE, TRUE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
 
   /**
-   * @Then there should be :expected unverified related articles for :article_id
+   * @Then there should be :expected unverified related articles for :doi
    */
-  public function thereShouldBeUnverifiedRelatedArticlesFor($expected, $article_id) {
-    $article = ElifeArticleVersion::getArticle($article_id);
+  public function thereShouldBeUnverifiedRelatedArticlesFor($expected, $doi) {
     $expected = intval($expected);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, FALSE);
     $actual = count($results);
     Assertions::assertSame($expected, $actual);
   }
 
   /**
-   * @Then article :article_id should be related to :related_to
+   * @Then article :doi should be related to :related_to
    */
-  public function articleShouldBeRelatedTo($article_id, $related_to) {
-    $article = ElifeArticleVersion::getArticle($article_id);
+  public function articleShouldBeRelatedTo($doi, $related_to) {
     $related_to = explode(',', $related_to);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, TRUE, TRUE);
     $actual = [];
     if (!empty($results)) {
       foreach ($results as $result) {
-        $actual[] = $result->related_to;
+        $actual[] = $result->doi_dest;
       }
     }
     $diff = array_diff($actual, $related_to);
@@ -298,16 +301,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Then article :article_id should not be related to :related_to
+   * @Then article :doi should not be related to :related_to
    */
-  public function articleShouldNotBeRelatedTo($article_id, $not_related_to) {
-    $article = ElifeArticleVersion::getArticle($article_id);
+  public function articleShouldNotBeRelatedTo($doi, $not_related_to) {
     $not_related_to = explode(',', $not_related_to);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, TRUE, TRUE);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, TRUE, TRUE);
     $actual = [];
     if (!empty($results)) {
       foreach ($results as $result) {
-        $actual[] = $result->related_to;
+        $actual[] = $result->doi_dest;
       }
     }
     $intersect = array_intersect($actual, $not_related_to);
@@ -315,22 +317,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Then article :article_id should have unverified related articles of :related_to
+   * @Then article :doi should have unverified related articles of :related_to
    */
-  public function articleShouldHaveUnverifiedRelatedArticles($article_id, $related_to) {
-    $article = ElifeArticleVersion::getArticle($article_id);
-    $related_to = explode(', ', $related_to);
-    $results = ElifeArticleVersion::retrieveRelatedArticles($article->nid, FALSE);
+  public function articleShouldHaveUnverifiedRelatedArticles($doi, $related_to) {
+    $related_to = explode(',', $related_to);
+    $results = ElifeArticleVersion::retrieveRelatedArticles($doi, FALSE);
     $actual = [];
     if (!empty($results)) {
-      if ($fc_items = entity_load('field_collection_item', array_keys($results))) {
-        foreach ($fc_items as $fc_item) {
-          /* @var EntityDrupalWrapper $fc_wrapper */
-          $fc_wrapper = entity_metadata_wrapper('field_collection_item', $fc_item);
-          if ($doi = $fc_wrapper->field_elife_a_doi->value()) {
-            $actual[] = $doi;
-          }
-        }
+      foreach ($results as $result) {
+        $actual[] = $result->doi_dest;
       }
     }
     $diff = array_diff($actual, $related_to);
@@ -657,6 +652,33 @@ JS;
     $value_current = $element->getAttribute("src");
     if ($text !== $value_current && $text !== basename($value_current)) {
       throw new Exception('Expected value ' . $text . ' but found ' . $value_current);
+    }
+  }
+
+  /**
+   * Retain the latest node id.
+   *
+   * @Given /^I retain the latest node id$/
+   */
+  public function iRetainTheLatestNid() {
+    $this->latest_nid = $this->getMaxNid();
+  }
+
+  /**
+   * @Then /^the node id should be (?P<increase>\d+) more than the retained node id$/
+   */
+  public function theNodeIdShouldBeMore($increase) {
+    $retained_nid = $this->latest_nid;
+    $this->iRetainTheLatestNid();
+    Assertions::assertEquals($retained_nid + $increase, $this->latest_nid);
+  }
+
+  private function getMaxNid() {
+    if ($result = db_query('SELECT MAX(nid) AS max_nid FROM {node}')->fetchAssoc()) {
+      return (int) $result['max_nid'];
+    }
+    else {
+      return 0;
     }
   }
 
