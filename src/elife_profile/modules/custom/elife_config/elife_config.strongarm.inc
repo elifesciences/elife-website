@@ -650,7 +650,7 @@ user/*/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'xmlsitemap_base_url';
-  $strongarm->value = 'http://elifesciences.org';
+  $strongarm->value = 'https://elifesciences.org';
   $export['xmlsitemap_base_url'] = $strongarm;
 
   $strongarm = new stdClass();
