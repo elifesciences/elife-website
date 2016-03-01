@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "d197866e113130c8c6d6f800c715508310898984"
+                "reference": "9651e65a6324fc0365da84a82829d09815182c84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/d197866e113130c8c6d6f800c715508310898984",
-                "reference": "d197866e113130c8c6d6f800c715508310898984",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/9651e65a6324fc0365da84a82829d09815182c84",
+                "reference": "9651e65a6324fc0365da84a82829d09815182c84",
                 "shasum": ""
             },
             "require": {
@@ -276,9 +276,9 @@
                 }
             },
             "support": {
-                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/dev"
+                "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2016-02-18 12:35:56"
+            "time": "2016-03-01 10:46:40"
         },
         {
             "name": "guzzlehttp/guzzle",

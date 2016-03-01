@@ -214,3 +214,10 @@ function elife_profile_update_7116() {
 function elife_profile_update_7117() {
   module_enable(['disqus', 'elife_disqus'], FALSE);
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7118() {
+  _elife_article_markup_cache_clear_all();
+}
