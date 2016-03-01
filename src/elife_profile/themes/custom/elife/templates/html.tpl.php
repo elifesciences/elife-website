@@ -28,9 +28,9 @@
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>  
   <?php print $styles; ?>
-  <link rel="stylesheet" type="text/css" href="http://fast.fonts.com/cssapi/c10f70b9-7e7a-4f33-9361-d43022ae343e.css"/>
+  <link rel="stylesheet" type="text/css" href="https://fast.fonts.com/cssapi/c10f70b9-7e7a-4f33-9361-d43022ae343e.css"/>
   <?php print $scripts; ?>
-  <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body<?php print $attributes;?>>
   <div id="skip-link">
