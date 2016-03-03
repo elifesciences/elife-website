@@ -10,3 +10,20 @@
 function elife_front_matter_install() {
   variable_set('site_frontpage', 'cover');
 }
+
+/**
+ * Transfer front matter queues from live to preview.
+ */
+function elife_front_matter_update_7100() {
+  $transfer = [
+    'elife_cover' => 'elife_cover_preview',
+    'elife_front_matter_col_1' => 'elife_front_matter_preview_col_1',
+    'elife_front_matter_col_2' => 'elife_front_matter_preview_col_2',
+  ];
+
+  foreach ($transfer as $from => $to) {
+    $from_queue = entityqueue_queue_load($from);
+    $to_queue = entityqueue_queue_load($to);
+    elife_front_matter_copy_paste_eq_items($from_queue, $to_queue);
+  }
+}
