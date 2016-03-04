@@ -230,6 +230,7 @@ vcard';
     ),
     'node' => array(
       'webform' => 1,
+      'elife_annual_report' => 1,
       'elife_article' => 1,
       'elife_article_reference' => 1,
       'elife_article_ver' => 1,
@@ -241,6 +242,7 @@ vcard';
       'elife_event' => 1,
       'elife_fragment' => 1,
       'elife_front_matter' => 1,
+      'elife_labs_entry' => 1,
       'elife_news_article' => 1,
       'elife_organisation' => 1,
       'elife_person_profile' => 1,

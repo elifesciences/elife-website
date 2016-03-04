@@ -52,6 +52,7 @@ dependencies[] = field_collection
 dependencies[] = field_formatter_settings
 dependencies[] = field_group
 dependencies[] = field_object
+dependencies[] = field_sql_norevisions
 dependencies[] = field_validation
 dependencies[] = focal_point
 dependencies[] = globalredirect
