@@ -221,3 +221,10 @@ function elife_profile_update_7117() {
 function elife_profile_update_7118() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Make sure field_sql_norevisions is enabled.
+ */
+function elife_profile_update_7119() {
+  elife_profile_update_7108();
+}

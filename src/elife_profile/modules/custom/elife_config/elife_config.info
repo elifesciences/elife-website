@@ -11,6 +11,7 @@ dependencies[] = ds_extras
 dependencies[] = elysia_cron
 dependencies[] = fe_date
 dependencies[] = features
+dependencies[] = field_sql_norevisions
 dependencies[] = filter
 dependencies[] = page_theme
 dependencies[] = pathauto
