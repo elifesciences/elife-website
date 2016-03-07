@@ -55,7 +55,7 @@ function elife_article_module_implements_alter(&$implementations, $hook) {
   }
 
   switch ($hook) {
-    case 'node_load':
+    case 'entitycache_node_load':
       // Immediately after Disqus.
       $group = $implementations['elife_article'];
       unset($implementations['elife_article']);
@@ -545,9 +545,9 @@ function elife_article_preprocess_node(&$variables) {
 }
 
 /**
- * Implements hook_node_load().
+ * Implements hook_entitycache_node_load().
  */
-function elife_article_node_load($nodes, $types) {
+function elife_article_entitycache_node_load($nodes) {
   foreach ($nodes as $node) {
     if ('elife_article_ver' !== $node->type || empty($node->field_elife_a_article_id[LANGUAGE_NONE]) || empty($node->disqus)) {
       continue;
