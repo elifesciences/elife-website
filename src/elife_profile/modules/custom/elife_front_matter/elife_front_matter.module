@@ -25,7 +25,7 @@ function elife_front_matter_menu() {
     'description' => 'Transfer entityqueue nodes from preview to live',
     'page callback' => 'elife_front_matter_preview2live_json',
     'page arguments' => array(2, 3, 4),
-    'access arguments' => array('manipulate queues'),
+    'access arguments' => array('manipulate entityqueues'),
   );
   $items['front-matter/previewitems/%/%/%'] = array(
     'title' => 'Front matter preview item count',
@@ -496,8 +496,8 @@ function elife_front_matter_preview_setup() {
     $module_path = drupal_get_path('module', 'elife_front_matter');
     drupal_add_js($module_path . '/js/front-matter-preview.js', array('scope' => 'footer'));
     drupal_add_css($module_path . '/css/front-matter-preview.css');
-    $preview_1_items = variable_get('elife_fm_preview_1_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
-    $preview_2_items = variable_get('elife_fm_preview_2_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+    $preview_1_items = variable_get('elife_front_matter_preview_1_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
+    $preview_2_items = variable_get('elife_front_matter_preview_2_items', ELIFE_FRONT_MATTER_PREVIEW_ITEMS);
     $js_settings = array(
       'moduleFolder' => $module_path,
       'colItems1' => $preview_1_items,

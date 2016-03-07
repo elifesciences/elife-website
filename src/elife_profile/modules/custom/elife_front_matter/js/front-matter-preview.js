@@ -131,7 +131,7 @@
         },
         // When selection made on dropdown, react to choice by adjusting stored limit and display.
         setLimitFromDropdown = function ($selEl, jsonGet, $messageEl, $wrapperEl) {
-          var $parentEl = $selEl.closest('.view-elife-coverpage-front-matter'),
+          var $parentEl = $selEl.closest('.view-elife-front-matter'),
             selURL = $selEl.val(),
             selVal = $('option:selected', $selEl).text();
           $wrapperEl = prepareWrapperEl($wrapperEl);
