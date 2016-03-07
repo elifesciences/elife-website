@@ -8,6 +8,17 @@ namespace Drupal\elife_article;
 
 interface ElifeMarkupServiceInterface {
   /**
+   * @param \Drupal\elife_article\ElifeMarkupServiceInterface $markup
+   */
+  public function load(ElifeMarkupServiceInterface $markup);
+
+  /**
+   * @param array|null $archive
+   * @return array
+   */
+  public function recoverResults($archive);
+
+  /**
    * @param string $article_id
    * @param string|array $section
    */

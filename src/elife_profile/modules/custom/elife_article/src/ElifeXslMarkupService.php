@@ -11,12 +11,13 @@ use eLifeIngestXsl\ConvertXMLToHtml;
 use Exception;
 
 class ElifeXslMarkupService extends ElifeMarkupService {
-  private $queries = [];
-  private $arrange_queries = [];
-  private $response = 'response';
-  private $error = 'error';
-  private $results = [];
-  private $methods = [
+  public $archive = [];
+  public $queries = [];
+  public $arrange_queries = [];
+  public $response = 'response';
+  public $error = 'error';
+  public $results = [];
+  public $methods = [
     'aff' => 'getAffiliation',
     'author-aff' => 'getAuthorAffiliation',
     'doi' => 'getDoi',
@@ -48,9 +49,61 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     'article-info-reviewing-editor' => 'getArticleInfoReviewingEditor',
     'article-info-license' => 'getArticleInfoLicense',
   ];
-  private $htmls = [];
-  private $xmls = [];
-  private $replacements = [];
+  public $htmls = [];
+  public $xmls = [];
+  public $replacements = [];
+
+  private function archiveResults() {
+    $key = $this->archiveKey();
+    $this->archive[$key] = [
+      'results' => $this->results,
+      'queries' => $this->queries,
+      'arrange_queries' => $this->arrange_queries,
+    ];
+  }
+
+  public function recoverResults($archive = NULL) {
+    $key = $this->archiveKey();
+    if (is_null($archive) && !empty($this->archive[$key])) {
+      $this->results = $this->archive[$key]['results'];
+      $this->queries = $this->archive[$key]['queries'];
+      $this->arrange_queries = $this->archive[$key]['arrange_queries'];
+      $prepare_archive = $this->archive[$key];
+    }
+    elseif (!is_null($archive)) {
+      $this->results = !empty($archive['results']) ? $archive['results'] : [];
+      $this->queries = !empty($archive['queries']) ? $archive['queries'] : [];
+      $this->getQuery();
+      if (empty($this->results)) {
+        $this->submitQuery();
+      }
+      else {
+        $this->archiveResults();
+      }
+      $key = $this->archiveKey();
+      $prepare_archive = $this->archive[$key];
+    }
+    else {
+      $prepare_archive = [
+        'results' => $this->results,
+        'queries' => $this->queries,
+        'arrange_queries' => $this->arrange_queries,
+      ];
+    }
+
+    return $prepare_archive;
+  }
+
+  public function archiveFound($key = NULL) {
+    if (is_null($key)) {
+      $key = $this->archiveKey();
+    }
+    return isset($this->archive[$key]) ? TRUE : FALSE;
+  }
+
+  private function archiveKey() {
+    return _elife_article_markup_query_key($this);
+  }
 
   /**
    * @param string $article_version_id
@@ -151,6 +204,8 @@ class ElifeXslMarkupService extends ElifeMarkupService {
         }
       }
     }
+
+    $this->archiveResults();
   }
 
   /**
@@ -384,10 +439,19 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     $output = '';
     foreach ($results as $article_ver_queries) {
       foreach ($article_ver_queries as $data) {
-        $output .= implode("\n", $data);
+        if (is_array($data)) {
+          $output .= implode("\n", $data);
+        }
       }
     }
 
     return $output;
+  }
+
+  public function load(ElifeMarkupServiceInterface $markup) {
+    if ($markup instanceof ElifeXslMarkupService) {
+      $archive = $markup->recoverResults();
+      $this->recoverResults($archive);
+    }
   }
 }

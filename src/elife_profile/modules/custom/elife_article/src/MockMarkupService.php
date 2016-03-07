@@ -149,5 +149,11 @@ final class MockMarkupService extends ElifeMarkupService {
   public function output() {
     return implode("\n", array_values($this->getResults()));
   }
+
+  public function load(ElifeMarkupServiceInterface $markup) {}
+
+  public function recoverResults($archive) {
+    return $archive;
+  }
 }
 

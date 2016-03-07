@@ -245,6 +245,7 @@ function _elife_services_persist_article($data) {
       }
       $existing_dto = elife_article_version_to_dto($existing_node);
       $json = elife_article_serializer()->serialize($existing_dto);
+      elife_article_empty_markup_fields($existing_eif_result->nid);
 
       if ($update) {
         elife_article_update_store($existing_eif_result->nid, $update);
@@ -252,26 +253,8 @@ function _elife_services_persist_article($data) {
     }
   }
 
-  $existing = ElifeArticleVersion::fromIdentifier($article_version->getArticleVersionId(), FALSE, 'elife_article_ver', 0, 'field_elife_a_article_version_id', TRUE);
-
   if (!$json) {
-    if (!empty($existing)) {
-      $paths = [];
-      foreach ($existing as $nid) {
-        $path = drupal_get_path_alias($source = 'node/' . $nid);
-        if ($source !== $path) {
-          $paths[] = $path;
-        }
-      }
-      node_delete_multiple($existing);
-      if (!empty($paths)) {
-        $db_or = db_or();
-        foreach ($paths as $path) {
-          $db_or->condition('alias', $path . '/%', 'LIKE');
-        }
-        db_delete('url_alias')->condition($db_or)->execute(); // Removes aliases for any fragments etc.
-      }
-    }
+    elife_article_delete_existing($article_version);
 
     $entity = elife_article_version_from_dto($article_version, _elife_services_user_uid());
 
@@ -284,7 +267,7 @@ function _elife_services_persist_article($data) {
     $json = elife_article_serializer()->serialize($dto);
   }
 
-  elife_article_markup_clear_once($article_version->getArticleVersionId());
+  elife_article_markup_clear_once($article_version->getArticleVersionId(), TRUE);
 
   try {
     elife_article_validator()->validate($json);
