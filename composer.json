@@ -4,7 +4,7 @@
     "license": "proprietary",
     "require": {
         "predis/predis": "~1.0",
-        "wikimedia/composer-merge-plugin": "~1.3@dev"
+        "wikimedia/composer-merge-plugin": "~1.3"
     },
     "extra": {
         "merge-plugin": {

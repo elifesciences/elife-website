@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function elife_person_profile_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -37,7 +37,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_biog_outer|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_biog_outer|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -67,7 +67,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_biog_wrapper|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_biog_wrapper|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -98,7 +98,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_biog|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_biog|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -130,7 +130,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_caption|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_caption|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -163,7 +163,7 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_elife_pp_details|node|elife_person_profile|form'] = $field_group;
+  $field_groups['group_elife_pp_details|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -192,7 +192,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_interest|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_interest|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -221,7 +221,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_link|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_link|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -251,7 +251,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
+  $field_groups['group_elife_pp_name|node|elife_person_profile|elife_teaser_alternative'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -281,7 +281,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_name|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $field_groups['group_elife_pp_name|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -310,7 +310,7 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $export['group_elife_pp_name|node|elife_person_profile|form'] = $field_group;
+  $field_groups['group_elife_pp_name|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -340,7 +340,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_name|node|elife_person_profile|teaser'] = $field_group;
+  $field_groups['group_elife_pp_name|node|elife_person_profile|teaser'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -368,7 +368,7 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_pp_profile|node|elife_person_profile|form'] = $field_group;
+  $field_groups['group_elife_pp_profile|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -399,7 +399,7 @@ function elife_person_profile_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_elife_pp_research|node|elife_person_profile|form'] = $field_group;
+  $field_groups['group_elife_pp_research|node|elife_person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -428,7 +428,7 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_text_wrapper|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $field_groups['group_elife_pp_text_wrapper|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -459,7 +459,22 @@ function elife_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_pp_text|node|elife_person_profile|elife_teaser_compact'] = $field_group;
+  $field_groups['group_elife_pp_text|node|elife_person_profile|elife_teaser_compact'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Biography');
+  t('Biography outer');
+  t('Biography wrapper');
+  t('Caption');
+  t('Competing interests statement');
+  t('Details');
+  t('Link');
+  t('Name');
+  t('Profile');
+  t('Research');
+  t('Text');
+  t('Text wrapper');
+
+  return $field_groups;
 }

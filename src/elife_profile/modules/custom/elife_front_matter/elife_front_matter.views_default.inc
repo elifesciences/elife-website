@@ -36,7 +36,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['style_options']['row']['last_class'] = '';
   $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Entityqueue: Node Queue */
+  /* Relationship: Entityqueue: Content Queue */
   $handler->display->display_options['relationships']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['relationships']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['relationships']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -50,14 +50,14 @@ function elife_front_matter_views_default_views() {
     'elife_front_matter_preview_col_1' => 0,
     'elife_front_matter_preview_col_2' => 0,
   );
-  /* Field: Panel Pane - Node: eLife Cover article */
+  /* Field: Panel Pane - Content: eLife Cover article */
   $handler->display->display_options['fields']['ctools_field_elife_cover']['id'] = 'ctools_field_elife_cover';
   $handler->display->display_options['fields']['ctools_field_elife_cover']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_cover']['field'] = 'ctools_field_elife_cover';
   $handler->display->display_options['fields']['ctools_field_elife_cover']['label'] = '';
   $handler->display->display_options['fields']['ctools_field_elife_cover']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['ctools_field_elife_cover']['element_default_classes'] = FALSE;
-  /* Sort criterion: Entityqueue: Node Queue Position */
+  /* Sort criterion: Entityqueue: Content Queue Position */
   $handler->display->display_options['sorts']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['sorts']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['sorts']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -106,7 +106,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['style_options']['row']['last_class'] = '';
   $handler->display->display_options['style_options']['row']['striping_classes'] = '';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Entityqueue: Node Queue */
+  /* Relationship: Entityqueue: Content Queue */
   $handler->display->display_options['relationships']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['relationships']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['relationships']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -120,7 +120,7 @@ function elife_front_matter_views_default_views() {
     'elife_front_matter_preview_col_1' => 0,
     'elife_front_matter_preview_col_2' => 0,
   );
-  /* Field: Panel Pane - Node: eLife Front Matter */
+  /* Field: Panel Pane - Content: eLife Front Matter */
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
@@ -130,7 +130,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['views_ctools_field'] = array(
     'front_matter_type' => 'regular',
   );
-  /* Sort criterion: Entityqueue: Node Queue Position */
+  /* Sort criterion: Entityqueue: Content Queue Position */
   $handler->display->display_options['sorts']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['sorts']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['sorts']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -168,7 +168,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Panel Pane - Node: eLife Front Matter */
+  /* Field: Panel Pane - Content: eLife Front Matter */
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
@@ -191,7 +191,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['header']['view']['label'] = 'Column header';
   $handler->display->display_options['header']['view']['view_to_insert'] = 'elife_front_matter:front_matter_col_2_head';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Entityqueue: Node Queue */
+  /* Relationship: Entityqueue: Content Queue */
   $handler->display->display_options['relationships']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['relationships']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['relationships']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -213,7 +213,7 @@ function elife_front_matter_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '1';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Entityqueue: Node Queue */
+  /* Relationship: Entityqueue: Content Queue */
   $handler->display->display_options['relationships']['entityqueue_relationship']['id'] = 'entityqueue_relationship';
   $handler->display->display_options['relationships']['entityqueue_relationship']['table'] = 'node';
   $handler->display->display_options['relationships']['entityqueue_relationship']['field'] = 'entityqueue_relationship';
@@ -228,7 +228,7 @@ function elife_front_matter_views_default_views() {
     'elife_front_matter_preview_col_2' => 0,
   );
   $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Panel Pane - Node: eLife Front Matter */
+  /* Field: Panel Pane - Content: eLife Front Matter */
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['id'] = 'ctools_field_elife_front_matter';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_front_matter']['field'] = 'ctools_field_elife_front_matter';
