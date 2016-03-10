@@ -68,6 +68,6 @@
         '@date' => date('Y'),
         '!cc_license' => l(t('Creative Commons Attribution license'),
           'http://creativecommons.org/licenses/by/4.0/',
-          array('external' => TRUE)))); ?>
+          array('external' => TRUE, 'attributes' => array('rel' => 'license'))))); ?>
   </section>
 </div>
