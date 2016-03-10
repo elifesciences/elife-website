@@ -56,6 +56,11 @@ $conf['path_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.path.inc
 $conf['cache_backends'][] = 'profiles/elife_profile/modules/contrib/redis/redis.autoload.inc';
 $conf['cache_default_class'] = 'Redis_Cache';
 
+// String overrides.
+$conf['locale_custom_strings_en'][''] = [
+  'Allowed HTML tags: @tags' => 'Allowed HTML tags: @tags. (HTML character references such as <code>&amp;nbsp;</code> are also allowed)',
+];
+
 // Include the local settings, this MUST contain:
 //
 // - $databases

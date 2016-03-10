@@ -1224,8 +1224,11 @@ class ElifeArticleVersion {
         'short' => 'Short Report',
         'correction' => 'Correction',
         'retraction' => 'Retraction',
-        'news' => 'eLife News',
+        'news_article' => 'eLife News',
         'podcast' => 'Podcast',
+        'event' => 'Event',
+        'early_careers_interview' => 'Early-career researchers',
+        'collection' => 'Collection',
         'other' => 'Supplementary',
       );
 
@@ -1245,16 +1248,12 @@ class ElifeArticleVersion {
    *   Section name.
    */
   public static function getSection($section) {
-    if (!empty($section)) {
-      $sections = self::availableSections();
-      if (array_key_exists($section, $sections)) {
-        return $section;
-      }
-      elseif ($key = array_search(strtolower($section), array_map('strtolower', $sections))) {
-        return $key;
-      }
+    $sections = self::availableSections();
+
+    if (isset($sections[$section])) {
+      return $sections[$section];
     }
 
-    return 'Supplementary';
+    return $sections['other'];
   }
 }
