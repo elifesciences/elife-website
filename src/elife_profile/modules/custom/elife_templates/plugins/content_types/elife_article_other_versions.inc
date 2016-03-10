@@ -24,7 +24,8 @@ function elife_article_other_versions_render($subtype, $conf, $args, $context) {
     $items = [];
     foreach ($versions as $nid => $version) {
       $this_dto = ($nid != $article_version->nid) ? elife_article_version_to_dto($version) : $dto;
-      $text = t('Version @version (@date)', ['@version' => $this_dto->getVersion(), '@date' => $this_dto->getUpdate()->format('F d, Y')]);
+      $update_date = ($this_dto->getUpdate()) ? $this_dto->getUpdate() : new DateTime();
+      $text = t('Version @version (@date)', ['@version' => $this_dto->getVersion(), '@date' => $update_date->format('F d, Y')]);
       if ($nid != $article_version->nid) {
         $text = l($text, 'node/' . $nid);
       }
