@@ -88,8 +88,15 @@ function elife_article_metatags_node_view($node, $view_mode, $langcode) {
       'DC.Date' => $article_version->getPubDate()->format('Y-m-d'),
       'citation_title' => $node->title,
       'citation_doi' => $ewrapper->field_elife_a_doi->value(),
-      'citation_publication_date' => $article_version->getPubDate()->format('Y/m/d'),
     );
+    $citation_publication_date = $article_version->getPubDate()->format('Y/m/d');
+
+    if ($article_version->getStatus() == 'POA') {
+      $version_doi_metatags['citation_online_date'] = $citation_publication_date;
+    }
+    else {
+      $version_doi_metatags['citation_publication_date'] = $citation_publication_date;
+    }
     $version_doi_key = $article_version->getArticleVersionId() . ':' . $ewrapper->field_elife_a_doi->value();
     _elife_article_metatags_add($version_doi_metatags, $version_doi_key);
 
