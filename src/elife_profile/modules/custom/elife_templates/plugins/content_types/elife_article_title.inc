@@ -28,7 +28,7 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
   $article_version = $context->data;
   $dto = elife_article_version_to_dto($article_version);
 
-  $pdf_path = elife_article_version_source_pdf_path($article_version, TRUE);
+  $pdf_path = elife_article_version_source_pdf_local($article_version, TRUE);
 
   // Add JS for icon cluetips.
   drupal_add_library('cluetip', 'cluetip');

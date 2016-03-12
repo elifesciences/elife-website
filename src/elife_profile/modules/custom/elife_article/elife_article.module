@@ -92,6 +92,14 @@ function elife_article_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
+  $items['admin/config/search/elife-rewrite-latest-paths'] = array(
+    'title' => 'Process new article paths for most recent article versions',
+    'access arguments' => array('administer elife_article'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_article_rewrite_latest_paths_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_article.admin.inc',
+  );
   $items['admin/config/services/elife-article-assets-source'] = array(
     'title' => 'eLife Assets Source',
     'description' => 'Configuration options for eLife assets source.',
@@ -152,29 +160,63 @@ function elife_article_lookup_content() {
 
   // If the path matches an old pdf link the redirect to the latest pdf.
   if (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.full\.pdf$/', $raw_path, $match)) {
-    if ($alias = _elife_article_lookup_content_path(sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
-      $source = drupal_lookup_path('source', $alias);
+    if ($source = drupal_lookup_path('source', sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
       $article_version = menu_get_object('node', 1, $source);
-      $redirect = elife_article_version_source_pdf_path($article_version);
+      $redirect = elife_article_version_source_pdf_local($article_version);
+    }
+  }
+  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.pdf)$/', $raw_path, $match)) {
+    if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
+      $article_version = menu_get_object('node', 1, $source);
+      $pdf_path = elife_article_version_source_pdf_path($article_version, (!empty($match['download'])));
+      $data = file_get_contents($pdf_path);
+      drupal_add_http_header('Content-type', 'application/pdf');
+      if (!empty($match['download'])) {
+        $disposition = 'attachment';
+        $match['file_name'] .= $match['download'];
+      }
+      else {
+        $disposition = 'inline';
+      }
+      drupal_add_http_header('Content-Disposition', sprintf('%s; filename="%s"', $disposition, $match['file_name'] . $match['ext']));
+      drupal_send_headers();
+
+      print $data;
+      exit();
     }
   }
   // If the path matches an old xml link the redirect to the latest xml.
-  elseif (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.source\.xml$/', $raw_path, $match)) {
-    if ($alias = _elife_article_lookup_content_path(sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
-      $source = drupal_lookup_path('source', $alias);
+  elseif (preg_match('/^(?P<root_path>content\/)(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.source\.xml$/', $raw_path, $match)) {
+    if ($source = drupal_lookup_path('source', $match['root_path'] . $match['volume'] . '/' . $match['eloc_id'])) {
       $article_version = menu_get_object('node', 1, $source);
       $redirect = elife_article_version_source_xml_path($article_version);
     }
   }
-  // If the path matchs a path in our database but without a version then
-  // redirect to the same path but with the latest version inserted.
-  elseif ($alias = _elife_article_lookup_content_path($raw_path)) {
-    if ($source_path = drupal_lookup_path('source', $alias)) {
-      if (!empty($_GET['panels_ajax_tab_trigger'])) {
-        $redirect = $alias . '/' . $_GET['panels_ajax_tab_trigger'];
+  elseif (preg_match('/^content\/(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})v(?P<version>[0-9]+)(\/[^\/]+){0,}$/', $raw_path, $match)) {
+    if ($source = drupal_lookup_path('source', sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
+      $article_version = menu_get_object('node', 1, $source);
+      $dto = elife_article_version_to_dto($article_version);
+      $versions = ElifeArticleVersion::fromId($dto->getArticleId(), FALSE);
+      $latest_version = 0;
+      if (!empty($versions)) {
+        $latest = reset($versions);
+        $latest_version = $latest->extraFields->field_elife_a_version_version;
       }
-      else {
-        $redirect = $source_path;
+      // If version number in url matches latest version and if the path matches a
+      // path in our database but without a version then redirect to the same path
+      // but with the latest version inserted.
+      if ($match['version'] == $latest_version && $alias = _elife_article_lookup_content_path($raw_path)) {
+        if ($source_path = drupal_lookup_path('source', $alias)) {
+          if (!empty($_GET['panels_ajax_tab_trigger'])) {
+            $redirect = $alias . '/' . $_GET['panels_ajax_tab_trigger'];
+          }
+          else {
+            $redirect = $source_path;
+          }
+        }
+        else {
+          $redirect = $alias;
+        }
       }
     }
   }
@@ -189,36 +231,30 @@ function elife_article_lookup_content() {
 }
 
 /**
- * Convert the generic content path without version to the latest path
- *
- * Match the generic content path with the latest article version path for the
- * main or fragment page.
+ * If a version number is detected in a content path that is not in the
+ * url_alias table then redirect to the most recent version of an article.
  *
  * @param string $path
- * @return string
+ * @return string|NULL
  */
 function _elife_article_lookup_content_path($path) {
   $args = explode('/', trim($path, '/'));
-  $root_pattern = 'content\/[0-9]+\/e[0-9]{5}';
+  $root_pattern = '(?P<root>content\/[0-9]+\/e[0-9]{5})v(?P<version>[0-9]+)';
   $root_path = implode('/', array_splice($args, 0, 3));
-  if (preg_match('/^' . $root_pattern . '$/', $root_path)) {
-    $fragment_path = !empty($args) ? '/' . implode('/', $args) : '';
-    $match_pattern = '^' . preg_quote($root_path, '/') . 'v[0-9]+$';
+  if (preg_match('/^' . $root_pattern . '$/', $root_path, $match)) {
     $query = db_select('url_alias', 'ua');
-    $query->where('alias REGEXP :alias', array(':alias' => $match_pattern));
+    $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}(v[0-9]+)?$', 'REGEXP');
+    $query->condition('ua.alias', $match['root'] . '%', 'LIKE');
+    $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source");
+    $query->innerJoin('field_data_field_elife_a_article_id', 'aid', 'aid.entity_id = n.nid AND aid.bundle = n.type');
+    $query->innerJoin('field_data_field_elife_a_article_id', 'aid2', 'aid2.field_elife_a_article_id_value = aid.field_elife_a_article_id_value AND aid2.bundle = aid.bundle');
+    $query->innerJoin('field_data_field_elife_a_version', 'ver', 'ver.entity_id = aid2.entity_id AND ver.bundle = aid2.bundle');
+    $query->condition('ver.field_elife_a_version_value', $match['version']);
     $query->addField('ua', 'alias');
-    $query->addField('a', 'field_elife_a_article_id_value', 'article_id');
-    $query->innerJoin('field_data_field_elife_a_article_id', 'a', "a.entity_type = 'node' AND a.bundle = 'elife_article_ver' AND CONCAT('node/', a.entity_id) = ua.source");
-    $results = $query->execute();
-    if ($results->rowCount() === 1) {
-      return $results->fetchField(0) . $fragment_path;
-    }
-    elseif ($results->rowCount() > 1) {
-      $article_id = $results->fetchField(1);
-      if ($article_version = ElifeArticleVersion::fromId($article_id, TRUE, 'elife_article_ver', array(), 1)) {
-        $dto = elife_article_version_to_dto($article_version);
-        return $dto->getPath() . $fragment_path;
-      }
+    $query->range(0, 1);
+    if ($result = $query->execute()->fetchField()) {
+      $fragment_path = !empty($args) ? '/' . implode('/', $args) : '';
+      return $match['root'] . $fragment_path;
     }
   }
 }
@@ -874,6 +910,21 @@ function elife_article_version_source_pdf_path($article_version, $download = FAL
 }
 
 /**
+ * Get the local path to the article version PDF.
+ *
+ * @param string|object $article_version
+ *   Article version id or article version node.
+ * @param bool $download
+ *   Set to TRUE to request a file path prepared for download.
+ *
+ * @return bool|string
+ *   Local path to PDF.
+ */
+function elife_article_version_source_pdf_local($article_version, $download = FALSE) {
+  return url('node/' . $article_version->nid, ['absolute' => TRUE]) . (($download) ? '-download' : '') . '.pdf';
+}
+
+/**
  * @return ElifeMarkupService
  */
 function elife_article_markup_service() {
@@ -1408,25 +1459,7 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
 
   // Amending the versions of an article can happen each time a new version is
   // processed.
-  $versions = [];
-  $query = new EntityFieldQueryExtraFields();
-  $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
-  $query->entityCondition('entity_type', 'node');
-  $query->entityCondition('bundle', 'elife_article_ver');
-  $query->fieldCondition('field_elife_a_article_id', 'value', $article_version->getArticleId());
-  $query->addExtraField('field_elife_a_version', 'value', 'version');
-  $query->propertyOrderBy('status', 'DESC');
-  $query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
-
-  if ($result = $query->execute()) {
-    if (isset($result['node']) && !empty($result['node'])) {
-      foreach ($result['node'] as $nid => $version) {
-        if (!empty($version->extraFields->field_elife_a_version_version)) {
-          $versions[$version->extraFields->field_elife_a_version_version] = $nid;
-        }
-      }
-    }
-  }
+  elife_article_versions_array($article_version->getArticleVersionId());
 
   $entity->field_elife_a_versions->set(array_values($versions));
 
@@ -1472,6 +1505,87 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $entity->save();
 
   return $entity->raw();
+}
+
+/**
+ * Get an array of versions with the corresponding nids in descending order.
+ *
+ * @param $article_id
+ * @param bool|FALSE $most_recent
+ * @return array
+ * @throws \EntityFieldQueryException
+ */
+function elife_article_versions_array($article_id, &$most_recent = FALSE) {
+  $versions = [];
+  $query = new EntityFieldQueryExtraFields();
+  $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+  $query->entityCondition('entity_type', 'node');
+  $query->entityCondition('bundle', 'elife_article_ver');
+  $query->fieldCondition('field_elife_a_article_id', 'value', $article_id);
+  $query->addExtraField('field_elife_a_version', 'value', 'version');
+  $query->addExtraField('', 'status', 'status', 'node');
+  $query->propertyOrderBy('status', 'DESC');
+  $query->fieldOrderBy('field_elife_a_version', 'value', 'DESC');
+  $most_recent = FALSE;
+
+  if ($result = $query->execute()) {
+    if (isset($result['node']) && !empty($result['node'])) {
+      foreach ($result['node'] as $nid => $version) {
+        if (!empty($version->extraFields->field_elife_a_version_version)) {
+          $versions[$version->extraFields->field_elife_a_version_version] = $nid;
+          $most_recent = (!$most_recent && $version->extraFields->status == 1) ? $version->extraFields->field_elife_a_version_version : $most_recent;
+        }
+      }
+    }
+  }
+
+  return $versions;
+}
+
+/**
+ * Ensure that the url paths for the article version content are as expected.
+ *
+ * @param ArticleVersion $dto
+ */
+function elife_article_version_paths_resolve(ArticleVersion $dto) {
+  $most_recent = FALSE;
+  $versions = elife_article_versions_array($dto->getArticleId(), $most_recent);
+  $versions = array_reverse($versions, TRUE);
+  foreach ($versions as $version => $nid) {
+    $query = db_select('url_alias', 'ua');
+    $query->innerJoin('url_alias', 'ua2', 'SUBSTRING(ua2.alias, 1, LENGTH(ua.alias)) = ua.alias');
+    $query->addField('ua2', 'pid', 'alias_pid');
+    $query->addField('ua2', 'alias', 'old_alias');
+    $query->addField('ua2', 'source');
+    $query->condition('ua.source', 'node/' . $nid);
+    if ($version == $most_recent) {
+      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+$', 'REGEXP');
+      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5}(/.+)?$', 'NOT REGEXP');
+    }
+    else {
+      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}$', 'REGEXP');
+      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+(/.+)?$', 'NOT REGEXP');
+    }
+    $query->orderBy('ua2.alias');
+    if ($results = $query->execute()->fetchAllAssoc('source')) {
+      foreach ($results as $source => $result) {
+        if ($path = path_load(['source' => $source])) {
+          if ($version == $most_recent) {
+            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5})v[0-9]+(.*)$/', '$1$2', $path['alias']);
+          }
+          else {
+            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5})(\/?.*)$/', '$1v' . $version . '$2', $path['alias']);
+          }
+          if ($new_path) {
+            path_delete(['pid' => $path['pid']]);
+            unset($path['pid']);
+            $path['alias'] = $new_path;
+            path_save($path);
+          }
+        }
+      }
+    }
+  }
 }
 
 function elife_article_version_from_dto(ArticleVersion $article_version, $uid) {
