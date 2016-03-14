@@ -55,6 +55,8 @@ $conf['lock_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.lock.inc
 $conf['path_inc'] = 'profiles/elife_profile/modules/contrib/redis/redis.path.inc';
 $conf['cache_backends'][] = 'profiles/elife_profile/modules/contrib/redis/redis.autoload.inc';
 $conf['cache_default_class'] = 'Redis_Cache';
+$conf['cache_class_cache_elife_markup'] = 'DrupalDatabaseCache';
+$conf['cache_class_cache_elife_citation'] = 'DrupalDatabaseCache';
 
 // String overrides.
 $conf['locale_custom_strings_en'][''] = [

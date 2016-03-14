@@ -1907,6 +1907,21 @@ function elife_article_update_store($nid, $unixdate) {
 }
 
 /**
+ * Empty markup fields for existing article.
+ *
+ * @param int $nid
+ */
+function elife_article_empty_markup_fields($nid) {
+  $node_field = new stdClass();
+  $node_field->nid = $nid;
+  $node_field->type = 'elife_article_ver';
+  $node_field->field_elife_a_abstract = NULL;
+  $node_field->field_elife_a_main_text = NULL;
+  field_attach_presave('node', $node_field);
+  field_attach_update('node', $node_field);
+}
+
+/**
  * Amend the nodes with the supplied markup in the main text field.
  *
  * @param array $populates
@@ -2168,15 +2183,10 @@ function _elife_article_citation_query_cache(ElifeCitationService $citation) {
   if (!empty($citation->getId())) {
     $key = $citation->getId();
     if (!isset($cache[$key])) {
-      $result = db_select('elife_citation', 'c')
-        ->fields('c', array('citation'))
-        ->condition('c.id', $key, '=')
-        ->range(0, 1)
-        ->execute()
-        ->fetchAssoc();
+      $result = cache_get($key, 'cache_elife_citation');
 
-      if ($result) {
-        $citation = unserialize($result['citation']);
+      if (!empty($result->data)) {
+        $citation = unserialize($result->data);
       }
       else {
         _elife_article_citation_cache_merge($citation);
@@ -2200,13 +2210,7 @@ function _elife_article_citation_query_cache(ElifeCitationService $citation) {
 function _elife_article_citation_cache_merge(ElifeCitationService $citation) {
   $key = $citation->getId();
   $citation->submitQuery();
-  db_merge('elife_citation')
-    ->key(array('id' => $key))
-    ->fields(array(
-      'citation' => serialize($citation),
-      'date' => time(),
-    ))
-    ->execute();
+  cache_set($key, serialize($citation), 'cache_elife_citation');
 }
 
 /**
@@ -2219,24 +2223,12 @@ function _elife_article_citation_cache_warm($article_version_ids) {
   if (!is_array($article_version_ids)) {
     $article_version_ids = [$article_version_ids];
   }
+  _elife_article_citation_cache_clear($article_version_ids);
 
   foreach ($article_version_ids as $article_version_id) {
-    $results = db_select('elife_citation', 'c')->fields('c', array(
-      'id',
-      'citation',
-    ))->condition('c.id', $article_version_id)->execute()->fetchAllKeyed();
-    if ($results) {
-      foreach ($results as $key => $citation) {
-        _elife_article_citation_cache_merge(unserialize($citation));
-      }
-    }
-    else {
-      // If there is no cache to warm then trigger the generation of queries for
-      // each of the citation format of the article.
-      $citation = elife_article_citation_service();
-      $citation->setId($article_version_id);
-      _elife_article_citation_query($citation);
-    }
+    $citation = elife_article_citation_service();
+    $citation->setId($article_version_id);
+    _elife_article_citation_query($citation);
   }
 }
 
@@ -2252,9 +2244,7 @@ function _elife_article_citation_cache_clear($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    db_delete('elife_citation')
-      ->condition('id', $article_version_id)
-      ->execute();
+    cache_clear_all($article_version_id, 'cache_elife_citation');
   }
 }
 
@@ -2264,7 +2254,7 @@ function _elife_article_citation_cache_clear($article_version_ids) {
 function _elife_article_citation_cache_clear_all() {
   $cache = &drupal_static(__FUNCTION__, FALSE);
   if (empty($cache)) {
-    db_truncate('elife_citation')->execute();
+    cache_clear_all(NULL, 'cache_elife_citation');
     $cache = TRUE;
   }
   return $cache;
@@ -2325,20 +2315,28 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
   if (!empty($markup->getQuery())) {
     $key = _elife_article_markup_query_key($markup);
     if (!isset($cache[$key])) {
-      $result = db_select('elife_markup', 'm')
-        ->fields('m', array('markup'))
-        ->condition('m.id', $key, '=')
-        ->range(0, 1)
-        ->execute()
-        ->fetchAssoc();
+      $article_version_ids = array_keys($markup->getQuery());
+      $article_version_id = reset($article_version_ids);
+      $prepare_markup = _elife_article_markup_query_article_version_id($article_version_id);
 
-      if ($result) {
-        $markup = unserialize($result['markup']);
+      $new = TRUE;
+      if ($prepare_markup) {
+        // If this query is found in the markup object then we will not need to
+        // store anything at the end of the page request for this query.
+        if ($prepare_markup instanceof ElifeXslMarkupService && $prepare_markup->archiveFound($key)) {
+          $new = FALSE;
+        }
+        $prepare_markup->load($markup);
       }
       else {
-        _elife_article_markup_cache_merge($markup);
+        $prepare_markup = $markup;
       }
-      $cache[$key] = $markup;
+
+      if ($new) {
+        _elife_article_markup_query_article_version_id($article_version_id, $prepare_markup);
+      }
+
+      $cache[$key] = $prepare_markup;
     }
   }
 
@@ -2346,26 +2344,96 @@ function _elife_article_markup_query_cache(ElifeMarkupService $markup) {
 }
 
 /**
+ * Get or load the markup object for an article version.
+ *
+ * @param null $article_version_id
+ * @param null $markup
+ * @return bool
+ */
+function _elife_article_markup_query_article_version_id($article_version_id = NULL, $markup = NULL) {
+  static $cache = [];
+  // If no article version id provided then retrieve the stored values.
+  if (is_null($article_version_id)) {
+    return $cache;
+  }
+  // If markup object is provided then assume that we want to store.
+  elseif (!is_null($markup)) {
+    $cache[$article_version_id] = $markup;
+    _elife_article_markup_query_article_version_id_store($article_version_id, TRUE);
+  }
+  // If we have not retrieved markup object from database in this page request
+  // then retrieve from cache table.
+  elseif (!isset($cache[$article_version_id])) {
+    $result = cache_get($article_version_id, 'cache_elife_markup');
+    if (!empty($result->data)) {
+      $cache[$article_version_id] = unserialize($result->data);
+    }
+  }
+
+  // Get markup object from cache store.
+  if (isset($cache[$article_version_id])) {
+    return $cache[$article_version_id];
+  }
+  else {
+    return FALSE;
+  }
+}
+
+/**
+ * Allow a flag to be set if new markup queries are performed for an article
+ * version.
+ *
+ * @param $article_version_id
+ * @param null $set_store
+ * @return bool
+ */
+function _elife_article_markup_query_article_version_id_store($article_version_id, $set_store = NULL) {
+  static $store = [];
+  if (!is_null($set_store)) {
+    $store[$article_version_id] = $set_store;
+  }
+
+  if (!isset($store[$article_version_id])) {
+    return FALSE;
+  }
+
+  return $store[$article_version_id];
+}
+
+/**
+ * Implements hook_page_alter().
+ */
+function elife_article_page_alter(&$page) {
+  // Determine if we need to write markup to store for article versions.
+  $markup_queries = _elife_article_markup_query_article_version_id();
+  if (is_array($markup_queries)) {
+    foreach ($markup_queries as $article_version_id => $markup) {
+      if (_elife_article_markup_query_article_version_id_store($article_version_id)) {
+        _elife_article_markup_cache_merge($markup, FALSE);
+      }
+    }
+  }
+}
+
+/**
  * Populate the cache for a specific markup request.
  *
  * @param ElifeMarkupService $markup
  *   Markup service container
+ * @param bool $submit
+ *   Submit query prior to storing.
  *
  * @throws Exception
  * @throws InvalidMergeQueryException
  */
-function _elife_article_markup_cache_merge(ElifeMarkupService $markup) {
-  $key = _elife_article_markup_query_key($markup);
-  $article_version_id = '::' . implode('::', array_keys($markup->getQuery())) . '::';
-  $markup->submitQuery();
-  db_merge('elife_markup')
-    ->key(array('id' => $key))
-    ->fields(array(
-      'article_version_id' => $article_version_id,
-      'markup' => serialize($markup),
-      'date' => time(),
-    ))
-    ->execute();
+function _elife_article_markup_cache_merge(ElifeMarkupService $markup, $submit = TRUE) {
+  $article_version_ids = array_keys($markup->getQuery());
+  $article_version_id = reset($article_version_ids);
+  if ($submit) {
+    $markup->submitQuery();
+  }
+  cache_set($article_version_id, serialize($markup), 'cache_elife_markup');
+  _elife_article_markup_query_article_version_id_store($article_version_id, FALSE);
 }
 
 /**
@@ -2380,26 +2448,37 @@ function _elife_article_markup_cache_warm($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    $results = db_select('elife_markup', 'm')
-      ->fields('m', array(
-        'id',
-        'markup',
-      ))
-      ->condition('m.article_version_id', '%::' . $article_version_id . '::%', 'LIKE')
-      ->execute()
-      ->fetchAllKeyed();
-    if ($results) {
-      foreach ($results as $key => $markup) {
-        _elife_article_markup_cache_merge(unserialize($markup));
+    $result = cache_get($article_version_id, 'cache_elife_markup');
+    $queries = [];
+    if (!empty($result->data)) {
+      $markup = unserialize($result->data);
+      if (!empty($markup->archive)) {
+        foreach ($markup->archive as $archive) {
+          $queries[] = $archive['queries'];
+        }
       }
+      _elife_article_markup_cache_clear($article_version_id);
+    }
+
+    $markup = elife_article_markup_service();
+    if (empty($queries)) {
+      $sections = [
+        'abstract',
+        'digest',
+        'main-text',
+        'references',
+        'acknowledgements',
+        'decision-letter',
+        'author-response',
+      ];
+      foreach ($sections as $section) {
+        $markup->addSectionQuery($article_version_id, $section);
+      }
+      _elife_article_markup_query($markup);
     }
     else {
-      // If there is no cache to warm then trigger the generation of queries for
-      // each of the different sections of the article.
-      $sections = ElifeMarkupService::getSectionLabels();
-      foreach (array_keys($sections) as $section) {
-        $markup = elife_article_markup_service();
-        $markup->addSectionQuery($article_version_id, $section);
+      foreach ($queries as $items) {
+        $markup->recoverResults(['queries' => $items]);
         _elife_article_markup_query($markup);
       }
     }
@@ -2418,9 +2497,7 @@ function _elife_article_markup_cache_clear($article_version_ids) {
   }
 
   foreach ($article_version_ids as $article_version_id) {
-    db_delete('elife_markup')
-      ->condition('article_version_id', '%::' . $article_version_id . '::%', 'LIKE')
-      ->execute();
+    cache_clear_all($article_version_id, 'cache_elife_markup');
   }
 }
 
@@ -2430,7 +2507,7 @@ function _elife_article_markup_cache_clear($article_version_ids) {
 function _elife_article_markup_cache_clear_all() {
   $cache = &drupal_static(__FUNCTION__, FALSE);
   if (empty($cache)) {
-    db_truncate('elife_markup')->execute();
+    cache_clear_all(NULL, 'cache_elife_markup');
     $cache = TRUE;
   }
   return $cache;
@@ -2439,12 +2516,13 @@ function _elife_article_markup_cache_clear_all() {
 /**
  * Clear markup cache if request value found.
  *
- * @param $article_version_id
+ * @param string $article_version_id
+ * @param bool $bypass_access
  * @return array
  */
-function elife_article_markup_clear_once($article_version_id) {
+function elife_article_markup_clear_once($article_version_id, $bypass_access = FALSE) {
   $cache = &drupal_static(__FUNCTION__, []);
-  if (user_access('clear elife_article markup') && !isset($cache[$article_version_id])) {
+  if ($bypass_access || (user_access('clear elife_article markup')) && !isset($cache[$article_version_id])) {
     $cache[$article_version_id] = TRUE;
     _elife_article_markup_cache_clear($article_version_id);
     _elife_article_citation_cache_clear($article_version_id);
@@ -2580,5 +2658,31 @@ function elife_article_field_create_field($field) {
       'entity_type',
       'field_elife_a_doi_value',
     ]);
+  }
+}
+
+/**
+ * @param ArticleVersion $article_version
+ */
+function elife_article_delete_existing(ArticleVersion $article_version) {
+  $query = db_select('url_alias', 'ua');
+  $query->fields('ua', ['pid', 'alias']);
+  $query->addField('n', 'nid');
+  $db_or = db_or();
+  $db_or->condition('ua.alias', $article_version->getPath());
+  $db_or->condition('ua.alias', $article_version->getPath() . '/%', 'LIKE');
+  $query->condition($db_or);
+  $query->leftJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source");
+  if ($results = $query->execute()->fetchAllAssoc('pid')) {
+    pathauto_path_delete_multiple(array_keys($results));
+    $nids = [];
+    foreach ($results as $result) {
+      if (!empty($result->nid)) {
+        $nids[] = $result->nid;
+      }
+    }
+    if (!empty($nids)) {
+      node_delete_multiple($nids);
+    }
   }
 }
