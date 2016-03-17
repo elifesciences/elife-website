@@ -14,6 +14,9 @@ function elife_news_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "facetapi" && $api == "facetapi_defaults") {
     return array("version" => "1");
   }
+  if ($module == "field_validation" && $api == "default_field_validation_rules") {
+    return array("version" => "2");
+  }
   if ($module == "page_manager" && $api == "pages_default") {
     return array("version" => "1");
   }

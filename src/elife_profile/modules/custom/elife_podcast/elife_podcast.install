@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Install, uninstall and update the elife_podcast module.
+ */
+
+/**
+ * Rewrite embedded objects to use HTTPS.
+ */
+function elife_podcast_update_7100() {
+  db_update('field_data_field_elife_p_text')
+    ->condition('field_elife_p_text_value', "%src=\"http://%", 'LIKE')
+    ->expression('field_elife_p_text_value', 'REPLACE(field_elife_p_text_value, :from, :to)', [
+      ':from' => 'src="http://',
+      ':to' => 'src="https://',
+    ])
+    ->execute();
+  db_update('field_data_field_elife_pc_text')
+    ->condition('field_elife_pc_text_value', "%src=\"http://%", 'LIKE')
+    ->expression('field_elife_pc_text_value', 'REPLACE(field_elife_pc_text_value, :from, :to)', [
+      ':from' => 'src="http://',
+      ':to' => 'src="https://',
+    ])
+    ->execute();
+}
