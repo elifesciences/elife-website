@@ -26,7 +26,7 @@ abstract class ElifeMarkupService implements ElifeMarkupServiceInterface {
     'author-info-equal-contrib' => 'Equal contributions',
     'author-info-other-footnotes' => 'Other Footnotes',
     'author-info-contributions' => 'Author contributions',
-    'author-info-correspondence' => 'For corresponsdence',
+    'author-info-correspondence' => 'For correspondence',
     'author-info-additional-address' => 'Additional address',
     'author-info-competing-interest' => 'Competing interests',
     'author-info-funding' => 'Funding',
