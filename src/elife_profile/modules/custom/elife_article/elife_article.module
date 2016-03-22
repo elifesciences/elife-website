@@ -951,7 +951,7 @@ function _elife_article_mock_citation_service() {
   return $citation_service;
 }
 
-function elife_article_version_to_dto(stdClass $entity, $flush = FALSE) {
+function elife_article_version_to_dto(stdClass $entity, $flush = FALSE, $byPassCache = FALSE) {
   static $cache = [];
 
   if ($entity->type != 'elife_article_ver') {
@@ -966,7 +966,9 @@ function elife_article_version_to_dto(stdClass $entity, $flush = FALSE) {
   }
 
   if (isset($cache[$ewrapper->field_elife_a_article_version_id->value()])) {
-    return $cache[$ewrapper->field_elife_a_article_version_id->value()];
+    if(!$byPassCache) {
+      return $cache[$ewrapper->field_elife_a_article_version_id->value()];
+    }
   }
 
   if (!$flush && $eif_json = elife_services_eif_json($ewrapper->field_elife_a_article_version_id->value(), TRUE)) {
@@ -1409,6 +1411,7 @@ function elife_article_from_dto(ArticleVersion $article_version, $uid) {
   $entity->field_elife_a_versions->set(array_values($versions));
 
   if ($new) {
+    $entity->raw()->status = (int) $article_version->getPublish();
     $entity->field_elife_title->set([
       'value' => $article_version->getTitle(),
       'format' => 'elife_house_style',

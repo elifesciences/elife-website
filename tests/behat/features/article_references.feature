@@ -59,7 +59,6 @@ Feature: Article references
       | field_elife_a_title:value | status |
       | VOR 05224 v2              | 1      |
 
-  @develop
   Scenario: Article references follow the article in becoming unpublished
     Given there is an article:
       """

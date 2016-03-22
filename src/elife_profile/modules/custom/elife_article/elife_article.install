@@ -212,3 +212,34 @@ function elife_article_update_7107() {
   db_drop_table('elife_markup');
   db_drop_table('elife_citation');
 }
+
+/**
+ * Correct elife_article statuses.
+ */
+function elife_article_update_7108(&$sandbox) {
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['max'] = (int) db_query('SELECT COUNT(nid) FROM {node} WHERE type = :type', [':type' => 'elife_article'])->fetchField();
+  }
+
+  $query = new EntityFieldQuery();
+  $result = $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'elife_article')
+    ->range($sandbox['progress'], 200)
+    ->execute();
+
+  if (!empty($result['node'])) {
+    foreach (node_load_multiple(array_keys($result['node'])) as $article) {
+      $sandbox['progress']++;
+
+      $article_version = node_load($article->field_elife_a_versions[LANGUAGE_NONE][0]['target_id']);
+
+      if ($article->status != $article_version->status) {
+        $article->status = $article_version->status;
+        node_save($article);
+      }
+    }
+  }
+
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ?: ($sandbox['progress'] / $sandbox['max']);
+}
