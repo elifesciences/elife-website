@@ -135,7 +135,7 @@ function elife_article_metatags_metatag_export_default() {
         'value' => '',
       ),
       'og:image' => array(
-        'value' => 'http://cdn.elifesciences.org/images/elife_final_logo_rgb.jpg',
+        'value' => 'https://cdn.elifesciences.org/images/elife_final_logo_rgb.jpg',
       ),
       'og:image:url' => array(
         'value' => '',

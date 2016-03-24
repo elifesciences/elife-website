@@ -220,7 +220,7 @@ function elife_article_reference_striking_image_path($article_id, $image_style =
     if (is_numeric($figure)) {
       $figure = 'f' . str_pad($figure, 3, "0", STR_PAD_LEFT);
     }
-    $url = sprintf('http://cdn.elifesciences.org/elife-articles/%s/jpg/elife%s%s.jpg', $article_id, $article_id, $figure);
+    $url = sprintf('https://cdn.elifesciences.org/elife-articles/%s/jpg/elife%s%s.jpg', $article_id, $article_id, $figure);
     if ($image_uri = imagecache_external_generate_path($url)) {
       $image_style_path = image_style_path($image_style['name'], $image_uri);
       $success = file_exists($image_style_path) || image_style_create_derivative($image_style, $image_uri, $image_style_path);

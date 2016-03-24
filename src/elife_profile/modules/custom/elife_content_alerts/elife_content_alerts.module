@@ -351,10 +351,10 @@ function elife_content_alerts_block_view($delta = '') {
     case 'elife_content_alerts_logo':
       $status = arg(2);
       if ($status == 'POA') {
-        $image_src = 'http://cdn.elifesciences.org/mailing/images/elife-full-color-poa.jpg';
+        $image_src = 'https://cdn.elifesciences.org/mailing/images/elife-full-color-poa.jpg';
       }
       else {
-        $image_src = 'http://cdn.elifesciences.org/mailing/images/elife-full-color-vor.jpg';
+        $image_src = 'https://cdn.elifesciences.org/mailing/images/elife-full-color-vor.jpg';
       }
 
       $image = sprintf('<img align="left" alt="eLife" height="85" src="%s" style="float: left; border: 0px; margin-left: -10px;">', $image_src);
