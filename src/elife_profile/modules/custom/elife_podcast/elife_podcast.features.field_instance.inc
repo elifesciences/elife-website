@@ -431,7 +431,7 @@ function elife_podcast_field_default_field_instances() {
       'active' => 0,
       'module' => 'link',
       'settings' => array(
-        'label_help_description' => '<p>This is the URL of the podcast MP3 file on The Naked Scientists website.</p>',
+        'label_help_description' => '<p>This is the URL of the podcast MP3 file on The Naked Scientists website. It must be HTTPS.</p>',
       ),
       'type' => 'link_field',
       'weight' => 2,

@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Install, uninstall and update the elife_person_profile module.
+ */
+
+/**
+ * Rewrite embedded objects to use HTTPS.
+ */
+function elife_person_profile_update_7100() {
+  db_update('field_data_field_elife_pp_interest')
+    ->condition('field_elife_pp_interest_value', "%src=\"http://%", 'LIKE')
+    ->expression('field_elife_pp_interest_value', 'REPLACE(field_elife_pp_interest_value, :from, :to)', [
+      ':from' => 'src="http://',
+      ':to' => 'src="https://',
+    ])
+    ->execute();
+  db_update('field_data_field_elife_pp_profile')
+    ->condition('field_elife_pp_profile_value', "%src=\"http://%", 'LIKE')
+    ->expression('field_elife_pp_profile_value', 'REPLACE(field_elife_pp_profile_value, :from, :to)', [
+      ':from' => 'src="http://',
+      ':to' => 'src="https://',
+    ])
+    ->execute();
+}

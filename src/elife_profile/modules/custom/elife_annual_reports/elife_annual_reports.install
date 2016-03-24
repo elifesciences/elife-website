@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Install, uninstall and update the elife_annual_reports module.
+ */
+
+/**
+ * Rewrite embedded objects to use HTTPS.
+ */
+function elife_annual_reports_update_7100() {
+  db_update('field_data_field_elife_ar_text')
+    ->condition('field_elife_ar_text_value', "%src=\"http://%", 'LIKE')
+    ->expression('field_elife_ar_text_value', 'REPLACE(field_elife_ar_text_value, :from, :to)', [
+      ':from' => 'src="http://',
+      ':to' => 'src="https://',
+    ])
+    ->execute();
+}
