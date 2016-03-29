@@ -38,7 +38,7 @@ The following organizations help to make our content widely and permanently avai
 	<li><a href="https://github.com/">GitHub</a></li>
 </ul>
 
-<p><a href="http://gooa.las.ac.cn/external/index.jsp"><img alt="GoOA logo" src="http://cdn.elifesciences.org/other-organisation-images/GoOAem_en.gif" />&nbsp;Go OA</a></p>
+<p><a href="http://gooa.las.ac.cn/external/index.jsp"><img alt="GoOA logo" src="https://cdn.elifesciences.org/other-organisation-images/GoOAem_en.gif" />&nbsp;Go OA</a></p>
 
 <ul>
 	<li><a href="http://broker.edina.ac.uk">Jisc&nbsp;Publication Router</a></li>

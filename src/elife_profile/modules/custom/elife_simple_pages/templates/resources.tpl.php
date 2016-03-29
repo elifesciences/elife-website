@@ -6,15 +6,15 @@
 
 <div class="styleguideimage">There are two possible configurations of the eLife logo. The logo may&nbsp;<strong>not</strong>&nbsp;be used in any&nbsp;other configuration.</div>
 
-<div class="styleguideimage"><img alt="Acceptable Logo Configurations" src="http://cdn.elifesciences.org/style-guide-images/accept-config.jpg" /></div>
+<div class="styleguideimage"><img alt="Acceptable Logo Configurations" src="https://cdn.elifesciences.org/style-guide-images/accept-config.jpg" /></div>
 
 <h3>Unacceptable Configurations (examples)</h3>
 
-<p><img alt="" class="alignnone size-full wp-image-2870" height="170" src="http://cdn.elifesciences.org/style-guide-images/unaccept-config3.jpg" title="Unacceptable configurations" width="500" /></p>
+<p><img alt="" class="alignnone size-full wp-image-2870" height="170" src="https://cdn.elifesciences.org/style-guide-images/unaccept-config3.jpg" title="Unacceptable configurations" width="500" /></p>
 
 <h3>Logo Color</h3>
 
-<p>There are 10 colors used in the eLife logo. Based on the medium in which the logo will be presented, these colors will change. Print (CMYK): <img alt="" src="http://cdn.elifesciences.org/style-guide-images/elife-cmyk-chart.jpg" /> Web (RGB): <img alt="" src="http://cdn.elifesciences.org/style-guide-images/elife-rgb-chart.jpg" /> Web (RGB) hexidecimal values:</p>
+<p>There are 10 colors used in the eLife logo. Based on the medium in which the logo will be presented, these colors will change. Print (CMYK): <img alt="" src="https://cdn.elifesciences.org/style-guide-images/elife-cmyk-chart.jpg" /> Web (RGB): <img alt="" src="https://cdn.elifesciences.org/style-guide-images/elife-rgb-chart.jpg" /> Web (RGB) hexidecimal values:</p>
 
 <ul>
 	<li>Brown: #6E3F19</li>
@@ -33,11 +33,11 @@
 
 <h3>Acceptable Color Use</h3>
 
-<div class="styleguideimage"><img alt="Acceptable Logo Color Use" src="http://cdn.elifesciences.org/style-guide-images/accept-color.jpg" /></div>
+<div class="styleguideimage"><img alt="Acceptable Logo Color Use" src="https://cdn.elifesciences.org/style-guide-images/accept-color.jpg" /></div>
 
 <h3>Unacceptable Color Use (examples)</h3>
 
-<div class="styleguideimage"><img alt="Unacceptable Logo Color Use" src="http://cdn.elifesciences.org/style-guide-images/unaccept-color.jpg" /></div>
+<div class="styleguideimage"><img alt="Unacceptable Logo Color Use" src="https://cdn.elifesciences.org/style-guide-images/unaccept-color.jpg" /></div>
 
 <p>If you have any further questions, please feel free to contact <a href="mailto:J.McLennan@eLifesciences.org">J.McLennan@eLifesciences.org</a>.</p>
 
@@ -47,39 +47,39 @@
 
 <div class="hr">&nbsp;</div>
 
-<h3>Full-Color Horizontal (Preferred) <img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal-sm.jpg" /></h3>
+<h3>Full-Color Horizontal (Preferred) <img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal-sm.jpg" /></h3>
 
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.jpg">.jpg</a> (72dpi) <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.png">.png</a> (72dpi with transparent background)</p>
-
-<div class="hr">&nbsp;</div>
-
-<h3>Full-Color Vertical<img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical-sm.jpg" /></h3>
-
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.jpg">.jpg</a> (72dpi) <a href="http://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.png">.png</a> (72dpi with transparent background)</p>
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.jpg">.jpg</a> (72dpi) <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-horizontal.png">.png</a> (72dpi with transparent background)</p>
 
 <div class="hr">&nbsp;</div>
 
-<h3>Greyscale Horizontal <img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-sm.jpg" /></h3>
+<h3>Full-Color Vertical<img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical-sm.jpg" /></h3>
 
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.jpg">.jpg</a> (72dpi) <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.png">.png</a> (72dpi with transparent background)</p>
-
-<div class="hr">&nbsp;</div>
-
-<h3>Greyscale Horizontal (Reversed) <img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed-sm.jpg" /></h3>
-
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed.png">.png</a> (72dpi with transparent background)</p>
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.jpg">.jpg</a> (72dpi) <a href="https://cdn.elifesciences.org/style-guide-images/elife-full-color-vertical.png">.png</a> (72dpi with transparent background)</p>
 
 <div class="hr">&nbsp;</div>
 
-<h3>Greyscale Vertical <img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-sm.jpg" /></h3>
+<h3>Greyscale Horizontal <img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-sm.jpg" /></h3>
 
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.jpg">.jpg</a> (72dpi) <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.png">.png</a> (72dpi with transparent background)</p>
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.jpg">.jpg</a> (72dpi) <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal.png">.png</a> (72dpi with transparent background)</p>
 
 <div class="hr">&nbsp;</div>
 
-<h3>Greyscale Vertical (Reversed) <img alt="" class="styleexample" src="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed-sm.jpg" /></h3>
+<h3>Greyscale Horizontal (Reversed) <img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed-sm.jpg" /></h3>
 
-<p><strong>Print - CMYK:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed.eps">.eps</a> <strong>Web - RGB:</strong> <a href="http://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed.png">.png</a> (72dpi with transparent background)</p>
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-horizontal-reversed.png">.png</a> (72dpi with transparent background)</p>
+
+<div class="hr">&nbsp;</div>
+
+<h3>Greyscale Vertical <img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-sm.jpg" /></h3>
+
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.jpg">.jpg</a> (72dpi) <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical.png">.png</a> (72dpi with transparent background)</p>
+
+<div class="hr">&nbsp;</div>
+
+<h3>Greyscale Vertical (Reversed) <img alt="" class="styleexample" src="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed-sm.jpg" /></h3>
+
+<p><strong>Print - CMYK:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed.eps">.eps</a> <strong>Web - RGB:</strong> <a href="https://cdn.elifesciences.org/style-guide-images/elife-greyscale-vertical-reversed.png">.png</a> (72dpi with transparent background)</p>
 
 <div class="hr">&nbsp;</div>
 
@@ -87,4 +87,4 @@
 
 <p>eLife&#39;s brand font is Avenir, which is available for purchase at <a href="http://www.myfonts.com/fonts/linotype/avenir/">MyFonts.com</a>. The most commonly used weights of Avenir in the eLife brand are the book, roman, medium, and black weights. The italic may be used sparingly for emphasis in body copy, but generally the typography should be unitalicized and used in ways shown below. Additionally, rules of about 1 point and 20% black can be used.</p>
 
-<p><img alt="" src="http://cdn.elifesciences.org/style-guide-images/typography.gif" /></p>
+<p><img alt="" src="https://cdn.elifesciences.org/style-guide-images/typography.gif" /></p>
