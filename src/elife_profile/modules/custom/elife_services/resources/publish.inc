@@ -47,7 +47,7 @@ function _elife_services_publish($article_version_id, $data) {
     $ewrapper->status->set((int) $json['publish']);
     $ewrapper->save();
 
-    $dto = elife_article_version_to_dto($ewrapper->raw(), FALSE, TRUE);
+    $dto = elife_article_version_to_dto($ewrapper->raw(), TRUE);
 
     // Trigger the ordering of article versions within article entity.
     $article_entity = elife_article_from_dto($dto, _elife_services_user_uid());
