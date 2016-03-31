@@ -269,6 +269,8 @@ function _elife_services_persist_article($data) {
 
   elife_article_markup_clear_once($article_version->getArticleVersionId(), TRUE);
 
+  elife_article_resolve_duplicates();
+
   try {
     elife_article_validator()->validate($json);
   } catch (JsonSchemaErrors $e) {

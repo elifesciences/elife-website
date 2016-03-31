@@ -302,3 +302,52 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
 
   return system_settings_form($form);
 }
+
+/**
+ * Settings form as implemented by hook_menu.
+ */
+function elife_article_resolve_duplicates_form($form, &$form_state) {
+  $duplicates = elife_article_detect_duplicates();
+
+  foreach ($duplicates as $type => $type_duplicates) {
+    $nid_string = '';
+    foreach ($type_duplicates as $article_id => $result) {
+      $nid_string .= ',' . $result->nids;
+    }
+
+    $args = array(
+      '@type' => $type,
+      '@count' => substr_count($nid_string, ',') - count($type_duplicates),
+      '@article_count' => count($type_duplicates),
+    );
+    if (empty($form_state['input'])) {
+      drupal_set_message(t('@count duplicate @type node(s) detected, affecting @article_count article(s).', $args));
+    }
+  }
+
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Resolve duplicates'),
+  );
+
+  if (empty($duplicates)) {
+    $form['actions']['submit']['#disabled'] = TRUE;
+    drupal_set_message(t('No duplicate elife_article or elife_article_reference nodes detected.'));
+  }
+
+  return $form;
+}
+
+/**
+ * Submit handler.
+ *
+ * @param array $form
+ *   Form API form.
+ * @param array $form_state
+ *   Form API form.
+ */
+function elife_article_resolve_duplicates_form_submit($form, &$form_state) {
+  elife_article_resolve_duplicates();
+  drupal_set_message(t('Duplicates have been successfully resolved.'));
+}

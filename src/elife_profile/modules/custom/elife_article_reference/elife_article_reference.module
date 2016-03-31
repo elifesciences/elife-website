@@ -123,11 +123,8 @@ function elife_article_reference_node_delete($node) {
  *   Article reference entity.
  */
 function elife_article_reference_for_article_id(stdClass $article) {
-  $references = &drupal_static(__FUNCTION__, []);
-
   $article_id = $article->field_elife_a_article_id[LANGUAGE_NONE][0]['value'];
 
-  if (!isset($references[$article_id])) {
     $query = new EntityFieldQuery();
 
     $query->entityCondition('entity_type', 'node')
@@ -149,15 +146,13 @@ function elife_article_reference_for_article_id(stdClass $article) {
 
       node_save($reference);
 
-      $references[$article_id] = $reference->nid;
-
-      return $reference;
+      $reference_nid = $reference->nid;
+    }
+    else {
+      $reference_nid = key($result['node']);
     }
 
-    $references[$article_id] = key($result['node']);
-  }
-
-  return node_load($references[$article_id]);
+  return node_load($reference_nid);
 }
 
 function elife_article_reference_get_article_version($article_reference) {
