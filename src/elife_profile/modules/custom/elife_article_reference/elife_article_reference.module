@@ -161,7 +161,7 @@ function elife_article_reference_for_article_id(stdClass $article) {
 }
 
 function elife_article_reference_get_article_version($article_reference) {
-  $article = ElifeArticleVersion::getArticle($article_reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value']);
+  $article = ElifeArticleVersion::fromIdentifier($article_reference->field_elife_a_article_id[LANGUAGE_NONE][0]['value'], TRUE, 'elife_article', 1, 'field_elife_a_article_id', TRUE);
   if ($article && !empty($article->field_elife_a_versions)) {
     $article_version = node_load($article->field_elife_a_versions[LANGUAGE_NONE][0]['target_id']);
     if ($article_version) {
