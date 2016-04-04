@@ -235,3 +235,10 @@ function elife_profile_update_7119() {
 function elife_profile_update_7120() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Enable unicode.
+ */
+function elife_profile_update_7121() {
+  module_enable(['unicode'], FALSE);
+}

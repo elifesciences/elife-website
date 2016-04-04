@@ -106,6 +106,7 @@ dependencies[] = strongarm
 dependencies[] = table_element
 dependencies[] = token
 dependencies[] = transliteration
+dependencies[] = unicode
 dependencies[] = view_unpublished
 dependencies[] = views
 dependencies[] = views_bulk_operations
