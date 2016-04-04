@@ -806,7 +806,7 @@ function elife_article_version_source_xml_path($article_version) {
   $source_assets_base_path = variable_get('elife_article_source_assets_base_path');
   $source_xml_file_pattern = variable_get('elife_article_source_assets_xml_file_pattern');
 
-  if (empty($source_assets_base_path) || empty($source_xml_file_pattern)) {
+  if (empty($source_assets_base_path) || empty($source_xml_file_pattern) || empty($article_version)) {
     return FALSE;
   }
   else {
