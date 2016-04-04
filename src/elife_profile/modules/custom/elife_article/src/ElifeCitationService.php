@@ -10,6 +10,7 @@ namespace Drupal\elife_article;
 use eLifeIngestXsl\ConvertXML\XMLString;
 use eLifeIngestXsl\ConvertXMLToBibtex;
 use eLifeIngestXsl\ConvertXMLToRis;
+use RuntimeException;
 
 class ElifeCitationService {
   protected $article_version_id = '';
@@ -54,13 +55,16 @@ class ElifeCitationService {
     return $this->formats[$format];
   }
 
-  public function setXml($article_version_id, $xml = NULL) {
+  public function setXml($article_version_id) {
     if (!isset($this->xmls[$article_version_id])) {
-      if (empty($xml)) {
-        $xml = elife_article_version_source_xml_path($article_version_id);
+      $path = elife_article_version_source_xml_path($article_version_id);
+      $xml = @file_get_contents($path);
+      
+      if(false === $xml) {
+        throw new RuntimeException('Failed to retrieve XML for '.$article_version_id.' from '.$path);
       }
 
-      $this->xmls[$article_version_id] = file_get_contents($xml);
+      $this->xmls[$article_version_id] = $xml;
     }
   }
 
