@@ -503,6 +503,13 @@ function elife_users_user_default_permissions() {
     'module' => 'system',
   );
 
+  // Exported permission: 'administer unicode'.
+  $permissions['administer unicode'] = array(
+    'name' => 'administer unicode',
+    'roles' => array(),
+    'module' => 'unicode',
+  );
+
   // Exported permission: 'administer url aliases'.
   $permissions['administer url aliases'] = array(
     'name' => 'administer url aliases',

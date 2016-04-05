@@ -651,6 +651,18 @@ user/*/*';
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'unicode_settings';
+  $strongarm->value = array(
+    'strategy' => 'whitelist',
+    'entities' => array(
+      'node' => 'node',
+    ),
+  );
+  $export['unicode_settings'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'xmlsitemap_base_url';
   $strongarm->value = 'https://elifesciences.org';
   $export['xmlsitemap_base_url'] = $strongarm;

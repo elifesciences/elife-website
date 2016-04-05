@@ -218,6 +218,14 @@ projects:
     version: '1.6'
   transliteration:
     version: '3.2'
+  unicode:
+    version: '1.x-dev' # no stable release available
+    download:
+      type: 'git'
+      url: 'http://git.drupal.org/project/unicode.git'
+      revision: '07d3e31458a4b4450ddbe4dabb365f88895f0c26'
+    patch:
+      - 'https://www.drupal.org/files/issues/unicode-2699723-empty-field-2.patch'
   view_unpublished:
     version: '1.2'
   views:
