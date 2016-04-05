@@ -9,6 +9,7 @@ namespace Drupal\elife_article;
 use eLifeIngestXsl\ConvertXML\XMLString;
 use eLifeIngestXsl\ConvertXMLToHtml;
 use Exception;
+use RuntimeException;
 
 class ElifeXslMarkupService extends ElifeMarkupService {
   public $archive = [];
@@ -366,10 +367,14 @@ class ElifeXslMarkupService extends ElifeMarkupService {
 
   public function setXml($article_version_id, $xml = NULL) {
     if (!isset($this->xmls[$article_version_id])) {
-      if (empty($xml)) {
-        $xml = elife_article_version_source_xml_path($article_version_id);
+      $path = elife_article_version_source_xml_path($article_version_id);
+      $xml = @file_get_contents($path);
+
+      if(false === $xml) {
+        throw new RuntimeException('Failed to retrieve XML for '.$article_version_id.' from '.$path);
       }
-      $this->xmls[$article_version_id] = file_get_contents($xml);
+
+      $this->xmls[$article_version_id] = $xml;
     }
   }
 
