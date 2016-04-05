@@ -35,6 +35,10 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
     $reference = elife_article_reference_get_article_version($reference);
   }
 
+  if (empty($reference)) {
+    return NULL;
+  }
+
   $title_classes = array('headline-first__title_link');
   $attrs = array(
     'attributes' => array('class' => $title_classes),

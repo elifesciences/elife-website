@@ -35,6 +35,10 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
     $reference = elife_article_reference_get_article_version($reference);
   }
 
+  if (empty($reference)) {
+    return NULL;
+  }
+
   $variables = array();
   $variables['display'] = ($conf['front_matter_type']) ? $conf['front_matter_type'] : 'regular';
 
