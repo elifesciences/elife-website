@@ -800,7 +800,7 @@ function elife_article_validator() {
  */
 function elife_article_version_source_xml_path($article_version) {
   if (!is_object($article_version)) {
-    $article_version = ElifeArticleVersion::fromIdentifier($article_version);
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version, TRUE, 'elife_article_ver', 1, 'field_elife_a_article_version_id', TRUE);
   }
 
   $source_assets_base_path = variable_get('elife_article_source_assets_base_path');
@@ -1042,7 +1042,7 @@ function elife_article_version_to_dto_legacy(stdClass $entity) {
     return $cache[$entity->field_elife_a_article_version_id->value()];
   }
 
-  $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE);
+  $entity_article = ElifeArticleVersion::getArticle($entity->field_elife_a_article_id->value(), TRUE, TRUE);
   /* @var EntityDrupalWrapper $entity_article */
   $entity_article = entity_metadata_wrapper('node', $entity_article);
 
