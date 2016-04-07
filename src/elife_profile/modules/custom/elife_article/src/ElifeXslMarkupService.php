@@ -226,7 +226,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
   }
 
   protected function processPlaceHolders($placeholders, $article_version_id, $query_id) {
-    $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', array(), 1, 'field_elife_a_article_version_id');
+    $node = ElifeArticleVersion::fromId($article_version_id, TRUE, 'elife_article_ver', array(), 1, 'field_elife_a_article_version_id', TRUE);
     $dto = elife_article_version_to_dto($node);
     $placeholders = array_unique($placeholders);
     $replacements = array();

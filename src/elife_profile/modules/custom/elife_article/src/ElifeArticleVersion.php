@@ -155,11 +155,13 @@ class ElifeArticleVersion {
    *   Limit the number of articles returned.
    * @param string $id_field
    *   Field of the identifier.
+   * @param bool $access_opt_out
+   *   Set if we want to bypass content access controls.
    *
    * @return bool|mixed
    *   Details of the articles that match criteria.
    */
-  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article_ver', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id') {
+  public static function fromId($article_id, $load = TRUE, $bundle = 'elife_article_ver', $conditions = array(), $limit = 0, $id_field = 'field_elife_a_article_id', $access_opt_out = FALSE) {
     $id_query = new EntityFieldQueryExtraFields();
     $id_query->entityCondition('entity_type', 'node');
     $id_query->entityCondition('bundle', $bundle);
@@ -171,6 +173,11 @@ class ElifeArticleVersion {
     $id_query->addExtraField('field_elife_a_status', 'value', 'status');
     $id_query->addExtraField('field_elife_a_version', 'value', 'version');
     $id_query->addExtraField('field_elife_a_article_version_id', 'value', 'value');
+
+    // Need to retrieve unpublished content.
+    if ($access_opt_out) {
+      $id_query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+    }
 
     if (!empty($conditions)) {
       foreach ($conditions as $field => $value) {
@@ -308,12 +315,14 @@ class ElifeArticleVersion {
    *   Article Id.
    * @param bool $load
    *   Flag set to TRUE if we wish to load the article data.
+   * @param bool $access_opt_out
+   *   Set if we want to bypass content access controls.
    *
    * @return bool|mixed
    *   Details of the article collection entity.
    */
-  public static function getArticle($article_id, $load = TRUE) {
-    return self::fromIdentifier($article_id, $load, 'elife_article', 1, 'field_elife_a_article_id');
+  public static function getArticle($article_id, $load = TRUE, $access_opt_out = FALSE) {
+    return self::fromIdentifier($article_id, $load, 'elife_article', 1, 'field_elife_a_article_id', $access_opt_out);
   }
 
   /**
