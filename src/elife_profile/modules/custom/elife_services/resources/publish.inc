@@ -52,6 +52,8 @@ function _elife_services_publish($article_version_id, $data) {
     // Trigger the ordering of article versions within article entity.
     $article_entity = elife_article_from_dto($dto, _elife_services_user_uid());
 
+    elife_article_resolve_duplicates();
+
     $response = [
       'publish' => $dto->getPublish(),
     ];

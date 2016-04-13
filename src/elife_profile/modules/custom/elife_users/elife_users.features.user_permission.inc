@@ -1856,6 +1856,15 @@ function elife_users_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'resolve elife_article duplicates'.
+  $permissions['resolve elife_article duplicates'] = array(
+    'name' => 'resolve elife_article duplicates',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'elife_article',
+  );
+
   // Exported permission: 'revert revisions'.
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
