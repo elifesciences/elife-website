@@ -1,7 +1,10 @@
 "http://{default}/":
-    type: upstream
-    upstream: "drupal:php"
+  type: upstream
+  upstream: "drupal:php"
+  redirects:
+    paths:
+      "/cgi/content/(full|reprint|short)/([0-9]+)/0/(e[0-9]{5})": { "to": "http://{default}/content/$2/$3", "code": 301, "regexp": true }
 
 "http://www.{default}/":
-    type: redirect
-    to: "http://{default}/"
+  type: redirect
+  to: "http://{default}/"
