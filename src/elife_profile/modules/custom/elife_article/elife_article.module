@@ -158,6 +158,14 @@ function elife_article_lookup_content() {
       $redirect = elife_article_version_source_pdf_path($article_version);
     }
   }
+  // If the path matches an old xml link the redirect to the latest xml.
+  elseif (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.source\.xml$/', $raw_path, $match)) {
+    if ($alias = _elife_article_lookup_content_path(sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
+      $source = drupal_lookup_path('source', $alias);
+      $article_version = menu_get_object('node', 1, $source);
+      $redirect = elife_article_version_source_xml_path($article_version);
+    }
+  }
   // If the path matchs a path in our database but without a version then
   // redirect to the same path but with the latest version inserted.
   elseif ($alias = _elife_article_lookup_content_path($raw_path)) {
