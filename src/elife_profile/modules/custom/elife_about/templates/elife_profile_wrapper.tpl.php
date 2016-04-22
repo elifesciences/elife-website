@@ -18,7 +18,8 @@
         <?php if ($bre_count > 1): print $bre_count . '-member'; endif; ?> Board
         of Reviewing Editors are among the most respected and accomplished
         individuals in their fields &ndash; from human genetics and neuroscience
-        to biophysics and epidemiology.</p>
+        to biophysics and epidemiology. Where necessary, our Senior editors will 
+        also consult with external guest editors to evaluate new submissions.</p>
     </div>
   </header>
   <section class="aims-scope__people_subjects" id="people">
