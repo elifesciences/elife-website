@@ -1,0 +1,2 @@
+/content/(elife/)?(?P<volume>[0-9]+)/(?P<eloc_id>e[0-9]{5})\\.full\\.pdf,[PATH TO PDF OF LATEST ARTICLE VERSION]
+/content/(elife/)?(?P<volume>[0-9]+)/(?P<eloc_id>e[0-9]{5})\\.source\\.xml,[PATH TO XML OF LATEST ARTICLE VERSION]

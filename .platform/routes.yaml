@@ -1,7 +1,15 @@
 "http://{default}/":
-    type: upstream
-    upstream: "drupal:php"
+  type: upstream
+  upstream: "drupal:php"
+  redirects:
+    paths:
+      # Legacy rules
+      "/cgi/(content/)?(full|reprint|short)/([0-9]+)/0/(e[0-9]{5})": { "to": "/content/$3/$4", "code": 301, "regexp": true }
+      "/content/([0-9]+)/(e[0-9]{5})\\.(full|reprint|short)(\\.html)?": { "to": "/content/$1/$2", "code": 301, "regexp": true }
+      "/cgi/content/abstract/([0-9]+)/0/(e[0-9]{5})": { "to": "/content/$1/$2/abstract", "code": 301, "regexp": true }
+      "/content/([0-9]+)/(e[0-9]{5})\\.abstract(\\.html)?": { "to": "/content/$1/$2/abstract", "code": 301, "regexp": true }
+      # Legacy POA and VOR paths are too numerous to list here
 
 "http://www.{default}/":
-    type: redirect
-    to: "http://{default}/"
+  type: redirect
+  to: "http://{default}/"
