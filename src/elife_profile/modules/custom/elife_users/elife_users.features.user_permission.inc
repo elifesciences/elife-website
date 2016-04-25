@@ -142,6 +142,83 @@ function elife_users_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'add terms in elife_categories'.
+  $permissions['add terms in elife_categories'] = array(
+    'name' => 'add terms in elife_categories',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_headings'.
+  $permissions['add terms in elife_headings'] = array(
+    'name' => 'add terms in elife_headings',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_i_series'.
+  $permissions['add terms in elife_i_series'] = array(
+    'name' => 'add terms in elife_i_series',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_keywords'.
+  $permissions['add terms in elife_keywords'] = array(
+    'name' => 'add terms in elife_keywords',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_n_category'.
+  $permissions['add terms in elife_n_category'] = array(
+    'name' => 'add terms in elife_n_category',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_pp_experimental_organism'.
+  $permissions['add terms in elife_pp_experimental_organism'] = array(
+    'name' => 'add terms in elife_pp_experimental_organism',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_pp_expertise'.
+  $permissions['add terms in elife_pp_expertise'] = array(
+    'name' => 'add terms in elife_pp_expertise',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
+  // Exported permission: 'add terms in elife_pp_research_focus'.
+  $permissions['add terms in elife_pp_research_focus'] = array(
+    'name' => 'add terms in elife_pp_research_focus',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy_access_fix',
+  );
+
   // Exported permission: 'admin_display_suite'.
   $permissions['admin_display_suite'] = array(
     'name' => 'admin_display_suite',

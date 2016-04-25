@@ -242,3 +242,10 @@ function elife_profile_update_7120() {
 function elife_profile_update_7121() {
   module_enable(['unicode'], FALSE);
 }
+
+/**
+ * Enable taxonomy_access_fix.
+ */
+function elife_profile_update_7122() {
+  module_enable(['taxonomy_access_fix'], FALSE);
+}

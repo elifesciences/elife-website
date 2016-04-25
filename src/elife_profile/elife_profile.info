@@ -104,6 +104,7 @@ dependencies[] = sharethis
 dependencies[] = smart_trim
 dependencies[] = strongarm
 dependencies[] = table_element
+dependencies[] = taxonomy_access_fix
 dependencies[] = token
 dependencies[] = transliteration
 dependencies[] = unicode

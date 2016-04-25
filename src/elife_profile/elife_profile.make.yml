@@ -214,6 +214,8 @@ projects:
     version: '2.0'
   table_element:
     version: '1.0-beta3'
+  taxonomy_access_fix:
+    version: '2.3'
   token:
     version: '1.6'
   transliteration:
