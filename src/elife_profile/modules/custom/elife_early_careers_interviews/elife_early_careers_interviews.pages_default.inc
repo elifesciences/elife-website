@@ -19,7 +19,7 @@ function elife_early_careers_interviews_default_page_manager_handlers() {
   $handler->handler = 'panel_context';
   $handler->weight = -20;
   $handler->conf = array(
-    'title' => 'eLife Early Careers Interview',
+    'title' => 'eLife Interview',
     'no_blocks' => 0,
     'pipeline' => 'standard',
     'body_classes_to_remove' => '',
@@ -127,10 +127,10 @@ function elife_early_careers_interviews_default_page_manager_handlers() {
   $pane->configuration = array(
     'admin_title' => '',
     'title' => '',
-    'body' => '<p>This interview is part of a <a href="/early-careers-interviews">series of interviews with early-career researchers</a>.</p>
+    'body' => '<p>This interview is part of <a href="%node:field-elife-i-series:url:relative"> %node:field-elife-i-series:field-elife-title:value</a>.</p>
 ',
     'format' => 'elife_full_html',
-    'substitute' => 0,
+    'substitute' => 1,
   );
   $pane->cache = array();
   $pane->style = array(
@@ -214,38 +214,16 @@ function elife_early_careers_interviews_default_page_manager_handlers() {
   $handler->conf['display'] = $display;
   $export['node_view__panel_context_754ef2de-59f8-4514-9460-df9195811d14'] = $handler;
 
-  return $export;
-}
-
-/**
- * Implements hook_default_page_manager_pages().
- */
-function elife_early_careers_interviews_default_page_manager_pages() {
-  $page = new stdClass();
-  $page->disabled = FALSE; /* Edit this to true to make a default page disabled initially */
-  $page->api_version = 1;
-  $page->name = 'elife_early_careers_interviews';
-  $page->task = 'page';
-  $page->admin_title = 'eLife Early Careers Interviews';
-  $page->admin_description = '';
-  $page->path = 'early-careers-interviews';
-  $page->access = array();
-  $page->menu = array();
-  $page->arguments = array();
-  $page->conf = array(
-    'admin_paths' => FALSE,
-  );
-  $page->default_handlers = array();
   $handler = new stdClass();
   $handler->disabled = FALSE; /* Edit this to true to make a default handler disabled initially */
   $handler->api_version = 1;
-  $handler->name = 'page_elife_early_careers_interviews__panel';
-  $handler->task = 'page';
-  $handler->subtask = 'elife_early_careers_interviews';
+  $handler->name = 'term_view__panel_context_23ee3ae6-f232-434c-af2c-48f18675cddc';
+  $handler->task = 'term_view';
+  $handler->subtask = '';
   $handler->handler = 'panel_context';
-  $handler->weight = 0;
+  $handler->weight = -26;
   $handler->conf = array(
-    'title' => 'Panel',
+    'title' => 'Interview Series',
     'no_blocks' => 0,
     'pipeline' => 'standard',
     'body_classes_to_remove' => '',
@@ -254,21 +232,7 @@ function elife_early_careers_interviews_default_page_manager_pages() {
     'css' => '',
     'contexts' => array(),
     'relationships' => array(),
-    'name' => 'panel',
-    'access' => array(
-      'logic' => 'and',
-      'plugins' => array(
-        0 => array(
-          'name' => 'path_visibility',
-          'settings' => array(
-            'visibility_setting' => '1',
-            'paths' => 'early-careers-interviews',
-          ),
-          'context' => 'empty',
-          'not' => FALSE,
-        ),
-      ),
-    ),
+    'name' => '',
   );
   $display = new panels_display();
   $display->layout = 'elife_collection';
@@ -282,18 +246,24 @@ function elife_early_careers_interviews_default_page_manager_pages() {
     ),
   );
   $display->cache = array();
-  $display->title = 'Early-career researchers: a collection of interviews';
-  $display->uuid = 'ed912f2b-660f-4453-91d5-3d87978f7b61';
+  $display->title = '%term:name: a collection of interviews';
+  $display->uuid = 'a9905046-f098-468e-b1f3-b02084ffc598';
   $display->content = array();
   $display->panels = array();
   $pane = new stdClass();
-  $pane->pid = 'new-4c07cc0c-b9b9-4cad-bf3b-9ffa34293924';
+  $pane->pid = 'new-88cba25b-ba59-4750-a290-8a815670dc02';
   $pane->panel = 'content';
-  $pane->type = 'views_panes';
-  $pane->subtype = 'elife_early_careers_interviews-panel_pane_1';
+  $pane->type = 'entity_field_extra';
+  $pane->subtype = 'taxonomy_term:description';
   $pane->shown = TRUE;
   $pane->access = array();
-  $pane->configuration = array();
+  $pane->configuration = array(
+    'view_mode' => 'full',
+    'context' => 'argument_term_1',
+    'override_title' => 0,
+    'override_title_text' => '',
+    'override_title_heading' => 'h2',
+  );
   $pane->cache = array();
   $pane->style = array(
     'settings' => NULL,
@@ -302,11 +272,34 @@ function elife_early_careers_interviews_default_page_manager_pages() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '4c07cc0c-b9b9-4cad-bf3b-9ffa34293924';
-  $display->content['new-4c07cc0c-b9b9-4cad-bf3b-9ffa34293924'] = $pane;
-  $display->panels['content'][0] = 'new-4c07cc0c-b9b9-4cad-bf3b-9ffa34293924';
+  $pane->uuid = '88cba25b-ba59-4750-a290-8a815670dc02';
+  $display->content['new-88cba25b-ba59-4750-a290-8a815670dc02'] = $pane;
+  $display->panels['content'][0] = 'new-88cba25b-ba59-4750-a290-8a815670dc02';
   $pane = new stdClass();
-  $pane->pid = 'new-8dd204e0-f99a-4053-8f64-a971899a9749';
+  $pane->pid = 'new-95397a77-146d-44dc-8cf5-d66ff7f20c35';
+  $pane->panel = 'content';
+  $pane->type = 'views_panes';
+  $pane->subtype = 'elife_early_careers_interviews-panel_pane_1';
+  $pane->shown = TRUE;
+  $pane->access = array();
+  $pane->configuration = array(
+    'arguments' => array(
+      'field_elife_i_series_target_id' => '%term:tid',
+    ),
+  );
+  $pane->cache = array();
+  $pane->style = array(
+    'settings' => NULL,
+  );
+  $pane->css = array();
+  $pane->extras = array();
+  $pane->position = 1;
+  $pane->locks = array();
+  $pane->uuid = '95397a77-146d-44dc-8cf5-d66ff7f20c35';
+  $display->content['new-95397a77-146d-44dc-8cf5-d66ff7f20c35'] = $pane;
+  $display->panels['content'][1] = 'new-95397a77-146d-44dc-8cf5-d66ff7f20c35';
+  $pane = new stdClass();
+  $pane->pid = 'new-247637e1-3495-457f-ae0f-68505761347a';
   $pane->panel = 'hero_block';
   $pane->type = 'elife_hero_block';
   $pane->subtype = 'elife_hero_block';
@@ -320,8 +313,8 @@ function elife_early_careers_interviews_default_page_manager_pages() {
     'override_title_heading' => 'h2',
     'aligner_stop' => NULL,
     'override_title_markup' => NULL,
-    'form_build_id' => 'form-KoPPK4mfSBqWFAv_0JajEhQuxXOvcTG731IlhCKahvQ',
-    'form_token' => 'MVXfIbnIUoV0ikWki5SjYe4bjqZfHsxG_xUbY_-iZAA',
+    'form_build_id' => 'form-QZKeuQ5w1uAjEPug_AAKUdaNyZ5JBcE2aC3gSa-olh4',
+    'form_token' => '_T8FusYUG_BGyWwHjzUzaQXs4d7pMueG-4jJlOluWpc',
     'form_id' => 'elife_hero_block_plugin_edit',
   );
   $pane->cache = array();
@@ -332,15 +325,13 @@ function elife_early_careers_interviews_default_page_manager_pages() {
   $pane->extras = array();
   $pane->position = 0;
   $pane->locks = array();
-  $pane->uuid = '8dd204e0-f99a-4053-8f64-a971899a9749';
-  $display->content['new-8dd204e0-f99a-4053-8f64-a971899a9749'] = $pane;
-  $display->panels['hero_block'][0] = 'new-8dd204e0-f99a-4053-8f64-a971899a9749';
+  $pane->uuid = '247637e1-3495-457f-ae0f-68505761347a';
+  $display->content['new-247637e1-3495-457f-ae0f-68505761347a'] = $pane;
+  $display->panels['hero_block'][0] = 'new-247637e1-3495-457f-ae0f-68505761347a';
   $display->hide_title = PANELS_TITLE_FIXED;
-  $display->title_pane = '0';
+  $display->title_pane = 'new-247637e1-3495-457f-ae0f-68505761347a';
   $handler->conf['display'] = $display;
-  $page->default_handlers[$handler->name] = $handler;
-  $pages['elife_early_careers_interviews'] = $page;
+  $export['term_view__panel_context_23ee3ae6-f232-434c-af2c-48f18675cddc'] = $handler;
 
-  return $pages;
-
+  return $export;
 }

@@ -16,3 +16,72 @@ function elife_early_careers_interviews_update_7100() {
     ])
     ->execute();
 }
+
+/**
+ * Add early-career researchers interview series.
+ */
+function elife_early_careers_interviews_update_7101() {
+  features_revert_module('elife_early_careers_interviews');
+
+  // Upload image for existing series
+
+  $filepath = __DIR__ . '/images/early-careers-interviews.jpg';
+  $file = [
+    'uri' => $filepath,
+    'filemime' => file_get_mimetype($filepath),
+    'status' => 1,
+    'display' => 1,
+  ];
+
+  $file = file_copy((object) $file, 'public://');
+
+  // Create term for existing series
+
+  $term = new stdClass();
+  $term->vid = taxonomy_vocabulary_machine_name_load('elife_i_series')->vid;
+  $term->name = 'Early-career researchers';
+  $term->field_elife_is_title[LANGUAGE_NONE][0] = [
+    'value' => 'Early-career researchers',
+    'format' => 'elife_house_style',
+  ];
+  $term->field_elife_is_sub_title[LANGUAGE_NONE][0] = [
+    'value' => 'A collection of interviews',
+    'format' => 'elife_house_style',
+  ];
+  $term->field_elife_is_image[LANGUAGE_NONE][0] = (array) $file;
+  $term->field_elife_is_image_colour[LANGUAGE_NONE][0] = ['value' => 'dark'];
+  $term->field_elife_is_image_credit[LANGUAGE_NONE][0] = ['value' => 'CCBY 3.0 Katja Kornysheva'];
+  $term->path['pathauto'] = 1;
+
+  taxonomy_term_save($term);
+
+  if (module_exists('redirect')) {
+    $redirect = new stdClass();
+
+    redirect_object_prepare(
+      $redirect,
+      [
+        'source' => 'early-careers-interviews',
+        'redirect' => 'taxonomy/term/' . $term->tid,
+      ]
+    );
+
+    redirect_save($redirect);
+  }
+
+  // Assign existing interviews to series
+
+  $nids = db_select('node', 'n')
+    ->fields('n', ['nid'])
+    ->condition('type', 'elife_early_careers_interview', '=')
+    ->execute()
+    ->fetchCol();
+
+  foreach (node_load_multiple($nids) as $node) {
+    $node->field_elife_i_series[LANGUAGE_NONE][0] = [
+      'target_id' => $term->tid,
+      'target_type' => 'taxonomy_term',
+    ];
+    node_save($node);
+  }
+}

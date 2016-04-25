@@ -156,10 +156,13 @@ Feature: Navigate to editorial board
     Then I should be on "/collections/foo"
 
   @api
-  Scenario: Early Careers Interview spotlight
-    Given "elife_early_careers_interview" content:
-      | field_elife_i_first_name | field_elife_i_last_name | field_elife_i_title |
-      | Foo                      | Bar                     | Baz <i>Qux</i>      |
+  Scenario: Interview spotlight
+    Given "elife_i_series" terms:
+      | field_elife_is_title | name   |
+      | Series               | Series |
+    And "elife_early_careers_interview" content:
+      | field_elife_i_first_name | field_elife_i_last_name | field_elife_i_title | field_elife_i_series |
+      | Foo                      | Bar                     | Baz <i>Qux</i>      | Series               |
     And "elife_early_careers_spotlight" content:
       | field_elife_title | field_elife_s_reference            |
       | One Two           | Baz Qux: an interview with Foo Bar |
@@ -168,7 +171,10 @@ Feature: Navigate to editorial board
     And I should see "One Two" in the ".ec-section--latest__item .ec-section--latest__item-title" element
     And I should see "View more interviews" in the ".ec-section--latest__item .ec-section--latest__more-link" element
     When I follow "One Two"
-    Then I should be on "/early-careers-interviews/foo-bar"
+    Then I should be on "/interviews/series/foo-bar"
+    When I move backward one page
+    And I follow "View more interviews"
+    Then I should be on "/interviews/series"
 
   @api
   Scenario: Event spotlight

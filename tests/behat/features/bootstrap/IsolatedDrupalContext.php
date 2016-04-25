@@ -54,6 +54,8 @@ class IsolatedDrupalContext extends DrupalContext {
       'field_elife_category_plural' => 'elife_house_style',
       'field_elife_i_text' => 'elife_full_html',
       'field_elife_i_title' => 'elife_house_style',
+      'field_elife_is_title' => 'elife_house_style',
+      'field_elife_is_sub_title' => 'elife_house_style',
       'field_elife_n_text' => 'elife_full_html',
       'field_elife_p_text' => 'elife_full_html',
       'field_elife_p_title' => 'elife_house_style',

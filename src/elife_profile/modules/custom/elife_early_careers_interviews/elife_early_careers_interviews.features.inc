@@ -38,7 +38,7 @@ function elife_early_careers_interviews_views_api($module = NULL, $api = NULL) {
 function elife_early_careers_interviews_node_info() {
   $items = array(
     'elife_early_careers_interview' => array(
-      'name' => t('eLife Early Careers Interview'),
+      'name' => t('eLife Interview'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',

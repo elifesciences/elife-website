@@ -180,10 +180,6 @@ function elife_header_header_load() {
     'class' => $header_li_section_class,
   );
   $header_li_section[] = array(
-    'data' => l(t('Early careers interviews'), 'early-careers-interviews', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('interviews'))))),
-    'class' => $header_li_section_class,
-  );
-  $header_li_section[] = array(
     'data' => l(t('eLife News'), 'elife-news', array('attributes' => array('class' => array_merge($header_li_section_a_class, array('news'))))),
     'class' => $header_li_section_class,
   );
@@ -192,6 +188,24 @@ function elife_header_header_load() {
     'items' => $header_li_section,
     'attributes' => array('class' => array('header__list_secondary--section')),
     'div_class' => 'no'
+  ));
+
+  $header_li_interview_a_class = array('header__list_secondary_item_link', 'header__list_secondary_item_link--interviews');
+  $header_li_interview_class = array('header__list_secondary_item');
+  $header_li_interview = array();
+
+  foreach (taxonomy_get_tree(taxonomy_vocabulary_machine_name_load('elife_i_series')->vid, 0, 1, TRUE) as $term) {
+    $header_li_interview[] = array(
+      'data' => l($term->field_elife_is_title[LANGUAGE_NONE][0]['safe_value'], 'taxonomy/term/' . $term->tid, ['attributes' => ['class' => $header_li_interview_a_class], 'html' => TRUE]),
+      'class' => array_merge($header_li_interview_class, ['hidden']),
+    );
+  }
+
+  $variables['header_li_interview'] = theme('item_list', array(
+    'type' => 'ol',
+    'items' => $header_li_interview,
+    'attributes' => array('class' => array('header__list_secondary--interviews')),
+    'div_class' => 'no',
   ));
 
   $header_li_category_a_class = array('header__list_secondary_item_link', 'header__list_secondary_item_link--category');

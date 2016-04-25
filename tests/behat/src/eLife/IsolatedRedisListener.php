@@ -38,6 +38,8 @@ final class IsolatedRedisListener implements EventSubscriber {
   public function onWritingSiteSettingsFile(WritingSiteSettingsFile $event)
   {
     $event->addSettings('$conf["cache_prefix"] = "' . $this->generator->generate() . '_";');
+
+    $event->addSettings('unset($conf["path_inc"]);'); // TODO Don't know why this is needed
   }
 
   public function onBeforeScenarioTested()

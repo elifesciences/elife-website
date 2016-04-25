@@ -8,6 +8,7 @@
       $('body').once('elife-header', function () {
 
         var $secondaryMenu = $('.header__list_secondary'),
+          $interviewsMenu = $('.header__list_secondary--interviews'),
           $categoryMenu = $('.header__list_secondary--category'),
           $secondaryMenuItems = $('.header__list_secondary_item'),
           $menuLink = $('<li class="header__list_item--menu"><a href="#" class="header__list_link header__list_link--menu">' + Drupal.t('Menu') + '</a></li>');
@@ -15,6 +16,9 @@
         // Show individual category links. (They are hidden without js, but can still be visited by following the
         //  link to the all subjects page).
         $secondaryMenuItems.removeClass('hidden');
+
+        // create the interview heading inside the menu
+        $('<h3 class="header__list_secondary--interviews__heading">' + Drupal.t('Interviews') + '</h3>').insertBefore($interviewsMenu);
 
         // create the category heading inside the menu
         $('<h3 class="header__list_secondary--category__heading">' + Drupal.t('Subjects') + '</h3>').insertBefore($categoryMenu);
