@@ -244,13 +244,25 @@ function elife_templates_preprocess_semanticviews_view_unformatted(&$variables) 
  * Implements template_preprocess_html().
  */
 function elife_templates_preprocess_html(&$variables) {
+  $collection = FALSE;
+
   if (count(array_intersect([
     'node-type-elife-collection',
     'node-type-elife-podcast',
     'page-collections',
-    'page-early-careers-interviews',
     'page-podcast',
   ], $variables['classes_array']))) {
+    $collection = TRUE;
+  }
+  else {
+    if ($term = menu_get_object('taxonomy_term', 2)) {
+      if ('elife_i_series' === $term->vocabulary_machine_name) {
+        $collection = TRUE;
+      }
+    }
+  }
+
+  if ($collection) {
     drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/collection.css');
   }
 }

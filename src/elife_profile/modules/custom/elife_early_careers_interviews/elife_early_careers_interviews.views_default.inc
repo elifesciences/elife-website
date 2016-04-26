@@ -15,7 +15,7 @@ function elife_early_careers_interviews_views_default_views() {
   $view->description = '';
   $view->tag = 'default';
   $view->base_table = 'node';
-  $view->human_name = 'eLife Early Careers Interviews';
+  $view->human_name = 'eLife Interviews';
   $view->core = 7;
   $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
@@ -53,6 +53,16 @@ function elife_early_careers_interviews_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: Content: Series (field_elife_i_series) */
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['id'] = 'field_elife_i_series_target_id';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['table'] = 'field_data_field_elife_i_series';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['field'] = 'field_elife_i_series_target_id';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['default_argument_type'] = 'fixed';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['specify_validation'] = TRUE;
+  $handler->display->display_options['arguments']['field_elife_i_series_target_id']['validate']['fail'] = 'empty';
   /* Filter criterion: Content: Published or admin */
   $handler->display->display_options['filters']['status_extra']['id'] = 'status_extra';
   $handler->display->display_options['filters']['status_extra']['table'] = 'node';
@@ -68,6 +78,16 @@ function elife_early_careers_interviews_views_default_views() {
 
   /* Display: Content pane */
   $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+  $handler->display->display_options['argument_input'] = array(
+    'field_elife_i_series_target_id' => array(
+      'type' => 'user',
+      'context' => 'entity:cer.cer_bidirectional',
+      'context_optional' => 0,
+      'panel' => '0',
+      'fixed' => '',
+      'label' => 'Content: Series (field_elife_i_series)',
+    ),
+  );
   $handler->display->display_options['inherit_panels_path'] = '1';
   $export['elife_early_careers_interviews'] = $view;
 

@@ -289,10 +289,12 @@
 }
 
 .js .header__list_secondary_item_link,
+.js .header__list_secondary--interviews__heading,
 .js .header__list_secondary--category__heading {
   text-transform: uppercase;
 }
 
+.js .header__list_secondary--interviews__heading,
 .js .header__list_secondary--category__heading {
   color: #0961ab;
   font-family: "Avenir LT W01 35 Light", Helvetica, Arial, Verdana, sans-serif;
@@ -322,6 +324,7 @@
   background: url(../images/white-cross-trans.png) right center no-repeat;
 }
 
+.js .header__list_secondary_item_link--interviews,
 .js .header__list_secondary_item_link--category {
   display: block;
   margin-left: 1.75em;

@@ -7,6 +7,18 @@
 include_once 'elife_early_careers_interviews.features.inc';
 
 /**
+ * Implements hook_custom_theme().
+ */
+function elife_early_careers_interviews_custom_theme() {
+  if ($term = menu_get_object('taxonomy_term', 2)) {
+    if ('elife_i_series' === $term->vocabulary_machine_name) {
+      // We can't use a page_theme wildcare as the interviews use the 'elife' theme.
+      return 'elife_newlook';
+    }
+  }
+}
+
+/**
  * Implements hook_node_view().
  */
 function elife_early_careers_interviews_node_view($node, $view_mode, $langcode) {
@@ -39,29 +51,28 @@ function elife_early_careers_interviews_form_node_form_alter(&$form, &$form_stat
 }
 
 /**
- * Implements hook_elife_hero_block_alter().
+ * Implements hook_form_BASE_FORM_ID_alter() for taxonomy_form_term().
  */
-function elife_early_careers_interviews_elife_hero_block_alter(&$content) {
-  if ('early-careers-interviews' === current_path()) {
-    $variables = [
-      'title' => t('Early-career researchers'),
-      'sub_title' => t('A collection of interviews'),
-      'image_colour' => 'dark',
-      'image_path' => base_path() . drupal_get_path('module', 'elife_early_careers_interviews') . '/images/early-careers-interviews.jpg',
-      'credit' => 'CCBY 3.0 Katja Kornysheva',
-    ];
-
-    $content = theme('elife_hero_block', $variables);
+function elife_early_careers_interviews_form_taxonomy_form_term_alter(&$form, &$form_state) {
+  switch ($form['#vocabulary']->machine_name) {
+    case 'elife_i_series':
+      $form['field_elife_title']['#access'] = FALSE;
   }
 }
 
 /**
- * Implements hook_elife_xmlsitemap_custom_links().
+ * Implements hook_elife_hero_block_alter().
  */
-function elife_early_careers_interviews_elife_xmlsitemap_custom_links() {
-  return [
-    'elife_early_careers_interviews' => [
-      'early-careers-interviews',
-    ],
-  ];
+function elife_early_careers_interviews_elife_hero_block_alter(&$content) {
+  if ($term = menu_get_object('taxonomy_term', 2)) {
+    $variables = [
+      'title' => $term->field_elife_is_title[LANGUAGE_NONE][0]['safe_value'],
+      'sub_title' => !empty($term->field_elife_is_sub_title[LANGUAGE_NONE]) ? $term->field_elife_is_sub_title[LANGUAGE_NONE][0]['safe_value'] : '',
+      'image_colour' => $term->field_elife_is_image_colour[LANGUAGE_NONE][0]['value'],
+      'image_path' => $term->field_elife_is_image[LANGUAGE_NONE][0]['uri'],
+      'credit' => !empty($term->field_elife_is_image_credit[LANGUAGE_NONE]) ? $term->field_elife_is_image_credit[LANGUAGE_NONE][0]['safe_value'] : '',
+    ];
+
+    $content = theme('elife_hero_block', $variables);
+  }
 }

@@ -119,7 +119,7 @@ function elife_early_careers_preprocess_node(&$variables) {
       case 'elife_early_careers_interview':
         $heading = t('Interviews');
         $view_more_text = 'View more interviews';
-        $view_more_path = 'early-careers-interviews';
+        $view_more_path = 'taxonomy/term/' . $reference->field_elife_i_series[LANGUAGE_NONE][0]['target_id'];
         break;
       case 'elife_event':
         $heading = t('Events');

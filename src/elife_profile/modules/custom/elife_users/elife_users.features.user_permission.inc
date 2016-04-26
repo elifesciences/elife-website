@@ -1278,6 +1278,16 @@ function elife_users_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
+  // Exported permission: 'delete terms in elife_i_series'.
+  $permissions['delete terms in elife_i_series'] = array(
+    'name' => 'delete terms in elife_i_series',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
+    'module' => 'taxonomy',
+  );
+
   // Exported permission: 'delete terms in elife_keywords'.
   $permissions['delete terms in elife_keywords'] = array(
     'name' => 'delete terms in elife_keywords',
@@ -1737,6 +1747,16 @@ function elife_users_user_default_permissions() {
     'name' => 'edit terms in elife_headings',
     'roles' => array(
       'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'taxonomy',
+  );
+
+  // Exported permission: 'edit terms in elife_i_series'.
+  $permissions['edit terms in elife_i_series'] = array(
+    'name' => 'edit terms in elife_i_series',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
     ),
     'module' => 'taxonomy',
   );

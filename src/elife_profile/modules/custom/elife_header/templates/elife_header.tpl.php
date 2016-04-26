@@ -12,6 +12,7 @@
     <ul>
       <li class="header__list_secondary">
         <?php print $header_li_section; ?>
+        <?php print $header_li_interview; ?>
         <?php print $header_li_category; ?>
       </li> <!-- /.header__list_secondary -->
     </ul>
