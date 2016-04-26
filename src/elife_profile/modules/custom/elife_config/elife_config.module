@@ -35,7 +35,7 @@ function elife_config_init() {
   // We don't allow uppercase letters in URLs, so redirect to the lowercase
   // equivalent. Global Redirect should be taking care of this, but it appears
   // not to work.
-  if ($path !== $lowercase_path && 0 === preg_match('~^(user/reset/|lookup/doi/)~', $lowercase_path)) {
+  if ($path !== $lowercase_path && 0 === preg_match('~^(user/reset/|lookup/doi/|entityreference/autocomplete/)~', $lowercase_path)) {
     drupal_goto($lowercase_path);
   }
 }
