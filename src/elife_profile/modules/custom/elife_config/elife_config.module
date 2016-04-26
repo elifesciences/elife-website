@@ -26,6 +26,21 @@ function elife_config_module_implements_alter(&$implementations, $hook) {
 }
 
 /**
+ * Implements hook_init().
+ */
+function elife_config_init() {
+  $path = request_path();
+  $lowercase_path = strtolower($path);
+
+  // We don't allow uppercase letters in URLs, so redirect to the lowercase
+  // equivalent. Global Redirect should be taking care of this, but it appears
+  // not to work.
+  if ($path !== $lowercase_path && 0 === preg_match('~^(user/reset/|lookup/doi/)~', $lowercase_path)) {
+    drupal_goto($lowercase_path);
+  }
+}
+
+/**
  * Implements hook_views_rss_item_elements_alter().
  */
 function elife_config_views_rss_item_elements_alter(&$elements) {
