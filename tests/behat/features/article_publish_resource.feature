@@ -41,19 +41,19 @@ Feature: Article Publish Resource (API)
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.05224.003",
-              "path": "content/4/e05224/F1",
+              "path": "content/4/e05224/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.05224.004",
-                  "path": "content/4/e05224/F1/DC1"
+                  "path": "content/4/e05224/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.05224.005",
-                  "path": "content/4/e05224/F1/F2"
+                  "path": "content/4/e05224/f1/f2"
                 }
               ]
             },
@@ -113,7 +113,7 @@ Feature: Article Publish Resource (API)
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.05224.008",
-                  "path": "content/4/e05224/2/F25"
+                  "path": "content/4/e05224/2/f25"
                 }
               ]
             }
@@ -128,7 +128,7 @@ Feature: Article Publish Resource (API)
     And I should get a <response> HTTP response
     And I am on "content/4/e05224/2"
     And I should get a <response> HTTP response
-    And I am on "content/4/e05224/2/F25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a <response> HTTP response
 
     Examples:
@@ -170,19 +170,19 @@ Feature: Article Publish Resource (API)
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.05224.003",
-              "path": "content/4/e05224/F1",
+              "path": "content/4/e05224/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.05224.004",
-                  "path": "content/4/e05224/F1/DC1"
+                  "path": "content/4/e05224/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.05224.005",
-                  "path": "content/4/e05224/F1/F2"
+                  "path": "content/4/e05224/f1/f2"
                 }
               ]
             },
@@ -242,7 +242,7 @@ Feature: Article Publish Resource (API)
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.05224.008",
-                  "path": "content/4/e05224/2/F25"
+                  "path": "content/4/e05224/2/f25"
                 }
               ]
             }
@@ -255,14 +255,14 @@ Feature: Article Publish Resource (API)
     And I should get a 404 HTTP response
     And I am on "content/4/e05224/abstract-1"
     And I should get a 404 HTTP response
-    And I am on "content/4/e05224/2/F25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a 404 HTTP response
     And I am logged in as a user with the "access administration menu,access content,view any unpublished elife_article_ver content,view any unpublished elife_fragment content" permissions
     And I am on "content/4/e05224"
     And I should get a 200 HTTP response
     And I am on "content/4/e05224/abstract-1"
     And I should get a 200 HTTP response
-    And I am on "content/4/e05224/2/F25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a 200 HTTP response
     When I send a PUT request to "api/publish/05224.1.json" with body:
       """
