@@ -465,19 +465,19 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.00013.003",
-              "path": "content/3/e00013/F1",
+              "path": "content/3/e00013/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.00013.004",
-                  "path": "content/3/e00013/F1/DC1"
+                  "path": "content/3/e00013/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.005",
-                  "path": "content/3/e00013/F1/F2"
+                  "path": "content/3/e00013/f1/f2"
                 }
               ]
             },
@@ -491,13 +491,13 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "table-wrap",
               "title": "Table 1.",
               "doi": "10.7554/eLife.00013.007",
-              "path": "content/3/e00013/T1",
+              "path": "content/3/e00013/t1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Table 1—source data 1.",
                   "doi": "10.7554/eLife.00013.008",
-                  "path": "content/3/e00013/T1/DC2"
+                  "path": "content/3/e00013/t1/dc2"
                 }
               ]
             },
@@ -505,115 +505,115 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "boxed-text",
               "title": "Box 1.",
               "doi": "10.7554/eLife.00013.009",
-              "path": "content/3/e00013/B1"
+              "path": "content/3/e00013/b1"
             },
             {
               "type": "fig",
               "title": "Figure 2.",
               "doi": "10.7554/eLife.00013.010",
-              "path": "content/3/e00013/F3"
+              "path": "content/3/e00013/f3"
             },
             {
               "type": "table-wrap",
               "title": "Table 2.",
               "doi": "10.7554/eLife.00013.011",
-              "path": "content/3/e00013/T2"
+              "path": "content/3/e00013/t2"
             },
             {
               "type": "fig",
               "title": "Figure 3.",
               "doi": "10.7554/eLife.00013.012",
-              "path": "content/3/e00013/F4",
+              "path": "content/3/e00013/f4",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.013",
-                  "path": "content/3/e00013/F4/F5"
+                  "path": "content/3/e00013/f4/f5"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 2.",
                   "doi": "10.7554/eLife.00013.014",
-                  "path": "content/3/e00013/F4/F6"
+                  "path": "content/3/e00013/f4/f6"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 3.",
                   "doi": "10.7554/eLife.00013.015",
-                  "path": "content/3/e00013/F4/F7"
+                  "path": "content/3/e00013/f4/f7"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 4.",
                   "doi": "10.7554/eLife.00013.016",
-                  "path": "content/3/e00013/F4/F8"
+                  "path": "content/3/e00013/f4/f8"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 5.",
                   "doi": "10.7554/eLife.00013.017",
-                  "path": "content/3/e00013/F4/F9"
+                  "path": "content/3/e00013/f4/f9"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 6.",
                   "doi": "10.7554/eLife.00013.018",
-                  "path": "content/3/e00013/F4/F10"
+                  "path": "content/3/e00013/f4/f10"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 7.",
                   "doi": "10.7554/eLife.00013.019",
-                  "path": "content/3/e00013/F4/F11"
+                  "path": "content/3/e00013/f4/f11"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 8.",
                   "doi": "10.7554/eLife.00013.020",
-                  "path": "content/3/e00013/F4/F12"
+                  "path": "content/3/e00013/f4/f12"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 9.",
                   "doi": "10.7554/eLife.00013.021",
-                  "path": "content/3/e00013/F4/F13"
+                  "path": "content/3/e00013/f4/f13"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 10.",
                   "doi": "10.7554/eLife.00013.022",
-                  "path": "content/3/e00013/F4/F14"
+                  "path": "content/3/e00013/f4/f14"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 11.",
                   "doi": "10.7554/eLife.00013.023",
-                  "path": "content/3/e00013/F4/F15"
+                  "path": "content/3/e00013/f4/f15"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 12.",
                   "doi": "10.7554/eLife.00013.024",
-                  "path": "content/3/e00013/F4/F16"
+                  "path": "content/3/e00013/f4/f16"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 13.",
                   "doi": "10.7554/eLife.00013.025",
-                  "path": "content/3/e00013/F4/F17"
+                  "path": "content/3/e00013/f4/f17"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 14.",
                   "doi": "10.7554/eLife.00013.026",
-                  "path": "content/3/e00013/F4/F18"
+                  "path": "content/3/e00013/f4/f18"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 15.",
                   "doi": "10.7554/eLife.00013.027",
-                  "path": "content/3/e00013/F4/F19"
+                  "path": "content/3/e00013/f4/f19"
                 }
               ]
             },
@@ -621,19 +621,19 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "table-wrap",
               "title": "Table 3.",
               "doi": "10.7554/eLife.00013.028",
-              "path": "content/3/e00013/T3"
+              "path": "content/3/e00013/t3"
             },
             {
               "type": "fig",
               "title": "Figure 4.",
               "doi": "10.7554/eLife.00013.029",
-              "path": "content/3/e00013/F20",
+              "path": "content/3/e00013/f20",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Figure 4—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.030",
-                  "path": "content/3/e00013/F20/F21"
+                  "path": "content/3/e00013/f20/f21"
                 }
               ]
             },
@@ -641,37 +641,37 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "supplementary-material",
               "title": "Supplementary file 1.",
               "doi": "10.7554/eLife.00013.031",
-              "path": "content/3/e00013/DC3"
+              "path": "content/3/e00013/dc3"
             },
             {
               "type": "supplementary-material",
               "title": "Supplementary file 2.",
               "doi": "10.7554/eLife.00013.032",
-              "path": "content/3/e00013/DC4"
+              "path": "content/3/e00013/dc4"
             },
             {
               "type": "supplementary-material",
               "title": "Supplementary file 3.",
               "doi": "10.7554/eLife.00013.033",
-              "path": "content/3/e00013/DC5"
+              "path": "content/3/e00013/dc5"
             },
             {
               "type": "fig",
               "title": "Appendix 1 Figure 1 8.",
               "doi": "10.7554/eLife.00013.034",
-              "path": "content/3/e00013/F22"
+              "path": "content/3/e00013/f22"
             },
             {
               "type": "fig",
               "title": "Appendix 2 Figure 1",
               "doi": "10.7554/eLife.00013.035",
-              "path": "content/3/e00013/F23"
+              "path": "content/3/e00013/f23"
             },
             {
               "type": "fig",
               "title": "Appendix 2 Figure 2",
               "doi": "10.7554/eLife.00013.036",
-              "path": "content/3/e00013/F24"
+              "path": "content/3/e00013/f24"
             },
             {
               "type": "sub-article",
@@ -729,13 +729,13 @@ Feature: Article Resource - Kitchen sink (API)
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.00013.038",
-                  "path": "content/3/e00013/2/F25"
+                  "path": "content/3/e00013/2/f25"
                 },
                 {
                   "type": "table-wrap",
                   "title": "Author response table 1.",
                   "doi": "10.7554/eLife.00013.039",
-                  "path": "content/3/e00013/2/T4"
+                  "path": "content/3/e00013/2/t4"
                 }
               ]
             }
@@ -4440,19 +4440,19 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.00013.003",
-              "path": "content/3/e00013/F1",
+              "path": "content/3/e00013/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.00013.004",
-                  "path": "content/3/e00013/F1/DC1"
+                  "path": "content/3/e00013/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.005",
-                  "path": "content/3/e00013/F1/F2"
+                  "path": "content/3/e00013/f1/f2"
                 }
               ]
             },
@@ -4466,13 +4466,13 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "table-wrap",
               "title": "Table 1.",
               "doi": "10.7554/eLife.00013.007",
-              "path": "content/3/e00013/T1",
+              "path": "content/3/e00013/t1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Table 1—source data 1.",
                   "doi": "10.7554/eLife.00013.008",
-                  "path": "content/3/e00013/T1/DC2"
+                  "path": "content/3/e00013/t1/dc2"
                 }
               ]
             },
@@ -4480,115 +4480,115 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "boxed-text",
               "title": "Box 1.",
               "doi": "10.7554/eLife.00013.009",
-              "path": "content/3/e00013/B1"
+              "path": "content/3/e00013/b1"
             },
             {
               "type": "fig",
               "title": "Figure 2.",
               "doi": "10.7554/eLife.00013.010",
-              "path": "content/3/e00013/F3"
+              "path": "content/3/e00013/f3"
             },
             {
               "type": "table-wrap",
               "title": "Table 2.",
               "doi": "10.7554/eLife.00013.011",
-              "path": "content/3/e00013/T2"
+              "path": "content/3/e00013/t2"
             },
             {
               "type": "fig",
               "title": "Figure 3.",
               "doi": "10.7554/eLife.00013.012",
-              "path": "content/3/e00013/F4",
+              "path": "content/3/e00013/f4",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.013",
-                  "path": "content/3/e00013/F4/F5"
+                  "path": "content/3/e00013/f4/f5"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 2.",
                   "doi": "10.7554/eLife.00013.014",
-                  "path": "content/3/e00013/F4/F6"
+                  "path": "content/3/e00013/f4/f6"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 3.",
                   "doi": "10.7554/eLife.00013.015",
-                  "path": "content/3/e00013/F4/F7"
+                  "path": "content/3/e00013/f4/f7"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 4.",
                   "doi": "10.7554/eLife.00013.016",
-                  "path": "content/3/e00013/F4/F8"
+                  "path": "content/3/e00013/f4/f8"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 5.",
                   "doi": "10.7554/eLife.00013.017",
-                  "path": "content/3/e00013/F4/F9"
+                  "path": "content/3/e00013/f4/f9"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 6.",
                   "doi": "10.7554/eLife.00013.018",
-                  "path": "content/3/e00013/F4/F10"
+                  "path": "content/3/e00013/f4/f10"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 7.",
                   "doi": "10.7554/eLife.00013.019",
-                  "path": "content/3/e00013/F4/F11"
+                  "path": "content/3/e00013/f4/f11"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 8.",
                   "doi": "10.7554/eLife.00013.020",
-                  "path": "content/3/e00013/F4/F12"
+                  "path": "content/3/e00013/f4/f12"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 9.",
                   "doi": "10.7554/eLife.00013.021",
-                  "path": "content/3/e00013/F4/F13"
+                  "path": "content/3/e00013/f4/f13"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 10.",
                   "doi": "10.7554/eLife.00013.022",
-                  "path": "content/3/e00013/F4/F14"
+                  "path": "content/3/e00013/f4/f14"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 11.",
                   "doi": "10.7554/eLife.00013.023",
-                  "path": "content/3/e00013/F4/F15"
+                  "path": "content/3/e00013/f4/f15"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 12.",
                   "doi": "10.7554/eLife.00013.024",
-                  "path": "content/3/e00013/F4/F16"
+                  "path": "content/3/e00013/f4/f16"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 13.",
                   "doi": "10.7554/eLife.00013.025",
-                  "path": "content/3/e00013/F4/F17"
+                  "path": "content/3/e00013/f4/f17"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 14.",
                   "doi": "10.7554/eLife.00013.026",
-                  "path": "content/3/e00013/F4/F18"
+                  "path": "content/3/e00013/f4/f18"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 3—figure supplement 15.",
                   "doi": "10.7554/eLife.00013.027",
-                  "path": "content/3/e00013/F4/F19"
+                  "path": "content/3/e00013/f4/f19"
                 }
               ]
             },
@@ -4596,19 +4596,19 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "table-wrap",
               "title": "Table 3.",
               "doi": "10.7554/eLife.00013.028",
-              "path": "content/3/e00013/T3"
+              "path": "content/3/e00013/t3"
             },
             {
               "type": "fig",
               "title": "Figure 4.",
               "doi": "10.7554/eLife.00013.029",
-              "path": "content/3/e00013/F20",
+              "path": "content/3/e00013/f20",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Figure 4—figure supplement 1.",
                   "doi": "10.7554/eLife.00013.030",
-                  "path": "content/3/e00013/F20/F21"
+                  "path": "content/3/e00013/f20/f21"
                 }
               ]
             },
@@ -4616,37 +4616,37 @@ Feature: Article Resource - Kitchen sink (API)
               "type": "supplementary-material",
               "title": "Supplementary file 1.",
               "doi": "10.7554/eLife.00013.031",
-              "path": "content/3/e00013/DC3"
+              "path": "content/3/e00013/dc3"
             },
             {
               "type": "supplementary-material",
               "title": "Supplementary file 2.",
               "doi": "10.7554/eLife.00013.032",
-              "path": "content/3/e00013/DC4"
+              "path": "content/3/e00013/dc4"
             },
             {
               "type": "supplementary-material",
               "title": "Supplementary file 3.",
               "doi": "10.7554/eLife.00013.033",
-              "path": "content/3/e00013/DC5"
+              "path": "content/3/e00013/dc5"
             },
             {
               "type": "fig",
               "title": "Appendix 1 Figure 1 8.",
               "doi": "10.7554/eLife.00013.034",
-              "path": "content/3/e00013/F22"
+              "path": "content/3/e00013/f22"
             },
             {
               "type": "fig",
               "title": "Appendix 2 Figure 1",
               "doi": "10.7554/eLife.00013.035",
-              "path": "content/3/e00013/F23"
+              "path": "content/3/e00013/f23"
             },
             {
               "type": "fig",
               "title": "Appendix 2 Figure 2",
               "doi": "10.7554/eLife.00013.036",
-              "path": "content/3/e00013/F24"
+              "path": "content/3/e00013/f24"
             },
             {
               "type": "sub-article",
@@ -4704,13 +4704,13 @@ Feature: Article Resource - Kitchen sink (API)
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.00013.038",
-                  "path": "content/3/e00013/2/F25"
+                  "path": "content/3/e00013/2/f25"
                 },
                 {
                   "type": "table-wrap",
                   "title": "Author response table 1.",
                   "doi": "10.7554/eLife.00013.039",
-                  "path": "content/3/e00013/2/T4"
+                  "path": "content/3/e00013/2/t4"
                 }
               ]
             }
