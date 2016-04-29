@@ -29,6 +29,10 @@ function elife_config_module_implements_alter(&$implementations, $hook) {
  * Implements hook_init().
  */
 function elife_config_init() {
+  if (FALSE === in_array($_SERVER['REQUEST_METHOD'], ['GET', 'HEAD'])) {
+    return;
+  }
+
   $path = request_path();
   $lowercase_path = strtolower($path);
 
