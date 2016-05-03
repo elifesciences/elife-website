@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * Install, uninstall and update the elife_users module.
+ */
+
+/**
+ * Revert feature configuration.
+ */
+function elife_users_update_7100() {
+  features_revert_module('elife_users');
+}

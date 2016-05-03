@@ -737,15 +737,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create elife_contributor content'.
-  $permissions['create elife_contributor content'] = array(
-    'name' => 'create elife_contributor content',
-    'roles' => array(
-      'eLife Article Publisher' => 'eLife Article Publisher',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create elife_cover content'.
   $permissions['create elife_cover content'] = array(
     'name' => 'create elife_cover content',
@@ -945,15 +936,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any elife_contributor content'.
-  $permissions['delete any elife_contributor content'] = array(
-    'name' => 'delete any elife_contributor content',
-    'roles' => array(
-      'eLife Article Publisher' => 'eLife Article Publisher',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any elife_cover content'.
   $permissions['delete any elife_cover content'] = array(
     'name' => 'delete any elife_cover content',
@@ -1115,13 +1097,6 @@ function elife_users_user_default_permissions() {
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
     ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own elife_contributor content'.
-  $permissions['delete own elife_contributor content'] = array(
-    'name' => 'delete own elife_contributor content',
-    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1406,13 +1381,6 @@ function elife_users_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any elife_contributor content'.
-  $permissions['edit any elife_contributor content'] = array(
-    'name' => 'edit any elife_contributor content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any elife_cover content'.
   $permissions['edit any elife_cover content'] = array(
     'name' => 'edit any elife_cover content',
@@ -1595,13 +1563,6 @@ function elife_users_user_default_permissions() {
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
     ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own elife_contributor content'.
-  $permissions['edit own elife_contributor content'] = array(
-    'name' => 'edit own elife_contributor content',
-    'roles' => array(),
     'module' => 'node',
   );
 
@@ -2268,13 +2229,6 @@ function elife_users_user_default_permissions() {
       'eLife Administrator' => 'eLife Administrator',
       'eLife Editor' => 'eLife Editor',
     ),
-    'module' => 'view_unpublished',
-  );
-
-  // Exported permission: 'view any unpublished elife_contributor content'.
-  $permissions['view any unpublished elife_contributor content'] = array(
-    'name' => 'view any unpublished elife_contributor content',
-    'roles' => array(),
     'module' => 'view_unpublished',
   );
 

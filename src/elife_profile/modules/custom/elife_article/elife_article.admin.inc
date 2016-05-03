@@ -95,7 +95,7 @@ function elife_article_eif_json_prepopulate_process_items($items, &$context) {
   array_merge($context['results'], array_keys($items));
   foreach ($items as $article_version_id => $item) {
     $entity = node_load($item['nid']);
-    $dto = elife_article_version_to_dto($entity, TRUE);
+    $dto = elife_article_version_to_dto($entity);
   }
 }
 
