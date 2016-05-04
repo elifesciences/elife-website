@@ -21,7 +21,7 @@ Feature: Article Publish Resource (API)
           "article-id": "05224",
           "article-version-id": "05224.1",
           "pub-date": "1979-08-17T00:00:00+00:00",
-          "path": "content/4/e05224v1",
+          "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
           "publish": <publish>,
@@ -29,31 +29,31 @@ Feature: Article Publish Resource (API)
             {
               "type": "abstract",
               "doi": "10.7554/eLife.05224.001",
-              "path": "content/4/e05224v1/abstract-1"
+              "path": "content/4/e05224/abstract-1"
             },
             {
               "type": "abstract",
               "title": "eLife digest",
               "doi": "10.7554/eLife.05224.002",
-              "path": "content/4/e05224v1/abstract-2"
+              "path": "content/4/e05224/abstract-2"
             },
             {
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.05224.003",
-              "path": "content/4/e05224v1/f1",
+              "path": "content/4/e05224/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.05224.004",
-                  "path": "content/4/e05224v1/f1/dc1"
+                  "path": "content/4/e05224/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.05224.005",
-                  "path": "content/4/e05224v1/f1/f2"
+                  "path": "content/4/e05224/f1/f2"
                 }
               ]
             },
@@ -61,7 +61,7 @@ Feature: Article Publish Resource (API)
               "type": "sub-article",
               "title": "Decision letter",
               "doi": "10.7554/eLife.05224.006",
-              "path": "content/4/e05224v1/1",
+              "path": "content/4/e05224/1",
               "contributors": [
                 {
                   "type": "editor",
@@ -107,13 +107,13 @@ Feature: Article Publish Resource (API)
               "type": "sub-article",
               "title": "Author response",
               "doi": "10.7554/eLife.05224.007",
-              "path": "content/4/e05224v1/2",
+              "path": "content/4/e05224/2",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.05224.008",
-                  "path": "content/4/e05224v1/2/f25"
+                  "path": "content/4/e05224/2/f25"
                 }
               ]
             }
@@ -122,13 +122,13 @@ Feature: Article Publish Resource (API)
       """
     And the response code should be 200
     When I am logged in as a user with the "<permissions>" permissions
-    And I am on "content/4/e05224v1"
+    And I am on "content/4/e05224"
     Then I should get a <response> HTTP response
-    And I am on "content/4/e05224v1/abstract-1"
+    And I am on "content/4/e05224/abstract-1"
     And I should get a <response> HTTP response
-    And I am on "content/4/e05224v1/2"
+    And I am on "content/4/e05224/2"
     And I should get a <response> HTTP response
-    And I am on "content/4/e05224v1/2/f25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a <response> HTTP response
 
     Examples:
@@ -150,7 +150,7 @@ Feature: Article Publish Resource (API)
           "article-id": "05224",
           "article-version-id": "05224.1",
           "pub-date": "1979-08-17T00:00:00+00:00",
-          "path": "content/4/e05224v1",
+          "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
           "publish": false,
@@ -158,31 +158,31 @@ Feature: Article Publish Resource (API)
             {
               "type": "abstract",
               "doi": "10.7554/eLife.05224.001",
-              "path": "content/4/e05224v1/abstract-1"
+              "path": "content/4/e05224/abstract-1"
             },
             {
               "type": "abstract",
               "title": "eLife digest",
               "doi": "10.7554/eLife.05224.002",
-              "path": "content/4/e05224v1/abstract-2"
+              "path": "content/4/e05224/abstract-2"
             },
             {
               "type": "fig",
               "title": "Figure 1.",
               "doi": "10.7554/eLife.05224.003",
-              "path": "content/4/e05224v1/f1",
+              "path": "content/4/e05224/f1",
               "fragments": [
                 {
                   "type": "supplementary-material",
                   "title": "Figure 1—source data 1.",
                   "doi": "10.7554/eLife.05224.004",
-                  "path": "content/4/e05224v1/f1/dc1"
+                  "path": "content/4/e05224/f1/dc1"
                 },
                 {
                   "type": "fig",
                   "title": "Figure 1—figure supplement 1.",
                   "doi": "10.7554/eLife.05224.005",
-                  "path": "content/4/e05224v1/f1/f2"
+                  "path": "content/4/e05224/f1/f2"
                 }
               ]
             },
@@ -190,7 +190,7 @@ Feature: Article Publish Resource (API)
               "type": "sub-article",
               "title": "Decision letter",
               "doi": "10.7554/eLife.05224.006",
-              "path": "content/4/e05224v1/1",
+              "path": "content/4/e05224/1",
               "contributors": [
                 {
                   "type": "editor",
@@ -236,13 +236,13 @@ Feature: Article Publish Resource (API)
               "type": "sub-article",
               "title": "Author response",
               "doi": "10.7554/eLife.05224.007",
-              "path": "content/4/e05224v1/2",
+              "path": "content/4/e05224/2",
               "fragments": [
                 {
                   "type": "fig",
                   "title": "Author response image 1",
                   "doi": "10.7554/eLife.05224.008",
-                  "path": "content/4/e05224v1/2/f25"
+                  "path": "content/4/e05224/2/f25"
                 }
               ]
             }
@@ -251,18 +251,18 @@ Feature: Article Publish Resource (API)
       """
     And the response code should be 200
     And I am an anonymous user
-    And I am on "content/4/e05224v1"
+    And I am on "content/4/e05224"
     And I should get a 404 HTTP response
-    And I am on "content/4/e05224v1/abstract-1"
+    And I am on "content/4/e05224/abstract-1"
     And I should get a 404 HTTP response
-    And I am on "content/4/e05224v1/2/f25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a 404 HTTP response
     And I am logged in as a user with the "access administration menu,access content,view any unpublished elife_article_ver content,view any unpublished elife_fragment content" permissions
-    And I am on "content/4/e05224v1"
+    And I am on "content/4/e05224"
     And I should get a 200 HTTP response
-    And I am on "content/4/e05224v1/abstract-1"
+    And I am on "content/4/e05224/abstract-1"
     And I should get a 200 HTTP response
-    And I am on "content/4/e05224v1/2/f25"
+    And I am on "content/4/e05224/2/f25"
     And I should get a 200 HTTP response
     When I send a PUT request to "api/publish/05224.1.json" with body:
       """
@@ -272,7 +272,7 @@ Feature: Article Publish Resource (API)
       """
     And the response code should be 200
     And I am an anonymous user
-    And I am on "content/4/e05224v1"
+    And I am on "content/4/e05224"
     Then I should get a 200 HTTP response
 
   Scenario: Make article available without publication date
@@ -287,7 +287,7 @@ Feature: Article Publish Resource (API)
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
-          "path": "content/4/e05224v1",
+          "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
           "publish": true
@@ -312,7 +312,7 @@ Feature: Article Publish Resource (API)
           "elocation-id": "e05224",
           "article-id": "10.7554/eLife.05224",
           "article-version-id": "05224.1",
-          "path": "content/4/e05224v1",
+          "path": "content/4/e05224",
           "article-type": "research-article",
           "status": "VOR",
           "publish": false
@@ -320,8 +320,6 @@ Feature: Article Publish Resource (API)
       """
     When I am an anonymous user
     And I go to "content/4/e05224"
-    Then I should get a 404 HTTP response
-    And I go to "content/4/e05224v1"
     Then I should get a 404 HTTP response
     And I am logged in as a user with the "eLife Article Publisher" role
     And I am authenticating as the Drupal user

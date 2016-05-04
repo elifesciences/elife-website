@@ -29,14 +29,6 @@ function elife_article_drush_command() {
     'callback' => 'drush_elife_article_eif_json_import',
     'aliases' => array('elife-ei'),
   );
-  // admin/config/search/elife-rewrite-latest-paths
-  $items['elife-rewrite-paths'] = array(
-    'bootstrap' => DRUSH_BOOTSTRAP_MAX,
-    'drupal_dependencies' => array('elife_article'),
-    'description' => 'Rewrite paths from old to new format.',
-    'callback' => 'drush_elife_article_rewrite_latest_paths',
-    'aliases' => array('elife-rp'),
-  );
 
   return $items;
 }
@@ -80,23 +72,6 @@ function drush_elife_article_markup_import() {
   $form_state['values']['flush_all'] = $flush;
 
   elife_article_markup_prepopulate_form_submit($form, $form_state);
-  $batch =& batch_get();
-  $batch['progressive'] = FALSE;
-
-  // Process the batch.
-  drush_backend_batch_process();
-}
-
-/**
- * IRewrite paths of latest article versions from old to new format.
- */
-function drush_elife_article_rewrite_latest_paths() {
-  module_load_include('inc', 'elife_article', 'elife_article.admin');
-
-  $form = array();
-  $form_state = array();
-
-  elife_article_rewrite_latest_paths_form_submit($form, $form_state);
   $batch =& batch_get();
   $batch['progressive'] = FALSE;
 

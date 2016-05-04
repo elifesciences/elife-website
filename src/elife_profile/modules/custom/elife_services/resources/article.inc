@@ -267,11 +267,6 @@ function _elife_services_persist_article($data) {
     $json = elife_article_serializer()->serialize($dto);
   }
 
-  // The submission of a new article version or publishing an existing article
-  // version could create the need to allocate versionless urls to the most
-  // version of the article.
-  elife_article_version_paths_resolve($article_version);
-
   elife_article_markup_clear_once($article_version->getArticleVersionId(), TRUE);
 
   elife_article_resolve_duplicates();

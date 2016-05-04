@@ -138,7 +138,7 @@ Feature: Navigate to editorial board
       | VOR 05224         | 05224: VOR 05224        |
     When I go to "/careers"
     And I follow "VOR 05224"
-    Then I should be on "/content/4/e05224"
+    Then I should be on "/content/4/e05224v2"
 
   @api
   Scenario: Collection spotlight

@@ -112,7 +112,7 @@ Feature: Article Resource - Versions (API)
     Then there should be 3 versions of article "10.7554/eLife.05224"
     Given redirects are not followed
     When I go to "content/4/e05224"
-    Then I should see the heading "VOR 05224"
+    Then I should be redirected to "content/4/e05224v3" with a 302
 
   Scenario: Post a new version of an article - correct order with mixture of published and unpublished
     Given I set header "Content-Type" with value "application/json"
