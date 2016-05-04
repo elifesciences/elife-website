@@ -31,7 +31,7 @@ Feature: Front Matter
     Then I should see the text "Check out 05224" in the "front_matter_cover" region
     And I should see "05224" in the ".headline-first__title_link i" element
     And I follow "Check out 05224" in the "front_matter_cover" region
-    And I should be on "content/4/e05224"
+    And I should be on "content/4/e05224v1"
     And I should see "VOR 05224 v1" in the "h1" element
 
   Scenario: Sub-paths aren't accessible
