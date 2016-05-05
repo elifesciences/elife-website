@@ -58,7 +58,7 @@ Feature: Article Resource - Legacy Redirects
         ]
       """
     When I go to "content/4/e05224.full.pdf"
-    Then I should be redirected to "content/4/e05224.pdf" with a 302
+    Then I should be redirected to "content/4/e05224.pdf" with a 301
 
     Given there is an article:
       """
@@ -79,7 +79,7 @@ Feature: Article Resource - Legacy Redirects
         }
       """
     When I go to "content/4/e05224.full.pdf"
-    Then I should be redirected to "content/4/e05224.pdf" with a 302
+    Then I should be redirected to "content/4/e05224.pdf" with a 301
 
   Scenario: Old style XML urls redirect to latest version of an article's xml
     Given there are articles:

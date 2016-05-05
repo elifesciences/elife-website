@@ -156,6 +156,7 @@ function elife_article_menu() {
  */
 function elife_article_lookup_content() {
   $redirect = FALSE;
+  $http_response_code = 301;
   $raw_path = 'content/' . implode('/', func_get_args());
 
   // If the path matches an old pdf link the redirect to the latest pdf.
@@ -190,6 +191,7 @@ function elife_article_lookup_content() {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['volume'] . '/' . $match['eloc_id'])) {
       $article_version = menu_get_object('node', 1, $source);
       $redirect = elife_article_version_source_xml_path($article_version);
+      $http_response_code = 302;
     }
   }
   elseif (preg_match('/^content\/(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})v(?P<version>[0-9]+)(\/[^\/]+){0,}$/', $raw_path, $match)) {
@@ -205,7 +207,8 @@ function elife_article_lookup_content() {
       // If version number in url matches latest version and if the path matches a
       // path in our database but without a version then redirect to the same path
       // but with the latest version inserted.
-      if ($match['version'] == $latest_version && $alias = _elife_article_lookup_content_path($raw_path)) {
+      if ($match['version'] == $latest_version) {
+        $alias = preg_replace('/^(content\/[0-9]+\/e[0-9]{5})v[0-9]+(.*)/', '$1$2', $raw_path);
         if ($source_path = drupal_lookup_path('source', $alias)) {
           if (!empty($_GET['panels_ajax_tab_trigger'])) {
             $redirect = $alias . '/' . $_GET['panels_ajax_tab_trigger'];
@@ -213,49 +216,18 @@ function elife_article_lookup_content() {
           else {
             $redirect = $source_path;
           }
-        }
-        else {
-          $redirect = $alias;
+          $http_response_code = 302;
         }
       }
     }
   }
 
   if ($redirect) {
-    drupal_goto($redirect);
+    drupal_goto($redirect, [], $http_response_code);
   }
   else {
     drupal_not_found();
     exit();
-  }
-}
-
-/**
- * If a version number is detected in a content path that is not in the
- * url_alias table then redirect to the most recent version of an article.
- *
- * @param string $path
- * @return string|NULL
- */
-function _elife_article_lookup_content_path($path) {
-  $args = explode('/', trim($path, '/'));
-  $root_pattern = '(?P<root>content\/[0-9]+\/e[0-9]{5})v(?P<version>[0-9]+)';
-  $root_path = implode('/', array_splice($args, 0, 3));
-  if (preg_match('/^' . $root_pattern . '$/', $root_path, $match)) {
-    $query = db_select('url_alias', 'ua');
-    $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}(v[0-9]+)?$', 'REGEXP');
-    $query->condition('ua.alias', $match['root'] . '%', 'LIKE');
-    $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source");
-    $query->innerJoin('field_data_field_elife_a_article_id', 'aid', 'aid.entity_id = n.nid AND aid.bundle = n.type');
-    $query->innerJoin('field_data_field_elife_a_article_id', 'aid2', 'aid2.field_elife_a_article_id_value = aid.field_elife_a_article_id_value AND aid2.bundle = aid.bundle');
-    $query->innerJoin('field_data_field_elife_a_version', 'ver', 'ver.entity_id = aid2.entity_id AND ver.bundle = aid2.bundle');
-    $query->condition('ver.field_elife_a_version_value', $match['version']);
-    $query->addField('ua', 'alias');
-    $query->range(0, 1);
-    if ($result = $query->execute()->fetchField()) {
-      $fragment_path = !empty($args) ? '/' . implode('/', $args) : '';
-      return $match['root'] . $fragment_path;
-    }
   }
 }
 
@@ -270,7 +242,7 @@ function _elife_article_lookup_content_path($path) {
 function elife_article_lookup_doi() {
   $doi = implode('/', func_get_args());
   if ($path = _elife_article_lookup_doi_path($doi)) {
-    drupal_goto($path);
+    drupal_goto($path, [], 301);
   }
   else {
     drupal_set_title('DOI Not Found');
