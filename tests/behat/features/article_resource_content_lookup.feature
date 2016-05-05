@@ -58,7 +58,7 @@ Feature: Article Resource - Content Lookup
         ]
       """
     When I go to "content/4/e05224"
-    Then I should be redirected to "content/4/e05224v2" with a 302
+    Then I should see the heading "05224 VOR v2"
 
     Given there is an article:
       """
@@ -79,7 +79,7 @@ Feature: Article Resource - Content Lookup
         }
       """
     When I go to "content/4/e05224"
-    Then I should be redirected to "content/4/e05224v3" with a 302
+    Then I should see the heading "05224 VOR v3"
 
   Scenario: Internal doi lookup of fragments redirects to fragments of latest published version of an article
     Given there are articles:
@@ -465,23 +465,23 @@ Feature: Article Resource - Content Lookup
           }
          ]
       """
-    When I go to "content/4/e05224/abstract"
-    Then I should be redirected to "content/4/e05224v2/abstract" with a 302
-    When I go to "content/4/e05224/abstract2"
-    Then I should be redirected to "content/4/e05224v2/abstract2" with a 302
-    When I go to "content/4/e05224/figure1"
-    Then I should be redirected to "content/4/e05224v2/figure1" with a 302
-    When I go to "content/4/e05224/figure2"
-    Then I should be redirected to "content/4/e05224v2/figure2" with a 302
-    When I go to "content/4/e05224/figure3"
-    Then I should be redirected to "content/4/e05224v2/figure3" with a 302
-    When I go to "content/4/e05224/figure3/figure-supp1"
-    Then I should be redirected to "content/4/e05224v2/figure3/figure-supp1" with a 302
-    When I go to "content/4/e05224/figure3/figure-supp2"
-    Then I should be redirected to "content/4/e05224v2/figure3/figure-supp2" with a 302
-    When I go to "content/4/e05224/supp-material1"
-    Then I should be redirected to "content/4/e05224v2/supp-material1" with a 302
-    When I go to "content/4/e05224/decision"
-    Then I should be redirected to "content/4/e05224v2/decision" with a 302
-    When I go to "content/4/e05224/response"
-    Then I should be redirected to "content/4/e05224v2/response" with a 302
+    When I go to "content/4/e05224v2/abstract"
+    Then I should be redirected to "content/4/e05224/abstract" with a 302
+    When I go to "content/4/e05224v2/abstract2"
+    Then I should be redirected to "content/4/e05224/abstract2" with a 302
+    When I go to "content/4/e05224v2/figure1"
+    Then I should be redirected to "content/4/e05224/figure1" with a 302
+    When I go to "content/4/e05224v2/figure2"
+    Then I should be redirected to "content/4/e05224/figure2" with a 302
+    When I go to "content/4/e05224v2/figure3"
+    Then I should be redirected to "content/4/e05224/figure3" with a 302
+    When I go to "content/4/e05224v2/figure3/figure-supp1"
+    Then I should be redirected to "content/4/e05224/figure3/figure-supp1" with a 302
+    When I go to "content/4/e05224v2/figure3/figure-supp2"
+    Then I should be redirected to "content/4/e05224/figure3/figure-supp2" with a 302
+    When I go to "content/4/e05224v2/supp-material1"
+    Then I should be redirected to "content/4/e05224/supp-material1" with a 302
+    When I go to "content/4/e05224v2/decision"
+    Then I should be redirected to "content/4/e05224/decision" with a 302
+    When I go to "content/4/e05224v2/response"
+    Then I should be redirected to "content/4/e05224/response" with a 302
