@@ -285,10 +285,20 @@ function _elife_article_lookup_doi_path($doi) {
     if ($article_version = ElifeArticleVersion::latestFromDoi($doi_prefix . $match['article_id'])) {
       $dto = elife_article_version_to_dto($article_version);
       if (empty($match['variant'])) {
-        return $dto->getPath();
+        return drupal_get_path_alias('node/' . $article_version->nid);
       }
-      elseif ($fragment = $dto->getFragment($doi)) {
-        return $fragment->getPath();
+      elseif ($dto->getFragment($doi)) {
+        $fragment_query = new EntityFieldQuery();
+        $fragment_query->entityCondition('entity_type', 'node');
+        $fragment_query->entityCondition('bundle', ['elife_fragment', 'elife_article_ver'], 'IN');
+        $fragment_query->fieldCondition('field_elife_a_doi', 'value', $doi, '=');
+        $fragment_query->fieldCondition('field_elife_a_parent', 'target_id', $article_version->nid, '=');
+        $fragment_query->range(0, 1);
+        $fragments = $fragment_query->execute();
+        if (!empty($fragments['node'])) {
+          $fragments = array_keys($fragments['node']);
+          return drupal_get_path_alias('node/' . $fragments[0]);
+        }
       }
     }
   }
