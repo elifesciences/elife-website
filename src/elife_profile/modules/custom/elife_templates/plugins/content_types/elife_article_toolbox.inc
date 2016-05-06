@@ -77,9 +77,7 @@ function theme_elife_article_toolbox($variables) {
     ];
   };
 
-  if ($pdf_url = elife_article_version_source_pdf_path($article_version, TRUE)) {
-    $article_tools_links[] = $add_pdf_link('article', $pdf_url, $article_tools_options);
-  }
+  $article_tools_links[] = $add_pdf_link('article', elife_article_version_source_pdf_local($article_version, TRUE), $article_tools_options);
 
   if (module_exists('elife_resources')) {
     $resources = new elifeResources();
