@@ -387,6 +387,7 @@ function elife_person_profile_field_group_info() {
       1 => 'field_elife_pp_expertise',
       2 => 'field_elife_pp_organism',
       3 => 'field_elife_pp_research_focus',
+      4 => 'field_elife_pp_orcid',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

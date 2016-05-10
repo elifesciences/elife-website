@@ -42,6 +42,32 @@ function elife_person_profile_tokens($type, $tokens, array $data = [], array $op
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter() for node_form().
+ */
+function elife_person_profile_form_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['field_elife_pp_orcid'])) {
+    $form['field_elife_pp_orcid'][LANGUAGE_NONE][0]['value']['#field_prefix'] = 'http://orcid.org/';
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function elife_person_profile_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'elife_person_profile_node_form':
+      $form['#after_build'][] = 'elife_person_profile_node_form_after_build';
+      break;
+  }
+}
+
+function elife_person_profile_node_form_after_build($form, &$form_state) {
+  drupal_add_css(drupal_get_path('module', 'elife_person_profile') . '/css/person-profile-form.css');
+
+  return $form;
+}
+
+/**
  * Implements ds_views_row_adv_VIEWSNAME() for elife_person_profiles.
  */
 function ds_views_row_adv_elife_person_profiles($entity, $view_mode, $load_comments) {

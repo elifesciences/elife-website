@@ -334,6 +334,86 @@ function elife_person_profile_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-elife_person_profile-field_elife_pp_orcid'.
+  $field_instances['node-elife_person_profile-field_elife_pp_orcid'] = array(
+    'bundle' => 'elife_person_profile',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 18,
+      ),
+      'elife_teaser_alternative' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'elife_teaser_compact' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_pp_orcid',
+    'label' => 'ORCID',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'elife_house_style' => 'elife_house_style',
+          'elife_labs_tile' => 'elife_labs_tile',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'elife_house_style' => array(
+              'weight' => 0,
+            ),
+            'elife_labs_tile' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'label_help_description' => '',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 5,
+    ),
+  );
+
   // Exported field_instance:
   // 'node-elife_person_profile-field_elife_pp_organism'.
   $field_instances['node-elife_person_profile-field_elife_pp_organism'] = array(
@@ -976,6 +1056,7 @@ function elife_person_profile_field_default_field_instances() {
   t('First name');
   t('Last name');
   t('Name');
+  t('ORCID');
   t('Past');
   t('Photo');
   t('Profile');
