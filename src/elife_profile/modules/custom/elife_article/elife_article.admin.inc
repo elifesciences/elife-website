@@ -319,9 +319,10 @@ function elife_article_resolve_duplicates_form($form, &$form_state) {
       '@type' => $type,
       '@count' => substr_count($nid_string, ',') - count($type_duplicates),
       '@article_count' => count($type_duplicates),
+      ':type' => format_plural(count($type_duplicates), $type, $type . 's')
     );
     if (empty($form_state['input'])) {
-      drupal_set_message(t('@count duplicate @type node(s) detected, affecting @article_count article(s).', $args));
+      drupal_set_message(t('@count duplicate @type node(s) detected, affecting @article_count :type.', $args));
     }
   }
 

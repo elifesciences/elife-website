@@ -259,3 +259,11 @@ function elife_article_update_7109() {
     elife_article_version_paths_resolve($dto);
   }
 }
+
+/**
+ * Resolve elife_article_ver and elife_fragment duplicates and publish 15802.2.
+ */
+function elife_article_update_7110() {
+  features_revert_module('elife_article');
+  elife_article_resolve_duplicates();
+}

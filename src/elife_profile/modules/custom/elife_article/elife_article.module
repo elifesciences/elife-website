@@ -2832,6 +2832,24 @@ function elife_article_detect_duplicates() {
     }
   }
 
+  foreach (['elife_article_ver', 'elife_fragment'] as $type) {
+    $query = db_select('node', 'n');
+    $query->condition('n.type', $type);
+    $query->innerJoin('url_alias', 'ua1', "ua1.source = CONCAT('node/', n.nid)");
+    $query->innerJoin('url_alias', 'ua2', "ua2.alias = ua1.alias");
+    $query->leftJoin('field_data_field_elife_a_subarticle', 'sub', "sub.entity_id = n.nid AND sub.entity_type = 'node' AND sub.bundle = n.type");
+    $query->where('ua1.source != ua2.source');
+    // Duplicate entry nid values.
+    $query->addExpression('GROUP_CONCAT(n.nid ORDER BY n.nid DESC)', 'nids');
+    // Status of the duplicate entry nodes.
+    $query->addExpression("GROUP_CONCAT(n.status ORDER BY n.nid DESC SEPARATOR '')", 'status');
+    $query->addExpression('ua1.alias', 'ua_alias');
+    $query->groupBy('ua1.alias');
+    if ($type_results = $query->execute()->fetchAllAssoc('ua_alias')) {
+      $results[$type] = $type_results;
+    }
+  }
+
   return $results;
 }
 
@@ -2866,7 +2884,7 @@ function elife_article_resolve_duplicates() {
         // Find out the position of the first published duplicate node.
         $published = strpos($type_dupl->status, '1');
         // Index of the nid in the nids array to consider current.
-        $current_index = ($published !== FALSE) ? $published : 0;
+        $current_index = (in_array($type, ['elife_article', 'elife_article_reference']) && $published !== FALSE) ? $published : 0;
         // The node nid to preserve.
         $current_nid = $nids[$current_index];
         // Combine array of duplicate node nids mapped to the current node nid.
@@ -2878,21 +2896,23 @@ function elife_article_resolve_duplicates() {
     }
     $map_nids = array_diff_key($map_nids, array_flip($exclude_nids));
 
-    $er_fields = elife_article_target_reference_fields();
-    foreach ($er_fields as $field_name => $field_info) {
-      // For each reference field return results for those that target
-      // duplicated nodes.
-      $efq = new EntityFieldQueryExtraFields();
-      $efq->fieldCondition($field_name, 'target_id', array_keys($map_nids), 'IN');
-      $efq->addExtraField($field_name, 'target_id', 'target_id');
-      $efq->addTag('resolve_duplicates');
+    if (!empty($map_nids)) {
+      $er_fields = elife_article_target_reference_fields();
+      foreach ($er_fields as $field_name => $field_info) {
+        // For each reference field return results for those that target
+        // duplicated nodes.
+        $efq = new EntityFieldQueryExtraFields();
+        $efq->fieldCondition($field_name, 'target_id', array_keys($map_nids), 'IN');
+        $efq->addExtraField($field_name, 'target_id', 'target_id');
+        $efq->addTag('resolve_duplicates');
 
-      $results = $efq->execute();
-      if (!empty($results['node'])) {
-        foreach ($results['node'] as $nid => $result) {
-          $node = node_load($nid);
-          $node->{$field_name}[LANGUAGE_NONE][$result->extraFields->delta]['target_id'] = $map_nids[$result->extraFields->{$field_name . '_target_id'}];
-          node_save($node);
+        $results = $efq->execute();
+        if (!empty($results['node'])) {
+          foreach ($results['node'] as $nid => $result) {
+            $node = node_load($nid);
+            $node->{$field_name}[LANGUAGE_NONE][$result->extraFields->delta]['target_id'] = $map_nids[$result->extraFields->{$field_name . '_target_id'}];
+            node_save($node);
+          }
         }
       }
     }
