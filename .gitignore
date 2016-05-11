@@ -8,3 +8,4 @@
 /src/elife_profile/themes/contrib/
 /web/
 /vendor/
+tests/behat/report.xml

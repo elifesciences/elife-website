@@ -42,3 +42,6 @@ default:
         searchpagerrows: '.elife-searchlist-pagerbar-rows'
       drupal:
         drupal_root: '%paths.base%/../../web'
+    jarnaiz\JUnitFormatter\JUnitFormatterExtension:
+      filename: report.xml
+      outputDir: %paths.base%/
