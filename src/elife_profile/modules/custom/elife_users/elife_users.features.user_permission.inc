@@ -769,7 +769,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'create elife_early_careers_spotlight content'.
   $permissions['create elife_early_careers_spotlight content'] = array(
     'name' => 'create elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -977,7 +980,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete any elife_early_careers_spotlight content'.
   $permissions['delete any elife_early_careers_spotlight content'] = array(
     'name' => 'delete any elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -1148,7 +1154,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'delete own elife_early_careers_spotlight content'.
   $permissions['delete own elife_early_careers_spotlight content'] = array(
     'name' => 'delete own elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -1436,7 +1445,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit any elife_early_careers_spotlight content'.
   $permissions['edit any elife_early_careers_spotlight content'] = array(
     'name' => 'edit any elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -1628,7 +1640,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'edit own elife_early_careers_spotlight content'.
   $permissions['edit own elife_early_careers_spotlight content'] = array(
     'name' => 'edit own elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'node',
   );
 
@@ -2301,7 +2316,10 @@ function elife_users_user_default_permissions() {
   // Exported permission: 'view any unpublished elife_early_careers_spotlight content'.
   $permissions['view any unpublished elife_early_careers_spotlight content'] = array(
     'name' => 'view any unpublished elife_early_careers_spotlight content',
-    'roles' => array(),
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+      'eLife Editor' => 'eLife Editor',
+    ),
     'module' => 'view_unpublished',
   );
 

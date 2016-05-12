@@ -506,7 +506,7 @@ function elife_article_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Fragments and contributors';
+  $handler->display->display_options['title'] = 'Articles';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -561,6 +561,8 @@ function elife_article_views_default_views() {
 
   /* Display: Orphaned subarticles */
   $handler = $view->new_display('block', 'Orphaned subarticles', 'orphaned_subarticles');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Subarticles';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['operator'] = 'OR';
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -587,8 +589,10 @@ function elife_article_views_default_views() {
   );
   $handler->display->display_options['filters']['field_elife_a_subarticle_value']['group'] = 1;
 
-  /* Display: Orphaned fragments and contributors */
-  $handler = $view->new_display('block', 'Orphaned fragments and contributors', 'orphaned_fragments_and_contributors');
+  /* Display: Orphaned fragments */
+  $handler = $view->new_display('block', 'Orphaned fragments', 'orphaned_fragments');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Fragments';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['operator'] = 'OR';
   $handler->display->display_options['defaults']['filters'] = FALSE;
@@ -603,7 +607,6 @@ function elife_article_views_default_views() {
   $handler->display->display_options['filters']['type_1']['table'] = 'node';
   $handler->display->display_options['filters']['type_1']['field'] = 'type';
   $handler->display->display_options['filters']['type_1']['value'] = array(
-    'elife_contributor' => 'elife_contributor',
     'elife_fragment' => 'elife_fragment',
   );
   $handler->display->display_options['filters']['type_1']['group'] = 1;

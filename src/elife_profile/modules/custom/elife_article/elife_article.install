@@ -3,6 +3,7 @@
  * @file
  * Install, uninstall and update the elife_article module.
  */
+use Drupal\elife_article\ElifeArticleVersion;
 
 /**
  * Implements hook_requirements().
@@ -242,4 +243,27 @@ function elife_article_update_7108(&$sandbox) {
   }
 
   $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ?: ($sandbox['progress'] / $sandbox['max']);
+}
+
+/**
+ * Resolve paths for articles that have new versions since the versionless urls
+ * were initially introduced.
+ */
+function elife_article_update_7109() {
+  module_load_include('inc', 'elife_article', 'elife_article.admin');
+  $unprocessed = _elife_article_rewrite_latest_paths_unprocessed();
+
+  foreach (array_keys($unprocessed) as $nid) {
+    $article_version = node_load($nid);
+    $dto = elife_article_version_to_dto($article_version);
+    elife_article_version_paths_resolve($dto);
+  }
+}
+
+/**
+ * Resolve elife_article_ver and elife_fragment duplicates and publish 15802.2.
+ */
+function elife_article_update_7110() {
+  features_revert_module('elife_article');
+  elife_article_resolve_duplicates();
 }
