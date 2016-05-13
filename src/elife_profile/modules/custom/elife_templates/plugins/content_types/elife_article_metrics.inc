@@ -191,7 +191,7 @@ function elife_article_metrics_render($subtype, $conf, $args, $context) {
       'target' => '_blank',
     ));
   $serviceurl = lagotto_services_service_host();
-  $alm_link = l(t("ALM"), "http://articlemetrics.github.io/", $ext_link_attrs);
+  $alm_link = l(t("ALM"), "http://lagotto.io", $ext_link_attrs);
   $info_link = l(t("eLife Article Metrics"), $serviceurl . '/articles/info:doi/' . $doi, $ext_link_attrs);
   $via_text = t('via !info_link courtesy of !alm_link', array(
     '!info_link' => $info_link,
