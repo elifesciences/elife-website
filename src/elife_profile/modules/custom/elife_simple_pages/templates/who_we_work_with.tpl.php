@@ -5,7 +5,7 @@
 <ul>
 	<li><a href="http://www.alpsp.org/Ebusiness/Home.aspx" target="_blank">ALPSP</a></li>
 	<li><a href="http://publicationethics.org/">COPE</a></li>
-	<li><a href="http://www.crossref.org/">CrossRef</a></li>
+	<li><a href="http://www.crossref.org/">Crossref</a></li>
 	<li><a href="http://oaspa.org/">OASPA</a></li>
 	<li><a href="http://orcid.org/">ORCID</a></li>
 </ul>
@@ -24,7 +24,6 @@
 	<li><a href="https://publons.com/">Publons</a></li>
 	<li><a href="http://ripe.com/">ripe</a></li>
 	<li><a href="http://www.tbicommunications.com/">TBI&nbsp;Communications</a></li>
-	<li><a href="http://www.tnq.co.in/">TNQ</a></li>
 </ul>
 
 <hr style="width: 100%;" width="100%" />

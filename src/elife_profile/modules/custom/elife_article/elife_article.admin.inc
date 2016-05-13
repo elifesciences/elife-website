@@ -319,9 +319,10 @@ function elife_article_resolve_duplicates_form($form, &$form_state) {
       '@type' => $type,
       '@count' => substr_count($nid_string, ',') - count($type_duplicates),
       '@article_count' => count($type_duplicates),
+      ':type' => format_plural(count($type_duplicates), $type, $type . 's')
     );
     if (empty($form_state['input'])) {
-      drupal_set_message(t('@count duplicate @type node(s) detected, affecting @article_count article(s).', $args));
+      drupal_set_message(t('@count duplicate @type node(s) detected, affecting @article_count :type.', $args));
     }
   }
 
@@ -350,4 +351,164 @@ function elife_article_resolve_duplicates_form($form, &$form_state) {
 function elife_article_resolve_duplicates_form_submit($form, &$form_state) {
   elife_article_resolve_duplicates();
   drupal_set_message(t('Duplicates have been successfully resolved.'));
+}
+
+function _elife_article_rewrite_latest_paths_unprocessed($filter = FALSE) {
+  $query = db_select('url_alias', 'ua');
+  $query->addField('ua', 'pid', 'alias_pid');
+  $query->addField('ua', 'alias', 'old_alias');
+  if (!$filter) {
+    $query->addExpression('n.nid', 'source_nid');
+    $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source AND n.status = 1");
+    $query->innerJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = n.nid');
+    $query->condition('ver.delta', 0);
+    $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+$', 'REGEXP');
+  }
+  else {
+    $query->addExpression('SUBSTRING(ua.source, 6)', 'source_nid');
+    $query->condition('ua.alias', $filter . '%', 'LIKE');
+  }
+  $query->orderBy('ua.alias');
+  $results = $query->execute()->fetchAllAssoc('source_nid');
+
+  return ($results) ? $results : [];
+}
+
+function _elife_article_rewrite_latest_paths_processed() {
+  $query = db_select('url_alias', 'ua');
+  $query->addField('ua', 'pid', 'alias_pid');
+  $query->addField('ua', 'alias', 'old_alias');
+  $query->addExpression('n.nid', 'source_nid');
+  $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source AND n.status = 1");
+  $query->innerJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = n.nid');
+  $query->condition('ver.delta', 0);
+  $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}$', 'REGEXP');
+  $query->orderBy('ua.alias');
+  $results = $query->execute()->fetchAllAssoc('source_nid');
+
+  return ($results) ? $results : [];
+}
+
+/**
+ * Settings form as implemented by hook_menu.
+ */
+function elife_article_rewrite_latest_paths_form($form, &$form_state) {
+  $processed = _elife_article_rewrite_latest_paths_processed();
+  $remaining = _elife_article_rewrite_latest_paths_unprocessed();
+  $total = count($processed) + count($remaining);
+  $unprocessed = $total - count($remaining);
+
+  $args = array(
+    '@unprocessed' => $unprocessed,
+    '@total' => $total,
+  );
+  if (empty($form_state['input'])) {
+    drupal_set_message(t('@unprocessed/@total article version paths have been processed to the new format.', $args));
+  }
+
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update'),
+  );
+
+  return $form;
+}
+
+/**
+ * Submit handler.
+ *
+ * @param array $form
+ *   Form API form.
+ * @param array $form_state
+ *   Form API form.
+ */
+function elife_article_rewrite_latest_paths_form_submit($form, &$form_state) {
+  batch_set(elife_article_rewrite_latest_paths_process());
+}
+
+/**
+ * Process a batch of article version paths to the new format.
+ *
+ * @return array
+ *   Array of batch instructions.
+ */
+function elife_article_rewrite_latest_paths_process() {
+  $remaining = _elife_article_rewrite_latest_paths_unprocessed();
+  $operations = [];
+  if (!empty($remaining)) {
+    $per_batch = variable_get('elife_rewrite_latest_paths_batch', 50);
+    for ($i = 0; $i < count($remaining); $i += $per_batch) {
+      $operations[] = array(
+        'elife_article_rewrite_latest_paths_process_items',
+        array(
+          array_slice($remaining, $i, $per_batch, TRUE),
+        ),
+      );
+    }
+  }
+  // Build the batch instructions.
+  $batch = array(
+    'title' => t('Process paths for latest article versions to the new format.'),
+    'operations' => $operations,
+    'finished' => 'elife_article_rewrite_latest_paths_process_finished',
+    'file' => drupal_get_path('module', 'elife_article') . '/elife_article.admin.inc',
+  );
+  return $batch;
+}
+
+function elife_article_rewrite_redirects() {
+  $query = db_select('redirect', 're');
+  $query->addField('re', 'rid');
+  $query->addField('re', 'source');
+  $query->condition('re.source', '^content/[0-9]+/e[0-9]{5}(v[0-9]+)?(/[^\/]+){0,}$', 'REGEXP');
+  $query->orderBy('re.source');
+  $results = $query->execute()->fetchAllKeyed();
+
+  return ($results) ? $results : [];
+}
+
+/**
+ * Process the items in a batch of article version paths.
+ *
+ * @param array $items
+ * @param array $context
+ */
+function elife_article_rewrite_latest_paths_process_items($items, &$context) {
+  $context['results'] = array_merge($context['results'], array_keys($items));
+  array_merge($context['results'], array_keys($items));
+  foreach ($items as $item) {
+    $next = _elife_article_rewrite_latest_paths_unprocessed($item->old_alias);
+    foreach ($next as $next_path) {
+      $path = path_load(['pid' => $next_path->alias_pid]);
+      if ($new_path = preg_replace('/^(content\/[0-9]+\/e[0-9]{5})v[0-9]+(.*)$/', '$1$2', $path['alias'])) {
+        $path['alias'] = $new_path;
+        path_save($path);
+      }
+    }
+  }
+  $redirects = elife_article_rewrite_redirects();
+  if (!empty($redirects)) {
+    $rids = array_keys($redirects);
+    redirect_delete_multiple($rids);
+  }
+}
+
+/**
+ * Review the status of the process after a single batch run.
+ *
+ * @param $success
+ * @param $results
+ * @param $operations
+ */
+function elife_article_rewrite_latest_paths_process_finished($success, $results, $operations) {
+  if ($success) {
+    drupal_set_message(t('@count article version paths have been processed.', array('@count' => count($results))));
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => $error_operation[1][0]->cid)));
+  }
 }
