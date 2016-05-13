@@ -8,7 +8,9 @@
   <span class="provider-icon"><?php echo $variables['icon']; ?></span>
   <span class="provider-name"><?php echo $variables['name_link']; ?></span>
   <div class="provider-details">
-    <span class="metric-value"><?php echo $variables['value']; ?></span>
+    <?php if (array_key_exists('value', $variables)): ?>
+        <span class="metric-value"><?php echo $variables['value']; ?></span>
+    <?php endif; ?>
     <span class="metric-name"><?php echo $variables['class_link']; ?></span>
   </div>
 </div>
