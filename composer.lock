@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "7c09b70b902c07000c60eb50da320fa1002affb9"
+                "reference": "027e63de0f6c930ca5afd01ac9af919df1650f16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/7c09b70b902c07000c60eb50da320fa1002affb9",
-                "reference": "7c09b70b902c07000c60eb50da320fa1002affb9",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/027e63de0f6c930ca5afd01ac9af919df1650f16",
+                "reference": "027e63de0f6c930ca5afd01ac9af919df1650f16",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +278,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2016-03-17 15:11:04"
+            "time": "2016-05-16 14:55:13"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1071,7 +1071,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/35e677c5a53fb68a9a8283c59d7ab4ec5976822a",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/6196fdb001faf681f92db2ae10abafb5815affde",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },
@@ -2807,7 +2807,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/faf0a08d55cb8179fb66317fc8f66a9896be0332",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "reference": "e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "shasum": ""
             },
