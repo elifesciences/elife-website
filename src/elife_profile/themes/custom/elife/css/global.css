@@ -3922,6 +3922,9 @@ ul.links.hidden-small {
   font-size: inherited;
   line-height: 1.2;
 }
+.article-info .copyright-and-license div {
+  display: block;
+}
 .article-info .copyright-and-license * {
   display: initial;
 }
