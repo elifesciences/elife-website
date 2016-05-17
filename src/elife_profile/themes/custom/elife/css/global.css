@@ -3899,23 +3899,31 @@ ul.links.hidden-small {
   content: ' ';
 }
 
-.fig .copyright-and-license,
-.fig .copyright-and-license * {
+.copyright-and-license,
+.copyright-and-license * {
   font-size: 0.7525rem;
   line-height: 1.5;
 }
-
-.fig .copyright-and-license * {
+.copyright-and-license * {
   display: inline;
 }
 
-.fig .copyright-and-license .copyright-statement {
+.copyright-and-license .copyright-statement {
   list-style: none;
   padding-left: 0;
 }
 
-.fig .copyright-and-license .copyright-statement li:after {
+.copyright-and-license .copyright-statement li:after {
   content: ' ';
+}
+
+.article-info .copyright-and-license,
+.copyright-and-license * {
+  font-size: inherited;
+  line-height: 1.2;
+}
+.article-info .copyright-and-license * {
+  display: initial;
 }
 
 /* Stop line length getting out of hand on 'simple pages'
