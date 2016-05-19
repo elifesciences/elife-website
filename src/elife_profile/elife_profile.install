@@ -256,3 +256,10 @@ function elife_profile_update_7122() {
 function elife_profile_update_7123() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache following <span class="underline"> introduction.
+ */
+function elife_profile_update_7124() {
+  _elife_article_markup_cache_clear_all();
+}
