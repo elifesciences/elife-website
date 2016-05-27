@@ -58,7 +58,7 @@ Feature: Article Resource - DOI Lookup
         ]
       """
     When I go to "lookup/doi/10.7554/eLife.05224"
-    Then I should be redirected to "content/4/e05224v2" with a 302
+    Then I should be redirected to "content/4/e05224" with a 301
 
     Given there is an article:
       """
@@ -79,7 +79,7 @@ Feature: Article Resource - DOI Lookup
         }
       """
     When I go to "lookup/doi/10.7554/eLife.05224"
-    Then I should be redirected to "content/4/e05224v3" with a 302
+    Then I should be redirected to "content/4/e05224" with a 301
 
   Scenario: Internal doi lookup of fragments redirects to fragments of latest published version of an article
     Given there are articles:
@@ -466,22 +466,22 @@ Feature: Article Resource - DOI Lookup
         ]
       """
     When I go to "lookup/doi/10.7554/eLife.05224.001"
-    Then I should be redirected to "content/4/e05224v2/abstract" with a 302
+    Then I should be redirected to "content/4/e05224/abstract" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.002"
-    Then I should be redirected to "content/4/e05224v2/abstract2" with a 302
+    Then I should be redirected to "content/4/e05224/abstract2" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.003"
-    Then I should be redirected to "content/4/e05224v2/figure1" with a 302
+    Then I should be redirected to "content/4/e05224/figure1" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.004"
-    Then I should be redirected to "content/4/e05224v2/figure2" with a 302
+    Then I should be redirected to "content/4/e05224/figure2" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.005"
-    Then I should be redirected to "content/4/e05224v2/figure3" with a 302
+    Then I should be redirected to "content/4/e05224/figure3" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.006"
-    Then I should be redirected to "content/4/e05224v2/figure3/figure-supp1" with a 302
+    Then I should be redirected to "content/4/e05224/figure3/figure-supp1" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.007"
-    Then I should be redirected to "content/4/e05224v2/figure3/figure-supp2" with a 302
+    Then I should be redirected to "content/4/e05224/figure3/figure-supp2" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.039"
-    Then I should be redirected to "content/4/e05224v2/supp-material1" with a 302
+    Then I should be redirected to "content/4/e05224/supp-material1" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.012"
-    Then I should be redirected to "content/4/e05224v2/decision" with a 302
+    Then I should be redirected to "content/4/e05224/decision" with a 301
     When I go to "lookup/doi/10.7554/eLife.05224.013"
-    Then I should be redirected to "content/4/e05224v2/response" with a 302
+    Then I should be redirected to "content/4/e05224/response" with a 301

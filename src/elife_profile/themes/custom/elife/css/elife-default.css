@@ -328,6 +328,10 @@ img.elife-embed-fragment-image {
   margin-left: -92px; /* 82px carousel width + 10px padding */
 }
 
+.fig-inline-img-set-carousel .fig-expansion .copyright-and-license {
+  margin-left: -92px; /* 82px carousel width + 10px padding */
+}
+
 /* vertical image thumbnail carousel */
 .fig-inline-img-set-carousel .elife-fig-slider-wrapper {
   width: 82px;

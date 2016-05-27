@@ -43,14 +43,14 @@ function elife_article_default_rules_configuration() {
           }
         },
         { "views_bulk_operations_action_load_list" : {
-            "USING" : { "view" : "elife_orphaned_article_content|orphaned_fragments_and_contributors" },
-            "PROVIDE" : { "entity_list" : { "fragment_contributor_list" : "A list of fragments and contributors" } }
+            "USING" : { "view" : "elife_orphaned_article_content|orphaned_fragments" },
+            "PROVIDE" : { "entity_list" : { "fragment_list" : "A list of fragments" } }
           }
         },
         { "LOOP" : {
-            "USING" : { "list" : [ "fragment-contributor-list" ] },
-            "ITEM" : { "fragment_contributor_item" : "Current fragment or contributor item" },
-            "DO" : [ { "entity_delete" : { "data" : [ "fragment-contributor-item" ] } } ]
+            "USING" : { "list" : [ "fragment-list" ] },
+            "ITEM" : { "fragment_item" : "Current fragment item" },
+            "DO" : [ { "entity_delete" : { "data" : [ "fragment-item" ] } } ]
           }
         }
       ]

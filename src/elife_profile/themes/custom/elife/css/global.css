@@ -3899,6 +3899,36 @@ ul.links.hidden-small {
   content: ' ';
 }
 
+.copyright-and-license,
+.copyright-and-license * {
+  font-size: 0.7525rem;
+  line-height: 1.5;
+}
+.copyright-and-license * {
+  display: inline;
+}
+
+.copyright-and-license .copyright-statement {
+  list-style: none;
+  padding-left: 0;
+}
+
+.copyright-and-license .copyright-statement li:after {
+  content: ' ';
+}
+
+.article-info .copyright-and-license,
+.copyright-and-license * {
+  font-size: inherited;
+  line-height: 1.2;
+}
+.article-info .copyright-and-license div {
+  display: block;
+}
+.article-info .copyright-and-license * {
+  display: initial;
+}
+
 /* Stop line length getting out of hand on 'simple pages'
  * e.g.: /terms-and-conditions-of-use */
 @media only all and (min-width: 768px) {

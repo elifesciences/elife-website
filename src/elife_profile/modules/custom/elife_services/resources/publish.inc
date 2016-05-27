@@ -54,6 +54,8 @@ function _elife_services_publish($article_version_id, $data) {
 
     elife_article_resolve_duplicates();
 
+    elife_article_version_paths_resolve($dto);
+
     $response = [
       'publish' => $dto->getPublish(),
     ];

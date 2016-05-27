@@ -101,7 +101,7 @@ Feature: Article RSS
         <language>en</language>
         <item>
         <title>VOR 05224 v2</title>
-        <link>%BASE_URL%/content/4/e05224v2</link>
+        <link>%BASE_URL%/content/4/e05224</link>
         <description>&lt;p&gt;Social relationships have profound effects on health in humans and other primates, but the mechanisms that explain this relationship are not well understood. Using shotgun metagenomic data from wild baboons, we found that social group membership and social network relationships predicted both the taxonomic structure of the gut microbiome and the structure of genes encoded by gut microbial species. Rates of interaction directly explained variation in the gut microbiome, even after controlling for diet, kinship, and shared environments. They therefore strongly implicate direct physical contact among social partners in the transmission of gut microbial species. We identified 51 socially structured taxa, which were significantly enriched for anaerobic and non-spore-forming lifestyles. Our results argue that social interactions are an important determinant of gut microbiome composition in natural animal populations&#x2014;a relationship with important ramifications for understanding how social relationships influence health, as well as the evolution of group living.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;DOI:&lt;/strong&gt; &lt;a href="%BASE_URL%/lookup/doi/10.7554/eLife.05224.001"&gt;http://dx.doi.org/10.7554/eLife.05224.001&lt;/a&gt;&lt;/p&gt;</description>
         <author>foo@example.com</author>
@@ -154,7 +154,7 @@ Feature: Article RSS
           },
           {
             "title": "VOR 05225 v2",
-            "version": 1,
+            "version": 2,
             "doi": "10.7554/eLife.05225",
             "volume": 4,
             "elocation-id": "e05225",
@@ -197,7 +197,7 @@ Feature: Article RSS
         <language>en</language>
         <item>
         <title>VOR 05225 v2</title>
-        <link>%BASE_URL%/content/4/e05225v2</link>
+        <link>%BASE_URL%/content/4/e05225</link>
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05225</guid>
         <pubDate>Fri, 01 Jan 1999 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>
@@ -205,7 +205,7 @@ Feature: Article RSS
         </item>
         <item>
         <title>VOR 05224 v1</title>
-        <link>%BASE_URL%/content/4/e05224v1</link>
+        <link>%BASE_URL%/content/4/e05224</link>
         <guid isPermaLink="true">http://dx.doi.org/10.7554/eLife.05224</guid>
         <pubDate>Sat, 01 Jan 2000 00:00:00 +0000</pubDate>
         <source url="%BASE_URL%/rss/recent.xml">eLife</source>

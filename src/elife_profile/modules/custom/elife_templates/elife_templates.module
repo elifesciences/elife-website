@@ -165,7 +165,6 @@ function elife_templates_theme($existing, $type, $theme, $path) {
         'variables' => array(
           'icon' => '',
           'class_link' => '',
-          'value' => 0,
           'name_link' => '',
         ),
         'template' => 'elife_article_metrics_provider_data',

@@ -249,3 +249,17 @@ function elife_profile_update_7121() {
 function elife_profile_update_7122() {
   module_enable(['taxonomy_access_fix'], FALSE);
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7123() {
+  _elife_article_markup_cache_clear_all();
+}
+
+/**
+ * Clear the markup cache following <span class="underline"> introduction.
+ */
+function elife_profile_update_7124() {
+  _elife_article_markup_cache_clear_all();
+}
