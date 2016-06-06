@@ -170,20 +170,30 @@ function elife_article_lookup_content() {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
       $article_version = menu_get_object('node', 1, $source);
       $pdf_path = elife_article_version_source_pdf_path($article_version, (!empty($match['download'])));
-      $data = file_get_contents($pdf_path);
-      drupal_add_http_header('Content-type', 'application/pdf');
-      if (!empty($match['download'])) {
-        $disposition = 'attachment';
-        $match['file_name'] .= $match['download'];
+      $pdf_head = array_change_key_case(get_headers($pdf_path, TRUE));
+      if (!empty($pdf_head['content-length']) && $file = @fopen($pdf_path, 'rb')) {
+        $pdf_filesize = $pdf_head['content-length'];
+        if (!empty($match['download'])) {
+          $disposition = 'attachment';
+          $match['file_name'] .= $match['download'];
+        }
+        else {
+          $disposition = 'inline';
+        }
+        drupal_add_http_header('Content-type', 'application/pdf');
+        drupal_add_http_header('Content-Disposition', sprintf('%s; filename="%s"', $disposition, $match['file_name'] . $match['ext']));
+        drupal_add_http_header('Content-Length', $pdf_filesize);
+        drupal_send_headers();
+        while (!feof($file)) {
+          print(@fread($file, 1024*8));
+          ob_flush();
+          flush();
+        }
+        exit();
       }
       else {
-        $disposition = 'inline';
+        throw new Exception("Error opening: {$pdf_path}");
       }
-      drupal_add_http_header('Content-Disposition', sprintf('%s; filename="%s"', $disposition, $match['file_name'] . $match['ext']));
-      drupal_send_headers();
-
-      print $data;
-      exit();
     }
   }
   // If the path matches an old xml link the redirect to the latest xml.
