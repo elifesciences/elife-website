@@ -22,4 +22,3 @@ $conf['redis_client_host'] = '127.0.0.1';
 $conf['redis_client_port'] = 6379;
 
 $conf['imagemagick_convert'] = '/usr/bin/convert';
-
