@@ -8,7 +8,7 @@
       "/content/([0-9]+)/(e[0-9]{5})\\.(full|reprint|short)(\\.html)?": { "to": "/content/$1/$2", "code": 301, "regexp": true }
       "/cgi/content/abstract/([0-9]+)/0/(e[0-9]{5})": { "to": "/content/$1/$2/abstract", "code": 301, "regexp": true }
       "/content/([0-9]+)/(e[0-9]{5})\\.abstract(\\.html)?": { "to": "/content/$1/$2/abstract", "code": 301, "regexp": true }
-      # Legacy POA and VOR paths are too numerous to list here
+      # Legacy POA and VOR paths are too numerous to list here and can be found in platform/redirects_main.map
 
 "http://www.{default}/":
   type: redirect
