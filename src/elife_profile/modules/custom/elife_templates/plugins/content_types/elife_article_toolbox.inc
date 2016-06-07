@@ -42,6 +42,13 @@ function theme_elife_article_toolbox($variables) {
   $article_version = $variables['node'];
   $dto = elife_article_version_to_dto($article_version);
 
+  $pdf_path = elife_article_version_source_pdf_local($article_version, TRUE);
+  $pdf_path_remote = elife_article_version_source_pdf_path($article_version);
+  $pdf_head = array_change_key_case(get_headers($pdf_path_remote, TRUE));
+  if (empty($pdf_head['content-length'])) {
+    $pdf_path = FALSE;
+  }
+
   $node_url = 'url=' . url('node/' . $article_version->nid, ['absolute' => TRUE]) . '&doi=' . $dto->getDoi();
   drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_citation.js');
   drupal_add_js(['elife_article_toolbox' => ['url' => $node_url]], 'setting');
@@ -77,7 +84,9 @@ function theme_elife_article_toolbox($variables) {
     ];
   };
 
-  $article_tools_links[] = $add_pdf_link('article', elife_article_version_source_pdf_local($article_version, TRUE), $article_tools_options);
+  if ($pdf_path) {
+    $article_tools_links[] = $add_pdf_link('article', $pdf_path, $article_tools_options);
+  }
 
   if (module_exists('elife_resources')) {
     $resources = new elifeResources();
@@ -101,17 +110,11 @@ function theme_elife_article_toolbox($variables) {
       'div_class' => 'no',
     ]);
     $output .= '</section>';
-    $output .= '<div class="panel-separator"></div>';
   }
 
-
-  $output .= '<div class="elife-share-wrapper">';
-  // @todo - elife - nlisgo - configure sharethis
-  $output .= sharethis_block_contents();
-  $output .= "<script type='text/javascript'>stLight.options({onhover:false , doNotHash: true, doNotCopy: true, hashAddressBar: false});</script>";
-  $output .= '</div>';
-
-  $output .= '<div class="panel-separator panel-separator--reference-tools hidden"></div>';
+  if (!empty($output)) {
+    $output .= '<div class="panel-separator"></div>';
+  }
   $output .= '<div class="reference-tools hidden">';
   $output .= '<h2 class="pane-title">' . t('Reference tools:') . '</h2>';
 
