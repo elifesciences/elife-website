@@ -131,7 +131,12 @@ function elife_article_metatags_node_view($node, $view_mode, $langcode) {
         'citation_pmid' => elife_article_doi_to_pmid($article_version->getDoi()),
       );
 
-      $metatags['citation_pdf_url'] = elife_article_version_source_pdf_local($node);
+      $pdf_path = elife_article_version_source_pdf_local($node);
+      $pdf_path_remote = elife_article_version_source_pdf_path($node);
+      $pdf_head = array_change_key_case(get_headers($pdf_path_remote, TRUE));
+      if (!empty($pdf_head['content-length'])) {
+        $metatags['citation_pdf_url'] = $pdf_path;
+      }
 
       _elife_article_metatags_add($metatags, $article_version->getArticleVersionId());
 
