@@ -365,8 +365,8 @@ function elife_content_alerts_block_view($delta = '') {
       ];
 
     case 'elife_content_alerts_header':
-      $messages = elife_content_alerts_messages();
-      $status = arg(2);
+      $messages = array_change_key_case(elife_content_alerts_messages());
+      $status = strtolower(arg(2));
       return [
         'subject' => NULL,
         'content' => !empty($messages[$status]) ? '<p style="font-size: 12px; text-align:center;">[' . $messages[$status] . ']</p>' : NULL,
@@ -374,15 +374,16 @@ function elife_content_alerts_block_view($delta = '') {
 
     case 'elife_content_alerts_intro':
       $status = arg(2);
+      $manage_url = 'https://crm.elifesciences.org/crm/node/3?cid1={contact.contact_id}&{contact.checksum}';
       if ($status == 'POA') {
         $args = [
-          '!here' => l(t('here'), 'alerts-and-feeds', ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
+          '!here' => l(t('here'), $manage_url, ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
         ];
         $intro = t('<p style="font-size: 12px;">New articles this week accepted for publication in the following subject areas. <br>Manage your alert preferences !here.</p>', $args);
       }
       else {
         $args = [
-          '!here' => l(t('here'), 'alerts-and-feeds', ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
+          '!here' => l(t('here'), $manage_url, ['absolute' => TRUE, 'query' => _elife_content_alerts_query(), 'attributes' => ['style' => 'color: #0961AB; text-decoration: none']])
         ];
         $intro = t('<p style="font-size: 12px;">New articles this week in the following subject areas. Manage your alert preferences !here.</p>', $args);
       }
