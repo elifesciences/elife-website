@@ -1,0 +1,14 @@
+elifePipeline {
+    stage 'Checkout'
+    checkout scm
+    def commit = elifeGitRevision()
+
+    // Project tests are run on Travis CI at the moment
+
+    stage 'End2end tests'
+    elifeSwitchRevision 'elife-website-develop--end2end', commit
+    elifeEnd2EndTest()
+
+    stage 'Approval'
+    elifeGitMoveToBranch commit, 'approved'
+}
