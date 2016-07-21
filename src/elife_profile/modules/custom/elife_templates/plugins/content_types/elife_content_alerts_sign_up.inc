@@ -23,7 +23,8 @@ function elife_content_alerts_sign_up_render($subtype, $conf, $args, $context) {
   $sign_up_form = drupal_get_form(
     'elife_content_alerts_sign_up_form',
     !empty($conf['custom_6']) ? ctools_context_keyword_substitute($conf['custom_6'], [], $context) : NULL,
-    !empty($conf['gid']) ? ctools_context_keyword_substitute($conf['gid'], [], $context) : NULL
+    !empty($conf['action']) ? ctools_context_keyword_substitute($conf['action'], [], $context) : NULL,
+    !empty($conf['query']) ? ctools_context_keyword_substitute($conf['query'], [], $context) : NULL
   );
   $block->content = drupal_render($sign_up_form);
   return $block;
@@ -35,11 +36,17 @@ function elife_content_alerts_sign_up_render($subtype, $conf, $args, $context) {
 function elife_content_alerts_sign_up_edit($form, &$form_state) {
   $conf = $form_state['conf'];
 
-  $form['gid'] = array(
+  $form['action'] = array(
     '#type' => 'textfield',
-    '#title' => t('gid'),
-    '#description' => t('If left blank the gid :gid will be used', array(':gid' => ELIFE_CONTENT_ALERT_DEFAULT_GID)),
-    '#default_value' => $conf['gid'],
+    '#title' => t('action'),
+    '#description' => t('If left blank the action :action will be used', array(':action' => ELIFE_CONTENT_ALERT_DEFAULT_ACTION)),
+    '#default_value' => $conf['action'],
+  );
+
+  $form['query'] = array(
+    '#type' => 'textfield',
+    '#title' => t('query'),
+    '#default_value' => $conf['query'],
   );
 
   $form['custom_6'] = array(

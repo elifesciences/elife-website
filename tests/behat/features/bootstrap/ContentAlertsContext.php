@@ -4,6 +4,8 @@ use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
 
 class ContentAlertsContext extends PageObjectContext {
 
+  const CIVI_BASEPATH = 'https://crm.elifesciences.org/crm/';
+
   /**
    * @Given I should see a sign up form with id :id
    */
@@ -12,29 +14,26 @@ class ContentAlertsContext extends PageObjectContext {
   }
 
   /**
-   * @Given I should see a sign up form with gid :gid
+   * @Given I should see a sign up form with action :action
    */
-  public function shouldSeeSignUpFormWithGid($gid) {
-    $this->getElement('Content Alerts Signup Form')->hasGid($gid);
-    $this->getElement('Content Alerts Signup Form')->hasAction('https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid);
+  public function shouldSeeSignUpFormWithAction($action) {
+    $this->getElement('Content Alerts Signup Form')->hasAction(self::CIVI_BASEPATH . $action);
   }
 
   /**
-   * @Given I should see a sign up form with id :id and gid :gid
+   * @Given I should see a sign up form with id :id and action :action
    */
-  public function shouldSeeSignUpFormWithIdAndGid($id, $gid) {
+  public function shouldSeeSignUpFormWithIdAndAction($id, $action) {
     $this->getElement('Content Alerts Signup Form')->hasId($id);
-    $this->getElement('Content Alerts Signup Form')->hasGid($gid);
-    $this->getElement('Content Alerts Signup Form')->hasAction('https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid);
+    $this->getElement('Content Alerts Signup Form')->hasAction(self::CIVI_BASEPATH . $action);
   }
 
   /**
-   * @Then I should see a sign up form with id :id, gid :gid and button :button
+   * @Then I should see a sign up form with id :id, action :action and button :button
    */
-  public function iShouldSeeASignUpFormWithIdGidAndButton($id, $gid, $button) {
+  public function iShouldSeeASignUpFormWithIdActionAndButton($id, $action, $button) {
     $this->getElement('Content Alerts Signup Form')->hasId($id);
-    $this->getElement('Content Alerts Signup Form')->hasGid($gid);
     $this->getElement('Content Alerts Signup Form')->hasButton($button);
-    $this->getElement('Content Alerts Signup Form')->hasAction('https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=' . $gid);
+    $this->getElement('Content Alerts Signup Form')->hasAction(self::CIVI_BASEPATH . $action);
   }
 }
