@@ -271,7 +271,7 @@ libraries:
     download:
       type: 'git'
       url: 'https://github.com/elifesciences/elife-eif-schema'
-      revision: '1db6f4280b8fa45bf4373f9ea22f65013af58b1e'
+      revision: '4c53e39e6cac750de071f7da6936fc7d598c68cb'
   jquery.scrollTo:
     download:
       type: 'git'
