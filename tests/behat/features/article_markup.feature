@@ -86,6 +86,7 @@ Feature: Markup
     And I should see 1 "#acknowledgements" element
     And I should see 1 "#decision-letter" element
     And I should see 1 "#author-response" element
+    And I should see 1 "#disqus_thread" element
   
   Scenario: Article does not have author-response and decision letter section
     Then I visit "content/3/e03981v1"
