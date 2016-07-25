@@ -56,6 +56,8 @@ function _elife_services_publish($article_version_id, $data) {
 
     elife_article_version_paths_resolve($dto);
 
+    elife_article_detect_and_resolve_version_weight_inconsistencies();
+
     $response = [
       'publish' => $dto->getPublish(),
     ];

@@ -1977,6 +1977,15 @@ function elife_users_user_default_permissions() {
     'module' => 'elife_article',
   );
 
+  // Exported permission: 'resolve elife_article version ordering'.
+  $permissions['resolve elife_article version ordering'] = array(
+    'name' => 'resolve elife_article version ordering',
+    'roles' => array(
+      'eLife Administrator' => 'eLife Administrator',
+    ),
+    'module' => 'elife_article',
+  );
+
   // Exported permission: 'revert revisions'.
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',

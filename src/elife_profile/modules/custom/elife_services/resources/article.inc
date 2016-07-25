@@ -276,6 +276,8 @@ function _elife_services_persist_article($data) {
 
   elife_article_resolve_duplicates();
 
+  elife_article_detect_and_resolve_version_weight_inconsistencies();
+
   try {
     elife_article_validator()->validate($json);
   } catch (JsonSchemaErrors $e) {

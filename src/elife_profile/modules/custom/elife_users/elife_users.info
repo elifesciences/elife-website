@@ -296,6 +296,7 @@ features[user_permission][] = php redirect rh_node
 features[user_permission][] = preview focal point
 features[user_permission][] = rename features
 features[user_permission][] = resolve elife_article duplicates
+features[user_permission][] = resolve elife_article version ordering
 features[user_permission][] = revert revisions
 features[user_permission][] = save file information
 features[user_permission][] = schedule (un)publishing of nodes

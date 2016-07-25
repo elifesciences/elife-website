@@ -512,3 +512,50 @@ function elife_article_rewrite_latest_paths_process_finished($success, $results,
     drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => $error_operation[1][0]->cid)));
   }
 }
+
+/**
+ * Settings form as implemented by hook_menu.
+ */
+function elife_article_resolve_version_ordering_form($form, &$form_state) {
+  $inconsistencies = elife_article_detect_version_inconsistencies();
+  if (empty($form_state['input']) && !empty($inconsistencies)) {
+    $args = [
+      '@count' => count($inconsistencies),
+    ];
+    drupal_set_message(t('@count node(s) detected with article version weight inconsistencies.', $args));
+  }
+
+  $form['inconsistencies'] = [
+    '#type' => 'hidden',
+    '#value' => !empty($inconsistencies) ? array_keys($inconsistencies) : [],
+  ];
+
+  $form['actions']['#type'] = 'actions';
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Resolve article version inconsistencies'),
+  );
+
+  if (empty($inconsistencies)) {
+    $form['actions']['submit']['#disabled'] = TRUE;
+    drupal_set_message(t('No nodes with article version weight inconsistencies detected.'));
+  }
+
+  return $form;
+}
+
+/**
+ * Submit handler.
+ *
+ * @param array $form
+ *   Form API form.
+ * @param array $form_state
+ *   Form API form.
+ */
+function elife_article_resolve_version_ordering_form_submit($form, &$form_state) {
+  if (!empty($form_state['values']['inconsistencies'])) {
+    $nodes = node_load_multiple($form_state['values']['inconsistencies']);
+    elife_article_resolve_version_weights($nodes);
+  }
+  drupal_set_message(t('Version ordering has been successfully resolved.'));
+}

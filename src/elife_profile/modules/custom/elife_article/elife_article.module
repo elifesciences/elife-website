@@ -118,6 +118,15 @@ function elife_article_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'elife_article.admin.inc',
   );
+  $items['admin/config/services/elife-article-versions-cleanup'] = array(
+    'title' => 'eLife resolve version ordering',
+    'description' => 'Make sure that the weight of versions of an article goes up in sequence from 0',
+    'access arguments' => array('resolve elife_article version ordering'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('elife_article_resolve_version_ordering_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'elife_article.admin.inc',
+  );
   $items['elife/citation'] = array(
     'title' => 'Stream file from backend',
     'page callback' => 'elife_article_citation_download',
@@ -379,6 +388,9 @@ function elife_article_permission() {
     ),
     'resolve elife_article duplicates' => array(
       'title' => t('Resolve elife_article and elife_article_reference duplicate nodes'),
+    ),
+    'resolve elife_article version ordering' => array(
+      'title' => t('Resolve elife_article version ordering (follows sequence from 0)'),
     ),
   );
 }
@@ -2861,6 +2873,57 @@ function elife_article_detect_duplicates() {
   }
 
   return $results;
+}
+
+/**
+ * Detect elife_article nodes with a version weight inconsistency.
+ *
+ * @return array
+ */
+function elife_article_detect_version_inconsistencies() {
+  static $results = NULL;
+
+  if (is_null($results)) {
+    $results = [];
+
+    $query = db_select('field_data_field_elife_a_versions', 'v');
+    $query->addField('v', 'entity_id');
+    $query->addExpression('SUM(v.delta)', 'delta_sum');
+    $query->addExpression('(POW(COUNT(v.entity_id), 2) - COUNT(v.entity_id))/2', 'expected_delta_sum');
+    $query->addExpression('GROUP_CONCAT(v.delta ORDER BY v.delta ASC)', 'weights');
+    $query->addExpression('COUNT(v.entity_id)', 'versions');
+    $query->addField('d', 'field_elife_a_doi_value', 'doi');
+    $query->innerJoin('field_data_field_elife_a_doi', 'd', 'd.entity_id = v.field_elife_a_versions_target_id');
+    $query->groupBy('v.entity_id');
+    $query->having('delta_sum <> expected_delta_sum');
+    $query->orderBy('d.field_elife_a_doi_value');
+    if ($inconsitstency_results = $query->execute()->fetchAllAssoc('entity_id')) {
+      $results = $inconsitstency_results;
+    }
+  }
+  return $results;
+}
+
+/**
+ * Saving the nodes will resolve the version weights.
+ *
+ * @param object[] $nodes
+ */
+function elife_article_resolve_version_weights($nodes) {
+  foreach ($nodes as $node) {
+    node_save($node);
+  }
+}
+
+/**
+ * Detect and resolve article version weight inconsistencies.
+ */
+function elife_article_detect_and_resolve_version_weight_inconsistencies() {
+  $version_inconsistencies = elife_article_detect_version_inconsistencies();
+  if (!empty($version_inconsistencies)) {
+    $nodes = node_load_multiple(array_keys($version_inconsistencies));
+    elife_article_resolve_version_weights($nodes);
+  }
 }
 
 /**
