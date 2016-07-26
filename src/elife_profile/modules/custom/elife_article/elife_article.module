@@ -251,7 +251,7 @@ function elife_article_lookup_content() {
  */
 function elife_article_lookup_doi() {
   $doi = implode('/', func_get_args());
-  if ($path = _elife_article_lookup_doi_path($doi)) {
+  if ($path = _elife_article_lookup_doi_path_cache($doi)) {
     drupal_goto($path, [], 301);
   }
   else {
@@ -288,6 +288,22 @@ function elife_article_lookup_doi() {
     $output = t('<div id="doi_dialog">No resource with that DOI could be found on this site. Sending you to the original source in <span id="doi_countdown">@time_interval</span>. You may also click !redirection_url.</div>', $args);
     return $output;
   }
+}
+
+function _elife_article_lookup_doi_path_cache($doi) {
+  $key = 'elife_article_lookup_doi_path_'.$doi;
+
+  $found = cache_get($key);
+
+  if(!$found) {
+    if($found = _elife_article_lookup_doi_path($doi)) {
+      cache_set($key, $found);
+    }
+  } else {
+    $found = $found->data;
+  }
+
+  return $found;
 }
 
 /**
