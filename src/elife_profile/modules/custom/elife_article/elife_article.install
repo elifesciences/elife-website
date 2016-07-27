@@ -267,3 +267,10 @@ function elife_article_update_7110() {
   features_revert_module('elife_article');
   elife_article_resolve_duplicates();
 }
+
+/**
+ * Detect and resolve version weight inconsistencies.
+ */
+function elife_article_update_7111() {
+  elife_article_detect_and_resolve_version_weight_inconsistencies();
+}
