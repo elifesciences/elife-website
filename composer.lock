@@ -242,16 +242,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "28483cea1f628539522340938d594a5f5fa1251a"
+                "reference": "a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/28483cea1f628539522340938d594a5f5fa1251a",
-                "reference": "28483cea1f628539522340938d594a5f5fa1251a",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7",
+                "reference": "a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7",
                 "shasum": ""
             },
             "require": {
                 "beberlei/assert": "~2.3",
+                "elifesciences/elife-eif-schema": "dev-master",
                 "php": ">=5.5",
                 "symfony/process": "~2.7|~3.0"
             },
@@ -275,10 +276,29 @@
                     ]
                 }
             },
+            "scripts": {
+                "post-install-cmd": [
+                    "npm install --prefix ./vendor/elifesciences/elife-eif-schema/"
+                ],
+                "post-update-cmd": [
+                    "npm install --prefix ./vendor/elifesciences/elife-eif-schema/"
+                ]
+            },
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2016-05-18 15:03:15"
+            "time": "2016-07-25 14:28:46"
+        },
+        {
+            "name": "elifesciences/elife-eif-schema",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elifesciences/elife-eif-schema",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2016-07-22 16:08:57"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1071,7 +1091,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/6196fdb001faf681f92db2ae10abafb5815affde",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/54142e6a68809196b8ad3a20a12208e0bf275388",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },
@@ -2807,7 +2827,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/b07ebd668ebdafb26f6cf75604161c4973c7e1c5",
                 "reference": "e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "shasum": ""
             },
@@ -2976,7 +2996,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/9698fdf0a750d6887d5e7729d5cf099765b20e61",
+                "url": "https://api.github.com/repos/symfony/config/zipball/0327509ffd6d37354ec9acefcd946db7caaabdb7",
                 "reference": "9698fdf0a750d6887d5e7729d5cf099765b20e61",
                 "shasum": ""
             },
@@ -3521,6 +3541,7 @@
         "jms/serializer": 0,
         "symfony/process": 0,
         "elife/elife-ingest-xsl": 20,
+        "elifesciences/elife-eif-schema": 20,
         "guzzlehttp/psr7": 0,
         "guzzlehttp/guzzle": 0,
         "psr/http-message": 0,

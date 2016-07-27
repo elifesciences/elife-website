@@ -3,7 +3,8 @@
         "php": ">=5.5",
         "jms/serializer": "~1.0",
         "symfony/process": "~2.7",
-        "elife/elife-ingest-xsl": "dev-master"
+        "elife/elife-ingest-xsl": "dev-master",
+        "elifesciences/elife-eif-schema": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -18,6 +19,18 @@
         {
             "type": "vcs",
             "url": "https://github.com/elifesciences/elife-ingest-xsl"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "elifesciences/elife-eif-schema",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/elifesciences/elife-eif-schema",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
         }
     ]
 }
