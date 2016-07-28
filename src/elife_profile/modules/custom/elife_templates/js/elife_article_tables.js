@@ -25,8 +25,10 @@
           $fragment_tables.colorbox({title: false, width: 1050, height: 615, html: function () { return $(this).data('table-html'); }, className: 'table-expansion', current: "{current} of {total}"});
         };
 
-        $('.table-expansion', context).once('eLifeArticleTableExpansion', function () {
-          $(this).prepend('<div class="table-inline"><div class="callout"><span>View this table:</span><ul class="callout-links"><li><a href="#" class="table-expand-popup" rel="gallery-fragment-tables">View popup</a></li><li><a href="#" class="table-expand-inline">View inline</a></li></ul></div></div>');
+        $tablesToCollapse.each(function () {
+          $(this, context).once('eLifeArticleTableExpansion', function () {
+            $(this).prepend('<div class="table-inline"><div class="callout"><span>View this table:</span><ul class="callout-links"><li><a href="#" class="table-expand-popup" rel="gallery-fragment-tables">View popup</a></li><li><a href="#" class="table-expand-inline">View inline</a></li></ul></div></div>');
+          });
         });
         $('a.table-expand-inline', context).once('eLifeArticleTablesMarkup', function() {
           $(this, context).each(function() {
