@@ -7,7 +7,7 @@ elifePipeline {
 
     stage 'End2end tests'
     elifeEnd2EndTest {
-        elifeSwitchRevision 'elife-website-develop--end2end', commit
+        builderDeployRevision 'elife-website--end2end', commit
     }
 
     stage 'Approval'
