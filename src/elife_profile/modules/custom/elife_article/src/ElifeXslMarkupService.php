@@ -299,6 +299,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
             $variables = array(
               'poster' => $video_data->jpg_href,
               'mp4' => $video_data->mp4_href,
+              'webm' => $video_data->webm_href,
               'ogv' => $video_data->ogv_href,
             );
             $replacements[$placeholder] = theme('elife_video', $variables);
