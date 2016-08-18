@@ -153,7 +153,7 @@ function _elife_content_alerts_output_array($type = 'content_alerts_vor', $args 
     libxml_use_internal_errors(TRUE);
     $doc = new DOMDocument();
     $doc->loadHTML($http->data);
-    $html = $doc->saveHTML($doc->getElementById('email'));
+    $html = str_replace(['%7B', '%7D'], ['{', '}'], $doc->saveHTML($doc->getElementById('email')));
     libxml_clear_errors();
     $plain = drupal_html_to_text($html);
 
