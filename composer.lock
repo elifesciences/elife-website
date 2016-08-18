@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7"
+                "reference": "857dd08bf8bcf9e24d91c769cedacd5c0847ef42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7",
-                "reference": "a2cf8513a24e01ad41eef91f3ab9386d1e9f0eb7",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/857dd08bf8bcf9e24d91c769cedacd5c0847ef42",
+                "reference": "857dd08bf8bcf9e24d91c769cedacd5c0847ef42",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2016-07-25 14:28:46"
+            "time": "2016-08-18 13:43:11"
         },
         {
             "name": "elifesciences/elife-eif-schema",
@@ -1091,7 +1091,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/54142e6a68809196b8ad3a20a12208e0bf275388",
+                "url": "https://api.github.com/repos/wikimedia/composer-merge-plugin/zipball/6196fdb001faf681f92db2ae10abafb5815affde",
                 "reference": "6196fdb001faf681f92db2ae10abafb5815affde",
                 "shasum": ""
             },
@@ -1259,6 +1259,7 @@
                 "testing",
                 "web"
             ],
+            "abandoned": "drupal/tqextension",
             "time": "2015-04-09 09:51:29"
         },
         {
@@ -2827,7 +2828,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/b07ebd668ebdafb26f6cf75604161c4973c7e1c5",
+                "url": "https://api.github.com/repos/sensiolabs/BehatPageObjectExtension/zipball/e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "reference": "e4e615fd016d595b6f34fbe3fb03c54c577b89e0",
                 "shasum": ""
             },
@@ -2996,7 +2997,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/0327509ffd6d37354ec9acefcd946db7caaabdb7",
+                "url": "https://api.github.com/repos/symfony/config/zipball/9698fdf0a750d6887d5e7729d5cf099765b20e61",
                 "reference": "9698fdf0a750d6887d5e7729d5cf099765b20e61",
                 "shasum": ""
             },
