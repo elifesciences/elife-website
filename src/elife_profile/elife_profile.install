@@ -270,3 +270,10 @@ function elife_profile_update_7124() {
 function elife_profile_update_7125() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache following <monospace> and <styled-content> templates.
+ */
+function elife_profile_update_7126() {
+  _elife_article_markup_cache_clear_all();
+}
