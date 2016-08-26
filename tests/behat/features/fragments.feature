@@ -86,7 +86,7 @@ Feature: Navigate to fragment pages
           },
           {
             "path": "content/4/e05224v2/supp-material1",
-            "doi": "10.7554/eLife.05224.039",
+            "doi": "10.7554/eLife.05224.014",
             "type": "supplementary-material",
             "title": "Supplementary file 1."
           },
@@ -201,6 +201,12 @@ Feature: Navigate to fragment pages
     When I go to "content/4/e05224v2/decision"
     Then I should see "Social networks predict gut microbiome composition in wild baboons" in the ".page-title" element
     Then I should see "Decision letter"
+
+  Scenario: File extension with number
+    Given the markup service is available
+    When I go to "content/4/e05224v2/supp-material1"
+    Then I should see "[supplementary-file-1.media-1.x1sx]" in the ".inline-linked-media-wrapper" element
+    And I should see "http://parallel-elife-publishing-cdn.s3.amazonaws.com/05224/elife-05224-supp1-v2-download.x1sx" in the "href" attribute of the ".inline-linked-media-wrapper a" element
 
   Scenario: Fragment pages in editorial
     Given there is an article:

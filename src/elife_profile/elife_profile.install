@@ -277,3 +277,10 @@ function elife_profile_update_7125() {
 function elife_profile_update_7126() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache following file extension regex fix.
+ */
+function elife_profile_update_7127() {
+  _elife_article_markup_cache_clear_all();
+}

@@ -285,7 +285,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
         }
         $replacements[$placeholder] = $replacement;
       }
-      elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)(?P<ext>\.[a-z]+)\]$/', $placeholder, $match)) {
+      elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)(?P<ext>\.[a-z0-9]+)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . $match['ext'];
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }
