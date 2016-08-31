@@ -213,19 +213,14 @@ function elife_podcast_preprocess_node(&$variables) {
               if ('author' !== $contributor->getType()) {
                 continue;
               }
-              // Ok.
+              $contributor_items[] = $contributor->getSurname();
             }
             elseif ($contributor instanceof CollabContributor) {
-              // Ok.
+              $contributor_items[] = $contributor->getShortName();
             }
             elseif ($contributor instanceof OnBehalfOfContributor) {
-              // Ok.
+              $contributor_items[] = $contributor->getShortName();
             }
-            else {
-              continue;
-            }
-
-            $contributor_items[] = $contributor;
           }
 
           if (empty($contributor_items)) {
@@ -234,16 +229,11 @@ function elife_podcast_preprocess_node(&$variables) {
 
           $more = FALSE;
           if (count($contributor_items) > 2) {
-            $contributors = [$contributor_items[0]];
+            $by = [$contributor_items[0]];
             $more = TRUE;
           }
           else {
-            $contributors = $contributor_items;
-          }
-
-          $by = [];
-          foreach ($contributors as $contributor) {
-            $by[] = $contributor->getSurname();
+            $by = $contributor_items;
           }
 
           $display_channel = $dto->getCategoriesOfType('display-channel');
