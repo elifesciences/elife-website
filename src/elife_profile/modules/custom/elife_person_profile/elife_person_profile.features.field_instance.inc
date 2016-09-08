@@ -731,9 +731,12 @@ function elife_person_profile_field_default_field_instances() {
       ),
       'teaser' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => 0,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 3,
       ),
     ),
     'ds_extras_field_template' => '',

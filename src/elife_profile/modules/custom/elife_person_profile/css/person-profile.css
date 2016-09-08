@@ -100,13 +100,25 @@
     font-size: 2rem;
 }
 
-.person-profile__biog-expertise {
+.person-profile__biog-expertise, .person-profile__biog-keywords {
     margin: 1em 0;
 }
 
-.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-expertise ul {
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-expertise ul, .person-profile__biog-wrapper .person-profile__biog .person-profile__biog-keywords ul {
     padding-left: 0;
     padding-right: 0;
+}
+
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-keywords ul li {
+    display: inline;
+}
+
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-keywords ul li:after {
+    content: "; ";
+}
+
+.person-profile__biog-wrapper .person-profile__biog .person-profile__biog-keywords ul li:last-child:after {
+    content: "";
 }
 
 .person-profile__competing {
