@@ -96,7 +96,7 @@ function elife_article_rss_views_default_views() {
     'show_remaining_days' => 0,
   );
   $handler->display->display_options['fields']['field_elife_a_fpubdate_1']['format_date_sql'] = 0;
-  /* Field: Field: DOI */
+  /* Field: Content: DOI */
   $handler->display->display_options['fields']['field_elife_a_doi']['id'] = 'field_elife_a_doi';
   $handler->display->display_options['fields']['field_elife_a_doi']['table'] = 'field_data_field_elife_a_doi';
   $handler->display->display_options['fields']['field_elife_a_doi']['field'] = 'field_elife_a_doi';

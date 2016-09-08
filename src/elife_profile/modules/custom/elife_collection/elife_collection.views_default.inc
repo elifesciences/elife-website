@@ -116,7 +116,7 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['relationships']['field_elife_a_keyword_target_id']['relationship'] = 'field_elife_a_versions_target_id';
   $handler->display->display_options['relationships']['field_elife_a_keyword_target_id']['label'] = 'Keyword';
   $handler->display->display_options['relationships']['field_elife_a_keyword_target_id']['required'] = TRUE;
-  /* Field: Panel Pane - Node: eLife Reproducibility article */
+  /* Field: Panel Pane - Content: eLife Reproducibility article */
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['id'] = 'ctools_field_elife_article_reproducibility';
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['field'] = 'ctools_field_elife_article_reproducibility';
