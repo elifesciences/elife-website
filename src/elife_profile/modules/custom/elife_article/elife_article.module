@@ -2742,7 +2742,7 @@ function elife_article_doi_to_pmid_cache($doi) {
     }
 
     if (empty($data)) {
-      $request_uri = 'http://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?format=json&ids=' . $doi;
+      $request_uri = 'https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?format=json&ids=' . $doi;
       if ($result = drupal_http_request($request_uri, ['timeout' => 2])) {
         // Only store the data if pmid found.
         if(empty($result->error)) {
