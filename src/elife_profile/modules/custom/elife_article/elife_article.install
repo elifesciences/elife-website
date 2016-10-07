@@ -281,3 +281,12 @@ function elife_article_update_7111() {
 function elife_article_update_7112() {
   cache_clear_all(NULL, 'cache_elife_article_pmid');
 }
+
+/**
+ * Remove duplicate article version entities.
+ */
+function elife_article_update_7113() {
+  foreach (['content/5/e15928v1', 'content/4/e06474v1'] as $path) {
+    elife_article_delete_existing_path($path);
+  }
+}
