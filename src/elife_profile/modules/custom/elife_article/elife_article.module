@@ -2821,15 +2821,26 @@ function elife_article_field_create_field($field) {
 }
 
 /**
+ * Delete existing article version.
+ *
  * @param ArticleVersion $article_version
  */
 function elife_article_delete_existing(ArticleVersion $article_version) {
+  elife_article_delete_existing_path($article_version->getPath());
+}
+
+/**
+ * Delete existing article version by path.
+ *
+ * @param string $path
+ */
+function elife_article_delete_existing_path($path) {
   $query = db_select('url_alias', 'ua');
   $query->fields('ua', ['pid', 'alias']);
   $query->addField('n', 'nid');
   $db_or = db_or();
-  $db_or->condition('ua.alias', $article_version->getPath());
-  $db_or->condition('ua.alias', $article_version->getPath() . '/%', 'LIKE');
+  $db_or->condition('ua.alias', $path);
+  $db_or->condition('ua.alias', $path . '/%', 'LIKE');
   $query->condition($db_or);
   $query->leftJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source");
   if ($results = $query->execute()->fetchAllAssoc('pid')) {
