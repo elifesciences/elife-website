@@ -201,6 +201,59 @@ h2.snippet-title {
   color: #00f;
 }
 
+/* New author callout styles, autumn 2106 */
+.author-callout-style-a1 {
+	color: #366bfb;
+}
+
+.author-callout-style-a2 {
+	color: #9c27b0;
+}
+
+.author-callout-style-a3 {
+	color: #d50000;
+}
+
+.author-callout-style-b1 {
+	background-color: #90caf9;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b2 {
+	background-color: #c5e1a5;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b3 {
+	background-color: #ffb74d;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b4 {
+	background-color: #fff176;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b5 {
+	background-color: #9e86c9;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b6 {
+	background-color: #e57373;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b7 {
+	background-color: #f48fb1;
+	color: rgb(0, 0, 15);
+}
+
+.author-callout-style-b8 {
+	background-color: #e6e6e6;
+	color: rgb(0, 0, 15);
+}
+
 /* Home Page */
 .elife-home-featured-items .elife-home-featured-item-index {
 	font-family: 'Avenir LT W01 35 Light', sans-serif;
