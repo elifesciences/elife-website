@@ -284,3 +284,10 @@ function elife_profile_update_7126() {
 function elife_profile_update_7127() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7128() {
+  _elife_article_markup_cache_clear_all();
+}
