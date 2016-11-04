@@ -29,17 +29,39 @@
     },
 
     /**
+     * Generic cookie-setting function
+     *
+     * @param name {string} Name of the cookie to set
+     * @param value {string} Value to give the cookie
+     * @param [expires] {Date} Expiry date of cookie, defaults to 1 year hence if not provided
+     * @param [path] {string} Path of cookie scope, defaults to root if not provided
+     */
+    setCookie = function setCookie(name, value, expires, path) {
+      var cookie = name + '=' + value;
+      var expDateStr = (function (expires){
+        if (expires instanceof Date) {
+          return expires.toUTCString();
+        }
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 365);
+        return exp.toUTCString();
+      }(expires));
+      var _path = '' + path || '/';
+      // expires not max-age because IE8.
+      cookie += '; expires=' + expDateStr;
+      cookie += '; path=' + _path;
+      document.cookie = cookie;
+
+    },
+
+    /**
      * Sets a cookie recording the state of the digest.
      *
      * @param cookieData Data describing the cookie to set
      * @param digestState {String} "open" or "closed" (derived from cookieData)
      */
     setDigestCookie = function setDigestCookie(cookieData, digestState) {
-      var cookie = cookieData.name + '=' + cookieData.value[digestState];
-      // expires not max-age because IE8.
-      cookie += '; expires=' + cookieData.getDuration();
-      cookie += '; path=' + cookieData.path;
-      document.cookie = cookie;
+      setCookie(cookieData.name, cookieData.value[digestState], cookieData.getDuration(), cookieData.path);
     },
 
     /**
