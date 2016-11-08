@@ -29,17 +29,39 @@
     },
 
     /**
+     * Generic cookie-setting function
+     *
+     * @param name {string} Name of the cookie to set
+     * @param value {string} Value to give the cookie
+     * @param [expires] {Date} Expiry date of cookie, defaults to 1 year hence if not provided
+     * @param [path] {string} Path of cookie scope, defaults to root if not provided
+     */
+    setCookie = function setCookie(name, value, expires, path) {
+      var cookie = name + '=' + value;
+      var expDateStr = (function (expires){
+        if (expires instanceof Date) {
+          return expires.toUTCString();
+        }
+        var exp = new Date();
+        exp.setTime(exp.getTime() + 1000 * 60 * 60 * 24 * 365);
+        return exp.toUTCString();
+      }(expires));
+      var _path = '' + path || '/';
+      // expires not max-age because IE8.
+      cookie += '; expires=' + expDateStr;
+      cookie += '; path=' + _path;
+      document.cookie = cookie;
+
+    },
+
+    /**
      * Sets a cookie recording the state of the digest.
      *
      * @param cookieData Data describing the cookie to set
      * @param digestState {String} "open" or "closed" (derived from cookieData)
      */
     setDigestCookie = function setDigestCookie(cookieData, digestState) {
-      var cookie = cookieData.name + '=' + cookieData.value[digestState];
-      // expires not max-age because IE8.
-      cookie += '; expires=' + cookieData.getDuration();
-      cookie += '; path=' + cookieData.path;
-      document.cookie = cookie;
+      setCookie(cookieData.name, cookieData.value[digestState], cookieData.getDuration(), cookieData.path);
     },
 
     /**
@@ -143,9 +165,134 @@
       } catch (e) {
         // If something goes wrong with the tracking, fail silently.
       }
+    },
+
+  // Survey cta popup
+    buildSurveyPopupCta = function buildSurvey() {
+
+      var doc = window.document;
+
+      function determineTransformSupport() {
+        var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];
+        var testDiv = doc.createElement('div');
+        for(var i = 0; i < prefixes.length; i++) {
+          if(testDiv.style[prefixes[i]] !== undefined) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function setSeenCookie() {
+        setCookie('digestSurveyCta2016', 'true');
+      }
+
+      var alreadySeen = function alreadySeen() {
+        var cookies = document.cookie.length ? document.cookie.split('; ') : [];
+        for (var i = 0; i < cookies.length; i += 1) {
+          var eqPos = cookies[i].indexOf('='),
+            name = cookies[i].substring(0, eqPos),
+            value;
+          if (window.decodeURIComponent(name) === 'digestSurveyCta2016') {
+            return true;
+          }
+        }
+        return false;
+      };
+
+      function buildLabel(text) {
+        var $el = doc.createElement('div');
+        $el.className = 'survey-cta__label';
+        $el.innerHTML = text;
+        return $el;
+      }
+
+      function buildLinks() {
+
+        var buildLink = function buildLink(contents, href) {
+          var $el = doc.createElement('a');
+          $el.className = 'survey-cta__link';
+          $el.innerHTML = contents;
+          $el.setAttribute('href', href);
+          $el.addEventListener('click', toggleDisplay);
+          return $el
+        };
+
+        var $linkYes = buildLink('Yes', 'https://www.surveymonkey.co.uk/r/9MWWD95');
+        var $linkNo = buildLink('No', '#');
+        var $el = doc.createElement('div');
+        $el.className = 'survey-cta__links';
+        $linkYes.setAttribute('target', '_blank');
+        $el.appendChild($linkYes);
+        $el.appendChild($linkNo);
+        return $el;
+      }
+
+      function buildCta($label, $links) {
+        var $el = doc.createElement('div');
+        $el.className = 'survey-cta';
+        $el.appendChild($label);
+        $el.appendChild($links);
+        return $el;
+      }
+
+      function buildWrapper($elToWrap) {
+        var $el = doc.createElement('div');
+        $el.className = 'survey-cta-wrapper';
+        $el.appendChild($elToWrap);
+        return $el;
+      }
+
+
+      // Provide different fn to toggle display, depending on browser support for transform.
+      var toggleDisplay = (function(isTransformSupported) {
+
+        var toggleFn = function toggleFn(e) {
+          if (e && e.target.getAttribute('href') === '#') {
+            e.preventDefault();
+          }
+          var classNameToUse = 'survey-cta-wrapper--shown';
+          if ($wrapper.classList.contains(classNameToUse)) {
+            $wrapper.classList.remove(classNameToUse);
+          } else if (!alreadySeen()) {
+            $wrapper.classList.add(classNameToUse);
+            setSeenCookie();
+          }
+        };
+
+        var toggleFallbackFn = function toggleFallbackFn(e) {
+          if (e && e.target.getAttribute('href') === '#') {
+            e.preventDefault();
+          }
+          var classNameToUse = ' survey-cta-wrapper--shown-by-fallback';
+          var currentClassName = $toggled.className;
+          if (currentClassName.indexOf(classNameToUse) > -1) {
+            $wrapper.className = $wrapper.className.replace(classNameToUse, '');
+          } else if (!alreadySeen()) {
+            $wrapper.className += classNameToUse;
+            setSeenCookie();
+          }
+        };
+
+        if (isTransformSupported) {
+          return toggleFn;
+        }
+        return toggleFallbackFn;
+
+      }(determineTransformSupport()));
+
+      var $label = buildLabel('Do you read eLife digests? Help us make them better by taking part in our short survey.');
+      var $links = buildLinks();
+      var cta = buildCta($label, $links);
+      var $wrapper = buildWrapper(cta);
+      doc.querySelector('body').appendChild($wrapper);
+      return {
+        toggle: toggleDisplay
+      };
     };
 
-// Opening/closing:
+
+  // Opening/closing:
 //  Digests default by open.
 //  Once a user closes one digest, a cookie is set so all digests appear
 //  closed to them. Once a user opens a digest, all digests now appear
@@ -167,7 +314,8 @@
       isDigestShown,
       digestReadTimer = -1,
       isDigestRead = false,
-      isDigestSkipped = false;
+      isDigestSkipped = false,
+      surveyPopupCta = buildSurveyPopupCta();
 
     if (!$digest.length) {
       return;
@@ -210,6 +358,7 @@
 
         if (isDigestInReadingZone($digest) && digestReadTimer === -1) {
           digestReadTimer = window.setTimeout(function () {
+            surveyPopupCta.toggle();
             isDigestRead = true;
             sendToGa('read');
           }, 20000);
@@ -232,5 +381,7 @@
       }
     });
   });
+
+
 
 }(window, window.document, jQuery));

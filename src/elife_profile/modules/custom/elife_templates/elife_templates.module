@@ -289,6 +289,7 @@ function elife_templates_article_page_markup_assets() {
   if (!$cache) {
     // Add js and css needed to help render the markup once it's in place.
     drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/elife-article-tables.css');
+    drupal_add_css(drupal_get_path('module', 'elife_templates') . '/css/elife-digest-survey-cta-popup.css');
 
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_figures.js');
     drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_tables.js');
