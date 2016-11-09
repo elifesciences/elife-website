@@ -291,3 +291,11 @@ function elife_profile_update_7127() {
 function elife_profile_update_7128() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Uninstall the redundant elife_resources module.
+ */
+function elife_profile_update_7129() {
+  module_disable(['elife_resources'], FALSE);
+  drupal_uninstall_modules(['elife_resources'], FALSE);
+}

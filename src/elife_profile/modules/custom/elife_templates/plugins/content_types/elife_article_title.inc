@@ -35,6 +35,13 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
     $pdf_path = FALSE;
   }
 
+  $figures_pdf_path = elife_article_version_source_figures_pdf_local($article_version, TRUE);
+  $figures_pdf_path_remote = elife_article_version_source_figures_pdf_path($article_version);
+  $figures_pdf_head = array_change_key_case(get_headers($figures_pdf_path_remote, TRUE));
+  if (empty($figures_pdf_head['content-length'])) {
+    $figures_pdf_path = FALSE;
+  }
+
   // Add JS for icon cluetips.
   drupal_add_library('cluetip', 'cluetip');
   drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_title.js');
@@ -91,40 +98,29 @@ function elife_article_title_render($subtype, $conf, $args, $context) {
     );
   }
 
-  // Figures PDF.
-  if (module_exists('elife_resources')) {
-    $resources = new elifeResources();
-    $resources->getArticle($dto->getDoi(), array('figures'));
-    $pdf_urls = $resources->getUrls();
-    if (!empty($pdf_urls)) {
-      foreach ($pdf_urls as $type => $pdfs) {
-        foreach ($pdfs as $pdf) {
-          $img_figs = theme('image', array(
-              'alt' => t('Download @type', array('@type' => $type)),
-              'width' => 22,
-              'attributes' => array('class' => 'visible-small'),
-              'title' => t('Download figures'),
-              'path' => drupal_get_path('module', 'elife_templates') . '/images/figs.png',
-            )
-          );
+  if ($figures_pdf_path) {
+    $img_figs = theme('image', array(
+        'alt' => t('Download figures'),
+        'width' => 22,
+        'attributes' => array('class' => 'visible-small'),
+        'title' => t('Download figures'),
+        'path' => drupal_get_path('module', 'elife_templates') . '/images/figs.png',
+      )
+    );
 
-          $block->content .= l($img_figs, $pdf['url'], array(
-              'external' => TRUE,
-              'html' => TRUE,
-              'attributes' => array(
-                'title' => t('Figures'),
-                'class' => array($type . '-download'),
-                'type' => 'application/pdf',
-                'rel' => 'alternative',
-                'download' => NULL,
-                'data-article-identifier' => $dto->getDoi(),
-                'data-download-type' => 'pdf-figures',
-              ),
-            )
-          );
-        }
-      }
-    }
+    $block->content .= l($img_figs, $figures_pdf_path, array(
+        'external' => TRUE,
+        'html' => TRUE,
+        'attributes' => array(
+          'title' => t('Figures'),
+          'class' => array('figures-download'),
+          'type' => 'application/pdf',
+          'rel' => 'alternative',
+          'data-article-identifier' => $dto->getDoi(),
+          'data-download-type' => 'pdf-figures',
+        ),
+      )
+    );
   }
 
   $article = ElifeArticleVersion::getArticle($dto->getArticleId());

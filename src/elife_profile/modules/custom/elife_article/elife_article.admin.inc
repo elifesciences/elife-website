@@ -243,7 +243,7 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
     '#type' => 'fieldset',
   );
 
-  if (!empty(variable_get('elife_article_source_assets_base_path')) && !empty(variable_get('elife_article_source_assets_xml_file_pattern')) && !empty(variable_get('elife_article_source_assets_pdf_file_pattern'))) {
+  if (!empty(variable_get('elife_article_source_assets_base_path')) && !empty(variable_get('elife_article_source_assets_xml_file_pattern')) && !empty(variable_get('elife_article_source_assets_pdf_file_pattern')) && !empty(variable_get('elife_article_source_assets_figures_pdf_file_pattern'))) {
     $query = new EntityFieldQueryExtraFields();
 
     $entities = $query->entityCondition('entity_type', 'node')
@@ -259,7 +259,8 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
       $node = node_load(array_shift($nids));
       $example_xml_path = elife_article_version_source_xml_path($node);
       $example_pdf_path = elife_article_version_source_pdf_path($node);
-      $example_pdf_download_path = elife_article_version_source_pdf_path($node, TRUE);
+      $example_pdf_download_path = elife_article_version_source_pdf_path($node);
+      $example_figures_pdf_download_path = elife_article_version_source_figures_pdf_path($node);
       $form['source_assets']['elife_article_source_assets_xml_example'] = array(
         '#type' => 'item',
         '#title' => t('Example source xml path'),
@@ -274,6 +275,11 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
         '#type' => 'item',
         '#title' => t('Example source pdf download path'),
         '#markup' => $example_pdf_download_path,
+      );
+      $form['source_assets']['elife_article_source_assets_figures_pdf_download_example'] = array(
+        '#type' => 'item',
+        '#title' => t('Example source figures pdf download path'),
+        '#markup' => $example_figures_pdf_download_path,
       );
     }
   }
@@ -292,6 +298,11 @@ function elife_article_assets_source_settings_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Source PDF file pattern'),
     '#default_value' => variable_get('elife_article_source_assets_pdf_file_pattern'),
+  );
+  $form['source_assets']['elife_article_source_assets_figures_pdf_file_pattern'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Source figures PDF file pattern'),
+    '#default_value' => variable_get('elife_article_source_assets_figures_pdf_file_pattern'),
   );
 
   $form['source_assets']['elife_article_source_assets_glencoe_api'] = array(
