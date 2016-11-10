@@ -1754,8 +1754,10 @@ div.highwire-markup .article div.section h4 {
 p {
   line-height: 1.75em; /* ~24px */
   margin-bottom: 10px;
-  /* Fix for very wide or unbreakable text. TODO: Target long unbreakable strings and use word-wrap:break-word;*/
-  word-wrap:break-word;
+  /* Fix for very wide or unbreakable text.*/
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .highwire-markup img.highwire-embed { max-width: 100%; }
