@@ -49,6 +49,13 @@ function theme_elife_article_toolbox($variables) {
     $pdf_path = FALSE;
   }
 
+  $figures_pdf_path = elife_article_version_source_figures_pdf_local($article_version, TRUE);
+  $figures_pdf_path_remote = elife_article_version_source_figures_pdf_path($article_version);
+  $figures_pdf_head = array_change_key_case(get_headers($figures_pdf_path_remote, TRUE));
+  if (empty($figures_pdf_head['content-length'])) {
+    $figures_pdf_path = FALSE;
+  }
+
   $node_url = 'url=' . url('node/' . $article_version->nid, ['absolute' => TRUE]) . '&doi=' . $dto->getDoi();
   drupal_add_js(drupal_get_path('module', 'elife_templates') . '/js/elife_article_citation.js');
   drupal_add_js(['elife_article_toolbox' => ['url' => $node_url]], 'setting');
@@ -88,17 +95,8 @@ function theme_elife_article_toolbox($variables) {
     $article_tools_links[] = $add_pdf_link('article', $pdf_path, $article_tools_options);
   }
 
-  if (module_exists('elife_resources')) {
-    $resources = new elifeResources();
-    $resources->getArticle($dto->getDoi(), 'figures');
-    $pdf_urls = $resources->getUrls();
-    if (!empty($pdf_urls)) {
-      foreach ($pdf_urls as $type => $pdfs) {
-        foreach ($pdfs as $pdf) {
-          $article_tools_links[] = $add_pdf_link($type, $pdf['url'], $article_tools_options);
-        }
-      }
-    }
+  if ($figures_pdf_path) {
+    $article_tools_links[] = $add_pdf_link('figures', $figures_pdf_path, $article_tools_options);
   }
 
   if (!empty($article_tools_links)) {

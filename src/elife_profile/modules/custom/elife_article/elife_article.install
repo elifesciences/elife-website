@@ -290,3 +290,10 @@ function elife_article_update_7113() {
     elife_article_delete_existing_path($path);
   }
 }
+
+/**
+ * Set figures pdf file pattern.
+ */
+function elife_article_update_7114() {
+  variable_set('elife_article_source_assets_figures_pdf_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-figures-v[node:version_no].pdf');
+}

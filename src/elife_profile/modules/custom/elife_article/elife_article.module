@@ -175,6 +175,7 @@ function elife_article_lookup_content() {
       $redirect = elife_article_version_source_pdf_local($article_version);
     }
   }
+  // Detect request for article PDF.
   elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.pdf)$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
       $article_version = menu_get_object('node', 1, $source);
@@ -202,6 +203,37 @@ function elife_article_lookup_content() {
       }
       else {
         throw new Exception("Error opening: {$pdf_path}");
+      }
+    }
+  }
+  // Detect request for figures PDF.
+  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.figures.pdf)$/', $raw_path, $match)) {
+    if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
+      $article_version = menu_get_object('node', 1, $source);
+      $figures_pdf_path = elife_article_version_source_figures_pdf_path($article_version, (!empty($match['download'])));
+      $figures_pdf_head = array_change_key_case(get_headers($figures_pdf_path, TRUE));
+      if (!empty($figures_pdf_head['content-length']) && $file = @fopen($figures_pdf_path, 'rb')) {
+        $figures_pdf_filesize = $figures_pdf_head['content-length'];
+        if (!empty($match['download'])) {
+          $disposition = 'attachment';
+          $match['file_name'] .= $match['download'];
+        }
+        else {
+          $disposition = 'inline';
+        }
+        drupal_add_http_header('Content-type', 'application/pdf');
+        drupal_add_http_header('Content-Disposition', sprintf('%s; filename="%s"', $disposition, $match['file_name'] . $match['ext']));
+        drupal_add_http_header('Content-Length', $figures_pdf_filesize);
+        drupal_send_headers();
+        while (!feof($file)) {
+          print(@fread($file, 1024*8));
+          ob_flush();
+          flush();
+        }
+        exit();
+      }
+      else {
+        throw new Exception("Error opening: {$figures_pdf_path}");
       }
     }
   }
@@ -930,6 +962,41 @@ function elife_article_version_source_pdf_path($article_version, $download = FAL
 }
 
 /**
+ * Get the path to the article version figures PDF.
+ *
+ * @param string|object $article_version
+ *   Article version id or article version node.
+ * @param bool $download
+ *   Set to TRUE to request a file path prepared for download.
+ *
+ * @return bool|string
+ *   Path to figures PDF.
+ */
+function elife_article_version_source_figures_pdf_path($article_version, $download = FALSE) {
+  if (!is_object($article_version)) {
+    $article_version = ElifeArticleVersion::fromIdentifier($article_version);
+  }
+
+  $source_assets_base_path = variable_get('elife_article_source_assets_base_path');
+  $source_figures_pdf_file_pattern = variable_get('elife_article_source_assets_figures_pdf_file_pattern');
+
+  if (empty($source_assets_base_path) || empty($source_figures_pdf_file_pattern)) {
+    return FALSE;
+  }
+  else {
+    if (module_exists('token')) {
+      $source_figures_pdf_file_pattern = token_replace($source_figures_pdf_file_pattern, array('node' => $article_version));
+    }
+
+    if ($download) {
+      $source_figures_pdf_file_pattern = preg_replace('/(?!\-download)(.+)(\.pdf)$/', '$1-download$2', $source_figures_pdf_file_pattern);
+    }
+
+    return $source_assets_base_path . $source_figures_pdf_file_pattern;
+  }
+}
+
+/**
  * Get the local path to the article version PDF.
  *
  * @param string|object $article_version
@@ -942,6 +1009,21 @@ function elife_article_version_source_pdf_path($article_version, $download = FAL
  */
 function elife_article_version_source_pdf_local($article_version, $download = FALSE) {
   return url('node/' . $article_version->nid, ['absolute' => TRUE]) . (($download) ? '-download' : '') . '.pdf';
+}
+
+/**
+ * Get the local path to the article version figures PDF.
+ *
+ * @param string|object $article_version
+ *   Article version id or article version node.
+ * @param bool $download
+ *   Set to TRUE to request a file path prepared for download.
+ *
+ * @return bool|string
+ *   Local path to PDF.
+ */
+function elife_article_version_source_figures_pdf_local($article_version, $download = FALSE) {
+  return url('node/' . $article_version->nid, ['absolute' => TRUE]) . (($download) ? '-download' : '') . '.figures.pdf';
 }
 
 /**
