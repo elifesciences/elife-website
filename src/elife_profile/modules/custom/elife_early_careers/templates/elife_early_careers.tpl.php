@@ -114,6 +114,6 @@
 
   <section class="ec-section ec-section--cta">
     <h2 class="ec-section__heading">You can be part of the eLife initiative</h2>
-    <a href="<?php print url('https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=26'); ?>" class="ec-section--cta__link">Share your voice</a>
+    <a href="<?php print url('https://crm.elifesciences.org/crm/node/9'); ?>" class="ec-section--cta__link">Share your voice</a>
   </section> <!-- /.ec-section--cta -->
 </section> <!-- /.ec-wrapper -->
