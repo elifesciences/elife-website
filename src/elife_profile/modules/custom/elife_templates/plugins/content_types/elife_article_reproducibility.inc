@@ -120,13 +120,13 @@ function elife_ctools_elife_article_repro_detail($dto, &$variables) {
     ];
 
     if (isset($critical_relations['replicates'])) {
-      $related = node_load($critical_relations['replicates']->endpoints->related_to->article_ver_nid);
+      $related = node_load($critical_relations['replicates'][0]->endpoints->related_to->article_ver_nid);
       $related_dto = elife_article_version_to_dto($related);
       $related_display_channel = $related_dto->getDisplayChannels();
       $related_display_channel = reset($related_display_channel);
       $repro_vars['replication-study'] = [
         'identifier' => 'repln-study-done',
-        'title' => l($related_display_channel, 'node/' . $variables[$related->nid]),
+        'title' => l($related_display_channel, 'node/' . $related->nid),
         'date' => $related_dto->getPubDate()->format('F j, Y'),
         'date_machine' => $related_dto->getPubDate()->format('Ymd'),
         'source' => $related_dto->getCiteAs(),
