@@ -191,7 +191,7 @@ function elife_ctools_elife_article_repro_detail($dto, &$variables) {
 function elife_ctools_elife_article_reprod_author_list($authors, $options = [], $limit = 10) {
   $options += [
     'type' => 'ol',
-    'identifier' => 'author',
+    'identifier' => 'repro-study-item',
     'list_class' => [
       '__bib_details__author_list',
     ],
