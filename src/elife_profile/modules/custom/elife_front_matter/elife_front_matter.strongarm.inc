@@ -58,6 +58,9 @@ function elife_front_matter_strongarm() {
         'rabbit_hole' => array(
           'weight' => '0',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(
         'sharethis' => array(

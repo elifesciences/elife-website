@@ -92,6 +92,12 @@ function elife_front_matter_theme($existing, $type, $theme, $path) {
  * Implements hook_node_presave().
  */
 function elife_front_matter_node_presave($node) {
+  if (!empty($node->field_elife_fm_uri)) {
+    $node->status = TRUE;
+
+    return;
+  }
+
   if (!empty($node->field_elife_fm_reference)) {
     if (!empty($node->elife_autogenerating)) {
       return; // Avoid superfluous query.
@@ -524,3 +530,4 @@ function elife_front_matter_permission() {
     ),
   );
 }
+

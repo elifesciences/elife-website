@@ -51,6 +51,16 @@ Feature: Front Matter
     And I follow "Podcast 1" in the "front_matter_cover" region
     And I should be on "podcast/episode1"
 
+  Scenario: Load cover item to homepage referencing a URI
+    Given "elife_cover" content:
+      | field_elife_title | field_elife_fm_uri |
+      | About page        | /about             |
+    And I add "elife_cover" with title "About page" to entityqueue "elife_cover"
+    When I am on the homepage
+    Then I should see the text "About page" in the "front_matter_cover" region
+    And I follow "About page" in the "front_matter_cover" region
+    And I should be on "about"
+
   Scenario: Load front matter items to homepage
     Given "elife_podcast" content:
       | field_elife_p_episode_number | field_elife_p_title |
@@ -178,6 +188,45 @@ Feature: Front Matter
     And I follow "Check out 05226" in the "front_matter_col_2" region
     And I should be on "content/4/e05226"
     And I should see "VOR 05226" in the "h1" element
+
+  Scenario: Front matter linking to a URI
+    Given there are articles:
+      """
+        [
+          {
+            "title": "VOR 05224",
+            "version": 1,
+            "doi": "10.7554/eLife.05224.1",
+            "volume": 4,
+            "elocation-id": "e05224",
+            "article-id": "05224",
+            "article-version-id": "05224.1",
+            "pub-date": "1979-08-17T00:00:00+00:00",
+            "update": "1979-08-17T00:00:00+00:00",
+            "path": "content/4/e05224",
+            "article-type": "research-article",
+            "categories": {
+              "display-channel": [
+                "Research article"
+              ]
+            },
+            "status": "VOR",
+            "publish": true
+          }
+        ]
+      """
+    And "elife_front_matter" content:
+      | field_elife_title | field_elife_fm_uri |
+      | About page        | /about             |
+    And "elife_cover" content:
+      | field_elife_title | field_elife_fm_reference |
+      | Check out 05224   | 05224: VOR 05224         |
+    And I add "elife_front_matter" with title "About page" to entityqueue "elife_front_matter_col_1"
+    And I add "elife_cover" with title "Check out 05224" to entityqueue "elife_cover"
+    When I am on the homepage
+    Then I should see "About page" in the ".view-display-id-front_matter_col_1 > .view-header .headlines-secondary__item_title" element
+    When I follow "About page" in the "front_matter_col_1" region
+    Then I should be on "about"
 
   Scenario: Latest research list on the homepage
     Given there are articles:
