@@ -124,6 +124,11 @@ function elife_collection_views_default_views() {
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['label'] = '';
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['ctools_field_elife_article_reproducibility']['element_default_classes'] = FALSE;
+  /* Sort criterion: Content: Has replication study (field_elife_a_has_rep_study) */
+  $handler->display->display_options['sorts']['field_elife_a_has_rep_study_value']['id'] = 'field_elife_a_has_rep_study_value';
+  $handler->display->display_options['sorts']['field_elife_a_has_rep_study_value']['table'] = 'field_data_field_elife_a_has_rep_study';
+  $handler->display->display_options['sorts']['field_elife_a_has_rep_study_value']['field'] = 'field_elife_a_has_rep_study_value';
+  $handler->display->display_options['sorts']['field_elife_a_has_rep_study_value']['order'] = 'DESC';
   /* Sort criterion: Content: First Publication Date (field_elife_a_fpubdate) */
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['id'] = 'field_elife_a_fpubdate_value';
   $handler->display->display_options['sorts']['field_elife_a_fpubdate_value']['table'] = 'field_data_field_elife_a_fpubdate';
