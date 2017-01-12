@@ -29,17 +29,35 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
 
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $context->data);
-  $reference = $ewrapper->field_elife_fm_reference->value();
-
-  if('elife_article_reference' === $reference->type) {
-    $reference = elife_article_reference_get_article_version($reference);
-  }
-
-  if (empty($reference)) {
-    return NULL;
-  }
 
   $variables = array();
+  $variables['section_name'] = $ewrapper->field_elife_fm_relabel->value();
+
+  if ($ewrapper->field_elife_fm_uri->value()) {
+    $path = $ewrapper->field_elife_fm_uri->value();
+  }
+  else {
+    $reference = $ewrapper->field_elife_fm_reference->value();
+
+    if ('elife_article_reference' === $reference->type) {
+      $reference = elife_article_reference_get_article_version($reference);
+    }
+
+    if (empty($reference)) {
+      return NULL;
+    }
+
+    $path = 'node/' . $reference->nid;
+
+    $variables['section'] = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
+
+    // If a relabel value has been supplied then use that value for the section.
+    // name other was use standard.
+    if (empty($variables['section_name'])) {
+      $variables['section_name'] = ElifeArticleVersion::getSection($variables['section']);
+    }
+  }
+
   $variables['display'] = ($conf['front_matter_type']) ? $conf['front_matter_type'] : 'regular';
 
   // If this is a headline item and there is an image prepare the image.
@@ -62,20 +80,7 @@ function elife_front_matter_plugin_render($subtype, $conf, $args, $context) {
 
   $title_classes = array('headlines-secondary__item_title');
   $attribs = array('class' => $title_classes);
-  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], 'node/' . $reference->nid, array('attributes' => $attribs, 'html' => TRUE));
-
-  $variables['section'] = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
-
-  // If a relabel value has been supplied then use that value for the section.
-  // name other was use standard.
-  $relabel = $ewrapper->field_elife_fm_relabel->value();
-  if (empty($relabel)) {
-    $section_name = ElifeArticleVersion::getSection($variables['section']);
-  }
-  else {
-    $section_name = $relabel;
-  }
-  $variables['section_name'] = $section_name;
+  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], $path, array('attributes' => $attribs, 'html' => TRUE));
 
   $block->content = theme('elife_front_matter', $variables);
   return $block;

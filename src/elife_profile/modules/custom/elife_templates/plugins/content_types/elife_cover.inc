@@ -29,14 +29,23 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
 
   /* @var EntityDrupalWrapper $ewrapper */
   $ewrapper = entity_metadata_wrapper('node', $context->data);
-  $reference = $ewrapper->field_elife_fm_reference->value();
-
-  if ('elife_article_reference' === $reference->type) {
-    $reference = elife_article_reference_get_article_version($reference);
+  if ($ewrapper->field_elife_fm_uri->value()) {
+    $path = $ewrapper->field_elife_fm_uri->value();
   }
+  else {
+    $reference = $ewrapper->field_elife_fm_reference->value();
 
-  if (empty($reference)) {
-    return NULL;
+    if ('elife_article_reference' === $reference->type) {
+      $reference = elife_article_reference_get_article_version($reference);
+    }
+
+    if (empty($reference)) {
+      return NULL;
+    }
+
+    $path = 'node/' . $reference->nid;
+
+    $section = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
   }
 
   $title_classes = array('headline-first__title_link');
@@ -46,12 +55,10 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
   );
 
   $variables = array();
-  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], 'node/' . $reference->nid, $attrs);
+  $variables['title'] = l($ewrapper->field_elife_title->value()['safe_value'], $path, $attrs);
 
   $text_appearance = $ewrapper->field_elife_c_text_appearance->value();
   $variables['additional_classes'] = array('headline-first--' . $text_appearance . '-text');
-
-  $section = ElifeArticleVersion::getSectionCode($ewrapper->field_elife_fm_reference->value());
 
   // If there is an image the introduce the caption and add an additional class.
   if ($ewrapper->field_elife_image->value()) {
@@ -74,10 +81,12 @@ function elife_cover_plugin_render($subtype, $conf, $args, $context) {
   }
   $read_more_classes = array(
     'headline-first__read_more',
-    'headline-first__read_more--' . $section,
   );
+  if (!empty($section)) {
+    $read_more_classes[] = 'headline-first__read_more--' . $section;
+  }
   $attrs = array('attributes' => array('class' => $read_more_classes));
-  $variables['read_more'] = l($read_more_text, 'node/' . $reference->nid, $attrs);
+  $variables['read_more'] = l($read_more_text, $path, $attrs);
 
   $block->content = theme('elife_cover', $variables);
   return $block;

@@ -118,7 +118,7 @@ function elife_front_matter_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_elife_fm_reference',
     'label' => 'Reference',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -126,12 +126,81 @@ function elife_front_matter_field_default_field_instances() {
       'active' => 1,
       'module' => 'entityreference',
       'settings' => array(
+        'label_help_description' => '',
         'match_operator' => 'CONTAINS',
         'path' => '',
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_cover-field_elife_fm_uri'.
+  $field_instances['node-elife_cover-field_elife_fm_uri'] = array(
+    'bundle' => 'elife_cover',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_fm_uri',
+    'label' => 'URI',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'elife_house_style' => 'elife_house_style',
+          'elife_labs_tile' => 'elife_labs_tile',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'elife_house_style' => array(
+              'weight' => 0,
+            ),
+            'elife_labs_tile' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'label_help_description' => '',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 10,
     ),
   );
 
@@ -288,7 +357,7 @@ function elife_front_matter_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_elife_fm_reference',
     'label' => 'Reference',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -296,6 +365,7 @@ function elife_front_matter_field_default_field_instances() {
       'active' => 1,
       'module' => 'entityreference',
       'settings' => array(
+        'label_help_description' => '',
         'match_operator' => 'CONTAINS',
         'path' => '',
         'size' => 60,
@@ -342,6 +412,74 @@ function elife_front_matter_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-elife_front_matter-field_elife_fm_uri'.
+  $field_instances['node-elife_front_matter-field_elife_fm_uri'] = array(
+    'bundle' => 'elife_front_matter',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'ds_extras_field_template' => '',
+    'entity_type' => 'node',
+    'field_name' => 'field_elife_fm_uri',
+    'label' => 'URI',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'elife_full_html' => 'elife_full_html',
+          'elife_house_style' => 'elife_house_style',
+          'elife_labs_tile' => 'elife_labs_tile',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'elife_full_html' => array(
+              'weight' => 0,
+            ),
+            'elife_house_style' => array(
+              'weight' => 0,
+            ),
+            'elife_labs_tile' => array(
+              'weight' => 0,
+            ),
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'label_help_description' => '',
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 10,
     ),
   );
 
@@ -478,6 +616,7 @@ function elife_front_matter_field_default_field_instances() {
   t('Relabel section');
   t('Should text be light or dark?');
   t('Title');
+  t('URI');
 
   return $field_instances;
 }
