@@ -83,7 +83,7 @@
           and National Geographic. We make every paper more accessible to a broad set of readers &ndash; including
           students, colleagues in other fields, and the public &ndash; through Impact statements, plain language summaries
           (eLife Digests), and selected expert commentaries (eLife Insights). eLife articles are immediately and freely
-          available to the world &ndash; and there&rsquo;s no cost to publish.</p>
+          available to the world.</p>
       </li>
       <li class="about-why-us__list_item">
         <h3 class="about-why-us__list_item_heading">
