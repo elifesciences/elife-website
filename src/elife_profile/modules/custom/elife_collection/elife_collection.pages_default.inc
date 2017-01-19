@@ -474,7 +474,7 @@ function elife_collection_default_page_manager_pages() {
     'override_title_heading' => 'h2',
     'aligner_stop' => NULL,
     'override_title_markup' => NULL,
-    'article_ids' => '04333,03981',
+    'article_ids' => '23693,23383',
     'form_build_id' => 'form-NSwghztS6fvvIBUrIM6fvkORbfkAa0Ot2p-uoJSK-ho',
     'form_token' => '7L-5RicRRmBFKyWTergbcv6UAEvVQbLAbtEJylThz_8',
     'form_id' => 'elife_article_repro_hero_edit',
