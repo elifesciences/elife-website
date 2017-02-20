@@ -1,6 +1,8 @@
 <p>Stay up-to-date on new papers published in the <em>eLife </em>journal and on developments with the eLife initiative.</p>
 	<p><a href="https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&amp;gid=18"><strong>Sign up</strong></a> to receive alerts of new content from <em>eLife.</em></p>
 	<p><a href="https://crm.elifesciences.org/crm/civicrm/profile/create?gid=24&amp;reset=1"><strong>Sign up&nbsp;</strong></a>to receive alerts of upcoming articles.</p>
+	<p>Early in your career? <a href="https://crm.elifesciences.org/crm/civicrm/profile/create?reset=1&gid=26"><strong>Sign up</strong></a> for news on eLife events, grants, news, and more – all for early-career researchers.</p>
+	<p>For the latest in eLife technology developments and innovation initiative, <a href="https://crm.elifesciences.org/crm/node/8"><strong>sign up</strong></a> for our technology and innovation newsletter.</p>
 	<p><a href="http://twitter.com/elife"><span class="icon-large icon-twitter-sign">&nbsp;</span> <strong>&nbsp;Follow us</strong></a> on Twitter</p>
 	<p><a href="http://www.facebook.com/elifesciences"><span class="icon-large icon-facebook-sign">&nbsp;</span> <strong>&nbsp;Like us</strong></a> to get updates on Facebook</p>
 	<p><a href="http://www.linkedin.com/company/elife-sciences-publications-ltd"><span class="icon-large icon-linkedin-sign">&nbsp;</span> <strong>&nbsp;Network with us</strong> </a> on LinkedIn</p>
