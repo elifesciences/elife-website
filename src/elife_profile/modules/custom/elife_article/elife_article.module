@@ -181,7 +181,8 @@ function elife_article_lookup_content() {
       $article_version = menu_get_object('node', 1, $source);
       $pdf_path = elife_article_version_source_pdf_path($article_version, (!empty($match['download'])));
       $pdf_head = array_change_key_case(get_headers($pdf_path, TRUE));
-      if (!empty($pdf_head['content-length']) && $file = @fopen($pdf_path, 'rb')) {
+      $context = stream_context_create(array('http' => array('timeout' => 3)));
+      if (!empty($pdf_head['content-length']) && $file = @fopen($pdf_path, 'rb', false, $context)) {
         $pdf_filesize = $pdf_head['content-length'];
         if (!empty($match['download'])) {
           $disposition = 'attachment';
@@ -212,7 +213,8 @@ function elife_article_lookup_content() {
       $article_version = menu_get_object('node', 1, $source);
       $figures_pdf_path = elife_article_version_source_figures_pdf_path($article_version, (!empty($match['download'])));
       $figures_pdf_head = array_change_key_case(get_headers($figures_pdf_path, TRUE));
-      if (!empty($figures_pdf_head['content-length']) && $file = @fopen($figures_pdf_path, 'rb')) {
+      $context = stream_context_create(array('http' => array('timeout' => 3)));
+      if (!empty($figures_pdf_head['content-length']) && $file = @fopen($figures_pdf_path, 'rb', false, $context)) {
         $figures_pdf_filesize = $figures_pdf_head['content-length'];
         if (!empty($match['download'])) {
           $disposition = 'attachment';
