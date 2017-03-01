@@ -149,7 +149,7 @@ function _elife_content_alerts_output_array($type = 'content_alerts_vor', $args 
 
   $status = ($type == 'content_alerts_poa') ? 'POA' : 'VOR';
 
-  if ($http = drupal_http_request(url(sprintf('elife/content_alerts/%s/%s', $status, implode('--', [$args['start'], $args['end']])), ['absolute' => TRUE]), ['timeout' => 3])) {
+  if ($http = drupal_http_request(url(sprintf('elife/content_alerts/%s/%s', $status, implode('--', [$args['start'], $args['end']])), ['absolute' => TRUE]), ['timeout' => DEFAULT_HTTP_TIMEOUT])) {
     libxml_use_internal_errors(TRUE);
     $doc = new DOMDocument();
     $doc->loadHTML($http->data);

@@ -181,7 +181,7 @@ function elife_article_lookup_content() {
       $article_version = menu_get_object('node', 1, $source);
       $pdf_path = elife_article_version_source_pdf_path($article_version, (!empty($match['download'])));
       $pdf_head = array_change_key_case(get_headers($pdf_path, TRUE));
-      $context = stream_context_create(array('http' => array('timeout' => 3)));
+      $context = stream_context_create(array('http' => array('timeout' => DEFAULT_HTTP_TIMEOUT)));
       if (!empty($pdf_head['content-length']) && $file = @fopen($pdf_path, 'rb', false, $context)) {
         $pdf_filesize = $pdf_head['content-length'];
         if (!empty($match['download'])) {
@@ -213,7 +213,7 @@ function elife_article_lookup_content() {
       $article_version = menu_get_object('node', 1, $source);
       $figures_pdf_path = elife_article_version_source_figures_pdf_path($article_version, (!empty($match['download'])));
       $figures_pdf_head = array_change_key_case(get_headers($figures_pdf_path, TRUE));
-      $context = stream_context_create(array('http' => array('timeout' => 3)));
+      $context = stream_context_create(array('http' => array('timeout' => DEFAULT_HTTP_TIMEOUT)));
       if (!empty($figures_pdf_head['content-length']) && $file = @fopen($figures_pdf_path, 'rb', false, $context)) {
         $figures_pdf_filesize = $figures_pdf_head['content-length'];
         if (!empty($match['download'])) {
@@ -2827,7 +2827,7 @@ function elife_article_doi_to_pmid_cache($doi) {
 
     if (empty($data)) {
       $request_uri = 'https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?format=json&ids=' . $doi;
-      if ($result = drupal_http_request($request_uri, ['timeout' => 2])) {
+      if ($result = drupal_http_request($request_uri, ['timeout' => DEFAULT_HTTP_TIMEOUT])) {
         // Only store the data if pmid found.
         if(empty($result->error)) {
           $verify = json_decode($result->data);
@@ -2881,7 +2881,7 @@ function elife_article_doi_to_glencoe_data_cache($doi) {
 
     if (empty($data)) {
       $request_uri = variable_get('elife_article_source_assets_glencoe_api') . $doi;
-      if ($result = drupal_http_request($request_uri, ['timeout' => 3])) {
+      if ($result = drupal_http_request($request_uri, ['timeout' => DEFAULT_HTTP_TIMEOUT])) {
         $data = $result->data;
         cache_set($doi, $result->data, $cache_bin);
       }
