@@ -306,3 +306,10 @@ function elife_profile_update_7129() {
 function elife_profile_update_7130() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7131() {
+  _elife_article_markup_cache_clear_all();
+}
