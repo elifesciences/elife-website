@@ -313,3 +313,10 @@ function elife_profile_update_7130() {
 function elife_profile_update_7131() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7132() {
+  _elife_article_markup_cache_clear_all();
+}
