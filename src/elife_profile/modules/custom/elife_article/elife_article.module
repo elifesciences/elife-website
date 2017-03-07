@@ -169,14 +169,14 @@ function elife_article_lookup_content() {
   $raw_path = 'content/' . implode('/', func_get_args());
 
   // If the path matches an old pdf link the redirect to the latest pdf.
-  if (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.full\.pdf$/', $raw_path, $match)) {
+  if (preg_match('/^content\/(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5,})\.full\.pdf$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
       $article_version = menu_get_object('node', 1, $source);
       $redirect = elife_article_version_source_pdf_local($article_version);
     }
   }
   // Detect request for article PDF.
-  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.pdf)$/', $raw_path, $match)) {
+  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5,}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.pdf)$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
       $article_version = menu_get_object('node', 1, $source);
       $pdf_path = elife_article_version_source_pdf_path($article_version, (!empty($match['download'])));
@@ -208,7 +208,7 @@ function elife_article_lookup_content() {
     }
   }
   // Detect request for figures PDF.
-  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.figures.pdf)$/', $raw_path, $match)) {
+  elseif (preg_match('/^(?P<root_path>content\/[0-9]+\/)(?P<file_name>e[0-9]{5,}(v[0-9]+)?)(?P<download>\-download)?(?P<ext>.figures.pdf)$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['file_name'])) {
       $article_version = menu_get_object('node', 1, $source);
       $figures_pdf_path = elife_article_version_source_figures_pdf_path($article_version, (!empty($match['download'])));
@@ -240,14 +240,14 @@ function elife_article_lookup_content() {
     }
   }
   // If the path matches an old xml link the redirect to the latest xml.
-  elseif (preg_match('/^(?P<root_path>content\/)(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})\.source\.xml$/', $raw_path, $match)) {
+  elseif (preg_match('/^(?P<root_path>content\/)(elife\/)?(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5,})\.source\.xml$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', $match['root_path'] . $match['volume'] . '/' . $match['eloc_id'])) {
       $article_version = menu_get_object('node', 1, $source);
       $redirect = elife_article_version_source_xml_path($article_version);
       $http_response_code = 302;
     }
   }
-  elseif (preg_match('/^content\/(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5})v(?P<version>[0-9]+)(\/[^\/]+){0,}$/', $raw_path, $match)) {
+  elseif (preg_match('/^content\/(?P<volume>[0-9]+)\/(?P<eloc_id>e[0-9]{5,})v(?P<version>[0-9]+)(\/[^\/]+){0,}$/', $raw_path, $match)) {
     if ($source = drupal_lookup_path('source', sprintf('content/%s/%s', $match['volume'], $match['eloc_id']))) {
       $article_version = menu_get_object('node', 1, $source);
       $dto = elife_article_version_to_dto($article_version);
@@ -261,7 +261,7 @@ function elife_article_lookup_content() {
       // path in our database but without a version then redirect to the same path
       // but with the latest version inserted.
       if ($match['version'] == $latest_version) {
-        $alias = preg_replace('/^(content\/[0-9]+\/e[0-9]{5})v[0-9]+(.*)/', '$1$2', $raw_path);
+        $alias = preg_replace('/^(content\/[0-9]+\/e[0-9]{5,})v[0-9]+(.*)/', '$1$2', $raw_path);
         if ($source_path = drupal_lookup_path('source', $alias)) {
           if (!empty($_GET['panels_ajax_tab_trigger'])) {
             $redirect = $alias . '/' . $_GET['panels_ajax_tab_trigger'];
@@ -358,7 +358,7 @@ function _elife_article_lookup_doi_path_cache($doi) {
  */
 function _elife_article_lookup_doi_path($doi) {
   $doi_prefix = '10.7554/eLife.';
-  if (preg_match('/^' . preg_quote($doi_prefix, '/') . '(?<article_id>[0-9]{5})(?<variant>\.[0-9]{3})?$/', $doi, $match)) {
+  if (preg_match('/^' . preg_quote($doi_prefix, '/') . '(?<article_id>[0-9]{5,})(?<variant>\.[0-9]{3})?$/', $doi, $match)) {
     if ($article_version = ElifeArticleVersion::latestFromDoi($doi_prefix . $match['article_id'])) {
       $dto = elife_article_version_to_dto($article_version);
       if (empty($match['variant'])) {
@@ -1663,22 +1663,22 @@ function elife_article_version_paths_resolve(ArticleVersion $dto) {
     $query->addField('ua2', 'source');
     $query->condition('ua.source', 'node/' . $nid);
     if ($version == $most_recent) {
-      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+$', 'REGEXP');
-      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5}(/.+)?$', 'NOT REGEXP');
+      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5,}v[0-9]+$', 'REGEXP');
+      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5,}(/.+)?$', 'NOT REGEXP');
     }
     else {
-      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}$', 'REGEXP');
-      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+(/.+)?$', 'NOT REGEXP');
+      $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5,}$', 'REGEXP');
+      $query->condition('ua2.alias', '^content/[0-9]+/e[0-9]{5,}v[0-9]+(/.+)?$', 'NOT REGEXP');
     }
     $query->orderBy('ua2.alias');
     if ($results = $query->execute()->fetchAllAssoc('source')) {
       foreach ($results as $source => $result) {
         if ($path = path_load(['source' => $source])) {
           if ($version == $most_recent) {
-            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5})v[0-9]+(.*)$/', '$1$2', $path['alias']);
+            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5,})v[0-9]+(.*)$/', '$1$2', $path['alias']);
           }
           else {
-            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5})(\/?.*)$/', '$1v' . $version . '$2', $path['alias']);
+            $new_path = preg_replace('/^(content\/[0-9]\/e[0-9]{5,})(\/?.*)$/', '$1v' . $version . '$2', $path['alias']);
           }
           if ($new_path) {
             path_delete(['pid' => $path['pid']]);
@@ -2240,7 +2240,7 @@ function _elife_article_emptys_markup($emptys) {
  *   The e-location id if it can be derived from the ID given.
  */
 function _elife_article_process_article_id($article_id) {
-  if (preg_match('/[^0-9]*(?<id>[0-9]{5})[^0-9]*/', $article_id, $matches)) {
+  if (preg_match('/[^0-9]*(?<id>[0-9]{5,})[^0-9]*/', $article_id, $matches)) {
     return $matches['id'];
   }
 }

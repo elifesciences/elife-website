@@ -849,7 +849,7 @@ class ElifeArticleVersion {
    *   TRUE if valid.
    */
   public static function validateDoi($doi) {
-    $pattern = '/^' . preg_quote(self::DOI_PREFIX, '/') . '[0-9]{5}(\.[0-9]+)?$/';
+    $pattern = '/^' . preg_quote(self::DOI_PREFIX, '/') . '[0-9]{5,}(\.[0-9]+)?$/';
     $match = preg_match($pattern, $doi);
     if (empty($match)) {
       return FALSE;

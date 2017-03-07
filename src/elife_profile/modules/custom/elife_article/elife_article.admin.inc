@@ -373,7 +373,7 @@ function _elife_article_rewrite_latest_paths_unprocessed($filter = FALSE) {
     $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source AND n.status = 1");
     $query->innerJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = n.nid');
     $query->condition('ver.delta', 0);
-    $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}v[0-9]+$', 'REGEXP');
+    $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5,}v[0-9]+$', 'REGEXP');
   }
   else {
     $query->addExpression('SUBSTRING(ua.source, 6)', 'source_nid');
@@ -393,7 +393,7 @@ function _elife_article_rewrite_latest_paths_processed() {
   $query->innerJoin('node', 'n', "CONCAT('node/', n.nid) = ua.source AND n.status = 1");
   $query->innerJoin('field_data_field_elife_a_versions', 'ver', 'ver.field_elife_a_versions_target_id = n.nid');
   $query->condition('ver.delta', 0);
-  $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5}$', 'REGEXP');
+  $query->condition('ua.alias', '^content/[0-9]+/e[0-9]{5,}$', 'REGEXP');
   $query->orderBy('ua.alias');
   $results = $query->execute()->fetchAllAssoc('source_nid');
 
@@ -472,7 +472,7 @@ function elife_article_rewrite_redirects() {
   $query = db_select('redirect', 're');
   $query->addField('re', 'rid');
   $query->addField('re', 'source');
-  $query->condition('re.source', '^content/[0-9]+/e[0-9]{5}(v[0-9]+)?(/[^\/]+){0,}$', 'REGEXP');
+  $query->condition('re.source', '^content/[0-9]+/e[0-9]{5,}(v[0-9]+)?(/[^\/]+){0,}$', 'REGEXP');
   $query->orderBy('re.source');
   $results = $query->execute()->fetchAllKeyed();
 
@@ -492,7 +492,7 @@ function elife_article_rewrite_latest_paths_process_items($items, &$context) {
     $next = _elife_article_rewrite_latest_paths_unprocessed($item->old_alias);
     foreach ($next as $next_path) {
       $path = path_load(['pid' => $next_path->alias_pid]);
-      if ($new_path = preg_replace('/^(content\/[0-9]+\/e[0-9]{5})v[0-9]+(.*)$/', '$1$2', $path['alias'])) {
+      if ($new_path = preg_replace('/^(content\/[0-9]+\/e[0-9]{5,})v[0-9]+(.*)$/', '$1$2', $path['alias'])) {
         $path['alias'] = $new_path;
         path_save($path);
       }
