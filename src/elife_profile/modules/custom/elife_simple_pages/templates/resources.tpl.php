@@ -4,17 +4,13 @@
 
 <div class="styleguideimage"><img alt="Travel grants poster" src="https://cdn.elifesciences.org/style-guide-images/travel-grants-thumbnail.png" /></div>
 
-<p><a href="https://cdn.elifesciences.org/downloads/a4-elife-travel-grants.pdf"><strong>A4 download</strong></a></p>
-
-<p><a href="https://cdn.elifesciences.org/downloads/letter-elife-travel-grants.pdf"><strong>US Letter download</strong></a></p>
+<p><a href="https://cdn.elifesciences.org/downloads/a4-elife-travel-grants.pdf"><strong>A4 download</strong></a> | <a href="https://cdn.elifesciences.org/downloads/letter-elife-travel-grants.pdf"><strong>US letter download</strong></a></p>
 
 <h3>#ECRWednesday Webinars - cultivate your career</h3>
 
 <div class="styleguideimage"><img alt="ECR Wednesdays poster" src="https://cdn.elifesciences.org/style-guide-images/ecr-wednesdays-thumbnail.png" /></div>
 
-<p><a href="https://cdn.elifesciences.org/downloads/a4-elife-ecr-wednesdays.pdf"><strong>A4 download</strong></a></p>
-
-<p><a href="https://cdn.elifesciences.org/downloads/letter-elife-ecr-wednesdays.pdf"><strong>US Letter download</strong></a></p>
+<p><a href="https://cdn.elifesciences.org/downloads/a4-elife-ecr-wednesdays.pdf"><strong>A4 download</strong></a> | <a href="https://cdn.elifesciences.org/downloads/letter-elife-ecr-wednesdays.pdf"><strong>US letter download</strong></a></p>
 
 <h1>Style guide</h1>
 
