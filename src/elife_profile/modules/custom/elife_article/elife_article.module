@@ -2880,7 +2880,15 @@ function elife_article_doi_to_glencoe_data_cache($doi) {
     }
 
     if (empty($data)) {
-      $request_uri = variable_get('elife_article_source_assets_glencoe_api') . $doi;
+        // testing doi: 10.7554/eLife.00230
+        // real doi: 10.7554/eLife.7300185910819300230 
+        $doiOnGlencoe = $doi;
+        if (preg_match("/eLife.([0-9]+)$/", $doi, $matches)) {
+            $articleId = $matches[1];
+            $realArticleId = substr($articleId, -5);
+            $doiOnGlencoe = str_replace("eLife.$articleId", "eLife.$realArticleId", $doiOnGlencoe);
+        }
+      $request_uri = variable_get('elife_article_source_assets_glencoe_api') . $doiOnGlencoe;
       if ($result = drupal_http_request($request_uri)) {
         $data = $result->data;
         cache_set($doi, $result->data, $cache_bin);
