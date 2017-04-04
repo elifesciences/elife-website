@@ -297,3 +297,10 @@ function elife_article_update_7113() {
 function elife_article_update_7114() {
   variable_set('elife_article_source_assets_figures_pdf_file_pattern', '[node:manuscript_id]/elife-[node:manuscript_id]-figures-v[node:version_no].pdf');
 }
+
+/**
+ * Set assets base path url.
+ */
+function elife_article_update_7115() {
+  variable_set('elife_article_source_assets_base_path', 'https://cdn.elifesciences.org/articles/');
+}
