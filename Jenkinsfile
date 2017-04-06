@@ -6,9 +6,13 @@ elifePipeline {
     // Project tests are run on Travis CI at the moment
 
     stage 'End2end tests'
-    elifeEnd2EndTest {
-        builderDeployRevision 'elife-website--end2end', commit
-    }
+    elifeSpectrum(
+        deploy: [
+            stackname: 'elife-website--end2end',
+            revision: commit,
+            folder: '/srv/elife-website'
+        ]
+    )
 
     stage 'Approval'
     elifeGitMoveToBranch commit, 'approved'
