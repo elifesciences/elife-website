@@ -10,7 +10,7 @@ elifePipeline {
         deploy: [
             stackname: 'elife-website--end2end',
             revision: commit,
-            folder: '/srv/elife-website'
+            folder: '/srv/website'
         ]
     )
 
