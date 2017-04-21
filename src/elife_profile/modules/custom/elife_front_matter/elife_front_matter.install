@@ -27,3 +27,54 @@ function elife_front_matter_update_7100() {
     elife_front_matter_copy_paste_eq_items($from_queue, $to_queue);
   }
 }
+
+/**
+ * Delete duplicate cover nodes.
+ */
+function elife_front_matter_update_7101() {
+  $duplicates = [
+    251136,
+    251244,
+    251247,
+    251253,
+    251256,
+    251259,
+    251274,
+    251292,
+    251295,
+    251301,
+    251304,
+    251322,
+    251334,
+    251349,
+    251376,
+    251397,
+    251400,
+    251403,
+    251418,
+    251445,
+    251448,
+    251457,
+    251469,
+    251472,
+    251478,
+    251484,
+    251487,
+    251493,
+    251499,
+    251511,
+    276691,
+    315737,
+    351738,
+    399167,
+    449442,
+    491985,
+    491991,
+    491997,
+  ];
+
+  // Ensure that we are only targeting cover nodes.
+  if ($covers = node_load_multiple($duplicates, ['type' => 'elife_cover'])) {
+    node_delete_multiple(array_keys($covers));
+  }
+}
