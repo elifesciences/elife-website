@@ -59,6 +59,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @AfterScenario
+   */
+  public function resetStaticCaches() {
+    drupal_static_reset();
+  }
+
+  /**
    * @BeforeScenario
    */
   public function resetFollowingRedirects() {
