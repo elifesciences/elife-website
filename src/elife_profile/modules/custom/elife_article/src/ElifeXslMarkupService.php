@@ -232,7 +232,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
     $replacements = array();
     $cdn = variable_get('elife_article_source_assets_base_path') . ':manuscript-id/:file';
     foreach ($placeholders as $placeholder) {
-      if (preg_match('/^\[(?P<type>graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)\-(?P<variant>small|medium|large|download)\]$/', $placeholder, $match)) {
+      if (preg_match('/^\[(?P<type>graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5,})(?P<suffix>.*)\-(?P<variant>small|medium|large|download)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'];
         switch ($match['variant']) {
           case 'small':
@@ -257,7 +257,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
 
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }
-      elseif (preg_match('/^\[(?P<type>animation)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)\-(?P<variant>small|medium|large|download)\]$/', $placeholder, $match)) {
+      elseif (preg_match('/^\[(?P<type>animation)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5,})(?P<suffix>.*)\-(?P<variant>small|medium|large|download)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'];
         switch ($match['variant']) {
           case 'small':
@@ -276,7 +276,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
 
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }
-      elseif (preg_match('/^\[(?P<type>inline\-graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)\-(?P<article_type>research|nonresearch)\-(?P<fragment_type>box|fig|table|other)\]$/', $placeholder, $match)) {
+      elseif (preg_match('/^\[(?P<type>inline\-graphic)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5,})(?P<suffix>.*)\-(?P<article_type>research|nonresearch)\-(?P<fragment_type>box|fig|table|other)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . '.jpg';
         $file = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
         $replacement = sprintf('<img src="%s"/>', $file);
@@ -285,7 +285,7 @@ class ElifeXslMarkupService extends ElifeMarkupService {
         }
         $replacements[$placeholder] = $replacement;
       }
-      elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5})(?P<suffix>.*)(?P<ext>\.[a-z0-9]+)\]$/', $placeholder, $match)) {
+      elseif (preg_match('/^\[(?P<type>media)\-(?P<prefix>elife\-)(?P<manuscript_id>[0-9]{5,})(?P<suffix>.*)(?P<ext>\.[a-z0-9]+)\]$/', $placeholder, $match)) {
         $file = $match['prefix'] . $match['manuscript_id'] . $match['suffix'] . $match['ext'];
         $replacements[$placeholder] = strtr($cdn, array(':manuscript-id' => $match['manuscript_id'], ':file' => $file));
       }

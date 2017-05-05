@@ -242,12 +242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/elifesciences/elife-ingest-xsl.git",
-                "reference": "d4b8ffa70ca77b3e29c712a5ab9aef76f875cbf8"
+                "reference": "bd0e114f26af8a9fb506ac3ee6bb41d28d54d3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/d4b8ffa70ca77b3e29c712a5ab9aef76f875cbf8",
-                "reference": "d4b8ffa70ca77b3e29c712a5ab9aef76f875cbf8",
+                "url": "https://api.github.com/repos/elifesciences/elife-ingest-xsl/zipball/bd0e114f26af8a9fb506ac3ee6bb41d28d54d3fa",
+                "reference": "bd0e114f26af8a9fb506ac3ee6bb41d28d54d3fa",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
             "support": {
                 "source": "https://github.com/elifesciences/elife-ingest-xsl/tree/master"
             },
-            "time": "2016-12-16 12:00:14"
+            "time": "2017-03-03 11:56:02"
         },
         {
             "name": "elifesciences/elife-eif-schema",

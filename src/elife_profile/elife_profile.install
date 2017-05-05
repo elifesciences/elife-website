@@ -306,3 +306,31 @@ function elife_profile_update_7129() {
 function elife_profile_update_7130() {
   _elife_article_markup_cache_clear_all();
 }
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7131() {
+  _elife_article_markup_cache_clear_all();
+}
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7132() {
+  _elife_article_markup_cache_clear_all();
+}
+
+/**
+ * Enable uuid.
+ */
+function elife_profile_update_7133() {
+  module_enable(['uuid'], FALSE);
+}
+
+/**
+ * Clear the markup cache.
+ */
+function elife_profile_update_7134() {
+  _elife_article_markup_cache_clear_all();
+}

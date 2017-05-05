@@ -108,6 +108,7 @@ dependencies[] = taxonomy_access_fix
 dependencies[] = token
 dependencies[] = transliteration
 dependencies[] = unicode
+dependencies[] = uuid
 dependencies[] = view_unpublished
 dependencies[] = views
 dependencies[] = views_bulk_operations

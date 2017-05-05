@@ -42,6 +42,9 @@ $conf['imagemagick_advanced_interlace'] = 'plane';
 // Set up Disqus.
 $conf['disqus_domain'] = 'elifesciences-staging'; // Staging by default.
 
+// Set up MathJax.
+$conf['mathjax_cdn_url'] = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+
 // File cache directory.
 $conf['elife_cache_dir'] = __DIR__ . '/../cache';
 
