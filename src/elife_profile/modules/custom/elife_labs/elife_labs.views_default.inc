@@ -48,7 +48,7 @@ function elife_labs_views_default_views() {
   $handler->display->display_options['empty']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['empty']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['empty']['area_text_custom']['content'] = '<p>There are no labs experiments currently running.</p>';
-  /* Field: Panel Pane - Node: eLife Labs Tile */
+  /* Field: Panel Pane - Content: eLife Labs Tile */
   $handler->display->display_options['fields']['ctools_field_elife_labs_tile']['id'] = 'ctools_field_elife_labs_tile';
   $handler->display->display_options['fields']['ctools_field_elife_labs_tile']['table'] = 'node';
   $handler->display->display_options['fields']['ctools_field_elife_labs_tile']['field'] = 'ctools_field_elife_labs_tile';

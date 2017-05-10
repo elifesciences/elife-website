@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function elife_events_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -36,7 +36,7 @@ function elife_events_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_e_details|node|elife_event|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -63,7 +63,12 @@ function elife_events_field_group_info() {
       ),
     ),
   );
-  $export['group_elife_e_text|node|elife_event|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Details');
+  t('Text');
+
+  return $field_groups;
 }

@@ -73,7 +73,7 @@ function elife_upcoming_articles_views_default_views() {
     'show_remaining_days' => 0,
   );
   $handler->display->display_options['fields']['field_elife_a_fpubdate']['format_date_sql'] = 0;
-  /* Field: Content: Rendered Node */
+  /* Field: Content: Rendered Content */
   $handler->display->display_options['fields']['rendered_entity']['id'] = 'rendered_entity';
   $handler->display->display_options['fields']['rendered_entity']['table'] = 'views_entity_node';
   $handler->display->display_options['fields']['rendered_entity']['field'] = 'rendered_entity';
