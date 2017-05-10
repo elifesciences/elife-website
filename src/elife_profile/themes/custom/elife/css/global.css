@@ -1808,6 +1808,10 @@ div.highwire-markup .table-caption .table-caption,
   padding: 0;
 }
 
+.table-section-end {
+  border-bottom: 2px dashed rgb(0, 0, 15);
+}
+
 /* Supplementary Data */
 div.highwire-markup .supplementary-material > p,
 .fig-caption .supplementary-material .caption-title {
