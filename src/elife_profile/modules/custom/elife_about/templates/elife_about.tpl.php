@@ -196,5 +196,5 @@
 <!-- Submit -->
 <section class="about-section about-submit-cta">
   <h2 class="about-heading">Working on something interesting?</h2>
-  <a href="https://crm.elifesciences.org/crm/civicrm/event/register?reset=1&id=14" class="about-submit-cta_link">Let us know now</a>
+  <a href="mailto:staff@elifesciences.org?Subject=Presubmission%20enquiry">Let us know now</a>
 </section> <!-- /.about-submit-cta -->
