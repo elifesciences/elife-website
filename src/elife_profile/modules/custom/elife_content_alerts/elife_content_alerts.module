@@ -126,9 +126,21 @@ function _elife_content_alerts_as_json() {
   ];
 
   header('Content-Type: application/json');
-  $content = json_encode($output);
+  $content = _elife_content_alerts_2_0(json_encode($output));
   header('Content-Length: ' . strlen($content));
   print $content;
+}
+
+/**
+ * Prepare etoc content for eLife 2.0.
+ *
+ * @param string $content
+ * @return string
+ */
+function _elife_content_alerts_2_0($content) {
+  $content = preg_replace('~\\\/content\\\/[1-9][0-9]*\\\/e([0-9]{5,})~', '\/articles\/$1', $content);
+  $content = preg_replace('~(http)s?(\:\\\/\\\/)elifesciences.org[^\\\/]*~', '$1s$2elifesciences.org', $content);
+  return $content;
 }
 
 /**
