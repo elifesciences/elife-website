@@ -1,6 +1,6 @@
 name: drupal
 
-type: php:5.6
+type: php:7.0
 
 build:
     flavor: drupal
@@ -16,7 +16,7 @@ relationships:
 
 runtime:
     extensions:
-        - redis
+        #- redis Not currently available
         - xsl
     disabled_extensions:
         - sqlite3
