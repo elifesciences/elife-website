@@ -6,7 +6,8 @@
     "elife/isolated-drupal-behat-extension": "~0.2",
     "guzzlehttp/guzzle": "~5.0",
     "zalas/behat-no-extension": "~1.1",
-    "phpunit/phpunit": "~4.8"
+    "phpunit/phpunit": "~4.8",
+    "jarnaiz/behat-junit-formatter": "^1.3"
   },
   "autoload-dev": {
     "psr-4": {
