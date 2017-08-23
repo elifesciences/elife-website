@@ -58,7 +58,7 @@ class ElifeCitationService {
   public function setXml($article_version_id) {
     if (!isset($this->xmls[$article_version_id])) {
       $path = elife_article_version_source_xml_path($article_version_id);
-      $context = stream_context_create(array('http' => array('timeout' => 3)));
+      $context = stream_context_create(array('http' => array('timeout' => DEFAULT_HTTP_TIMEOUT)));
       $xml = @file_get_contents($path, false, $context);
       
       if(false === $xml) {

@@ -76,7 +76,7 @@ class elifeResources {
       return $response;
     }
     else {
-      $response = drupal_http_request(self::RESOURCES_API . $this->query);
+      $response = drupal_http_request(self::RESOURCES_API . $this->query, ['timeout' => DEFAULT_HTTP_TIMEOUT]);
       $this->setCache($response);
     }
     return $response;

@@ -5,6 +5,7 @@ use Monolog\Handler\ErrorLogHandler;
 const ELIFE_ENVIRONMENT_PRODUCTION = 'production';
 const ELIFE_ENVIRONMENT_DEVELOPMENT = 'development';
 const ELIFE_ENVIRONMENT_TESTING = 'testing';
+const DEFAULT_HTTP_TIMEOUT = 3;
 
 // Set up Composer.
 require_once __DIR__ . '/../vendor/autoload.php';
