@@ -6,5 +6,5 @@ elifePipeline {
     stage 'Deploy'
     elifeDeploySlackNotification "elife-website", "prod"
     elifeGitMoveToBranch commit, 'master'
-    sh "git push git@git.ent.platform.sh:elifesciences.git master"
+    sh "./push.sh git@git.ent.platform.sh:elifesciences.git master"
 }
