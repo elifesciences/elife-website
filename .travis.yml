@@ -33,6 +33,7 @@ env:
     - PATH="$HOME/.composer/vendor/bin:$PATH"
 
 before_install:
+  - phpenv config-rm xdebug.ini
   - travis_retry composer self-update
 
 install:
